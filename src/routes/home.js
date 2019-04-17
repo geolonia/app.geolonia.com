@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../logo.svg";
 
 export const HomeRoute = () => (
-  <div className="App">
+  <main className="App">
     <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
       <p>
@@ -17,7 +17,7 @@ export const HomeRoute = () => (
         Learn React
       </a>
     </header>
-  </div>
+  </main>
 );
 
 export default HomeRoute;
