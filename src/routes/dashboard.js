@@ -14,6 +14,9 @@ export class DashboardRoute extends React.PureComponent {
 
   render() {
     const { yourApiKey, keyName, allowedOrigins } = this.state;
+    const {
+      auth: { user }
+    } = this.props;
     return (
       <main>
         <h2>{"ダッシュボード"}</h2>

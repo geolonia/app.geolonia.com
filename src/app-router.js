@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./header";
 import HomeRoute from "./routes/home";
@@ -13,13 +14,34 @@ export const routes = {
   "/dashboard/": { label: "ダッシュボード", Component: DashboardRoute }
 };
 
-const AppRouter = () => (
-  <Router>
-    <Header />
-    {Object.keys(routes).map(path => (
-      <Route key={path} path={path} exact component={routes[path].Component} />
-    ))}
-  </Router>
-);
+const AppRouter = props => {
+  const { auth } = props;
+  return (
+    <Router>
+      <Header />
+      {Object.keys(routes).map(path => {
+        const { Component } = routes[path];
+        return (
+          <Route
+            key={path}
+            path={path}
+            exact
+            render={() => <Component auth={auth} />}
+          />
+        );
+      })}
+    </Router>
+  );
+};
+
+AppRouter.propTypes = {
+  auth: PropTypes.shape({
+    user: PropTypes.any,
+    error: PropTypes.any,
+    signup: PropTypes.func.isRequired,
+    signin: PropTypes.func.isRequired,
+    signout: PropTypes.func.isRequired
+  }).isRequired
+};
 
 export default AppRouter;
