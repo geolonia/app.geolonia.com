@@ -19,21 +19,33 @@ export class DashboardRoute extends React.PureComponent {
         <h2>{"ダッシュボード"}</h2>
         {yourApiKey ? (
           <div>
-            <label htmlFor={"your-api-key"}>{"YOUR API KEY"}</label>
-            <input
-              id={"your-api-key"}
-              type={"text"}
-              value={yourApiKey}
-              disabled={true}
-              onChange={x => x}
-            />
-            <label htmlFor={"key-name"}>{"KEY NAME"}</label>
-            <input
-              id={"key-name"}
-              type={"text"}
-              value={keyName}
-              onChange={e => this.setState({ keyName: e.target.value })}
-            />
+            <dl>
+              <dt>
+                <label htmlFor={"your-api-key"}>{"YOUR API KEY"}</label>
+              </dt>
+              <dd>
+                <input
+                  id={"your-api-key"}
+                  type={"text"}
+                  value={yourApiKey}
+                  disabled={true}
+                  onChange={x => x}
+                />
+              </dd>
+            </dl>
+            <dl>
+              <dt>
+                <label htmlFor={"key-name"}>{"KEY NAME"}</label>
+              </dt>
+              <dd>
+                <input
+                  id={"key-name"}
+                  type={"text"}
+                  value={keyName}
+                  onChange={e => this.setState({ keyName: e.target.value })}
+                />
+              </dd>
+            </dl>
             <h3>{"Allowed Origins"}</h3>
             <OriginList
               origins={allowedOrigins}
