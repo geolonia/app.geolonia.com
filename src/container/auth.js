@@ -10,8 +10,10 @@ export class AuthContainer extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.state = { user: void 0, error: void 0 };
-    firebase.auth().onAuthStateChanged(user => this.setState({ user }));
+    this.state = { user: void 0, display: false };
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({ user, display: true });
+    });
   }
 
   /**
@@ -21,10 +23,7 @@ export class AuthContainer extends React.Component {
    * @return {Promise}          [description]
    */
   signup = (email, password) =>
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .catch(error => this.setState({ error }));
+    firebase.auth().createUserWithEmailAndPassword(email, password);
 
   /**
    * sign in with email
@@ -33,10 +32,7 @@ export class AuthContainer extends React.Component {
    * @return {Promise}          [description]
    */
   signin = (email, password) =>
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch(error => this.setState({ error }));
+    firebase.auth().signInWithEmailAndPassword(email, password);
 
   /**
    * sign out
@@ -49,10 +45,10 @@ export class AuthContainer extends React.Component {
    * @return {ReactElement|null|false} render a React element.
    */
   render() {
-    const { user, error } = this.state;
+    const { user, display } = this.state;
     const { signup, signin, signout } = this;
     const { Root } = this.props;
-    return <Root auth={{ user, error, signup, signin, signout }} />;
+    return display && <Root auth={{ user, signup, signin, signout }} />;
   }
 }
 

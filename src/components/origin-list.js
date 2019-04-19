@@ -29,7 +29,7 @@ export class OriginList extends React.PureComponent {
         <label className={"uk-form-label"} htmlFor="">
           {"ALLOWED ORIGINS"}
         </label>
-        <div className={"uk-form-controls"} uk-margin>
+        <div className={"uk-form-controls"}>
           <input
             className={"uk-input uk-form-width-medium"}
             placeholder={"https://example.com"}

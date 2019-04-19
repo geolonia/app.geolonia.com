@@ -3,17 +3,39 @@ import { Link } from "react-router-dom";
 import { routes } from "./app-router";
 
 export const Header = props => {
+  const {
+    auth: { user, signout }
+  } = props;
   return (
     <nav className={"uk-navbar-container"} uk-navbar={"true"}>
       <div className={"uk-navbar-left"}>
         <ul className={"uk-navbar-nav"}>
           {Object.keys(routes).map(path => {
-            return (
-              <li key={path}>
-                <Link to={path}>{routes[path].label}</Link>
-              </li>
-            );
+            const { requireSignin, requireNoSignin, label } = routes[path];
+            if (requireSignin && !user) {
+              return null;
+            } else if (requireNoSignin && user) {
+              return null;
+            } else {
+              return (
+                <li key={path}>
+                  <Link to={path}>{label}</Link>
+                </li>
+              );
+            }
           })}
+          {user && (
+            <li>
+              <Link to={"#"} onClick={signout}>
+                {"サインアウト"}
+              </Link>
+            </li>
+          )}
+          {user && (
+            <li>
+              <Link to={"/profile"}>{user.email}</Link>
+            </li>
+          )}
         </ul>
       </div>
     </nav>
