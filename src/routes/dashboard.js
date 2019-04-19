@@ -18,38 +18,39 @@ export class DashboardRoute extends React.PureComponent {
       auth: { user }
     } = this.props;
     return (
-      <main>
-        <h2>{"ダッシュボード"}</h2>
+      <main className={"uk-margin uk-padding-small"}>
         {yourApiKey ? (
-          <div>
-            <dl>
-              <dt>
-                <label htmlFor={"your-api-key"}>{"YOUR API KEY"}</label>
-              </dt>
-              <dd>
+          <form className={"uk-form-stacked"}>
+            <div className={"uk-margin"}>
+              <label className={"uk-form-label"} htmlFor={"your-api-key"}>
+                {"YOUR API KEY"}
+              </label>
+              <div className={"uk-form-controls"}>
                 <input
+                  className={"uk-input"}
                   id={"your-api-key"}
                   type={"text"}
                   value={yourApiKey}
                   disabled={true}
                   onChange={x => x}
                 />
-              </dd>
-            </dl>
-            <dl>
-              <dt>
-                <label htmlFor={"key-name"}>{"KEY NAME"}</label>
-              </dt>
-              <dd>
-                <input
-                  id={"key-name"}
-                  type={"text"}
-                  value={keyName}
-                  onChange={e => this.setState({ keyName: e.target.value })}
-                />
-              </dd>
-            </dl>
-            <h3>{"Allowed Origins"}</h3>
+              </div>
+            </div>
+
+            <div className="uk-margin">
+              <label className={"uk-form-label"} htmlFor={"key-name"}>
+                {"KEY NAME"}
+              </label>
+              <input
+                className={"uk-input"}
+                id={"key-name"}
+                type={"text"}
+                value={keyName}
+                placeholder={"Key Name, eg. TileCloud inc."}
+                onChange={e => this.setState({ keyName: e.target.value })}
+              />
+            </div>
+
             <OriginList
               origins={allowedOrigins}
               remove={removingOrigin =>
@@ -67,9 +68,14 @@ export class DashboardRoute extends React.PureComponent {
                 })
               }
             />
-          </div>
+          </form>
         ) : (
-          <button onClick={this.getApiKeyAsync}>{"GET YOUR API KEY"}</button>
+          <button
+            className={"uk-button uk-button-default"}
+            onClick={this.getApiKeyAsync}
+          >
+            {"GET YOUR API KEY"}
+          </button>
         )}
       </main>
     );

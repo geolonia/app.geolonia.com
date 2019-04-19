@@ -15,33 +15,55 @@ export class OriginList extends React.PureComponent {
   };
 
   state = { newOrigin: "" };
+
+  onAddClick = () => {
+    this.props.add(this.state.newOrigin);
+    this.setState({ newOrigin: "" });
+  };
+
   render() {
     const { newOrigin } = this.state;
-    const { origins, remove, add } = this.props;
+    const { origins, remove } = this.props;
     return (
-      <div>
-        <ul>
+      <div className={"uk-margin"}>
+        <label className={"uk-form-label"} htmlFor="">
+          {"ALLOWED ORIGINS"}
+        </label>
+        <div className={"uk-form-controls"} uk-margin>
+          <input
+            className={"uk-input uk-form-width-medium"}
+            placeholder={"https://example.com"}
+            type={"text"}
+            value={newOrigin}
+            onChange={e => this.setState({ newOrigin: e.target.value })}
+          />
+          <button
+            className={"uk-button uk-button-default"}
+            disabled={!isOrigin(newOrigin)}
+            onClick={this.onAddClick}
+          >
+            {"add"}
+          </button>
+        </div>
+        <ul className={"uk-list uk-list-divider"}>
           {origins.map(origin => (
             <li key={origin}>
-              {origin}
-              <button onClick={() => remove(origin)}>{"remove"}</button>
+              <div
+                className={
+                  "uk-flex uk-flex-wrap uk-flex-between uk-flex-middle"
+                }
+              >
+                <span>{origin}</span>
+                <button
+                  className={"uk-button uk-button-default"}
+                  onClick={() => remove(origin)}
+                >
+                  {"remove"}
+                </button>
+              </div>
             </li>
           ))}
         </ul>
-        <input
-          type={"text"}
-          value={newOrigin}
-          onChange={e => this.setState({ newOrigin: e.target.value })}
-        />
-        <button
-          disabled={!isOrigin(newOrigin)}
-          onClick={() => {
-            add(newOrigin);
-            this.setState({ newOrigin: "" });
-          }}
-        >
-          {"add"}
-        </button>
       </div>
     );
   }

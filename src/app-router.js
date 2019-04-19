@@ -16,20 +16,23 @@ export const routes = {
 
 const AppRouter = props => {
   const { auth } = props;
+  console.log(props);
   return (
     <Router>
-      <Header />
-      {Object.keys(routes).map(path => {
-        const { Component } = routes[path];
-        return (
-          <Route
-            key={path}
-            path={path}
-            exact
-            render={() => <Component auth={auth} />}
-          />
-        );
-      })}
+      <div className={"uk-container uk-container-xsmall"}>
+        <Header />
+        {Object.keys(routes).map(path => {
+          const { Component } = routes[path];
+          return (
+            <Route
+              key={path}
+              path={path}
+              exact
+              render={() => <Component auth={auth} />}
+            />
+          );
+        })}
+      </div>
     </Router>
   );
 };
