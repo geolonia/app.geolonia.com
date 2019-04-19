@@ -34,6 +34,8 @@ export class AuthContainer extends React.Component {
   signin = (email, password) =>
     firebase.auth().signInWithEmailAndPassword(email, password);
 
+  reset = email => firebase.auth().sendPasswordResetEmail(email);
+
   /**
    * sign out
    * @return {Promise} [description]
@@ -46,9 +48,9 @@ export class AuthContainer extends React.Component {
    */
   render() {
     const { user, display } = this.state;
-    const { signup, signin, signout } = this;
+    const { signup, signin, signout, reset } = this;
     const { Root } = this.props;
-    return display && <Root auth={{ user, signup, signin, signout }} />;
+    return display && <Root auth={{ user, signup, signin, signout, reset }} />;
   }
 }
 

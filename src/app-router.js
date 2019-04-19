@@ -7,6 +7,7 @@ import HomeRoute from "./routes/home";
 import SignUpRoute from "./routes/sign-up";
 import SignInRoute from "./routes/sign-in";
 import DashboardRoute from "./routes/dashboard";
+import ResetPasswordRoute from "./routes/reset-password";
 
 export const routes = {
   "/": { label: "home", Component: HomeRoute },
@@ -24,6 +25,10 @@ export const routes = {
     requireSignin: true,
     label: "ダッシュボード",
     Component: DashboardRoute
+  },
+  "/reset_password/": {
+    label: "パスワードリセット",
+    Component: ResetPasswordRoute
   }
 };
 

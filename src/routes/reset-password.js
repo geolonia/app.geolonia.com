@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export class SignUpRoute extends React.PureComponent {
+export class ResetPasswordRoute extends React.PureComponent {
   /**
    * propTypes
    * @type {object}
    */
   static propTypes = {
     auth: PropTypes.shape({
-      signup: PropTypes.func.isRequired
+      signin: PropTypes.func.isRequired
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -17,29 +17,22 @@ export class SignUpRoute extends React.PureComponent {
 
   state = {
     email: "",
-    password: "",
     error: void 0
   };
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
   onEmailChange = e => this._onChange("email", e.target.value);
-  onPasswordChange = e => this._onChange("password", e.target.value);
-  onSignupClick = () => {
-    this.props.auth
-      .signup(this.state.email, this.state.password)
-      .then(user => {
-        user.sendEmailVerification();
-        this.props.history.push("/confirm_email/");
-      })
-      .catch(error => this.setState({ error }));
+  onResetClick = () => {
+    const { email } = this.state;
+    this.props.auth.reset(email);
   };
 
   render() {
-    const { email, password, error } = this.state;
+    const { error, email } = this.state;
 
     return (
       <main className={"uk-margin uk-padding-small"}>
-        <h3 className="uk-card-title">{"sign up"}</h3>
+        <h3 className="uk-card-title">{"reset password"}</h3>
 
         <form className="uk-form-horizontal" action={"#"}>
           <div className="uk-margin">
@@ -58,29 +51,14 @@ export class SignUpRoute extends React.PureComponent {
             </div>
           </div>
 
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="password">
-              {"password"}
-            </label>
-            <div className="uk-form-controls">
-              <input
-                className="uk-input"
-                id="password"
-                type="password"
-                value={password}
-                onChange={this.onPasswordChange}
-              />
-            </div>
-          </div>
-
           <div className="uk-margin uk-flex uk-flex-right">
             <div className="uk-flex uk-flex-column">
               <button
                 className="uk-button uk-button-default"
                 type={"button"}
-                onClick={this.onSignupClick}
+                onClick={this.onResetClick}
               >
-                {"sign up"}
+                {"send reset email"}
               </button>
               <span className={"uk-text-warning"}>
                 {error ? error.code : null}
@@ -93,4 +71,4 @@ export class SignUpRoute extends React.PureComponent {
   }
 }
 
-export default SignUpRoute;
+export default ResetPasswordRoute;

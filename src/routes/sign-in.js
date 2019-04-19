@@ -21,15 +21,10 @@ export class SignInRoute extends React.PureComponent {
     error: void 0
   };
 
-  _onChange = (key, value) => {
-    this.setState({
-      [key]: value,
-      error: void 0
-    });
-  };
+  _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
   onEmailChange = e => this._onChange("email", e.target.value);
   onPasswordChange = e => this._onChange("password", e.target.value);
-  onSignupClick = () => {
+  onSigninClick = () => {
     this.props.auth
       .signin(this.state.email, this.state.password)
       .then(user => {
@@ -82,7 +77,7 @@ export class SignInRoute extends React.PureComponent {
               <button
                 className="uk-button uk-button-default"
                 type={"button"}
-                onClick={this.onSignupClick}
+                onClick={this.onSigninClick}
               >
                 {"sign in"}
               </button>

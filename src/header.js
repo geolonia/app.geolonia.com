@@ -31,11 +31,7 @@ export const Header = props => {
               </Link>
             </li>
           )}
-          {user && (
-            <li>
-              <Link to={"/profile"}>{user.email}</Link>
-            </li>
-          )}
+          {user && <li className={"uk-navbar-item"}>{user.email}</li>}
         </ul>
       </div>
     </nav>
