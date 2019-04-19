@@ -1,7 +1,8 @@
 import React from "react";
-import "./App.css";
+import AuthContainer from "./container/auth";
 import AppRouter from "./app-router";
+import "./App.css";
 
-const App = () => <AppRouter />;
+const App = () => <AuthContainer Root={AppRouter} />;
 
 export default App;
