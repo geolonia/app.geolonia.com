@@ -1,5 +1,4 @@
 import React from "react";
-import firebase from "../config/firebase";
 import PropTypes from "prop-types";
 
 export class AuthContainer extends React.Component {
@@ -11,9 +10,7 @@ export class AuthContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { user: void 0, display: false };
-    firebase.auth().onAuthStateChanged(user => {
-      this.setState({ user, display: true });
-    });
+    // initialize auth here
   }
 
   /**
@@ -22,8 +19,7 @@ export class AuthContainer extends React.Component {
    * @param  {string} password [description]
    * @return {Promise}          [description]
    */
-  signup = (email, password) =>
-    firebase.auth().createUserWithEmailAndPassword(email, password);
+  signup = (email, password) => {};
 
   /**
    * sign in with email
@@ -31,16 +27,15 @@ export class AuthContainer extends React.Component {
    * @param  {string} password [description]
    * @return {Promise}          [description]
    */
-  signin = (email, password) =>
-    firebase.auth().signInWithEmailAndPassword(email, password);
+  signin = (email, password) => {};
 
-  reset = email => firebase.auth().sendPasswordResetEmail(email);
+  reset = email => {};
 
   /**
    * sign out
    * @return {Promise} [description]
    */
-  signout = () => firebase.auth().signOut();
+  signout = () => {};
 
   /**
    * render
