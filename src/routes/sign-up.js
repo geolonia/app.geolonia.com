@@ -36,7 +36,7 @@ export class SignUpRoute extends React.PureComponent {
 
   render() {
     const { email, password, error } = this.state;
-
+    console.log(error);
     return (
       <main className={"uk-margin uk-padding-small"}>
         <h3 className="uk-card-title">{"Sign Up"}</h3>
@@ -78,14 +78,21 @@ export class SignUpRoute extends React.PureComponent {
                 className="uk-button uk-button-default"
                 type={"button"}
                 onClick={this.onSignupClick}
+                disabled={!email || !password}
               >
                 {"sign up"}
               </button>
-              <span className={"uk-text-warning"}>
-                {error ? error.code : null}
-              </span>
             </div>
           </div>
+          {error && (
+            <div className="uk-margin uk-flex uk-flex-right">
+              <div className="uk-flex uk-flex-column">
+                <span className={"uk-text-warning"}>
+                  {error.message || "不明なエラーです"}
+                </span>
+              </div>
+            </div>
+          )}
         </form>
       </main>
     );

@@ -81,11 +81,17 @@ export class SignInRoute extends React.PureComponent {
               >
                 {"sign in"}
               </button>
-              <span className={"uk-text-warning"}>
-                {error ? error.code : null}
-              </span>
             </div>
           </div>
+          {error && (
+            <div className="uk-margin uk-flex uk-flex-right">
+              <div className="uk-flex uk-flex-column">
+                <span className={"uk-text-warning"}>
+                  {error.message || "不明なエラーです。"}
+                </span>
+              </div>
+            </div>
+          )}
         </form>
       </main>
     );
