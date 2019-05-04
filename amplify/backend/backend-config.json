@@ -4,5 +4,11 @@
 			"service": "Cognito",
 			"providerPlugin": "awscloudformation"
 		}
+	},
+	"storage": {
+		"tilecloudUserKeyStore": {
+			"service": "DynamoDB",
+			"providerPlugin": "awscloudformation"
+		}
 	}
 }
