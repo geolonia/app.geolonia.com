@@ -8,7 +8,8 @@ export class ResetPasswordRoute extends React.PureComponent {
    */
   static propTypes = {
     auth: PropTypes.shape({
-      signin: PropTypes.func.isRequired
+      requestResetCode: PropTypes.func.isRequired,
+      resetPassword: PropTypes.func.isRequired
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -17,18 +18,33 @@ export class ResetPasswordRoute extends React.PureComponent {
 
   state = {
     email: "",
+    code: "",
+    password: "",
+    requested: false,
     error: void 0
   };
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
   onEmailChange = e => this._onChange("email", e.target.value);
-  onResetClick = () => {
+  onCodeChange = e => this._onChange("code", e.target.value);
+  onPasswordChange = e => this._onChange("password", e.target.value);
+
+  onRequestClick = () => {
     const { email } = this.state;
-    this.props.auth.reset(email);
+    this.props.auth
+      .requestResetCode(email)
+      .then(() => this.setState({ requested: true }))
+      .catch(error => this.setState({ error }));
+  };
+  onResetClick = () => {
+    const { email, code, password } = this.state;
+    this.props.auth
+      .resetPassword(email, code, password)
+      .catch(error => console.log({ error }) || this.setState({ error }));
   };
 
   render() {
-    const { error, email } = this.state;
+    const { error, email, code, password, requested } = this.state;
 
     return (
       <main className={"uk-margin uk-padding-small"}>
@@ -41,6 +57,7 @@ export class ResetPasswordRoute extends React.PureComponent {
             </label>
             <div className="uk-form-controls">
               <input
+                disabled={requested}
                 className="uk-input"
                 id="email"
                 type="email"
@@ -56,18 +73,70 @@ export class ResetPasswordRoute extends React.PureComponent {
               <button
                 className="uk-button uk-button-default"
                 type={"button"}
-                onClick={this.onResetClick}
+                onClick={this.onRequestClick}
+                disabled={!email || requested}
               >
                 {"send reset email"}
               </button>
             </div>
           </div>
+
           {error && (
             <div className="uk-margin uk-flex uk-flex-right">
               <div className="uk-flex uk-flex-column">
                 <span className={"uk-text-warning"}>
                   {error.message || "不明なエラーです"}
                 </span>
+              </div>
+            </div>
+          )}
+
+          {requested && (
+            <div className="uk-margin">
+              <label className="uk-form-label" htmlFor="code">
+                {"code"}
+              </label>
+              <div className="uk-form-controls">
+                <input
+                  className="uk-input"
+                  id="code"
+                  type="text"
+                  value={code}
+                  onChange={this.onCodeChange}
+                  placeholder="012345"
+                />
+              </div>
+            </div>
+          )}
+
+          {requested && (
+            <div className="uk-margin">
+              <label className="uk-form-label" htmlFor="password">
+                {"password"}
+              </label>
+              <div className="uk-form-controls">
+                <input
+                  className="uk-input"
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={this.onPasswordChange}
+                />
+              </div>
+            </div>
+          )}
+
+          {requested && (
+            <div className="uk-margin uk-flex uk-flex-right">
+              <div className="uk-flex uk-flex-column">
+                <button
+                  className="uk-button uk-button-default"
+                  type={"button"}
+                  onClick={this.onRequestClick}
+                  disabled={!code || !password}
+                >
+                  {"reset password"}
+                </button>
               </div>
             </div>
           )}

@@ -78,6 +78,7 @@ export class SignInRoute extends React.PureComponent {
                 className="uk-button uk-button-default"
                 type={"button"}
                 onClick={this.onSigninClick}
+                disabled={!email || !password}
               >
                 {"sign in"}
               </button>

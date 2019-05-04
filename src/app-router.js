@@ -11,8 +11,12 @@ import DashboardRoute from "./routes/dashboard";
 import ResetPasswordRoute from "./routes/reset-password";
 
 export const routes = {
-  "/": { label: "home", Component: HomeRoute },
+  "/": {
+    label: "home",
+    Component: HomeRoute
+  },
   "/sign-up/": {
+    requireNoSignIn: true,
     label: "サインアップ",
     Component: SignUpRoute
   },
@@ -21,10 +25,12 @@ export const routes = {
     Component: VerifyRoute
   },
   "/sign-in/": {
+    requireNoSignIn: true,
     label: "サインイン",
     Component: SignInRoute
   },
   "/dashboard/": {
+    requireSignIn: true,
     label: "ダッシュボード",
     Component: DashboardRoute
   },

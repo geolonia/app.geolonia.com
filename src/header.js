@@ -6,21 +6,33 @@ export const Header = props => {
   const {
     auth: { userData, signout }
   } = props;
+  const isSignIn = !!userData;
   return (
     <nav className={"uk-navbar-container"} uk-navbar={"true"}>
       <div className={"uk-navbar-left"}>
         <ul className={"uk-navbar-nav"}>
           {Object.keys(routes).map(path => {
-            const { label } = routes[path];
-            return (
+            const { label, requireSignIn, requireNoSignIn } = routes[path];
+            const display =
+              (isSignIn && requireSignIn) ||
+              (!isSignIn && requireNoSignIn) ||
+              (!requireSignIn && !requireNoSignIn);
+
+            return display ? (
               <li key={path}>
                 <Link to={path}>{label}</Link>
               </li>
-            );
+            ) : null;
           })}
           {userData && (
             <li>
-              <Link to={"#"} onClick={signout}>
+              <Link
+                to={"#"}
+                onClick={() => {
+                  signout();
+                  window.location.replace("/sign-in/");
+                }}
+              >
                 {"サインアウト"}
               </Link>
             </li>

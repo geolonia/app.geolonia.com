@@ -39,7 +39,7 @@ export class AuthContainer extends React.Component {
 
   resend = () => {
     const { username } = this.state.userData.user;
-    Auth.resendSignUp(username);
+    return Auth.resendSignUp(username);
   };
 
   setUserData = userData => {
@@ -60,7 +60,9 @@ export class AuthContainer extends React.Component {
       this.setState({ userData });
     });
 
-  reset = email => {};
+  requestResetCode = email => Auth.forgotPassword(email);
+  resetPassword = (email, code, password) =>
+    Auth.forgotPasswordSubmit(email, code, password);
 
   /**
    * sign out
@@ -84,7 +86,8 @@ export class AuthContainer extends React.Component {
       resend,
       signin,
       signout,
-      reset
+      requestResetCode,
+      resetPassword
     } = this;
     const { Root } = this.props;
     return (
@@ -98,7 +101,8 @@ export class AuthContainer extends React.Component {
             resend,
             signin,
             signout,
-            reset
+            requestResetCode,
+            resetPassword
           }}
         />
       )
