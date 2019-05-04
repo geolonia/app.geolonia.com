@@ -53,7 +53,12 @@ export class AuthContainer extends React.Component {
    * @param  {string} password [description]
    * @return {Promise}          [description]
    */
-  signin = (email, password) => Auth.signIn(email, password);
+  signin = (email, password) =>
+    Auth.signIn(email, password).then(user => {
+      const userData = { user, userConfirmed: user.attributes.email_verified };
+      localStorage.setItem("tilecloud_user", JSON.stringify(userData));
+      this.setState({ userData });
+    });
 
   reset = email => {};
 

@@ -29,6 +29,7 @@ export class SignUpRoute extends React.PureComponent {
     this.props.auth
       .signup(this.state.email, this.state.password)
       .then(userData => {
+        console.log({ userData });
         this.props.auth.setUserData(userData); // { user, userConfirmed, sub }
         this.props.history.push("/verify/");
       })

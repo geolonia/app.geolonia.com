@@ -26,7 +26,13 @@ export const Header = props => {
             </li>
           )}
           {userData && (
-            <li className={"uk-navbar-item"}>{userData.user.username}</li>
+            <li className={"uk-navbar-item"}>
+              {userData.userConfirmed
+                ? userData.user.attributes
+                  ? userData.user.attributes.email
+                  : "認証済み"
+                : userData.user.username}
+            </li>
           )}
         </ul>
       </div>
