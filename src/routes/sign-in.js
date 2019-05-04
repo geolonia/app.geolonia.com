@@ -38,7 +38,7 @@ export class SignInRoute extends React.PureComponent {
 
     return (
       <main className={"uk-margin uk-padding-small"}>
-        <h3 className="uk-card-title">{"sign up"}</h3>
+        <h3 className="uk-card-title">{"sign in"}</h3>
 
         <form className="uk-form-horizontal" action={"#"}>
           <div className="uk-margin">

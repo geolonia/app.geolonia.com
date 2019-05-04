@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Auth } from "aws-amplify";
 
 export class AuthContainer extends React.Component {
   /**
@@ -9,8 +10,14 @@ export class AuthContainer extends React.Component {
    */
   constructor(props) {
     super(props);
-    this.state = { user: void 0, display: false };
-    // initialize auth here
+    let userData = void 0;
+    try {
+      userData = JSON.parse(localStorage.getItem("tilecloud_user")) || void 0;
+    } catch (e) {
+      userData = void 0;
+    }
+    this.state = { userData, display: true };
+    // Auth.currentAuthenticatedUser()
   }
 
   /**
@@ -19,7 +26,26 @@ export class AuthContainer extends React.Component {
    * @param  {string} password [description]
    * @return {Promise}          [description]
    */
-  signup = (email, password) => {};
+  signup = (email, password) => Auth.signUp(email, password);
+
+  verify = (username, code) =>
+    Auth.confirmSignUp(username, code).then(data => {
+      if (data === "SUCCESS") {
+        const nextUserData = { ...this.state.userData, userConfirmed: true };
+        localStorage.setItem("tilecloud_user", JSON.stringify(nextUserData));
+        this.setState({ userData: nextUserData });
+      }
+    });
+
+  resend = () => {
+    const { username } = this.state.userData.user;
+    Auth.resendSignUp(username);
+  };
+
+  setUserData = userData => {
+    localStorage.setItem("tilecloud_user", JSON.stringify(userData));
+    this.setState({ userData });
+  };
 
   /**
    * sign in with email
@@ -27,7 +53,7 @@ export class AuthContainer extends React.Component {
    * @param  {string} password [description]
    * @return {Promise}          [description]
    */
-  signin = (email, password) => {};
+  signin = (email, password) => Auth.signIn(email, password);
 
   reset = email => {};
 
@@ -35,17 +61,43 @@ export class AuthContainer extends React.Component {
    * sign out
    * @return {Promise} [description]
    */
-  signout = () => {};
+  signout = () => {
+    localStorage.removeItem("tilecloud_user");
+    this.setState({ userData: void 0 });
+  };
 
   /**
    * render
    * @return {ReactElement|null|false} render a React element.
    */
   render() {
-    const { user, display } = this.state;
-    const { signup, signin, signout, reset } = this;
+    const { userData, display } = this.state;
+    const {
+      signup,
+      setUserData,
+      verify,
+      resend,
+      signin,
+      signout,
+      reset
+    } = this;
     const { Root } = this.props;
-    return display && <Root auth={{ user, signup, signin, signout, reset }} />;
+    return (
+      display && (
+        <Root
+          auth={{
+            userData,
+            signup,
+            setUserData,
+            verify,
+            resend,
+            signin,
+            signout,
+            reset
+          }}
+        />
+      )
+    );
   }
 }
 
