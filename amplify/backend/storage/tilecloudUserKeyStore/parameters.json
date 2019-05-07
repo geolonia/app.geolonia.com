@@ -1,5 +1,0 @@
-{
-    "tableName": "tilecloudUserKeyStore",
-    "partitionKeyName": "apiKey",
-    "partitionKeyType": "S"
-}
