@@ -43,7 +43,7 @@ export class SignInRoute extends React.PureComponent {
         <form className="uk-form-horizontal" action={"#"}>
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="email">
-              {"email"}
+              {"email or username"}
             </label>
             <div className="uk-form-controls">
               <input
@@ -52,7 +52,7 @@ export class SignInRoute extends React.PureComponent {
                 type="email"
                 value={email}
                 onChange={this.onEmailChange}
-                placeholder="name@example.com"
+                placeholder="username or name@example.com"
               />
             </div>
           </div>

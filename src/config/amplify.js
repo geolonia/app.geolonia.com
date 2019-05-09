@@ -2,9 +2,9 @@ import Amplify from "aws-amplify";
 
 Amplify.configure({
   Auth: {
-    identityPoolId: "cognitof87f5aed_identitypool_f87f5aed__dev",
+    // identityPoolId: "",
     region: "ap-northeast-1",
-    userPoolId: "ap-northeast-1_akYZvWs3S",
-    userPoolWebClientId: "7cufvo12jk265pfp5s83m0rrvm"
+    userPoolId: "ap-northeast-1_IXPQmujeg",
+    userPoolWebClientId: "7iprhuv2gr51d318ncqq2rp4ib"
   }
 });

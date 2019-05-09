@@ -16,27 +16,49 @@ export class VerifyCodeRoute extends React.PureComponent {
   };
 
   state = {
+    email: "",
     code: "",
     error: void 0
   };
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
+  onEmailChange = e => this._onChange("email", e.target.value);
   onCodeChange = e => this._onChange("code", e.target.value);
 
   onVerifyClick = () => {
-    const email = this.props.auth.userData.user.username;
+    const email =
+      (this.props.auth.userData && this.props.auth.userData.user.username) ||
+      this.state.email;
     this.props.auth
       .verify(email, this.state.code)
       .catch(error => console.log(error) || this.setState({ error }));
   };
 
   render() {
-    const { code, error } = this.state;
+    const { email, code, error } = this.state;
 
     return (
       <main className={"uk-margin uk-padding-small"}>
         <h3 className="uk-card-title">{"Code Verification"}</h3>
         <form className="uk-form-horizontal" action={"#"}>
+          {this.props.auth.userData || (
+            <div className="uk-margin">
+              <label className="uk-form-label" htmlFor="username">
+                {"username"}
+              </label>
+              <div className="uk-form-controls">
+                <input
+                  className="uk-input"
+                  id="username"
+                  type="text"
+                  value={email}
+                  onChange={this.onEmailChange}
+                  placeholder="username@example.com"
+                />
+              </div>
+            </div>
+          )}
+
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="code">
               {"code"}

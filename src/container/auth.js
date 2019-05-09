@@ -4,6 +4,14 @@ import { Auth } from "aws-amplify";
 
 export class AuthContainer extends React.Component {
   /**
+   * propTypes
+   * @type {object}
+   */
+  static propTypes = {
+    Root: PropTypes.func.isRequired
+  };
+
+  /**
    * constructor
    * @param  {object} props React props.
    * @return {void}
@@ -16,24 +24,31 @@ export class AuthContainer extends React.Component {
     } catch (e) {
       userData = void 0;
     }
-    this.state = { userData, display: true };
-    // Auth.currentAuthenticatedUser()
+    this.state = { userData, display: true, error: false };
   }
 
-  /**
-   * sign up with email
-   * @param  {string} email    [description]
-   * @param  {string} password [description]
-   * @return {Promise}          [description]
-   */
-  signup = (email, password) => Auth.signUp(email, password);
+  _setUserData = userData => {
+    localStorage.setItem("tilecloud_user", JSON.stringify(userData));
+    this.setState({ userData });
+  };
+
+  _setError = (native, message) =>
+    this.setState({ error: { native, message } });
+
+  removeError = () => this.setState({ error: false });
+
+  signUp = (username, email, password) => {
+    const param = { username, password, attributes: { email } };
+    return Auth.signUp(param)
+      .then(this._setUserData)
+      .catch(error => this._setError(error, "ユーザーが登録できませんでした"));
+  };
 
   verify = (username, code) =>
     Auth.confirmSignUp(username, code).then(data => {
       if (data === "SUCCESS") {
-        const nextUserData = { ...this.state.userData, userConfirmed: true };
-        localStorage.setItem("tilecloud_user", JSON.stringify(nextUserData));
-        this.setState({ userData: nextUserData });
+        const userData = { ...this.state.userData, userConfirmed: true };
+        this._setUserData(userData);
       }
     });
 
@@ -42,45 +57,25 @@ export class AuthContainer extends React.Component {
     return Auth.resendSignUp(username);
   };
 
-  setUserData = userData => {
-    localStorage.setItem("tilecloud_user", JSON.stringify(userData));
-    this.setState({ userData });
-  };
-
-  /**
-   * sign in with email
-   * @param  {string} email    [description]
-   * @param  {string} password [description]
-   * @return {Promise}          [description]
-   */
   signin = (email, password) =>
     Auth.signIn(email, password).then(user => {
-      const userData = { user, userConfirmed: user.attributes.email_verified };
-      localStorage.setItem("tilecloud_user", JSON.stringify(userData));
-      this.setState({ userData });
+      const userData = { user, userConfirmed: true };
+      this._setUserData(userData);
     });
 
   requestResetCode = email => Auth.forgotPassword(email);
   resetPassword = (email, code, password) =>
     Auth.forgotPasswordSubmit(email, code, password);
 
-  /**
-   * sign out
-   * @return {Promise} [description]
-   */
   signout = () => {
     localStorage.removeItem("tilecloud_user");
     this.setState({ userData: void 0 });
   };
 
-  /**
-   * render
-   * @return {ReactElement|null|false} render a React element.
-   */
-  render() {
-    const { userData, display } = this.state;
+  mapAuthProps = () => {
     const {
-      signup,
+      removeError,
+      signUp,
       setUserData,
       verify,
       resend,
@@ -89,28 +84,35 @@ export class AuthContainer extends React.Component {
       requestResetCode,
       resetPassword
     } = this;
+    const { userData, error } = this.state;
+
+    return {
+      // authentication data
+      userData,
+      error,
+      // methods
+      removeError,
+      signUp,
+      setUserData,
+      verify,
+      resend,
+      signin,
+      signout,
+      requestResetCode,
+      resetPassword
+    };
+  };
+
+  /**
+   * render
+   * @return {ReactElement|null|false} render a React element.
+   */
+  render() {
+    const { display } = this.state;
+
     const { Root } = this.props;
-    return (
-      display && (
-        <Root
-          auth={{
-            userData,
-            signup,
-            setUserData,
-            verify,
-            resend,
-            signin,
-            signout,
-            requestResetCode,
-            resetPassword
-          }}
-        />
-      )
-    );
+    return display && <Root auth={this.mapAuthProps()} />;
   }
 }
 
-AuthContainer.propTypes = {
-  Root: PropTypes.func.isRequired
-};
 export default AuthContainer;

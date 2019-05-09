@@ -4,9 +4,9 @@ import { routes } from "./app-router";
 
 export const Header = props => {
   const {
-    auth: { userData, signout }
+    auth: { isSignIn, username, signout }
   } = props;
-  const isSignIn = !!userData;
+
   return (
     <nav className={"uk-navbar-container"} uk-navbar={"true"}>
       <div className={"uk-navbar-left"}>
@@ -24,7 +24,7 @@ export const Header = props => {
               </li>
             ) : null;
           })}
-          {userData && (
+          {isSignIn && (
             <li>
               <Link
                 to={"#"}
@@ -37,15 +37,7 @@ export const Header = props => {
               </Link>
             </li>
           )}
-          {userData && (
-            <li className={"uk-navbar-item"}>
-              {userData.userConfirmed
-                ? userData.user.attributes
-                  ? userData.user.attributes.email
-                  : "認証済み"
-                : userData.user.username}
-            </li>
-          )}
+          {isSignIn && <li className={"uk-navbar-item"}>{username}</li>}
         </ul>
       </div>
     </nav>

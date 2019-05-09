@@ -8,8 +8,8 @@ export class SignUpRoute extends React.PureComponent {
    */
   static propTypes = {
     auth: PropTypes.shape({
-      setUserData: PropTypes.func.isRequired,
-      signup: PropTypes.func.isRequired
+      error: PropTypes.any,
+      signUp: PropTypes.func.isRequired
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -17,31 +17,48 @@ export class SignUpRoute extends React.PureComponent {
   };
 
   state = {
+    username: "",
     email: "",
-    password: "",
-    error: void 0
+    password: ""
   };
 
-  _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
+  _onChange = (key, value) => this.setState({ [key]: value });
+  onUsernameChange = e => this._onChange("username", e.target.value);
   onEmailChange = e => this._onChange("email", e.target.value);
   onPasswordChange = e => this._onChange("password", e.target.value);
-  onSignupClick = () =>
-    this.props.auth
-      .signup(this.state.email, this.state.password)
-      .then(userData => {
-        console.log({ userData });
-        this.props.auth.setUserData(userData); // { user, userConfirmed, sub }
-        this.props.history.push("/verify/");
-      })
-      .catch(error => this.setState({ error }));
+  onSignupClick = () => {
+    const { username, email, password } = this.state;
+    return this.props.auth
+      .signUp(username, email, password)
+      .then(() => this.props.history.push("/verify/"));
+  };
 
   render() {
-    const { email, password, error } = this.state;
-    console.log(error);
+    const {
+      auth: { error }
+    } = this.props;
+    const { username, email, password } = this.state;
+
     return (
       <main className={"uk-margin uk-padding-small"}>
         <h3 className="uk-card-title">{"Sign Up"}</h3>
         <form className="uk-form-horizontal" action={"#"}>
+          <div className="uk-margin">
+            <label className="uk-form-label" htmlFor="username">
+              {"username"}
+            </label>
+            <div className="uk-form-controls">
+              <input
+                className="uk-input"
+                id="username"
+                type="username"
+                value={username}
+                onChange={this.onUsernameChange}
+                placeholder="username"
+              />
+            </div>
+          </div>
+
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="email">
               {"email"}
@@ -89,7 +106,7 @@ export class SignUpRoute extends React.PureComponent {
             <div className="uk-margin uk-flex uk-flex-right">
               <div className="uk-flex uk-flex-column">
                 <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです"}
+                  {error.message || error.native.message || "不明なエラーです"}
                 </span>
               </div>
             </div>

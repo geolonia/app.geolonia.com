@@ -15,11 +15,11 @@ export class EmailVerification extends React.Component {
    * @return {ReactElement|null|false} render a React element.
    */
   render() {
+    const { userConfirmed } = this.props.auth;
     const { sent } = this.state;
 
     return (
-      // 連打されたら嫌なので、一回だけ出す。リロードするとまた出てくる
-      sent || (
+      (!userConfirmed && sent) || (
         <nav className={"uk-margin-small uk-padding-small"}>
           <p className={"uk-text-warning"}>
             {"Your account is not verified.  Please check your email."}
