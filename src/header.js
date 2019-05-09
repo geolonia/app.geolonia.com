@@ -27,7 +27,7 @@ export const Header = props => {
   const {
     auth: { userData }
   } = props;
-  console.log(props);
+
   const isSignIn = !!userData;
   const routes = isSignIn ? signinRoutes : signoutRoutes;
   return (

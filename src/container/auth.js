@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Auth } from "aws-amplify";
+import createKey from "../api/create-key";
+import listKeys from "../api/list-keys";
+import updateKey from "../api/update-key";
+import deleteKey from "../api/delete-key";
 
 export class AuthContainer extends React.Component {
   /**
@@ -79,6 +83,9 @@ export class AuthContainer extends React.Component {
       resetPassword
     } = this;
     const { userData, error } = this.state;
+    const token = userData
+      ? userData.signInUserSession.idToken.jwtToken
+      : void 0;
 
     return {
       // authentication data
@@ -93,7 +100,14 @@ export class AuthContainer extends React.Component {
       signin,
       signout,
       requestResetCode,
-      resetPassword
+      resetPassword,
+      // API
+      API: {
+        createKey: createKey(token),
+        listKeys: listKeys(token),
+        updateKey: updateKey(token),
+        deleteKey: deleteKey(token)
+      }
     };
   };
 
