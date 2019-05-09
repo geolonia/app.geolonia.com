@@ -6,6 +6,7 @@
     "aws-amplify": "^1.1.26",
     "aws-amplify-react": "^2.3.6",
     "prop-types": "^15.7.2",
+    "query-string": "^6.5.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",

@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./header";
-import EmailConfirmation from "./components/email-confirmation";
 import HomeRoute from "./routes/home";
 import SignUpRoute from "./routes/sign-up";
 import VerifyRoute from "./routes/verify";
+import ResendCodeRoute from "./routes/resend";
 import SignInRoute from "./routes/sign-in";
 import DashboardRoute from "./routes/dashboard";
 import ResetPasswordRoute from "./routes/reset-password";
 
-export const routes = {
+const routes = {
   "/": {
     label: "home",
     Component: HomeRoute
@@ -22,6 +22,10 @@ export const routes = {
   "/verify/": {
     label: "コード認証",
     Component: VerifyRoute
+  },
+  "/resend": {
+    label: "コード再送",
+    Component: ResendCodeRoute
   },
   "/sign-in/": {
     requireNoSignIn: true,
@@ -44,8 +48,7 @@ const AppRouter = props => {
   return (
     <Router>
       <div className={"uk-container uk-container-xsmall"}>
-        <Header auth={auth} />
-        <EmailConfirmation auth={auth} />
+        <Route path="/" render={props => <Header {...props} auth={auth} />} />
 
         {Object.keys(routes).map(path => {
           const { Component } = routes[path];

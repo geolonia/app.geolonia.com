@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -19,25 +20,28 @@ export class SignUpRoute extends React.PureComponent {
   state = {
     username: "",
     email: "",
-    password: ""
+    password: "",
+    error: false
   };
 
   _onChange = (key, value) => this.setState({ [key]: value });
   onUsernameChange = e => this._onChange("username", e.target.value);
   onEmailChange = e => this._onChange("email", e.target.value);
   onPasswordChange = e => this._onChange("password", e.target.value);
+
   onSignupClick = () => {
     const { username, email, password } = this.state;
-    return this.props.auth
+    this.props.auth
       .signUp(username, email, password)
-      .then(() => this.props.history.push("/verify/"));
+      .then(
+        ({ successed }) =>
+          successed && this.props.history.push(`/verify?username=${username}`)
+      )
+      .catch(error => this.setState({ error }));
   };
 
   render() {
-    const {
-      auth: { error }
-    } = this.props;
-    const { username, email, password } = this.state;
+    const { username, email, password, error } = this.state;
 
     return (
       <main className={"uk-margin uk-padding-small"}>
@@ -106,11 +110,16 @@ export class SignUpRoute extends React.PureComponent {
             <div className="uk-margin uk-flex uk-flex-right">
               <div className="uk-flex uk-flex-column">
                 <span className={"uk-text-warning"}>
-                  {error.message || error.native.message || "不明なエラーです"}
+                  {error.code || "不明なエラーです"}
                 </span>
               </div>
             </div>
           )}
+          <div className="uk-margin uk-flex uk-flex-right">
+            <div className="uk-flex uk-flex-column">
+              <Link to="/verify/">{"I have verification code."}</Link>
+            </div>
+          </div>
         </form>
       </main>
     );

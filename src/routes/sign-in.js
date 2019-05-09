@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import queryString from "query-string";
 
 export class SignInRoute extends React.PureComponent {
   /**
@@ -15,11 +17,21 @@ export class SignInRoute extends React.PureComponent {
     }).isRequired
   };
 
-  state = {
-    email: "",
-    password: "",
-    error: void 0
-  };
+  /**
+   * constructor
+   * @param  {object} props React props.
+   * @return {void}
+   */
+  constructor(props) {
+    super(props);
+    const parsed = queryString.parse(props.history.location.search);
+    this.state = {
+      verified: parsed.verified === "true",
+      email: parsed.username || "",
+      password: "",
+      error: void 0
+    };
+  }
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
   onEmailChange = e => this._onChange("email", e.target.value);
@@ -27,18 +39,23 @@ export class SignInRoute extends React.PureComponent {
   onSigninClick = () => {
     this.props.auth
       .signin(this.state.email, this.state.password)
-      .then(user => {
-        this.props.history.push("/dashboard/");
-      })
+      .then(({ success }) => success && this.props.history.push("/dashboard/"))
       .catch(error => this.setState({ error }));
   };
 
   render() {
-    const { email, password, error } = this.state;
+    const { verified, email, password, error } = this.state;
 
     return (
       <main className={"uk-margin uk-padding-small"}>
-        <h3 className="uk-card-title">{"sign in"}</h3>
+        {verified && (
+          <div uk-alert class="uk-alert-success">
+            <p class="uk-padding">
+              {"Your account have been successfully verified!"}
+            </p>
+          </div>
+        )}
+        <h3 className="uk-card-title">{"Sign In"}</h3>
 
         <form className="uk-form-horizontal" action={"#"}>
           <div className="uk-margin">
@@ -93,6 +110,11 @@ export class SignInRoute extends React.PureComponent {
               </div>
             </div>
           )}
+          <div className="uk-margin uk-flex uk-flex-right">
+            <div className="uk-flex uk-flex-column">
+              <Link to="/reset_password/">{"I forgot my password."}</Link>
+            </div>
+          </div>
         </form>
       </main>
     );

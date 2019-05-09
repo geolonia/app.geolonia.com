@@ -24,7 +24,7 @@ export class AuthContainer extends React.Component {
     } catch (e) {
       userData = void 0;
     }
-    this.state = { userData, display: true, error: false };
+    this.state = { userData, display: true };
   }
 
   _setUserData = userData => {
@@ -32,24 +32,24 @@ export class AuthContainer extends React.Component {
     this.setState({ userData });
   };
 
-  _setError = (native, message) =>
-    this.setState({ error: { native, message } });
-
-  removeError = () => this.setState({ error: false });
-
   signUp = (username, email, password) => {
     const param = { username, password, attributes: { email } };
-    return Auth.signUp(param)
-      .then(this._setUserData)
-      .catch(error => this._setError(error, "ユーザーが登録できませんでした"));
+    return Auth.signUp(param).then(userData => ({ successed: true }));
   };
 
   verify = (username, code) =>
-    Auth.confirmSignUp(username, code).then(data => {
-      if (data === "SUCCESS") {
-        const userData = { ...this.state.userData, userConfirmed: true };
-        this._setUserData(userData);
+    Auth.confirmSignUp(username, code).then(result => {
+      if (result === "SUCCESS") {
+        return { successed: true };
+      } else {
+        throw new Error({ code: "UNKNOWN" });
       }
+    });
+
+  signin = (email, password) =>
+    Auth.signIn(email, password).then(userData => {
+      this._setUserData(userData);
+      return { success: true };
     });
 
   resend = () => {
@@ -57,18 +57,12 @@ export class AuthContainer extends React.Component {
     return Auth.resendSignUp(username);
   };
 
-  signin = (email, password) =>
-    Auth.signIn(email, password).then(user => {
-      const userData = { user, userConfirmed: true };
-      this._setUserData(userData);
-    });
-
   requestResetCode = email => Auth.forgotPassword(email);
   resetPassword = (email, code, password) =>
     Auth.forgotPasswordSubmit(email, code, password);
 
   signout = () => {
-    localStorage.removeItem("tilecloud_user");
+    localStorage.clear();
     this.setState({ userData: void 0 });
   };
 

@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import queryString from "query-string";
+import { Link } from "react-router-dom";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -11,53 +13,64 @@ export class VerifyCodeRoute extends React.PureComponent {
       verify: PropTypes.func.isRequired
     }).isRequired,
     history: PropTypes.shape({
+      location: PropTypes.shape({ search: PropTypes.string }),
       push: PropTypes.func.isRequired
     }).isRequired
   };
 
-  state = {
-    email: "",
-    code: "",
-    error: void 0
-  };
+  /**
+   * constructor
+   * @param  {object} props React props.
+   * @return {void}
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: queryString.parse(props.history.location.search).username || "",
+      code: "",
+      error: void 0
+    };
+  }
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
-  onEmailChange = e => this._onChange("email", e.target.value);
+  onUsernameChange = e => this._onChange("username", e.target.value);
   onCodeChange = e => this._onChange("code", e.target.value);
 
   onVerifyClick = () => {
-    const email =
-      (this.props.auth.userData && this.props.auth.userData.user.username) ||
-      this.state.email;
     this.props.auth
-      .verify(email, this.state.code)
-      .catch(error => console.log(error) || this.setState({ error }));
+      .verify(this.state.username, this.state.code)
+      .then(({ successed }) => {
+        if (successed) {
+          this.props.history.push(
+            `/sign-in?verified=true&username=${this.state.username}`
+          );
+        }
+      })
+      .catch(error => this.setState({ error }));
   };
 
   render() {
-    const { email, code, error } = this.state;
+    const { username, code, error } = this.state;
 
     return (
       <main className={"uk-margin uk-padding-small"}>
         <h3 className="uk-card-title">{"Code Verification"}</h3>
         <form className="uk-form-horizontal" action={"#"}>
-          {this.props.auth.userData || (
-            <div className="uk-margin">
-              <label className="uk-form-label" htmlFor="username">
-                {"username"}
-              </label>
-              <div className="uk-form-controls">
-                <input
-                  className="uk-input"
-                  id="username"
-                  type="text"
-                  value={email}
-                  onChange={this.onEmailChange}
-                  placeholder="username@example.com"
-                />
-              </div>
+          <div className="uk-margin">
+            <label className="uk-form-label" htmlFor="username">
+              {"username"}
+            </label>
+            <div className="uk-form-controls">
+              <input
+                className="uk-input"
+                id="username"
+                type="text"
+                value={username}
+                onChange={this.onUsernameChange}
+                placeholder="username"
+              />
             </div>
-          )}
+          </div>
 
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="code">
@@ -95,6 +108,11 @@ export class VerifyCodeRoute extends React.PureComponent {
               </div>
             </div>
           )}
+          <div className="uk-margin uk-flex uk-flex-right">
+            <div className="uk-flex uk-flex-column">
+              <Link to="/resend/">{"I lost verification code."}</Link>
+            </div>
+          </div>
         </form>
       </main>
     );
