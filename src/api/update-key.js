@@ -10,6 +10,7 @@ export const updateKey = token => (userKey, params) => {
     body: JSON.stringify(params)
   })
     .then(res => {
+      console.log(res.ok, res.status);
       if (res.ok && res.status < 400) {
         return res.json();
       } else {

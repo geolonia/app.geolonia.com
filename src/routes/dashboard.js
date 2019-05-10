@@ -9,8 +9,10 @@ export class DashboardRoute extends React.PureComponent {
    */
   constructor(props) {
     super(props);
-    this.state = { userKeys: [] };
-    props.auth.API.listKeys().then(userKeys => this.setState({ userKeys }));
+    this.state = { userKeys: [], error: false };
+    props.auth.API.listKeys()
+      .then(userKeys => this.setState({ userKeys }))
+      .catch(() => this.setState({ userKeys: [], error: true }));
   }
 
   onCreateClick = () =>
@@ -19,9 +21,9 @@ export class DashboardRoute extends React.PureComponent {
     );
 
   onDeleteClick = e => {
-    const userKey = e.target.value;
+    const index = e.target.value;
+    const { userKey } = this.state.userKeys[index];
     return this.props.auth.API.deleteKey(userKey).then(() => {
-      const index = this.state.userKeys.map(x => x.userKey).indexOf(userKey);
       const userKeys = [...this.state.userKeys];
       userKeys.splice(index, 1);
       this.setState({ userKeys });
@@ -32,8 +34,9 @@ export class DashboardRoute extends React.PureComponent {
     const {
       name,
       checked,
-      dataset: { userKey }
+      dataset: { index }
     } = e.target;
+    const { userKey } = this.state.userKeys[index];
     return this.props.auth.API.updateKey(userKey, { [name]: checked }).then(
       console.log
     );
@@ -43,24 +46,52 @@ export class DashboardRoute extends React.PureComponent {
     const {
       name,
       value,
-      checked,
-      dataset: { userKey }
+      dataset: { index }
     } = e.target;
-    console.log(checked);
+    const { userKey } = this.state.userKeys[index];
     return this.props.auth.API.updateKey(userKey, { [name]: value }).then(
+      console.log
+    );
+  };
+
+  addOriginIndexOf = (recordIndex, origin) => {
+    const userKey = { ...this.state.userKeys[recordIndex] };
+    const allowedOrigins = [...userKey.allowedOrigins, origin];
+    userKey.allowedOrigins = allowedOrigins;
+
+    const userKeys = [...this.state.userKeys];
+    userKeys[recordIndex] = userKey;
+
+    this.setState({ userKeys });
+    this.props.auth.API.updateKey(userKey.userKey, { allowedOrigins }).then(
+      console.log
+    );
+  };
+
+  removeOriginIndexOf = (recordIndex, originIndex) => {
+    const userKey = { ...this.state.userKeys[recordIndex] };
+    const allowedOrigins = [...userKey.allowedOrigins];
+    allowedOrigins.splice(originIndex, 1);
+    userKey.allowedOrigins = allowedOrigins;
+
+    const userKeys = [...this.state.userKeys];
+    userKeys[recordIndex] = userKey;
+
+    this.setState({ userKeys });
+    this.props.auth.API.updateKey(userKey.userKey, { allowedOrigins }).then(
       console.log
     );
   };
 
   render() {
     const { userKeys } = this.state;
-
+    console.log(userKeys);
     return (
       <main className={"uk-margin uk-padding-small"}>
         <form className={"uk-form-stacked"} action="#">
           <div className={"uk-margin"}>
             {userKeys.map(
-              ({ userKey, enabled, description, allowedOrigins }) => (
+              ({ userKey, enabled, description, allowedOrigins }, index) => (
                 <div
                   key={userKey}
                   className={"uk-card uk-card-default uk-card-body uk-margin"}
@@ -80,16 +111,19 @@ export class DashboardRoute extends React.PureComponent {
                   </div>
 
                   <div className="uk-margin">
-                    <label className={"uk-form-label"} htmlFor={"enabled"}>
+                    <label
+                      className={"uk-form-label"}
+                      htmlFor={`enabled-${userKey}`}
+                    >
                       {"ENABLED"}
                     </label>
                     <input
                       className={"uk-checkbox"}
-                      id={"enabled"}
+                      id={`enabled-${userKey}`}
                       type={"checkbox"}
                       defaultChecked={enabled}
                       name={"enabled"}
-                      data-user-key={userKey}
+                      data-index={index}
                       onChange={this.onCheckUpdate}
                     />
                   </div>
@@ -104,7 +138,7 @@ export class DashboardRoute extends React.PureComponent {
                       type={"text"}
                       defaultValue={description}
                       name={"description"}
-                      data-user-key={userKey}
+                      data-index={index}
                       placeholder={"Describe your key"}
                       onBlur={this.onTextUpdate}
                     />
@@ -112,26 +146,15 @@ export class DashboardRoute extends React.PureComponent {
 
                   <OriginList
                     origins={allowedOrigins || []}
-                    remove={removingOrigin =>
-                      this.setState({
-                        allowedOrigins: allowedOrigins.filter(
-                          origin => origin !== removingOrigin
-                        )
-                      })
-                    }
-                    add={newOrigin =>
-                      this.setState({
-                        allowedOrigins: [...allowedOrigins, newOrigin].filter(
-                          (origin, i, self) => self.indexOf(origin) === i
-                        )
-                      })
-                    }
+                    recordIndex={index}
+                    add={this.addOriginIndexOf}
+                    remove={this.removeOriginIndexOf}
                   />
 
                   <button
                     className={"uk-button uk-button-default"}
                     onClick={this.onDeleteClick}
-                    value={userKey}
+                    value={index}
                   >
                     {"DELETE KEY"}
                   </button>

@@ -10,6 +10,7 @@ export class OriginList extends React.PureComponent {
    */
   static propTypes = {
     origins: PropTypes.arrayOf(PropTypes.string).isRequired,
+    recordIndex: PropTypes.number.isRequired,
     remove: PropTypes.func.isRequired,
     add: PropTypes.func.isRequired
   };
@@ -17,13 +18,13 @@ export class OriginList extends React.PureComponent {
   state = { newOrigin: "" };
 
   onAddClick = () => {
-    this.props.add(this.state.newOrigin);
+    this.props.add(this.props.recordIndex, this.state.newOrigin);
     this.setState({ newOrigin: "" });
   };
 
   render() {
     const { newOrigin } = this.state;
-    const { origins, remove } = this.props;
+    const { origins, recordIndex, remove } = this.props;
     return (
       <div className={"uk-margin"}>
         <label className={"uk-form-label"} htmlFor="">
@@ -46,7 +47,7 @@ export class OriginList extends React.PureComponent {
           </button>
         </div>
         <ul className={"uk-list uk-list-divider"}>
-          {origins.map(origin => (
+          {origins.map((origin, originIndex) => (
             <li key={origin}>
               <div
                 className={
@@ -56,7 +57,7 @@ export class OriginList extends React.PureComponent {
                 <span>{origin}</span>
                 <button
                   className={"uk-button uk-button-default"}
-                  onClick={() => remove(origin)}
+                  onClick={() => remove(recordIndex, originIndex)}
                 >
                   {"remove"}
                 </button>
