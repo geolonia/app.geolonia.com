@@ -1,5 +1,6 @@
 import React from "react";
 import OriginList from "../components/origin-list";
+import Toggle from "../components/toggle";
 
 export class DashboardRoute extends React.PureComponent {
   /**
@@ -104,68 +105,70 @@ export class DashboardRoute extends React.PureComponent {
                 key={userKey}
                 className={"uk-card uk-card-default uk-card-body uk-margin"}
               >
-                <label className={"uk-form-label"} htmlFor={"your-api-key"}>
-                  {"YOUR API KEY"}
-                </label>
-                <div className={"uk-form-controls"}>
-                  <input
-                    className={"uk-input"}
-                    id={"your-api-key"}
-                    type={"text"}
-                    value={userKey}
-                    disabled={true}
-                    // onChange={x => x}
-                  />
-                </div>
+                <Toggle label={userKey} sub={description}>
+                  <label className={"uk-form-label"} htmlFor={"your-api-key"}>
+                    {"YOUR API KEY"}
+                  </label>
+                  <div className={"uk-form-controls"}>
+                    <input
+                      className={"uk-input"}
+                      id={"your-api-key"}
+                      type={"text"}
+                      value={userKey}
+                      disabled={true}
+                      // onChange={x => x}
+                    />
+                  </div>
 
-                <div className="uk-margin">
-                  <label
-                    className={"uk-form-label"}
-                    htmlFor={`enabled-${userKey}`}
+                  <div className="uk-margin">
+                    <label
+                      className={"uk-form-label"}
+                      htmlFor={`enabled-${userKey}`}
+                    >
+                      {"ENABLED"}
+                    </label>
+                    <input
+                      className={"uk-checkbox"}
+                      id={`enabled-${userKey}`}
+                      type={"checkbox"}
+                      defaultChecked={enabled}
+                      name={"enabled"}
+                      data-index={index}
+                      onChange={this.onCheckUpdate}
+                    />
+                  </div>
+
+                  <div className="uk-margin">
+                    <label className={"uk-form-label"} htmlFor={"description"}>
+                      {"DESCRIPTION"}
+                    </label>
+                    <input
+                      className={"uk-input"}
+                      id={"description"}
+                      type={"text"}
+                      defaultValue={description}
+                      name={"description"}
+                      data-index={index}
+                      placeholder={"Describe your key"}
+                      onBlur={this.onTextUpdate}
+                    />
+                  </div>
+
+                  <OriginList
+                    origins={allowedOrigins || []}
+                    recordIndex={index}
+                    add={this.addOriginIndexOf}
+                    remove={this.removeOriginIndexOf}
+                  />
+
+                  <button
+                    className={"uk-button uk-button-default"}
+                    onClick={this.onDeleteClick}
+                    value={index}
                   >
-                    {"ENABLED"}
-                  </label>
-                  <input
-                    className={"uk-checkbox"}
-                    id={`enabled-${userKey}`}
-                    type={"checkbox"}
-                    defaultChecked={enabled}
-                    name={"enabled"}
-                    data-index={index}
-                    onChange={this.onCheckUpdate}
-                  />
-                </div>
-
-                <div className="uk-margin">
-                  <label className={"uk-form-label"} htmlFor={"description"}>
-                    {"DESCRIPTION"}
-                  </label>
-                  <input
-                    className={"uk-input"}
-                    id={"description"}
-                    type={"text"}
-                    defaultValue={description}
-                    name={"description"}
-                    data-index={index}
-                    placeholder={"Describe your key"}
-                    onBlur={this.onTextUpdate}
-                  />
-                </div>
-
-                <OriginList
-                  origins={allowedOrigins || []}
-                  recordIndex={index}
-                  add={this.addOriginIndexOf}
-                  remove={this.removeOriginIndexOf}
-                />
-
-                <button
-                  className={"uk-button uk-button-default"}
-                  onClick={this.onDeleteClick}
-                  value={index}
-                >
-                  {"DELETE KEY"}
-                </button>
+                    {"DELETE KEY"}
+                  </button>
+                </Toggle>
               </div>
             )
           )}
