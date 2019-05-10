@@ -20,7 +20,8 @@ const signinRoutes = [
   },
   {
     key: 3,
-    label: ({ auth }) => auth.userData.username
+    label: ({ auth }) => auth.userData.username,
+    path: "/profile/"
   }
 ];
 

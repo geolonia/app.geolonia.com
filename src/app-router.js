@@ -7,35 +7,30 @@ import VerifyRoute from "./routes/verify";
 import ResendCodeRoute from "./routes/resend";
 import SignInRoute from "./routes/sign-in";
 import DashboardRoute from "./routes/dashboard";
+import ProfileRoute from "./routes/profile";
 import ResetPasswordRoute from "./routes/reset-password";
 
 const routes = {
   "/": {
-    label: "home",
     Component: HomeRoute
   },
   "/sign-up/": {
-    requireNoSignIn: true,
-    label: "サインアップ",
     Component: SignUpRoute
   },
   "/verify/": {
-    label: "コード認証",
     Component: VerifyRoute
   },
   "/resend": {
-    label: "コード再送",
     Component: ResendCodeRoute
   },
   "/sign-in/": {
-    requireNoSignIn: true,
-    label: "サインイン",
     Component: SignInRoute
   },
   "/dashboard/": {
-    requireSignIn: true,
-    label: "ダッシュボード",
     Component: DashboardRoute
+  },
+  "/profile/": {
+    Component: ProfileRoute
   },
   "/reset_password/": {
     label: "パスワードリセット",
