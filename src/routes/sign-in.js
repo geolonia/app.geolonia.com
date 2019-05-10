@@ -49,71 +49,73 @@ export class SignInRoute extends React.PureComponent {
     return (
       <main className={"uk-margin uk-padding-small"}>
         {verified && (
-          <div uk-alert class="uk-alert-success">
-            <p class="uk-padding">
+          <div uk-alert className="uk-alert-success">
+            <p className="uk-padding">
               {"Your account have been successfully verified!"}
             </p>
           </div>
         )}
         <h3 className="uk-card-title">{"Sign In"}</h3>
 
-        <div className="uk-form-horizontal uk-margin">
-          <label className="uk-form-label" htmlFor="email">
-            {"email or username"}
-          </label>
-          <div className="uk-form-controls">
-            <input
-              className="uk-input"
-              id="email"
-              type="email"
-              value={email}
-              onChange={this.onEmailChange}
-              placeholder="username or name@example.com"
-            />
-          </div>
-        </div>
-
-        <div className="uk-margin">
-          <label className="uk-form-label" htmlFor="password">
-            {"password"}
-          </label>
-          <div className="uk-form-controls">
-            <input
-              className="uk-input"
-              id="password"
-              type="password"
-              value={password}
-              onChange={this.onPasswordChange}
-            />
-          </div>
-        </div>
-
-        <div className="uk-margin uk-flex uk-flex-right">
-          <div className="uk-flex uk-flex-column">
-            <button
-              className="uk-button uk-button-default"
-              type={"button"}
-              onClick={this.onSigninClick}
-              disabled={!email || !password}
-            >
-              {"sign in"}
-            </button>
-          </div>
-        </div>
-        {error && (
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
-              <span className={"uk-text-warning"}>
-                {error.message || "不明なエラーです。"}
-              </span>
+        <form action="" className="uk-form-horizontal">
+          <div className="uk-margin">
+            <label className="uk-form-label" htmlFor="email">
+              {"email or username"}
+            </label>
+            <div className="uk-form-controls">
+              <input
+                className="uk-input"
+                id="email"
+                type="email"
+                value={email}
+                onChange={this.onEmailChange}
+                placeholder="username or name@example.com"
+              />
             </div>
           </div>
-        )}
-        <div className="uk-margin uk-flex uk-flex-right">
-          <div className="uk-flex uk-flex-column">
-            <Link to="/reset_password/">{"I forgot my password."}</Link>
+
+          <div className="uk-margin">
+            <label className="uk-form-label" htmlFor="password">
+              {"password"}
+            </label>
+            <div className="uk-form-controls">
+              <input
+                className="uk-input"
+                id="password"
+                type="password"
+                value={password}
+                onChange={this.onPasswordChange}
+              />
+            </div>
           </div>
-        </div>
+
+          <div className="uk-margin uk-flex uk-flex-right">
+            <div className="uk-flex uk-flex-column">
+              <button
+                className="uk-button uk-button-default"
+                type={"button"}
+                onClick={this.onSigninClick}
+                disabled={!email || !password}
+              >
+                {"sign in"}
+              </button>
+            </div>
+          </div>
+          {error && (
+            <div className="uk-margin uk-flex uk-flex-right">
+              <div className="uk-flex uk-flex-column">
+                <span className={"uk-text-warning"}>
+                  {error.message || "不明なエラーです。"}
+                </span>
+              </div>
+            </div>
+          )}
+          <div className="uk-margin uk-flex uk-flex-right">
+            <div className="uk-flex uk-flex-column">
+              <Link to="/reset_password/">{"I forgot my password."}</Link>
+            </div>
+          </div>
+        </form>
       </main>
     );
   }
