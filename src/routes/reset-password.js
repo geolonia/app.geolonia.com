@@ -50,97 +50,95 @@ export class ResetPasswordRoute extends React.PureComponent {
       <main className={"uk-margin uk-padding-small"}>
         <h3 className="uk-card-title">{"reset password"}</h3>
 
-        <form className="uk-form-horizontal" action={"#"}>
+        <div className="uk-form-horizontal uk-margin">
+          <label className="uk-form-label" htmlFor="email">
+            {"email"}
+          </label>
+          <div className="uk-form-controls">
+            <input
+              disabled={requested}
+              className="uk-input"
+              id="email"
+              type="email"
+              value={email}
+              onChange={this.onEmailChange}
+              placeholder="name@example.com"
+            />
+          </div>
+        </div>
+
+        <div className="uk-margin uk-flex uk-flex-right">
+          <div className="uk-flex uk-flex-column">
+            <button
+              className="uk-button uk-button-default"
+              type={"button"}
+              onClick={this.onRequestClick}
+              disabled={!email || requested}
+            >
+              {"send reset email"}
+            </button>
+          </div>
+        </div>
+
+        {error && (
+          <div className="uk-margin uk-flex uk-flex-right">
+            <div className="uk-flex uk-flex-column">
+              <span className={"uk-text-warning"}>
+                {error.message || "不明なエラーです"}
+              </span>
+            </div>
+          </div>
+        )}
+
+        {requested && (
           <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="email">
-              {"email"}
+            <label className="uk-form-label" htmlFor="code">
+              {"code"}
             </label>
             <div className="uk-form-controls">
               <input
-                disabled={requested}
                 className="uk-input"
-                id="email"
-                type="email"
-                value={email}
-                onChange={this.onEmailChange}
-                placeholder="name@example.com"
+                id="code"
+                type="text"
+                value={code}
+                onChange={this.onCodeChange}
+                placeholder="012345"
               />
             </div>
           </div>
+        )}
 
+        {requested && (
+          <div className="uk-margin">
+            <label className="uk-form-label" htmlFor="password">
+              {"password"}
+            </label>
+            <div className="uk-form-controls">
+              <input
+                className="uk-input"
+                id="password"
+                type="password"
+                value={password}
+                onChange={this.onPasswordChange}
+              />
+            </div>
+          </div>
+        )}
+
+        {requested && (
           <div className="uk-margin uk-flex uk-flex-right">
             <div className="uk-flex uk-flex-column">
               <button
                 className="uk-button uk-button-default"
                 type={"button"}
                 onClick={this.onRequestClick}
-                disabled={!email || requested}
+                disabled={!code || !password}
               >
-                {"send reset email"}
+                {"reset password"}
               </button>
             </div>
           </div>
-
-          {error && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
-                <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです"}
-                </span>
-              </div>
-            </div>
-          )}
-
-          {requested && (
-            <div className="uk-margin">
-              <label className="uk-form-label" htmlFor="code">
-                {"code"}
-              </label>
-              <div className="uk-form-controls">
-                <input
-                  className="uk-input"
-                  id="code"
-                  type="text"
-                  value={code}
-                  onChange={this.onCodeChange}
-                  placeholder="012345"
-                />
-              </div>
-            </div>
-          )}
-
-          {requested && (
-            <div className="uk-margin">
-              <label className="uk-form-label" htmlFor="password">
-                {"password"}
-              </label>
-              <div className="uk-form-controls">
-                <input
-                  className="uk-input"
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={this.onPasswordChange}
-                />
-              </div>
-            </div>
-          )}
-
-          {requested && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
-                <button
-                  className="uk-button uk-button-default"
-                  type={"button"}
-                  onClick={this.onRequestClick}
-                  disabled={!code || !password}
-                >
-                  {"reset password"}
-                </button>
-              </div>
-            </div>
-          )}
-        </form>
+        )}
       </main>
     );
   }

@@ -9,16 +9,17 @@ const signoutRoutes = [
 
 const signinRoutes = [
   { key: 0, label: "Home", path: "/" },
+  { key: 1, label: "Dashboard", path: "/dashboard/" },
   {
-    key: 1,
-    label: "Logout",
+    key: 2,
+    label: "Sign out",
     handler: ({ auth, history }) => {
       auth.signout();
       history.replace("/sign-in/");
     }
   },
   {
-    key: 2,
+    key: 3,
     label: ({ auth }) => auth.userData.username
   }
 ];

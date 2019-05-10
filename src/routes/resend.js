@@ -37,44 +37,42 @@ export class ResendCodeRoute extends React.PureComponent {
     return (
       <main className={"uk-margin uk-padding-small"}>
         <h3 className="uk-card-title">{"Request Resend Verification Code"}</h3>
-        <form className="uk-form-horizontal" action={"#"}>
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="email">
-              {"email"}
-            </label>
-            <div className="uk-form-controls">
-              <input
-                className="uk-input"
-                id="email"
-                type="email"
-                value={email}
-                onChange={this.onEmailChange}
-                placeholder="user@example.com"
-              />
-            </div>
+        <div className="uk-form-horizontal uk-margin">
+          <label className="uk-form-label" htmlFor="email">
+            {"email"}
+          </label>
+          <div className="uk-form-controls">
+            <input
+              className="uk-input"
+              id="email"
+              type="email"
+              value={email}
+              onChange={this.onEmailChange}
+              placeholder="user@example.com"
+            />
           </div>
+        </div>
 
+        <div className="uk-margin uk-flex uk-flex-right">
+          <div className="uk-flex uk-flex-column">
+            <button
+              className="uk-button uk-button-default"
+              type={"button"}
+              onClick={this.onResendClick}
+            >
+              {"resend"}
+            </button>
+          </div>
+        </div>
+        {error && (
           <div className="uk-margin uk-flex uk-flex-right">
             <div className="uk-flex uk-flex-column">
-              <button
-                className="uk-button uk-button-default"
-                type={"button"}
-                onClick={this.onResendClick}
-              >
-                {"resend"}
-              </button>
+              <span className={"uk-text-warning"}>
+                {error.message || "不明なエラーです"}
+              </span>
             </div>
           </div>
-          {error && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
-                <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです"}
-                </span>
-              </div>
-            </div>
-          )}
-        </form>
+        )}
       </main>
     );
   }

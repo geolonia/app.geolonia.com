@@ -46,81 +46,79 @@ export class SignUpRoute extends React.PureComponent {
     return (
       <main className={"uk-margin uk-padding-small"}>
         <h3 className="uk-card-title">{"Sign Up"}</h3>
-        <form className="uk-form-horizontal" action={"#"}>
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="username">
-              {"username"}
-            </label>
-            <div className="uk-form-controls">
-              <input
-                className="uk-input"
-                id="username"
-                type="username"
-                value={username}
-                onChange={this.onUsernameChange}
-                placeholder="username"
-              />
-            </div>
+        <div className="uk-form-horizontal uk-margin">
+          <label className="uk-form-label" htmlFor="username">
+            {"username"}
+          </label>
+          <div className="uk-form-controls">
+            <input
+              className="uk-input"
+              id="username"
+              type="username"
+              value={username}
+              onChange={this.onUsernameChange}
+              placeholder="username"
+            />
           </div>
+        </div>
 
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="email">
-              {"email"}
-            </label>
-            <div className="uk-form-controls">
-              <input
-                className="uk-input"
-                id="email"
-                type="email"
-                value={email}
-                onChange={this.onEmailChange}
-                placeholder="name@example.com"
-              />
-            </div>
+        <div className="uk-margin">
+          <label className="uk-form-label" htmlFor="email">
+            {"email"}
+          </label>
+          <div className="uk-form-controls">
+            <input
+              className="uk-input"
+              id="email"
+              type="email"
+              value={email}
+              onChange={this.onEmailChange}
+              placeholder="name@example.com"
+            />
           </div>
+        </div>
 
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="password">
-              {"password"}
-            </label>
-            <div className="uk-form-controls">
-              <input
-                className="uk-input"
-                id="password"
-                type="password"
-                value={password}
-                onChange={this.onPasswordChange}
-              />
-            </div>
+        <div className="uk-margin">
+          <label className="uk-form-label" htmlFor="password">
+            {"password"}
+          </label>
+          <div className="uk-form-controls">
+            <input
+              className="uk-input"
+              id="password"
+              type="password"
+              value={password}
+              onChange={this.onPasswordChange}
+            />
           </div>
+        </div>
 
+        <div className="uk-margin uk-flex uk-flex-right">
+          <div className="uk-flex uk-flex-column">
+            <button
+              className="uk-button uk-button-default"
+              type={"button"}
+              onClick={this.onSignupClick}
+              disabled={!email || !password}
+            >
+              {"sign up"}
+            </button>
+          </div>
+        </div>
+        {error && (
           <div className="uk-margin uk-flex uk-flex-right">
             <div className="uk-flex uk-flex-column">
-              <button
-                className="uk-button uk-button-default"
-                type={"button"}
-                onClick={this.onSignupClick}
-                disabled={!email || !password}
-              >
-                {"sign up"}
-              </button>
+              <span className={"uk-text-warning"}>
+                {error.code || "不明なエラーです"}
+              </span>
             </div>
           </div>
-          {error && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
-                <span className={"uk-text-warning"}>
-                  {error.code || "不明なエラーです"}
-                </span>
-              </div>
-            </div>
-          )}
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
-              <Link to="/verify/">{"I have verification code."}</Link>
-            </div>
+        )}
+        <div className="uk-margin uk-flex uk-flex-right">
+          <div className="uk-flex uk-flex-column">
+            <Link to="/verify/">{"I have verification code."}</Link>
           </div>
-        </form>
+        </div>
       </main>
     );
   }

@@ -57,65 +57,63 @@ export class SignInRoute extends React.PureComponent {
         )}
         <h3 className="uk-card-title">{"Sign In"}</h3>
 
-        <form className="uk-form-horizontal" action={"#"}>
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="email">
-              {"email or username"}
-            </label>
-            <div className="uk-form-controls">
-              <input
-                className="uk-input"
-                id="email"
-                type="email"
-                value={email}
-                onChange={this.onEmailChange}
-                placeholder="username or name@example.com"
-              />
-            </div>
+        <div className="uk-form-horizontal uk-margin">
+          <label className="uk-form-label" htmlFor="email">
+            {"email or username"}
+          </label>
+          <div className="uk-form-controls">
+            <input
+              className="uk-input"
+              id="email"
+              type="email"
+              value={email}
+              onChange={this.onEmailChange}
+              placeholder="username or name@example.com"
+            />
           </div>
+        </div>
 
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="password">
-              {"password"}
-            </label>
-            <div className="uk-form-controls">
-              <input
-                className="uk-input"
-                id="password"
-                type="password"
-                value={password}
-                onChange={this.onPasswordChange}
-              />
-            </div>
+        <div className="uk-margin">
+          <label className="uk-form-label" htmlFor="password">
+            {"password"}
+          </label>
+          <div className="uk-form-controls">
+            <input
+              className="uk-input"
+              id="password"
+              type="password"
+              value={password}
+              onChange={this.onPasswordChange}
+            />
           </div>
+        </div>
 
+        <div className="uk-margin uk-flex uk-flex-right">
+          <div className="uk-flex uk-flex-column">
+            <button
+              className="uk-button uk-button-default"
+              type={"button"}
+              onClick={this.onSigninClick}
+              disabled={!email || !password}
+            >
+              {"sign in"}
+            </button>
+          </div>
+        </div>
+        {error && (
           <div className="uk-margin uk-flex uk-flex-right">
             <div className="uk-flex uk-flex-column">
-              <button
-                className="uk-button uk-button-default"
-                type={"button"}
-                onClick={this.onSigninClick}
-                disabled={!email || !password}
-              >
-                {"sign in"}
-              </button>
+              <span className={"uk-text-warning"}>
+                {error.message || "不明なエラーです。"}
+              </span>
             </div>
           </div>
-          {error && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
-                <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです。"}
-                </span>
-              </div>
-            </div>
-          )}
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
-              <Link to="/reset_password/">{"I forgot my password."}</Link>
-            </div>
+        )}
+        <div className="uk-margin uk-flex uk-flex-right">
+          <div className="uk-flex uk-flex-column">
+            <Link to="/reset_password/">{"I forgot my password."}</Link>
           </div>
-        </form>
+        </div>
       </main>
     );
   }
