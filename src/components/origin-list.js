@@ -18,7 +18,9 @@ export class OriginList extends React.PureComponent {
   state = { newOrigin: "" };
 
   onAddClick = () => {
-    this.props.add(this.props.recordIndex, this.state.newOrigin);
+    if (!this.props.origins.includes(this.state.newOrigin)) {
+      this.props.add(this.props.recordIndex, this.state.newOrigin);
+    }
     this.setState({ newOrigin: "" });
   };
 
