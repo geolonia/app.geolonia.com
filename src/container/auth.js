@@ -37,6 +37,7 @@ export class AuthContainer extends React.Component {
   };
 
   signUp = (username, email, password) => {
+    localStorage.clear();
     const param = { username, password, attributes: { email } };
     return Auth.signUp(param).then(userData => ({ successed: true }));
   };
@@ -50,11 +51,13 @@ export class AuthContainer extends React.Component {
       }
     });
 
-  signin = (email, password) =>
-    Auth.signIn(email, password).then(userData => {
+  signin = (email, password) => {
+    localStorage.clear();
+    return Auth.signIn(email, password).then(userData => {
       this._setUserData(userData);
       return { success: true };
     });
+  };
 
   resend = () => {
     const { username } = this.state.userData.user;
