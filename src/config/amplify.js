@@ -1,4 +1,4 @@
-import Amplify from "aws-amplify";
+import Amplify from 'aws-amplify';
 
 const {
   REACT_APP_AWS_REGION,

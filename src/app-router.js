@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Header from "./header";
 import HomeRoute from "./routes/home";
@@ -59,6 +60,10 @@ const AppRouter = props => {
       </div>
     </Router>
   );
+};
+
+AppRouter.propTypes = {
+  auth: PropTypes.object.isRequired
 };
 
 export default AppRouter;

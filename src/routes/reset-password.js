@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -17,43 +17,43 @@ export class ResetPasswordRoute extends React.PureComponent {
   };
 
   state = {
-    email: "",
-    code: "",
-    password: "",
+    email: '',
+    code: '',
+    password: '',
     requested: false,
     error: void 0
   };
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
-  onEmailChange = e => this._onChange("email", e.target.value);
-  onCodeChange = e => this._onChange("code", e.target.value);
-  onPasswordChange = e => this._onChange("password", e.target.value);
+  onEmailChange = (e) => this._onChange('email', e.target.value);
+  onCodeChange = (e) => this._onChange('code', e.target.value);
+  onPasswordChange = (e) => this._onChange('password', e.target.value);
 
   onRequestClick = () => {
     const { email } = this.state;
     this.props.auth
       .requestResetCode(email)
       .then(() => this.setState({ requested: true }))
-      .catch(error => this.setState({ error }));
+      .catch((error) => this.setState({ error }));
   };
   onResetClick = () => {
     const { email, code, password } = this.state;
     this.props.auth
       .resetPassword(email, code, password)
-      .catch(error => console.log({ error }) || this.setState({ error }));
+      .catch((error) => console.log({ error }) || this.setState({ error }));
   };
 
   render() {
     const { error, email, code, password, requested } = this.state;
 
     return (
-      <main className={"uk-margin uk-padding-small"}>
-        <h3 className="uk-card-title">{"reset password"}</h3>
+      <main className={'uk-margin uk-padding-small'}>
+        <h3 className="uk-card-title">{'reset password'}</h3>
 
         <form className="uk-form-horizontal" action="">
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="email">
-              {"email"}
+              {'email'}
             </label>
             <div className="uk-form-controls">
               <input
@@ -72,11 +72,11 @@ export class ResetPasswordRoute extends React.PureComponent {
             <div className="uk-flex uk-flex-column">
               <button
                 className="uk-button uk-button-default"
-                type={"button"}
+                type={'button'}
                 onClick={this.onRequestClick}
                 disabled={!email || requested}
               >
-                {"send reset email"}
+                {'send reset email'}
               </button>
             </div>
           </div>
@@ -84,8 +84,8 @@ export class ResetPasswordRoute extends React.PureComponent {
           {error && (
             <div className="uk-margin uk-flex uk-flex-right">
               <div className="uk-flex uk-flex-column">
-                <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです"}
+                <span className={'uk-text-warning'}>
+                  {error.message || '不明なエラーです'}
                 </span>
               </div>
             </div>
@@ -94,7 +94,7 @@ export class ResetPasswordRoute extends React.PureComponent {
           {requested && (
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="code">
-                {"code"}
+                {'code'}
               </label>
               <div className="uk-form-controls">
                 <input
@@ -112,7 +112,7 @@ export class ResetPasswordRoute extends React.PureComponent {
           {requested && (
             <div className="uk-margin">
               <label className="uk-form-label" htmlFor="password">
-                {"password"}
+                {'password'}
               </label>
               <div className="uk-form-controls">
                 <input
@@ -131,11 +131,11 @@ export class ResetPasswordRoute extends React.PureComponent {
               <div className="uk-flex uk-flex-column">
                 <button
                   className="uk-button uk-button-default"
-                  type={"button"}
+                  type={'button'}
                   onClick={this.onRequestClick}
                   disabled={!code || !password}
                 >
-                  {"reset password"}
+                  {'reset password'}
                 </button>
               </div>
             </div>

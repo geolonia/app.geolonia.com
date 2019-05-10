@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -18,16 +18,16 @@ export class SignUpRoute extends React.PureComponent {
   };
 
   state = {
-    username: "",
-    email: "",
-    password: "",
+    username: '',
+    email: '',
+    password: '',
     error: false
   };
 
   _onChange = (key, value) => this.setState({ [key]: value });
-  onUsernameChange = e => this._onChange("username", e.target.value);
-  onEmailChange = e => this._onChange("email", e.target.value);
-  onPasswordChange = e => this._onChange("password", e.target.value);
+  onUsernameChange = (e) => this._onChange('username', e.target.value);
+  onEmailChange = (e) => this._onChange('email', e.target.value);
+  onPasswordChange = (e) => this._onChange('password', e.target.value);
 
   onSignupClick = () => {
     const { username, email, password } = this.state;
@@ -37,19 +37,19 @@ export class SignUpRoute extends React.PureComponent {
         ({ successed }) =>
           successed && this.props.history.push(`/verify?username=${username}`)
       )
-      .catch(error => this.setState({ error }));
+      .catch((error) => this.setState({ error }));
   };
 
   render() {
     const { username, email, password, error } = this.state;
 
     return (
-      <main className={"uk-margin uk-padding-small"}>
-        <h3 className="uk-card-title">{"Sign Up"}</h3>
-        <form action="" className={"uk-form-horizontal"}>
+      <main className={'uk-margin uk-padding-small'}>
+        <h3 className="uk-card-title">{'Sign Up'}</h3>
+        <form action="" className={'uk-form-horizontal'}>
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="username">
-              {"username"}
+              {'username'}
             </label>
             <div className="uk-form-controls">
               <input
@@ -65,7 +65,7 @@ export class SignUpRoute extends React.PureComponent {
 
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="email">
-              {"email"}
+              {'email'}
             </label>
             <div className="uk-form-controls">
               <input
@@ -81,7 +81,7 @@ export class SignUpRoute extends React.PureComponent {
 
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="password">
-              {"password"}
+              {'password'}
             </label>
             <div className="uk-form-controls">
               <input
@@ -98,26 +98,26 @@ export class SignUpRoute extends React.PureComponent {
             <div className="uk-flex uk-flex-column">
               <button
                 className="uk-button uk-button-default"
-                type={"button"}
+                type={'button'}
                 onClick={this.onSignupClick}
                 disabled={!email || !password}
               >
-                {"sign up"}
+                {'sign up'}
               </button>
             </div>
           </div>
           {error && (
             <div className="uk-margin uk-flex uk-flex-right">
               <div className="uk-flex uk-flex-column">
-                <span className={"uk-text-warning"}>
-                  {error.code || "不明なエラーです"}
+                <span className={'uk-text-warning'}>
+                  {error.code || '不明なエラーです'}
                 </span>
               </div>
             </div>
           )}
           <div className="uk-margin uk-flex uk-flex-right">
             <div className="uk-flex uk-flex-column">
-              <Link to="/verify/">{"I have verification code."}</Link>
+              <Link to="/verify/">{'I have verification code.'}</Link>
             </div>
           </div>
         </form>

@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
-import queryString from "query-string";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import queryString from 'query-string';
+import { Link } from 'react-router-dom';
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -26,15 +26,15 @@ export class VerifyCodeRoute extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      username: queryString.parse(props.history.location.search).username || "",
-      code: "",
+      username: queryString.parse(props.history.location.search).username || '',
+      code: '',
       error: void 0
     };
   }
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
-  onUsernameChange = e => this._onChange("username", e.target.value);
-  onCodeChange = e => this._onChange("code", e.target.value);
+  onUsernameChange = (e) => this._onChange('username', e.target.value);
+  onCodeChange = (e) => this._onChange('code', e.target.value);
 
   onVerifyClick = () => {
     this.props.auth
@@ -46,19 +46,19 @@ export class VerifyCodeRoute extends React.PureComponent {
           );
         }
       })
-      .catch(error => this.setState({ error }));
+      .catch((error) => this.setState({ error }));
   };
 
   render() {
     const { username, code, error } = this.state;
 
     return (
-      <main className={"uk-margin uk-padding-small"}>
-        <h3 className="uk-card-title">{"Code Verification"}</h3>
+      <main className={'uk-margin uk-padding-small'}>
+        <h3 className="uk-card-title">{'Code Verification'}</h3>
         <form action="" className="uk-form-horizontal">
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="username">
-              {"username"}
+              {'username'}
             </label>
             <div className="uk-form-controls">
               <input
@@ -74,7 +74,7 @@ export class VerifyCodeRoute extends React.PureComponent {
 
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="code">
-              {"code"}
+              {'code'}
             </label>
             <div className="uk-form-controls">
               <input
@@ -92,25 +92,25 @@ export class VerifyCodeRoute extends React.PureComponent {
             <div className="uk-flex uk-flex-column">
               <button
                 className="uk-button uk-button-default"
-                type={"button"}
+                type={'button'}
                 onClick={this.onVerifyClick}
               >
-                {"verify"}
+                {'verify'}
               </button>
             </div>
           </div>
           {error && (
             <div className="uk-margin uk-flex uk-flex-right">
               <div className="uk-flex uk-flex-column">
-                <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです"}
+                <span className={'uk-text-warning'}>
+                  {error.message || '不明なエラーです'}
                 </span>
               </div>
             </div>
           )}
           <div className="uk-margin uk-flex uk-flex-right">
             <div className="uk-flex uk-flex-column">
-              <Link to="/resend/">{"I lost verification code."}</Link>
+              <Link to="/resend/">{'I lost verification code.'}</Link>
             </div>
           </div>
         </form>

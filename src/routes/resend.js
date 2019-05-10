@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export class ResendCodeRoute extends React.PureComponent {
   /**
@@ -13,12 +13,12 @@ export class ResendCodeRoute extends React.PureComponent {
   };
 
   state = {
-    email: "",
+    email: '',
     error: void 0
   };
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
-  onEmailChange = e => this._onChange("email", e.target.value);
+  onEmailChange = (e) => this._onChange('email', e.target.value);
 
   onResendClick = () => {
     console.log(this.props.auth.userData);
@@ -27,20 +27,20 @@ export class ResendCodeRoute extends React.PureComponent {
       this.state.email;
     this.props.auth
       .resend(email)
-      .then(({ successed }) => successed && this.props.history.push(`/verify/`))
-      .catch(error => this.setState({ error }));
+      .then(({ successed }) => successed && this.props.history.push('/verify/'))
+      .catch((error) => this.setState({ error }));
   };
 
   render() {
     const { email, error } = this.state;
 
     return (
-      <main className={"uk-margin uk-padding-small"}>
-        <h3 className="uk-card-title">{"Request Resend Verification Code"}</h3>
+      <main className={'uk-margin uk-padding-small'}>
+        <h3 className="uk-card-title">{'Request Resend Verification Code'}</h3>
         <form className="uk-form-horizontal" action="">
           <div className="uk-margin">
             <label className="uk-form-label" htmlFor="email">
-              {"email"}
+              {'email'}
             </label>
             <div className="uk-form-controls">
               <input
@@ -58,18 +58,18 @@ export class ResendCodeRoute extends React.PureComponent {
             <div className="uk-flex uk-flex-column">
               <button
                 className="uk-button uk-button-default"
-                type={"button"}
+                type={'button'}
                 onClick={this.onResendClick}
               >
-                {"resend"}
+                {'resend'}
               </button>
             </div>
           </div>
           {error && (
             <div className="uk-margin uk-flex uk-flex-right">
               <div className="uk-flex uk-flex-column">
-                <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです"}
+                <span className={'uk-text-warning'}>
+                  {error.message || '不明なエラーです'}
                 </span>
               </div>
             </div>

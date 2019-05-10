@@ -1,5 +1,5 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
 export class Toggle extends React.Component {
   /**
@@ -18,7 +18,7 @@ export class Toggle extends React.Component {
    */
   static defaultProps = {
     defaultOpen: false,
-    sub: ""
+    sub: ''
   };
 
   /**
@@ -44,29 +44,29 @@ export class Toggle extends React.Component {
     const { label, sub, children } = this.props;
 
     return (
-      <div style={{ position: "relative" }}>
+      <div style={{ position: 'relative' }}>
         <button
           style={{
-            position: "absolute",
+            position: 'absolute',
             top: 8,
             left: -15,
-            background: "none",
-            border: "none",
-            cursor: "pointer",
-            outline: "none"
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            outline: 'none'
           }}
           onClick={this.onToggleClick}
         >
-          {open ? "V" : ">"}
+          {open ? 'V' : '>'}
         </button>
-        <div className={"uk-margin-left"}>
+        <div className={'uk-margin-left'}>
           {open ? (
             children
           ) : (
             <div>
-              <p className={"uk-margin-remove-bottom"}>{label}</p>
-              <p className={"uk-margin-remove-bottom uk-text-meta"}>
-                {sub || "(No description)"}
+              <p className={'uk-margin-remove-bottom'}>{label}</p>
+              <p className={'uk-margin-remove-bottom uk-text-meta'}>
+                {sub || '(No description)'}
               </p>
             </div>
           )}
