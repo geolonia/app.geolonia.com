@@ -34,46 +34,54 @@ export class DashboardRoute extends React.PureComponent {
     }
   }
 
-  onCreateClick = () =>
-    this.props.auth.API.createKey().then(data =>
-      this.setState({ userKeys: [...this.state.userKeys, data] })
-    );
+  onCreateClick = () => {
+    this.setState({ error: false });
+    this.props.auth.API.createKey()
+      .then(data => this.setState({ userKeys: [...this.state.userKeys, data] }))
+      .catch(err => this.setState({ error: true }));
+  };
 
   onDeleteClick = e => {
+    this.setState({ error: false });
     const index = e.target.value;
     const { userKey } = this.state.userKeys[index];
-    return this.props.auth.API.deleteKey(userKey).then(() => {
-      const userKeys = [...this.state.userKeys];
-      userKeys.splice(index, 1);
-      this.setState({ userKeys });
-    });
+    return this.props.auth.API.deleteKey(userKey)
+      .then(() => {
+        const userKeys = [...this.state.userKeys];
+        userKeys.splice(index, 1);
+        this.setState({ userKeys });
+      })
+      .catch(err => this.setState({ error: true }));
   };
 
   onCheckUpdate = e => {
+    this.setState({ error: false });
     const {
       name,
       checked,
       dataset: { index }
     } = e.target;
     const { userKey } = this.state.userKeys[index];
-    return this.props.auth.API.updateKey(userKey, { [name]: checked }).then(
-      console.log
-    );
+    return this.props.auth.API.updateKey(userKey, { [name]: checked })
+      .then(console.log)
+      .catch(err => this.setState({ error: true }));
   };
 
   onTextUpdate = e => {
+    this.setState({ error: false });
     const {
       name,
       value,
       dataset: { index }
     } = e.target;
     const { userKey } = this.state.userKeys[index];
-    return this.props.auth.API.updateKey(userKey, { [name]: value }).then(
-      console.log
-    );
+    return this.props.auth.API.updateKey(userKey, { [name]: value })
+      .then(console.log)
+      .catch(err => this.setState({ error: true }));
   };
 
   addOriginIndexOf = (recordIndex, origin) => {
+    this.setState({ error: false });
     const userKey = { ...this.state.userKeys[recordIndex] };
     const allowedOrigins = [...userKey.allowedOrigins, origin];
     userKey.allowedOrigins = allowedOrigins;
@@ -82,12 +90,13 @@ export class DashboardRoute extends React.PureComponent {
     userKeys[recordIndex] = userKey;
 
     this.setState({ userKeys });
-    this.props.auth.API.updateKey(userKey.userKey, { allowedOrigins }).then(
-      console.log
-    );
+    this.props.auth.API.updateKey(userKey.userKey, { allowedOrigins })
+      .then(console.log)
+      .catch(err => this.setState({ error: true }));
   };
 
   removeOriginIndexOf = (recordIndex, originIndex) => {
+    this.setState({ error: false });
     const userKey = { ...this.state.userKeys[recordIndex] };
     const allowedOrigins = [...userKey.allowedOrigins];
     allowedOrigins.splice(originIndex, 1);
@@ -97,16 +106,16 @@ export class DashboardRoute extends React.PureComponent {
     userKeys[recordIndex] = userKey;
 
     this.setState({ userKeys });
-    this.props.auth.API.updateKey(userKey.userKey, { allowedOrigins }).then(
-      console.log
-    );
+    this.props.auth.API.updateKey(userKey.userKey, { allowedOrigins })
+      .then(console.log)
+      .catch(err => this.setState({ error: true }));
   };
 
   render() {
     const {
       auth: { userData }
     } = this.props;
-    const { userKeys } = this.state;
+    const { userKeys, error } = this.state;
 
     if (!userData) {
       return null;
@@ -114,6 +123,12 @@ export class DashboardRoute extends React.PureComponent {
 
     return (
       <main className={"uk-margin uk-padding-small"}>
+        {error && (
+          <div uk-alert="true" className="uk-alert-danger">
+            <p className="uk-padding">{"Request failed."}</p>
+          </div>
+        )}
+
         <div className="uk-margin">
           <button
             className={"uk-button uk-button-default"}
