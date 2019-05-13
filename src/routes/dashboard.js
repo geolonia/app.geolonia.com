@@ -11,9 +11,27 @@ export class DashboardRoute extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = { userKeys: [], error: false };
-    props.auth.API.listKeys()
+    if (props.auth.userData) {
+      this.listKeys();
+    }
+  }
+
+  listKeys = async () =>
+    this.props.auth.API.listKeys()
       .then(userKeys => this.setState({ userKeys }))
       .catch(() => this.setState({ userKeys: [], error: true }));
+
+  /**
+   * componentDidUpdate
+   * @param  {object} prevProps prev props
+   * @param  {object} prevState prev state
+   * @param  {object} snapshot  snapshot
+   * @return {void}
+   */
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevProps.auth.userData && this.props.auth.userData) {
+      this.listKeys();
+    }
   }
 
   onCreateClick = () =>
@@ -85,7 +103,14 @@ export class DashboardRoute extends React.PureComponent {
   };
 
   render() {
+    const {
+      auth: { userData }
+    } = this.props;
     const { userKeys } = this.state;
+
+    if (!userData) {
+      return null;
+    }
 
     return (
       <main className={"uk-margin uk-padding-small"}>

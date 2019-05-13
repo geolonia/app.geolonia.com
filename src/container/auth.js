@@ -15,29 +15,50 @@ export class AuthContainer extends React.Component {
     Root: PropTypes.func.isRequired
   };
 
+  state = { userData: void 0, display: true };
+
   /**
-   * constructor
-   * @param  {object} props React props.
+   * componentDidMount
    * @return {void}
    */
-  constructor(props) {
-    super(props);
+  async componentDidMount() {
     let userData = void 0;
+    let isExpired = false;
     try {
-      userData = JSON.parse(localStorage.getItem("tilecloud_user")) || void 0;
-    } catch (e) {
+      userData = await Auth.currentAuthenticatedUser();
+      const expiredAt = userData.signInUserSession.idToken.payload.exp * 1000;
+      const now = Date.now();
+      isExpired = expiredAt <= now;
+    } catch (variable) {
       userData = void 0;
     }
-    this.state = { userData, display: true };
+
+    if (userData && !isExpired) {
+      const { successed } = await this._refreshToken(userData);
+      if (successed) {
+        this.setState({ userData });
+      }
+    }
   }
 
-  _setUserData = userData => {
-    localStorage.setItem("tilecloud_user", JSON.stringify(userData));
-    this.setState({ userData });
+  _refreshToken = async userData => {
+    try {
+      const currentSession = await Auth.currentSession();
+      return new Promise((resolve, reject) =>
+        userData.refreshSession(currentSession.refreshToken, (err, session) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve({ successed: true });
+          }
+        })
+      );
+    } catch (e) {
+      return { successed: false };
+    }
   };
 
   signUp = (username, email, password) => {
-    localStorage.clear();
     const param = { username, password, attributes: { email } };
     return Auth.signUp(param).then(userData => ({ successed: true }));
   };
@@ -51,13 +72,11 @@ export class AuthContainer extends React.Component {
       }
     });
 
-  signin = (email, password) => {
-    localStorage.clear();
-    return Auth.signIn(email, password).then(userData => {
-      this._setUserData(userData);
+  signin = (email, password) =>
+    Auth.signIn(email, password).then(userData => {
+      this.setState({ userData });
       return { successed: true };
     });
-  };
 
   resend = () => {
     const { username } = this.state.userData.user;
@@ -67,11 +86,9 @@ export class AuthContainer extends React.Component {
   requestResetCode = email => Auth.forgotPassword(email);
 
   resetPassword = (email, code, password) => {
-    console.log({ email, code, password });
     return Auth.forgotPasswordSubmit(email, code, password)
       .then(data => {
-        console.log(data);
-        localStorage.clear();
+        Auth.signOut();
         this.setState({ userData: void 0 });
         return { successed: true };
       })
@@ -79,12 +96,13 @@ export class AuthContainer extends React.Component {
   };
 
   signout = () => {
-    localStorage.clear();
+    Auth.signOut();
     this.setState({ userData: void 0 });
   };
 
   mapAuthProps = () => {
     const {
+      _refreshToken,
       removeError,
       signUp,
       setUserData,
@@ -116,10 +134,14 @@ export class AuthContainer extends React.Component {
       resetPassword,
       // API
       API: {
-        createKey: createKey(token),
-        listKeys: listKeys(token),
-        updateKey: updateKey(token),
-        deleteKey: deleteKey(token)
+        createKey: (...params) =>
+          _refreshToken(userData).then(() => createKey(token)(...params)),
+        listKeys: (...params) =>
+          _refreshToken(userData).then(() => listKeys(token)(...params)),
+        updateKey: (...params) =>
+          _refreshToken(userData).then(() => updateKey(token)(...params)),
+        deleteKey: (...params) =>
+          _refreshToken(userData).then(() => deleteKey(token)(...params))
       }
     };
   };
