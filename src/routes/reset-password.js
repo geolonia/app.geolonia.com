@@ -82,7 +82,7 @@ export class ResetPasswordRoute extends React.PureComponent {
                 onClick={this.onRequestClick}
                 disabled={!email || requested}
               >
-                {"send reset email"}
+                {"send reset code via email"}
               </button>
             </div>
           </div>
