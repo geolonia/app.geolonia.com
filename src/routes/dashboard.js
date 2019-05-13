@@ -86,7 +86,7 @@ export class DashboardRoute extends React.PureComponent {
 
   render() {
     const { userKeys } = this.state;
-    console.log(userKeys);
+
     return (
       <main className={"uk-margin uk-padding-small"}>
         <div className="uk-margin">

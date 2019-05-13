@@ -27,6 +27,7 @@ export class SignInRoute extends React.PureComponent {
     const parsed = queryString.parse(props.history.location.search);
     this.state = {
       verified: "true" === parsed.verified,
+      reset: "true" === parsed.reset,
       email: parsed.username || "",
       password: "",
       error: void 0
@@ -39,21 +40,32 @@ export class SignInRoute extends React.PureComponent {
   onSigninClick = () => {
     this.props.auth
       .signin(this.state.email, this.state.password)
-      .then(({ success }) => success && this.props.history.push("/dashboard/"))
+      .then(
+        ({ successed }) => successed && this.props.history.push("/dashboard/")
+      )
       .catch(error => this.setState({ error }));
   };
 
   render() {
-    const { verified, email, password, error } = this.state;
+    const { verified, reset, email, password, error } = this.state;
 
     return (
       <main className={"uk-margin uk-padding-small"}>
         {verified && (
-          <div uk-alert className="uk-alert-success">
+          <div uk-alert="true" className="uk-alert-success">
             <p className="uk-padding">
               {"Your account have been successfully verified!"}
               <br />
               {"Please sign in to start TileCloud."}
+            </p>
+          </div>
+        )}
+        {reset && (
+          <div uk-alert="true" className="uk-alert-primary">
+            <p className="uk-padding">
+              {"Your password has been reset successfully."}
+              <br />
+              {"Please sign in to continue TileCloud."}
             </p>
           </div>
         )}

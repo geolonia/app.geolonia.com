@@ -57,7 +57,7 @@ export class VerifyCodeRoute extends React.PureComponent {
     return (
       <main className={"uk-margin uk-padding-small"}>
         {sent && (
-          <div uk-alert className="uk-alert-primary">
+          <div uk-alert="true" className="uk-alert-primary">
             <p className="uk-padding">
               {
                 "Please enter a verification code on the email we have been sent."
