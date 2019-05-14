@@ -19,7 +19,10 @@ export class DashboardRoute extends React.PureComponent {
   listKeys = async () =>
     this.props.auth.API.listKeys()
       .then(userKeys => this.setState({ userKeys }))
-      .catch(() => this.setState({ userKeys: [], error: true }));
+      .catch(
+        err =>
+          console.error(err) || this.setState({ userKeys: [], error: true })
+      );
 
   /**
    * componentDidUpdate
@@ -63,7 +66,11 @@ export class DashboardRoute extends React.PureComponent {
     } = e.target;
     const { userKey } = this.state.userKeys[index];
     return this.props.auth.API.updateKey(userKey, { [name]: checked })
-      .then(console.log)
+      .then(() => {
+        const userKeys = [...this.state.userKeys];
+        userKeys[index] = { ...userKeys[index], [name]: checked };
+        this.setState({ userKeys });
+      })
       .catch(err => this.setState({ error: true }));
   };
 
@@ -76,38 +83,23 @@ export class DashboardRoute extends React.PureComponent {
     } = e.target;
     const { userKey } = this.state.userKeys[index];
     return this.props.auth.API.updateKey(userKey, { [name]: value })
-      .then(console.log)
+      .then(() => {
+        const userKeys = [...this.state.userKeys];
+        userKeys[index] = { ...userKeys[index], [name]: value };
+        this.setState({ userKeys });
+      })
       .catch(err => this.setState({ error: true }));
   };
 
-  addOriginIndexOf = (recordIndex, origin) => {
+  createOriginChangeHandler = index => allowedOrigins => {
     this.setState({ error: false });
-    const userKey = { ...this.state.userKeys[recordIndex] };
-    const allowedOrigins = [...userKey.allowedOrigins, origin];
-    userKey.allowedOrigins = allowedOrigins;
-
-    const userKeys = [...this.state.userKeys];
-    userKeys[recordIndex] = userKey;
-
-    this.setState({ userKeys });
-    this.props.auth.API.updateKey(userKey.userKey, { allowedOrigins })
-      .then(console.log)
-      .catch(err => this.setState({ error: true }));
-  };
-
-  removeOriginIndexOf = (recordIndex, originIndex) => {
-    this.setState({ error: false });
-    const userKey = { ...this.state.userKeys[recordIndex] };
-    const allowedOrigins = [...userKey.allowedOrigins];
-    allowedOrigins.splice(originIndex, 1);
-    userKey.allowedOrigins = allowedOrigins;
-
-    const userKeys = [...this.state.userKeys];
-    userKeys[recordIndex] = userKey;
-
-    this.setState({ userKeys });
-    this.props.auth.API.updateKey(userKey.userKey, { allowedOrigins })
-      .then(console.log)
+    const { userKey } = this.state.userKeys[index];
+    return this.props.auth.API.updateKey(userKey, { allowedOrigins })
+      .then(() => {
+        const userKeys = [...this.state.userKeys];
+        userKeys[index] = { ...userKeys[index], allowedOrigins };
+        this.setState({ userKeys });
+      })
       .catch(err => this.setState({ error: true }));
   };
 
@@ -196,9 +188,7 @@ export class DashboardRoute extends React.PureComponent {
 
                   <OriginList
                     origins={allowedOrigins || []}
-                    recordIndex={index}
-                    add={this.addOriginIndexOf}
-                    remove={this.removeOriginIndexOf}
+                    onChange={this.createOriginChangeHandler(index)}
                   />
 
                   <button
@@ -206,7 +196,7 @@ export class DashboardRoute extends React.PureComponent {
                     onClick={this.onDeleteClick}
                     value={index}
                   >
-                    {"DELETE KEY"}
+                    {"DELETE THIS KEY"}
                   </button>
                 </Toggle>
               </div>
