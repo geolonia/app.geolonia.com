@@ -7,15 +7,13 @@ export const deleteKey = token => userKey => {
       "Content-Type": "Application/json",
       Authorization: token
     }
-  })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      } else {
-        throw new Error("Request Error");
-      }
-    })
-    .then(({ body }) => body);
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    } else {
+      throw new Error("Request Error");
+    }
+  });
 };
 
 export default deleteKey;
