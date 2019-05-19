@@ -1,6 +1,4 @@
 import React from "react";
-import OriginList from "../components/origin-list";
-import Toggle from "../components/toggle";
 
 export class DashboardRoute extends React.PureComponent {
   /**
@@ -10,7 +8,12 @@ export class DashboardRoute extends React.PureComponent {
    */
   constructor(props) {
     super(props);
-    this.state = { userKeys: [], error: false };
+    this.state = {
+      userKeys: [],
+      openedUserKey: false,
+      error: false,
+      nextUserKeyProps: {}
+    };
     if (props.auth.userData) {
       this.listKeys();
     }
@@ -48,13 +51,30 @@ export class DashboardRoute extends React.PureComponent {
       .catch(err => this.setState({ error: true }));
   };
 
-  onDeleteClick = e => {
+  onOpenModalClick = openedUserKey => () =>
+    this.setState({ error: false, openedUserKey });
+  onCloseModalClick = () =>
+    this.setState({ error: false, openedUserKey: false, nextUserKeyProps: {} });
+
+  onSaveClick = () => {
+    const { openedUserKey, nextUserKeyProps } = this.state;
+    this.props.auth.API.updateKey(openedUserKey, nextUserKeyProps)
+      .then(() => {
+        const userKeys = [...this.state.userKeys];
+        const index = userKeys.map(x => x.userKey).indexOf(openedUserKey);
+        userKeys[index] = { ...userKeys[index], ...nextUserKeyProps };
+        this.setState({ userKeys });
+        this.onCloseModalClick();
+      })
+      .catch(err => this.setState({ error: true }));
+  };
+
+  onDeleteClick = userKey => () => {
     this.setState({ error: false });
-    const index = e.target.value;
-    const { userKey } = this.state.userKeys[index];
     return this.props.auth.API.deleteKey(userKey)
       .then(() => {
         const userKeys = [...this.state.userKeys];
+        const index = userKeys.map(x => x.userKey).indexOf(userKey);
         userKeys.splice(index, 1);
         this.setState({ userKeys });
       })
@@ -62,49 +82,122 @@ export class DashboardRoute extends React.PureComponent {
   };
 
   onCheckUpdate = e => {
-    this.setState({ error: false });
-    const {
-      name,
-      checked,
-      dataset: { index }
-    } = e.target;
-    const { userKey } = this.state.userKeys[index];
-    return this.props.auth.API.updateKey(userKey, { [name]: checked })
-      .then(() => {
-        const userKeys = [...this.state.userKeys];
-        userKeys[index] = { ...userKeys[index], [name]: checked };
-        this.setState({ userKeys });
-      })
-      .catch(err => this.setState({ error: true }));
+    const { name, checked } = e.target;
+    this.setState({
+      nextUserKeyProps: { ...this.state.nextUserKeyProps, [name]: checked }
+    });
   };
 
   onTextUpdate = e => {
-    this.setState({ error: false });
-    const {
-      name,
-      value,
-      dataset: { index }
-    } = e.target;
-    const { userKey } = this.state.userKeys[index];
-    return this.props.auth.API.updateKey(userKey, { [name]: value })
-      .then(() => {
-        const userKeys = [...this.state.userKeys];
-        userKeys[index] = { ...userKeys[index], [name]: value };
-        this.setState({ userKeys });
-      })
-      .catch(err => this.setState({ error: true }));
+    const { name, value } = e.target;
+    this.setState({
+      nextUserKeyProps: { ...this.state.nextUserKeyProps, [name]: value }
+    });
   };
 
-  createOriginChangeHandler = index => allowedOrigins => {
-    this.setState({ error: false });
-    const { userKey } = this.state.userKeys[index];
-    return this.props.auth.API.updateKey(userKey, { allowedOrigins })
-      .then(() => {
-        const userKeys = [...this.state.userKeys];
-        userKeys[index] = { ...userKeys[index], allowedOrigins };
-        this.setState({ userKeys });
-      })
-      .catch(err => this.setState({ error: true }));
+  onTextareaUpdate = e => {
+    const { name, value } = e.target;
+    const formatedValue = value.replace(/ /g, "").split("\n");
+    this.setState({
+      nextUserKeyProps: {
+        ...this.state.nextUserKeyProps,
+        [name]: formatedValue
+      }
+    });
+  };
+
+  renderModalContent = () => {
+    const { userKeys, openedUserKey } = this.state;
+    if (!openedUserKey) {
+      return false;
+    }
+
+    const { userKey, enabled, allowedOrigins, description } =
+      userKeys.find(x => x.userKey === openedUserKey) || {};
+
+    if (!userKey) {
+      return false;
+    }
+
+    return (
+      <div class="uk-flex-top uk-modal uk-flex uk-open" uk-modal={true}>
+        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+          <button
+            class="uk-modal-close-default"
+            type="button"
+            style={{ background: "none", border: "none" }}
+            onClick={this.onCloseModalClick}
+          >
+            <i className={"fa fa-times"} />
+          </button>
+          <label className={"uk-form-label"} htmlFor={"your-api-key"}>
+            {"API KEY"}
+          </label>
+          <div className={"uk-form-controls"}>
+            <input
+              className={"uk-input"}
+              id={"your-api-key"}
+              type={"text"}
+              value={userKey}
+              disabled={true}
+              // onChange={x => x}
+            />
+          </div>
+
+          <div className="uk-margin">
+            <label className={"uk-form-label"} htmlFor={`enabled-${userKey}`}>
+              {"ENABLED"}
+            </label>
+            <input
+              className={"uk-checkbox"}
+              id={`enabled-${userKey}`}
+              type={"checkbox"}
+              defaultChecked={enabled}
+              name={"enabled"}
+              onChange={this.onCheckUpdate}
+            />
+          </div>
+
+          <div className="uk-margin">
+            <label className={"uk-form-label"} htmlFor={"description"}>
+              {"DESCRIPTION"}
+            </label>
+            <input
+              className={"uk-input"}
+              id={"description"}
+              type={"text"}
+              defaultValue={description}
+              name={"description"}
+              placeholder={"Describe your key"}
+              onChange={this.onTextUpdate}
+            />
+          </div>
+
+          <div className={"uk-margin"}>
+            <div className={"uk-form-controls"}>
+              <label className={"uk-form-label"} htmlFor="allowed-origins">
+                {"ALLOWED ORIGINS (an origin per line)"}
+              </label>
+              <textarea
+                className={"uk-textarea"}
+                name="allowedOrigins"
+                id="allowed-origins"
+                onChange={this.onTextareaUpdate}
+                defaultValue={allowedOrigins.join("\n")}
+              />
+            </div>
+          </div>
+          <div className="uk-margin">
+            <button
+              className={"uk-button uk-button-default"}
+              onClick={this.onSaveClick}
+            >
+              {"SAVE"}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   render() {
@@ -119,9 +212,7 @@ export class DashboardRoute extends React.PureComponent {
 
     return (
       <main
-        className={
-          "uk-container uk-container-xsmall uk-margin uk-padding-small"
-        }
+        className={"uk-container uk-container-small uk-margin uk-padding-small"}
       >
         {error && (
           <div uk-alert="true" className="uk-alert-danger">
@@ -138,79 +229,45 @@ export class DashboardRoute extends React.PureComponent {
           </button>
         </div>
 
-        <div className={"uk-form-stacked uk-margin"}>
-          {userKeys.map(
-            ({ userKey, enabled, description, allowedOrigins }, index) => (
-              <div
-                key={userKey}
-                className={"uk-card uk-card-default uk-card-body uk-margin"}
-              >
-                <Toggle label={userKey} sub={description}>
-                  <label className={"uk-form-label"} htmlFor={"your-api-key"}>
-                    {"YOUR API KEY"}
-                  </label>
-                  <div className={"uk-form-controls"}>
-                    <input
-                      className={"uk-input"}
-                      id={"your-api-key"}
-                      type={"text"}
-                      value={userKey}
-                      disabled={true}
-                      // onChange={x => x}
-                    />
-                  </div>
-
-                  <div className="uk-margin">
-                    <label
-                      className={"uk-form-label"}
-                      htmlFor={`enabled-${userKey}`}
+        {/* development */}
+        <table className="uk-table uk-table-divider">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>API KEY</th>
+              <th>Origin(s)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userKeys.map(
+              ({ userKey, enabled, description, allowedOrigins }, index) => (
+                <tr key={userKey}>
+                  <td>{description || "(no description)"}</td>
+                  <td>{userKey}</td>
+                  <td>{allowedOrigins.join(", ")}</td>
+                  <td>
+                    <button
+                      className={"uk-button"}
+                      style={{ marginRight: 10 }}
+                      onClick={this.onOpenModalClick(userKey)}
                     >
-                      {"ENABLED"}
-                    </label>
-                    <input
-                      className={"uk-checkbox"}
-                      id={`enabled-${userKey}`}
-                      type={"checkbox"}
-                      defaultChecked={enabled}
-                      name={"enabled"}
-                      data-index={index}
-                      onChange={this.onCheckUpdate}
-                    />
-                  </div>
+                      <i className={"fa fa-edit"} />
+                    </button>
+                    <button
+                      className={"uk-button"}
+                      onClick={this.onDeleteClick(userKey)}
+                    >
+                      <i className={"fa fa-trash"} />
+                    </button>
+                  </td>
+                </tr>
+              )
+            )}
+          </tbody>
+        </table>
 
-                  <div className="uk-margin">
-                    <label className={"uk-form-label"} htmlFor={"description"}>
-                      {"DESCRIPTION"}
-                    </label>
-                    <input
-                      className={"uk-input"}
-                      id={"description"}
-                      type={"text"}
-                      defaultValue={description}
-                      name={"description"}
-                      data-index={index}
-                      placeholder={"Describe your key"}
-                      onBlur={this.onTextUpdate}
-                    />
-                  </div>
-
-                  <OriginList
-                    origins={allowedOrigins || []}
-                    onChange={this.createOriginChangeHandler(index)}
-                  />
-
-                  <button
-                    className={"uk-button uk-button-default"}
-                    onClick={this.onDeleteClick}
-                    value={index}
-                  >
-                    {"DELETE THIS KEY"}
-                  </button>
-                </Toggle>
-              </div>
-            )
-          )}
-        </div>
+        {/*modal*/}
+        {this.renderModalContent()}
       </main>
     );
   }
