@@ -51,6 +51,13 @@ export class DashboardRoute extends React.PureComponent {
       .catch(err => this.setState({ error: true }));
   };
 
+  onCopyToClipboardClick = userKey => () => {
+    const clipboard = document.getElementById("clipboard");
+    clipboard.value = userKey;
+    clipboard.select();
+    document.execCommand("copy");
+  };
+
   onOpenModalClick = openedUserKey => () =>
     this.setState({ error: false, openedUserKey });
   onCloseModalClick = () =>
@@ -140,7 +147,6 @@ export class DashboardRoute extends React.PureComponent {
               type={"text"}
               value={userKey}
               disabled={true}
-              // onChange={x => x}
             />
           </div>
 
@@ -200,6 +206,16 @@ export class DashboardRoute extends React.PureComponent {
     );
   };
 
+  renderClipboard = () => (
+    <input
+      type="text"
+      style={{ top: -9999, left: -9999, position: "absolute" }}
+      value={""}
+      readOnly
+      id={"clipboard"}
+    />
+  );
+
   render() {
     const {
       auth: { userData }
@@ -212,7 +228,9 @@ export class DashboardRoute extends React.PureComponent {
 
     return (
       <main
-        className={"uk-container uk-container-small uk-margin uk-padding-small"}
+        className={
+          "uk-container uk-container-medium uk-margin uk-padding-small"
+        }
       >
         {error && (
           <div uk-alert="true" className="uk-alert-danger">
@@ -243,7 +261,15 @@ export class DashboardRoute extends React.PureComponent {
               ({ userKey, enabled, description, allowedOrigins }, index) => (
                 <tr key={userKey}>
                   <td>{description || "(no description)"}</td>
-                  <td>{userKey}</td>
+                  <td>
+                    {userKey}
+                    <button
+                      className={"uk-button"}
+                      onClick={this.onCopyToClipboardClick(userKey)}
+                    >
+                      <i className={"fa fa-clipboard"} />
+                    </button>
+                  </td>
                   <td>{allowedOrigins.join(", ")}</td>
                   <td>
                     <button
@@ -268,6 +294,7 @@ export class DashboardRoute extends React.PureComponent {
 
         {/*modal*/}
         {this.renderModalContent()}
+        {this.renderClipboard()}
       </main>
     );
   }
