@@ -1,9 +1,46 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-export const HomeRoute = () => (
-  <main className="uk-margin">
-    <h1 className={"uk-heading-small"}>{"TileCloud Dashboard"}</h1>
-  </main>
-);
+// Just redirect
+
+export class HomeRoute extends React.Component {
+  /**
+   * propTypes
+   * @type {object}
+   */
+  static propTypes = {
+    auth: PropTypes.shape({
+      userData: PropTypes.object
+    }).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired
+    }).isRequired
+  };
+
+  /**
+   * componentDidUpdate
+   * @param  {object} prevProps prev props
+   * @param  {object} prevState prev state
+   * @param  {object} snapshot  snapshot
+   * @return {void}
+   */
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
+      if (this.props.auth.userData) {
+        this.props.history.push("/dashboard/");
+      } else {
+        this.props.history.push("/sign-in/");
+      }
+    }
+  }
+
+  /**
+   * render
+   * @return {ReactElement|null|false} render a React element.
+   */
+  render() {
+    return false;
+  }
+}
 
 export default HomeRoute;

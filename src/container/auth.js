@@ -15,7 +15,7 @@ export class AuthContainer extends React.Component {
     Root: PropTypes.func.isRequired
   };
 
-  state = { userData: void 0, display: true };
+  state = { userData: void 0, display: true, userHasRetrieved: false };
 
   /**
    * componentDidMount
@@ -36,9 +36,12 @@ export class AuthContainer extends React.Component {
     if (userData && !isExpired) {
       const { successed } = await this._refreshToken(userData);
       if (successed) {
-        this.setState({ userData });
+        this.setState({ userData, userHasRetrieved: true });
+        return;
       }
     }
+
+    this.setState({ userHasRetrieved: true });
   }
 
   _refreshToken = async userData => {
@@ -113,7 +116,7 @@ export class AuthContainer extends React.Component {
       requestResetCode,
       resetPassword
     } = this;
-    const { userData, error } = this.state;
+    const { userData, error, userHasRetrieved } = this.state;
     const token = userData
       ? userData.signInUserSession.idToken.jwtToken
       : void 0;
@@ -122,6 +125,7 @@ export class AuthContainer extends React.Component {
       // authentication data
       userData,
       error,
+      userHasRetrieved,
       // methods
       removeError,
       signUp,

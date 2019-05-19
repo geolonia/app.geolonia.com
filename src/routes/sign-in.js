@@ -50,7 +50,18 @@ export class SignInRoute extends React.PureComponent {
     const { verified, reset, email, password, error } = this.state;
 
     return (
-      <main className={"uk-margin uk-padding-small"}>
+      <main
+        className={
+          "uk-container uk-container-xsmall uk-margin uk-padding-small"
+        }
+      >
+        <h1 className="uk-card-title uk-text-center">
+          <img
+            src={process.env.PUBLIC_URL + "/images/logo.png"}
+            alt="TileCloud"
+            style={{ width: 245, minWidth: "50%" }}
+          />
+        </h1>
         {verified && (
           <div uk-alert="true" className="uk-alert-success">
             <p className="uk-padding">

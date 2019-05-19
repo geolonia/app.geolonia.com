@@ -43,7 +43,7 @@ const AppRouter = props => {
   const { auth } = props;
   return (
     <Router>
-      <div className={"uk-container uk-container-xsmall"}>
+      <>
         <Route path="/" render={props => <Header {...props} auth={auth} />} />
 
         {Object.keys(routes).map(path => {
@@ -57,7 +57,7 @@ const AppRouter = props => {
             />
           );
         })}
-      </div>
+      </>
     </Router>
   );
 };

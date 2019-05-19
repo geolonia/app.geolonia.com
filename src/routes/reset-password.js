@@ -53,7 +53,11 @@ export class ResetPasswordRoute extends React.PureComponent {
     const { error, email, code, password, requested } = this.state;
 
     return (
-      <main className={"uk-margin uk-padding-small"}>
+      <main
+        className={
+          "uk-container uk-container-xsmall uk-margin uk-padding-small"
+        }
+      >
         <h3 className="uk-card-title">{"reset password"}</h3>
 
         <form className="uk-form-horizontal" action="">

@@ -32,8 +32,12 @@ export class DashboardRoute extends React.PureComponent {
    * @return {void}
    */
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!prevProps.auth.userData && this.props.auth.userData) {
-      this.listKeys();
+    if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
+      if (this.props.auth.userData) {
+        this.listKeys();
+      } else {
+        this.props.history.push("/sign-in/");
+      }
     }
   }
 
@@ -114,7 +118,11 @@ export class DashboardRoute extends React.PureComponent {
     }
 
     return (
-      <main className={"uk-margin uk-padding-small"}>
+      <main
+        className={
+          "uk-container uk-container-xsmall uk-margin uk-padding-small"
+        }
+      >
         {error && (
           <div uk-alert="true" className="uk-alert-danger">
             <p className="uk-padding">{"Request failed."}</p>

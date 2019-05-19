@@ -55,7 +55,11 @@ export class VerifyCodeRoute extends React.PureComponent {
     const { sent, username, code, error } = this.state;
 
     return (
-      <main className={"uk-margin uk-padding-small"}>
+      <main
+        className={
+          "uk-container uk-container-xsmall uk-margin uk-padding-small"
+        }
+      >
         {sent && (
           <div uk-alert="true" className="uk-alert-primary">
             <p className="uk-padding">

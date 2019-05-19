@@ -45,7 +45,18 @@ export class SignUpRoute extends React.PureComponent {
     const { username, email, password, error } = this.state;
 
     return (
-      <main className={"uk-margin uk-padding-small"}>
+      <main
+        className={
+          "uk-container uk-container-xsmall uk-margin uk-padding-small"
+        }
+      >
+        <h1 className="uk-card-title uk-text-center">
+          <img
+            src={process.env.PUBLIC_URL + "/images/logo.png"}
+            alt="TileCloud"
+            style={{ width: 245, minWidth: "50%" }}
+          />
+        </h1>
         <h3 className="uk-card-title">{"Sign Up"}</h3>
 
         <form action="" className={"uk-form-horizontal"}>
