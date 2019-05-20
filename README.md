@@ -1,11 +1,11 @@
-# TileCloud Beta Dashboard
+# @tilecloud/dashboard
 
 ## development
 
 ```
-$ git clone git@github.com:tilecloud/beta-dashboard.git
-$ cd beta-dashboard
-$ cp .env.sample .env.development
+$ git clone git@github.com:tilecloud/dashboard.git
+$ cd dashboard
+$ vi .env.development
 $ npm install
 $ npm start
 ```
@@ -13,6 +13,6 @@ $ npm start
 ## build production
 
 ```
-$ cp .env.sample .env.production
+$ vi .env.production
 $ npm run build
 ```
