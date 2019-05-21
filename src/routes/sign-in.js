@@ -91,7 +91,7 @@ export class SignInRoute extends React.PureComponent {
               <input
                 className="uk-input"
                 id="email"
-                type="email"
+                type={"text"}
                 value={email}
                 onChange={this.onEmailChange}
                 placeholder="username or name@example.com"
