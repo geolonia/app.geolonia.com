@@ -145,7 +145,7 @@ export class SignUpRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
-              <Link to={"/verify/"}>{"I have verification code."}</Link>
+              <Link to={"/verify/"}>{"I have a verification code."}</Link>
             </div>
           </div>
         </form>
