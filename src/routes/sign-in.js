@@ -66,9 +66,9 @@ export class SignInRoute extends React.PureComponent {
         {verified && (
           <div uk-alert={"true"} className={"uk-alert-success"}>
             <p className={"uk-padding"}>
-              {"Your account have been successfully verified!"}
+              {"Congratulations! Your account have been successfully verified!"}
               <br />
-              {"Please sign in to start TileCloud."}
+              {"Please reenter password to sign in and enjoy TileCloud!"}
             </p>
           </div>
         )}
