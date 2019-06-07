@@ -92,11 +92,11 @@ export class ResetPasswordRoute extends React.PureComponent {
           </div>
 
           {requested && (
-            <div uk-alert={"true"} className={"uk-alert-primary"}>
+            <div uk-alert={"true"} className={"uk-alert-success"}>
               <p className={"uk-padding"}>
-                {
-                  "Please enter a verification code on the email we have been sent."
-                }
+                {"We have sent verification code via email."}
+                <br />
+                {"Please enter the code on the email."}
               </p>
             </div>
           )}

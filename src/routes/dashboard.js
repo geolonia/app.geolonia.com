@@ -253,9 +253,9 @@ export class DashboardRoute extends React.PureComponent {
         <table className={"uk-table uk-table-divider"}>
           <thead>
             <tr>
-              <th>Description</th>
-              <th>API KEY</th>
-              <th>Origin(s)</th>
+              <th>{"Description"}</th>
+              <th>{"API KEY"}</th>
+              <th>{userKeys.length > 1 ? "Origins" : "Origin"}</th>
             </tr>
           </thead>
           <tbody>

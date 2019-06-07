@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import getErrorMessage from "../assets/errors";
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -21,16 +22,18 @@ export class SignUpRoute extends React.PureComponent {
     username: "",
     email: "",
     password: "",
+    requesting: false,
     error: false
   };
 
-  _onChange = (key, value) => this.setState({ [key]: value });
+  _onChange = (key, value) => this.setState({ [key]: value, error: false });
   onUsernameChange = e => this._onChange("username", e.target.value);
   onEmailChange = e => this._onChange("email", e.target.value);
   onPasswordChange = e => this._onChange("password", e.target.value);
 
   onSignupClick = () => {
     const { username, email, password } = this.state;
+    this.setState({ requesting: true });
     this.props.auth
       .signUp(username, email, password)
       .then(
@@ -38,11 +41,16 @@ export class SignUpRoute extends React.PureComponent {
           successed &&
           this.props.history.push(`/verify?sent=true&username=${username}`)
       )
-      .catch(error => this.setState({ error }));
+      .catch(error => this.setState({ error, requesting: false }));
   };
 
   render() {
-    const { username, email, password, error } = this.state;
+    const { username, email, password, requesting, error } = this.state;
+
+    // TODO: Split Form modules as a Component
+    const isUsernameValid = true;
+    const isPasswordValid = true;
+    const isEmailValid = true;
 
     return (
       <main
@@ -113,7 +121,14 @@ export class SignUpRoute extends React.PureComponent {
                 className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onSignupClick}
-                disabled={!email || !password}
+                disabled={
+                  !username ||
+                  !email ||
+                  !password ||
+                  !isUsernameValid ||
+                  !isEmailValid ||
+                  !isPasswordValid
+                }
               >
                 {"sign up"}
               </button>
@@ -123,7 +138,7 @@ export class SignUpRoute extends React.PureComponent {
             <div className={"uk-margin uk-flex uk-flex-right"}>
               <div className={"uk-flex uk-flex-column"}>
                 <span className={"uk-text-warning"}>
-                  {error.code || "不明なエラーです"}
+                  {getErrorMessage(error, "signup")}
                 </span>
               </div>
             </div>
