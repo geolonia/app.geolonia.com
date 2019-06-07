@@ -59,7 +59,7 @@ export class SignUpRoute extends React.PureComponent {
         </h1>
         <h3 className={"uk-card-title"}>{"Sign Up"}</h3>
 
-        <form action={"" className={"}uk-form-horizontal"}>
+        <form action={""} className={"uk-form-horizontal"}>
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"username"}>
               {"username"}
