@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import queryString from "query-string";
 import getErrorMessage from "../assets/errors";
 import { isValidUsername, isValidEmail } from "../lib/validation";
+import Logo from "../components/logo";
+import ValidationMessage from "../components/validation-message";
 
 export class SignInRoute extends React.PureComponent {
   /**
@@ -58,13 +60,7 @@ export class SignInRoute extends React.PureComponent {
           "uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
-        <h1 className={"uk-card-title uk-text-center"}>
-          <img
-            src={process.env.PUBLIC_URL + "/images/logo.png"}
-            alt={"TileCloud"}
-            style={{ width: 245, minWidth: "50%" }}
-          />
-        </h1>
+        <Logo />
         {verified && (
           <div uk-alert={"true"} className={"uk-alert-success"}>
             <p className={"uk-padding"}>
@@ -101,15 +97,12 @@ export class SignInRoute extends React.PureComponent {
                 onChange={this.onEmailChange}
                 placeholder={"username or name@example.com"}
               />
-              {isValidEmailOrUsername || (
-                <div className={"uk-text-right"}>
-                  <span className={"uk-text-danger"}>
-                    {
-                      "Please enter valid email or username (only A-Z, a-z, 0-9, - and _ are available)."
-                    }
-                  </span>
-                </div>
-              )}
+              <ValidationMessage
+                display={!isValidEmailOrUsername}
+                text={
+                  "Please enter valid email or username (only A-Z, a-z, 0-9, - and _ are available)."
+                }
+              />
             </div>
           </div>
 

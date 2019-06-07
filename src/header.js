@@ -23,12 +23,17 @@ const signinRoutes = [
   }
 ];
 
-const renderLogo = () => (
+const renderLogo = props => (
   <li key={"logo"}>
-    <Link to={"#"}>
+    <Link
+      to={
+        process.env.PUBLIC_URL +
+        (props.auth.userData ? "/dashboard/" : "/sign-in/")
+      }
+    >
       <img
         src={process.env.PUBLIC_URL + "/icon.png"}
-        alt={""}
+        alt={"tilecloud"}
         style={{ width: 32 }}
       />
     </Link>
@@ -59,7 +64,7 @@ export const Header = props => {
     <nav className={"uk-navbar-container"} uk-navbar={"true"}>
       <div className={"uk-navbar-left"}>
         <ul className={"uk-navbar-nav"}>
-          {renderLogo()}
+          {renderLogo(props)}
           {routes.map(renderItem(props))}
         </ul>
       </div>

@@ -7,6 +7,8 @@ import {
   isValidEmail,
   isValidPassword
 } from "../lib/validation";
+import Logo from "../components/logo";
+import ValidationMessage from "../components/validation-message";
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -62,13 +64,7 @@ export class SignUpRoute extends React.PureComponent {
           "uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
-        <h1 className={"uk-card-title uk-text-center"}>
-          <img
-            src={process.env.PUBLIC_URL + "/images/logo.png"}
-            alt={"TileCloud"}
-            style={{ width: 245, minWidth: "50%" }}
-          />
-        </h1>
+        <Logo />
         <h3 className={"uk-card-title"}>{"Sign Up"}</h3>
 
         <form action={""} className={"uk-form-horizontal"}>
@@ -87,13 +83,10 @@ export class SignUpRoute extends React.PureComponent {
                 onChange={this.onUsernameChange}
                 placeholder={"username"}
               />
-              {isUsernameValid || (
-                <div className={"uk-text-right"}>
-                  <span className={"uk-text-danger"}>
-                    {"You can use only A-Z, a-z, 0-9, - and _ for username."}
-                  </span>
-                </div>
-              )}
+              <ValidationMessage
+                display={!isUsernameValid}
+                text={"You can use only A-Z, a-z, 0-9, - and _ for username."}
+              />
             </div>
           </div>
 
@@ -110,13 +103,10 @@ export class SignUpRoute extends React.PureComponent {
                 onChange={this.onEmailChange}
                 placeholder={"name@example.com"}
               />
-              {isEmailValid || (
-                <div className={"uk-text-right"}>
-                  <span className={"uk-text-danger"}>
-                    {"Please enter correct email."}
-                  </span>
-                </div>
-              )}
+              <ValidationMessage
+                display={!isEmailValid}
+                text={"Please enter correct email."}
+              />
             </div>
           </div>
 

@@ -4,6 +4,7 @@ import queryString from "query-string";
 import { Link } from "react-router-dom";
 import getErrorMessage from "../assets/errors";
 import { isValidUsername, isValidCode } from "../lib/validation";
+import ValidationMessage from "../components/validation-message";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -90,13 +91,10 @@ export class VerifyCodeRoute extends React.PureComponent {
                 onChange={this.onUsernameChange}
                 placeholder={"username"}
               />
-              {isUsernameValid || (
-                <div className={"uk-text-right"}>
-                  <span className={"uk-text-danger"}>
-                    {"You can use only A-Z, a-z, 0-9, - and _ for username."}
-                  </span>
-                </div>
-              )}
+              <ValidationMessage
+                display={!isUsernameValid}
+                text={"You can use only A-Z, a-z, 0-9, - and _ for username."}
+              />
             </div>
           </div>
 
@@ -113,13 +111,10 @@ export class VerifyCodeRoute extends React.PureComponent {
                 onChange={this.onCodeChange}
                 placeholder={"012345"}
               />
-              {isCodeValid || (
-                <div className={"uk-text-right"}>
-                  <span className={"uk-text-danger"}>
-                    {"Verification code should be like as 012345."}
-                  </span>
-                </div>
-              )}
+              <ValidationMessage
+                display={!isCodeValid}
+                text={"Verification code should be like as 012345."}
+              />
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { isValidCode, isValidEmail, isValidPassword } from "../lib/validation";
+import ValidationMessage from "../components/validation-message";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -78,13 +79,10 @@ export class ResetPasswordRoute extends React.PureComponent {
                 onChange={this.onEmailChange}
                 placeholder={"name@example.com"}
               />
-              {isEmailValid || (
-                <div className={"uk-text-right"}>
-                  <span className={"uk-text-danger"}>
-                    {"Please enter valid email."}
-                  </span>
-                </div>
-              )}
+              <ValidationMessage
+                display={!isEmailValid}
+                text={"Please enter valid email."}
+              />
             </div>
           </div>
 
@@ -127,13 +125,10 @@ export class ResetPasswordRoute extends React.PureComponent {
                   onChange={this.onCodeChange}
                   placeholder={"012345"}
                 />
-                {isCodeValid || (
-                  <div className={"uk-text-right"}>
-                    <span className={"uk-text-danger"}>
-                      {"Verification code should be like as 012345."}
-                    </span>
-                  </div>
-                )}
+                <ValidationMessage
+                  display={!isCodeValid}
+                  text={"Verification code should be like as 012345."}
+                />
               </div>
             </div>
           )}
@@ -153,13 +148,10 @@ export class ResetPasswordRoute extends React.PureComponent {
                   value={password}
                   onChange={this.onPasswordChange}
                 />
-                {isPasswordValid || (
-                  <div className={"uk-text-right"}>
-                    <span className={"uk-text-danger"}>
-                      {"number of password characters should be 8 at least."}
-                    </span>
-                  </div>
-                )}
+                <ValidationMessage
+                  display={!isPasswordValid}
+                  text={"number of password characters should be 8 at least."}
+                />
               </div>
             </div>
           )}

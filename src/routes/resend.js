@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { isValidEmail } from "../lib/validation";
+import ValidationMessage from "../components/validation-message";
 
 export class ResendCodeRoute extends React.PureComponent {
   /**
@@ -59,13 +60,10 @@ export class ResendCodeRoute extends React.PureComponent {
                 onChange={this.onEmailChange}
                 placeholder={"user@example.com"}
               />
-              {isEmailValid || (
-                <div className={"uk-text-right"}>
-                  <span className={"uk-text-danger"}>
-                    {"Please enter valid email."}
-                  </span>
-                </div>
-              )}
+              <ValidationMessage
+                display={!isEmailValid}
+                text={"Please enter valid email."}
+              />
             </div>
           </div>
 
