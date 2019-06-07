@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { isValidEmail } from "../lib/validation";
 
 export class ResendCodeRoute extends React.PureComponent {
   /**
@@ -33,6 +34,7 @@ export class ResendCodeRoute extends React.PureComponent {
 
   render() {
     const { email, error } = this.state;
+    const isEmailValid = email === "" || isValidEmail(email);
 
     return (
       <main
@@ -50,13 +52,20 @@ export class ResendCodeRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={"uk-input"}
+                className={"uk-input" + (isEmailValid ? "" : " uk-form-danger")}
                 id={"email"}
                 type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
                 placeholder={"user@example.com"}
               />
+              {isEmailValid || (
+                <div className={"uk-text-right"}>
+                  <span className={"uk-text-danger"}>
+                    {"Please enter valid email."}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -66,6 +75,7 @@ export class ResendCodeRoute extends React.PureComponent {
                 className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onResendClick}
+                disabled={!email || !isEmailValid}
               >
                 {"resend"}
               </button>

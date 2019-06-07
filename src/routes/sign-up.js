@@ -2,7 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import getErrorMessage from "../assets/errors";
-import { isValidUsername, isValidPassword } from "../lib/validation";
+import {
+  isValidUsername,
+  isValidEmail,
+  isValidPassword
+} from "../lib/validation";
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -50,7 +54,7 @@ export class SignUpRoute extends React.PureComponent {
 
     const isUsernameValid = username === "" || isValidUsername(username);
     const isPasswordValid = password === "" || isValidPassword(password);
-    const isEmailValid = true;
+    const isEmailValid = email === "" || isValidEmail(email);
 
     return (
       <main
@@ -99,19 +103,17 @@ export class SignUpRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={
-                  "uk-input" + (isPasswordValid ? "" : " uk-form-danger")
-                }
+                className={"uk-input" + (isEmailValid ? "" : " uk-form-danger")}
                 id={"email"}
                 type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
                 placeholder={"name@example.com"}
               />
-              {isPasswordValid || (
+              {isEmailValid || (
                 <div className={"uk-text-right"}>
                   <span className={"uk-text-danger"}>
-                    {"number of password characters should be 8 at least."}
+                    {"Please enter correct email."}
                   </span>
                 </div>
               )}
@@ -124,12 +126,21 @@ export class SignUpRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={"uk-input"}
+                className={
+                  "uk-input" + (isPasswordValid ? "" : " uk-form-danger")
+                }
                 id={"password"}
                 type={"password"}
                 value={password}
                 onChange={this.onPasswordChange}
               />
+              {isPasswordValid || (
+                <div className={"uk-text-right"}>
+                  <span className={"uk-text-danger"}>
+                    {"number of password characters should be 8 at least."}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 

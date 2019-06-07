@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
 import getErrorMessage from "../assets/errors";
+import { isValidUsername, isValidEmail } from "../lib/validation";
 
 export class SignInRoute extends React.PureComponent {
   /**
@@ -29,7 +30,7 @@ export class SignInRoute extends React.PureComponent {
     this.state = {
       verified: "true" === parsed.verified,
       reset: "true" === parsed.reset,
-      email: parsed.username || "",
+      email: parsed.username || "", // should be username or email
       password: "",
       error: void 0
     };
@@ -38,17 +39,18 @@ export class SignInRoute extends React.PureComponent {
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
   onEmailChange = e => this._onChange("email", e.target.value);
   onPasswordChange = e => this._onChange("password", e.target.value);
-  onSigninClick = () => {
+  onSigninClick = () =>
     this.props.auth
       .signin(this.state.email, this.state.password)
       .then(
         ({ successed }) => successed && this.props.history.push("/dashboard/")
       )
       .catch(error => this.setState({ error }));
-  };
 
   render() {
     const { verified, reset, email, password, error } = this.state;
+    const isValidEmailOrUsername =
+      email === "" || isValidUsername(email) || isValidEmail(email);
 
     return (
       <main
@@ -90,13 +92,24 @@ export class SignInRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={"uk-input"}
+                className={
+                  "uk-input" + (isValidEmailOrUsername ? "" : " uk-form-danger")
+                }
                 id={"email"}
                 type={"text"}
                 value={email}
                 onChange={this.onEmailChange}
                 placeholder={"username or name@example.com"}
               />
+              {isValidEmailOrUsername || (
+                <div className={"uk-text-right"}>
+                  <span className={"uk-text-danger"}>
+                    {
+                      "Please enter valid email or username (only A-Z, a-z, 0-9, - and _ are available)."
+                    }
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -121,7 +134,7 @@ export class SignInRoute extends React.PureComponent {
                 className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onSigninClick}
-                disabled={!email || !password}
+                disabled={!email || !password || !isValidEmailOrUsername}
               >
                 {"sign in"}
               </button>

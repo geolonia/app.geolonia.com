@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isValidCode, isValidPassword } from "../lib/validation";
+import { isValidCode, isValidEmail, isValidPassword } from "../lib/validation";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -52,6 +52,7 @@ export class ResetPasswordRoute extends React.PureComponent {
   render() {
     const { error, email, code, password, requested } = this.state;
     const isCodeValid = code === "" || isValidCode(code);
+    const isEmailValid = email === "" || isValidEmail(email);
     const isPasswordValid = password === "" || isValidPassword(password);
 
     return (
@@ -70,13 +71,20 @@ export class ResetPasswordRoute extends React.PureComponent {
             <div className={"uk-form-controls"}>
               <input
                 disabled={requested}
-                className={"uk-input"}
+                className={"uk-input" + (isEmailValid ? "" : " uk-form-danger")}
                 id={"email"}
                 type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
                 placeholder={"name@example.com"}
               />
+              {isEmailValid || (
+                <div className={"uk-text-right"}>
+                  <span className={"uk-text-danger"}>
+                    {"Please enter valid email."}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -86,7 +94,7 @@ export class ResetPasswordRoute extends React.PureComponent {
                 className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onRequestClick}
-                disabled={!email || requested}
+                disabled={!email || !isEmailValid || requested}
               >
                 {"send reset code via email"}
               </button>
