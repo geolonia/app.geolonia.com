@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { isValidCode, isValidEmail, isValidPassword } from "../lib/validation";
 import ValidationMessage from "../components/validation-message";
+import getErrorMessage from "../assets/errors";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -177,7 +178,7 @@ export class ResetPasswordRoute extends React.PureComponent {
             <div className={"uk-margin uk-flex uk-flex-right"}>
               <div className={"uk-flex uk-flex-column"}>
                 <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです"}
+                  {getErrorMessage(error, "reset-password")}
                 </span>
               </div>
             </div>
