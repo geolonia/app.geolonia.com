@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
 import getErrorMessage from "../assets/errors";
+import { isUsernameValid } from "../lib/validation";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -80,13 +81,25 @@ export class VerifyCodeRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={"uk-input"}
+                className={
+                  "uk-input" +
+                  (username === "" || isUsernameValid(username)
+                    ? ""
+                    : " uk-form-danger")
+                }
                 id={"username"}
                 type={"text"}
                 value={username}
                 onChange={this.onUsernameChange}
                 placeholder={"username"}
               />
+              {username === "" || isUsernameValid(username) || (
+                <div className={"uk-text-right"}>
+                  <span className={"uk-text-danger"}>
+                    {"You can use only A-Z, a-z, 0-9, - and _ for username."}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -112,7 +125,7 @@ export class VerifyCodeRoute extends React.PureComponent {
                 className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onVerifyClick}
-                disabled={!code || !username}
+                disabled={!code || !username || !isUsernameValid(username)}
               >
                 {"verify"}
               </button>
