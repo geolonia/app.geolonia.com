@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
+import getErrorMessage from "../assets/errors";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -30,11 +31,11 @@ export class VerifyCodeRoute extends React.PureComponent {
       sent: parsed.sent === "true",
       username: parsed.username || "",
       code: "",
-      error: void 0
+      error: false
     };
   }
 
-  _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
+  _onChange = (key, value) => this.setState({ [key]: value, error: false });
   onUsernameChange = e => this._onChange("username", e.target.value);
   onCodeChange = e => this._onChange("code", e.target.value);
 
@@ -53,6 +54,7 @@ export class VerifyCodeRoute extends React.PureComponent {
 
   render() {
     const { sent, username, code, error } = this.state;
+    console.log(error);
 
     return (
       <main
@@ -110,6 +112,7 @@ export class VerifyCodeRoute extends React.PureComponent {
                 className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onVerifyClick}
+                disabled={!code || !username}
               >
                 {"verify"}
               </button>
@@ -119,7 +122,7 @@ export class VerifyCodeRoute extends React.PureComponent {
             <div className={"uk-margin uk-flex uk-flex-right"}>
               <div className={"uk-flex uk-flex-column"}>
                 <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです"}
+                  {getErrorMessage(error, "verify")}
                 </span>
               </div>
             </div>

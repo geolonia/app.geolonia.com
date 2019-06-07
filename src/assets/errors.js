@@ -13,15 +13,20 @@ const errorMessages = {
     signup: "The username cannot be used."
   },
   UserNotFoundException: {
-    signin: "Incorrect username or password."
+    signin: "Incorrect username or password.",
+    verify: "Incorrect username."
   },
   NotAuthorizedException: {
     signin: "Incorrect username or password."
   },
+  CodeMismatchException:
+    "Invalid verification code provided, please try again.",
   default: "Unknown error occured."
 };
 
 const getErrorMessage = (error, context) => {
+  console.log(error);
+
   let message = errorMessages[error.code];
   if (typeof message === "object" && !!context) {
     message = errorMessages[error.code][context];
