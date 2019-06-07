@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
+import getErrorMessage from "../assets/errors";
 
 export class SignInRoute extends React.PureComponent {
   /**
@@ -130,7 +131,7 @@ export class SignInRoute extends React.PureComponent {
             <div className={"uk-margin uk-flex uk-flex-right"}>
               <div className={"uk-flex uk-flex-column"}>
                 <span className={"uk-text-warning"}>
-                  {error.message || "不明なエラーです。"}
+                  {getErrorMessage(error, "signin")}
                 </span>
               </div>
             </div>

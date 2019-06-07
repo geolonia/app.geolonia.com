@@ -12,6 +12,12 @@ const errorMessages = {
   UserLambdaValidationException: {
     signup: "The username cannot be used."
   },
+  UserNotFoundException: {
+    signin: "Incorrect username or password."
+  },
+  NotAuthorizedException: {
+    signin: "Incorrect username or password."
+  },
   default: "Unknown error occured."
 };
 
