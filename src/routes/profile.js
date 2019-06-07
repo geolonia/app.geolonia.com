@@ -11,18 +11,18 @@ export const ProfileRoute = props => {
         <h3>{"Profile"}</h3>
         {userData ? (
           <div>
-            <dl className="uk-description-list">
+            <dl className={"uk-description-list"}>
               <dt>{"username"}</dt>
               <dd>{userData.username}</dd>
             </dl>
-            <dl className="uk-description-list">
+            <dl className={"uk-description-list"}>
               <dt>{"email"}</dt>
               <dd>{userData.attributes.email}</dd>
             </dl>
-            <dl className="uk-description-list">
+            <dl className={"uk-description-list"}>
               <dt>{"forget password"}</dt>
               <dd>
-                <Link to="/reset_password/">{"reset"}</Link>
+                <Link to={"/reset_password/"}>{"reset"}</Link>
               </dd>
             </dl>
           </div>

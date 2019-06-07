@@ -55,16 +55,16 @@ export class SignInRoute extends React.PureComponent {
           "uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
-        <h1 className="uk-card-title uk-text-center">
+        <h1 className={"uk-card-title uk-text-center"}>
           <img
             src={process.env.PUBLIC_URL + "/images/logo.png"}
-            alt="TileCloud"
+            alt={"TileCloud"}
             style={{ width: 245, minWidth: "50%" }}
           />
         </h1>
         {verified && (
-          <div uk-alert="true" className="uk-alert-success">
-            <p className="uk-padding">
+          <div uk-alert={"true"} className={"uk-alert-success"}>
+            <p className={"uk-padding"}>
               {"Your account have been successfully verified!"}
               <br />
               {"Please sign in to start TileCloud."}
@@ -72,52 +72,52 @@ export class SignInRoute extends React.PureComponent {
           </div>
         )}
         {reset && (
-          <div uk-alert="true" className="uk-alert-primary">
-            <p className="uk-padding">
+          <div uk-alert={"true"} className={"uk-alert-primary"}>
+            <p className={"uk-padding"}>
               {"Your password has been reset successfully."}
               <br />
               {"Please sign in to continue TileCloud."}
             </p>
           </div>
         )}
-        <h3 className="uk-card-title">{"Sign In"}</h3>
+        <h3 className={"uk-card-title"}>{"Sign In"}</h3>
 
-        <form action="" className="uk-form-horizontal">
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="email">
+        <form action={""} className={"uk-form-horizontal"}>
+          <div className={"uk-margin"}>
+            <label className={"uk-form-label"} htmlFor={"email"}>
               {"email or username"}
             </label>
-            <div className="uk-form-controls">
+            <div className={"uk-form-controls"}>
               <input
-                className="uk-input"
-                id="email"
+                className={"uk-input"}
+                id={"email"}
                 type={"text"}
                 value={email}
                 onChange={this.onEmailChange}
-                placeholder="username or name@example.com"
+                placeholder={"username or name@example.com"}
               />
             </div>
           </div>
 
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="password">
+          <div className={"uk-margin"}>
+            <label className={"uk-form-label"} htmlFor={"password"}>
               {"password"}
             </label>
-            <div className="uk-form-controls">
+            <div className={"uk-form-controls"}>
               <input
-                className="uk-input"
-                id="password"
-                type="password"
+                className={"uk-input"}
+                id={"password"}
+                type={"password"}
                 value={password}
                 onChange={this.onPasswordChange}
               />
             </div>
           </div>
 
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
+          <div className={"uk-margin uk-flex uk-flex-right"}>
+            <div className={"uk-flex uk-flex-column"}>
               <button
-                className="uk-button uk-button-default"
+                className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onSigninClick}
                 disabled={!email || !password}
@@ -127,17 +127,17 @@ export class SignInRoute extends React.PureComponent {
             </div>
           </div>
           {error && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
+            <div className={"uk-margin uk-flex uk-flex-right"}>
+              <div className={"uk-flex uk-flex-column"}>
                 <span className={"uk-text-warning"}>
                   {error.message || "不明なエラーです。"}
                 </span>
               </div>
             </div>
           )}
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
-              <Link to="/reset_password/">{"I forgot my password."}</Link>
+          <div className={"uk-margin uk-flex uk-flex-right"}>
+            <div className={"uk-flex uk-flex-column"}>
+              <Link to={"/reset_password/"}>{"I forgot my password."}</Link>
             </div>
           </div>
         </form>

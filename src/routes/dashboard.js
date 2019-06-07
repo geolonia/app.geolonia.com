@@ -127,11 +127,13 @@ export class DashboardRoute extends React.PureComponent {
     }
 
     return (
-      <div class="uk-flex-top uk-modal uk-flex uk-open" uk-modal={true}>
-        <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
+      <div className={"uk-flex-top uk-modal uk-flex uk-open"} uk-modal={true}>
+        <div
+          className={"uk-modal-dialog uk-modal-body uk-margin-auto-vertical"}
+        >
           <button
-            class="uk-modal-close-default"
-            type="button"
+            className={"uk-modal-close-default"}
+            type={"button"}
             style={{ background: "none", border: "none" }}
             onClick={this.onCloseModalClick}
           >
@@ -150,7 +152,7 @@ export class DashboardRoute extends React.PureComponent {
             />
           </div>
 
-          <div className="uk-margin">
+          <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={`enabled-${userKey}`}>
               {"ENABLED"}
             </label>
@@ -164,7 +166,7 @@ export class DashboardRoute extends React.PureComponent {
             />
           </div>
 
-          <div className="uk-margin">
+          <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"description"}>
               {"DESCRIPTION"}
             </label>
@@ -181,19 +183,19 @@ export class DashboardRoute extends React.PureComponent {
 
           <div className={"uk-margin"}>
             <div className={"uk-form-controls"}>
-              <label className={"uk-form-label"} htmlFor="allowed-origins">
+              <label className={"uk-form-label"} htmlFor={"allowed-origins"}>
                 {"ALLOWED ORIGINS (an origin per line)"}
               </label>
               <textarea
                 className={"uk-textarea"}
-                name="allowedOrigins"
-                id="allowed-origins"
+                name={"allowedOrigins"}
+                id={"allowed-origins"}
                 onChange={this.onTextareaUpdate}
                 defaultValue={allowedOrigins.join("\n")}
               />
             </div>
           </div>
-          <div className="uk-margin">
+          <div className={"uk-margin"}>
             <button
               className={"uk-button uk-button-default"}
               onClick={this.onSaveClick}
@@ -208,7 +210,7 @@ export class DashboardRoute extends React.PureComponent {
 
   renderClipboard = () => (
     <input
-      type="text"
+      type={"text"}
       style={{ top: -9999, left: -9999, position: "absolute" }}
       value={""}
       readOnly
@@ -233,12 +235,12 @@ export class DashboardRoute extends React.PureComponent {
         }
       >
         {error && (
-          <div uk-alert="true" className="uk-alert-danger">
-            <p className="uk-padding">{"Request failed."}</p>
+          <div uk-alert={"true"} className={"uk-alert-danger"}>
+            <p className={"uk-padding"}>{"Request failed."}</p>
           </div>
         )}
 
-        <div className="uk-margin">
+        <div className={"uk-margin"}>
           <button
             className={"uk-button uk-button-default"}
             onClick={this.onCreateClick}
@@ -248,7 +250,7 @@ export class DashboardRoute extends React.PureComponent {
         </div>
 
         {/* development */}
-        <table className="uk-table uk-table-divider">
+        <table className={"uk-table uk-table-divider"}>
           <thead>
             <tr>
               <th>Description</th>

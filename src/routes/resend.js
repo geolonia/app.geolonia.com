@@ -40,28 +40,30 @@ export class ResendCodeRoute extends React.PureComponent {
           "uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
-        <h3 className="uk-card-title">{"Request Resend Verification Code"}</h3>
-        <form className="uk-form-horizontal" action="">
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="email">
+        <h3 className={"uk-card-title"}>
+          {"Request Resend Verification Code"}
+        </h3>
+        <form className={"uk-form-horizontal"} action={""}>
+          <div className={"uk-margin"}>
+            <label className={"uk-form-label"} htmlFor={"email"}>
               {"email"}
             </label>
-            <div className="uk-form-controls">
+            <div className={"uk-form-controls"}>
               <input
-                className="uk-input"
-                id="email"
-                type="email"
+                className={"uk-input"}
+                id={"email"}
+                type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
-                placeholder="user@example.com"
+                placeholder={"user@example.com"}
               />
             </div>
           </div>
 
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
+          <div className={"uk-margin uk-flex uk-flex-right"}>
+            <div className={"uk-flex uk-flex-column"}>
               <button
-                className="uk-button uk-button-default"
+                className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onResendClick}
               >
@@ -70,8 +72,8 @@ export class ResendCodeRoute extends React.PureComponent {
             </div>
           </div>
           {error && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
+            <div className={"uk-margin uk-flex uk-flex-right"}>
+              <div className={"uk-flex uk-flex-column"}>
                 <span className={"uk-text-warning"}>
                   {error.message || "不明なエラーです"}
                 </span>

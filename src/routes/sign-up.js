@@ -50,67 +50,67 @@ export class SignUpRoute extends React.PureComponent {
           "uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
-        <h1 className="uk-card-title uk-text-center">
+        <h1 className={"uk-card-title uk-text-center"}>
           <img
             src={process.env.PUBLIC_URL + "/images/logo.png"}
-            alt="TileCloud"
+            alt={"TileCloud"}
             style={{ width: 245, minWidth: "50%" }}
           />
         </h1>
-        <h3 className="uk-card-title">{"Sign Up"}</h3>
+        <h3 className={"uk-card-title"}>{"Sign Up"}</h3>
 
-        <form action="" className={"uk-form-horizontal"}>
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="username">
+        <form action={"" className={"}uk-form-horizontal"}>
+          <div className={"uk-margin"}>
+            <label className={"uk-form-label"} htmlFor={"username"}>
               {"username"}
             </label>
-            <div className="uk-form-controls">
+            <div className={"uk-form-controls"}>
               <input
-                className="uk-input"
-                id="username"
-                type="username"
+                className={"uk-input"}
+                id={"username"}
+                type={"username"}
                 value={username}
                 onChange={this.onUsernameChange}
-                placeholder="username"
+                placeholder={"username"}
               />
             </div>
           </div>
 
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="email">
+          <div className={"uk-margin"}>
+            <label className={"uk-form-label"} htmlFor={"email"}>
               {"email"}
             </label>
-            <div className="uk-form-controls">
+            <div className={"uk-form-controls"}>
               <input
-                className="uk-input"
-                id="email"
-                type="email"
+                className={"uk-input"}
+                id={"email"}
+                type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
-                placeholder="name@example.com"
+                placeholder={"name@example.com"}
               />
             </div>
           </div>
 
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="password">
+          <div className={"uk-margin"}>
+            <label className={"uk-form-label"} htmlFor={"password"}>
               {"password"}
             </label>
-            <div className="uk-form-controls">
+            <div className={"uk-form-controls"}>
               <input
-                className="uk-input"
-                id="password"
-                type="password"
+                className={"uk-input"}
+                id={"password"}
+                type={"password"}
                 value={password}
                 onChange={this.onPasswordChange}
               />
             </div>
           </div>
 
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
+          <div className={"uk-margin uk-flex uk-flex-right"}>
+            <div className={"uk-flex uk-flex-column"}>
               <button
-                className="uk-button uk-button-default"
+                className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onSignupClick}
                 disabled={!email || !password}
@@ -120,17 +120,17 @@ export class SignUpRoute extends React.PureComponent {
             </div>
           </div>
           {error && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
+            <div className={"uk-margin uk-flex uk-flex-right"}>
+              <div className={"uk-flex uk-flex-column"}>
                 <span className={"uk-text-warning"}>
                   {error.code || "不明なエラーです"}
                 </span>
               </div>
             </div>
           )}
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
-              <Link to="/verify/">{"I have verification code."}</Link>
+          <div className={"uk-margin uk-flex uk-flex-right"}>
+            <div className={"uk-flex uk-flex-column"}>
+              <Link to={"/verify/"}>{"I have verification code."}</Link>
             </div>
           </div>
         </form>

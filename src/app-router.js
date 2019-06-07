@@ -44,7 +44,7 @@ const AppRouter = props => {
   return (
     <Router>
       <>
-        <Route path="/" render={props => <Header {...props} auth={auth} />} />
+        <Route path={"/"} render={props => <Header {...props} auth={auth} />} />
 
         {Object.keys(routes).map(path => {
           const { Component } = routes[path];

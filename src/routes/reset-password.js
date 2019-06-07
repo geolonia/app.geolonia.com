@@ -58,30 +58,30 @@ export class ResetPasswordRoute extends React.PureComponent {
           "uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
-        <h3 className="uk-card-title">{"reset password"}</h3>
+        <h3 className={"uk-card-title"}>{"reset password"}</h3>
 
-        <form className="uk-form-horizontal" action="">
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="email">
+        <form className={"uk-form-horizontal"} action={""}>
+          <div className={"uk-margin"}>
+            <label className={"uk-form-label"} htmlFor={"email"}>
               {"email"}
             </label>
-            <div className="uk-form-controls">
+            <div className={"uk-form-controls"}>
               <input
                 disabled={requested}
-                className="uk-input"
-                id="email"
-                type="email"
+                className={"uk-input"}
+                id={"email"}
+                type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
-                placeholder="name@example.com"
+                placeholder={"name@example.com"}
               />
             </div>
           </div>
 
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
+          <div className={"uk-margin uk-flex uk-flex-right"}>
+            <div className={"uk-flex uk-flex-column"}>
               <button
-                className="uk-button uk-button-default"
+                className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onRequestClick}
                 disabled={!email || requested}
@@ -92,8 +92,8 @@ export class ResetPasswordRoute extends React.PureComponent {
           </div>
 
           {requested && (
-            <div uk-alert="true" className="uk-alert-primary">
-              <p className="uk-padding">
+            <div uk-alert={"true"} className={"uk-alert-primary"}>
+              <p className={"uk-padding"}>
                 {
                   "Please enter a verification code on the email we have been sent."
                 }
@@ -102,33 +102,33 @@ export class ResetPasswordRoute extends React.PureComponent {
           )}
 
           {requested && (
-            <div className="uk-margin">
-              <label className="uk-form-label" htmlFor="code">
+            <div className={"uk-margin"}>
+              <label className={"uk-form-label"} htmlFor={"code"}>
                 {"code"}
               </label>
-              <div className="uk-form-controls">
+              <div className={"uk-form-controls"}>
                 <input
-                  className="uk-input"
-                  id="code"
-                  type="text"
+                  className={"uk-input"}
+                  id={"code"}
+                  type={"text"}
                   value={code}
                   onChange={this.onCodeChange}
-                  placeholder="012345"
+                  placeholder={"012345"}
                 />
               </div>
             </div>
           )}
 
           {requested && (
-            <div className="uk-margin">
-              <label className="uk-form-label" htmlFor="password">
+            <div className={"uk-margin"}>
+              <label className={"uk-form-label"} htmlFor={"password"}>
                 {"new password"}
               </label>
-              <div className="uk-form-controls">
+              <div className={"uk-form-controls"}>
                 <input
-                  className="uk-input"
-                  id="password"
-                  type="password"
+                  className={"uk-input"}
+                  id={"password"}
+                  type={"password"}
                   value={password}
                   onChange={this.onPasswordChange}
                 />
@@ -137,10 +137,10 @@ export class ResetPasswordRoute extends React.PureComponent {
           )}
 
           {requested && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
+            <div className={"uk-margin uk-flex uk-flex-right"}>
+              <div className={"uk-flex uk-flex-column"}>
                 <button
-                  className="uk-button uk-button-default"
+                  className={"uk-button uk-button-default"}
                   type={"button"}
                   onClick={this.onResetClick}
                   disabled={!code || !password}
@@ -152,8 +152,8 @@ export class ResetPasswordRoute extends React.PureComponent {
           )}
 
           {error && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
+            <div className={"uk-margin uk-flex uk-flex-right"}>
+              <div className={"uk-flex uk-flex-column"}>
                 <span className={"uk-text-warning"}>
                   {error.message || "不明なエラーです"}
                 </span>

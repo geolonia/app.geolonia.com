@@ -28,7 +28,7 @@ const renderLogo = () => (
     <Link to={"#"}>
       <img
         src={process.env.PUBLIC_URL + "/icon.png"}
-        alt=""
+        alt={""}
         style={{ width: 32 }}
       />
     </Link>

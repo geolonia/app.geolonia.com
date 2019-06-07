@@ -61,8 +61,8 @@ export class VerifyCodeRoute extends React.PureComponent {
         }
       >
         {sent && (
-          <div uk-alert="true" className="uk-alert-primary">
-            <p className="uk-padding">
+          <div uk-alert={"true"} className={"uk-alert-primary"}>
+            <p className={"uk-padding"}>
               {
                 "Please enter a verification code on the email we have been sent."
               }
@@ -70,44 +70,44 @@ export class VerifyCodeRoute extends React.PureComponent {
           </div>
         )}
 
-        <h3 className="uk-card-title">{"Code Verification"}</h3>
-        <form action="" className="uk-form-horizontal">
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="username">
+        <h3 className={"uk-card-title"}>{"Code Verification"}</h3>
+        <form action={""} className={"uk-form-horizontal"}>
+          <div className={"uk-margin"}>
+            <label className={"uk-form-label"} htmlFor={"username"}>
               {"username"}
             </label>
-            <div className="uk-form-controls">
+            <div className={"uk-form-controls"}>
               <input
-                className="uk-input"
-                id="username"
-                type="text"
+                className={"uk-input"}
+                id={"username"}
+                type={"text"}
                 value={username}
                 onChange={this.onUsernameChange}
-                placeholder="username"
+                placeholder={"username"}
               />
             </div>
           </div>
 
-          <div className="uk-margin">
-            <label className="uk-form-label" htmlFor="code">
+          <div className={"uk-margin"}>
+            <label className={"uk-form-label"} htmlFor={"code"}>
               {"code"}
             </label>
-            <div className="uk-form-controls">
+            <div className={"uk-form-controls"}>
               <input
-                className="uk-input"
-                id="code"
-                type="text"
+                className={"uk-input"}
+                id={"code"}
+                type={"text"}
                 value={code}
                 onChange={this.onCodeChange}
-                placeholder="012345"
+                placeholder={"012345"}
               />
             </div>
           </div>
 
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
+          <div className={"uk-margin uk-flex uk-flex-right"}>
+            <div className={"uk-flex uk-flex-column"}>
               <button
-                className="uk-button uk-button-default"
+                className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onVerifyClick}
               >
@@ -116,17 +116,17 @@ export class VerifyCodeRoute extends React.PureComponent {
             </div>
           </div>
           {error && (
-            <div className="uk-margin uk-flex uk-flex-right">
-              <div className="uk-flex uk-flex-column">
+            <div className={"uk-margin uk-flex uk-flex-right"}>
+              <div className={"uk-flex uk-flex-column"}>
                 <span className={"uk-text-warning"}>
                   {error.message || "不明なエラーです"}
                 </span>
               </div>
             </div>
           )}
-          <div className="uk-margin uk-flex uk-flex-right">
-            <div className="uk-flex uk-flex-column">
-              <Link to="/resend/">{"I lost verification code."}</Link>
+          <div className={"uk-margin uk-flex uk-flex-right"}>
+            <div className={"uk-flex uk-flex-column"}>
+              <Link to={"/resend/"}>{"I lost verification code."}</Link>
             </div>
           </div>
         </form>
