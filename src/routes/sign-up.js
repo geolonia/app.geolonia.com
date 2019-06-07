@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import getErrorMessage from "../assets/errors";
-import { isValidUsername } from "../lib/validation";
+import { isValidUsername, isValidPassword } from "../lib/validation";
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -49,7 +49,7 @@ export class SignUpRoute extends React.PureComponent {
     const { username, email, password, requesting, error } = this.state;
 
     const isUsernameValid = username === "" || isValidUsername(username);
-    const isPasswordValid = true;
+    const isPasswordValid = password === "" || isValidPassword(password);
     const isEmailValid = true;
 
     return (
@@ -99,13 +99,22 @@ export class SignUpRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={"uk-input"}
+                className={
+                  "uk-input" + (isPasswordValid ? "" : " uk-form-danger")
+                }
                 id={"email"}
                 type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
                 placeholder={"name@example.com"}
               />
+              {isPasswordValid || (
+                <div className={"uk-text-right"}>
+                  <span className={"uk-text-danger"}>
+                    {"number of password characters should be 8 at least."}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 

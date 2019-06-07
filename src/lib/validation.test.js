@@ -11,7 +11,7 @@ describe("username validation", () => {
     expect(isValidUsername(validUsername)).toBeTruthy();
   });
 
-  it("should fails", () => {
+  it("should fail", () => {
     const invalidUsername = "123@abc";
     expect(isValidUsername(invalidUsername)).toBeFalsy();
   });
@@ -23,13 +23,25 @@ describe("verification code validation", () => {
     expect(isValidCode(validVerificationCode)).toBeTruthy();
   });
 
-  it("should fails case1", () => {
+  it("should fail, case1", () => {
     const invalidVerificationCode = "123";
     expect(isValidCode(invalidVerificationCode)).toBeFalsy();
   });
 
-  it("should fails case2", () => {
+  it("should fail, case2", () => {
     const invalidVerificationCode = "abc";
     expect(isValidCode(invalidVerificationCode)).toBeFalsy();
+  });
+});
+
+describe("password validation", () => {
+  it("should success", () => {
+    const validPassword = "abcdabcd";
+    expect(isValidPassword(validPassword)).toBeTruthy();
+  });
+
+  it("should fail", () => {
+    const validPassword = "abc";
+    expect(isValidPassword(validPassword)).toBeFalsy();
   });
 });

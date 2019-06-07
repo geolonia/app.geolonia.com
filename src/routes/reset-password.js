@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isValidCode } from "../lib/validation";
+import { isValidCode, isValidPassword } from "../lib/validation";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -39,7 +39,6 @@ export class ResetPasswordRoute extends React.PureComponent {
   };
   onResetClick = () => {
     const { email, code, password } = this.state;
-    console.log("aaaa");
     this.props.auth
       .resetPassword(email, code, password)
       .then(({ successed }) => {
@@ -53,6 +52,7 @@ export class ResetPasswordRoute extends React.PureComponent {
   render() {
     const { error, email, code, password, requested } = this.state;
     const isCodeValid = code === "" || isValidCode(code);
+    const isPasswordValid = password === "" || isValidPassword(password);
 
     return (
       <main
@@ -137,12 +137,21 @@ export class ResetPasswordRoute extends React.PureComponent {
               </label>
               <div className={"uk-form-controls"}>
                 <input
-                  className={"uk-input"}
+                  className={
+                    "uk-input" + (isPasswordValid ? "" : " uk-form-danger")
+                  }
                   id={"password"}
                   type={"password"}
                   value={password}
                   onChange={this.onPasswordChange}
                 />
+                {isPasswordValid || (
+                  <div className={"uk-text-right"}>
+                    <span className={"uk-text-danger"}>
+                      {"number of password characters should be 8 at least."}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -154,7 +163,9 @@ export class ResetPasswordRoute extends React.PureComponent {
                   className={"uk-button uk-button-default"}
                   type={"button"}
                   onClick={this.onResetClick}
-                  disabled={!code || !password || !isCodeValid}
+                  disabled={
+                    !code || !password || !isCodeValid || !isPasswordValid
+                  }
                 >
                   {"reset password"}
                 </button>
