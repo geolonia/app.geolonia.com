@@ -17,6 +17,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build && echo '/* /index.html 200' > ./build/_redirects",
     "test": "react-scripts test",
+    "test:ci": "npm test -- --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
