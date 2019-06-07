@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { isValidCode } from "../lib/validation";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -51,6 +52,7 @@ export class ResetPasswordRoute extends React.PureComponent {
 
   render() {
     const { error, email, code, password, requested } = this.state;
+    const isCodeValid = code === "" || isValidCode(code);
 
     return (
       <main
@@ -108,13 +110,22 @@ export class ResetPasswordRoute extends React.PureComponent {
               </label>
               <div className={"uk-form-controls"}>
                 <input
-                  className={"uk-input"}
+                  className={
+                    "uk-input" + (isCodeValid ? "" : " uk-form-danger")
+                  }
                   id={"code"}
                   type={"text"}
                   value={code}
                   onChange={this.onCodeChange}
                   placeholder={"012345"}
                 />
+                {isCodeValid || (
+                  <div className={"uk-text-right"}>
+                    <span className={"uk-text-danger"}>
+                      {"Verification code should be like as 012345."}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           )}
@@ -143,7 +154,7 @@ export class ResetPasswordRoute extends React.PureComponent {
                   className={"uk-button uk-button-default"}
                   type={"button"}
                   onClick={this.onResetClick}
-                  disabled={!code || !password}
+                  disabled={!code || !password || !isCodeValid}
                 >
                   {"reset password"}
                 </button>

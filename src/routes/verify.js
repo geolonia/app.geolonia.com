@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
 import getErrorMessage from "../assets/errors";
-import { isUsernameValid } from "../lib/validation";
+import { isValidUsername, isValidCode } from "../lib/validation";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -55,8 +55,8 @@ export class VerifyCodeRoute extends React.PureComponent {
 
   render() {
     const { sent, username, code, error } = this.state;
-    console.log(error);
-
+    const isUsernameValid = username === "" || isValidUsername(username);
+    const isCodeValid = code === "" || isValidCode(code);
     return (
       <main
         className={
@@ -82,10 +82,7 @@ export class VerifyCodeRoute extends React.PureComponent {
             <div className={"uk-form-controls"}>
               <input
                 className={
-                  "uk-input" +
-                  (username === "" || isUsernameValid(username)
-                    ? ""
-                    : " uk-form-danger")
+                  "uk-input" + (isUsernameValid ? "" : " uk-form-danger")
                 }
                 id={"username"}
                 type={"text"}
@@ -93,7 +90,7 @@ export class VerifyCodeRoute extends React.PureComponent {
                 onChange={this.onUsernameChange}
                 placeholder={"username"}
               />
-              {username === "" || isUsernameValid(username) || (
+              {isUsernameValid || (
                 <div className={"uk-text-right"}>
                   <span className={"uk-text-danger"}>
                     {"You can use only A-Z, a-z, 0-9, - and _ for username."}
@@ -109,13 +106,20 @@ export class VerifyCodeRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={"uk-input"}
+                className={"uk-input" + (isCodeValid ? "" : " uk-form-danger")}
                 id={"code"}
                 type={"text"}
                 value={code}
                 onChange={this.onCodeChange}
                 placeholder={"012345"}
               />
+              {isCodeValid || (
+                <div className={"uk-text-right"}>
+                  <span className={"uk-text-danger"}>
+                    {"Verification code should be like as 012345."}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
 
@@ -125,7 +129,9 @@ export class VerifyCodeRoute extends React.PureComponent {
                 className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onVerifyClick}
-                disabled={!code || !username || !isUsernameValid(username)}
+                disabled={
+                  !code || !username || !isUsernameValid || !isCodeValid
+                }
               >
                 {"verify"}
               </button>

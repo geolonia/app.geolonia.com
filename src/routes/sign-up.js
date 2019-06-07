@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import getErrorMessage from "../assets/errors";
-import { isUsernameValid } from "../lib/validation";
+import { isValidUsername } from "../lib/validation";
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -48,7 +48,7 @@ export class SignUpRoute extends React.PureComponent {
   render() {
     const { username, email, password, requesting, error } = this.state;
 
-    // TODO: Split Form modules as a Component
+    const isUsernameValid = username === "" || isValidUsername(username);
     const isPasswordValid = true;
     const isEmailValid = true;
 
@@ -75,10 +75,7 @@ export class SignUpRoute extends React.PureComponent {
             <div className={"uk-form-controls"}>
               <input
                 className={
-                  "uk-input" +
-                  (username === "" || isUsernameValid(username)
-                    ? ""
-                    : " uk-form-danger")
+                  "uk-input" + (isUsernameValid ? "" : " uk-form-danger")
                 }
                 id={"username"}
                 type={"username"}
@@ -86,7 +83,7 @@ export class SignUpRoute extends React.PureComponent {
                 onChange={this.onUsernameChange}
                 placeholder={"username"}
               />
-              {username === "" || isUsernameValid(username) || (
+              {isUsernameValid || (
                 <div className={"uk-text-right"}>
                   <span className={"uk-text-danger"}>
                     {"You can use only A-Z, a-z, 0-9, - and _ for username."}
@@ -137,7 +134,7 @@ export class SignUpRoute extends React.PureComponent {
                   !username ||
                   !email ||
                   !password ||
-                  !isUsernameValid(username) ||
+                  !isUsernameValid ||
                   !isEmailValid ||
                   !isPasswordValid
                 }
