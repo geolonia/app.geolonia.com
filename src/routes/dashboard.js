@@ -14,6 +14,7 @@ export class DashboardRoute extends React.PureComponent {
       openedUserKey: false,
       error: false,
       requesting: false,
+      deletingIndex: -1,
       nextUserKeyProps: {}
     };
     if (props.auth.userData) {
@@ -88,15 +89,22 @@ export class DashboardRoute extends React.PureComponent {
   };
 
   onDeleteClick = userKey => () => {
-    this.setState({ error: false, requesting: true });
+    const nextUserKeys = [...this.state.userKeys];
+    const index = nextUserKeys.map(x => x.userKey).indexOf(userKey);
+    this.setState({ error: false, requesting: true, deletingIndex: index });
+
     return this.props.auth.API.deleteKey(userKey)
       .then(() => {
-        const userKeys = [...this.state.userKeys];
-        const index = userKeys.map(x => x.userKey).indexOf(userKey);
-        userKeys.splice(index, 1);
-        this.setState({ userKeys, requesting: false });
+        nextUserKeys.splice(index, 1);
+        this.setState({
+          userKeys: nextUserKeys,
+          requesting: false,
+          deletingIndex: -1
+        });
       })
-      .catch(err => this.setState({ error: true, requesting: false }));
+      .catch(err =>
+        this.setState({ error: true, requesting: false, deletingIndex: -1 })
+      );
   };
 
   onCheckUpdate = e => {
@@ -243,7 +251,7 @@ export class DashboardRoute extends React.PureComponent {
     const {
       auth: { userData }
     } = this.props;
-    const { userKeys, error, requesting } = this.state;
+    const { userKeys, error, requesting, deletingIndex } = this.state;
 
     if (!userData) {
       return null;
@@ -273,7 +281,7 @@ export class DashboardRoute extends React.PureComponent {
         </div>
 
         {/* development */}
-        <table className={"uk-table uk-table-divider"}>
+        <table className={"uk-table uk-table-divider uk-table-striped"}>
           <thead>
             <tr>
               <th>{"Description"}</th>
@@ -284,12 +292,19 @@ export class DashboardRoute extends React.PureComponent {
           <tbody>
             {userKeys.map(
               ({ userKey, enabled, description, allowedOrigins }, index) => (
-                <tr key={userKey}>
+                <tr
+                  key={userKey}
+                  className={
+                    "api-key-list" +
+                    (deletingIndex === index ? " api-key-list__deleting" : "")
+                  }
+                >
                   <td>{description || "(no description)"}</td>
                   <td>
                     {userKey}
                     <button
                       className={"uk-button"}
+                      style={{ background: "transparent" }}
                       onClick={this.onCopyToClipboardClick(userKey)}
                     >
                       <span className="uk-margin-small-right" uk-icon="copy" />
@@ -299,7 +314,7 @@ export class DashboardRoute extends React.PureComponent {
                   <td>
                     <button
                       className={"uk-button"}
-                      style={{ marginRight: 10 }}
+                      style={{ background: "transparent", marginRight: 10 }}
                       onClick={this.onOpenModalClick(userKey)}
                     >
                       <span
@@ -309,6 +324,7 @@ export class DashboardRoute extends React.PureComponent {
                     </button>
                     <button
                       className={"uk-button"}
+                      style={{ background: "transparent" }}
                       onClick={this.onDeleteClick(userKey)}
                     >
                       <span className="uk-margin-small-right" uk-icon="trash" />
