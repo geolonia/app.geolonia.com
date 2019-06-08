@@ -33,6 +33,8 @@ export class VerifyCodeRoute extends React.PureComponent {
       sent: parsed.sent === "true",
       username: parsed.username || "",
       code: "",
+      onceUsernameBlurred: false,
+      onceCodeBlurred: false,
       error: false
     };
   }
@@ -40,6 +42,11 @@ export class VerifyCodeRoute extends React.PureComponent {
   _onChange = (key, value) => this.setState({ [key]: value, error: false });
   onUsernameChange = e => this._onChange("username", e.target.value);
   onCodeChange = e => this._onChange("code", e.target.value);
+  onUsernameBlur = () =>
+    this.state.onceUsernameBlurred ||
+    this.setState({ onceUsernameBlurred: true });
+  onCodeBlur = () =>
+    this.state.onceCodeBlurred || this.setState({ onceCodeBlurred: true });
 
   onVerifyClick = () => {
     this.props.auth
@@ -55,7 +62,14 @@ export class VerifyCodeRoute extends React.PureComponent {
   };
 
   render() {
-    const { sent, username, code, error } = this.state;
+    const {
+      sent,
+      username,
+      code,
+      onceUsernameBlurred,
+      onceCodeBlurred,
+      error
+    } = this.state;
     const isUsernameValid = username === "" || isValidUsername(username);
     const isCodeValid = code === "" || isValidCode(code);
     return (
@@ -83,16 +97,20 @@ export class VerifyCodeRoute extends React.PureComponent {
             <div className={"uk-form-controls"}>
               <input
                 className={
-                  "uk-input" + (isUsernameValid ? "" : " uk-form-danger")
+                  "uk-input" +
+                  (onceUsernameBlurred && !isUsernameValid
+                    ? " uk-form-danger"
+                    : "")
                 }
                 id={"username"}
                 type={"text"}
                 value={username}
                 onChange={this.onUsernameChange}
+                onBlur={this.onUsernameBlur}
                 placeholder={"username"}
               />
               <ValidationMessage
-                display={!isUsernameValid}
+                display={onceUsernameBlurred && !isUsernameValid}
                 text={"You can use only A-Z, a-z, 0-9, - and _ for username."}
               />
             </div>
@@ -104,15 +122,19 @@ export class VerifyCodeRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={"uk-input" + (isCodeValid ? "" : " uk-form-danger")}
+                className={
+                  "uk-input" +
+                  (onceCodeBlurred && !isCodeValid ? " uk-form-danger" : "")
+                }
                 id={"code"}
                 type={"text"}
                 value={code}
                 onChange={this.onCodeChange}
+                onBlur={this.onCodeBlur}
                 placeholder={"012345"}
               />
               <ValidationMessage
-                display={!isCodeValid}
+                display={onceCodeBlurred && !isCodeValid}
                 text={"Verification code should be like as 012345."}
               />
             </div>

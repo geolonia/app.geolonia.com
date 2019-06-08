@@ -23,6 +23,9 @@ export class ResetPasswordRoute extends React.PureComponent {
     email: "",
     code: "",
     password: "",
+    onceEmailBlurred: false,
+    onceCodeBlurred: false,
+    oncePasswordBlurred: false,
     requested: false,
     error: void 0
   };
@@ -31,6 +34,13 @@ export class ResetPasswordRoute extends React.PureComponent {
   onEmailChange = e => this._onChange("email", e.target.value);
   onCodeChange = e => this._onChange("code", e.target.value);
   onPasswordChange = e => this._onChange("password", e.target.value);
+  onEmailBlur = () =>
+    this.state.onceEmailBlurred || this.setState({ onceEmailBlurred: true });
+  onCodeBlur = () =>
+    this.state.onceCodeBlurred || this.setState({ onceCodeBlurred: true });
+  onPasswordBlur = () =>
+    this.state.oncePasswordBlurred ||
+    this.setState({ oncePasswordBlurred: true });
 
   onRequestClick = () => {
     const { email } = this.state;
@@ -52,7 +62,16 @@ export class ResetPasswordRoute extends React.PureComponent {
   };
 
   render() {
-    const { error, email, code, password, requested } = this.state;
+    const {
+      error,
+      email,
+      code,
+      password,
+      onceEmailBlurred,
+      onceCodeBlurred,
+      oncePasswordBlurred,
+      requested
+    } = this.state;
     const isCodeValid = code === "" || isValidCode(code);
     const isEmailValid = email === "" || isValidEmail(email);
     const isPasswordValid = password === "" || isValidPassword(password);
@@ -73,15 +92,19 @@ export class ResetPasswordRoute extends React.PureComponent {
             <div className={"uk-form-controls"}>
               <input
                 disabled={requested}
-                className={"uk-input" + (isEmailValid ? "" : " uk-form-danger")}
+                className={
+                  "uk-input" +
+                  (onceEmailBlurred && !isEmailValid ? " uk-form-danger" : "")
+                }
                 id={"email"}
                 type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
+                onBlur={this.onEmailBlur}
                 placeholder={"name@example.com"}
               />
               <ValidationMessage
-                display={!isEmailValid}
+                display={onceEmailBlurred && !isEmailValid}
                 text={"Please enter valid email."}
               />
             </div>
@@ -118,16 +141,18 @@ export class ResetPasswordRoute extends React.PureComponent {
               <div className={"uk-form-controls"}>
                 <input
                   className={
-                    "uk-input" + (isCodeValid ? "" : " uk-form-danger")
+                    "uk-input" +
+                    (onceCodeBlurred && !isCodeValid ? " uk-form-danger" : "")
                   }
                   id={"code"}
                   type={"text"}
                   value={code}
                   onChange={this.onCodeChange}
+                  onBlur={this.onCodeBlur}
                   placeholder={"012345"}
                 />
                 <ValidationMessage
-                  display={!isCodeValid}
+                  display={onceCodeBlurred && !isCodeValid}
                   text={"Verification code should be like as 012345."}
                 />
               </div>
@@ -142,15 +167,19 @@ export class ResetPasswordRoute extends React.PureComponent {
               <div className={"uk-form-controls"}>
                 <input
                   className={
-                    "uk-input" + (isPasswordValid ? "" : " uk-form-danger")
+                    "uk-input" +
+                    (oncePasswordBlurred && !isPasswordValid
+                      ? " uk-form-danger"
+                      : "")
                   }
                   id={"password"}
                   type={"password"}
                   value={password}
                   onChange={this.onPasswordChange}
+                  onBlur={this.onPasswordBlur}
                 />
                 <ValidationMessage
-                  display={!isPasswordValid}
+                  display={oncePasswordBlurred && !isPasswordValid}
                   text={"number of password characters should be 8 at least."}
                 />
               </div>

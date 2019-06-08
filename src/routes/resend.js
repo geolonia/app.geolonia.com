@@ -17,11 +17,14 @@ export class ResendCodeRoute extends React.PureComponent {
 
   state = {
     email: "",
+    onceEmailBlurred: false,
     error: void 0
   };
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
   onEmailChange = e => this._onChange("email", e.target.value);
+  onEmailBlur = () =>
+    this.state.onceEmailBlurred || this.setState({ onceEmailBlurred: true });
 
   onResendClick = () => {
     console.log(this.props.auth.userData);
@@ -35,7 +38,7 @@ export class ResendCodeRoute extends React.PureComponent {
   };
 
   render() {
-    const { email, error } = this.state;
+    const { email, onceEmailBlurred, error } = this.state;
     const isEmailValid = email === "" || isValidEmail(email);
 
     return (
@@ -54,11 +57,15 @@ export class ResendCodeRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={"uk-input" + (isEmailValid ? "" : " uk-form-danger")}
+                className={
+                  "uk-input" +
+                  (onceEmailBlurred && !isEmailValid ? " uk-form-danger" : "")
+                }
                 id={"email"}
                 type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
+                onBlur={this.onEmailBlur}
                 placeholder={"user@example.com"}
               />
               <ValidationMessage

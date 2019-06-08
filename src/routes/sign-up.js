@@ -29,6 +29,9 @@ export class SignUpRoute extends React.PureComponent {
     username: "",
     email: "",
     password: "",
+    onceUsernameBlurred: false,
+    onceEmailBlurred: false,
+    oncePasswordBlurred: false,
     requesting: false,
     error: false
   };
@@ -37,6 +40,14 @@ export class SignUpRoute extends React.PureComponent {
   onUsernameChange = e => this._onChange("username", e.target.value);
   onEmailChange = e => this._onChange("email", e.target.value);
   onPasswordChange = e => this._onChange("password", e.target.value);
+  onUsernameBlur = () =>
+    this.state.onceUsernameBlurred ||
+    this.setState({ onceUsernameBlurred: true });
+  onEmailBlur = () =>
+    this.state.onceEmailBlurred || this.setState({ onceEmailBlurred: true });
+  onPasswordBlur = () =>
+    this.state.oncePasswordBlurred ||
+    this.setState({ oncePasswordBlurred: true });
 
   onSignupClick = () => {
     const { username, email, password } = this.state;
@@ -52,7 +63,16 @@ export class SignUpRoute extends React.PureComponent {
   };
 
   render() {
-    const { username, email, password, requesting, error } = this.state;
+    const {
+      username,
+      email,
+      password,
+      onceUsernameBlurred,
+      onceEmailBlurred,
+      oncePasswordBlurred,
+      requesting,
+      error
+    } = this.state;
 
     const isUsernameValid = username === "" || isValidUsername(username);
     const isPasswordValid = password === "" || isValidPassword(password);
@@ -75,16 +95,20 @@ export class SignUpRoute extends React.PureComponent {
             <div className={"uk-form-controls"}>
               <input
                 className={
-                  "uk-input" + (isUsernameValid ? "" : " uk-form-danger")
+                  "uk-input" +
+                  (onceUsernameBlurred && !isUsernameValid
+                    ? " uk-form-danger"
+                    : "")
                 }
                 id={"username"}
                 type={"username"}
                 value={username}
                 onChange={this.onUsernameChange}
+                onBlur={this.onUsernameBlur}
                 placeholder={"username"}
               />
               <ValidationMessage
-                display={!isUsernameValid}
+                display={onceUsernameBlurred && !isUsernameValid}
                 text={"You can use only A-Z, a-z, 0-9, - and _ for username."}
               />
             </div>
@@ -96,15 +120,19 @@ export class SignUpRoute extends React.PureComponent {
             </label>
             <div className={"uk-form-controls"}>
               <input
-                className={"uk-input" + (isEmailValid ? "" : " uk-form-danger")}
+                className={
+                  "uk-input" +
+                  (onceEmailBlurred && !isEmailValid ? " uk-form-danger" : "")
+                }
                 id={"email"}
                 type={"email"}
                 value={email}
                 onChange={this.onEmailChange}
+                onBlur={this.onEmailBlur}
                 placeholder={"name@example.com"}
               />
               <ValidationMessage
-                display={!isEmailValid}
+                display={onceEmailBlurred && !isEmailValid}
                 text={"Please enter correct email."}
               />
             </div>
@@ -117,20 +145,21 @@ export class SignUpRoute extends React.PureComponent {
             <div className={"uk-form-controls"}>
               <input
                 className={
-                  "uk-input" + (isPasswordValid ? "" : " uk-form-danger")
+                  "uk-input" +
+                  (oncePasswordBlurred && !isPasswordValid
+                    ? " uk-form-danger"
+                    : "")
                 }
                 id={"password"}
                 type={"password"}
                 value={password}
                 onChange={this.onPasswordChange}
+                onBlur={this.onPasswordBlur}
               />
-              {isPasswordValid || (
-                <div className={"uk-text-right"}>
-                  <span className={"uk-text-danger"}>
-                    {"number of password characters should be 8 at least."}
-                  </span>
-                </div>
-              )}
+              <ValidationMessage
+                display={oncePasswordBlurred && !isPasswordValid}
+                text={"number of password characters should be 8 at least."}
+              />
             </div>
           </div>
 
