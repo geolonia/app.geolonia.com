@@ -9,6 +9,7 @@ import {
 } from "../lib/validation";
 import Logo from "../components/logo";
 import ValidationMessage from "../components/validation-message";
+import Spinner from "../components/spinner";
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -51,14 +52,14 @@ export class SignUpRoute extends React.PureComponent {
 
   onSignupClick = () => {
     const { username, email, password } = this.state;
-    this.setState({ requesting: true });
+    this.setState({ requesting: true, error: false });
     this.props.auth
       .signUp(username, email, password)
-      .then(
-        ({ successed }) =>
-          successed &&
-          this.props.history.push(`/verify?sent=true&username=${username}`)
-      )
+      .then(({ successed }) => {
+        this.setState({ requesting: false });
+        successed &&
+          this.props.history.push(`/verify?sent=true&username=${username}`);
+      })
       .catch(error => this.setState({ error, requesting: false }));
   };
 
@@ -170,6 +171,7 @@ export class SignUpRoute extends React.PureComponent {
                 type={"button"}
                 onClick={this.onSignupClick}
                 disabled={
+                  requesting ||
                   !username ||
                   !email ||
                   !password ||
@@ -178,6 +180,7 @@ export class SignUpRoute extends React.PureComponent {
                   !isPasswordValid
                 }
               >
+                <Spinner loading={requesting} />
                 {"sign up"}
               </button>
             </div>

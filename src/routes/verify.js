@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import getErrorMessage from "../assets/errors";
 import { isValidUsername, isValidCode } from "../lib/validation";
 import ValidationMessage from "../components/validation-message";
+import Spinner from "../components/spinner";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -35,7 +36,8 @@ export class VerifyCodeRoute extends React.PureComponent {
       code: "",
       onceUsernameBlurred: false,
       onceCodeBlurred: false,
-      error: false
+      error: false,
+      requesting: false
     };
   }
 
@@ -49,16 +51,18 @@ export class VerifyCodeRoute extends React.PureComponent {
     this.state.onceCodeBlurred || this.setState({ onceCodeBlurred: true });
 
   onVerifyClick = () => {
+    this.setState({ requesting: true, error: false });
     this.props.auth
       .verify(this.state.username, this.state.code)
       .then(({ successed }) => {
+        this.setState({ requesting: false });
         if (successed) {
           this.props.history.push(
             `/sign-in?verified=true&username=${this.state.username}`
           );
         }
       })
-      .catch(error => this.setState({ error }));
+      .catch(error => this.setState({ requesting: false, error }));
   };
 
   render() {
@@ -68,7 +72,8 @@ export class VerifyCodeRoute extends React.PureComponent {
       code,
       onceUsernameBlurred,
       onceCodeBlurred,
-      error
+      error,
+      requesting
     } = this.state;
     const isUsernameValid = username === "" || isValidUsername(username);
     const isCodeValid = code === "" || isValidCode(code);
@@ -147,9 +152,14 @@ export class VerifyCodeRoute extends React.PureComponent {
                 type={"button"}
                 onClick={this.onVerifyClick}
                 disabled={
-                  !code || !username || !isUsernameValid || !isCodeValid
+                  requesting ||
+                  !code ||
+                  !username ||
+                  !isUsernameValid ||
+                  !isCodeValid
                 }
               >
+                <Spinner loading={requesting} />
                 {"verify"}
               </button>
             </div>

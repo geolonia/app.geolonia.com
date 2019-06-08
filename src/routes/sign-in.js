@@ -6,6 +6,7 @@ import getErrorMessage from "../assets/errors";
 import { isValidUsername, isValidEmail } from "../lib/validation";
 import Logo from "../components/logo";
 import ValidationMessage from "../components/validation-message";
+import Spinner from "../components/spinner";
 
 export class SignInRoute extends React.PureComponent {
   /**
@@ -35,11 +36,12 @@ export class SignInRoute extends React.PureComponent {
       emailOrUsername: parsed.username || "", // should be username or email
       password: "",
       onceUsernameOrEmailBlurred: false,
-      error: void 0
+      error: false,
+      requesting: false
     };
   }
 
-  _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
+  _onChange = (key, value) => this.setState({ [key]: value, error: false });
   onEmailOrUsernameChange = e =>
     this._onChange("emailOrUsername", e.target.value);
   onPasswordChange = e => this._onChange("password", e.target.value);
@@ -47,13 +49,16 @@ export class SignInRoute extends React.PureComponent {
     this.state.onceUsernameOrEmailBlurred ||
     this.setState({ onceUsernameOrEmailBlurred: true });
 
-  onSigninClick = () =>
+  onSigninClick = () => {
+    this.setState({ requesting: true, error: false });
     this.props.auth
       .signin(this.state.emailOrUsername, this.state.password)
-      .then(
-        ({ successed }) => successed && this.props.history.push("/dashboard/")
-      )
-      .catch(error => this.setState({ error }));
+      .then(({ successed }) => {
+        this.setState({ requesting: false });
+        successed && this.props.history.push("/dashboard/");
+      })
+      .catch(error => this.setState({ requesting: false, error }));
+  };
 
   render() {
     const {
@@ -62,7 +67,8 @@ export class SignInRoute extends React.PureComponent {
       emailOrUsername,
       password,
       onceUsernameOrEmailBlurred,
-      error
+      error,
+      requesting
     } = this.state;
     const isValidEmailOrUsername =
       emailOrUsername === "" ||
@@ -148,9 +154,13 @@ export class SignInRoute extends React.PureComponent {
                 type={"button"}
                 onClick={this.onSigninClick}
                 disabled={
-                  !emailOrUsername || !password || !isValidEmailOrUsername
+                  requesting ||
+                  !emailOrUsername ||
+                  !password ||
+                  !isValidEmailOrUsername
                 }
               >
+                <Spinner loading={requesting} />
                 {"sign in"}
               </button>
             </div>

@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { isValidCode, isValidEmail, isValidPassword } from "../lib/validation";
 import ValidationMessage from "../components/validation-message";
 import getErrorMessage from "../assets/errors";
+import Spinner from "../components/spinner";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -26,6 +27,7 @@ export class ResetPasswordRoute extends React.PureComponent {
     onceEmailBlurred: false,
     onceCodeBlurred: false,
     oncePasswordBlurred: false,
+    requesting: false,
     requested: false,
     error: void 0
   };
@@ -43,22 +45,25 @@ export class ResetPasswordRoute extends React.PureComponent {
     this.setState({ oncePasswordBlurred: true });
 
   onRequestClick = () => {
+    this.setState({ requesting: true, error: false });
     const { email } = this.state;
     this.props.auth
       .requestResetCode(email)
-      .then(() => this.setState({ requested: true }))
-      .catch(error => this.setState({ error }));
+      .then(() => this.setState({ requesting: false, requested: true }))
+      .catch(error => this.setState({ requesting: false, error }));
   };
   onResetClick = () => {
+    this.setState({ requesting: true, error: false });
     const { email, code, password } = this.state;
     this.props.auth
       .resetPassword(email, code, password)
       .then(({ successed }) => {
+        this.setState({ requesting: false });
         if (successed) {
           this.props.history.push(`/sign-in?reset=true`);
         }
       })
-      .catch(error => console.log({ error }) || this.setState({ error }));
+      .catch(error => this.setState({ requesting: false, error }));
   };
 
   render() {
@@ -70,7 +75,8 @@ export class ResetPasswordRoute extends React.PureComponent {
       onceEmailBlurred,
       onceCodeBlurred,
       oncePasswordBlurred,
-      requested
+      requested,
+      requesting
     } = this.state;
     const isCodeValid = code === "" || isValidCode(code);
     const isEmailValid = email === "" || isValidEmail(email);
@@ -116,8 +122,9 @@ export class ResetPasswordRoute extends React.PureComponent {
                 className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onRequestClick}
-                disabled={!email || !isEmailValid || requested}
+                disabled={requesting || !email || !isEmailValid || requested}
               >
+                <Spinner loading={requesting} />
                 {"send reset code via email"}
               </button>
             </div>
@@ -194,9 +201,14 @@ export class ResetPasswordRoute extends React.PureComponent {
                   type={"button"}
                   onClick={this.onResetClick}
                   disabled={
-                    !code || !password || !isCodeValid || !isPasswordValid
+                    requesting ||
+                    !code ||
+                    !password ||
+                    !isCodeValid ||
+                    !isPasswordValid
                   }
                 >
+                  <Spinner loading={requesting} />
                   {"reset password"}
                 </button>
               </div>

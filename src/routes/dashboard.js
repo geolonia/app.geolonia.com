@@ -137,7 +137,7 @@ export class DashboardRoute extends React.PureComponent {
             style={{ background: "none", border: "none" }}
             onClick={this.onCloseModalClick}
           >
-            <span class="uk-margin-small-right" uk-icon="close" />
+            <span className="uk-margin-small-right" uk-icon="close" />
           </button>
           <label className={"uk-form-label"} htmlFor={"your-api-key"}>
             {"API KEY"}
@@ -269,7 +269,7 @@ export class DashboardRoute extends React.PureComponent {
                       className={"uk-button"}
                       onClick={this.onCopyToClipboardClick(userKey)}
                     >
-                      <span class="uk-margin-small-right" uk-icon="copy" />
+                      <span className="uk-margin-small-right" uk-icon="copy" />
                     </button>
                   </td>
                   <td>{allowedOrigins.join(", ")}</td>
@@ -279,13 +279,13 @@ export class DashboardRoute extends React.PureComponent {
                       style={{ marginRight: 10 }}
                       onClick={this.onOpenModalClick(userKey)}
                     >
-                      <span class="uk-margin-small-right" uk-icon="pencil" />
+                      <span className="uk-margin-small-right" uk-icon="pencil" />
                     </button>
                     <button
                       className={"uk-button"}
                       onClick={this.onDeleteClick(userKey)}
                     >
-                      <span class="uk-margin-small-right" uk-icon="trash" />
+                      <span className="uk-margin-small-right" uk-icon="trash" />
                     </button>
                   </td>
                 </tr>

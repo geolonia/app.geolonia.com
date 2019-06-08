@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { isValidEmail } from "../lib/validation";
 import ValidationMessage from "../components/validation-message";
 import getErrorMessage from "../assets/errors";
+import Spinner from "../components/spinner";
 
 export class ResendCodeRoute extends React.PureComponent {
   /**
@@ -18,27 +19,31 @@ export class ResendCodeRoute extends React.PureComponent {
   state = {
     email: "",
     onceEmailBlurred: false,
-    error: void 0
+    error: false,
+    requesting: false
   };
 
-  _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
+  _onChange = (key, value) => this.setState({ [key]: value, error: false });
   onEmailChange = e => this._onChange("email", e.target.value);
   onEmailBlur = () =>
     this.state.onceEmailBlurred || this.setState({ onceEmailBlurred: true });
 
   onResendClick = () => {
-    console.log(this.props.auth.userData);
+    this.setState({ requesting: true, error: false });
     const email =
       (this.props.auth.userData && this.props.auth.userData.user.username) ||
       this.state.email;
     this.props.auth
       .resend(email)
-      .then(({ successed }) => successed && this.props.history.push("/verify/"))
-      .catch(error => this.setState({ error }));
+      .then(({ successed }) => {
+        this.setState({ requesting: false });
+        successed && this.props.history.push("/verify/");
+      })
+      .catch(error => this.setState({ requesting: false, error }));
   };
 
   render() {
-    const { email, onceEmailBlurred, error } = this.state;
+    const { email, onceEmailBlurred, error, requesting } = this.state;
     const isEmailValid = email === "" || isValidEmail(email);
 
     return (
@@ -81,8 +86,9 @@ export class ResendCodeRoute extends React.PureComponent {
                 className={"uk-button uk-button-default"}
                 type={"button"}
                 onClick={this.onResendClick}
-                disabled={!email || !isEmailValid}
+                disabled={requesting || !email || !isEmailValid}
               >
+                <Spinner loading={requesting} />
                 {"resend"}
               </button>
             </div>
