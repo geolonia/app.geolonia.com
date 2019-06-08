@@ -286,7 +286,7 @@ export class DashboardRoute extends React.PureComponent {
             <tr>
               <th>{"Description"}</th>
               <th>{"API KEY"}</th>
-              <th>{userKeys.length > 1 ? "Origins" : "Origin"}</th>
+              <th>{"Origins"}</th>
             </tr>
           </thead>
           <tbody>
@@ -300,12 +300,13 @@ export class DashboardRoute extends React.PureComponent {
                   }
                 >
                   <td>{description || "(no description)"}</td>
-                  <td>
-                    {userKey}
+                  <td className={"uk-flex uk-flex-between"}>
+                    <span>{userKey}</span>
                     <button
                       className={"uk-button"}
                       style={{ background: "transparent" }}
                       onClick={this.onCopyToClipboardClick(userKey)}
+                      uk-tooltip={"Copy To Clipboard"}
                     >
                       <span className="uk-margin-small-right" uk-icon="copy" />
                     </button>
@@ -316,6 +317,7 @@ export class DashboardRoute extends React.PureComponent {
                       className={"uk-button"}
                       style={{ background: "transparent", marginRight: 10 }}
                       onClick={this.onOpenModalClick(userKey)}
+                      uk-tooltip={"Edit"}
                     >
                       <span
                         className="uk-margin-small-right"
@@ -326,6 +328,7 @@ export class DashboardRoute extends React.PureComponent {
                       className={"uk-button"}
                       style={{ background: "transparent" }}
                       onClick={this.onDeleteClick(userKey)}
+                      uk-tooltip={"Delete"}
                     >
                       <span className="uk-margin-small-right" uk-icon="trash" />
                     </button>
