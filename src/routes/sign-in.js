@@ -45,7 +45,7 @@ export class SignInRoute extends React.PureComponent {
   onPasswordChange = e => this._onChange("password", e.target.value);
   onEmailOrUsernameBlur = () =>
     this.state.onceUsernameOrEmailBlurred ||
-    this.setState({ emailOrUsername: true });
+    this.setState({ onceUsernameOrEmailBlurred: true });
 
   onSigninClick = () =>
     this.props.auth
