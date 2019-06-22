@@ -8,6 +8,7 @@ import VerifyRoute from "./routes/verify";
 import ResendCodeRoute from "./routes/resend";
 import SignInRoute from "./routes/sign-in";
 import DashboardRoute from "./routes/dashboard";
+import NextDashboardRoute from "./routes/dashboard-next";
 import ProfileRoute from "./routes/profile";
 import ResetPasswordRoute from "./routes/reset-password";
 
@@ -29,6 +30,9 @@ const routes = {
   },
   "/dashboard/": {
     Component: DashboardRoute
+  },
+  "/next-dashboard/": {
+    Component: NextDashboardRoute
   },
   "/profile/": {
     Component: ProfileRoute
