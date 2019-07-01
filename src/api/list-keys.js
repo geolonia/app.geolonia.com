@@ -1,21 +1,21 @@
-const URL_BASE = process.env.REACT_APP_USER_KEYS_API_URL;
+const URL_BASE = __ENV__.REACT_APP_USER_KEYS_API_URL
 
 export const listKeys = token => () => {
   return fetch(URL_BASE, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      "Content-Type": "Application/json",
+      'Content-Type': 'Application/json',
       Authorization: token
     }
   })
     .then(res => {
       if (res.ok) {
-        return res.json();
+        return res.json()
       } else {
-        throw new Error("Request Error");
+        throw new Error('Request Error')
       }
     })
-    .then(({ body }) => body);
-};
+    .then(({ body }) => body)
+}
 
-export default listKeys;
+export default listKeys
