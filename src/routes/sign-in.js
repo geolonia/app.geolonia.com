@@ -58,7 +58,7 @@ export class SignInRoute extends React.PureComponent {
       .signin(this.state.emailOrUsername, this.state.password)
       .then(({ successed }) => {
         this.setState({ requesting: false });
-        successed && this.props.history.push(`/${__ENV__.BASE_DIR}/dashboard/`);
+        successed && this.props.history.push(`${__ENV__.BASE_DIR}/dashboard/`);
       })
       .catch(error => this.setState({ requesting: false, error }));
   };

@@ -58,7 +58,7 @@ export class SignUpRoute extends React.PureComponent {
       .then(({ successed }) => {
         this.setState({ requesting: false });
         successed &&
-          this.props.history.push(`/${__ENV__.BASE_DIR}/verify?sent=true&username=${username}`);
+          this.props.history.push(`${__ENV__.BASE_DIR}/verify?sent=true&username=${username}`);
       })
       .catch(error => this.setState({ error, requesting: false }));
   };

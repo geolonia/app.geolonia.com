@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { primary } from "./colors";
 
 const signoutRoutes = [
-  { key: 1, label: "Sign up", path: `/${__ENV__.BASE_DIR}/sign-up/` },
-  { key: 2, label: "Sign in", path: `/${__ENV__.BASE_DIR}/sign-in/` }
+  { key: 1, label: "Sign up", path: `${__ENV__.BASE_DIR}/sign-up/` },
+  { key: 2, label: "Sign in", path: `${__ENV__.BASE_DIR}/sign-in/` }
 ];
 
 const signinRoutes = [
@@ -16,7 +16,7 @@ const signinRoutes = [
     label: "Sign out",
     handler: ({ auth, history }) => {
       auth.signout();
-      history.replace(`/${__ENV__.BASE_DIR}/sign-in/`);
+      history.replace(`${__ENV__.BASE_DIR}/sign-in/`);
     }
   },
   {

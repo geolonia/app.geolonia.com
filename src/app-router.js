@@ -54,7 +54,7 @@ const AppRouter = props => {
           return (
             <Route
               key={path}
-              path={`/${__ENV__.BASE_DIR}/${path}`}
+              path={`${__ENV__.BASE_DIR}/${path}`}
               exact
               render={props => <Component {...props} auth={auth} />}
             />

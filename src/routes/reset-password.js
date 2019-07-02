@@ -60,7 +60,7 @@ export class ResetPasswordRoute extends React.PureComponent {
       .then(({ successed }) => {
         this.setState({ requesting: false });
         if (successed) {
-          this.props.history.push(`/${__ENV__.BASE_DIR}/sign-in?reset=true`);
+          this.props.history.push(`${__ENV__.BASE_DIR}/sign-in?reset=true`);
         }
       })
       .catch(error => this.setState({ requesting: false, error }));

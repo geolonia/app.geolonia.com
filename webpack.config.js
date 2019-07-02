@@ -13,7 +13,7 @@ const IS_PROD = NODE_ENV === 'production'
 
 const ENV = {
   NODE_ENV: NODE_ENV === 'production' ? '"production"' : '"development"',
-  BASE_DIR: 'dashboard',
+  BASE_DIR: '/app',
   REACT_APP_USER_KEYS_API_URL: process.env.REACT_APP_USER_KEYS_API_URL,
   REACT_APP_AWS_REGION: process.env.REACT_APP_AWS_REGION,
   REACT_APP_AWS_COGNITO_USER_POOL_ID:
@@ -76,8 +76,8 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public', 'dashboard.html'),
-      filename: 'dashboard/index.html'
+      template: path.resolve(__dirname, 'public', 'app.html'),
+      filename: 'app/index.html'
     }),
 
     new CopyWebpackPlugin([
@@ -101,7 +101,7 @@ module.exports = {
     port: 3000,
     historyApiFallback: {
       rewrites: [
-        { from: /^\/dashboard/, to: '/dashboard' },
+        { from: /^\/app/, to: '/app' },
       ]
     },
     hot: true,

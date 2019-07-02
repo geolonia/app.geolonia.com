@@ -58,7 +58,7 @@ export class VerifyCodeRoute extends React.PureComponent {
         this.setState({ requesting: false });
         if (successed) {
           this.props.history.push(
-            `/${__ENV__.BASE_DIR}/sign-in?verified=true&username=${this.state.username}`
+            `${__ENV__.BASE_DIR}/sign-in?verified=true&username=${this.state.username}`
           );
         }
       })
