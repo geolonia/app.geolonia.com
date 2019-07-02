@@ -78,7 +78,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'dashboard.html'),
-      filename: 'dashoboard/index.html'
+      filename: 'dashboard/index.html'
     }),
 
     new CopyWebpackPlugin([
