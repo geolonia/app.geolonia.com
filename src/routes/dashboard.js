@@ -56,7 +56,7 @@ export class DashboardRoute extends React.PureComponent {
       if (this.props.auth.userData) {
         this.listKeys();
       } else {
-        this.props.history.push("/sign-in/");
+        this.props.history.push(`/${__ENV__.BASE_DIR}/sign-in/`);
       }
     }
   }

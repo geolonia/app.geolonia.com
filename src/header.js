@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { primary } from "./colors";
 
 const signoutRoutes = [
-  { key: 1, label: "Sign up", path: "/sign-up/" },
-  { key: 2, label: "Sign in", path: "/sign-in/" }
+  { key: 1, label: "Sign up", path: `/${__ENV__.BASE_DIR}/sign-up/` },
+  { key: 2, label: "Sign in", path: `/${__ENV__.BASE_DIR}/sign-in/` }
 ];
 
 const signinRoutes = [
@@ -16,7 +16,7 @@ const signinRoutes = [
     label: "Sign out",
     handler: ({ auth, history }) => {
       auth.signout();
-      history.replace("/sign-in/");
+      history.replace(`/${__ENV__.BASE_DIR}/sign-in/`);
     }
   },
   {
@@ -44,7 +44,6 @@ export const Header = props => {
   const {
     auth: { userData }
   } = props;
-
   const isSignIn = !!userData;
   const routes = isSignIn ? signinRoutes : signoutRoutes;
   return (
@@ -54,7 +53,9 @@ export const Header = props => {
       style={{ background: primary }}
     >
       <div className={"uk-navbar-left"}>
-        <ul className={"uk-navbar-nav"}>{routes.map(renderItem(props))}</ul>
+        <ul className={"uk-navbar-nav"}>
+          {routes.map(renderItem(props))}
+        </ul>
       </div>
     </nav>
   );

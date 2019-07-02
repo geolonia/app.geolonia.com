@@ -16,8 +16,8 @@
     "lint": "eslint --cache --ext=js .",
     "format": "prettier-eslint \"./src/**/*.js\" --write",
     "test": "jest",
-    "start": "source .env.development && webpack-dev-server",
-    "build": "NODE_ENV=production webpack -p"
+    "start": "source .envrc.development && NODE_ENV=development webpack-dev-server",
+    "build": "source .envrc.production && NODE_ENV=production webpack -p"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

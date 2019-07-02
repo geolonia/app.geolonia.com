@@ -13,32 +13,31 @@ import ProfileRoute from "./routes/profile";
 import ResetPasswordRoute from "./routes/reset-password";
 
 const routes = {
-  "/": {
+  "": {
     Component: HomeRoute
   },
-  "/sign-up/": {
+  "sign-up/": {
     Component: SignUpRoute
   },
-  "/verify/": {
+  "verify/": {
     Component: VerifyRoute
   },
-  "/resend": {
+  "resend": {
     Component: ResendCodeRoute
   },
-  "/sign-in/": {
+  "sign-in": {
     Component: SignInRoute
   },
-  "/dashboard/": {
+  "dashboard/": {
     Component: DashboardRoute
   },
-  "/next-dashboard/": {
+  "next-dashboard/": {
     Component: NextDashboardRoute
   },
-  "/profile/": {
+  "profile/": {
     Component: ProfileRoute
   },
-  "/reset_password/": {
-    label: "パスワードリセット",
+  "reset_password/": {
     Component: ResetPasswordRoute
   }
 };
@@ -55,7 +54,7 @@ const AppRouter = props => {
           return (
             <Route
               key={path}
-              path={path}
+              path={`/${__ENV__.BASE_DIR}/${path}`}
               exact
               render={props => <Component {...props} auth={auth} />}
             />

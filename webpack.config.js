@@ -12,8 +12,8 @@ const { NODE_ENV } = process.env
 const IS_PROD = NODE_ENV === 'production'
 
 const ENV = {
-  NODE_ENV,
-  PUBLIC_URL: '',
+  NODE_ENV: NODE_ENV === 'production' ? '"production"' : '"development"',
+  BASE_DIR: 'dashboard',
   REACT_APP_USER_KEYS_API_URL: process.env.REACT_APP_USER_KEYS_API_URL,
   REACT_APP_AWS_REGION: process.env.REACT_APP_AWS_REGION,
   REACT_APP_AWS_COGNITO_USER_POOL_ID:
@@ -99,7 +99,11 @@ module.exports = {
     https: false,
     host: '0.0.0.0',
     port: 3000,
-    historyApiFallback: true,
+    historyApiFallback: {
+      rewrites: [
+        { from: /^\/dashboard/, to: '/dashboard' },
+      ]
+    },
     hot: true,
     open: true
   }
