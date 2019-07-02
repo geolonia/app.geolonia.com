@@ -12,8 +12,12 @@ export class ResendCodeRoute extends React.PureComponent {
    */
   static propTypes = {
     auth: PropTypes.shape({
+      userData: PropTypes.any,
       resend: PropTypes.func.isRequired
-    }).isRequired
+    }).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }),
   };
 
   state = {

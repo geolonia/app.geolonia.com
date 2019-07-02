@@ -18,7 +18,10 @@ export class SignInRoute extends React.PureComponent {
       signin: PropTypes.func.isRequired
     }).isRequired,
     history: PropTypes.shape({
-      push: PropTypes.func.isRequired
+      push: PropTypes.func.isRequired,
+      location: PropTypes.shape({
+        search: PropTypes.string
+      })
     }).isRequired
   };
 

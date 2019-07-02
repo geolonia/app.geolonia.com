@@ -10,7 +10,8 @@ export class HomeRoute extends React.Component {
    */
   static propTypes = {
     auth: PropTypes.shape({
-      userData: PropTypes.object
+      userData: PropTypes.object,
+      userHasRetrieved: PropTypes.bool
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -24,7 +25,7 @@ export class HomeRoute extends React.Component {
    * @param  {object} snapshot  snapshot
    * @return {void}
    */
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
       if (this.props.auth.userData) {
         this.props.history.push("/dashboard/");

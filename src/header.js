@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types'
 import { Link } from "react-router-dom";
 import { primary } from "./colors";
 
@@ -25,7 +26,7 @@ const signinRoutes = [
   }
 ];
 
-const renderItem = props => ({ key, label, path, handler }) => {
+const renderItem = (props) => ({ key, label, path, handler }) => { // eslint-disable-line
   return (
     <li key={key}>
       <Link
@@ -58,5 +59,9 @@ export const Header = props => {
     </nav>
   );
 };
+
+Header.propTypes = {
+  auth: PropTypes.any
+}
 
 export default Header;
