@@ -15,8 +15,8 @@
   "scripts": {
     "postinstall": "mkdir -p public/uikit && cp node_modules/uikit/dist/js/uikit.min.js public/uikit/index.min.js && cp node_modules/uikit/dist/js/uikit-icons.min.js public/uikit/icons.min.js",
     "test": "jest",
-    "start": "webpack-dev-server",
-    "build": "webpack -p"
+    "start": "source .env.development && webpack-dev-server",
+    "build": "NODE_ENV=production webpack -p"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -30,6 +30,7 @@
     "dotenv-webpack": "^1.7.0",
     "eslint": "^6.0.1",
     "eslint-plugin-react": "^7.14.2",
+    "file-loader": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
     "node-sass": "^4.12.0",
     "sass-loader": "^7.1.0",

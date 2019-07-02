@@ -14,7 +14,7 @@ const IS_PROD = NODE_ENV === 'production'
 
 const ENV = {
   NODE_ENV,
-  PUBLIC_URL: 'test',
+  PUBLIC_URL: '',
   REACT_APP_USER_KEYS_API_URL: process.env.REACT_APP_USER_KEYS_API_URL,
   REACT_APP_AWS_REGION: process.env.REACT_APP_AWS_REGION,
   REACT_APP_AWS_COGNITO_USER_POOL_ID:
@@ -25,7 +25,11 @@ const ENV = {
 
 module.exports = {
   mode: IS_PROD ? 'production' : 'development',
-  entry: ['@babel/polyfill', 'src/index.js'],
+  entry: {
+    uikit: './node_modules/uikit/dist/js/uikit.min.js',
+    'uikit-icons': './node_modules/uikit/dist/js/uikit-icons.min.js',
+    main: ['@babel/polyfill', 'src/index.js']
+  },
 
   output: {
     path: path.join(__dirname, '/build/'),
@@ -52,36 +56,37 @@ module.exports = {
         use: [
           {
             loader: 'style-loader',
-            options: { sourceMap: true }
-          }, // creates style nodes from JS strings
+            options: { sourceMap: IS_PROD }
+          },
           {
             loader: 'css-loader',
-            options: { sourceMap: true }
-          }, // translates CSS into CommonJS
+            options: { sourceMap: IS_PROD }
+          },
           {
             loader: 'sass-loader',
-            options: { sourceMap: true }
-          } // compiles Sass to CSS
+            options: { sourceMap: IS_PROD }
+          }
         ]
       }
+      // {
+      //   test: /\.jpe?g$|\.ico$|\.gif$|\.png$|\.svg$|\.woff$|\.ttf$|\.wav$|\.mp3$/,
+      //   loader: 'file-loader?name=[name].[ext]'
+      // }
     ]
   },
 
   plugins: [
-    new HtmlWebpackPlugin({ template: './public/index.html' }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'dashboard.html'),
+      filename: 'dashoboard/index.html'
+    }),
 
     new CopyWebpackPlugin([
+      { from: './public/index.html', to: 'index.html' }, // top page
       { from: './public/images', to: 'images' },
       { from: './public/manifest.json', to: 'manifest.json' },
       { from: './public/icon.png', to: 'icon.png' },
-      {
-        from: './node_modules/uikit/dist/js/uikit.min.js',
-        to: 'uikit/index.min.js'
-      },
-      {
-        from: './node_modules/uikit/dist/js/uikit-icons.min.js',
-        to: 'uikit/icons.min.js'
-      }
+      { from: './public/_redirects', to: '_redirects', toType: 'file' }
     ]),
 
     new webpack.DefinePlugin({
@@ -94,12 +99,9 @@ module.exports = {
     compress: true,
     https: false,
     host: '0.0.0.0',
-    port: 4000,
-
-    // respond to 404s with index.html
+    port: 3000,
     historyApiFallback: true,
-
-    // enable HMR on the server
-    hot: true
+    hot: true,
+    open: true
   }
 }
