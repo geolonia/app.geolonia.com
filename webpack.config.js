@@ -13,7 +13,6 @@ const IS_PROD = NODE_ENV === 'production'
 
 const ENV = {
   NODE_ENV: NODE_ENV === 'production' ? '"production"' : '"development"',
-  BASE_DIR: '/app',
   REACT_APP_USER_KEYS_API_URL: process.env.REACT_APP_USER_KEYS_API_URL,
   REACT_APP_AWS_REGION: process.env.REACT_APP_AWS_REGION,
   REACT_APP_AWS_COGNITO_USER_POOL_ID:
@@ -77,11 +76,18 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'app.html'),
+      chunks: ['uikit', 'uikit-icons', 'main'],
       filename: 'app/index.html'
     }),
 
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html'),
+      chunks: ['uikit', 'uikit-icons'],
+      filename: 'index.html'
+    }),
+
     new CopyWebpackPlugin([
-      { from: './public/index.html', to: 'index.html' }, // top page
+      { from: './node_modules/uikit/dist/css/uikit.min.css', to: 'uikit.min.css' },
       { from: './public/images', to: 'images' },
       { from: './public/manifest.json', to: 'manifest.json' },
       { from: './public/icon.png', to: 'icon.png' },

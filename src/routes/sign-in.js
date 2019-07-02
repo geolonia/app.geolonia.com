@@ -58,7 +58,7 @@ export class SignInRoute extends React.PureComponent {
       .signin(this.state.emailOrUsername, this.state.password)
       .then(({ successed }) => {
         this.setState({ requesting: false });
-        successed && this.props.history.push(`${__ENV__.BASE_DIR}/dashboard/`);
+        successed && this.props.history.push(`/app/dashboard`);
       })
       .catch(error => this.setState({ requesting: false, error }));
   };
@@ -179,7 +179,7 @@ export class SignInRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
-              <Link to={"/reset_password/"}>{"I forgot my password."}</Link>
+              <Link to={"/app/reset_password"}>{"I forgot my password."}</Link>
             </div>
           </div>
         </form>

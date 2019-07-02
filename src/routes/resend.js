@@ -41,7 +41,7 @@ export class ResendCodeRoute extends React.PureComponent {
       .resend(email)
       .then(({ successed }) => {
         this.setState({ requesting: false });
-        successed && this.props.history.push(`${__ENV__.BASE_DIR}/verify/`);
+        successed && this.props.history.push(`/app/verify`);
       })
       .catch(error => this.setState({ requesting: false, error }));
   };

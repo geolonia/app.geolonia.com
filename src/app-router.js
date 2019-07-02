@@ -13,31 +13,31 @@ import ProfileRoute from "./routes/profile";
 import ResetPasswordRoute from "./routes/reset-password";
 
 const routes = {
-  "": {
+  "/app": {
     Component: HomeRoute
   },
-  "sign-up/": {
+  "/app/sign-up": {
     Component: SignUpRoute
   },
-  "verify/": {
+  "/app/verify": {
     Component: VerifyRoute
   },
-  "resend": {
+  "/app/resend": {
     Component: ResendCodeRoute
   },
-  "sign-in": {
+  "/app/sign-in": {
     Component: SignInRoute
   },
-  "dashboard/": {
+  "/app/dashboard": {
     Component: DashboardRoute
   },
-  "next-dashboard/": {
+  "/app/next-dashboard": {
     Component: NextDashboardRoute
   },
-  "profile/": {
+  "/app/profile": {
     Component: ProfileRoute
   },
-  "reset_password/": {
+  "/app/reset_password": {
     Component: ResetPasswordRoute
   }
 };
@@ -47,14 +47,14 @@ const AppRouter = props => {
   return (
     <Router>
       <>
-        <Route path={"/"} render={props => <Header {...props} auth={auth} />} />
+        <Route path={"/app"} render={props => <Header {...props} auth={auth} />} />
 
         {Object.keys(routes).map(path => {
           const { Component } = routes[path];
           return (
             <Route
               key={path}
-              path={`${__ENV__.BASE_DIR}/${path}`}
+              path={path}
               exact
               render={props => <Component {...props} auth={auth} />}
             />

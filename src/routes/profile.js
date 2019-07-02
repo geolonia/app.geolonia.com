@@ -23,7 +23,7 @@ export const ProfileRoute = props => {
             <dl className={"uk-description-list"}>
               <dt>{"forget password"}</dt>
               <dd>
-                <Link to={"/reset_password/"}>{"reset"}</Link>
+                <Link to={"/app/reset_password"}>{"reset"}</Link>
               </dd>
             </dl>
           </div>

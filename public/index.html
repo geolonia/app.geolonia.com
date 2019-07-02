@@ -5,9 +5,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>TileCloud</title>
+    <link rel="stylesheet" href="uikit.min.css" />
   </head>
   <body>
-    <h1>Top page</h1>
-    <a href="/app">Go to App</a>
+    <main class="uk-container uk-container-xsmall uk-margin uk-padding-small">
+      <h1 class="uk-card-title uk-text-center">
+        <img
+          src="/images/logo.png"
+          alt="TileCloud"
+          style="width: 245px; min-width: 50%;"
+        />
+      </h1>
+      <h3 class="uk-card-title">Sign Up</h3>
+      <form action="" class="uk-form-horizontal">
+        <div class="uk-margin">
+          <label class="uk-form-label" for="username">username</label>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input"
+              id="username"
+              type="username"
+              placeholder="username"
+              value=""
+            />
+          </div>
+        </div>
+        <div class="uk-margin">
+          <label class="uk-form-label" for="email">email</label>
+          <div class="uk-form-controls">
+            <input
+              class="uk-input"
+              id="email"
+              type="email"
+              placeholder="name@example.com"
+              value=""
+            />
+          </div>
+        </div>
+        <div class="uk-margin">
+          <label class="uk-form-label" for="password">password</label>
+          <div class="uk-form-controls">
+            <input class="uk-input" id="password" type="password" value="" />
+          </div>
+        </div>
+        <div class="uk-margin uk-flex uk-flex-right">
+          <div class="uk-flex uk-flex-column">
+            <button
+              class="uk-button uk-button-default"
+              type="button"
+              disabled=""
+            >
+              sign up
+            </button>
+          </div>
+        </div>
+        <div class="uk-margin uk-flex uk-flex-right">
+          <div class="uk-flex uk-flex-column">
+            <a href="/app/verify">I have a verification code.</a>
+          </div>
+        </div>
+      </form>
+    </main>
   </body>
 </html>

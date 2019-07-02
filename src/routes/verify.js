@@ -58,7 +58,7 @@ export class VerifyCodeRoute extends React.PureComponent {
         this.setState({ requesting: false });
         if (successed) {
           this.props.history.push(
-            `${__ENV__.BASE_DIR}/sign-in?verified=true&username=${this.state.username}`
+            `/app/sign-in?verified=true&username=${this.state.username}`
           );
         }
       })
@@ -175,7 +175,7 @@ export class VerifyCodeRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
-              <Link to={"/resend/"}>{"I lost verification code."}</Link>
+              <Link to={"/app/resend"}>{"I lost verification code."}</Link>
             </div>
           </div>
         </form>
