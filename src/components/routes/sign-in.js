@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
-import getErrorMessage from "../assets/errors";
-import { isValidUsername, isValidEmail } from "../lib/validation";
-import Logo from "../components/logo";
-import ValidationMessage from "../components/validation-message";
-import Spinner from "../components/spinner";
+import getErrorMessage from "../../assets/errors";
+import { isValidUsername, isValidEmail } from "../../lib/validation";
+import Logo from "../logo";
+import ValidationMessage from "../validation-message";
+import Spinner from "../spinner";
 
 export class SignInRoute extends React.PureComponent {
   /**

@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isValidCode, isValidEmail, isValidPassword } from "../lib/validation";
-import ValidationMessage from "../components/validation-message";
-import getErrorMessage from "../assets/errors";
-import Spinner from "../components/spinner";
+import { isValidCode, isValidEmail, isValidPassword } from "../../lib/validation";
+import ValidationMessage from "../validation-message";
+import getErrorMessage from "../../assets/errors";
+import Spinner from "../spinner";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**

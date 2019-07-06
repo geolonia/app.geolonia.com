@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from 'prop-types'
-import Spinner from "../components/spinner";
-import getMapMarkup from "../lib/get-map-markup";
+import Spinner from "../spinner";
 
 export class DashboardRoute extends React.PureComponent {
 
@@ -288,7 +287,7 @@ export class DashboardRoute extends React.PureComponent {
             disabled={requesting}
           >
             <Spinner loading={requesting} />
-            {"GENERATE MAP"}
+            {"GENERATE API KEY"}
           </button>
         </div>
 
@@ -296,14 +295,14 @@ export class DashboardRoute extends React.PureComponent {
         <table className={"uk-table uk-table-divider uk-table-striped"}>
           <thead>
             <tr>
-              <th />
+              <th>{"Description"}</th>
               <th>{"API KEY"}</th>
               <th>{"Origins"}</th>
             </tr>
           </thead>
           <tbody>
             {userKeys.map(
-              ({ userKey, allowedOrigins }, index) => (
+              ({ userKey, description, allowedOrigins }, index) => (
                 <tr
                   key={userKey}
                   className={
@@ -311,34 +310,20 @@ export class DashboardRoute extends React.PureComponent {
                     (deletingIndex === index ? " api-key-list__deleting" : "")
                   }
                 >
-                  <td>
-                    <div
-                      style={{ display: "block", width: 150, height: 150 }}
-                      dangerouslySetInnerHTML={{
-                        __html: getMapMarkup(userKey, { noScript: true })
-                      }}
-                    />
-                  </td>
+                  <td>{description || "(no description)"}</td>
                   <td className={"uk-flex uk-flex-between"}>
-                    <textarea
-                      className={"uk-textarea"}
-                      value={getMapMarkup(userKey)}
-                      onChange={x => x}
-                      rows={8}
-                    />
-                  </td>
-                  <td>{allowedOrigins.join("\n")}</td>
-                  <td>
+                    <span>{userKey}</span>
                     <button
                       className={"uk-button"}
                       style={{ background: "transparent" }}
-                      onClick={this.onCopyToClipboardClick(
-                        getMapMarkup(userKey)
-                      )}
+                      onClick={this.onCopyToClipboardClick(userKey)}
                       uk-tooltip={"Copy To Clipboard"}
                     >
                       <span className="uk-margin-small-right" uk-icon="copy" />
                     </button>
+                  </td>
+                  <td>{allowedOrigins.join(", ")}</td>
+                  <td>
                     <button
                       className={"uk-button"}
                       style={{ background: "transparent", marginRight: 10 }}

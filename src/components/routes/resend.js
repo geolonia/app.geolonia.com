@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isValidEmail } from "../lib/validation";
-import ValidationMessage from "../components/validation-message";
-import getErrorMessage from "../assets/errors";
-import Spinner from "../components/spinner";
+import { isValidEmail } from "../../lib/validation";
+import ValidationMessage from "../validation-message";
+import getErrorMessage from "../../assets/errors";
+import Spinner from "../spinner";
 
 export class ResendCodeRoute extends React.PureComponent {
   /**

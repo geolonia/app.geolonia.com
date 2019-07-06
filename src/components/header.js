@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types'
 import { Link } from "react-router-dom";
-import { primary } from "./colors";
+import { primary } from "../colors";
 
 const signoutRoutes = [
   { key: 1, label: "Sign up", path: `/app/sign-up/` },

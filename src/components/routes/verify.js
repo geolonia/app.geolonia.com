@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
-import getErrorMessage from "../assets/errors";
-import { isValidUsername, isValidCode } from "../lib/validation";
-import ValidationMessage from "../components/validation-message";
-import Spinner from "../components/spinner";
+import getErrorMessage from "../../assets/errors";
+import { isValidUsername, isValidCode } from "../../lib/validation";
+import ValidationMessage from "../validation-message";
+import Spinner from "../spinner";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**

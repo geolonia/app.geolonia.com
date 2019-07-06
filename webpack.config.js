@@ -26,7 +26,8 @@ module.exports = {
   entry: {
     uikit: './node_modules/uikit/dist/js/uikit.min.js',
     'uikit-icons': './node_modules/uikit/dist/js/uikit-icons.min.js',
-    main: ['@babel/polyfill', 'src/index.js']
+    app: ['@babel/polyfill', 'src/entries/app.js'],
+    top: ['@babel/polyfill', 'src/entries/top.js']
   },
 
   output: {
@@ -76,13 +77,13 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'app.html'),
-      chunks: ['uikit', 'uikit-icons', 'main'],
+      chunks: ['uikit', 'uikit-icons', 'app'],
       filename: 'app/index.html'
     }),
 
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, 'public', 'index.html'),
-      chunks: ['uikit', 'uikit-icons'],
+      template: path.resolve(__dirname, 'public', 'top.html'),
+      chunks: ['uikit', 'uikit-icons', 'top'],
       filename: 'index.html'
     }),
 
