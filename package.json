@@ -17,7 +17,8 @@
     "format": "prettier-eslint \"./src/**/*.js\" --write",
     "test": "jest",
     "start": "rimraf build && source .envrc.development && NODE_ENV=development webpack-dev-server",
-    "build": "rimraf build && source .envrc.production && NODE_ENV=production webpack -p"
+    "build": "rimraf build && source .envrc.production && NODE_ENV=production webpack -p",
+    "build:netlify": "webpack -p"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

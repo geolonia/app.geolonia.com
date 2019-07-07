@@ -1,4 +1,4 @@
-const URL_BASE = __ENV__.REACT_APP_USER_KEYS_API_URL;
+const URL_BASE = __ENV__.USER_KEYS_API_URL;
 
 export const updateKey = token => (userKey, params) => {
   return fetch(`${URL_BASE}/${userKey}`, {

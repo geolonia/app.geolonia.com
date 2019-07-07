@@ -13,12 +13,12 @@ const IS_PROD = NODE_ENV === 'production'
 
 const ENV = {
   NODE_ENV: NODE_ENV === 'production' ? '"production"' : '"development"',
-  REACT_APP_USER_KEYS_API_URL: process.env.REACT_APP_USER_KEYS_API_URL,
-  REACT_APP_AWS_REGION: process.env.REACT_APP_AWS_REGION,
-  REACT_APP_AWS_COGNITO_USER_POOL_ID:
-    process.env.REACT_APP_AWS_COGNITO_USER_POOL_ID,
-  REACT_APP_AWS_COGNITO_USER_POOL_CLIENT_ID:
-    process.env.REACT_APP_AWS_COGNITO_USER_POOL_CLIENT_ID
+  USER_KEYS_API_URL: process.env.USER_KEYS_API_URL,
+  AWS_REGION: process.env.AWS_REGION,
+  AWS_COGNITO_USER_POOL_ID:
+    process.env.AWS_COGNITO_USER_POOL_ID,
+  AWS_COGNITO_USER_POOL_CLIENT_ID:
+    process.env.AWS_COGNITO_USER_POOL_CLIENT_ID
 }
 
 module.exports = {
