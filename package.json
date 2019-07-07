@@ -18,7 +18,7 @@
     "test": "jest",
     "start": "rimraf build && source .envrc.development && NODE_ENV=development webpack-dev-server",
     "build": "rimraf build && source .envrc.production && NODE_ENV=production webpack -p",
-    "build:netlify": "ls node_modules && webpack -p"
+    "build:netlify": "NODE_ENV=production webpack -p"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
