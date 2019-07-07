@@ -3,8 +3,8 @@
   command = "npm run build:netlify"
 
 [build.environment]
-  NODE_ENV=production
-  USER_KEYS_API_URL="https://urvjihwfgb.execute-api.ap-northeast-1.amazonaws.com/v1/keys"
-  AWS_REGION="ap-northeast-1"
-  AWS_COGNITO_USER_POOL_ID="ap-northeast-1_BQBpq1Fia"
-  AWS_COGNITO_USER_POOL_CLIENT_ID="74m6o4d1h7eiok9mmepfiuqq0j"
+  NODE_ENV = "production"
+  USER_KEYS_API_URL = "https://urvjihwfgb.execute-api.ap-northeast-1.amazonaws.com/v1/keys"
+  AWS_REGION = "ap-northeast-1"
+  AWS_COGNITO_USER_POOL_ID = "ap-northeast-1_BQBpq1Fia"
+  AWS_COGNITO_USER_POOL_CLIENT_ID = "74m6o4d1h7eiok9mmepfiuqq0j"
