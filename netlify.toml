@@ -1,6 +1,6 @@
 [build]
   publish = "build"
-  command = "npm run build:netlify"
+  command = "yarn && npm run build:netlify"
 
 [build.environment]
   NODE_ENV = "production"
