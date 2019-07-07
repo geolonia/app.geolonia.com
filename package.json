@@ -16,8 +16,8 @@
     "lint": "eslint --cache --ext=js .",
     "format": "prettier-eslint \"./src/**/*.js\" --write",
     "test": "jest",
-    "start": "source .envrc.development && NODE_ENV=development webpack-dev-server",
-    "build": "source .envrc.production && NODE_ENV=production webpack -p"
+    "start": "rimraf build && source .envrc.development && NODE_ENV=development webpack-dev-server",
+    "build": "rimraf build && source .envrc.production && NODE_ENV=production webpack -p"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -38,6 +38,7 @@
     "node-sass": "^4.12.0",
     "prettier-eslint": "^9.0.0",
     "prettier-eslint-cli": "^5.0.0",
+    "rimraf": "^2.6.3",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.35.2",
