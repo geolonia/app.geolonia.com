@@ -1,12 +1,9 @@
 import React from "react";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { primary } from "../colors";
 
-const signoutRoutes = [
-  { key: 1, label: "Sign up", path: `/app/sign-up/` },
-  { key: 2, label: "Sign in", path: `/app/sign-in/` }
-];
+const signoutRoutes = [];
 
 const signinRoutes = [
   { key: 1, label: "Dashboard", path: "/dashboard/" },
@@ -26,7 +23,8 @@ const signinRoutes = [
   }
 ];
 
-const renderItem = (props) => ({ key, label, path, handler }) => { // eslint-disable-line
+// eslint-disable-next-line
+const renderItem = props => ({ key, label, path, handler }) => {
   return (
     <li key={key}>
       <Link
@@ -53,9 +51,7 @@ export const Header = props => {
       style={{ background: primary }}
     >
       <div className={"uk-navbar-left"}>
-        <ul className={"uk-navbar-nav"}>
-          {routes.map(renderItem(props))}
-        </ul>
+        <ul className={"uk-navbar-nav"}>{routes.map(renderItem(props))}</ul>
       </div>
     </nav>
   );
@@ -63,6 +59,6 @@ export const Header = props => {
 
 Header.propTypes = {
   auth: PropTypes.any
-}
+};
 
 export default Header;
