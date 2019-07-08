@@ -91,8 +91,7 @@ module.exports = {
       { from: './node_modules/uikit/dist/css/uikit.min.css', to: 'uikit.min.css' },
       { from: './public/images', to: 'images' },
       { from: './public/manifest.json', to: 'manifest.json' },
-      { from: './public/icon.png', to: 'icon.png' },
-      { from: './public/_redirects', to: '_redirects', toType: 'file' }
+      { from: './public/icon.png', to: 'icon.png' }
     ]),
 
     new webpack.DefinePlugin({
