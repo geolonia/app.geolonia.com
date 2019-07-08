@@ -10,25 +10,44 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "react-scripts": "2.1.8",
     "uikit": "^3.1.2"
   },
   "scripts": {
-    "postinstall": "mkdir -p public/uikit && cp node_modules/uikit/dist/js/uikit.min.js public/uikit/index.min.js && cp node_modules/uikit/dist/js/uikit-icons.min.js public/uikit/icons.min.js",
-    "start": "react-scripts start",
-    "build": "react-scripts build && echo '/* /index.html 200' > ./build/_redirects",
-    "test": "react-scripts test",
-    "test:ci": "npm test -- --watchAll=false",
-    "eject": "react-scripts eject"
+    "lint": "eslint --cache --ext=js .",
+    "format": "prettier-eslint \"./src/**/*.js\" --write",
+    "test": "jest",
+    "start": "rimraf build && source .envrc.development && NODE_ENV=development webpack-dev-server",
+    "build": "rimraf build && source .envrc.production && NODE_ENV=production webpack -p",
+    "build:netlify": "NODE_ENV=production webpack -p"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "babel-eslint": "^10.0.2",
+    "babel-loader": "^8.0.6",
+    "copy-webpack-plugin": "^5.0.3",
+    "css-loader": "^3.0.0",
+    "dotenv-webpack": "^1.7.0",
+    "eslint": "^6.0.1",
+    "eslint-plugin-react": "^7.14.2",
+    "file-loader": "^4.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "jest": "^24.8.0",
+    "node-sass": "^4.12.0",
+    "prettier-eslint": "^9.0.0",
+    "prettier-eslint-cli": "^5.0.0",
+    "rimraf": "^2.6.3",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {}
+  "main": "index.js",
+  "repository": "git@github.com:tilecloud/dashboard.git",
+  "author": "kamataryo <mugil.cephalus+github.com@gmail.com>",
+  "license": "MIT"
 }

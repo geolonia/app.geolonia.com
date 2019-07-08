@@ -4,17 +4,15 @@
 
 ## development
 
-```
+```shell
 $ git clone git@github.com:tilecloud/dashboard.git
 $ cd dashboard
-$ vi .env.development
-$ npm install
+$ yarn
 $ npm start
 ```
 
 ## build production
 
-```
-$ vi .env.production
+```shell
 $ npm run build
 ```

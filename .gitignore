@@ -35,5 +35,5 @@ node_modules/
 aws-exports.js
 awsconfiguration.json
 
-### project specific
-/public/uikit
+#cache
+.eslintcache

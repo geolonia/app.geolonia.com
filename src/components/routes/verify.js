@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
-import getErrorMessage from "../assets/errors";
-import { isValidUsername, isValidCode } from "../lib/validation";
-import ValidationMessage from "../components/validation-message";
-import Spinner from "../components/spinner";
+import getErrorMessage from "../../assets/errors";
+import { isValidUsername, isValidCode } from "../../lib/validation";
+import ValidationMessage from "../validation-message";
+import Spinner from "../spinner";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -58,7 +58,7 @@ export class VerifyCodeRoute extends React.PureComponent {
         this.setState({ requesting: false });
         if (successed) {
           this.props.history.push(
-            `/sign-in?verified=true&username=${this.state.username}`
+            `/app/sign-in?verified=true&username=${this.state.username}`
           );
         }
       })
@@ -175,7 +175,7 @@ export class VerifyCodeRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
-              <Link to={"/resend/"}>{"I lost verification code."}</Link>
+              <Link to={"/app/resend"}>{"I lost verification code."}</Link>
             </div>
           </div>
         </form>

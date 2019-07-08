@@ -48,7 +48,7 @@ export class AuthContainer extends React.Component {
     try {
       const currentSession = await Auth.currentSession();
       return new Promise((resolve, reject) =>
-        userData.refreshSession(currentSession.refreshToken, (err, session) => {
+        userData.refreshSession(currentSession.refreshToken, (err) => {
           if (err) {
             reject(err);
           } else {
@@ -63,7 +63,7 @@ export class AuthContainer extends React.Component {
 
   signUp = (username, email, password) => {
     const param = { username, password, attributes: { email } };
-    return Auth.signUp(param).then(userData => ({ successed: true }));
+    return Auth.signUp(param).then(() => ({ successed: true }));
   };
 
   verify = (username, code) =>
@@ -90,7 +90,7 @@ export class AuthContainer extends React.Component {
 
   resetPassword = (email, code, password) => {
     return Auth.forgotPasswordSubmit(email, code, password)
-      .then(data => {
+      .then(() => {
         Auth.signOut();
         this.setState({ userData: void 0 });
         return { successed: true };

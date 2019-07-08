@@ -1,7 +1,18 @@
 import React from "react";
-import Spinner from "../components/spinner";
+import PropTypes from 'prop-types'
+import Spinner from "../spinner";
 
 export class DashboardRoute extends React.PureComponent {
+
+  /**
+   * propTypes
+   * @type {object}
+   */
+  static propTypes = {
+    auth: PropTypes.any,
+    history: PropTypes.any
+  }
+
   /**
    * constructor
    * @param  {object} props React props.
@@ -40,12 +51,12 @@ export class DashboardRoute extends React.PureComponent {
    * @param  {object} snapshot  snapshot
    * @return {void}
    */
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps) {
     if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
       if (this.props.auth.userData) {
         this.listKeys();
       } else {
-        this.props.history.push("/sign-in/");
+        this.props.history.push(`/app/sign-in`);
       }
     }
   }
@@ -59,7 +70,7 @@ export class DashboardRoute extends React.PureComponent {
           requesting: false
         })
       )
-      .catch(err => this.setState({ error: true, requesting: false }));
+      .catch(() => this.setState({ error: true, requesting: false }));
   };
 
   onCopyToClipboardClick = userKey => () => {
@@ -102,7 +113,7 @@ export class DashboardRoute extends React.PureComponent {
           deletingIndex: -1
         });
       })
-      .catch(err =>
+      .catch(() =>
         this.setState({ error: true, requesting: false, deletingIndex: -1 })
       );
   };
@@ -291,7 +302,7 @@ export class DashboardRoute extends React.PureComponent {
           </thead>
           <tbody>
             {userKeys.map(
-              ({ userKey, enabled, description, allowedOrigins }, index) => (
+              ({ userKey, description, allowedOrigins }, index) => (
                 <tr
                   key={userKey}
                   className={

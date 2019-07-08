@@ -1,15 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import getErrorMessage from "../assets/errors";
+import getErrorMessage from "../../assets/errors";
 import {
   isValidUsername,
   isValidEmail,
   isValidPassword
-} from "../lib/validation";
-import Logo from "../components/logo";
-import ValidationMessage from "../components/validation-message";
-import Spinner from "../components/spinner";
+} from "../../lib/validation";
+import Logo from "../logo";
+import ValidationMessage from "../validation-message";
+import Spinner from "../spinner";
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -58,7 +58,7 @@ export class SignUpRoute extends React.PureComponent {
       .then(({ successed }) => {
         this.setState({ requesting: false });
         successed &&
-          this.props.history.push(`/verify?sent=true&username=${username}`);
+          this.props.history.push(`/app/verify?sent=true&username=${username}`);
       })
       .catch(error => this.setState({ error, requesting: false }));
   };
@@ -196,7 +196,7 @@ export class SignUpRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
-              <Link to={"/verify/"}>{"I have a verification code."}</Link>
+              <Link to={"/app/verify"}>{"I have a verification code."}</Link>
             </div>
           </div>
         </form>

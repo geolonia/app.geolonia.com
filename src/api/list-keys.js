@@ -1,4 +1,4 @@
-const URL_BASE = process.env.REACT_APP_USER_KEYS_API_URL;
+const URL_BASE = __ENV__.USER_KEYS_API_URL;
 
 export const listKeys = token => () => {
   return fetch(URL_BASE, {

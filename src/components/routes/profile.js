@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types'
 import { Link } from "react-router-dom";
 
 export const ProfileRoute = props => {
@@ -22,7 +23,7 @@ export const ProfileRoute = props => {
             <dl className={"uk-description-list"}>
               <dt>{"forget password"}</dt>
               <dd>
-                <Link to={"/reset_password/"}>{"reset"}</Link>
+                <Link to={"/app/reset_password"}>{"reset"}</Link>
               </dd>
             </dl>
           </div>
@@ -31,5 +32,16 @@ export const ProfileRoute = props => {
     </main>
   );
 };
+
+ProfileRoute.propTypes = {
+    auth: PropTypes.shape({
+      userData: PropTypes.shape({
+        username: PropTypes.string,
+        attributes: PropTypes.shape({
+          email:PropTypes.string
+        })
+      })
+    }).isRequired
+}
 
 export default ProfileRoute;

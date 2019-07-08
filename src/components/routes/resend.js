@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isValidEmail } from "../lib/validation";
-import ValidationMessage from "../components/validation-message";
-import getErrorMessage from "../assets/errors";
-import Spinner from "../components/spinner";
+import { isValidEmail } from "../../lib/validation";
+import ValidationMessage from "../validation-message";
+import getErrorMessage from "../../assets/errors";
+import Spinner from "../spinner";
 
 export class ResendCodeRoute extends React.PureComponent {
   /**
@@ -12,8 +12,12 @@ export class ResendCodeRoute extends React.PureComponent {
    */
   static propTypes = {
     auth: PropTypes.shape({
+      userData: PropTypes.any,
       resend: PropTypes.func.isRequired
-    }).isRequired
+    }).isRequired,
+    history: PropTypes.shape({
+      push: PropTypes.func.isRequired,
+    }),
   };
 
   state = {
@@ -37,7 +41,7 @@ export class ResendCodeRoute extends React.PureComponent {
       .resend(email)
       .then(({ successed }) => {
         this.setState({ requesting: false });
-        successed && this.props.history.push("/verify/");
+        successed && this.props.history.push(`/app/verify`);
       })
       .catch(error => this.setState({ requesting: false, error }));
   };

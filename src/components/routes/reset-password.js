@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isValidCode, isValidEmail, isValidPassword } from "../lib/validation";
-import ValidationMessage from "../components/validation-message";
-import getErrorMessage from "../assets/errors";
-import Spinner from "../components/spinner";
+import { isValidCode, isValidEmail, isValidPassword } from "../../lib/validation";
+import ValidationMessage from "../validation-message";
+import getErrorMessage from "../../assets/errors";
+import Spinner from "../spinner";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -60,7 +60,7 @@ export class ResetPasswordRoute extends React.PureComponent {
       .then(({ successed }) => {
         this.setState({ requesting: false });
         if (successed) {
-          this.props.history.push(`/sign-in?reset=true`);
+          this.props.history.push(`/app/sign-in?reset=true`);
         }
       })
       .catch(error => this.setState({ requesting: false, error }));

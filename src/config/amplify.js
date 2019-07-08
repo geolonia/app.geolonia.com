@@ -1,15 +1,15 @@
 import Amplify from "aws-amplify";
 
 const {
-  REACT_APP_AWS_REGION,
-  REACT_APP_AWS_COGNITO_USER_POOL_ID,
-  REACT_APP_AWS_COGNITO_USER_POOL_CLIENT_ID
-} = process.env;
+  AWS_REGION,
+  AWS_COGNITO_USER_POOL_ID,
+  AWS_COGNITO_USER_POOL_CLIENT_ID
+} = __ENV__;
 
 Amplify.configure({
   Auth: {
-    region: REACT_APP_AWS_REGION,
-    userPoolId: REACT_APP_AWS_COGNITO_USER_POOL_ID,
-    userPoolWebClientId: REACT_APP_AWS_COGNITO_USER_POOL_CLIENT_ID
+    region: AWS_REGION,
+    userPoolId: AWS_COGNITO_USER_POOL_ID,
+    userPoolWebClientId: AWS_COGNITO_USER_POOL_CLIENT_ID
   }
 });

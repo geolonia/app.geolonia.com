@@ -2,11 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import queryString from "query-string";
-import getErrorMessage from "../assets/errors";
-import { isValidUsername, isValidEmail } from "../lib/validation";
-import Logo from "../components/logo";
-import ValidationMessage from "../components/validation-message";
-import Spinner from "../components/spinner";
+import getErrorMessage from "../../assets/errors";
+import { isValidUsername, isValidEmail } from "../../lib/validation";
+import Logo from "../logo";
+import ValidationMessage from "../validation-message";
+import Spinner from "../spinner";
 
 export class SignInRoute extends React.PureComponent {
   /**
@@ -18,7 +18,10 @@ export class SignInRoute extends React.PureComponent {
       signin: PropTypes.func.isRequired
     }).isRequired,
     history: PropTypes.shape({
-      push: PropTypes.func.isRequired
+      push: PropTypes.func.isRequired,
+      location: PropTypes.shape({
+        search: PropTypes.string
+      })
     }).isRequired
   };
 
@@ -55,7 +58,7 @@ export class SignInRoute extends React.PureComponent {
       .signin(this.state.emailOrUsername, this.state.password)
       .then(({ successed }) => {
         this.setState({ requesting: false });
-        successed && this.props.history.push("/dashboard/");
+        successed && this.props.history.push(`/app/dashboard`);
       })
       .catch(error => this.setState({ requesting: false, error }));
   };
@@ -176,7 +179,7 @@ export class SignInRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
-              <Link to={"/reset_password/"}>{"I forgot my password."}</Link>
+              <Link to={"/app/reset_password"}>{"I forgot my password."}</Link>
             </div>
           </div>
         </form>

@@ -1,12 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-import "./config/amplify";
+import App from "../components/app";
+import * as serviceWorker from "../lib/service-worker";
+import "../config/amplify";
 import "isomorphic-fetch";
 
-// CSS
-import "./index.css";
+// CSS¥
+import '../styles/common.css'
+import "../styles/app.css";
 import "uikit/dist/css/uikit.min.css";
 
 ReactDOM.render(<App />, document.getElementById("root"));
