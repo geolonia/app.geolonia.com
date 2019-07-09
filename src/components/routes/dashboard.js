@@ -1,9 +1,9 @@
 import React from "react";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import Spinner from "../spinner";
+import { Link } from "react-router-dom";
 
 export class DashboardRoute extends React.PureComponent {
-
   /**
    * propTypes
    * @type {object}
@@ -11,7 +11,7 @@ export class DashboardRoute extends React.PureComponent {
   static propTypes = {
     auth: PropTypes.any,
     history: PropTypes.any
-  }
+  };
 
   /**
    * constructor
@@ -80,174 +80,6 @@ export class DashboardRoute extends React.PureComponent {
     document.execCommand("copy");
   };
 
-  onOpenModalClick = openedUserKey => () =>
-    this.setState({ error: false, openedUserKey });
-  onCloseModalClick = () =>
-    this.setState({ error: false, openedUserKey: false, nextUserKeyProps: {} });
-
-  onSaveClick = () => {
-    this.setState({ requesting: true, error: false });
-    const { openedUserKey, nextUserKeyProps } = this.state;
-    this.props.auth.API.updateKey(openedUserKey, nextUserKeyProps)
-      .then(() => {
-        const userKeys = [...this.state.userKeys];
-        const index = userKeys.map(x => x.userKey).indexOf(openedUserKey);
-        userKeys[index] = { ...userKeys[index], ...nextUserKeyProps };
-        this.setState({ userKeys, requesting: false });
-        this.onCloseModalClick();
-      })
-      .catch(error => this.setState({ error, requesting: false }));
-  };
-
-  onDeleteClick = userKey => () => {
-    const nextUserKeys = [...this.state.userKeys];
-    const index = nextUserKeys.map(x => x.userKey).indexOf(userKey);
-    this.setState({ error: false, requesting: true, deletingIndex: index });
-
-    return this.props.auth.API.deleteKey(userKey)
-      .then(() => {
-        nextUserKeys.splice(index, 1);
-        this.setState({
-          userKeys: nextUserKeys,
-          requesting: false,
-          deletingIndex: -1
-        });
-      })
-      .catch(() =>
-        this.setState({ error: true, requesting: false, deletingIndex: -1 })
-      );
-  };
-
-  onCheckUpdate = e => {
-    const { name, checked } = e.target;
-    this.setState({
-      nextUserKeyProps: { ...this.state.nextUserKeyProps, [name]: checked }
-    });
-  };
-
-  onTextUpdate = e => {
-    const { name, value } = e.target;
-    this.setState({
-      nextUserKeyProps: { ...this.state.nextUserKeyProps, [name]: value }
-    });
-  };
-
-  onTextareaUpdate = e => {
-    const { name, value } = e.target;
-    const formatedValue = value.replace(/ /g, "").split("\n");
-    this.setState({
-      nextUserKeyProps: {
-        ...this.state.nextUserKeyProps,
-        [name]: formatedValue
-      }
-    });
-  };
-
-  renderModalContent = () => {
-    const {
-      userKeys,
-      openedUserKey,
-      requesting,
-      nextUserKeyProps
-    } = this.state;
-
-    if (!openedUserKey) {
-      return false;
-    }
-
-    const { userKey, enabled, allowedOrigins, description } =
-      userKeys.find(x => x.userKey === openedUserKey) || {};
-
-    if (!userKey) {
-      return false;
-    }
-
-    return (
-      <div className={"uk-flex-top uk-modal uk-flex uk-open"} uk-modal={"true"}>
-        <div
-          className={"uk-modal-dialog uk-modal-body uk-margin-auto-vertical"}
-        >
-          <button
-            className={"uk-modal-close-default"}
-            type={"button"}
-            style={{ background: "none", border: "none" }}
-            onClick={this.onCloseModalClick}
-          >
-            <span className="uk-margin-small-right" uk-icon="close" />
-          </button>
-          <label className={"uk-form-label"} htmlFor={"your-api-key"}>
-            {"API KEY"}
-          </label>
-          <div className={"uk-form-controls"}>
-            <input
-              className={"uk-input"}
-              id={"your-api-key"}
-              type={"text"}
-              value={userKey}
-              disabled={true}
-            />
-          </div>
-
-          <div className={"uk-margin"}>
-            <label className={"uk-form-label"} htmlFor={`enabled-${userKey}`}>
-              {"ENABLED"}
-            </label>
-            <input
-              className={"uk-checkbox"}
-              id={`enabled-${userKey}`}
-              type={"checkbox"}
-              defaultChecked={enabled}
-              name={"enabled"}
-              onChange={this.onCheckUpdate}
-            />
-          </div>
-
-          <div className={"uk-margin"}>
-            <label className={"uk-form-label"} htmlFor={"description"}>
-              {"DESCRIPTION"}
-            </label>
-            <input
-              className={"uk-input"}
-              id={"description"}
-              type={"text"}
-              defaultValue={description}
-              name={"description"}
-              placeholder={"Describe your key"}
-              onChange={this.onTextUpdate}
-            />
-          </div>
-
-          <div className={"uk-margin"}>
-            <div className={"uk-form-controls"}>
-              <label className={"uk-form-label"} htmlFor={"allowed-origins"}>
-                {"ALLOWED ORIGINS (an origin per line)"}
-              </label>
-              <textarea
-                className={"uk-textarea"}
-                name={"allowedOrigins"}
-                id={"allowed-origins"}
-                onChange={this.onTextareaUpdate}
-                defaultValue={allowedOrigins.join("\n")}
-              />
-            </div>
-          </div>
-          <div className={"uk-margin"}>
-            <button
-              className={"uk-button uk-button-default"}
-              onClick={this.onSaveClick}
-              disabled={
-                requesting || Object.keys(nextUserKeyProps).length === 0
-              }
-            >
-              <Spinner loading={requesting} />
-              {"SAVE"}
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   renderClipboard = () => (
     <input
       type={"text"}
@@ -271,7 +103,7 @@ export class DashboardRoute extends React.PureComponent {
     return (
       <main
         className={
-          "uk-container uk-container-medium uk-margin uk-padding-small"
+          "tilecloud-app uk-container uk-container-medium uk-margin uk-padding-small"
         }
       >
         {error && (
@@ -280,78 +112,42 @@ export class DashboardRoute extends React.PureComponent {
           </div>
         )}
 
-        <div className={"uk-margin"}>
+        <div className={"uk-margin uk-align-right"}>
           <button
             className={"uk-button uk-button-default"}
             onClick={this.onCreateClick}
             disabled={requesting}
           >
             <Spinner loading={requesting} />
-            {"GENERATE API KEY"}
+            {"GENERATE MAP"}
           </button>
         </div>
 
         {/* development */}
         <table className={"uk-table uk-table-divider uk-table-striped"}>
-          <thead>
-            <tr>
-              <th>{"Description"}</th>
-              <th>{"API KEY"}</th>
-              <th>{"Origins"}</th>
-            </tr>
-          </thead>
           <tbody>
-            {userKeys.map(
-              ({ userKey, description, allowedOrigins }, index) => (
-                <tr
-                  key={userKey}
-                  className={
-                    "api-key-list" +
-                    (deletingIndex === index ? " api-key-list__deleting" : "")
-                  }
-                >
-                  <td>{description || "(no description)"}</td>
-                  <td className={"uk-flex uk-flex-between"}>
-                    <span>{userKey}</span>
-                    <button
-                      className={"uk-button"}
-                      style={{ background: "transparent" }}
-                      onClick={this.onCopyToClipboardClick(userKey)}
-                      uk-tooltip={"Copy To Clipboard"}
-                    >
-                      <span className="uk-margin-small-right" uk-icon="copy" />
-                    </button>
-                  </td>
-                  <td>{allowedOrigins.join(", ")}</td>
-                  <td>
-                    <button
-                      className={"uk-button"}
-                      style={{ background: "transparent", marginRight: 10 }}
-                      onClick={this.onOpenModalClick(userKey)}
-                      uk-tooltip={"Edit"}
-                    >
-                      <span
-                        className="uk-margin-small-right"
-                        uk-icon="pencil"
-                      />
-                    </button>
-                    <button
-                      className={"uk-button"}
-                      style={{ background: "transparent" }}
-                      onClick={this.onDeleteClick(userKey)}
-                      uk-tooltip={"Delete"}
-                    >
-                      <span className="uk-margin-small-right" uk-icon="trash" />
-                    </button>
-                  </td>
-                </tr>
-              )
-            )}
+            {userKeys.map(({ userKey, allowedOrigins, name }, index) => (
+              <tr
+                key={userKey}
+                className={
+                  "api-key-list" +
+                  (deletingIndex === index ? " api-key-list__deleting" : "")
+                }
+              >
+                <td>
+                  <span className={"uk-text-bold"}>{name || "(no name)"}</span>
+                </td>
+
+                <td>{allowedOrigins.join(",")}</td>
+
+                <td>
+                  <Link to={`/app/dashboard/${userKey}`}>{"detail"}</Link>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
 
-        {/*modal*/}
-        {this.renderModalContent()}
         {this.renderClipboard()}
       </main>
     );

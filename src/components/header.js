@@ -5,9 +5,7 @@ import { primary } from "../colors";
 
 const signoutRoutes = [];
 
-const signinRoutes = [
-  { key: 1, label: "Dashboard", path: "/dashboard/" },
-  { key: 1.5, label: "Next Dashboard", path: "/next-dashboard/" },
+const signinRightRoutes = [
   {
     key: 2,
     label: "Sign out",
@@ -19,7 +17,7 @@ const signinRoutes = [
   {
     key: 3,
     label: ({ auth }) => auth.userData.username,
-    path: "/profile/"
+    path: "/app/profile/"
   }
 ];
 
@@ -43,15 +41,17 @@ export const Header = props => {
     auth: { userData }
   } = props;
   const isSignIn = !!userData;
-  const routes = isSignIn ? signinRoutes : signoutRoutes;
+  const rightRoutes = isSignIn ? signinRightRoutes : signoutRoutes;
   return (
     <nav
-      className={"uk-navbar-container"}
+      className={"tilecloud-header uk-navbar-container"}
       uk-navbar={"true"}
       style={{ background: primary }}
     >
-      <div className={"uk-navbar-left"}>
-        <ul className={"uk-navbar-nav"}>{routes.map(renderItem(props))}</ul>
+      <div className={"tilecloud-header-content uk-navbar-right"}>
+        <ul className={"uk-navbar-nav"}>
+          {rightRoutes.map(renderItem(props))}
+        </ul>
       </div>
     </nav>
   );

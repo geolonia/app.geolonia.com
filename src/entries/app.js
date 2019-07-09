@@ -6,9 +6,7 @@ import "../config/amplify";
 import "isomorphic-fetch";
 
 // CSS¥
-import '../styles/common.css'
 import "../styles/app.css";
-import "uikit/dist/css/uikit.min.css";
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

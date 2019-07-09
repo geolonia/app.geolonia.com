@@ -1,12 +1,14 @@
 import React from "react";
-import PropTypes from 'prop-types'
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 export const ProfileRoute = props => {
   const { userData } = props.auth;
   return (
     <main
-      className={"uk-container uk-container-xsmall uk-margin uk-padding-small"}
+      className={
+        "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
+      }
     >
       <div className={"uk-card uk-card-default uk-card-body"}>
         <h3>{"Profile"}</h3>
@@ -34,14 +36,14 @@ export const ProfileRoute = props => {
 };
 
 ProfileRoute.propTypes = {
-    auth: PropTypes.shape({
-      userData: PropTypes.shape({
-        username: PropTypes.string,
-        attributes: PropTypes.shape({
-          email:PropTypes.string
-        })
+  auth: PropTypes.shape({
+    userData: PropTypes.shape({
+      username: PropTypes.string,
+      attributes: PropTypes.shape({
+        email: PropTypes.string
       })
-    }).isRequired
-}
+    })
+  }).isRequired
+};
 
 export default ProfileRoute;

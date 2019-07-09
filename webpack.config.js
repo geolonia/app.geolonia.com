@@ -24,10 +24,12 @@ const ENV = {
 module.exports = {
   mode: IS_PROD ? 'production' : 'development',
   entry: {
-    uikit: './node_modules/uikit/dist/js/uikit.min.js',
-    'uikit-icons': './node_modules/uikit/dist/js/uikit-icons.min.js',
-    app: ['@babel/polyfill', 'src/entries/app.js'],
-    top: ['@babel/polyfill', 'src/entries/top.js']
+    common: [
+      './node_modules/uikit/dist/js/uikit.min.js',
+      '@babel/polyfill'
+    ],
+    app: ['src/entries/app.js'],
+    top: ['src/entries/top.js']
   },
 
   output: {
@@ -77,18 +79,20 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'app.html'),
-      chunks: ['uikit', 'uikit-icons', 'app'],
+      chunks: ['common', 'app'],
       filename: 'app/index.html'
     }),
 
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'top.html'),
-      chunks: ['uikit', 'uikit-icons', 'top'],
+      chunks: ['common', 'top'],
       filename: 'index.html'
     }),
 
     new CopyWebpackPlugin([
       { from: './node_modules/uikit/dist/css/uikit.min.css', to: 'uikit.min.css' },
+      { from: './node_modules/uikit/dist/js/uikit-icons.min.js', to: 'uikit-icon.min.js' },
+      { from: './src/styles/common.css', to: 'common.css' },
       { from: './public/images', to: 'images' },
       { from: './public/manifest.json', to: 'manifest.json' },
       { from: './public/icon.png', to: 'icon.png' }

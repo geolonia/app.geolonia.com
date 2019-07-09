@@ -1,3 +1,9 @@
 .api-key-list__deleting {
   background-color: pink !important;
 }
+
+.tilecloud-app {
+  width: calc(100% - 86px);
+  border: 1px solid gray;
+  border-radius: 10px;
+}

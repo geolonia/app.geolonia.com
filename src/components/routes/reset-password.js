@@ -1,6 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { isValidCode, isValidEmail, isValidPassword } from "../../lib/validation";
+import {
+  isValidCode,
+  isValidEmail,
+  isValidPassword
+} from "../../lib/validation";
 import ValidationMessage from "../validation-message";
 import getErrorMessage from "../../assets/errors";
 import Spinner from "../spinner";
@@ -85,7 +89,7 @@ export class ResetPasswordRoute extends React.PureComponent {
     return (
       <main
         className={
-          "uk-container uk-container-xsmall uk-margin uk-padding-small"
+          "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
         <h3 className={"uk-card-title"}>{"reset password"}</h3>

@@ -81,7 +81,7 @@ export class SignInRoute extends React.PureComponent {
     return (
       <main
         className={
-          "uk-container uk-container-xsmall uk-margin uk-padding-small"
+          "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
         <Logo />

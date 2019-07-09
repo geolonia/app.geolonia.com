@@ -8,7 +8,7 @@ import VerifyRoute from "./routes/verify";
 import ResendCodeRoute from "./routes/resend";
 import SignInRoute from "./routes/sign-in";
 import DashboardRoute from "./routes/dashboard";
-import NextDashboardRoute from "./routes/dashboard-next";
+import DashboardDetailRoute from "./routes/dashboard-detail";
 import ProfileRoute from "./routes/profile";
 import ResetPasswordRoute from "./routes/reset-password";
 
@@ -31,8 +31,8 @@ const routes = {
   "/app/dashboard": {
     Component: DashboardRoute
   },
-  "/app/next-dashboard": {
-    Component: NextDashboardRoute
+  "/app/dashboard/:userKey": {
+    Component: DashboardDetailRoute
   },
   "/app/profile": {
     Component: ProfileRoute
@@ -47,7 +47,10 @@ const AppRouter = props => {
   return (
     <Router>
       <>
-        <Route path={"/app"} render={props => <Header {...props} auth={auth} />} />
+        <Route
+          path={"/app"}
+          render={props => <Header {...props} auth={auth} />}
+        />
 
         {Object.keys(routes).map(path => {
           const { Component } = routes[path];

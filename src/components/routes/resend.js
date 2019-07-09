@@ -16,8 +16,8 @@ export class ResendCodeRoute extends React.PureComponent {
       resend: PropTypes.func.isRequired
     }).isRequired,
     history: PropTypes.shape({
-      push: PropTypes.func.isRequired,
-    }),
+      push: PropTypes.func.isRequired
+    })
   };
 
   state = {
@@ -53,7 +53,7 @@ export class ResendCodeRoute extends React.PureComponent {
     return (
       <main
         className={
-          "uk-container uk-container-xsmall uk-margin uk-padding-small"
+          "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
         <h3 className={"uk-card-title"}>

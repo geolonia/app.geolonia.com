@@ -48,7 +48,7 @@ export class AuthContainer extends React.Component {
     try {
       const currentSession = await Auth.currentSession();
       return new Promise((resolve, reject) =>
-        userData.refreshSession(currentSession.refreshToken, (err) => {
+        userData.refreshSession(currentSession.refreshToken, err => {
           if (err) {
             reject(err);
           } else {
