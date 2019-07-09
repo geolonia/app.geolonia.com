@@ -9,65 +9,86 @@
     <link rel="stylesheet" href="/common.css" />
   </head>
   <body>
-    <main class="uk-container uk-container-xsmall uk-margin uk-padding-small">
-      <h1 class="uk-card-title uk-text-center">
-        <img
-          src="/images/logo.png"
-          alt="TileCloud"
-          style="width: 245px; min-width: 50%;"
-        />
-      </h1>
-      <h3 class="uk-card-title">Sign Up</h3>
-      <form action="" class="uk-form-horizontal">
-        <div class="uk-margin">
-          <label class="uk-form-label" for="username">username</label>
-          <div class="uk-form-controls">
-            <input
-              class="uk-input"
-              id="username"
-              type="username"
-              placeholder="username"
-              value=""
-            />
+    <header class="top-header uk-padding">
+
+      <div class="uk-flex uk-flex-around">
+        <div class="uk-flex uk-flex-middle">
+
+        <div class="uk-width-large">
+          <h1 class="uk-card-title">
+                <img
+                  src="/images/logo-white.png"
+                  alt="TileCloud"
+                  style="width: 245px; min-width: 50%;"
+                />
+              </h1>
+              <p class="header-text">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero totam iure odio tempora neque debitis, minima quidem quia, perferendis qui, sint at reiciendis pariatur perspiciatis sed. Ducimus temporibus debitis hic!
+              </p>
+          </div>
+
+        <div class="uk-width-large">
+          <div class="uk-card uk-card-default uk-card-body">
+            <form action="" class="uk-form-stacked">
+              <div class="uk-margin">
+
+                <div>
+                  <label class="uk-form-label" for="username">username</label>
+                  <div class="uk-form-controls">
+                    <input
+                      class="uk-input"
+                      id="username"
+                      type="username"
+                      placeholder="username"
+                      value=""
+                    />
+                  </div>
+                </div>
+
+              </div>
+              <div class="uk-margin">
+                <label class="uk-form-label" for="email">email</label>
+                <div class="uk-form-controls">
+                  <input
+                    class="uk-input"
+                    id="email"
+                    type="email"
+                    placeholder="name@example.com"
+                    value=""
+                  />
+                </div>
+              </div>
+
+              <div class="uk-margin">
+                <label class="uk-form-label" for="password">password</label>
+                <div class="uk-form-controls">
+                  <input class="uk-input" id="password" type="password" />
+                </div>
+              </div>
+
+              <div class="uk-margin uk-flex uk-width-1-1">
+                  <button
+                    id="sign-up"
+                    class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-text-bold"
+                    type="button"
+                    style="background: #F6CB67;color: white;"
+                  >
+                    Sign up for TileCloud
+                  </button>
+              </div>
+              <div class="uk-margin uk-flex uk-flex-right">
+                <div class="uk-flex uk-flex-column">
+                  <span>Or <a href="/app/sign-in">sign in</a>.</span>
+                  <a href="/app/verify">I have a verification code.</a>
+                </div>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="uk-margin">
-          <label class="uk-form-label" for="email">email</label>
-          <div class="uk-form-controls">
-            <input
-              class="uk-input"
-              id="email"
-              type="email"
-              placeholder="name@example.com"
-              value=""
-            />
-          </div>
-        </div>
-        <div class="uk-margin">
-          <label class="uk-form-label" for="password">password</label>
-          <div class="uk-form-controls">
-            <input class="uk-input" id="password" type="password" />
-          </div>
-        </div>
-        <div class="uk-margin uk-flex uk-flex-right">
-          <div class="uk-flex uk-flex-column">
-            <button
-              id="sign-up"
-              class="uk-button uk-button-default"
-              type="button"
-            >
-              sign up
-            </button>
-          </div>
-        </div>
-        <div class="uk-margin uk-flex uk-flex-right">
-          <div class="uk-flex uk-flex-column">
-            <span>Or <a href="/app/sign-in">sign in</a>.</span>
-            <a href="/app/verify">I have a verification code.</a>
-          </div>
-        </div>
-      </form>
-    </main>
+      </div>
+      </div>
+
+    </header>
     <script type="text/javascript" src="/uikit-icon.min.js"></script>
   </body>
 </html>
