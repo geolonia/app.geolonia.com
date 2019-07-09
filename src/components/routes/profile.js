@@ -10,6 +10,12 @@ export const ProfileRoute = props => {
         "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
       }
     >
+      <ul className={"uk-breadcrumb"}>
+        <li>
+          <Link to={"/app/dashboard"}>{"DASHBOARD"}</Link>
+        </li>
+        <li>{"PROFILE"}</li>
+      </ul>
       <div className={"uk-card uk-card-default uk-card-body"}>
         <h3>{"Profile"}</h3>
         {userData ? (

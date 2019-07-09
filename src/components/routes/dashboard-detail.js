@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Spinner from "../spinner";
 import { Link } from "react-router-dom";
-import DummyChart from '../dummy-chart'
+import DummyChart from "../dummy-chart";
 
 export class DashboarDetailRoute extends React.PureComponent {
   /**
@@ -84,13 +84,20 @@ export class DashboarDetailRoute extends React.PureComponent {
   onSaveClick = () => {
     this.setState({ requesting: true, error: false });
     const { nextUserKeyProps } = this.state;
-    console.log(this.props)
-    const {match: {
+    console.log(this.props);
+    const {
+      match: {
         params: { userKey }
-      } }= this.props;
+      }
+    } = this.props;
 
-      const updateProps = {...nextUserKeyProps, allowedOrigins: nextUserKeyProps.allowedOrigins && nextUserKeyProps.allowedOrigins.split('\n')}
-      console.log(updateProps)
+    const updateProps = {
+      ...nextUserKeyProps,
+      allowedOrigins:
+        nextUserKeyProps.allowedOrigins &&
+        nextUserKeyProps.allowedOrigins.split("\n")
+    };
+    console.log(updateProps);
     this.props.auth.API.updateKey(userKey, updateProps)
       .then(() => {
         const userKeys = [...this.state.userKeys];
@@ -98,7 +105,10 @@ export class DashboarDetailRoute extends React.PureComponent {
         userKeys[index] = { ...userKeys[index], ...updateProps };
         this.setState({ userKeys, requesting: false });
       })
-      .catch(error => console.error(error) || this.setState({ error, requesting: false }));
+      .catch(
+        error =>
+          console.error(error) || this.setState({ error, requesting: false })
+      );
   };
 
   onDeleteClick = userKey => () => {
@@ -174,22 +184,30 @@ export class DashboarDetailRoute extends React.PureComponent {
       return null;
     }
 
-    const prevUserKeyProps = userKeys.find(({ userKey }) => userKey === userKeyFilter)
+    const prevUserKeyProps = userKeys.find(
+      ({ userKey }) => userKey === userKeyFilter
+    );
 
     if (!requesting && !prevUserKeyProps) {
-      return <main
-        className={
-          "uk-container uk-container-medium uk-margin uk-padding-small"
-        }
-      >{'not found'}</main>
+      return (
+        <main
+          className={
+            "uk-container uk-container-medium uk-margin uk-padding-small"
+          }
+        >
+          {"not found"}
+        </main>
+      );
     }
 
     const { name, enabled, userKey, allowedOrigins } = {
       ...prevUserKeyProps,
-      ...nextUserKeyProps,
-    }
+      ...nextUserKeyProps
+    };
 
-    const displayAllowedOrigins = Array.isArray(allowedOrigins) ? allowedOrigins.join('\n') : allowedOrigins
+    const displayAllowedOrigins = Array.isArray(allowedOrigins)
+      ? allowedOrigins.join("\n")
+      : allowedOrigins;
 
     return (
       <main
@@ -211,7 +229,7 @@ export class DashboarDetailRoute extends React.PureComponent {
         )}
 
         <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
-          <h3 className={'uk-text-large'}>{'SETTINGS'}</h3>
+          <h3 className={"uk-text-large"}>{"SETTINGS"}</h3>
 
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"name"}>
@@ -245,14 +263,14 @@ export class DashboarDetailRoute extends React.PureComponent {
 
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={`enabled-${userKey}`}>
-            <input
-              className={"uk-checkbox"}
-              id={`enabled-${userKey}`}
-              type={"checkbox"}
-              defaultChecked={enabled}
-              name={"enabled"}
-              onChange={this.onCheckUpdate}
-            />
+              <input
+                className={"uk-checkbox"}
+                id={`enabled-${userKey}`}
+                type={"checkbox"}
+                defaultChecked={enabled}
+                name={"enabled"}
+                onChange={this.onCheckUpdate}
+              />
               {" ENABLED"}
             </label>
           </div>
@@ -271,10 +289,10 @@ export class DashboarDetailRoute extends React.PureComponent {
           </div>
         </div>
 
-          <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
-            <h3 className={'uk-text-large'}>{'TRAFIC'}</h3>
-            <DummyChart></DummyChart>
-          </div>
+        <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
+          <h3 className={"uk-text-large"}>{"TRAFIC"}</h3>
+          <DummyChart></DummyChart>
+        </div>
 
         {this.renderClipboard()}
       </main>

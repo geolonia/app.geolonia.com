@@ -106,6 +106,11 @@ export class DashboardRoute extends React.PureComponent {
           "tilecloud-app uk-container uk-container-medium uk-margin uk-padding-small"
         }
       >
+        <ul className={"uk-breadcrumb"}>
+          <li>
+            <span>{"DASHBOARD"}</span>
+          </li>
+        </ul>
         {error && (
           <div uk-alert={"true"} className={"uk-alert-danger"}>
             <p className={"uk-padding"}>{"Request failed."}</p>

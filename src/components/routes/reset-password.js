@@ -8,6 +8,7 @@ import {
 import ValidationMessage from "../validation-message";
 import getErrorMessage from "../../assets/errors";
 import Spinner from "../spinner";
+import { Link } from "react-router-dom";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -92,6 +93,14 @@ export class ResetPasswordRoute extends React.PureComponent {
           "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
+        <ul className={"uk-breadcrumb"}>
+          <li>
+            <Link to={"/app/dashboard"}>{"DASHBOARD"}</Link>
+          </li>
+          <li>
+            <span>{"RESET PASSWORD"}</span>
+          </li>
+        </ul>
         <h3 className={"uk-card-title"}>{"reset password"}</h3>
 
         <form className={"uk-form-horizontal"} action={""}>
