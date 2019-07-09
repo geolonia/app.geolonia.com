@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Spinner from "../spinner";
 import { Link } from "react-router-dom";
+import DummyChart from '../dummy-chart'
 
 export class DashboarDetailRoute extends React.PureComponent {
   /**
@@ -175,7 +176,7 @@ export class DashboarDetailRoute extends React.PureComponent {
 
     const prevUserKeyProps = userKeys.find(({ userKey }) => userKey === userKeyFilter)
 
-    if (!prevUserKeyProps) {
+    if (!requesting && !prevUserKeyProps) {
       return <main
         className={
           "uk-container uk-container-medium uk-margin uk-padding-small"
@@ -208,15 +209,9 @@ export class DashboarDetailRoute extends React.PureComponent {
             <p className={"uk-padding"}>{"Request failed."}</p>
           </div>
         )}
-        <div className={"uk-card uk-card-default uk-card-body"}>
-          <button
-            className={"uk-modal-close-default"}
-            type={"button"}
-            style={{ background: "none", border: "none" }}
-            onClick={this.onCloseModalClick}
-          >
-            <span className="uk-margin-small-right" uk-icon="close" />
-          </button>
+
+        <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
+          <h3 className={'uk-text-large'}>{'SETTINGS'}</h3>
 
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"name"}>
@@ -275,6 +270,11 @@ export class DashboarDetailRoute extends React.PureComponent {
             </button>
           </div>
         </div>
+
+          <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
+            <h3 className={'uk-text-large'}>{'TRAFIC'}</h3>
+            <DummyChart></DummyChart>
+          </div>
 
         {this.renderClipboard()}
       </main>
