@@ -289,6 +289,18 @@ export class DashboarDetailRoute extends React.PureComponent {
         </div>
 
         <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
+          <h3 className={"uk-text-large"}>{"SNIPPET"}</h3>
+          <textarea
+            className={"uk-textarea"}
+            name={"script-snippet"}
+            id={"script-snippet"}
+            rows={1}
+            style={{ resize: "none" }}
+            value={` <script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${userKey}"></script>`}
+          />
+        </div>
+
+        <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
           <h3 className={"uk-text-large"}>{"TRAFIC"}</h3>
           <DummyChart></DummyChart>
         </div>

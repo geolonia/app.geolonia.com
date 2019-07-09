@@ -144,7 +144,9 @@ export class DashboardRoute extends React.PureComponent {
                 </td>
 
                 <td>{allowedOrigins.join(",")}</td>
-
+                <td>
+                  <button>{"COPY"}</button>
+                </td>
                 <td>
                   <Link to={`/app/dashboard/${userKey}`}>{"detail"}</Link>
                 </td>
