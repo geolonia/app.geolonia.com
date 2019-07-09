@@ -95,9 +95,8 @@ export class DashboarDetailRoute extends React.PureComponent {
       ...nextUserKeyProps,
       allowedOrigins:
         nextUserKeyProps.allowedOrigins &&
-        nextUserKeyProps.allowedOrigins.split("\n")
+        nextUserKeyProps.allowedOrigins.split("\n").filter(x => !!x)
     };
-    console.log(updateProps);
     this.props.auth.API.updateKey(userKey, updateProps)
       .then(() => {
         const userKeys = [...this.state.userKeys];
