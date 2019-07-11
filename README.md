@@ -7,7 +7,7 @@
 ```shell
 $ git clone git@github.com:tilecloud/dashboard.git
 $ cd dashboard
-$ yarn
+$ npm install
 $ npm start
 ```
 
