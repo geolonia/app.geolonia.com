@@ -115,6 +115,7 @@ module.exports = {
       ]
     },
     hot: true,
-    open: true
+    open: true,
+    openPage: '/app'
   }
 }
