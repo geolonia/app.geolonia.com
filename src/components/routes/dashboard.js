@@ -170,12 +170,21 @@ export class DashboardRoute extends React.PureComponent {
 
                 <td>{(allowedOrigins || []).join(",")}</td>
                 <td>
-                  <button onClick={this.onDeleteClick(userKey)}>
-                    {"delete"}
+                  <button
+                    className={"uk-button"}
+                    style={{ background: "transparent" }}
+                    onClick={this.onDeleteClick(userKey)}
+                    uk-tooltip={"Delete"}
+                  >
+                    <span className="uk-margin-small-right" uk-icon="trash" />
                   </button>
                 </td>
                 <td>
-                  <Link to={`/app/dashboard/${userKey}`}>{"detail"}</Link>
+                  <Link to={`/app/dashboard/${userKey}`}>
+
+<span className="uk-margin-small-right" uk-icon="chevron-right" />
+
+                  </Link>
                 </td>
               </tr>
             ))}

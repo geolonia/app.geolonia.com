@@ -25,7 +25,6 @@ module.exports = {
   mode: IS_PROD ? 'production' : 'development',
   entry: {
     common: [
-      './node_modules/uikit/dist/js/uikit.min.js',
       '@babel/polyfill'
     ],
     app: ['src/entries/app.js'],
@@ -91,6 +90,7 @@ module.exports = {
 
     new CopyWebpackPlugin([
       { from: './node_modules/uikit/dist/css/uikit.min.css', to: 'uikit.min.css' },
+      { from: './node_modules/uikit/dist/js/uikit.min.js', to: 'uikit-index.min.js'},
       { from: './node_modules/uikit/dist/js/uikit-icons.min.js', to: 'uikit-icon.min.js' },
       { from: './src/styles/common.css', to: 'common.css' },
       { from: './public/images', to: 'images' },
