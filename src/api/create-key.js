@@ -12,6 +12,7 @@ export const createKey = token => () => {
       if (res.ok) {
         return res.json();
       } else {
+        console.log(res.text());
         throw new Error("Request Error");
       }
     })

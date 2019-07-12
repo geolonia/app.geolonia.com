@@ -1,6 +1,7 @@
 const URL_BASE = __ENV__.USER_KEYS_API_URL;
 
 export const updateKey = token => (userKey, params) => {
+  console.log(params);
   return fetch(`${URL_BASE}/${userKey}`, {
     method: "PUT",
     headers: {

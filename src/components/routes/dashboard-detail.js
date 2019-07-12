@@ -29,7 +29,14 @@ export class DashboarDetailRoute extends React.PureComponent {
       deletingIndex: -1,
       nextUserKeyProps: {}
     };
-    if (props.auth.userData) {
+  }
+
+  /**
+   * componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.auth.userData) {
       this.listKeys();
     }
   }
@@ -97,6 +104,7 @@ export class DashboarDetailRoute extends React.PureComponent {
         nextUserKeyProps.allowedOrigins &&
         nextUserKeyProps.allowedOrigins.split("\n").filter(x => !!x)
     };
+    console.log(updateProps);
     this.props.auth.API.updateKey(userKey, updateProps)
       .then(() => {
         const userKeys = [...this.state.userKeys];
@@ -107,25 +115,6 @@ export class DashboarDetailRoute extends React.PureComponent {
       .catch(
         error =>
           console.error(error) || this.setState({ error, requesting: false })
-      );
-  };
-
-  onDeleteClick = userKey => () => {
-    const nextUserKeys = [...this.state.userKeys];
-    const index = nextUserKeys.map(x => x.userKey).indexOf(userKey);
-    this.setState({ error: false, requesting: true, deletingIndex: index });
-
-    return this.props.auth.API.deleteKey(userKey)
-      .then(() => {
-        nextUserKeys.splice(index, 1);
-        this.setState({
-          userKeys: nextUserKeys,
-          requesting: false,
-          deletingIndex: -1
-        });
-      })
-      .catch(() =>
-        this.setState({ error: true, requesting: false, deletingIndex: -1 })
       );
   };
 

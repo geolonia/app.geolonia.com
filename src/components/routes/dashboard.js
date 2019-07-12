@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Spinner from "../spinner";
 import { Link } from "react-router-dom";
+import Modal from "../modal";
 
 export class DashboardRoute extends React.PureComponent {
   /**
@@ -26,15 +27,22 @@ export class DashboardRoute extends React.PureComponent {
       error: false,
       requesting: false,
       deletingIndex: -1,
-      nextUserKeyProps: {}
+      nextUserKeyProps: {},
+      modalOpen: false
     };
-    if (props.auth.userData) {
+  }
+
+  /**
+   * componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    if (this.props.auth.userData) {
       this.listKeys();
     }
   }
 
   listKeys = async () => {
-    this.setState({ requesting: true });
     this.props.auth.API.listKeys()
       .then(userKeys => this.setState({ requesting: false, userKeys }))
       .catch(
@@ -61,16 +69,27 @@ export class DashboardRoute extends React.PureComponent {
     }
   }
 
-  onCreateClick = () => {
-    this.setState({ error: false, requesting: true });
-    this.props.auth.API.createKey()
-      .then(data =>
+  openModalClick = () => this.setState({ error: false, modalOpen: true });
+
+  onDeleteClick = userKey => () => {
+    const nextUserKeys = [...this.state.userKeys];
+    const index = nextUserKeys.map(x => x.userKey).indexOf(userKey);
+    this.setState({ error: false, requesting: true, deletingIndex: index });
+
+    return this.props.auth.API.deleteKey(userKey)
+      .then(() => {
+        nextUserKeys.splice(index, 1);
         this.setState({
-          userKeys: [...this.state.userKeys, data],
-          requesting: false
-        })
-      )
-      .catch(() => this.setState({ error: true, requesting: false }));
+          userKeys: nextUserKeys,
+          requesting: false,
+          deletingIndex: -1
+        });
+      })
+      .catch(
+        () =>
+          console.log("111") ||
+          this.setState({ error: true, requesting: false, deletingIndex: -1 })
+      );
   };
 
   onCopyToClipboardClick = userKey => () => {
@@ -94,7 +113,13 @@ export class DashboardRoute extends React.PureComponent {
     const {
       auth: { userData }
     } = this.props;
-    const { userKeys, error, requesting, deletingIndex } = this.state;
+    const {
+      userKeys,
+      error,
+      requesting,
+      deletingIndex,
+      modalOpen
+    } = this.state;
 
     if (!userData) {
       return null;
@@ -120,7 +145,7 @@ export class DashboardRoute extends React.PureComponent {
         <div className={"uk-margin uk-align-right"}>
           <button
             className={"uk-button uk-button-default"}
-            onClick={this.onCreateClick}
+            onClick={this.openModalClick}
             disabled={requesting}
           >
             <Spinner loading={requesting} />
@@ -143,7 +168,12 @@ export class DashboardRoute extends React.PureComponent {
                   <span className={"uk-text-bold"}>{name || "(no name)"}</span>
                 </td>
 
-                <td>{allowedOrigins.join(",")}</td>
+                <td>{(allowedOrigins || []).join(",")}</td>
+                <td>
+                  <button onClick={this.onDeleteClick(userKey)}>
+                    {"delete"}
+                  </button>
+                </td>
                 <td>
                   <Link to={`/app/dashboard/${userKey}`}>{"detail"}</Link>
                 </td>
@@ -151,6 +181,15 @@ export class DashboardRoute extends React.PureComponent {
             ))}
           </tbody>
         </table>
+
+        <Modal
+          open={modalOpen}
+          close={() => this.setState({ modalOpen: false })}
+          auth={this.props.auth}
+          onMapCreated={data =>
+            this.setState({ userKeys: [...this.state.userKeys, data] })
+          }
+        ></Modal>
 
         {this.renderClipboard()}
       </main>
