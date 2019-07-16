@@ -71,27 +71,6 @@ export class DashboardRoute extends React.PureComponent {
 
   openModalClick = () => this.setState({ error: false, modalOpen: true });
 
-  onDeleteClick = userKey => () => {
-    const nextUserKeys = [...this.state.userKeys];
-    const index = nextUserKeys.map(x => x.userKey).indexOf(userKey);
-    this.setState({ error: false, requesting: true, deletingIndex: index });
-
-    return this.props.auth.API.deleteKey(userKey)
-      .then(() => {
-        nextUserKeys.splice(index, 1);
-        this.setState({
-          userKeys: nextUserKeys,
-          requesting: false,
-          deletingIndex: -1
-        });
-      })
-      .catch(
-        () =>
-          console.log("111") ||
-          this.setState({ error: true, requesting: false, deletingIndex: -1 })
-      );
-  };
-
   onCopyToClipboardClick = userKey => () => {
     const clipboard = document.getElementById("clipboard");
     clipboard.value = userKey;

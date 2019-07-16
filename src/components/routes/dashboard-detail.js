@@ -11,7 +11,8 @@ export class DashboarDetailRoute extends React.PureComponent {
    */
   static propTypes = {
     auth: PropTypes.any,
-    history: PropTypes.any
+    history: PropTypes.any,
+    match: PropTypes.any
   };
 
   /**
@@ -142,6 +143,28 @@ export class DashboarDetailRoute extends React.PureComponent {
     });
   };
 
+  onDeleteClick = userKey => () => {
+    const nextUserKeys = [...this.state.userKeys];
+    const index = nextUserKeys.map(x => x.userKey).indexOf(userKey);
+    this.setState({ error: false, requesting: true, deletingIndex: index });
+
+    return this.props.auth.API.deleteKey(userKey)
+      .then(() => {
+        nextUserKeys.splice(index, 1);
+        this.setState({
+          userKeys: nextUserKeys,
+          requesting: false,
+          deletingIndex: -1
+        });
+        this.props.history.replace(`/app/dashboard/`);
+      })
+      .catch(
+        () =>
+          console.log("111") ||
+          this.setState({ error: true, requesting: false, deletingIndex: -1 })
+      );
+  };
+
   renderClipboard = () => (
     <input
       type={"text"}
@@ -164,7 +187,6 @@ export class DashboarDetailRoute extends React.PureComponent {
       userKeys,
       error,
       requesting,
-      deletingIndex,
       nextUserKeyProps
     } = this.state;
 
@@ -293,6 +315,17 @@ export class DashboarDetailRoute extends React.PureComponent {
           <h3 className={"uk-text-large"}>{"TRAFIC"}</h3>
           <DummyChart></DummyChart>
         </div>
+
+        <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
+          <h3 className={"uk-text-large"}>{"DANGER ZONE"}</h3>
+            <button
+              className={"uk-button uk-button-danger"}
+              onClick={this.onDeleteClick(userKey)}
+            >
+              <span className="uk-margin-small-right" uk-icon="trash" />
+              {'DELETE this key'}
+            </button>
+          </div>
 
         {this.renderClipboard()}
       </main>
