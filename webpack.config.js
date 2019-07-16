@@ -25,7 +25,8 @@ module.exports = {
   mode: IS_PROD ? 'production' : 'development',
   entry: {
     common: [
-      '@babel/polyfill'
+      "core-js/stable",
+      "regenerator-runtime/runtime",
     ],
     app: ['src/entries/app.js'],
     top: ['src/entries/top.js']
