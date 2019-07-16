@@ -1,14 +1,10 @@
-.api-key-list__deleting {
-  background-color: pink !important;
-}
-
 .api-key-list-odd {
 
 }
 .api-key-list-even {
-  background: #eee;
+  background: #f8f8f8;
 }
 
 .api-key-list:hover {
-  opacity: .7;
+  background: #eee;
 }

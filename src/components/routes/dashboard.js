@@ -27,7 +27,6 @@ export class DashboardRoute extends React.PureComponent {
       openedUserKey: false,
       error: false,
       requesting: false,
-      deletingIndex: -1,
       nextUserKeyProps: {},
       modalOpen: false
     };
@@ -97,7 +96,6 @@ export class DashboardRoute extends React.PureComponent {
       userKeys,
       error,
       requesting,
-      deletingIndex,
       modalOpen
     } = this.state;
 
@@ -152,9 +150,7 @@ export class DashboardRoute extends React.PureComponent {
                 className={
                   `uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
                     index % 2 === 0 ? "even" : "odd"
-                  }` +
-                  (deletingIndex === index ? " api-key-list__deleting" : "")
-                }
+                  }`}
               >
                 <div className={"uk-flex"}>
                   <span
