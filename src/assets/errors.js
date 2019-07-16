@@ -1,27 +1,36 @@
+import { __ } from "@wordpress/i18n";
+
 /**
  * Mapping for error code vs. description
  * @type {{[errorCode]: {[context]: string} | string}}
  */
 const errorMessages = {
-  NetworkError: "Something is wrong with your network.",
+  NetworkError: __(
+    "Something is wrong with your network.",
+    "geolonia-dashboard"
+  ),
   InvalidParameterException: {
-    signup:
-      "Sign up parameter(s) seems to be missing or invalid. Please enter valid username, email address and password."
+    signup: __(
+      "Sign up parameter(s) seems to be missing or invalid. Please enter valid username, email address and password.",
+      "geolonia-dashboard"
+    )
   },
-  UsernameExistsException: "The username cannot be used.",
+  UsernameExistsException: __(
+    "The username cannot be used.",
+    "geolonia-dashboard"
+  ),
   UserLambdaValidationException: {
-    signup: "The username cannot be used."
+    signup: __("The username cannot be used.", "geolonia-dashboard")
   },
   UserNotFoundException: {
-    signin: "Incorrect username or password.",
-    verify: "Incorrect username."
+    signin: __("Incorrect username or password.", "geolonia-dashboard"),
+    verify: __("Incorrect username.", "geolonia-dashboard")
   },
   NotAuthorizedException: {
-    signin: "Incorrect username or password."
+    signin: __("Incorrect username or password.", "geolonia-dashboard")
   },
-  CodeMismatchException:
-    "Invalid verification code provided, please try again.",
-  default: "Unknown error occured."
+  CodeMismatchException: __("Invalid verification code.", "geolonia-dashboard"),
+  default: __("Unknown error occured.", "geolonia-dashboard")
 };
 
 const getErrorMessage = (error, context) => {

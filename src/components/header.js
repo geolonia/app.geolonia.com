@@ -2,13 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { primary } from "../colors";
+import { __ } from "@wordpress/i18n";
 
 const signoutRoutes = [];
 
 const signinRightRoutes = [
   {
     key: 2,
-    label: "Sign out",
+    label: __("sign out", "geolonia-dashboard"),
     handler: ({ auth, history }) => {
       auth.signout();
       history.replace(`/app/sign-in/`);

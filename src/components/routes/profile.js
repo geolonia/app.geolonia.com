@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { __ } from "@wordpress/i18n";
 
 export const ProfileRoute = props => {
   const { userData } = props.auth;
@@ -11,28 +12,28 @@ export const ProfileRoute = props => {
       }
     >
       <ul className={"uk-breadcrumb"}>
-        <li>
-          <Link to={"/app/dashboard"}>{"DASHBOARD"}</Link>
+        <li className={"uk-text-uppercase"}>
+          <Link to={"/app/dashboard"}>
+            {__("dashboard", "geolonia-dashboard")}
+          </Link>
         </li>
-        <li>{"PROFILE"}</li>
+        <li>{__("profile", "geolonia-dashboard")}</li>
       </ul>
       <div className={"uk-card uk-card-default uk-card-body"}>
-        <h3>{"Profile"}</h3>
+        <h3>{__("profile", "geolonia-dashboard")}</h3>
         {userData ? (
           <div>
             <dl className={"uk-description-list"}>
-              <dt>{"username"}</dt>
+              <dt className={"uk-text-uppercase"}>
+                {__("user name", "geolonia-dashboard")}
+              </dt>
               <dd>{userData.username}</dd>
             </dl>
             <dl className={"uk-description-list"}>
-              <dt>{"email"}</dt>
+              <dt className={"uk-text-uppercase"}>
+                {__("email", "geolonia-dashboard")}
+              </dt>
               <dd>{userData.attributes.email}</dd>
-            </dl>
-            <dl className={"uk-description-list"}>
-              <dt>{"forget password"}</dt>
-              <dd>
-                <Link to={"/app/reset_password"}>{"reset"}</Link>
-              </dd>
             </dl>
           </div>
         ) : null}

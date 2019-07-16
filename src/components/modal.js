@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Spinner from "./spinner";
+import { __ } from "@wordpress/i18n";
 
 const Modal = props => {
   if (!props.open) {
@@ -46,8 +47,6 @@ const Modal = props => {
           <span className="uk-margin-small-right" uk-icon="close" />
         </button>
 
-        <h3 className={"uk-text-large"}>{"GENERATE MAP"}</h3>
-
         {error && (
           <div uk-alert={"true"} className={"uk-alert-danger"}>
             <p className={"uk-padding"}>{"Request failed."}</p>
@@ -55,8 +54,8 @@ const Modal = props => {
         )}
 
         <div className={"uk-margin"}>
-          <label className={"uk-form-label"} htmlFor={"name"}>
-            {"NAME"}
+          <label className={"uk-form-label uk-text-uppercase"} htmlFor={"name"}>
+            {__("map name", "geolonia-dashboard")}
           </label>
           <input
             className={"uk-input"}
@@ -64,7 +63,7 @@ const Modal = props => {
             type={"text"}
             value={name}
             name={"name"}
-            placeholder={"Provide name to your key"}
+            placeholder={__("map name", "geolonia-dashboard")}
             onChange={e => setName(e.target.value)}
           />
         </div>
@@ -72,7 +71,10 @@ const Modal = props => {
         <div className={"uk-margin"}>
           <div className={"uk-form-controls"}>
             <label className={"uk-form-label"} htmlFor={"allowed-origins"}>
-              {"ALLOWED ORIGINS (an origin per a line)"}
+              <span className={"uk-text-uppercase"}>
+                {__("allowed origins", "geolonia-dashboard")}
+              </span>
+              {` (${__("an origin per a line", "geolonia-dashboard")})`}
             </label>
             <textarea
               className={"uk-textarea"}
@@ -80,12 +82,20 @@ const Modal = props => {
               id={"allowed-origins"}
               onChange={e => setAllowedOrigins(e.target.value)}
               value={allowedOrigins}
+              rows={3}
+              placeholder={__(
+                "e.g.\nhttps://example.com\nhttp://example.com",
+                "geolonia-dashboard"
+              )}
             />
           </div>
         </div>
 
         <div className={"uk-margin"}>
-          <label className={"uk-form-label"} htmlFor={`enabled`}>
+          <label
+            className={"uk-form-label uk-text-uppercase"}
+            htmlFor={`enabled`}
+          >
             <input
               className={"uk-checkbox"}
               id={`enabled`}
@@ -94,7 +104,7 @@ const Modal = props => {
               name={"enabled"}
               onChange={e => setEnabled(e.target.checked)}
             />
-            {" ENABLED"}
+            {` ${__("availability", "geolonia-dashboard")}`}
           </label>
         </div>
 
@@ -105,7 +115,7 @@ const Modal = props => {
             disabled={requesting}
           >
             <Spinner loading={requesting} />
-            {"SAVE"}
+            {__("generate map", "geolonia-dashboard")}
           </button>
         </div>
       </div>

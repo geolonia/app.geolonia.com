@@ -7,6 +7,7 @@ import { isValidUsername, isValidEmail } from "../../lib/validation";
 import Logo from "../logo";
 import ValidationMessage from "../validation-message";
 import Spinner from "../spinner";
+import { __ } from "@wordpress/i18n";
 
 export class SignInRoute extends React.PureComponent {
   /**
@@ -15,7 +16,9 @@ export class SignInRoute extends React.PureComponent {
    */
   static propTypes = {
     auth: PropTypes.shape({
-      signin: PropTypes.func.isRequired
+      signin: PropTypes.func.isRequired,
+      userHasRetrieved: PropTypes.bool.isRequired,
+      userData: PropTypes.any
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired,
@@ -42,6 +45,21 @@ export class SignInRoute extends React.PureComponent {
       error: false,
       requesting: false
     };
+  }
+
+  /**
+   * componentDidUpdate
+   * @param  {object} prevProps prev props
+   * @param  {object} prevState prev state
+   * @param  {object} snapshot  snapshot
+   * @return {void}
+   */
+  componentDidUpdate(prevProps) {
+    if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
+      if (this.props.auth.userData) {
+        this.props.history.push(`/app/dashboard`);
+      }
+    }
   }
 
   _onChange = (key, value) => this.setState({ [key]: value, error: false });
@@ -88,27 +106,41 @@ export class SignInRoute extends React.PureComponent {
         {verified && (
           <div uk-alert={"true"} className={"uk-alert-success"}>
             <p className={"uk-padding"}>
-              {"Congratulations! Your account have been successfully verified!"}
+              {__(
+                "Congratulations! Your email and account have been successfully verified!",
+                "geolonia-dashboard"
+              )}
               <br />
-              {"Please reenter password to sign in and enjoy TileCloud!"}
+              {__(
+                "Please reenter password to sign in and enjoy TileCloud!",
+                "geolonia-dashboard"
+              )}
             </p>
           </div>
         )}
         {reset && (
           <div uk-alert={"true"} className={"uk-alert-primary"}>
             <p className={"uk-padding"}>
-              {"Your password has been reset successfully."}
+              {__(
+                "Your password has been reset successfully.",
+                "geolonia-dashboard"
+              )}
               <br />
-              {"Please sign in to continue TileCloud."}
+              {__(
+                "Please sign in to continue TileCloud.",
+                "geolonia-dashboard"
+              )}
             </p>
           </div>
         )}
-        <h3 className={"uk-card-title"}>{"Sign In"}</h3>
+        <h3 className={"uk-card-title"}>
+          {__("sign in", "geolonia-dashboard")}
+        </h3>
 
         <form action={""} className={"uk-form-horizontal"}>
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"email"}>
-              {"email or username"}
+              {__("email or user name", "geolonia-dashboard")}
             </label>
             <div className={"uk-form-controls"}>
               <input
@@ -123,20 +155,24 @@ export class SignInRoute extends React.PureComponent {
                 value={emailOrUsername}
                 onChange={this.onEmailOrUsernameChange}
                 onBlur={this.onEmailOrUsernameBlur}
-                placeholder={"username or name@example.com"}
+                placeholder={__(
+                  "name@example.com or username",
+                  "geolonia-dashboard"
+                )}
               />
               <ValidationMessage
                 display={onceUsernameOrEmailBlurred && !isValidEmailOrUsername}
-                text={
-                  "Please enter valid email or username (only A-Z, a-z, 0-9, - and _ are available)."
-                }
+                text={__(
+                  "Please enter valid email or username (only A-Z, a-z, 0-9, - and _ are available).",
+                  "geolonia-dashboard"
+                )}
               />
             </div>
           </div>
 
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"password"}>
-              {"password"}
+              {__("password", "geolonia-dashboard")}
             </label>
             <div className={"uk-form-controls"}>
               <input
@@ -164,7 +200,7 @@ export class SignInRoute extends React.PureComponent {
                 }
               >
                 <Spinner loading={requesting} />
-                {"sign in"}
+                {__("sign in", "geolonia-dashboard")}
               </button>
             </div>
           </div>
@@ -179,7 +215,9 @@ export class SignInRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
-              <Link to={"/app/reset_password"}>{"I forgot my password."}</Link>
+              <Link to={"/app/reset_password"}>
+                {__("I forgot my password.", "geolonia-dashboard")}
+              </Link>
             </div>
           </div>
         </form>

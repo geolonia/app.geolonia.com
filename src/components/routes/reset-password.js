@@ -8,7 +8,7 @@ import {
 import ValidationMessage from "../validation-message";
 import getErrorMessage from "../../assets/errors";
 import Spinner from "../spinner";
-import { Link } from "react-router-dom";
+import { __ } from "@wordpress/i18n";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -93,20 +93,14 @@ export class ResetPasswordRoute extends React.PureComponent {
           "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
-        <ul className={"uk-breadcrumb"}>
-          <li>
-            <Link to={"/app/dashboard"}>{"DASHBOARD"}</Link>
-          </li>
-          <li>
-            <span>{"RESET PASSWORD"}</span>
-          </li>
-        </ul>
-        <h3 className={"uk-card-title"}>{"reset password"}</h3>
+        <h3 className={"uk-card-title uk-text-capitalize"}>
+          {__("reset password", "geolonia-dashboard")}
+        </h3>
 
         <form className={"uk-form-horizontal"} action={""}>
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"email"}>
-              {"email"}
+              {__("email", "geolonia-dashboard")}
             </label>
             <div className={"uk-form-controls"}>
               <input
@@ -124,7 +118,7 @@ export class ResetPasswordRoute extends React.PureComponent {
               />
               <ValidationMessage
                 display={onceEmailBlurred && !isEmailValid}
-                text={"Please enter valid email."}
+                text={__("Please enter a valid email.", "geolonia-dashboard")}
               />
             </div>
           </div>
@@ -138,7 +132,7 @@ export class ResetPasswordRoute extends React.PureComponent {
                 disabled={requesting || !email || !isEmailValid || requested}
               >
                 <Spinner loading={requesting} />
-                {"send reset code via email"}
+                {__("send a verification code via email", "geolonia-dashboard")}
               </button>
             </div>
           </div>
@@ -146,9 +140,15 @@ export class ResetPasswordRoute extends React.PureComponent {
           {requested && (
             <div uk-alert={"true"} className={"uk-alert-success"}>
               <p className={"uk-padding"}>
-                {"We have sent verification code via email."}
+                {__(
+                  "We have sent a verification code via email.",
+                  "geolonia-dashboard"
+                )}
                 <br />
-                {"Please enter the code on the email."}
+                {__(
+                  "Please enter the verification code to reset password.",
+                  "geolonia-dashboard"
+                )}
               </p>
             </div>
           )}
@@ -156,7 +156,7 @@ export class ResetPasswordRoute extends React.PureComponent {
           {requested && (
             <div className={"uk-margin"}>
               <label className={"uk-form-label"} htmlFor={"code"}>
-                {"code"}
+                {__("code", "geolonia-dashboard")}
               </label>
               <div className={"uk-form-controls"}>
                 <input
@@ -173,7 +173,10 @@ export class ResetPasswordRoute extends React.PureComponent {
                 />
                 <ValidationMessage
                   display={onceCodeBlurred && !isCodeValid}
-                  text={"Verification code should be like as 012345."}
+                  text={__(
+                    "The code should like as 012345.",
+                    "geolonia-dashboard"
+                  )}
                 />
               </div>
             </div>
@@ -182,7 +185,7 @@ export class ResetPasswordRoute extends React.PureComponent {
           {requested && (
             <div className={"uk-margin"}>
               <label className={"uk-form-label"} htmlFor={"password"}>
-                {"new password"}
+                {__("new password", "geolonia-dashboard")}
               </label>
               <div className={"uk-form-controls"}>
                 <input
@@ -200,7 +203,10 @@ export class ResetPasswordRoute extends React.PureComponent {
                 />
                 <ValidationMessage
                   display={oncePasswordBlurred && !isPasswordValid}
-                  text={"number of password characters should be 8 at least."}
+                  text={__(
+                    "Number of password characters should be 8 at least.",
+                    "geolonia-dashboard"
+                  )}
                 />
               </div>
             </div>
@@ -222,7 +228,7 @@ export class ResetPasswordRoute extends React.PureComponent {
                   }
                 >
                   <Spinner loading={requesting} />
-                  {"reset password"}
+                  {__("reset password", "geolonia-dashboard")}
                 </button>
               </div>
             </div>

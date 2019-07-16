@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@wordpress/i18n": "^3.5.0",
     "aws-amplify": "^1.1.26",
     "core-js": "^3.1.4",
     "isomorphic-fetch": "^2.2.1",

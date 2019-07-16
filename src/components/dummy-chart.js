@@ -1,5 +1,6 @@
 import React from "react";
 import { LineChart, CartesianGrid, Line, ResponsiveContainer } from "recharts";
+import { __ } from "@wordpress/i18n";
 
 const data = [
   { uv: 4000, pv: 2400 },
@@ -54,7 +55,7 @@ export const DummyChart = () => {
           alignItems: "center"
         }}
       >
-        <span>{"comming soon"}</span>
+        <span>{__("comming soon", "geolonia-dashboard")}</span>
       </div>
     </div>
   );

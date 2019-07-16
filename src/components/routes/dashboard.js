@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Spinner from "../spinner";
 import { Link } from "react-router-dom";
 import Modal from "../modal";
+import { __ } from "@wordpress/i18n";
 
 export class DashboardRoute extends React.PureComponent {
   /**
@@ -112,13 +113,15 @@ export class DashboardRoute extends React.PureComponent {
       >
         <ul className={"uk-breadcrumb"}>
           <li>
-            <span>{"DASHBOARD"}</span>
+            <span>{__("dashboard", "geolonia-dashboard")}</span>
           </li>
         </ul>
 
         {error && (
           <div uk-alert={"true"} className={"uk-alert-danger"}>
-            <p className={"uk-padding"}>{"Request failed."}</p>
+            <p className={"uk-padding"}>
+              {__("Request failed.", "geolonia-dashboard")}
+            </p>
           </div>
         )}
 
@@ -129,54 +132,55 @@ export class DashboardRoute extends React.PureComponent {
             disabled={requesting}
           >
             <Spinner loading={requesting} />
-            {"GENERATE MAP"}
+            {__("generate map", "geolonia-dashboard")}
           </button>
         </div>
 
-        {userKeys.length === 0 && <p className={'uk-text'}>{'No keys.'}</p>}
+        {userKeys.length === 0 && (
+          <p className={"uk-text"}>{__("No maps.", "geolonia-dashboard")}</p>
+        )}
 
         {/* development */}
-        <ul className={'uk-padding-remove'}>
-          {userKeys.map(
-            (
-              { userKey, allowedOrigins, name, enabled },
-              index
-            ) => (
-              <li
-                key={userKey}
-                className={
-                  `uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
-                    index % 2 === 0 ? "even" : "odd"
-                  }` +
-                  (deletingIndex === index ? " api-key-list__deleting" : "")
-                }
-              >
-                <div className={"uk-flex"}>
-                  <span
-                    style={{width: 50}}
-                    className={`uk-margin-large-right uk-flex uk-flex-middle uk-flex-center ${enabled ? 'api-key-item__enabled' : 'api-key-item__disabled'}`}
-                    uk-icon={`icon: ${enabled ? 'check' : 'close'}; ratio: 2`}
-                    uk-tooltip={enabled ? 'enabled' : 'disabled'}
-                  />
-                  <div className={"uk-flex uk-flex-column"}>
-                    <span className={"uk-text-bold"}>
-                      {name || "(no name)"}
-                    </span>
-                    <span>
-                      {(allowedOrigins || []).join(",") || "(no origins)"}
-                    </span>
-                  </div>
+        <ul className={"uk-padding-remove"}>
+          {userKeys.map(({ userKey, allowedOrigins, name, enabled }, index) => (
+            <li
+              key={userKey}
+              className={
+                `uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
+                  index % 2 === 0 ? "even" : "odd"
+                }` + (deletingIndex === index ? " api-key-list__deleting" : "")
+              }
+            >
+              <div className={"uk-flex"}>
+                <span
+                  style={{ width: 50 }}
+                  className={`uk-margin-large-right uk-flex uk-flex-middle uk-flex-center ${
+                    enabled ? "api-key-item__enabled" : "api-key-item__disabled"
+                  }`}
+                  uk-icon={`icon: ${enabled ? "check" : "close"}; ratio: 2`}
+                  uk-tooltip={
+                    enabled
+                      ? __("enabled", "geolonia-dashboard")
+                      : __("disabled", "geolonia-dashboard")
+                  }
+                />
+                <div className={"uk-flex uk-flex-column"}>
+                  <span className={"uk-text-bold"}>{name || "(no name)"}</span>
+                  <span>
+                    {(allowedOrigins || []).join(",") ||
+                      __("(no origins)", "geolonia-dashboard")}
+                  </span>
                 </div>
+              </div>
 
-                <Link to={`/app/dashboard/${userKey}`}>
-                  <span
-                    className="uk-margin-small-right"
-                    uk-icon={'icon: chevron-right; ratio: 2'}
-                  />
-                </Link>
-              </li>
-            )
-          )}
+              <Link to={`/app/dashboard/${userKey}`}>
+                <span
+                  className="uk-margin-small-right"
+                  uk-icon={"icon: chevron-right; ratio: 2"}
+                />
+              </Link>
+            </li>
+          ))}
         </ul>
 
         <Modal

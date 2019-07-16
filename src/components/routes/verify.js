@@ -6,6 +6,7 @@ import getErrorMessage from "../../assets/errors";
 import { isValidUsername, isValidCode } from "../../lib/validation";
 import ValidationMessage from "../validation-message";
 import Spinner from "../spinner";
+import { __ } from "@wordpress/i18n";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -86,18 +87,24 @@ export class VerifyCodeRoute extends React.PureComponent {
         {sent && (
           <div uk-alert={"true"} className={"uk-alert-primary"}>
             <p className={"uk-padding"}>
-              {
-                "Please enter a verification code on the email we have been sent."
-              }
+              {__(
+                "Please enter a verification code on the email we have been sent.",
+                "geolonia-dashboard"
+              )}
             </p>
           </div>
         )}
 
-        <h3 className={"uk-card-title"}>{"Code Verification"}</h3>
+        <h3 className={"uk-card-title uk-text-capitalize"}>
+          {__("code Verification", "geolonia-dashboard")}
+        </h3>
         <form action={""} className={"uk-form-horizontal"}>
           <div className={"uk-margin"}>
-            <label className={"uk-form-label"} htmlFor={"username"}>
-              {"username"}
+            <label
+              className={"uk-form-label uk-text-uppercase"}
+              htmlFor={"username"}
+            >
+              {__("user name", "geolonia-dashboard")}
             </label>
             <div className={"uk-form-controls"}>
               <input
@@ -116,14 +123,20 @@ export class VerifyCodeRoute extends React.PureComponent {
               />
               <ValidationMessage
                 display={onceUsernameBlurred && !isUsernameValid}
-                text={"You can use only A-Z, a-z, 0-9, - and _ for username."}
+                text={__(
+                  "You can use only A-Z, a-z, 0-9, - and _ for user name.",
+                  "geolonia-dashboard"
+                )}
               />
             </div>
           </div>
 
           <div className={"uk-margin"}>
-            <label className={"uk-form-label"} htmlFor={"code"}>
-              {"code"}
+            <label
+              className={"uk-form-label uk-text-uppercase"}
+              htmlFor={"code"}
+            >
+              {__("code", "geolonia-dashboard")}
             </label>
             <div className={"uk-form-controls"}>
               <input
@@ -140,7 +153,10 @@ export class VerifyCodeRoute extends React.PureComponent {
               />
               <ValidationMessage
                 display={onceCodeBlurred && !isCodeValid}
-                text={"Verification code should be like as 012345."}
+                text={__(
+                  "The code should like as 012345.",
+                  "geolonia-dashboard"
+                )}
               />
             </div>
           </div>
@@ -160,7 +176,7 @@ export class VerifyCodeRoute extends React.PureComponent {
                 }
               >
                 <Spinner loading={requesting} />
-                {"verify"}
+                {__("verify", "geolonia-dashboard")}
               </button>
             </div>
           </div>
@@ -175,7 +191,9 @@ export class VerifyCodeRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
-              <Link to={"/app/resend"}>{"I lost verification code."}</Link>
+              <Link to={"/app/resend"}>
+                {__("I lost the verification code.", "geolonia-dashboard")}
+              </Link>
             </div>
           </div>
         </form>

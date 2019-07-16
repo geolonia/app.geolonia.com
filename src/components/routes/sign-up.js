@@ -10,6 +10,7 @@ import {
 import Logo from "../logo";
 import ValidationMessage from "../validation-message";
 import Spinner from "../spinner";
+import { __ } from "@wordpress/i18n";
 
 export class SignUpRoute extends React.PureComponent {
   /**
@@ -19,7 +20,9 @@ export class SignUpRoute extends React.PureComponent {
   static propTypes = {
     auth: PropTypes.shape({
       error: PropTypes.any,
-      signUp: PropTypes.func.isRequired
+      signUp: PropTypes.func.isRequired,
+      userHasRetrieved: PropTypes.bool.isRequired,
+      userData: PropTypes.any
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -36,6 +39,21 @@ export class SignUpRoute extends React.PureComponent {
     requesting: false,
     error: false
   };
+
+  /**
+   * componentDidUpdate
+   * @param  {object} prevProps prev props
+   * @param  {object} prevState prev state
+   * @param  {object} snapshot  snapshot
+   * @return {void}
+   */
+  componentDidUpdate(prevProps) {
+    if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
+      if (this.props.auth.userData) {
+        this.props.history.push(`/app/dashboard`);
+      }
+    }
+  }
 
   _onChange = (key, value) => this.setState({ [key]: value, error: false });
   onUsernameChange = e => this._onChange("username", e.target.value);
@@ -86,12 +104,17 @@ export class SignUpRoute extends React.PureComponent {
         }
       >
         <Logo />
-        <h3 className={"uk-card-title"}>{"Sign Up"}</h3>
+        <h3 className={"uk-card-title uk-text-uppercase"}>
+          {__("sign up", "geolonia-dashboard")}
+        </h3>
 
         <form action={""} className={"uk-form-horizontal"}>
           <div className={"uk-margin"}>
-            <label className={"uk-form-label"} htmlFor={"username"}>
-              {"username"}
+            <label
+              className={"uk-form-label uk-text-uppercase"}
+              htmlFor={"username"}
+            >
+              {__("user name", "geolonia-dashboard")}
             </label>
             <div className={"uk-form-controls"}>
               <input
@@ -106,18 +129,21 @@ export class SignUpRoute extends React.PureComponent {
                 value={username}
                 onChange={this.onUsernameChange}
                 onBlur={this.onUsernameBlur}
-                placeholder={"username"}
+                placeholder={__("username", "geolonia-dashboard")}
               />
               <ValidationMessage
                 display={onceUsernameBlurred && !isUsernameValid}
-                text={"You can use only A-Z, a-z, 0-9, - and _ for username."}
+                text={__(
+                  "You can use only A-Z, a-z, 0-9, - and _ for user name.",
+                  "geolonia-dashboard"
+                )}
               />
             </div>
           </div>
 
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"email"}>
-              {"email"}
+              {__("email", "geolonia-dashboard")}
             </label>
             <div className={"uk-form-controls"}>
               <input
@@ -134,14 +160,14 @@ export class SignUpRoute extends React.PureComponent {
               />
               <ValidationMessage
                 display={onceEmailBlurred && !isEmailValid}
-                text={"Please enter correct email."}
+                text={__("Please enter correct email.", "geolonia-dashboard")}
               />
             </div>
           </div>
 
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"password"}>
-              {"password"}
+              {__("password", "geolonia-dashboard")}
             </label>
             <div className={"uk-form-controls"}>
               <input
@@ -159,7 +185,10 @@ export class SignUpRoute extends React.PureComponent {
               />
               <ValidationMessage
                 display={oncePasswordBlurred && !isPasswordValid}
-                text={"number of password characters should be 8 at least."}
+                text={__(
+                  "Number of password characters should be 8 at least.",
+                  "geolonia-dashboard"
+                )}
               />
             </div>
           </div>
@@ -181,7 +210,7 @@ export class SignUpRoute extends React.PureComponent {
                 }
               >
                 <Spinner loading={requesting} />
-                {"sign up"}
+                {__("sign up", "geolonia-dashboard")}
               </button>
             </div>
           </div>
@@ -196,7 +225,12 @@ export class SignUpRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
-              <Link to={"/app/verify"}>{"I have a verification code."}</Link>
+              <Link to={"/app/verify"}>
+                {__(
+                  "I already have a verification code.",
+                  "geolonia-dashboard"
+                )}
+              </Link>
             </div>
           </div>
         </form>

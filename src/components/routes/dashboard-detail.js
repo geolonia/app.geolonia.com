@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import Spinner from "../spinner";
 import { Link } from "react-router-dom";
 import DummyChart from "../dummy-chart";
+import { __ } from "@wordpress/i18n";
 
 export class DashboarDetailRoute extends React.PureComponent {
   /**
@@ -183,12 +184,7 @@ export class DashboarDetailRoute extends React.PureComponent {
       }
     } = this.props;
 
-    const {
-      userKeys,
-      error,
-      requesting,
-      nextUserKeyProps
-    } = this.state;
+    const { userKeys, error, requesting, nextUserKeyProps } = this.state;
 
     if (!userData) {
       return null;
@@ -210,7 +206,7 @@ export class DashboarDetailRoute extends React.PureComponent {
       );
     }
 
-    const { name, enabled, userKey, allowedOrigins } = {
+    const { name, enabled, allowedOrigins } = {
       ...prevUserKeyProps,
       ...nextUserKeyProps
     };
@@ -227,23 +223,35 @@ export class DashboarDetailRoute extends React.PureComponent {
       >
         <ul className={"uk-breadcrumb"}>
           <li>
-            <Link to={"/app/dashboard"}>{"DASHBOARD"}</Link>
+            <Link className={"uk-text-uppercase"} to={"/app/dashboard"}>
+              {__("dashboard", "geolonia-dashboard")}
+            </Link>
           </li>
-          <li>{(prevUserKeyProps || {}).name || "(no name)"}</li>
+          <li>
+            {(prevUserKeyProps || {}).name ||
+              __("(no name)", "geolonia-dashboard")}
+          </li>
         </ul>
 
         {error && (
           <div uk-alert={"true"} className={"uk-alert-danger"}>
-            <p className={"uk-padding"}>{"Request failed."}</p>
+            <p className={"uk-padding"}>
+              {__("Request failed.", "geolonia-dashboad")}
+            </p>
           </div>
         )}
 
         <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
-          <h3 className={"uk-text-large"}>{"SETTINGS"}</h3>
+          <h3 className={"uk-text-large uk-text-uppercase"}>
+            {__("settings", "geolonia-dashboard")}
+          </h3>
 
           <div className={"uk-margin"}>
-            <label className={"uk-form-label"} htmlFor={"name"}>
-              {"NAME"}
+            <label
+              className={"uk-form-label uk-text-uppercase"}
+              htmlFor={"name"}
+            >
+              {__("map name", "geolonia-dashboard")}
             </label>
             <input
               className={"uk-input"}
@@ -251,7 +259,7 @@ export class DashboarDetailRoute extends React.PureComponent {
               type={"text"}
               defaultValue={name}
               name={"name"}
-              placeholder={"Provide name to your key"}
+              placeholder={__("map name", "geolonia-dashboard")}
               onChange={this.onTextUpdate}
             />
           </div>
@@ -259,7 +267,10 @@ export class DashboarDetailRoute extends React.PureComponent {
           <div className={"uk-margin"}>
             <div className={"uk-form-controls"}>
               <label className={"uk-form-label"} htmlFor={"allowed-origins"}>
-                {"ALLOWED ORIGINS (an origin per a line)"}
+                <span className={"uk-text-uppercase"}>
+                  {__("allowed origins", "geolonia-dashboard")}
+                </span>
+                {` (${__("an origin per a line", "geolonia-dashboard")})`}
               </label>
               <textarea
                 className={"uk-textarea"}
@@ -267,21 +278,28 @@ export class DashboarDetailRoute extends React.PureComponent {
                 id={"allowed-origins"}
                 onChange={this.onTextareaUpdate}
                 value={displayAllowedOrigins}
+                placeholder={__(
+                  "e.g.\nhttps://example.com\nhttp://example.com",
+                  "geolonia-dashboard"
+                )}
               />
             </div>
           </div>
 
           <div className={"uk-margin"}>
-            <label className={"uk-form-label"} htmlFor={`enabled-${userKey}`}>
+            <label
+              className={"uk-form-label uk-text-uppercase"}
+              htmlFor={`enabled-${userKeyFilter}`}
+            >
               <input
                 className={"uk-checkbox"}
-                id={`enabled-${userKey}`}
+                id={`enabled-${userKeyFilter}`}
                 type={"checkbox"}
                 defaultChecked={enabled}
                 name={"enabled"}
                 onChange={this.onCheckUpdate}
               />
-              {" ENABLED"}
+              {` ${__("availability", "geolonia-dashboard")}`}
             </label>
           </div>
 
@@ -294,38 +312,47 @@ export class DashboarDetailRoute extends React.PureComponent {
               }
             >
               <Spinner loading={requesting} />
-              {"SAVE"}
+              {__("update map", "geolonia-dashboard")}
             </button>
           </div>
         </div>
 
         <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
-          <h3 className={"uk-text-large"}>{"SNIPPET"}</h3>
+          <h3 className={"uk-text-large uk-text-uppercase"}>
+            {__("snippets", "geolonia-dashboard")}
+          </h3>
           <textarea
             className={"uk-textarea"}
             name={"script-snippet"}
             id={"script-snippet"}
             rows={1}
             style={{ resize: "none" }}
-            defaultValue={` <script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${userKey}"></script>`}
+            defaultValue={` <script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${userKeyFilter}"></script>`}
           />
         </div>
 
         <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
-          <h3 className={"uk-text-large"}>{"TRAFIC"}</h3>
+          <h3 className={"uk-text-large uk-text-uppercase"}>
+            {__("traffic", "geolonia-dashboard")}
+          </h3>
           <DummyChart></DummyChart>
         </div>
 
         <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
-          <h3 className={"uk-text-large"}>{"DANGER ZONE"}</h3>
-            <button
-              className={"uk-button uk-button-danger"}
-              onClick={this.onDeleteClick(userKey)}
-            >
-              <span className="uk-margin-small-right" uk-icon="trash" />
-              {'DELETE THE MAP'}
-            </button>
-          </div>
+          <h3 className={"uk-text-large uk-text-uppercase"}>
+            {__("danger zone", "geolonia-dashboard")}
+          </h3>
+          <button
+            className={"uk-button uk-button-danger"}
+            onClick={this.onDeleteClick(userKeyFilter)}
+          >
+            <span
+              className="uk-margin-small-right uk-text-uppercase"
+              uk-icon="trash"
+            />
+            {__("delete this map", "geolonia-dashboard")}
+          </button>
+        </div>
 
         {this.renderClipboard()}
       </main>

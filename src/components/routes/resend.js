@@ -4,6 +4,7 @@ import { isValidEmail } from "../../lib/validation";
 import ValidationMessage from "../validation-message";
 import getErrorMessage from "../../assets/errors";
 import Spinner from "../spinner";
+import { __ } from "@wordpress/i18n";
 
 export class ResendCodeRoute extends React.PureComponent {
   /**
@@ -56,13 +57,13 @@ export class ResendCodeRoute extends React.PureComponent {
           "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
-        <h3 className={"uk-card-title"}>
-          {"Request Resend Verification Code"}
+        <h3 className={"uk-card-title uk-text-capitalize"}>
+          {__("resend a verification code", "geolonia-dashboard")}
         </h3>
         <form className={"uk-form-horizontal"} action={""}>
           <div className={"uk-margin"}>
             <label className={"uk-form-label"} htmlFor={"email"}>
-              {"email"}
+              {__("email", "geolonia-dashboard")}
             </label>
             <div className={"uk-form-controls"}>
               <input
@@ -79,7 +80,7 @@ export class ResendCodeRoute extends React.PureComponent {
               />
               <ValidationMessage
                 display={!isEmailValid}
-                text={"Please enter valid email."}
+                text={__("Please enter a valid email.", "geolonia-dashboard")}
               />
             </div>
           </div>
@@ -93,7 +94,7 @@ export class ResendCodeRoute extends React.PureComponent {
                 disabled={requesting || !email || !isEmailValid}
               >
                 <Spinner loading={requesting} />
-                {"resend"}
+                {__("resend", "geolonia-dashboard")}
               </button>
             </div>
           </div>
