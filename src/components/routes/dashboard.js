@@ -133,6 +133,8 @@ export class DashboardRoute extends React.PureComponent {
           </button>
         </div>
 
+        {userKeys.length === 0 && <p className={'uk-text'}>{'No keys.'}</p>}
+
         {/* development */}
         <ul className={'uk-padding-remove'}>
           {userKeys.map(
@@ -169,7 +171,7 @@ export class DashboardRoute extends React.PureComponent {
                 <Link to={`/app/dashboard/${userKey}`}>
                   <span
                     className="uk-margin-small-right"
-                    uk-icon="chevron-right"
+                    uk-icon={'icon: chevron-right; ratio: 2'}
                   />
                 </Link>
               </li>

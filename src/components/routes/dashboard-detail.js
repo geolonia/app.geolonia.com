@@ -307,7 +307,7 @@ export class DashboarDetailRoute extends React.PureComponent {
             id={"script-snippet"}
             rows={1}
             style={{ resize: "none" }}
-            value={` <script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${userKey}"></script>`}
+            defaultValue={` <script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${userKey}"></script>`}
           />
         </div>
 
@@ -323,7 +323,7 @@ export class DashboarDetailRoute extends React.PureComponent {
               onClick={this.onDeleteClick(userKey)}
             >
               <span className="uk-margin-small-right" uk-icon="trash" />
-              {'DELETE this key'}
+              {'DELETE THE MAP'}
             </button>
           </div>
 
