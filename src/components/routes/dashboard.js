@@ -113,7 +113,7 @@ export class DashboardRoute extends React.PureComponent {
       >
         <ul className={"uk-breadcrumb"}>
           <li>
-            <span>{__("dashboard", "geolonia-dashboard")}</span>
+            <span>{__("maps", "geolonia-dashboard")}</span>
           </li>
         </ul>
 

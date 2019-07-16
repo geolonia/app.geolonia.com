@@ -213,7 +213,7 @@ export class DashboarDetailRoute extends React.PureComponent {
         <ul className={"uk-breadcrumb"}>
           <li>
             <Link className={"uk-text-uppercase"} to={"/app/dashboard"}>
-              {__("dashboard", "geolonia-dashboard")}
+              {__("maps", "geolonia-dashboard")}
             </Link>
           </li>
           <li>

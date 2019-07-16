@@ -12,7 +12,7 @@
     "availability": ["有効化"],
     "enabled": ["地図は使用可能です"],
     "disabled": ["地図は使用できません"],
-    "dashboard": ["ダッシュボード"],
+    "maps": ["地図一覧"],
     "(no name)": ["(名前なし)"],
     "Request failed.": ["リクエストに失敗しました。"],
     "settings": ["設定"],
