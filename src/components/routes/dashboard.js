@@ -143,43 +143,51 @@ export class DashboardRoute extends React.PureComponent {
         {/* development */}
         <ul className={"uk-padding-remove"}>
           {userKeys.map(({ userKey, allowedOrigins, name, enabled }, index) => (
-            <li
+            <Link
+              to={`/app/dashboard/${userKey}`}
+              className={"uk-link-toggle"}
               key={userKey}
-              className={
-                `uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
-                  index % 2 === 0 ? "even" : "odd"
-                }` + (deletingIndex === index ? " api-key-list__deleting" : "")
-              }
             >
-              <div className={"uk-flex"}>
-                <span
-                  style={{ width: 50 }}
-                  className={`uk-margin-large-right uk-flex uk-flex-middle uk-flex-center ${
-                    enabled ? "api-key-item__enabled" : "api-key-item__disabled"
-                  }`}
-                  uk-icon={`icon: ${enabled ? "check" : "close"}; ratio: 2`}
-                  uk-tooltip={
-                    enabled
-                      ? __("enabled", "geolonia-dashboard")
-                      : __("disabled", "geolonia-dashboard")
-                  }
-                />
-                <div className={"uk-flex uk-flex-column"}>
-                  <span className={"uk-text-bold"}>{name || "(no name)"}</span>
-                  <span>
-                    {(allowedOrigins || []).join(",") ||
-                      __("(no origins)", "geolonia-dashboard")}
-                  </span>
+              <li
+                className={
+                  `uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
+                    index % 2 === 0 ? "even" : "odd"
+                  }` +
+                  (deletingIndex === index ? " api-key-list__deleting" : "")
+                }
+              >
+                <div className={"uk-flex"}>
+                  <span
+                    style={{ width: 50 }}
+                    className={`uk-margin-large-right uk-flex uk-flex-middle uk-flex-center ${
+                      enabled
+                        ? "api-key-item__enabled"
+                        : "api-key-item__disabled"
+                    }`}
+                    uk-icon={`icon: ${enabled ? "check" : "close"}; ratio: 2`}
+                    uk-tooltip={
+                      enabled
+                        ? __("enabled", "geolonia-dashboard")
+                        : __("disabled", "geolonia-dashboard")
+                    }
+                  />
+                  <div className={"uk-flex uk-flex-column"}>
+                    <span className={"uk-text-bold uk-link-heading"}>
+                      {name || "(no name)"}
+                    </span>
+                    <span>
+                      {(allowedOrigins || []).join(",") ||
+                        __("(no origins)", "geolonia-dashboard")}
+                    </span>
+                  </div>
                 </div>
-              </div>
 
-              <Link to={`/app/dashboard/${userKey}`}>
                 <span
                   className="uk-margin-small-right"
                   uk-icon={"icon: chevron-right; ratio: 2"}
                 />
-              </Link>
-            </li>
+              </li>
+            </Link>
           ))}
         </ul>
 

@@ -8,3 +8,7 @@
 .api-key-list-even {
   background: #eee;
 }
+
+.api-key-list:hover {
+  opacity: .7;
+}
