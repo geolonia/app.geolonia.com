@@ -23,6 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+.envrc
 
 #amplify
 amplify/\#current-cloud-backend

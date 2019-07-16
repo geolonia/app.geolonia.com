@@ -17,8 +17,8 @@
     "lint": "eslint --cache --ext=js .",
     "format": "prettier-eslint \"./src/**/*.js\" --write",
     "test": "jest",
-    "start": "rimraf build && source .envrc.development && NODE_ENV=development webpack-dev-server",
-    "build": "rimraf build && source .envrc.production && NODE_ENV=production webpack -p",
+    "start": "rimraf build && source .env.development && NODE_ENV=development webpack-dev-server",
+    "build": "rimraf build && source .env.production && NODE_ENV=production webpack -p",
     "build:netlify": "NODE_ENV=production webpack -p"
   },
   "devDependencies": {

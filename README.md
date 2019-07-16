@@ -7,6 +7,7 @@
 ```shell
 $ git clone git@github.com:tilecloud/dashboard.git
 $ cd dashboard
+$ cp .envrc.sample .envrc
 $ npm install
 $ npm start
 ```
