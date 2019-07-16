@@ -215,6 +215,9 @@ export class SignInRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
+              <Link to={"/app/sign-up"}>
+                {__("Create an account.", "geolonia-dashboard")}
+              </Link>
               <Link to={"/app/reset_password"}>
                 {__("I forgot my password.", "geolonia-dashboard")}
               </Link>

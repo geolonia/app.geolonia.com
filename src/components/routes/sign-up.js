@@ -225,6 +225,10 @@ export class SignUpRoute extends React.PureComponent {
           )}
           <div className={"uk-margin uk-flex uk-flex-right"}>
             <div className={"uk-flex uk-flex-column"}>
+              <Link to={"/app/sign-in"}>
+                {__("Sign in with an existing account.", "geolonia-dashboard")}
+              </Link>
+
               <Link to={"/app/verify"}>
                 {__(
                   "I already have a verification code.",
