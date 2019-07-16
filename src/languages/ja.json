@@ -60,5 +60,6 @@
     "Incorrect username or password.": ["ユーザー名またはパスワードが正しくありません。"],
     "Incorrect username.": ["ユーザー名が正しくありません。"],
     "Invalid verification code.": ["認証コードが正しくありません。"],
-    "Unknown error occured.": ["不明なエラーです。"]
+    "Unknown error occured.": ["不明なエラーです。"],
+    "No maps.": ["地図はありません。"]
 }
