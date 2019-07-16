@@ -1,3 +1,10 @@
 .api-key-list__deleting {
   background-color: pink !important;
 }
+
+.api-key-list-odd {
+
+}
+.api-key-list-even {
+  background: #eee;
+}

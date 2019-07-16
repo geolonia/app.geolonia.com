@@ -3,12 +3,9 @@ import PropTypes from "prop-types";
 import Spinner from "./spinner";
 
 const Modal = props => {
-  console.log(props.open)
-
   if (!props.open) {
-    return null
+    return null;
   }
-
 
   const [name, setName] = useState("");
   const [enabled, setEnabled] = useState(true);
@@ -34,21 +31,20 @@ const Modal = props => {
       setError(error);
     }
     setRequesting(false);
-    props.close()
+    props.close();
   };
 
   return (
     <div className={"uk-flex-top uk-modal uk-flex uk-open"} uk-modal={"true"}>
       <div className={"uk-modal-dialog uk-modal-body uk-margin-auto-vertical"}>
         <button
-  className={"uk-modal-close-default"}
-  type={"button"}
-  style={{ background: "none", border: "none" }}
-  onClick={props.close}
->
-  <span className="uk-margin-small-right" uk-icon="close" />
-</button>
-
+          className={"uk-modal-close-default"}
+          type={"button"}
+          style={{ background: "none", border: "none" }}
+          onClick={props.close}
+        >
+          <span className="uk-margin-small-right" uk-icon="close" />
+        </button>
 
         <h3 className={"uk-text-large"}>{"GENERATE MAP"}</h3>
 

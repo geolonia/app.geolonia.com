@@ -136,13 +136,14 @@ export class DashboardRoute extends React.PureComponent {
             <span>{"DASHBOARD"}</span>
           </li>
         </ul>
+
         {error && (
           <div uk-alert={"true"} className={"uk-alert-danger"}>
             <p className={"uk-padding"}>{"Request failed."}</p>
           </div>
         )}
 
-        <div className={"uk-margin uk-align-right"}>
+        <div className={"uk-margin"}>
           <button
             className={"uk-button uk-button-default"}
             onClick={this.openModalClick}
@@ -154,42 +155,48 @@ export class DashboardRoute extends React.PureComponent {
         </div>
 
         {/* development */}
-        <table className={"uk-table uk-table-divider uk-table-striped"}>
-          <tbody>
-            {userKeys.map(({ userKey, allowedOrigins, name }, index) => (
-              <tr
+        <ul className={'uk-padding-remove'}>
+          {userKeys.map(
+            (
+              { userKey, allowedOrigins, name, enabled },
+              index
+            ) => (
+              <li
                 key={userKey}
                 className={
-                  "api-key-list" +
+                  `uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
+                    index % 2 === 0 ? "even" : "odd"
+                  }` +
                   (deletingIndex === index ? " api-key-list__deleting" : "")
                 }
               >
-                <td>
-                  <span className={"uk-text-bold"}>{name || "(no name)"}</span>
-                </td>
+                <div className={"uk-flex"}>
+                  <span
+                    style={{width: 50}}
+                    className={`uk-margin-large-right uk-flex uk-flex-middle uk-flex-center ${enabled ? 'api-key-item__enabled' : 'api-key-item__disabled'}`}
+                    uk-icon={`icon: ${enabled ? 'check' : 'close'}; ratio: 2`}
+                    uk-tooltip={enabled ? 'enabled' : 'disabled'}
+                  />
+                  <div className={"uk-flex uk-flex-column"}>
+                    <span className={"uk-text-bold"}>
+                      {name || "(no name)"}
+                    </span>
+                    <span>
+                      {(allowedOrigins || []).join(",") || "(no origins)"}
+                    </span>
+                  </div>
+                </div>
 
-                <td>{(allowedOrigins || []).join(",")}</td>
-                <td>
-                  <button
-                    className={"uk-button"}
-                    style={{ background: "transparent" }}
-                    onClick={this.onDeleteClick(userKey)}
-                    uk-tooltip={"Delete"}
-                  >
-                    <span className="uk-margin-small-right" uk-icon="trash" />
-                  </button>
-                </td>
-                <td>
-                  <Link to={`/app/dashboard/${userKey}`}>
-
-<span className="uk-margin-small-right" uk-icon="chevron-right" />
-
-                  </Link>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                <Link to={`/app/dashboard/${userKey}`}>
+                  <span
+                    className="uk-margin-small-right"
+                    uk-icon="chevron-right"
+                  />
+                </Link>
+              </li>
+            )
+          )}
+        </ul>
 
         <Modal
           open={modalOpen}
