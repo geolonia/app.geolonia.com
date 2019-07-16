@@ -49,7 +49,9 @@ const Modal = props => {
 
         {error && (
           <div uk-alert={"true"} className={"uk-alert-danger"}>
-            <p className={"uk-padding"}>{"Request failed."}</p>
+            <p className={"uk-padding"}>
+              {__("Request failed.", "geolonia-dashboard")}
+            </p>
           </div>
         )}
 

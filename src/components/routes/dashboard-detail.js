@@ -4,6 +4,7 @@ import Spinner from "../spinner";
 import { Link } from "react-router-dom";
 import DummyChart from "../dummy-chart";
 import { __ } from "@wordpress/i18n";
+import ModalBeforeDelete from "../modal-before-delete";
 
 export class DashboarDetailRoute extends React.PureComponent {
   /**
@@ -28,8 +29,8 @@ export class DashboarDetailRoute extends React.PureComponent {
       openedUserKey: false,
       error: false,
       requesting: false,
-      deletingIndex: -1,
-      nextUserKeyProps: {}
+      nextUserKeyProps: {},
+      openModal: false
     };
   }
 
@@ -144,26 +145,8 @@ export class DashboarDetailRoute extends React.PureComponent {
     });
   };
 
-  onDeleteClick = userKey => () => {
-    const nextUserKeys = [...this.state.userKeys];
-    const index = nextUserKeys.map(x => x.userKey).indexOf(userKey);
-    this.setState({ error: false, requesting: true, deletingIndex: index });
-
-    return this.props.auth.API.deleteKey(userKey)
-      .then(() => {
-        nextUserKeys.splice(index, 1);
-        this.setState({
-          userKeys: nextUserKeys,
-          requesting: false,
-          deletingIndex: -1
-        });
-        this.props.history.replace(`/app/dashboard/`);
-      })
-      .catch(
-        () =>
-          console.log("111") ||
-          this.setState({ error: true, requesting: false, deletingIndex: -1 })
-      );
+  onDeleteClick = () => {
+    this.setState({ openModal: true });
   };
 
   renderClipboard = () => (
@@ -184,7 +167,13 @@ export class DashboarDetailRoute extends React.PureComponent {
       }
     } = this.props;
 
-    const { userKeys, error, requesting, nextUserKeyProps } = this.state;
+    const {
+      userKeys,
+      error,
+      requesting,
+      nextUserKeyProps,
+      openModal
+    } = this.state;
 
     if (!userData) {
       return null;
@@ -344,16 +333,18 @@ export class DashboarDetailRoute extends React.PureComponent {
           </h3>
           <button
             className={"uk-button uk-button-danger"}
-            onClick={this.onDeleteClick(userKeyFilter)}
+            onClick={this.onDeleteClick}
           >
-            <span
-              className="uk-margin-small-right uk-text-uppercase"
-              uk-icon="trash"
-            />
             {__("delete this map", "geolonia-dashboard")}
           </button>
         </div>
-
+        <ModalBeforeDelete
+          open={openModal}
+          close={() => this.setState({ openModal: false })}
+          userKey={userKeyFilter}
+          onDeleteSuccess={() => this.props.history.replace(`/app/dashboard/`)}
+          auth={this.props.auth}
+        ></ModalBeforeDelete>
         {this.renderClipboard()}
       </main>
     );
