@@ -219,6 +219,13 @@ export class DashboarDetailRoute extends React.PureComponent {
 
         <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
           <h3 className={"uk-text-large uk-text-uppercase"}>
+            {__("traffic", "geolonia-dashboard")}
+          </h3>
+          <DummyChart></DummyChart>
+        </div>
+
+        <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
+          <h3 className={"uk-text-large uk-text-uppercase"}>
             {__("settings", "geolonia-dashboard")}
           </h3>
 
@@ -265,11 +272,11 @@ export class DashboarDetailRoute extends React.PureComponent {
           <div className={"uk-margin"}>
             <label
               className={"uk-form-label uk-text-uppercase"}
-              htmlFor={`enabled-${userKeyFilter}`}
+              htmlFor={`enabled`}
             >
               <input
                 className={"uk-checkbox"}
-                id={`enabled-${userKeyFilter}`}
+                id={`enabled`}
                 type={"checkbox"}
                 defaultChecked={enabled}
                 name={"enabled"}
@@ -297,6 +304,10 @@ export class DashboarDetailRoute extends React.PureComponent {
           <h3 className={"uk-text-large uk-text-uppercase"}>
             {__("snippets", "geolonia-dashboard")}
           </h3>
+          <p
+            >
+              { __('Insert the script tag below just before body closing tag.', 'geolonia-dashboard') }
+            </p>
           <textarea
             className={"uk-textarea"}
             name={"script-snippet"}
@@ -305,13 +316,6 @@ export class DashboarDetailRoute extends React.PureComponent {
             style={{ resize: "none" }}
             defaultValue={` <script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${userKeyFilter}"></script>`}
           />
-        </div>
-
-        <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
-          <h3 className={"uk-text-large uk-text-uppercase"}>
-            {__("traffic", "geolonia-dashboard")}
-          </h3>
-          <DummyChart></DummyChart>
         </div>
 
         <div className={"uk-card uk-card-default uk-card-body uk-margin"}>
