@@ -92,12 +92,7 @@ export class DashboardRoute extends React.PureComponent {
     const {
       auth: { userData }
     } = this.props;
-    const {
-      userKeys,
-      error,
-      requesting,
-      modalOpen
-    } = this.state;
+    const { userKeys, error, requesting, modalOpen } = this.state;
 
     if (!userData) {
       return null;
@@ -147,10 +142,9 @@ export class DashboardRoute extends React.PureComponent {
               key={userKey}
             >
               <li
-                className={
-                  `uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
-                    index % 2 === 0 ? "even" : "odd"
-                  }`}
+                className={`uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
+                  index % 2 === 0 ? "even" : "odd"
+                }`}
               >
                 <div className={"uk-flex"}>
                   <span

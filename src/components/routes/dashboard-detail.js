@@ -72,18 +72,6 @@ export class DashboarDetailRoute extends React.PureComponent {
     }
   }
 
-  onCreateClick = () => {
-    this.setState({ error: false, requesting: true });
-    this.props.auth.API.createKey()
-      .then(data =>
-        this.setState({
-          userKeys: [...this.state.userKeys, data],
-          requesting: false
-        })
-      )
-      .catch(() => this.setState({ error: true, requesting: false }));
-  };
-
   onCopyToClipboardClick = userKey => () => {
     const clipboard = document.getElementById("clipboard");
     clipboard.value = userKey;
@@ -107,7 +95,6 @@ export class DashboarDetailRoute extends React.PureComponent {
         nextUserKeyProps.allowedOrigins &&
         nextUserKeyProps.allowedOrigins.split("\n").filter(x => !!x)
     };
-    console.log(updateProps);
     this.props.auth.API.updateKey(userKey, updateProps)
       .then(() => {
         const userKeys = [...this.state.userKeys];

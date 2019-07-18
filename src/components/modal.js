@@ -17,14 +17,15 @@ const Modal = props => {
   const requestUpdate = async () => {
     setRequesting(true);
     let initialData;
+    const nextAllowedOrigins = allowedOrigins.split("\n").filter(x => !!x);
     const updateProps = {
       name,
       enabled,
-      allowedOrigins: allowedOrigins.split("\n")
+      allowedOrigins:
+        nextAllowedOrigins.length === 0 ? void 0 : nextAllowedOrigins
     };
     try {
       initialData = await props.auth.API.createKey();
-      console.log(updateProps);
       await props.auth.API.updateKey(initialData.userKey, updateProps);
       props.onMapCreated({ ...initialData, ...updateProps });
     } catch (error) {
