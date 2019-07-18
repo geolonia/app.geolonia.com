@@ -11,6 +11,6 @@ document.getElementById("sign-up").addEventListener("click", () => {
     password: document.getElementById("password").value
   };
   Auth.signUp(params)
-    .then(() => location.replace(`/app/verify?username={params.username}`))
+    .then(() => location.replace(`/app/verify?username=${params.username}`))
     .catch(err => console.error(err));
 });
