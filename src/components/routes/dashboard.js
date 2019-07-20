@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Spinner from "../spinner";
 import { Link } from "react-router-dom";
 import Modal from "../modal";
-import { __ } from "@wordpress/i18n";
+import { __, _n, sprintf } from "@wordpress/i18n";
 
 export class DashboardRoute extends React.PureComponent {
   /**
@@ -135,53 +135,66 @@ export class DashboardRoute extends React.PureComponent {
 
         {/* development */}
         <ul className={"uk-padding-remove"}>
-          {userKeys.map(({ userKey, allowedOrigins, name, enabled }, index) => (
-            <Link
-              to={`/app/dashboard/${userKey}`}
-              className={"uk-link-toggle"}
-              key={userKey}
-            >
-              <li
-                className={`uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
-                  index % 2 === 0 ? "even" : "odd"
-                }`}
-              >
-                <div className={"uk-flex"}>
-                  <span
-                    style={{ width: 50 }}
-                    className={`uk-margin-large-right uk-flex uk-flex-middle uk-flex-center ${
-                      enabled
-                        ? "api-key-item__enabled"
-                        : "api-key-item__disabled"
-                    }`}
-                    uk-icon={`icon: ${enabled ? "check" : "close"}; ratio: 2`}
-                    uk-tooltip={
-                      enabled
-                        ? __("enabled", "geolonia-dashboard")
-                        : __("disabled", "geolonia-dashboard")
-                    }
-                  />
-                  <div className={"uk-flex uk-flex-column"}>
-                    <span className={"uk-text-bold uk-link-heading"}>
-                      {name || "(no name)"}
-                    </span>
-                    <span>
-                      {(allowedOrigins || []).map((origin) => {
-                        return <span key={origin} className={'uk-label uk-label-default uk-text-lowercase'}>{origin}</span>
-                      })}
-                      {/* {(allowedOrigins || []).join(",") || */}
-                        {/* __("(no origins)", "geolonia-dashboard")} */}
-                    </span>
-                  </div>
-                </div>
+          {userKeys.map(({ userKey, allowedOrigins, name, enabled }, index) => {
 
-                <span
-                  className="uk-margin-small-right"
-                  uk-icon={"icon: chevron-right; ratio: 2"}
-                />
-              </li>
-            </Link>
-          ))}
+            const displayAllowedOrigins = [...(allowedOrigins || [])]
+            const originsCount = displayAllowedOrigins.length
+
+            if (originsCount > 5) {
+              displayAllowedOrigins.splice(5,originsCount - 5)
+            }
+
+            return (
+              <Link
+                to={`/app/dashboard/${userKey}`}
+                className={"uk-link-toggle"}
+                key={userKey}
+              >
+                <li
+                  className={`uk-padding uk-flex uk-flex-middle uk-flex-between api-key-list api-key-list-${
+                    index % 2 === 0 ? "even" : "odd"
+                  }`}
+                >
+                  <div className={"uk-flex"}>
+                    <span
+                      style={{ width: 50 }}
+                      className={`uk-margin-large-right uk-flex uk-flex-middle uk-flex-center ${
+                        enabled
+                          ? "api-key-item__enabled"
+                          : "api-key-item__disabled"
+                      }`}
+                      uk-icon={`icon: ${enabled ? "check" : "close"}; ratio: 2`}
+                      uk-tooltip={
+                        enabled
+                          ? __("enabled", "geolonia-dashboard")
+                          : __("disabled", "geolonia-dashboard")
+                      }
+                    />
+                    <div className={"uk-flex uk-flex-column"}>
+                      <span className={"uk-text-bold uk-link-heading"}>
+                        {name || "(no name)"}
+                      </span>
+                      <span>
+                        {(displayAllowedOrigins).map((origin) => {
+                          return <span
+                            key={origin}
+                            className={'uk-label uk-label-default uk-text-lowercase uk-margin-small-right'}
+                            style={{color: '#666', background: 'none', border: '1px solid #666'}}
+                          >{origin}</span>
+                        })}
+                        {originsCount > 5 && sprintf(_n('and other %s origin', 'and other %s origins', originsCount - 5, 'geolonia-dashboard'),originsCount - 5)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <span
+                    className="uk-margin-small-right"
+                    uk-icon={"icon: chevron-right; ratio: 2"}
+                  />
+                </li>
+              </Link>
+            )
+          })}
         </ul>
 
         <Modal

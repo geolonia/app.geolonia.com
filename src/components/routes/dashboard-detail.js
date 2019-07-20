@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import DummyChart from "../dummy-chart";
 import { __ } from "@wordpress/i18n";
 import ModalBeforeDelete from "../modal-before-delete";
+import normalizeURL from '../../lib/normalize-url'
 
 export class DashboarDetailRoute extends React.PureComponent {
   /**
@@ -93,14 +94,14 @@ export class DashboarDetailRoute extends React.PureComponent {
       ...nextUserKeyProps,
       allowedOrigins:
         nextUserKeyProps.allowedOrigins &&
-        nextUserKeyProps.allowedOrigins.split("\n").filter(x => !!x)
+        nextUserKeyProps.allowedOrigins.split("\n").map(normalizeURL).filter(x => !!x)
     };
     this.props.auth.API.updateKey(userKey, updateProps)
       .then(() => {
         const userKeys = [...this.state.userKeys];
         const index = userKeys.map(x => x.userKey).indexOf(userKey);
         userKeys[index] = { ...userKeys[index], ...updateProps };
-        this.setState({ userKeys, requesting: false });
+        this.setState({ userKeys, requesting: false, nextUserKeyProps: {} });
       })
       .catch(
         error =>

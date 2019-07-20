@@ -63,5 +63,6 @@
     "Unknown error occured.": ["不明なエラーです。"],
     "No maps.": ["地図はありません。"],
     "If you really want to delete this map, please type <code>delete</code>.": ["本当にこの地図を削除する場合は<code>delete</code>と入力してください。"],
-    "Insert the script tag below just before body closing tag.": ["以下の script タグを body 要素の閉じタグの直前に挿入してください。"]
+    "Insert the script tag below just before body closing tag.": ["以下の script タグを body 要素の閉じタグの直前に挿入してください。"],
+    "and other %s origin": ["その他%s個のウェブサイト", "その他%s個のウェブサイト"]
 }
