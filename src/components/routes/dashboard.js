@@ -166,8 +166,11 @@ export class DashboardRoute extends React.PureComponent {
                       {name || "(no name)"}
                     </span>
                     <span>
-                      {(allowedOrigins || []).join(",") ||
-                        __("(no origins)", "geolonia-dashboard")}
+                      {(allowedOrigins || []).map((origin) => {
+                        return <span key={origin} className={'uk-label uk-label-default uk-text-lowercase'}>{origin}</span>
+                      })}
+                      {/* {(allowedOrigins || []).join(",") || */}
+                        {/* __("(no origins)", "geolonia-dashboard")} */}
                     </span>
                   </div>
                 </div>
