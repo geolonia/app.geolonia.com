@@ -6,8 +6,15 @@ import * as serviceWorker from "../lib/service-worker";
 import "../config/amplify";
 import "isomorphic-fetch";
 
+import UIkit from 'uikit';
+import Icons from 'uikit/dist/js/uikit-icons';
+
 // CSS
 import "../styles/app.css";
+import 'uikit/dist/css/uikit.min.css'
+
+// Initialize UIkit
+UIkit.use(Icons);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 

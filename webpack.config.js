@@ -90,6 +90,7 @@ module.exports = {
     }),
 
     new CopyWebpackPlugin([
+      // Direct load for UIKit is used only for top.html
       { from: './node_modules/uikit/dist/css/uikit.min.css', to: 'uikit.min.css' },
       { from: './node_modules/uikit/dist/js/uikit.min.js', to: 'uikit-index.min.js'},
       { from: './node_modules/uikit/dist/js/uikit-icons.min.js', to: 'uikit-icon.min.js' },
