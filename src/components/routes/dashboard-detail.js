@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import DummyChart from "../dummy-chart";
 import { __ } from "@wordpress/i18n";
 import ModalBeforeDelete from "../modal-before-delete";
-import normalizeURL from '../../lib/normalize-url'
+import normalizeURL from "../../lib/normalize-url";
 
 export class DashboarDetailRoute extends React.PureComponent {
   /**
@@ -94,7 +94,10 @@ export class DashboarDetailRoute extends React.PureComponent {
       ...nextUserKeyProps,
       allowedOrigins:
         nextUserKeyProps.allowedOrigins &&
-        nextUserKeyProps.allowedOrigins.split("\n").map(normalizeURL).filter(x => !!x)
+        nextUserKeyProps.allowedOrigins
+          .split("\n")
+          .map(normalizeURL)
+          .filter(x => !!x)
     };
     this.props.auth.API.updateKey(userKey, updateProps)
       .then(() => {
@@ -305,10 +308,12 @@ export class DashboarDetailRoute extends React.PureComponent {
           <h3 className={"uk-text-large uk-text-uppercase"}>
             {__("snippets", "geolonia-dashboard")}
           </h3>
-          <p
-            >
-              { __('Insert the script tag below just before body closing tag.', 'geolonia-dashboard') }
-            </p>
+          <p>
+            {__(
+              "Insert the script tag below just before body closing tag.",
+              "geolonia-dashboard"
+            )}
+          </p>
           <textarea
             className={"uk-textarea"}
             name={"script-snippet"}

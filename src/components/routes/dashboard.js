@@ -136,12 +136,11 @@ export class DashboardRoute extends React.PureComponent {
         {/* development */}
         <ul className={"uk-padding-remove"}>
           {userKeys.map(({ userKey, allowedOrigins, name, enabled }, index) => {
-
-            const displayAllowedOrigins = [...(allowedOrigins || [])]
-            const originsCount = displayAllowedOrigins.length
+            const displayAllowedOrigins = [...(allowedOrigins || [])];
+            const originsCount = displayAllowedOrigins.length;
 
             if (originsCount > 5) {
-              displayAllowedOrigins.splice(5,originsCount - 5)
+              displayAllowedOrigins.splice(5, originsCount - 5);
             }
 
             return (
@@ -175,14 +174,33 @@ export class DashboardRoute extends React.PureComponent {
                         {name || "(no name)"}
                       </span>
                       <span>
-                        {(displayAllowedOrigins).map((origin) => {
-                          return <span
-                            key={origin}
-                            className={'uk-label uk-label-default uk-text-lowercase uk-margin-small-right'}
-                            style={{color: '#666', background: 'none', border: '1px solid #666'}}
-                          >{origin}</span>
+                        {displayAllowedOrigins.map(origin => {
+                          return (
+                            <span
+                              key={origin}
+                              className={
+                                "uk-label uk-label-default uk-text-lowercase uk-margin-small-right"
+                              }
+                              style={{
+                                color: "#666",
+                                background: "none",
+                                border: "1px solid #666"
+                              }}
+                            >
+                              {origin}
+                            </span>
+                          );
                         })}
-                        {originsCount > 5 && sprintf(_n('and other %s origin', 'and other %s origins', originsCount - 5, 'geolonia-dashboard'),originsCount - 5)}
+                        {originsCount > 5 &&
+                          sprintf(
+                            _n(
+                              "and other %s origin",
+                              "and other %s origins",
+                              originsCount - 5,
+                              "geolonia-dashboard"
+                            ),
+                            originsCount - 5
+                          )}
                       </span>
                     </div>
                   </div>
@@ -193,7 +211,7 @@ export class DashboardRoute extends React.PureComponent {
                   />
                 </li>
               </Link>
-            )
+            );
           })}
         </ul>
 

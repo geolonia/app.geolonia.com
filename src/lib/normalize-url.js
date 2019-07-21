@@ -1,23 +1,21 @@
-import url from 'url'
+import url from "url";
 
-export const normalizeURL = (input) => {
-
-  let result
+export const normalizeURL = input => {
+  let result;
   try {
-    console.log(url.parse(input))
-    const {protocol, hostname} = url.parse(input)
+    console.log(url.parse(input));
+    const { protocol, hostname } = url.parse(input);
 
     if (!hostname) {
-      result = false
+      result = false;
     } else {
-      result = `${protocol || 'https'}//${hostname}`
+      result = `${protocol || "https"}//${hostname}`;
     }
   } catch (e) {
-    result = false
+    result = false;
   }
 
-  return result
-}
+  return result;
+};
 
-
-export default normalizeURL
+export default normalizeURL;

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Spinner from "./spinner";
 import { __ } from "@wordpress/i18n";
-import normalizeURL from '../lib/normalize-url'
+import normalizeURL from "../lib/normalize-url";
 
 const Modal = props => {
   if (!props.open) {
@@ -18,7 +18,10 @@ const Modal = props => {
   const requestUpdate = async () => {
     setRequesting(true);
     let initialData;
-    const nextAllowedOrigins = allowedOrigins.split("\n").map(normalizeURL).filter(x => !!x);
+    const nextAllowedOrigins = allowedOrigins
+      .split("\n")
+      .map(normalizeURL)
+      .filter(x => !!x);
     const updateProps = {
       name,
       enabled,

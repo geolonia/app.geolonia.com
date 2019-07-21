@@ -1,11 +1,9 @@
-import
-  normalizeURL
-from "./normalize-url";
+import normalizeURL from "./normalize-url";
 
 describe("origin normalization", () => {
   it("should be normalized", () => {
     const input = "https://example.com/aaa";
-    const expectedOutput = 'https://example.com'
+    const expectedOutput = "https://example.com";
     expect(normalizeURL(input)).toBe(expectedOutput);
   });
 
