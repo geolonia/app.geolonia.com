@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Header from "./header";
+import SideBar from "./side-bar";
 import HomeRoute from "./routes/home";
 import SignUpRoute from "./routes/sign-up";
 import VerifyRoute from "./routes/verify";
@@ -49,18 +49,23 @@ const AppRouter = props => {
       <>
         <Route
           path={"/app"}
-          render={props => <Header {...props} auth={auth} />}
+          render={props => (
+            <aside id="left-col">
+              <SideBar {...props} auth={auth} />{" "}
+            </aside>
+          )}
         />
 
         {Object.keys(routes).map(path => {
           const { Component } = routes[path];
           return (
-            <Route
-              key={path}
-              path={path}
-              exact
-              render={props => <Component {...props} auth={auth} />}
-            />
+            <div key={path} id={"right-col"}>
+              <Route
+                path={path}
+                exact
+                render={props => <Component {...props} auth={auth} />}
+              />
+            </div>
           );
         })}
       </>

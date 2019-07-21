@@ -1,5 +1,4 @@
 .api-key-list-odd {
-
 }
 .api-key-list-even {
   background: #f8f8f8;
@@ -7,4 +6,23 @@
 
 .api-key-list:hover {
   background: #eee;
+}
+
+#left-col {
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #222;
+  width: 260px;
+  z-index: 1;
+}
+.bar-wrap {
+  padding: 2rem;
+}
+#right-col {
+  margin: 20px;
+  margin-left: 280px; /* 260 + 20 */
 }
