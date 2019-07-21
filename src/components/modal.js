@@ -111,7 +111,11 @@ const Modal = props => {
               name={"enabled"}
               onChange={e => setEnabled(e.target.checked)}
             />
-            {` ${__("availability", "geolonia-dashboard")}`}
+            {` ${
+              enabled
+                ? __("enabled", "geolonia-dashboard")
+                : __("disabled", "geolonia-dashboard")
+            }`}
           </label>
         </div>
 

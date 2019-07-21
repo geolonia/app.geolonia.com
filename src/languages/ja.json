@@ -9,7 +9,6 @@
     "allowed origins": ["許可するウェブサイト"],
     "an origin per a line": ["1行につき1つのウェブサイトを記載してください"],
     "e.g.\nhttps://example.com\nhttp://example.com": ["例\nhttps://example.com\nhttp://example.com"],
-    "availability": ["有効化"],
     "enabled": ["地図は使用可能です"],
     "disabled": ["地図は使用できません"],
     "maps": ["地図一覧"],

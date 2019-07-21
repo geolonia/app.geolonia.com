@@ -286,7 +286,11 @@ export class DashboarDetailRoute extends React.PureComponent {
                 name={"enabled"}
                 onChange={this.onCheckUpdate}
               />
-              {` ${__("availability", "geolonia-dashboard")}`}
+              {` ${
+                enabled
+                  ? __("enabled", "geolonia-dashboard")
+                  : __("disabled", "geolonia-dashboard")
+              }`}
             </label>
           </div>
 
