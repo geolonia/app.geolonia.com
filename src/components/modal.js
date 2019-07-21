@@ -33,7 +33,7 @@ const Modal = props => {
       await props.auth.API.updateKey(initialData.userKey, updateProps);
       props.onMapCreated({ ...initialData, ...updateProps });
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       setError(error);
     }
     setRequesting(false);
@@ -113,8 +113,8 @@ const Modal = props => {
             />
             {` ${
               enabled
-                ? __("enabled", "geolonia-dashboard")
-                : __("disabled", "geolonia-dashboard")
+                ? __("make it enabled", "geolonia-dashboard")
+                : __("make it disabled", "geolonia-dashboard")
             }`}
           </label>
         </div>

@@ -1,67 +1,108 @@
 {
-    "": { "domain": "geolonia-dashboard" },
-    "comming soon": ["この機能は近日追加予定です"],
-    "sign up": ["アカウント作成"],
-    "sign out": ["サインアウト"],
-    "sign in": ["サインイン"],
-    "generate map": ["地図を作成する"],
-    "map name": ["地図の名前"],
-    "allowed origins": ["許可するウェブサイト"],
-    "an origin per a line": ["1行につき1つのウェブサイトを記載してください"],
-    "e.g.\nhttps://example.com\nhttp://example.com": ["例\nhttps://example.com\nhttp://example.com"],
-    "enabled": ["地図は使用可能です"],
-    "disabled": ["地図は使用できません"],
-    "maps": ["地図一覧"],
-    "(no name)": ["(名前なし)"],
-    "Request failed.": ["リクエストに失敗しました。"],
-    "settings": ["設定"],
-    "update map": ["地図を更新する"],
-    "snippets": ["スニペット"],
-    "traffic": ["転送量"],
-    "danger zone": ["危険な操作"],
-    "delete this map": ["この地図を削除する"],
-    "(no origins)": ["(ウェブサイトが設定されていません)"],
-    "profile": ["プロフィール"],
-    "user name": ["ユーザー名"],
-    "email": ["Eメール"],
-    "email or user name": ["Eメールまたはユーザー名"],
-    "password": ["パスワード"],
-    "new password": ["新しいパスワード"],
-    "code": ["認証コード"],
-    "verify": ["認証する"],
-    "code Verification": ["コード認証"],
-    "reset password": ["パスワードリセット"],
-    "resend": ["再送する"],
-    "name@example.com or username": ["name@example.com または username"],
-    "You can use only A-Z, a-z, 0-9, - and _ for user name.": ["ユーザー名には英数字（A-Z, a-z）とハイフン(-)およびアンダースコア(_)のみが使用できます。"],
-    "Please enter correct email.": ["正しい形式のメールアドレスを入力してください。"],
-    "Number of password characters should be 8 at least.": ["8文字以上のパスワードを設定してください。"],
-    "Sign in with an existing account.": ["既存のアカウントでサインインする。"],
-    "I already have a verification code.":["すでに認証コードを持っている場合"],
-    "Please enter a verification code on the email we have been sent.": ["送信したメールに記載されている認証コードを入力してください。"],
-    "The code should like as 012345.": ["認証コードは 012345 のような6桁の数字でなければなりません。"],
-    "I lost the verification code.": ["認証コードがない場合"],
-    "Congratulations! Your email and account have been successfully verified!": ["メールアドレスが認証されアカウントが作成されました。"],
-    "Please reenter password to sign in and enjoy TileCloud!": ["再度パスワードを入力して TileCloud にサインインしてください。"],
-    "Your password has been reset successfully.": ["パスワードが変更されました。"],
-    "Please sign in to continue TileCloud.": ["アプリの使用を継続するにはサインインしてください。"],
-    "Please enter valid email or username (only A-Z, a-z, 0-9, - and _ are available).": ["正しいメールアドレスまたはユーザー名を入力してください。ユーザー名には英数字とハイフン(-)、アンダースコア(_)が使用できます。"],
-    "Create an account.": ["アカウントを作成する"],
-    "I forgot my password.": ["パスワードを忘れた場合"],
-    "We have sent a verification code via email.": ["認証コードをEメールで送信しました。"],
-    "Please enter the verification code to reset password.": ["認証コードを入力してパスワードをリセットしてください。"],
-    "send a verification code via email": ["Eメールで認証コードを送信"],
-    "Please enter a valid email.": ["正しい形式のEメールアドレスを入力してください。"],
-    "resend a verification code": ["認証コードを再送する"],
-    "Something is wrong with your network.": ["ネットワークエラー"],
-    "Sign up parameter(s) seems to be missing or invalid. Please enter valid username, email address and password.": ["入力した値が正しくありません。正しいユーザー名、Eメールアドレス、パスワードを入力してください。"],
-    "The username cannot be used.": ["このユーザー名は利用できません。"],
-    "Incorrect username or password.": ["ユーザー名またはパスワードが正しくありません。"],
-    "Incorrect username.": ["ユーザー名が正しくありません。"],
-    "Invalid verification code.": ["認証コードが正しくありません。"],
-    "Unknown error occured.": ["不明なエラーです。"],
-    "No maps.": ["地図はありません。"],
-    "If you really want to delete this map, please type <code>delete</code>.": ["本当にこの地図を削除する場合は<code>delete</code>と入力してください。"],
-    "Insert the script tag below just before body closing tag.": ["以下の script タグを body 要素の閉じタグの直前に挿入してください。"],
-    "and other %s origin": ["その他%s個のウェブサイト", "その他%s個のウェブサイト"]
+  "": { "domain": "geolonia-dashboard" },
+  "comming soon": ["この機能は近日追加予定です"],
+  "sign up": ["アカウント作成"],
+  "sign out": ["サインアウト"],
+  "sign in": ["サインイン"],
+  "generate map": ["地図を作成する"],
+  "map name": ["地図の名前"],
+  "allowed origins": ["許可するウェブサイト"],
+  "an origin per a line": ["1行につき1つのウェブサイトを記載してください"],
+  "e.g.\nhttps://example.com\nhttp://example.com": [
+    "例\nhttps://example.com\nhttp://example.com"
+  ],
+  "enabled": ["地図は使用可能です"],
+  "disabled": ["地図は使用できません"],
+  "make it enabled": ["有効化した状態で地図を作成する"],
+  "make it disabled": ["無効化した状態で地図を作成する"],
+  "maps": ["地図一覧"],
+  "(no name)": ["(名前なし)"],
+  "Request failed.": ["リクエストに失敗しました。"],
+  "settings": ["設定"],
+  "update map": ["地図を更新する"],
+  "snippets": ["スニペット"],
+  "traffic": ["転送量"],
+  "danger zone": ["危険な操作"],
+  "delete this map": ["この地図を削除する"],
+  "(no origins)": ["(ウェブサイトが設定されていません)"],
+  "profile": ["プロフィール"],
+  "user name": ["ユーザー名"],
+  "email": ["Eメール"],
+  "email or user name": ["Eメールまたはユーザー名"],
+  "password": ["パスワード"],
+  "new password": ["新しいパスワード"],
+  "code": ["認証コード"],
+  "verify": ["認証する"],
+  "code Verification": ["コード認証"],
+  "reset password": ["パスワードリセット"],
+  "resend": ["再送する"],
+  "name@example.com or username": ["name@example.com または username"],
+  "You can use only A-Z, a-z, 0-9, - and _ for user name.": [
+    "ユーザー名には英数字（A-Z, a-z）とハイフン(-)およびアンダースコア(_)のみが使用できます。"
+  ],
+  "Please enter correct email.": [
+    "正しい形式のメールアドレスを入力してください。"
+  ],
+  "Number of password characters should be 8 at least.": [
+    "8文字以上のパスワードを設定してください。"
+  ],
+  "Sign in with an existing account.": ["既存のアカウントでサインインする。"],
+  "I already have a verification code.": ["すでに認証コードを持っている場合"],
+  "Please enter a verification code on the email we have been sent.": [
+    "送信したメールに記載されている認証コードを入力してください。"
+  ],
+  "The code should like as 012345.": [
+    "認証コードは 012345 のような6桁の数字でなければなりません。"
+  ],
+  "I lost the verification code.": ["認証コードがない場合"],
+  "Congratulations! Your email and account have been successfully verified!": [
+    "メールアドレスが認証されアカウントが作成されました。"
+  ],
+  "Please reenter password to sign in and enjoy TileCloud!": [
+    "再度パスワードを入力して TileCloud にサインインしてください。"
+  ],
+  "Your password has been reset successfully.": [
+    "パスワードが変更されました。"
+  ],
+  "Please sign in to continue TileCloud.": [
+    "アプリの使用を継続するにはサインインしてください。"
+  ],
+  "Please enter valid email or username (only A-Z, a-z, 0-9, - and _ are available).": [
+    "正しいメールアドレスまたはユーザー名を入力してください。ユーザー名には英数字とハイフン(-)、アンダースコア(_)が使用できます。"
+  ],
+  "Create an account.": ["アカウントを作成する"],
+  "I forgot my password.": ["パスワードを忘れた場合"],
+  "We have sent a verification code via email.": [
+    "認証コードをEメールで送信しました。"
+  ],
+  "Please enter the verification code to reset password.": [
+    "認証コードを入力してパスワードをリセットしてください。"
+  ],
+  "send a verification code via email": ["Eメールで認証コードを送信"],
+  "Please enter a valid email.": [
+    "正しい形式のEメールアドレスを入力してください。"
+  ],
+  "resend a verification code": ["認証コードを再送する"],
+  "Something is wrong with your network.": ["ネットワークエラー"],
+  "Sign up parameter(s) seems to be missing or invalid. Please enter valid username, email address and password.": [
+    "入力した値が正しくありません。正しいユーザー名、Eメールアドレス、パスワードを入力してください。"
+  ],
+  "The username cannot be used.": ["このユーザー名は利用できません。"],
+  "Incorrect username or password.": [
+    "ユーザー名またはパスワードが正しくありません。"
+  ],
+  "Incorrect username.": ["ユーザー名が正しくありません。"],
+  "Invalid verification code.": ["認証コードが正しくありません。"],
+  "Unknown error occured.": ["不明なエラーです。"],
+  "No maps.": ["地図はありません。"],
+  "If you really want to delete this map, please type <code>delete</code>.": [
+    "本当にこの地図を削除する場合は<code>delete</code>と入力してください。"
+  ],
+  "Insert the script tag below just before body closing tag.": [
+    "以下の script タグを body 要素の閉じタグの直前に挿入してください。"
+  ],
+  "and other %s origin": [
+    "その他%s個のウェブサイト",
+    "その他%s個のウェブサイト"
+  ]
 }
