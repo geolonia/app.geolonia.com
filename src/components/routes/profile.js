@@ -13,7 +13,7 @@ export const ProfileRoute = props => {
     >
       <ul className={"uk-breadcrumb"}>
         <li className={"uk-text-uppercase"}>
-          <Link to={"/app/dashboard"}>{__("maps", "geolonia-dashboard")}</Link>
+          <Link to={"/app/maps"}>{__("maps", "geolonia-dashboard")}</Link>
         </li>
         <li>{__("profile", "geolonia-dashboard")}</li>
       </ul>

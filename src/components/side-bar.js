@@ -5,14 +5,16 @@ import { __ } from "@wordpress/i18n";
 
 const signoutRoutes = [];
 
-const signinRightRoutes = [
+const signinRoutes = [
   {
     key: 0,
+    path: "/app/maps",
     label: "Maps",
     icon: "world"
   },
   {
     key: 1,
+    path: "/app/features",
     label: "Features",
     icon: "location"
   },
@@ -42,7 +44,7 @@ export const SideBar = props => {
     auth: { userData }
   } = props;
   const isSignIn = !!userData;
-  const rightRoutes = isSignIn ? signinRightRoutes : signoutRoutes;
+  const routes = isSignIn ? signinRoutes : signoutRoutes;
 
   // eslint-disable-next-line
   const renderItem = props => ({
@@ -54,7 +56,7 @@ export const SideBar = props => {
     icon
   }) => {
     if (divider) {
-      return <li key={key} dclassName="uk-nav-divider"></li>;
+      return <li key={key} className="uk-nav-divider"></li>;
     } else {
       return (
         <li key={key}>
@@ -82,7 +84,7 @@ export const SideBar = props => {
     <div className={"bar-wrap"}>
       <ul className={"uk-nav-default uk-nav-parent-icon"} uk-nav={"true"}>
         <li className={"uk-active"}>{"Apps"}</li>
-        {rightRoutes.map(renderItem(props))}
+        {routes.map(renderItem(props))}
       </ul>
     </div>
   );

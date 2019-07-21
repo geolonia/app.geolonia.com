@@ -203,7 +203,7 @@ export class DashboarDetailRoute extends React.PureComponent {
       >
         <ul className={"uk-breadcrumb"}>
           <li>
-            <Link className={"uk-text-uppercase"} to={"/app/dashboard"}>
+            <Link className={"uk-text-uppercase"} to={"/app/maps"}>
               {__("maps", "geolonia-dashboard")}
             </Link>
           </li>
@@ -343,7 +343,7 @@ export class DashboarDetailRoute extends React.PureComponent {
           open={openModal}
           close={() => this.setState({ openModal: false })}
           userKey={userKeyFilter}
-          onDeleteSuccess={() => this.props.history.replace(`/app/dashboard/`)}
+          onDeleteSuccess={() => this.props.history.replace(`/app/maps/`)}
           auth={this.props.auth}
         ></ModalBeforeDelete>
         {this.renderClipboard()}

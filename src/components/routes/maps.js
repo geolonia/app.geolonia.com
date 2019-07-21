@@ -45,10 +45,9 @@ export class DashboardRoute extends React.PureComponent {
   listKeys = async () => {
     this.props.auth.API.listKeys()
       .then(userKeys => this.setState({ requesting: false, userKeys }))
-      .catch(
-        err =>
-          console.error(err) ||
-          this.setState({ userKeys: [], error: true, requesting: false })
+      .catch(err =>
+        // console.error(err) ||
+        this.setState({ userKeys: [], error: true, requesting: false })
       );
   };
 
@@ -145,7 +144,7 @@ export class DashboardRoute extends React.PureComponent {
 
             return (
               <Link
-                to={`/app/dashboard/${userKey}`}
+                to={`/app/maps/${userKey}`}
                 className={"uk-link-toggle"}
                 key={userKey}
               >

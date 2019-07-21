@@ -57,7 +57,7 @@ export class SignInRoute extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
       if (this.props.auth.userData) {
-        this.props.history.push(`/app/dashboard`);
+        this.props.history.push(`/app/maps`);
       }
     }
   }
@@ -76,7 +76,7 @@ export class SignInRoute extends React.PureComponent {
       .signin(this.state.emailOrUsername, this.state.password)
       .then(({ successed }) => {
         this.setState({ requesting: false });
-        successed && this.props.history.push(`/app/dashboard`);
+        successed && this.props.history.push(`/app/maps`);
       })
       .catch(error => this.setState({ requesting: false, error }));
   };

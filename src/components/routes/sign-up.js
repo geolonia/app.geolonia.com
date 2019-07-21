@@ -50,7 +50,7 @@ export class SignUpRoute extends React.PureComponent {
   componentDidUpdate(prevProps) {
     if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
       if (this.props.auth.userData) {
-        this.props.history.push(`/app/dashboard`);
+        this.props.history.push(`/app/maps`);
       }
     }
   }

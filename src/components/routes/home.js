@@ -28,7 +28,7 @@ export class HomeRoute extends React.Component {
   componentDidUpdate(prevProps) {
     if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
       if (this.props.auth.userData) {
-        this.props.history.push(`/app/dashboard`);
+        this.props.history.push(`/app/maps`);
       } else {
         this.props.history.push(`/app/sign-in`);
       }

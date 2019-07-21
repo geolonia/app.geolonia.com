@@ -7,8 +7,9 @@ import SignUpRoute from "./routes/sign-up";
 import VerifyRoute from "./routes/verify";
 import ResendCodeRoute from "./routes/resend";
 import SignInRoute from "./routes/sign-in";
-import DashboardRoute from "./routes/dashboard";
-import DashboardDetailRoute from "./routes/dashboard-detail";
+import MapsRoute from "./routes/maps";
+import MapsDetailRoute from "./routes/maps-detail";
+import FeaturesRoute from "./routes/features";
 import ProfileRoute from "./routes/profile";
 import ResetPasswordRoute from "./routes/reset-password";
 
@@ -28,11 +29,14 @@ const routes = {
   "/app/sign-in": {
     Component: SignInRoute
   },
-  "/app/dashboard": {
-    Component: DashboardRoute
+  "/app/maps": {
+    Component: MapsRoute
   },
-  "/app/dashboard/:userKey": {
-    Component: DashboardDetailRoute
+  "/app/maps/:userKey": {
+    Component: MapsDetailRoute
+  },
+  "/app/features": {
+    Component: FeaturesRoute
   },
   "/app/profile": {
     Component: ProfileRoute
