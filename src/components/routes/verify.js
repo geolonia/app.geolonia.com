@@ -7,6 +7,7 @@ import { isValidUsername, isValidCode } from "../../lib/validation";
 import ValidationMessage from "../validation-message";
 import Spinner from "../spinner";
 import { __ } from "@wordpress/i18n";
+import Logo from "../logo";
 
 export class VerifyCodeRoute extends React.PureComponent {
   /**
@@ -84,6 +85,8 @@ export class VerifyCodeRoute extends React.PureComponent {
           "geolonia-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
+        <Logo />
+
         {sent && (
           <div uk-alert={"true"} className={"uk-alert-primary"}>
             <p className={"uk-padding"}>

@@ -9,6 +9,7 @@ import ValidationMessage from "../validation-message";
 import getErrorMessage from "../../assets/errors";
 import Spinner from "../spinner";
 import { __ } from "@wordpress/i18n";
+import Logo from "../logo";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -93,6 +94,7 @@ export class ResetPasswordRoute extends React.PureComponent {
           "geolonia-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
+        <Logo />
         <h3 className={"uk-card-title uk-text-capitalize"}>
           {__("reset password", "geolonia-dashboard")}
         </h3>
