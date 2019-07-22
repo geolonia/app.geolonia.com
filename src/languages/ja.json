@@ -35,6 +35,7 @@
   "verify": ["認証する"],
   "code Verification": ["コード認証"],
   "reset password": ["パスワードリセット"],
+  "Reset password": ["パスワードをリセットする"],
   "resend": ["再送する"],
   "name@example.com or username": ["name@example.com または username"],
   "You can use only A-Z, a-z, 0-9, - and _ for user name.": [

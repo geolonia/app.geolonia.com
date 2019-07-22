@@ -27,11 +27,25 @@ export const ProfileRoute = props => {
               </dt>
               <dd>{userData.username}</dd>
             </dl>
+
             <dl className={"uk-description-list"}>
               <dt className={"uk-text-uppercase"}>
                 {__("email", "geolonia-dashboard")}
               </dt>
               <dd>{userData.attributes.email}</dd>
+            </dl>
+
+            <dl className={"uk-description-list"}>
+              <dt className={"uk-text-uppercase"}>
+                {__("password", "geolonia-dashboard")}
+              </dt>
+              <dd>
+                <Link
+                  to={`/app/reset_password?email=${userData.attributes.email}`}
+                >
+                  {__("Reset password", "geolonia-dashboard")}
+                </Link>
+              </dd>
             </dl>
           </div>
         ) : null}

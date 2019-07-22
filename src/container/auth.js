@@ -89,13 +89,11 @@ export class AuthContainer extends React.Component {
   requestResetCode = email => Auth.forgotPassword(email);
 
   resetPassword = (email, code, password) => {
-    return Auth.forgotPasswordSubmit(email, code, password)
-      .then(() => {
-        Auth.signOut();
-        this.setState({ userData: void 0 });
-        return { successed: true };
-      })
-      .catch(console.error);
+    return Auth.forgotPasswordSubmit(email, code, password).then(() => {
+      Auth.signOut();
+      this.setState({ userData: void 0 });
+      return { successed: true };
+    });
   };
 
   signout = () => {

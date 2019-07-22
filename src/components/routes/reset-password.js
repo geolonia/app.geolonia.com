@@ -10,6 +10,7 @@ import getErrorMessage from "../../assets/errors";
 import Spinner from "../spinner";
 import { __ } from "@wordpress/i18n";
 import Logo from "../logo";
+import queryString from "query-string";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -22,21 +23,33 @@ export class ResetPasswordRoute extends React.PureComponent {
       resetPassword: PropTypes.func.isRequired
     }).isRequired,
     history: PropTypes.shape({
-      push: PropTypes.func.isRequired
+      push: PropTypes.func.isRequired,
+      location: PropTypes.shape({
+        search: PropTypes.string
+      }).isRequired
     }).isRequired
   };
 
-  state = {
-    email: "",
-    code: "",
-    password: "",
-    onceEmailBlurred: false,
-    onceCodeBlurred: false,
-    oncePasswordBlurred: false,
-    requesting: false,
-    requested: false,
-    error: void 0
-  };
+  /**
+   * constructor
+   * @param  {object} props React props.
+   * @return {void}
+   */
+  constructor(props) {
+    super(props);
+    const parsed = queryString.parse(props.history.location.search);
+    this.state = {
+      email: parsed.email || "",
+      code: "",
+      password: "",
+      onceEmailBlurred: false,
+      onceCodeBlurred: false,
+      oncePasswordBlurred: false,
+      requesting: false,
+      requested: false,
+      error: void 0
+    };
+  }
 
   _onChange = (key, value) => this.setState({ [key]: value, error: void 0 });
   onEmailChange = e => this._onChange("email", e.target.value);
@@ -66,7 +79,7 @@ export class ResetPasswordRoute extends React.PureComponent {
       .then(({ successed }) => {
         this.setState({ requesting: false });
         if (successed) {
-          this.props.history.push(`/app/sign-in?reset=true`);
+          this.props.history.push(`/app/sign-in?reset=true&username=${email}`);
         }
       })
       .catch(error => this.setState({ requesting: false, error }));
