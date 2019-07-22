@@ -81,7 +81,7 @@ export class VerifyCodeRoute extends React.PureComponent {
     return (
       <main
         className={
-          "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
+          "geolonia-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
         {sent && (

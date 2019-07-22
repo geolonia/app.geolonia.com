@@ -99,7 +99,7 @@ export class SignInRoute extends React.PureComponent {
     return (
       <main
         className={
-          "tilecloud-app uk-container uk-container-xsmall uk-margin uk-padding-small"
+          "geolonia-app uk-container uk-container-xsmall uk-margin uk-padding-small"
         }
       >
         <Logo />
@@ -112,7 +112,7 @@ export class SignInRoute extends React.PureComponent {
               )}
               <br />
               {__(
-                "Please reenter password to sign in and enjoy TileCloud!",
+                "Please reenter password to sign in and enjoy Geolonia!",
                 "geolonia-dashboard"
               )}
             </p>
@@ -126,10 +126,7 @@ export class SignInRoute extends React.PureComponent {
                 "geolonia-dashboard"
               )}
               <br />
-              {__(
-                "Please sign in to continue TileCloud.",
-                "geolonia-dashboard"
-              )}
+              {__("Please sign in to continue Geolonia.", "geolonia-dashboard")}
             </p>
           </div>
         )}

@@ -5,7 +5,7 @@ export const FeaturesRoute = () => {
   return (
     <main
       className={
-        "tilecloud-app uk-container uk-container-medium uk-margin uk-padding-small"
+        "geolonia-app uk-container uk-container-medium uk-margin uk-padding-small"
       }
     >
       <ul className={"uk-breadcrumb"}>
