@@ -10,63 +10,62 @@
   </head>
   <body>
     <header class="top-header uk-padding">
-
       <div class="uk-flex uk-flex-around">
         <div class="uk-flex uk-flex-middle">
-
-        <div class="uk-width-large uk-margin-right">
-          <h1 class="uk-card-title">
-                <img
-                  src="/images/logo-white.png"
-                  alt="Geolonia"
-                  style="width: 245px; min-width: 50%;"
-                />
-              </h1>
-              <p class="header-text">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero totam iure odio tempora neque debitis, minima quidem quia, perferendis qui, sint at reiciendis pariatur perspiciatis sed. Ducimus temporibus debitis hic!
-              </p>
+          <div class="uk-width-large uk-margin-right">
+            <h1 class="uk-card-title">
+              <img
+                src="/images/logo-white.png"
+                alt="Geolonia"
+                style="width: 245px; min-width: 50%;"
+              />
+            </h1>
+            <p class="header-text">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero
+              totam iure odio tempora neque debitis, minima quidem quia,
+              perferendis qui, sint at reiciendis pariatur perspiciatis sed.
+              Ducimus temporibus debitis hic!
+            </p>
           </div>
 
-        <div class="uk-width-large">
-          <div class="uk-card uk-card-default uk-card-body">
-            <form action="" class="uk-form-stacked">
-              <div class="uk-margin">
-
-                <div>
-                  <label class="uk-form-label" for="username">username</label>
+          <div class="uk-width-large">
+            <div class="uk-card uk-card-default uk-card-body">
+              <form action="" class="uk-form-stacked">
+                <div class="uk-margin">
+                  <div>
+                    <label class="uk-form-label" for="username">username</label>
+                    <div class="uk-form-controls">
+                      <input
+                        class="uk-input"
+                        id="username"
+                        type="username"
+                        placeholder="username"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="uk-margin">
+                  <label class="uk-form-label" for="email">email</label>
                   <div class="uk-form-controls">
                     <input
                       class="uk-input"
-                      id="username"
-                      type="username"
-                      placeholder="username"
+                      id="email"
+                      type="email"
+                      placeholder="name@example.com"
                       value=""
                     />
                   </div>
                 </div>
 
-              </div>
-              <div class="uk-margin">
-                <label class="uk-form-label" for="email">email</label>
-                <div class="uk-form-controls">
-                  <input
-                    class="uk-input"
-                    id="email"
-                    type="email"
-                    placeholder="name@example.com"
-                    value=""
-                  />
+                <div class="uk-margin">
+                  <label class="uk-form-label" for="password">password</label>
+                  <div class="uk-form-controls">
+                    <input class="uk-input" id="password" type="password" />
+                  </div>
                 </div>
-              </div>
 
-              <div class="uk-margin">
-                <label class="uk-form-label" for="password">password</label>
-                <div class="uk-form-controls">
-                  <input class="uk-input" id="password" type="password" />
-                </div>
-              </div>
-
-              <div class="uk-margin uk-flex uk-width-1-1">
+                <div class="uk-margin uk-flex uk-flex-column uk-width-1-1">
                   <button
                     id="sign-up"
                     class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-text-bold"
@@ -75,20 +74,21 @@
                   >
                     Sign up for Geolonia
                   </button>
-              </div>
-              <div class="uk-margin uk-flex">
-                <div class="uk-flex uk-flex-column">
-                  <span>Or <a href="/app/sign-in">sign in</a>.</span>
-                  <a href="/app/verify">I have a verification code.</a>
-                  <a href="/app/reset_password">Reset Password.</a>
+                  <span class="uk-text-warning" id="warning"> </span>
                 </div>
-              </div>
-            </form>
+
+                <div class="uk-margin uk-flex">
+                  <div class="uk-flex uk-flex-column">
+                    <span>Or <a href="/app/sign-in">sign in</a>.</span>
+                    <a href="/app/verify">I have a verification code.</a>
+                    <a href="/app/reset_password">Reset Password.</a>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-      </div>
-
     </header>
     <script type="text/javascript" src="/uikit-index.min.js"></script>
     <script type="text/javascript" src="/uikit-icon.min.js"></script>

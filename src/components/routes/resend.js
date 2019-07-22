@@ -14,7 +14,8 @@ export class ResendCodeRoute extends React.PureComponent {
   static propTypes = {
     auth: PropTypes.shape({
       userData: PropTypes.any,
-      resend: PropTypes.func.isRequired
+      resend: PropTypes.func.isRequired,
+      userHasRetrieved: PropTypes.bool.isRequired
     }).isRequired,
     history: PropTypes.shape({
       push: PropTypes.func.isRequired
@@ -27,6 +28,21 @@ export class ResendCodeRoute extends React.PureComponent {
     error: false,
     requesting: false
   };
+
+  /**
+   * componentDidUpdate
+   * @param  {object} prevProps prev props
+   * @param  {object} prevState prev state
+   * @param  {object} snapshot  snapshot
+   * @return {void}
+   */
+  componentDidUpdate(prevProps) {
+    if (!prevProps.auth.userHasRetrieved && this.props.auth.userHasRetrieved) {
+      if (this.props.auth.userData) {
+        this.props.history.push(`/app/maps`);
+      }
+    }
+  }
 
   _onChange = (key, value) => this.setState({ [key]: value, error: false });
   onEmailChange = e => this._onChange("email", e.target.value);

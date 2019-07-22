@@ -2,11 +2,13 @@ import React from "react";
 
 export const Logo = () => (
   <h1 className={"uk-card-title uk-text-center"}>
-    <img
-      src={`/images/logo.png`}
-      alt={"Geolonia"}
-      style={{ width: 245, minWidth: "50%" }}
-    />
+    <a href="/">
+      <img
+        src={`/images/logo.png`}
+        alt={"Geolonia"}
+        style={{ width: 245, minWidth: "50%" }}
+      />
+    </a>
   </h1>
 );
 
