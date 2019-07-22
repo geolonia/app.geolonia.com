@@ -87,16 +87,14 @@ export class VerifyCodeRoute extends React.PureComponent {
       >
         <Logo />
 
-        {sent && (
-          <div uk-alert={"true"} className={"uk-alert-primary"}>
-            <p className={"uk-padding"}>
-              {__(
-                "Please enter a verification code on the email we have been sent.",
-                "geolonia-dashboard"
-              )}
-            </p>
-          </div>
-        )}
+        <div uk-alert={"true"} className={"uk-alert-primary"}>
+          <p className={"uk-padding"}>
+            {__(
+              "Please enter a verification code on the email we have been sent.",
+              "geolonia-dashboard"
+            )}
+          </p>
+        </div>
 
         <h3 className={"uk-card-title uk-text-capitalize"}>
           {__("code Verification", "geolonia-dashboard")}

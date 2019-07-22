@@ -30,6 +30,10 @@ const errorMessages = {
     signin: __("Incorrect username or password.", "geolonia-dashboard")
   },
   CodeMismatchException: __("Invalid verification code.", "geolonia-dashboard"),
+  LimitExceededException: __(
+    "Attempt limit exceeded, please try after some time.",
+    "geolonia-dashboard"
+  ),
   default: __("Unknown error occured.", "geolonia-dashboard")
 };
 

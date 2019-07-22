@@ -105,5 +105,11 @@
   "and other %s origin": [
     "その他%s個のウェブサイト",
     "その他%s個のウェブサイト"
+  ],
+  "Please verify your email address.": [
+    "確認のため、メールアドレスを入力してください。"
+  ],
+  "Attempt limit exceeded, please try after some time.": [
+    "試行回数が制限を超えました。またしばらくしてからお試しください。"
   ]
 }

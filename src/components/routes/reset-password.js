@@ -69,8 +69,12 @@ export class ResetPasswordRoute extends React.PureComponent {
     this.props.auth
       .requestResetCode(email)
       .then(() => this.setState({ requesting: false, requested: true }))
-      .catch(error => this.setState({ requesting: false, error }));
+      .catch(
+        error =>
+          console.log(error) || this.setState({ requesting: false, error })
+      );
   };
+
   onResetClick = () => {
     this.setState({ requesting: true, error: false });
     const { email, code, password } = this.state;
@@ -111,6 +115,8 @@ export class ResetPasswordRoute extends React.PureComponent {
         <h3 className={"uk-card-title uk-text-capitalize"}>
           {__("reset password", "geolonia-dashboard")}
         </h3>
+
+        <p>{__("Please verify your email address.", "geolonia-dashboard")}</p>
 
         <form className={"uk-form-horizontal"} action={""}>
           <div className={"uk-margin"}>
