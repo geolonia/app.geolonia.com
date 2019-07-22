@@ -39,7 +39,7 @@ export class ResetPasswordRoute extends React.PureComponent {
     super(props);
     const parsed = queryString.parse(props.history.location.search);
     this.state = {
-      email: parsed.email || "",
+      email: decodeURIComponent(parsed.email || ""),
       code: "",
       password: "",
       onceEmailBlurred: false,

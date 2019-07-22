@@ -39,7 +39,7 @@ export class SignInRoute extends React.PureComponent {
     this.state = {
       verified: "true" === parsed.verified,
       reset: "true" === parsed.reset,
-      emailOrUsername: parsed.username || "", // should be username or email
+      emailOrUsername: decodeURIComponent(parsed.username || ""), // should be username or email
       password: "",
       onceUsernameOrEmailBlurred: false,
       error: false,

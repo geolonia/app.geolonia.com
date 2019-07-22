@@ -41,7 +41,9 @@ export const ProfileRoute = props => {
               </dt>
               <dd>
                 <Link
-                  to={`/app/reset_password?email=${userData.attributes.email}`}
+                  to={`/app/reset_password?email=${encodeURIComponent(
+                    userData.attributes.email
+                  )}`}
                 >
                   {__("Reset password", "geolonia-dashboard")}
                 </Link>

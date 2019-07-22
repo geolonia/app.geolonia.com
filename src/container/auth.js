@@ -34,13 +34,20 @@ export class AuthContainer extends React.Component {
     }
 
     if (userData && !isExpired) {
-      const { successed } = await this._refreshToken(userData);
+      let successed = false;
+      try {
+        const result = await this._refreshToken(userData);
+        successed = result.successed;
+      } catch (e) {
+        Auth.clear();
+        console.error(e);
+      }
+
       if (successed) {
         this.setState({ userData, userHasRetrieved: true });
         return;
       }
     }
-
     this.setState({ userHasRetrieved: true });
   }
 
