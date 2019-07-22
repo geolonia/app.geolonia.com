@@ -20,9 +20,11 @@
   z-index: 1;
 }
 .bar-wrap {
+  box-sizing: border-box;
+  height: 100%;
   padding: 2rem;
 }
-#right-col {
+#right-col.signed-in {
   margin: 20px;
   margin-left: 280px; /* 260 + 20 */
 }

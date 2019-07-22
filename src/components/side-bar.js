@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { __ } from "@wordpress/i18n";
 
-const signoutRoutes = [];
-
-const signinRoutes = [
+const appNavs = [
   {
     key: 0,
     path: "/app/maps",
@@ -17,7 +15,10 @@ const signinRoutes = [
     path: "/app/features",
     label: "Features",
     icon: "location"
-  },
+  }
+];
+
+const systemNavs = [
   {
     key: 2,
     divider: true
@@ -40,12 +41,6 @@ const signinRoutes = [
 ];
 
 export const SideBar = props => {
-  const {
-    auth: { userData }
-  } = props;
-  const isSignIn = !!userData;
-  const routes = isSignIn ? signinRoutes : signoutRoutes;
-
   // eslint-disable-next-line
   const renderItem = props => ({
     key,
@@ -81,10 +76,13 @@ export const SideBar = props => {
   };
 
   return (
-    <div className={"bar-wrap"}>
+    <div className={"bar-wrap uk-flex uk-flex-column uk-flex-between"}>
       <ul className={"uk-nav-default uk-nav-parent-icon"} uk-nav={"true"}>
         <li className={"uk-active"}>{"Apps"}</li>
-        {routes.map(renderItem(props))}
+        {appNavs.map(renderItem(props))}
+      </ul>
+      <ul className={"uk-nav-default uk-nav-parent-icon"} uk-nav={"true"}>
+        {systemNavs.map(renderItem(props))}
       </ul>
     </div>
   );

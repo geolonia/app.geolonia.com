@@ -48,22 +48,28 @@ const routes = {
 
 const AppRouter = props => {
   const { auth } = props;
+  const isSignedIn = !!auth.userData;
   return (
     <Router>
       <>
-        <Route
-          path={"/app"}
-          render={props => (
-            <aside id="left-col">
-              <SideBar {...props} auth={auth} />{" "}
-            </aside>
-          )}
-        />
-
+        {isSignedIn && (
+          <Route
+            path={"/app"}
+            render={props => (
+              <aside id="left-col">
+                <SideBar {...props} auth={auth} />
+              </aside>
+            )}
+          />
+        )}
         {Object.keys(routes).map(path => {
           const { Component } = routes[path];
           return (
-            <div key={path} id={"right-col"}>
+            <div
+              key={path}
+              id={"right-col"}
+              className={isSignedIn ? "signed-in" : ""}
+            >
               <Route
                 path={path}
                 exact
