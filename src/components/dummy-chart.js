@@ -15,7 +15,7 @@ const data = [
 export const DummyChart = () => {
   return (
     <div style={{ position: "relative", padding: 40 }}>
-      <ResponsiveContainer height={300} width="100%">
+      <ResponsiveContainer height={300} width={"100%"}>
         <LineChart
           data={data}
           margin={{
@@ -25,19 +25,19 @@ export const DummyChart = () => {
             bottom: 5
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray={"3 3"} />
           <Line
             isAnimationActive={false}
-            type="monotone"
-            dataKey="pv"
-            stroke="#8884d8"
+            type={"monotone"}
+            dataKey={"pv"}
+            stroke={"#8884d8"}
             activeDot={{ r: 8 }}
           />
           <Line
             isAnimationActive={false}
-            type="monotone"
-            dataKey="uv"
-            stroke="#82ca9d"
+            type={"monotone"}
+            dataKey={"uv"}
+            stroke={"#82ca9d"}
           />
         </LineChart>
       </ResponsiveContainer>

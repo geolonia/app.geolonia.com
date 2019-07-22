@@ -56,7 +56,7 @@ const AppRouter = props => {
           <Route
             path={"/app"}
             render={props => (
-              <aside id="left-col">
+              <aside id={"left-col"}>
                 <SideBar {...props} auth={auth} />
               </aside>
             )}

@@ -205,7 +205,8 @@ export class DashboardRoute extends React.PureComponent {
                   </div>
 
                   <span
-                    className="uk-margin-small-right"
+                    style={{ width: 50 }}
+                    className={"uk-margin-small-right"}
                     uk-icon={"icon: chevron-right; ratio: 2"}
                   />
                 </li>

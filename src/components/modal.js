@@ -49,7 +49,7 @@ const Modal = props => {
           style={{ background: "none", border: "none" }}
           onClick={props.close}
         >
-          <span className="uk-margin-small-right" uk-icon="close" />
+          <span className={"uk-margin-small-right"} uk-icon={"close"} />
         </button>
 
         {error && (

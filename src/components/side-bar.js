@@ -51,7 +51,7 @@ export const SideBar = props => {
     icon
   }) => {
     if (divider) {
-      return <li key={key} className="uk-nav-divider"></li>;
+      return <li key={key} className={"uk-nav-divider"}></li>;
     } else {
       return (
         <li key={key}>
