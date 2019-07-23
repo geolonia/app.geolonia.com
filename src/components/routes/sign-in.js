@@ -112,7 +112,7 @@ export class SignInRoute extends React.PureComponent {
               )}
               <br />
               {__(
-                "Please reenter password to sign in and enjoy Geolonia!",
+                "Please reenter password to sign in and enjoy TileCloud!",
                 "geolonia-dashboard"
               )}
             </p>
@@ -126,7 +126,10 @@ export class SignInRoute extends React.PureComponent {
                 "geolonia-dashboard"
               )}
               <br />
-              {__("Please sign in to continue Geolonia.", "geolonia-dashboard")}
+              {__(
+                "Please sign in to continue TileCloud.",
+                "geolonia-dashboard"
+              )}
             </p>
           </div>
         )}

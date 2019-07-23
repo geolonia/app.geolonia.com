@@ -5,7 +5,7 @@ export const Logo = () => (
     <a href="/">
       <img
         src={`/images/logo.png`}
-        alt={"Geolonia"}
+        alt={"TileCloud"}
         style={{ width: 245, minWidth: "50%" }}
       />
     </a>
