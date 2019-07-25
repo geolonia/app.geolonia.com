@@ -178,7 +178,7 @@ export class DashboarDetailRoute extends React.PureComponent {
       return (
         <main
           className={
-            "uk-container uk-container-medium uk-margin uk-padding-small"
+            "uk-container uk-container-medium uk-margin uk-padding"
           }
         >
           {"not found"}

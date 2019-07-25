@@ -100,7 +100,7 @@ export class DashboardRoute extends React.PureComponent {
     return (
       <main
         className={
-          "geolonia-app uk-container uk-container-medium uk-margin uk-padding-small"
+          "geolonia-app uk-container uk-container-medium uk-margin uk-padding"
         }
       >
         <ul className={"uk-breadcrumb"}>

@@ -99,7 +99,7 @@ export class SignInRoute extends React.PureComponent {
     return (
       <main
         className={
-          "geolonia-app uk-container uk-container-xsmall uk-margin uk-padding-small"
+          "geolonia-app uk-container uk-container-xsmall uk-margin uk-padding"
         }
       >
         <Logo />

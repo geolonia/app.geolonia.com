@@ -8,7 +8,7 @@ export const ProfileRoute = props => {
   return (
     <main
       className={
-        "geolonia-app uk-container uk-container-xsmall uk-margin uk-padding-small"
+        "geolonia-app uk-container uk-container-xsmall uk-margin uk-padding"
       }
     >
       <ul className={"uk-breadcrumb"}>
