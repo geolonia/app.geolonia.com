@@ -35,7 +35,7 @@ header.top-header {
 .top-band {
   width: 100vw;
   height: 80px;
-  background: linear-gradient(to right, red, orange);
+  background: linear-gradient(to right, #f6cb67, red);
 }
 
 .top-band .title {
@@ -54,4 +54,12 @@ header.top-header {
 
 .footer .copy-right {
   color: white;
+}
+
+.geolonia-button {
+  background: #f6cb67;
+  color: white;
+}
+.geolonia-button:hover {
+  background: orange;
 }
