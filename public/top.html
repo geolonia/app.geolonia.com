@@ -114,6 +114,12 @@
       </div>
     </header>
 
+    <section class="top-band uk-flex uk-flex-center uk-flex-middle">
+      <h2 class="uk-text-large uk-text-center uk-margin-remove title">
+        Now we are open β!
+      </h2>
+    </section>
+
     <main class="top-main">
       <section class="uk-container uk-padding section">
         <h2 class="uk-text-large uk-text-center">
@@ -173,6 +179,31 @@
           自由な使い方
         </h2>
         <p>
+          TileCloud の地図を使うのは簡単です。Embed
+          APIをロードして、以下のHTMLをあなたのウェブページに追加しましょう。
+        </p>
+        <pre><code>&lt;div class="tilecloud"&gt;&lt;/div&gt;</code></pre>
+        <div class="tilecloud"></div>
+
+        <p class="uk-margin">
+          地図はマーカーを表示したり様々にカスタマイズできます。
+        </p>
+
+        <div class="uk-flex uk-flex-center uk-margin">
+          <a
+            class="uk-button uk-button-primary uk-button-large"
+            href="https://docs.tilecloud.io"
+          >
+            ドキュメントを見る
+          </a>
+        </div>
+      </section>
+
+      <section class="uk-container uk-padding section" id="open-data">
+        <h2 class="uk-text-large uk-text-center">
+          自由なデータ
+        </h2>
+        <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolorum
           maxime facere assumenda voluptate quam, eveniet temporibus veniam,
           eligendi esse voluptatum laborum tempore distinctio quia facilis et
@@ -180,9 +211,9 @@
         </p>
       </section>
 
-      <section class="uk-container uk-padding section" id="open-data">
+      <section class="uk-container uk-padding section" id="community">
         <h2 class="uk-text-large uk-text-center">
-          自由なデータ
+          コミュニティ
         </h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolorum
@@ -206,13 +237,44 @@
       </section>
     </main>
 
-    <footer>
-      <h2 class="uk-text-small uk-text-center">
+    <footer class="footer uk-padding">
+      <div class="uk-flex uk-flex-row uk-flex-around">
+        <div>
+          <ul class="uk-list uk-margin">
+            <li><a class="uk-link-muted" href="#">About us</a></li>
+            <li><a class="uk-link-muted" href="#">利用規約</a></li>
+            <li><a class="uk-link-muted" href="#">プライバシーポリシー</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <ul class="uk-list uk-margin">
+            <li>
+              <a class="uk-link-muted" href="https://twitter.com/tilecloud1"
+                >Twitter</a
+              >
+            </li>
+            <li>
+              <a class="uk-link-muted" href="https://github.com/tilecloud">
+                GitHub</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <h2
+        class="uk-text-small uk-text-center uk-margin-remove-bottom copy-right"
+      >
         TileCloud inc.
       </h2>
     </footer>
 
     <script type="text/javascript" src="/uikit-index.min.js"></script>
     <script type="text/javascript" src="/uikit-icon.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=YOUR-API-KEY"
+    ></script>
   </body>
 </html>
