@@ -13,9 +13,13 @@ code {
     monospace;
 }
 
+main {
+  display: block;
+}
+
 header.top-header {
   background-color: #444;
 }
 .header-text {
-  color:white;
+  color: white;
 }

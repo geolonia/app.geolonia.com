@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import queryString from "query-string";
+import qs from "querystring";
 import { Link } from "react-router-dom";
 import getErrorMessage from "../../assets/errors";
 import { isValidUsername, isValidCode } from "../../lib/validation";
@@ -31,7 +31,7 @@ export class VerifyCodeRoute extends React.PureComponent {
    */
   constructor(props) {
     super(props);
-    const parsed = queryString.parse(props.history.location.search);
+    const parsed = qs.parse(props.history.location.search.replace(/^\?/, ""));
     this.state = {
       sent: parsed.sent === "true",
       username: parsed.username || "",

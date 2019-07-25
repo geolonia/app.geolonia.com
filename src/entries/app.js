@@ -1,17 +1,19 @@
+// import "@babel/polyfill";
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+import "isomorphic-fetch";
 import "../config/i18n";
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "../components/app";
 import * as serviceWorker from "../lib/service-worker";
 import "../config/amplify";
-import "isomorphic-fetch";
 
 import UIkit from "uikit";
 import Icons from "uikit/dist/js/uikit-icons";
 
 // CSS
 import "../styles/app.css";
-import "uikit/dist/css/uikit.min.css";
 
 // Initialize UIkit
 UIkit.use(Icons);

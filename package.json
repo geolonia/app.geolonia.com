@@ -3,12 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "@wordpress/i18n": "^3.5.0",
     "aws-amplify": "^1.1.26",
     "core-js": "^3.1.4",
     "isomorphic-fetch": "^2.2.1",
     "prop-types": "^15.7.2",
-    "query-string": "^6.5.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
@@ -46,6 +46,7 @@
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
     "webpack": "^4.35.2",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.3.5",
     "webpack-dev-server": "^3.7.2"
   },

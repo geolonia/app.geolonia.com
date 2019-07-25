@@ -10,7 +10,7 @@ import getErrorMessage from "../../assets/errors";
 import Spinner from "../spinner";
 import { __ } from "@wordpress/i18n";
 import Logo from "../logo";
-import queryString from "query-string";
+import qs from "querystring";
 
 export class ResetPasswordRoute extends React.PureComponent {
   /**
@@ -37,7 +37,7 @@ export class ResetPasswordRoute extends React.PureComponent {
    */
   constructor(props) {
     super(props);
-    const parsed = queryString.parse(props.history.location.search);
+    const parsed = qs.parse(props.history.location.search.replace(/^\?/, ""));
     this.state = {
       email: decodeURIComponent(parsed.email || ""),
       code: "",

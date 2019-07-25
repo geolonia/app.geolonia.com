@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import queryString from "query-string";
+import qs from "querystring";
 import getErrorMessage from "../../assets/errors";
 import { isValidUsername, isValidEmail } from "../../lib/validation";
 import Logo from "../logo";
@@ -35,7 +35,7 @@ export class SignInRoute extends React.PureComponent {
    */
   constructor(props) {
     super(props);
-    const parsed = queryString.parse(props.history.location.search);
+    const parsed = qs.parse(props.history.location.search.replace(/^\?/, ""));
     this.state = {
       verified: "true" === parsed.verified,
       reset: "true" === parsed.reset,
