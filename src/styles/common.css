@@ -23,3 +23,15 @@ header.top-header {
 .header-text {
   color: white;
 }
+
+.top-header {
+  background: url("/images/background.png");
+}
+
+.top-header .inner-wrap {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+main.top-main .section:nth-child(even) {
+  background-color: gray;
+}
