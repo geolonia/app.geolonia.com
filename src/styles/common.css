@@ -20,6 +20,11 @@ main {
 header.top-header {
   background-color: #444;
 }
+
+.header-flex-item {
+  max-width: 600px;
+}
+
 .header-text {
   color: white;
 }
