@@ -101,6 +101,7 @@ module.exports = {
         to: "uikit-icon.min.js"
       },
       { from: "./src/styles/common.css", to: "common.css" },
+
       { from: "./public/images", to: "images" },
       { from: "./public/manifest.json", to: "manifest.json" },
       { from: "./public/icon.png", to: "icon.png" }

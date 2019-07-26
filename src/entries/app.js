@@ -13,6 +13,7 @@ import UIkit from "uikit";
 import Icons from "uikit/dist/js/uikit-icons";
 
 // CSS
+import "../styles/common.css";
 import "../styles/app.css";
 
 // Initialize UIkit

@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="shortcut icon" href="/icon.png" />
+    <link rel="stylesheet" href="/uikit.min.css" />
+    <link rel="stylesheet" href="/common.css" />
     <meta charset="UTF-8" />
     <meta
       name="viewport"
       content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-
     <title>TileCloud - 自由な地図のための地図専用ホスティングサービス</title>
-    <link rel="stylesheet" href="/uikit.min.css" />
-    <link rel="stylesheet" href="/common.css" />
-
     <meta property="og:type" content="website" />
     <meta property="og:title" content="TileCloud" />
     <meta
@@ -28,17 +27,16 @@
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="/images/social.png" />
-    <link rel="shortcut icon" href="/icon.png" />
   </head>
 
   <body class="top">
-    <header class="top-header" id="start">
-      <div class="uk-flex uk-flex-around uk-padding-small inner-wrap">
+    <header class="header" id="signup-header">
+      <div class="geolonia_inner-wrap uk-flex uk-flex-around uk-padding-small">
         <div
-          class="header-content uk-flex uk-flex-middle uk-flex-wrap uk-flex-around"
+          class="geolonia_header-content uk-flex uk-flex-middle uk-flex-wrap uk-flex-around"
         >
           <div
-            class="header-flex-item uk-padding-small title-wrap uk-flex uk-flex-column uk-flex-middle"
+            class="geolonia_header-responsive-item uk-padding-small title-wrap uk-flex uk-flex-column uk-flex-middle"
           >
             <h1 class="uk-card-title">
               <img
@@ -47,12 +45,14 @@
                 style="width: 245px; min-width: 50%;"
               />
             </h1>
-            <p class="header-text">
+            <p class="geolonia_header-text">
               TileCloud は地図ホスティングサービスです。
             </p>
           </div>
 
-          <div class="header-flex-item uk-padding-small form-wrap">
+          <div
+            class="geolonia_header-responsive-item uk-padding-small form-wrap"
+          >
             <div class="uk-card uk-card-default uk-card-body">
               <form action="" class="uk-form-stacked">
                 <div class="uk-margin">
@@ -92,7 +92,7 @@
                 <div class="uk-margin uk-flex uk-flex-column uk-width-1-1">
                   <button
                     id="sign-up"
-                    class="uk-button uk-button-primary uk-button-large uk-width-1-1 uk-text-bold geolonia-button"
+                    class="geolonia_button-primary uk-button uk-button-primary uk-button-large uk-width-1-1 uk-text-bold"
                     type="button"
                   >
                     Sign up
@@ -114,17 +114,17 @@
       </div>
     </header>
 
-    <section class="top-band uk-flex uk-flex-center uk-flex-middle">
+    <section class="geolonia_top-band uk-flex uk-flex-center uk-flex-middle">
       <h2
-        class="uk-text-large uk-text-center uk-margin-remove uk-padding title"
+        class="geolonia_top-band-title uk-text-large uk-text-center uk-margin-remove uk-padding"
       >
         お試しください。 TileCloud 公開 β 版です。
       </h2>
     </section>
 
-    <main class="top-main">
-      <section class="uk-container uk-padding section">
-        <h2 class="uk-text-large uk-text-center">
+    <main>
+      <section class="uk-container uk-padding geolonia_section">
+        <h2 class="uk-heading-small uk-text-center">
           自由な地図のための地図専用ホスティングサービス
         </h2>
 
@@ -137,7 +137,7 @@
                 fill-rule="evenodd"
               ></path>
             </svg>
-            <h3>自由なデザイン</h3>
+            <h3 class="uk-text-center">自由なデザイン</h3>
           </li>
 
           <li class="geolonia-icon-item">
@@ -148,7 +148,7 @@
                 fill-rule="evenodd"
               ></path>
             </svg>
-            <h3>自由な使い方</h3>
+            <h3 class="uk-text-center">自由な使い方</h3>
           </li>
 
           <li class="geolonia-icon-item">
@@ -159,15 +159,15 @@
                 fill-rule="evenodd"
               ></path>
             </svg>
-            <h3>自由なデータ</h3>
+            <h3 class="uk-text-center">自由なデータ</h3>
           </li>
         </ul>
         <div class="tilecloud"></div>
       </section>
 
-      <section class="uk-container uk-padding section">
-        <h2 class="uk-text-large uk-text-center">
-          TileCloud で地図をもっと身近に
+      <section class="uk-container uk-padding geolonia_section">
+        <h2 class="uk-heading-small uk-text-center">
+          地図をもっと身近に
         </h2>
         <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle">
           <p class="uk-text-center uk-width-large">
@@ -176,8 +176,8 @@
             の知識は必要ありません。
           </p>
           <a
-            class="uk-button uk-button-primary uk-button-large uk-text-bold geolonia-button geolonia-scroll-to-sign-up"
-            href="#start"
+            class="uk-button uk-button-primary uk-button-large uk-text-bold geolonia_button-primary geolonia-scroll-to-sign-up"
+            href="#signup-header"
             uk-scroll
           >
             アカウント作成
@@ -189,7 +189,7 @@
         </div>
         <div class="uk-flex uk-flex-center uk-margin">
           <a
-            class="uk-button uk-button-primary uk-button-large uk-text-bold geolonia-button"
+            class="uk-button uk-button-primary uk-button-large uk-text-bold geolonia_button-primary"
             href="https://docs.tilecloud.io"
           >
             ドキュメントを見る
@@ -197,8 +197,11 @@
         </div>
       </section>
 
-      <section class="uk-container uk-padding section" id="flexibility">
-        <h2 class="uk-text-large uk-text-center">
+      <section
+        class="uk-container uk-padding geolonia_section"
+        id="flexibility"
+      >
+        <h2 class="uk-heading-small uk-text-center">
           セキュリティ
         </h2>
         <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle">
@@ -208,8 +211,8 @@
         </div>
       </section>
 
-      <section class="uk-container uk-padding section" id="open-data">
-        <h2 class="uk-text-large uk-text-center">
+      <section class="uk-container uk-padding geolonia_section" id="open-data">
+        <h2 class="uk-heading-small uk-text-center">
           自由なデータ
         </h2>
         <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle">
@@ -219,8 +222,8 @@
         </div>
       </section>
 
-      <section class="uk-container uk-padding section" id="community">
-        <h2 class="uk-text-large uk-text-center">
+      <section class="uk-container uk-padding geolonia_section" id="community">
+        <h2 class="uk-heading-small uk-text-center">
           コミュニティ
         </h2>
         <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle">
@@ -230,12 +233,12 @@
         </div>
       </section>
 
-      <section class="uk-container uk-padding section">
-        <h2 class="uk-text-large uk-text-center">今すぐ始める</h2>
+      <section class="uk-container uk-padding geolonia_section">
+        <h2 class="uk-heading-small uk-text-center">今すぐ始める</h2>
         <div class="uk-flex uk-flex-center">
           <a
-            class="uk-button uk-button-primary uk-button-large uk-text-bold geolonia-button geolonia-scroll-to-sign-up"
-            href="#start"
+            class="uk-button uk-button-primary uk-button-large uk-text-bold geolonia_button-primary geolonia-scroll-to-sign-up"
+            href="#signup-header"
             uk-scroll
           >
             アカウント作成
@@ -245,7 +248,7 @@
     </main>
 
     <footer class="footer">
-      <section class="section uk-padding">
+      <section class="geolonia_section uk-padding">
         <div class="uk-flex uk-flex-row uk-flex-around">
           <div>
             <ul class="uk-list uk-margin">

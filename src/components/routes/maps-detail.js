@@ -177,9 +177,7 @@ export class DashboarDetailRoute extends React.PureComponent {
     if (!requesting && !prevUserKeyProps) {
       return (
         <main
-          className={
-            "uk-container uk-container-medium uk-margin uk-padding"
-          }
+          className={"uk-container uk-container-medium uk-margin uk-padding"}
         >
           {"not found"}
         </main>

@@ -1,3 +1,6 @@
+// CSS
+import "../styles/common.css";
+
 import "../config/amplify";
 import "isomorphic-fetch";
 import { Auth } from "aws-amplify";

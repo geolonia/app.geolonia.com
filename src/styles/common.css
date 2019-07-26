@@ -17,39 +17,39 @@ main {
   display: block;
 }
 
-header.top-header {
+header.header {
   background-color: #444;
 }
 
-.header-content {
+.geolonia_header-content {
   width: 100%;
   max-width: 1200px;
 }
 
-.header-flex-item {
+.geolonia_header-responsive-item {
   width: 100%;
   max-width: 450px;
 }
 
-.header-text {
+.geolonia_header-text {
   color: white;
 }
 
-.top-header {
+.header {
   background: url("/images/background.png");
 }
 
-.top-header .inner-wrap {
+.header .geolonia_inner-wrap {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.top-band {
+.geolonia_top-band {
   width: 100vw;
   height: 80px;
   background: linear-gradient(to right, #f6cb67, red);
 }
 
-.top-band .title {
+.geolonia_top-band .geolonia_top-band-title {
   color: white;
 }
 
@@ -67,7 +67,7 @@ header.top-header {
   color: white;
 }
 
-.footer .section:nth-child(1) {
+.footer .geolonia_section:nth-child(1) {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -75,12 +75,12 @@ header.top-header {
   color: white;
 }
 
-.geolonia-button {
+.geolonia_button-primary {
   background: #f6cb67;
   color: white;
 }
-.geolonia-button:hover,
-.geolonia-button:active,
-.geolonia-button:focus {
+.geolonia_button-primary:hover,
+.geolonia_button-primary:active,
+.geolonia_button-primary:focus {
   background: orange;
 }
