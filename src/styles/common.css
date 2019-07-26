@@ -21,8 +21,14 @@ header.top-header {
   background-color: #444;
 }
 
+.header-content {
+  width: 100%;
+  max-width: 1200px;
+}
+
 .header-flex-item {
-  max-width: 600px;
+  width: 100%;
+  max-width: 450px;
 }
 
 .header-text {
