@@ -53,6 +53,10 @@ header.top-header {
   color: white;
 }
 
+.geolonia-icon-item {
+  width: 160px;
+}
+
 .tilecloud {
   width: 100%;
   height: 500px;
