@@ -37,7 +37,9 @@
         <div
           class="header-content uk-flex uk-flex-middle uk-flex-wrap uk-flex-around"
         >
-          <div class="header-flex-item uk-padding-small title-wrap">
+          <div
+            class="header-flex-item uk-padding-small title-wrap uk-flex uk-flex-column uk-flex-middle"
+          >
             <h1 class="uk-card-title">
               <img
                 src="/images/logo-white.png"
@@ -46,10 +48,7 @@
               />
             </h1>
             <p class="header-text">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero
-              totam iure odio tempora neque debitis, minima quidem quia,
-              perferendis qui, sint at reiciendis pariatur perspiciatis sed.
-              Ducimus temporibus debitis hic!
+              TileCloud は地図ホスティングサービスです。
             </p>
           </div>
 
@@ -117,7 +116,7 @@
 
     <section class="top-band uk-flex uk-flex-center uk-flex-middle">
       <h2 class="uk-text-large uk-text-center uk-margin-remove title">
-        Now we are on open β!
+        お試しください。 TileCloud は現在公開 β 版です！
       </h2>
     </section>
 
@@ -181,24 +180,11 @@
           >
             アカウント作成
           </a>
+          <p class="uk-text-center uk-width-large">
+            APIをロードして、以下のHTMLをあなたのウェブページに追加しましょう。地図はマーカーを表示したり様々なカスタマイズができます。
+          </p>
+          <pre><code>&lt;div class="tilecloud"&gt;&lt;/div&gt;</code></pre>
         </div>
-      </section>
-
-      <section class="uk-container uk-padding section" id="flexibility">
-        <h2 class="uk-text-large uk-text-center">
-          自由な使い方
-        </h2>
-        <p>
-          TileCloud の地図を使うのは簡単です。Embed
-          APIをロードして、以下のHTMLをあなたのウェブページに追加しましょう。
-        </p>
-        <pre><code>&lt;div class="tilecloud"&gt;&lt;/div&gt;</code></pre>
-        <div class="tilecloud"></div>
-
-        <p class="uk-margin">
-          地図はマーカーを表示したり様々にカスタマイズできます。
-        </p>
-
         <div class="uk-flex uk-flex-center uk-margin">
           <a
             class="uk-button uk-button-primary uk-button-large uk-text-bold geolonia-button"
@@ -209,28 +195,37 @@
         </div>
       </section>
 
+      <section class="uk-container uk-padding section" id="flexibility">
+        <h2 class="uk-text-large uk-text-center">
+          セキュリティ
+        </h2>
+        <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle">
+          <p class="uk-text-center uk-width-large">
+            私たちはエンドユーザーの個人情報を独自に扱っていません。
+          </p>
+        </div>
+      </section>
+
       <section class="uk-container uk-padding section" id="open-data">
         <h2 class="uk-text-large uk-text-center">
           自由なデータ
         </h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolorum
-          maxime facere assumenda voluptate quam, eveniet temporibus veniam,
-          eligendi esse voluptatum laborum tempore distinctio quia facilis et
-          laboriosam rerum doloribus!
-        </p>
+        <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle">
+          <p class="uk-text-center uk-width-large">
+            GeoJSON をロードして、自由にデータを表示。
+          </p>
+        </div>
       </section>
 
       <section class="uk-container uk-padding section" id="community">
         <h2 class="uk-text-large uk-text-center">
           コミュニティ
         </h2>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. A dolorum
-          maxime facere assumenda voluptate quam, eveniet temporibus veniam,
-          eligendi esse voluptatum laborum tempore distinctio quia facilis et
-          laboriosam rerum doloribus!
-        </p>
+        <div class="uk-flex uk-flex-center uk-flex-column uk-flex-middle">
+          <p class="uk-text-center uk-width-large">
+            地物データを簡単に共有。
+          </p>
+        </div>
       </section>
 
       <section class="uk-container uk-padding section">
