@@ -75,6 +75,8 @@ header.top-header {
   background: #f6cb67;
   color: white;
 }
-.geolonia-button:hover {
+.geolonia-button:hover,
+.geolonia-button:active,
+.geolonia-button:focus {
   background: orange;
 }

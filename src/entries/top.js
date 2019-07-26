@@ -40,3 +40,14 @@ signUpElement.addEventListener("click", () => {
       });
   }
 });
+
+const scrollButtons = document.getElementsByClassName(
+  "geolonia-scroll-to-sign-up"
+);
+
+scrollButtons.forEach(element =>
+  element.addEventListener("click", () =>
+    // nextTick
+    Promise.resolve().then(() => usernameElement.focus(), 0)
+  )
+);
