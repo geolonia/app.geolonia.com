@@ -50,8 +50,8 @@ export class DashboarDetailRoute extends React.PureComponent {
     this.props.auth.API.listKeys()
       .then(userKeys => this.setState({ requesting: false, userKeys }))
       .catch(
-        err =>
-          console.error(err) ||
+        () =>
+          // console.error(err) ||
           this.setState({ userKeys: [], error: true, requesting: false })
       );
   };

@@ -16,7 +16,10 @@ export class VerifyCodeRoute extends React.PureComponent {
    */
   static propTypes = {
     auth: PropTypes.shape({
-      verify: PropTypes.func.isRequired
+      verify: PropTypes.func.isRequired,
+      userHasRetrieved: PropTypes.bool.isRequired,
+      userData: PropTypes.any,
+      signout: PropTypes.func.isRequired,
     }).isRequired,
     history: PropTypes.shape({
       location: PropTypes.shape({ search: PropTypes.string }),
@@ -41,6 +44,7 @@ export class VerifyCodeRoute extends React.PureComponent {
       error: false,
       requesting: false
     };
+    this.props.auth.signout()
   }
 
   _onChange = (key, value) => this.setState({ [key]: value, error: false });

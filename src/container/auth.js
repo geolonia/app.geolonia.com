@@ -40,7 +40,7 @@ export class AuthContainer extends React.Component {
         successed = result.successed;
       } catch (e) {
         Auth.clear();
-        console.error(e);
+        // console.error(e);
       }
 
       if (successed) {
