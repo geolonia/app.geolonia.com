@@ -22,7 +22,7 @@
     "test": "jest",
     "start": "rimraf build && source .env.development && NODE_ENV=development webpack-dev-server",
     "build": "rimraf build && source .env.production && NODE_ENV=production webpack -p",
-    "build:netlify": "NODE_ENV=production webpack -p"
+    "build:netlify": "NODE_ENV=production webpack -p && echo -e \"/*\n  Basic-Auth: $BASIC_AUTH_ID:$BASIC_AUTH_PASS\" > public/_headers"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
