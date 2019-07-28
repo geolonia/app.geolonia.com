@@ -12,3 +12,9 @@
   from = "/app/*"
   to = "/app/index.html"
   status = 200
+
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Basic-Auth = "geolonia:2nCrigwc"
