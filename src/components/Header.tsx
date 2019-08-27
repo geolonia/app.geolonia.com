@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -14,11 +13,11 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, Theme } from '@material-ui/core/styles';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
-const styles = theme => ({
+const styles = (theme: Theme) => ({
   secondaryBar: {
     zIndex: 0,
   },
@@ -40,7 +39,12 @@ const styles = theme => ({
   },
 });
 
-function Header(props) {
+type Props= {
+  classes: any,
+  onDrawerToggle: () => void
+}
+
+function Header(props: Props) {
   const { classes, onDrawerToggle } = props;
 
   return (
@@ -62,7 +66,7 @@ function Header(props) {
             </Hidden>
             <Grid item xs />
             <Grid item>
-              <Typography className={classes.link} variant="body2" component="a" href="#">
+              <Typography className={classes.link} variant="body2" component="a">
                 Go to docs
               </Typography>
             </Grid>
@@ -77,7 +81,7 @@ function Header(props) {
               <IconButton color="inherit" className={classes.iconButtonAvatar}>
                 <Avatar
                   className={classes.avatar}
-                  src="/static/images/avatar/1.jpg"
+                  src="https://geolonia.github.io/logo/geolonia-symbol_1.png"
                   alt="My Avatar"
                 />
               </IconButton>
@@ -131,10 +135,5 @@ function Header(props) {
     </React.Fragment>
   );
 }
-
-Header.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onDrawerToggle: PropTypes.func.isRequired,
-};
 
 export default withStyles(styles)(Header);
