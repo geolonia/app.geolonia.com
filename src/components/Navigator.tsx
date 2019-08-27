@@ -1,7 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles, Theme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
@@ -41,7 +40,7 @@ const categories = [
   },
 ];
 
-const styles = theme => ({
+const styles = (theme: Theme) => ({
   categoryHeader: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),
@@ -80,9 +79,17 @@ const styles = theme => ({
   divider: {
     marginTop: theme.spacing(2),
   },
-});
+})
 
-function Navigator(props) {
+type Props = {
+  readonly classes: any
+  readonly PaperProps: any
+  readonly variant?: "temporary"
+  readonly open?: boolean
+  readonly onClose?: () => any
+}
+
+const Navigator: React.FC<Props> = (props: Props) => {
   const { classes, ...other } = props;
 
   return (
@@ -137,9 +144,5 @@ function Navigator(props) {
     </Drawer>
   );
 }
-
-Navigator.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default withStyles(styles)(Navigator);
