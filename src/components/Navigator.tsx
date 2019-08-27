@@ -5,37 +5,35 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import PeopleIcon from '@material-ui/icons/People';
 import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
-import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
-import PublicIcon from '@material-ui/icons/Public';
-import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
-import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent';
-import TimerIcon from '@material-ui/icons/Timer';
+// import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
+// import PublicIcon from '@material-ui/icons/Public';
+// import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
+// import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent';
+// import TimerIcon from '@material-ui/icons/Timer';
 import SettingsIcon from '@material-ui/icons/Settings';
-import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
+// import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
+
+import './Navigator.css'
 
 const categories = [
   {
-    id: 'Develop',
+    id: 'Maps',
     children: [
-      { id: 'Authentication', icon: <PeopleIcon />, active: true },
-      { id: 'Database', icon: <DnsRoundedIcon /> },
-      { id: 'Storage', icon: <PermMediaOutlinedIcon /> },
-      { id: 'Hosting', icon: <PublicIcon /> },
-      { id: 'Functions', icon: <SettingsEthernetIcon /> },
-      { id: 'ML Kit', icon: <SettingsInputComponentIcon /> },
+      { id: 'API Keys', icon: <PeopleIcon />, active: false },
+      { id: 'Styles', icon: <DnsRoundedIcon />, active: false },
     ],
   },
   {
-    id: 'Quality',
+    id: 'Data',
     children: [
-      { id: 'Analytics', icon: <SettingsIcon /> },
-      { id: 'Performance', icon: <TimerIcon /> },
-      { id: 'Test Lab', icon: <PhonelinkSetupIcon /> },
+      { id: 'Features', icon: <SettingsIcon />, active: false },
     ],
   },
 ];
@@ -93,10 +91,13 @@ const Navigator: React.FC<Props> = (props: Props) => {
   const { classes, ...other } = props;
 
   return (
-    <Drawer variant="permanent" {...other}>
+    <Drawer id="navigator" variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          Paperbase
+          <Select className="team" value="default-team">
+            <MenuItem value="default-team">Default</MenuItem>
+            <MenuItem className="create-new-team">Create new team</MenuItem>
+          </Select>
         </ListItem>
         <ListItem className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
@@ -107,7 +108,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
               primary: classes.itemPrimary,
             }}
           >
-            Project Overview
+            Dashboard
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (

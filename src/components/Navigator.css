@@ -1,0 +1,25 @@
+#navigator .team
+{
+  width: 100%;
+  color: #ffffff;
+}
+
+#navigator .team::before
+{
+  border-color: #ffffff;
+}
+
+#navigator .team .MuiSvgIcon-root
+{
+  color: #ffffff;
+}
+
+#navigator .team option
+{
+  background-color: #18202c;
+}
+
+#navigator .team option.create-new-team
+{
+  border-top: 1px solid #ffffff;
+}
