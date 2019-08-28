@@ -66,11 +66,6 @@ function Header(props: Props) {
             </Hidden>
             <Grid item xs />
             <Grid item>
-              <Typography className={classes.link} variant="body2" component="a">
-                Go to docs
-              </Typography>
-            </Grid>
-            <Grid item>
               <Tooltip title="Alerts • No alters">
                 <IconButton color="inherit">
                   <NotificationsIcon />

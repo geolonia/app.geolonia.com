@@ -101,7 +101,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
           <img src="https://geolonia.github.io/logo/geolonia-symbol_1.png" className="logo" alt=""/>
           <Select className="team" value="default-team">
-            <MenuItem value="default-team">Default</MenuItem>
+            <MenuItem value="default-team">miya0001</MenuItem>
             <MenuItem className="create-new-team">Create new team</MenuItem>
           </Select>
         </ListItem>
