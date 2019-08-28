@@ -23,22 +23,22 @@ const categories = [
   {
     id: 'Maps',
     children: [
-      { id: 'API Keys', icon: <CodeIcon />, active: false },
-      { id: 'Styles', icon: <SatelliteIcon />, active: false },
+      { id: 'API Keys', icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
+      { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
     ],
   },
   {
     id: 'Data',
     children: [
-      { id: 'Features', icon: <RoomIcon />, active: false },
+      { id: 'Features', icon: <RoomIcon />, href: "#/data/features", active: false },
     ],
   },
   {
     id: 'Team Settings',
     children: [
-      { id: 'General', icon: <ViewListIcon />, active: false },
-      { id: 'Members', icon: <GroupIcon />, active: false },
-      { id: 'Billing', icon: <PaymentIcon />, active: false },
+      { id: 'General', icon: <ViewListIcon />, href: "#/team/general", active: false },
+      { id: 'Members', icon: <GroupIcon />, href: "#/team/members", active: false },
+      { id: 'Billing', icon: <PaymentIcon />, href: "#/team/billing", active: false },
     ],
   },
 ];
@@ -105,7 +105,11 @@ const Navigator: React.FC<Props> = (props: Props) => {
             <MenuItem className="create-new-team">Create new team</MenuItem>
           </Select>
         </ListItem>
-        <ListItem className={clsx(classes.item, classes.itemCategory)}>
+        <ListItem
+            button
+            component="a"
+            href="/"
+            className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
             <HomeIcon />
           </ListItemIcon>
@@ -128,10 +132,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active }) => (
+            {children.map(({ id: childId, icon, active, href }) => (
               <ListItem
-                key={childId}
                 button
+                component="a"
+                href={href}
+                key={childId}
                 className={clsx(classes.item, active && classes.itemActiveItem)}
               >
                 <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>

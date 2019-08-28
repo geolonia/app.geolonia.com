@@ -14,16 +14,6 @@
   color: #ffffff;
 }
 
-#navigator .team option
-{
-  background-color: #18202c;
-}
-
-#navigator .team option.create-new-team
-{
-  border-top: 1px solid #ffffff;
-}
-
 #navigator .logo
 {
   width: 24px;
