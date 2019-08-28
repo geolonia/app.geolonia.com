@@ -76,7 +76,7 @@ function Header(props: Props) {
               <IconButton color="inherit" className={classes.iconButtonAvatar}>
                 <Avatar
                   className={classes.avatar}
-                  src="https://geolonia.github.io/logo/geolonia-symbol_1.png"
+                  src="https://avatars2.githubusercontent.com/u/309946?s=400&v=4"
                   alt="My Avatar"
                 />
               </IconButton>

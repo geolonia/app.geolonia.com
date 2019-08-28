@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import { withStyles,Theme } from '@material-ui/core/styles';
-import { HashRouter, Route } from 'react-router-dom';
-import Dashboard from './Dashboard';
-import APIKeys from './Maps/APIKeys';
-
 
 const styles = (theme:Theme) => ({
   // paper: {
@@ -37,10 +36,22 @@ function Content(props: Props) {
   const { classes } = props;
 
   return (
-    <HashRouter>
-      <Route exact path='/' component={Dashboard} />
-      <Route exact path='/maps/api-keys' component={APIKeys} />
-    </HashRouter>
+    <Grid container className={classes.root} spacing={2}>
+      <Grid item xs={6}>
+        <Paper>
+          <Typography component="h3">
+            API
+          </Typography>
+        </Paper>
+      </Grid>
+      <Grid item xs={6}>
+        <Paper>
+          <Typography component="h3">
+            This is a sheet of paper.
+          </Typography>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 }
 
