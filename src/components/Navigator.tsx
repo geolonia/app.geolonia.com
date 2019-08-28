@@ -10,15 +10,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
-import PeopleIcon from '@material-ui/icons/People';
-import DnsRoundedIcon from '@material-ui/icons/DnsRounded';
-// import PermMediaOutlinedIcon from '@material-ui/icons/PhotoSizeSelectActual';
-// import PublicIcon from '@material-ui/icons/Public';
-// import SettingsEthernetIcon from '@material-ui/icons/SettingsEthernet';
-// import SettingsInputComponentIcon from '@material-ui/icons/SettingsInputComponent';
-// import TimerIcon from '@material-ui/icons/Timer';
-import SettingsIcon from '@material-ui/icons/Settings';
-// import PhonelinkSetupIcon from '@material-ui/icons/PhonelinkSetup';
+import CodeIcon from '@material-ui/icons/Code';
+import SatelliteIcon from '@material-ui/icons/Satellite';
+import ViewListIcon from '@material-ui/icons/ViewList';
+import RoomIcon from '@material-ui/icons/Room';
+import GroupIcon from '@material-ui/icons/Group';
+import PaymentIcon from '@material-ui/icons/Payment';
 
 import './Navigator.css'
 
@@ -26,14 +23,22 @@ const categories = [
   {
     id: 'Maps',
     children: [
-      { id: 'API Keys', icon: <PeopleIcon />, active: false },
-      { id: 'Styles', icon: <DnsRoundedIcon />, active: false },
+      { id: 'API Keys', icon: <CodeIcon />, active: false },
+      { id: 'Styles', icon: <SatelliteIcon />, active: false },
     ],
   },
   {
     id: 'Data',
     children: [
-      { id: 'Features', icon: <SettingsIcon />, active: false },
+      { id: 'Features', icon: <RoomIcon />, active: false },
+    ],
+  },
+  {
+    id: 'Team Settings',
+    children: [
+      { id: 'General', icon: <ViewListIcon />, active: false },
+      { id: 'Members', icon: <GroupIcon />, active: false },
+      { id: 'Billing', icon: <PaymentIcon />, active: false },
     ],
   },
 ];
@@ -94,6 +99,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     <Drawer id="navigator" variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
+          <img src="https://geolonia.github.io/logo/geolonia-symbol_1.png" className="logo" alt=""/>
           <Select className="team" value="default-team">
             <MenuItem value="default-team">Default</MenuItem>
             <MenuItem className="create-new-team">Create new team</MenuItem>
