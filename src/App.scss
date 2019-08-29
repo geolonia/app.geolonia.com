@@ -23,6 +23,30 @@
   color: #61dafb;
 }
 
+.module-title
+{
+  margin-top: 1em;
+  padding: 8px;
+  font-weight: bolder;
+  vertical-align: top;
+  border-bottom: 1px solid #18202C;
+
+  .MuiSvgIcon-root
+  {
+    position: relative;
+    top: 6px;
+  }
+}
+
+.private-or-public
+{
+  font-size: 10px;
+  margin: 0 1em;
+  padding: 3px;
+  border: 1px solid #dedede;
+  border-radius: 3px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
