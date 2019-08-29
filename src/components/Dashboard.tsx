@@ -19,21 +19,21 @@ const styles = (theme:Theme) => ({
 
 // TODO: Followings are mock data.
 const rowsAPIKeys = [
-  {id:1111, name: "My Map", updated: "2019-08-28"},
-  {id:1112, name: "exmaple.com", updated: "2019-08-28"},
-  {id:1113, name: "exmaple.jp", updated: "2019-08-28"},
+  {id: 1111, name: "My Map", updated: "2019-08-28"},
+  {id: 1112, name: "exmaple.com", updated: "2019-08-28"},
+  {id: 1113, name: "exmaple.jp", updated: "2019-08-28"},
 ];
 
 const rowsStyles = [
-  {id:1111, name: "My Map", updated: "2019-08-28"},
-  {id:1112, name: "exmaple.com", updated: "2019-08-28"},
-  {id:1113, name: "exmaple.jp", updated: "2019-08-28"},
+  {id: 1111, name: "My Map", updated: "2019-08-28"},
+  {id: 1112, name: "exmaple.com", updated: "2019-08-28"},
+  {id: 1113, name: "exmaple.jp", updated: "2019-08-28"},
 ];
 
 const rowsFeatures = [
-  {id:1111, name: "My Map", updated: "2019-08-28", isPublic: true},
-  {id:1112, name: "exmaple.com", updated: "2019-08-28", isPublic: false},
-  {id:1113, name: "exmaple.jp", updated: "2019-08-28", isPublic: true},
+  {id: 1111, name: "My Map", updated: "2019-08-28", isPublic: true},
+  {id: 1112, name: "exmaple.com", updated: "2019-08-28", isPublic: false},
+  {id: 1113, name: "exmaple.jp", updated: "2019-08-28", isPublic: true},
 ];
 
 type Props= {
@@ -48,21 +48,21 @@ const Dashboard = (props: Props) => {
       <Grid item sm={12} md={6}>
         <Paper>
           <Typography component="h2" className="module-title"><CodeIcon /> API Keys</Typography>
-          <Table rows={rowsAPIKeys} />
+          <Table rows={rowsAPIKeys} permalink="/maps/api-keys/%s" />
         </Paper>
       </Grid>
 
       <Grid item sm={12} md={6}>
         <Paper>
         <Typography component="h2" className="module-title"><SatelliteIcon /> Styles</Typography>
-          <Table rows={rowsStyles} />
+          <Table rows={rowsStyles} permalink="/maps/api-keys/%s" />
         </Paper>
       </Grid>
 
       <Grid item sm={12} md={6}>
         <Paper>
           <Typography component="h2" className="module-title"><RoomIcon /> Features</Typography>
-          <Table rows={rowsFeatures} />
+          <Table rows={rowsFeatures} permalink="/data/features/%s" />
         </Paper>
       </Grid>
     </Grid>

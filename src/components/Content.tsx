@@ -18,6 +18,7 @@ function Content(props: Props) {
     <HashRouter>
       <Route exact path='/' component={Dashboard} />
       <Route exact path='/maps/api-keys' component={APIKeys} />
+      <Route exact path='/maps/api-keys/:id' component={APIKeys} />
       <Route exact path='/maps/styles' component={Styles} />
     </HashRouter>
   );
