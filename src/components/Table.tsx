@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes, { number } from 'prop-types';
+import PropTypes from 'prop-types';
 
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -9,22 +9,37 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-const handleChangePage = () => {
-
-}
-
-const handleChangeRowsPerPage = () => {
-
-}
+import './Table.scss';
 
 type Props= {
-  rows: object,
+  rows: any,
   rowsPerPage: number,
+  permalink: string,
 }
 
 const Content = (props: any) => {
+  const handleChangePage = () => {
+
+  }
+
+  const handleChangeRowsPerPage = () => {
+
+  }
+
+  const onMouseOver = (e: any) => {
+    e.currentTarget.className = 'mouseover';
+  }
+
+  const onMouseOut = (e: any) => {
+    e.currentTarget.className = '';
+  }
+
+  const onClick = (e: any) => {
+    window.location.hash = props.permalink.replace('%s', e.currentTarget.dataset.id)
+  }
+
   return (
-      <Table>
+      <Table className="geolonia-list-table">
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
@@ -33,7 +48,7 @@ const Content = (props: any) => {
         </TableHead>
         <TableBody>
           {props.rows.map((row: any) => (
-            <TableRow key={row.id}>
+            <TableRow key={row.id} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} data-id={row.id}>
               <TableCell component="th" scope="row">
                 {row.name}
                 {row.isPublic && (<span className="private-or-public">Public</span>)}
@@ -64,8 +79,9 @@ const Content = (props: any) => {
 }
 
 Content.propTypes = {
-  rows: PropTypes.object.isRequired,
+  rows: PropTypes.array.isRequired,
   rowsPerPage: PropTypes.number,
+  permalink: PropTypes.string.isRequired,
 };
 
 Content.defaultProps = {

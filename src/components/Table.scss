@@ -1,0 +1,15 @@
+table.geolonia-list-table
+{
+  tbody
+  {
+    tr
+    {
+      cursor: pointer;
+    }
+
+    tr.mouseover
+    {
+      background-color: #f5f5f5;
+    }
+  }
+}
