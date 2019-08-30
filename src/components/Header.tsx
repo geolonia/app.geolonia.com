@@ -42,9 +42,13 @@ type Props= {
 function Header(props: Props) {
   const { classes, onDrawerToggle } = props;
 
+  const headerStyle = {
+    backgroundColor: '#ED720E',
+  } as React.CSSProperties
+
   return (
     <React.Fragment>
-      <AppBar color="primary" position="sticky" elevation={0}>
+      <AppBar color="primary" style={headerStyle} position="sticky" elevation={0}>
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Hidden smUp>
