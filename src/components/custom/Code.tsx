@@ -10,6 +10,7 @@ const Code = (props: Props) => {
     backgroundColor: '#555555',
     whiteSpace: 'pre-wrap',
     color: '#ffffff',
+    fontSize: '12px',
   } as React.CSSProperties
 
   const click = (event: any) => {

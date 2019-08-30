@@ -5,12 +5,10 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withStyles,Theme } from '@material-ui/core/styles';
 
-import Table from './Table';
-
 import CodeIcon from '@material-ui/icons/Code';
-import SatelliteIcon from '@material-ui/icons/Satellite';
 import RoomIcon from '@material-ui/icons/Room';
 
+import Table from './custom/Table';
 import './Dashboard.scss'
 
 const styles = (theme:Theme) => ({
@@ -19,12 +17,6 @@ const styles = (theme:Theme) => ({
 
 // TODO: Followings are mock data.
 const rowsAPIKeys = [
-  {id: 1111, name: "My Map", updated: "2019-08-28"},
-  {id: 1112, name: "exmaple.com", updated: "2019-08-28"},
-  {id: 1113, name: "exmaple.jp", updated: "2019-08-28"},
-];
-
-const rowsStyles = [
   {id: 1111, name: "My Map", updated: "2019-08-28"},
   {id: 1112, name: "exmaple.com", updated: "2019-08-28"},
   {id: 1113, name: "exmaple.jp", updated: "2019-08-28"},
@@ -50,13 +42,6 @@ const Dashboard = (props: Props) => {
           <Paper>
             <Typography component="h2" className="module-title"><CodeIcon /> API Keys</Typography>
             <Table rows={rowsAPIKeys} permalink="/maps/api-keys/%s" />
-          </Paper>
-        </Grid>
-
-        <Grid item sm={12} md={6}>
-          <Paper>
-            <Typography component="h2" className="module-title"><SatelliteIcon /> Styles</Typography>
-            <Table rows={rowsStyles} permalink="/maps/api-keys/%s" />
           </Paper>
         </Grid>
 
