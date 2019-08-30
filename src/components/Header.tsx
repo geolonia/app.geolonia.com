@@ -46,6 +46,10 @@ function Header(props: Props) {
     backgroundColor: '#444444',
   } as React.CSSProperties
 
+  const onClick = () => {
+    window.location.hash = '/user'
+  }
+
   return (
     <React.Fragment>
       <AppBar color="primary" style={headerStyle} position="sticky" elevation={0}>
@@ -72,7 +76,7 @@ function Header(props: Props) {
               </Tooltip>
             </Grid>
             <Grid item>
-              <IconButton color="inherit" className={classes.iconButtonAvatar}>
+              <IconButton onClick={onClick} color="inherit" className={classes.iconButtonAvatar}>
                 <Avatar
                   className={classes.avatar}
                   src="https://avatars2.githubusercontent.com/u/309946?s=400&v=4"
