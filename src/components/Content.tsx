@@ -9,6 +9,8 @@ import APIKeys from './Maps/APIKeys';
 import APIKey from './Maps/APIKey';
 
 import General from './Team/General';
+import Members from './Team/Members';
+import Billing from './Team/Billing';
 
 const styles = (theme:Theme) => ({});
 
@@ -24,6 +26,8 @@ function Content(props: Props) {
       <Route exact path='/maps/api-keys/:id' component={APIKey} />
 
       <Route exact path='/team/general' component={General} />
+      <Route exact path='/team/members' component={Members} />
+      <Route exact path='/team/billing' component={Billing} />
     </HashRouter>
   );
 }

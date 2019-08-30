@@ -43,7 +43,7 @@ function Header(props: Props) {
   const { classes, onDrawerToggle } = props;
 
   const headerStyle = {
-    backgroundColor: '#ED720E',
+    backgroundColor: '#444444',
   } as React.CSSProperties
 
   return (
