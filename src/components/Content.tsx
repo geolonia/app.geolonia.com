@@ -5,6 +5,7 @@ import { HashRouter, Route } from 'react-router-dom';
 
 import Dashboard from './Dashboard';
 import APIKeys from './Maps/APIKeys';
+import APIKey from './Maps/APIKey';
 import Styles from './Maps/Styles';
 
 const styles = (theme:Theme) => ({});
@@ -18,7 +19,7 @@ function Content(props: Props) {
     <HashRouter>
       <Route exact path='/' component={Dashboard} />
       <Route exact path='/maps/api-keys' component={APIKeys} />
-      <Route exact path='/maps/api-keys/:id' component={APIKeys} />
+      <Route exact path='/maps/api-keys/:id' component={APIKey} />
       <Route exact path='/maps/styles' component={Styles} />
     </HashRouter>
   );

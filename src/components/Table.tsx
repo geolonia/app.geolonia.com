@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -11,13 +10,13 @@ import TableRow from '@material-ui/core/TableRow';
 
 import './Table.scss';
 
-type Props= {
+type Props = {
   rows: any,
   rowsPerPage: number,
   permalink: string,
 }
 
-const Content = (props: any) => {
+const Content = (props: Props) => {
   const handleChangePage = () => {
 
   }
@@ -77,12 +76,6 @@ const Content = (props: any) => {
       </Table>
   );
 }
-
-Content.propTypes = {
-  rows: PropTypes.array.isRequired,
-  rowsPerPage: PropTypes.number,
-  permalink: PropTypes.string.isRequired,
-};
 
 Content.defaultProps = {
   rows: [],
