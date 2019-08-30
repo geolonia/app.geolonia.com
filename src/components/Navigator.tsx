@@ -11,20 +11,20 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import HomeIcon from '@material-ui/icons/Home';
 import CodeIcon from '@material-ui/icons/Code';
-import SatelliteIcon from '@material-ui/icons/Satellite';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
 
 import './Navigator.css'
+import logo from './custom/logo.svg';
 
 const categories = [
   {
     id: 'Maps',
     children: [
       { id: 'API Keys', icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
-      { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
+      // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
     ],
   },
   {
@@ -99,7 +99,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     <Drawer id="navigator" variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          <img src="https://geolonia.github.io/logo/geolonia-symbol_1.png" className="logo" alt=""/>
+          <img src={logo} className="logo" alt=""/>
           <Select className="team" value="default-team">
             <MenuItem value="default-team">miya0001</MenuItem>
             <MenuItem className="create-new-team">Create new team</MenuItem>
