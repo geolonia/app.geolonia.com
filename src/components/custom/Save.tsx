@@ -1,17 +1,17 @@
 import React from 'react';
 
+import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
 type Props= {}
 
 const Code = (props: Props) => {
   const style = {
-    margin: '1em 0',
-    textAlign: 'right',
+    marginTop: '1em',
   } as React.CSSProperties
 
   return (
-    <p style={style}><Button variant="contained" color="primary">Save</Button></p>
+    <Typography style={style} component="p" paragraph={true} align="right"><Button variant="contained" color="primary">Save</Button></Typography>
   );
 }
 
