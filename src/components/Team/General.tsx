@@ -12,7 +12,6 @@ import Save from '../custom/Save'
 const Content = () => {
   const styleDangerZone = {
     border: '1px solid #ff0000',
-    marginTop: '10em',
     padding: '16px 24px',
   } as React.CSSProperties
 
@@ -51,21 +50,22 @@ const Content = () => {
             id="standard-name"
             label="URL"
             margin="normal"
-            multiline={true}
-            rows={5}
             fullWidth={true}
           />
           <Save />
+        </Grid>
 
+        <Grid item sm={12} md={4}>
+          <Typography component="p" align="center"><img src={ProfileImage} style={ProfileImageStyle} alt="" /><br />
+          <Button variant="contained" color="default">Upload new picture</Button></Typography>
+        </Grid>
+
+        <Grid item sm={12} md={12}>
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">Danger Zone</Typography>
             <p>Once you delete a team, there is no going back. Please be certain. </p>
             <Button variant="contained" color="secondary">Delete</Button>
           </div>
-        </Grid>
-        <Grid item sm={12} md={4}>
-          <Typography component="p" align="center"><img src={ProfileImage} style={ProfileImageStyle} alt="" /><br />
-          <Button variant="contained" color="default">Upload new picture</Button></Typography>
         </Grid>
       </Grid>
     </Paper>
