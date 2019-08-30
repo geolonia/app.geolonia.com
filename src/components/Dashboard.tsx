@@ -44,28 +44,30 @@ const Dashboard = (props: Props) => {
   const { classes } = props;
 
   return (
-    <Grid container className={classes.root} spacing={2}>
-      <Grid item sm={12} md={6}>
-        <Paper>
-          <Typography component="h2" className="module-title"><CodeIcon /> API Keys</Typography>
-          <Table rows={rowsAPIKeys} permalink="/maps/api-keys/%s" />
-        </Paper>
-      </Grid>
+    <div id="dashboard">
+      <Grid container className={classes.root} spacing={2}>
+        <Grid item sm={12} md={6}>
+          <Paper>
+            <Typography component="h2" className="module-title"><CodeIcon /> API Keys</Typography>
+            <Table rows={rowsAPIKeys} permalink="/maps/api-keys/%s" />
+          </Paper>
+        </Grid>
 
-      <Grid item sm={12} md={6}>
-        <Paper>
-        <Typography component="h2" className="module-title"><SatelliteIcon /> Styles</Typography>
-          <Table rows={rowsStyles} permalink="/maps/api-keys/%s" />
-        </Paper>
-      </Grid>
+        <Grid item sm={12} md={6}>
+          <Paper>
+            <Typography component="h2" className="module-title"><SatelliteIcon /> Styles</Typography>
+            <Table rows={rowsStyles} permalink="/maps/api-keys/%s" />
+          </Paper>
+        </Grid>
 
-      <Grid item sm={12} md={6}>
-        <Paper>
-          <Typography component="h2" className="module-title"><RoomIcon /> Features</Typography>
-          <Table rows={rowsFeatures} permalink="/data/features/%s" />
-        </Paper>
+        <Grid item sm={12} md={6}>
+          <Paper>
+            <Typography component="h2" className="module-title"><RoomIcon /> Features</Typography>
+            <Table rows={rowsFeatures} permalink="/data/features/%s" />
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 }
 
