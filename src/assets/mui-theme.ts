@@ -9,6 +9,12 @@ const themeBase = createMuiTheme({
     },
   },
   typography: {
+    h2: {
+      fontWeight: 'bolder',
+    },
+    h3: {
+      fontWeight: 'bolder',
+    },
     h5: {
       fontWeight: 500,
       fontSize: 26,

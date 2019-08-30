@@ -44,7 +44,7 @@ const Dashboard = (props: Props) => {
   const { classes } = props;
 
   return (
-    <Grid id="dashboard" container className={classes.root} spacing={2}>
+    <Grid container className={classes.root} spacing={2}>
       <Grid item sm={12} md={6}>
         <Paper>
           <Typography component="h2" className="module-title"><CodeIcon /> API Keys</Typography>
