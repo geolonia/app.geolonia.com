@@ -3,36 +3,41 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import RoomIcon from '@material-ui/icons/Room';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Link from '@material-ui/core/Link';
 
-import Code from '../custom/Code'
 import Save from '../custom/Save'
+import Code from '../custom/Code'
 
 const Content = () => {
-  const styleDangerZone = {
-    border: '1px solid #ff0000',
-    marginTop: '10em',
-    padding: '16px 24px',
+  const mapStyle: React.CSSProperties = {
+    width: '100%',
+    height: '250px',
+    border: '1px solid #dedede',
+    margin: '1em 0',
   } as React.CSSProperties
 
-  const styleH3 = {
-    marginTop: '1em',
-  } as React.CSSProperties
-
-  const styleHelpText = {
+  const styleHelpText: React.CSSProperties = {
     fontSize: '0.9rem',
-  } as React.CSSProperties
+  }
 
-  const apiKey = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-  const embedCode = `<script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${apiKey}"></script>`
-  const embedHtml = '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n>日本経緯度原点</div>'
+  const cardStyle: React.CSSProperties = {
+    marginTop: '1em',
+  }
 
   return (
     <Paper>
       <Grid container spacing={4}>
         <Grid item sm={12} md={8}>
-          <Typography component="h2" className="module-title">Settings</Typography>
+          <Typography component="h2" className="module-title"><RoomIcon /> Features</Typography>
+          <div style={mapStyle}></div>
+
           <TextField
             id="standard-name"
             label="Name"
@@ -41,37 +46,39 @@ const Content = () => {
           />
           <TextField
             id="standard-name"
-            label="URLs"
+            label="Description"
             margin="normal"
             multiline={true}
             rows={5}
-            placeholder="https://example.com"
             fullWidth={true}
           />
-
-          <Typography style={styleHelpText} component="p" color="textSecondary">Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS.<br />
-          Please enter a value of URLs on a new line.</Typography>
-
-          <Save />
-
-          <div style={styleDangerZone}>
-            <Typography component="h3" color="secondary">Danger Zone</Typography>
-            <p>Once you delete a API key, there is no going back. Please be certain. </p>
-            <Button variant="contained" color="secondary">Delete</Button>
-          </div>
         </Grid>
 
         <Grid item sm={12} md={4}>
-          <Typography component="h2" className="module-title">Your API Key</Typography>
-          <Code>{apiKey}</Code>
-          <Typography component="h2" className="module-title">Add the map to your site</Typography>
-          <Typography component="h3" style={styleH3}>Step 1</Typography>
-          <p>Include the following code before closing tag of the <code>body</code> in your HTML file.</p>
-          <Code>{embedCode}</Code>
-          <Typography component="h3" style={styleH3}>Step 2</Typography>
-          <p>Add the following code into the body of your HTML file.</p>
-          <Code>{embedHtml}</Code>
+          <Card style={cardStyle}>
+            <CardContent>
+              <FormControlLabel
+                control={
+                  <Checkbox value="1" color="primary" />
+                }
+                label="Public"
+              />
+
+              <Typography style={styleHelpText} component="p" color="textSecondary">Making public will be displayed on <Link href="#">open data directory</Link> and anyone can download this features without API key.</Typography>
+            </CardContent>
+            <CardActions>
+              <Save />
+            </CardActions>
+          </Card>
+
+          <Card style={cardStyle}>
+            <Typography component="h2" className="module-title">API</Typography>
+            <Code>https://example.com/...</Code>
+            <Typography component="h2" className="module-title">Public URL</Typography>
+            <Code>https://example.com/...</Code>
+          </Card>
         </Grid>
+
       </Grid>
     </Paper>
   );

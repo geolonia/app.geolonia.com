@@ -1,15 +1,18 @@
 import React from 'react';
+import color from '@material-ui/core/colors/blueGrey';
 
 type Props= {
   children: string,
+  backgroundColor: string,
+  color: string,
 }
 
 const Code = (props: Props) => {
   const style = {
     padding: '16px',
-    backgroundColor: '#555555',
+    backgroundColor: props.backgroundColor,
     whiteSpace: 'pre-wrap',
-    color: '#ffffff',
+    color: props.color,
     fontSize: '12px',
   } as React.CSSProperties
 
@@ -26,5 +29,10 @@ const Code = (props: Props) => {
     <pre style={style} onClick={click}>{props.children}</pre>
   );
 }
+
+Code.defaultProps = {
+  backgroundColor: '#444444',
+  color: '#ffffff',
+};
 
 export default Code;
