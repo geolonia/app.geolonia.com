@@ -31,7 +31,7 @@ function Content(props: Props) {
       <Route exact path='/maps/api-keys/:id' component={APIKey} />
 
       <Route exact path='/data/features' component={Features} />
-      <Route exact path='/data//features/:id' component={Feature} />
+      <Route exact path='/data/features/:id' component={Feature} />
 
       <Route exact path='/team/general' component={General} />
       <Route exact path='/team/members' component={Members} />
