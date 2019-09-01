@@ -48,9 +48,17 @@
   }
 }
 
-.payment-info th
+.payment-info
 {
-  font-weight: bolder;
-  color: #555555;
-  width: 200px;
+  th
+  {
+    font-weight: bolder;
+    color: #555555;
+    max-width: 200px;
+  }
+
+  .MuiTableCell-body
+  {
+    padding: 8px;
+  }
 }

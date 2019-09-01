@@ -6,6 +6,7 @@ import Hidden from '@material-ui/core/Hidden';
 import Navigator from './Navigator';
 import Content from './Content';
 import Header from './Header';
+import Footer from './Footer';
 import {theme} from '../assets/mui-theme'
 
 const drawerWidth = 256;
@@ -27,7 +28,7 @@ const styles = createStyles({
   },
   mainContent: {
     flex: 1,
-    padding: '48px 36px 0',
+    padding: '48px 36px 48px',
     background: '#eaeff1',
   },
 })
@@ -69,6 +70,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
           <main className={classes.mainContent}>
             <Content />
           </main>
+          <Footer />
         </div>
       </div>
     </ThemeProvider>
