@@ -1,74 +1,100 @@
 import React from 'react';
 
-import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableRow from '@material-ui/core/TableRow';
+import { Line } from 'react-chartjs-2';
 
-import ProfileImage from '../custom/logo.svg';
-import Save from '../custom/Save'
+import './Billing.scss'
 
 const Content = () => {
-  const styleDangerZone = {
+  const styleDangerZone: React.CSSProperties = {
     border: '1px solid #ff0000',
     padding: '16px 24px',
-  } as React.CSSProperties
+  }
 
-  const ProfileImageStyle = {
+  const ProfileImageStyle: React.CSSProperties = {
     maxWidth: '250px',
     height: 'auto',
     fill: '#f5f5f5',
-  } as React.CSSProperties
+  }
+
+  const chartStyle: React.CSSProperties = {
+    width: '100%',
+    height: '250px',
+  }
+
+  const cardContainerStyle: React.CSSProperties = {
+    margin: '1em 0',
+  }
+
+  const chartData = {
+    labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan, 2019', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+    datasets: [
+      {
+        label: 'User',
+        borderColor: 'rgba(0, 149, 221, 1)',
+        backgroundColor: 'rgba(0, 149, 221, 0.2)',
+        data: [4, 4, 4, 2, 5, 7, 7, 7, 8, 9, 10, 11],
+      },
+    ],
+  }
+
+  const chartOptions = {
+    maintainAspectRatio: false,
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          min: 0,
+        }
+      }]
+    }
+  }
 
   return (
-    <Paper>
-      <Grid container spacing={4}>
-        <Grid item sm={12} md={8}>
-          <Typography component="h2" className="module-title">General</Typography>
-          <TextField
-            id="standard-name"
-            label="Name"
-            margin="normal"
-            fullWidth={true}
-          />
-          <TextField
-            id="standard-name"
-            label="Slug"
-            margin="normal"
-            fullWidth={true}
-          />
-          <TextField
-            id="standard-name"
-            label="Description"
-            margin="normal"
-            multiline={true}
-            rows={5}
-            fullWidth={true}
-          />
-          <TextField
-            id="standard-name"
-            label="URL"
-            margin="normal"
-            fullWidth={true}
-          />
-          <Save />
-        </Grid>
+    <div>
+      <Paper>
+        <Typography component="h2" className="module-title">Payment history</Typography>
+        <div style={chartStyle}>
+          <Line data={chartData} options={chartOptions} />
+        </div>
 
-        <Grid item sm={12} md={4}>
-          <Typography component="p" align="center"><img src={ProfileImage} style={ProfileImageStyle} alt="" /><br />
-          <Button variant="contained" color="default">Upload new picture</Button></Typography>
-        </Grid>
-
-        <Grid item sm={12} md={12}>
-          <div style={styleDangerZone}>
-            <Typography component="h3" color="secondary">Danger Zone</Typography>
-            <p>Once you delete a team, there is no going back. Please be certain. </p>
-            <Button variant="contained" color="secondary">Delete</Button>
+        <Typography component="h2" className="module-title">Your subscriptions</Typography>
+        <div className="billing-container">
+          <div className="item">
+            <h3 className="title">Price per user/month</h3>
+            <p className="value">$6.0</p>
           </div>
-        </Grid>
-      </Grid>
-    </Paper>
+          <div className="item">
+            <h3 className="title">Users</h3>
+            <p className="value">11</p>
+          </div>
+          <div className="item">
+            <h3 className="title">Amount</h3>
+            <p className="value amount">$66.0</p>
+            <p className="billed-on">Billed monthly on<br />Oct 1st, 2019</p>
+          </div>
+        </div>
+
+        <Typography component="h2" className="module-title">Payment information</Typography>
+        <Table className="payment-info">
+          <TableBody>
+          <TableRow>
+              <TableCell component="th" scope="row">Payment method:</TableCell>
+              <TableCell>Visa ending in 1111</TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">Coupon:</TableCell>
+              <TableCell>$200.0</TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </Paper>
+    </div>
   );
 }
 

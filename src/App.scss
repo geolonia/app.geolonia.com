@@ -27,9 +27,11 @@
 {
   margin-top: 1em;
   padding: 8px 0;
-  font-weight: bolder;
+  font-weight: bolder !important;
   vertical-align: top;
-  border-bottom: 1px solid #18202C;
+  border-bottom: 3px solid #dedede;
+  color: #555555;
+  font-size: 1.5em !important;
 
   .MuiSvgIcon-root
   {
