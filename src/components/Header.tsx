@@ -43,7 +43,7 @@ function Header(props: Props) {
   const { classes, onDrawerToggle } = props;
 
   const headerStyle = {
-    backgroundColor: '#444444',
+    backgroundColor: '#EE5F28',
   } as React.CSSProperties
 
   const onClick = () => {
