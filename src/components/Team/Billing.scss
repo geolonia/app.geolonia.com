@@ -1,0 +1,56 @@
+.billing-container
+{
+  display: flex;
+  margin: 1em -4px;
+  flex-wrap: nowrap;
+
+
+  .item
+  {
+    width: 33.3%;
+    border: 1px solid #dedede;
+    box-sizing: border-box;
+    padding: 16px;
+    margin: 0 4px;
+    background-color: #f5f5f5;
+  }
+
+  .title
+  {
+    margin: 0;
+    padding: 0;
+  }
+
+  p, .title
+  {
+    text-align: center;
+  }
+
+  .value
+  {
+    font-size: 2em;
+    color: rgba(0, 149, 221, 1);
+    margin: 0;
+    padding: 0;
+  }
+
+  .amount
+  {
+    font-weight: bolder;
+  }
+
+  .billed-on
+  {
+    color: #555555;
+    font-size: 0.9rem;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.payment-info th
+{
+  font-weight: bolder;
+  color: #555555;
+  width: 200px;
+}

@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
@@ -39,12 +38,6 @@ const Content = (props: Props) => {
 
   return (
       <Table className="geolonia-list-table">
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Updated</TableCell>
-          </TableRow>
-        </TableHead>
         <TableBody>
           {props.rows.map((row: any) => (
             <TableRow key={row.id} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} data-id={row.id}>
