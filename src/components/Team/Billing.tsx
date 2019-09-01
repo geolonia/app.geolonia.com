@@ -26,6 +26,7 @@ const Content = () => {
   const chartStyle: React.CSSProperties = {
     width: '100%',
     height: '250px',
+    margin: '2em 0',
   }
 
   const cardContainerStyle: React.CSSProperties = {
@@ -33,37 +34,28 @@ const Content = () => {
   }
 
   const chartData = {
-    labels: ['Sep', 'Oct', 'Nov', 'Dec', 'Jan, 2019', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+    labels: ['Oct', 'Nov', 'Dec', 'Jan, 2019', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
     datasets: [
       {
-        label: 'User',
         borderColor: 'rgba(0, 149, 221, 1)',
         backgroundColor: 'rgba(0, 149, 221, 0.2)',
-        data: [4, 4, 4, 2, 5, 7, 7, 7, 8, 9, 10, 11],
-        yAxisID: 'y-axis-1',
-      },
-      {
-        label: 'Map loads',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        data: [4000, 5000, 3000, 4560, 5000, 7000, 7200, 7100, 8000, 9100, 10000, 1100],
-        yAxisID: 'y-axis-2',
+        data: [400, 500, 300, 456, 500, 700, 720, 710, 800, 910, 1000, 110],
       },
     ],
   }
 
   const chartOptions = {
+    legend: {
+      display: false,
+    },
     maintainAspectRatio: false,
     responsive: true,
     scales: {
       yAxes: [{
+        title: 'aaaaaaaaa',
         ticks: {
           min: 0,
         },
-        id: 'y-axis-1'
-      }, {
-        position: 'right',
-        id: 'y-axis-2'
       }]
     }
   }

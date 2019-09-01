@@ -37,7 +37,7 @@ const Dashboard = (props: Props) => {
 
   return (
     <div id="dashboard">
-      <Typography component="h2">Welcome, miya0001!</Typography>
+      <h1 className="app-title">Welcome, miya0001!</h1>
 
       <Grid container className={classes.root} spacing={2}>
         <Grid item sm={12} md={6}>
