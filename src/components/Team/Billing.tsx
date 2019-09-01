@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { Line } from 'react-chartjs-2';
 
 import './Billing.scss'
+import Save from '../custom/Save'
 
 const Content = () => {
   const styleDangerZone: React.CSSProperties = {
@@ -86,10 +87,12 @@ const Content = () => {
           <TableRow>
               <TableCell component="th" scope="row">Payment method:</TableCell>
               <TableCell>Visa ending in 1111</TableCell>
+              <TableCell align="right"><Save label="Change payment method" /></TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">Coupon:</TableCell>
               <TableCell>$200.0</TableCell>
+              <TableCell align="right"><Save label="Redeem a coupon" /></TableCell>
             </TableRow>
           </TableBody>
         </Table>
