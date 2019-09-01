@@ -18,8 +18,8 @@ import logo from '../custom/logo.svg';
 
 const rows = [
   {id: 1111, icon: logo, name: "Taro Yamada", username: 'taro', isOwner: true},
-  {id: 1112, icon: logo, name: "Taro Yamada", username: 'taro', isOwner: true},
-  {id: 1113, icon: logo, name: "Taro Yamada", username: 'taro', isOwner: true},
+  {id: 1112, icon: logo, name: "Hanako Yamada", username: 'taro', isOwner: false},
+  {id: 1113, icon: logo, name: "Ichiro Suzuki", username: 'taro', isOwner: true},
 ];
 
 const Content = () => {
