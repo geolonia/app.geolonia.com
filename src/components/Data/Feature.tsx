@@ -64,7 +64,7 @@ const Content = () => {
                 label="Public"
               />
 
-              <Typography style={styleHelpText} component="p" color="textSecondary">Making public will be displayed on <Link href="#">open data directory</Link> and anyone can download this features without API key.</Typography>
+              <Typography style={styleHelpText} component="p" color="textSecondary">Public features will be displayed on <Link href="#">open data directory</Link> and anyone can download this features without API key.</Typography>
             </CardContent>
             <CardActions>
               <Save />
