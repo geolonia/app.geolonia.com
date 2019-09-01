@@ -21,7 +21,7 @@ const Content = () => {
     height: '250px',
     border: '1px solid #dedede',
     margin: '1em 0',
-  } as React.CSSProperties
+  }
 
   const styleHelpText: React.CSSProperties = {
     fontSize: '0.9rem',

@@ -10,16 +10,16 @@ import ProfileImage from '../custom/logo.svg';
 import Save from '../custom/Save'
 
 const Content = () => {
-  const styleDangerZone = {
+  const styleDangerZone: React.CSSProperties = {
     border: '1px solid #ff0000',
     padding: '16px 24px',
-  } as React.CSSProperties
+  }
 
-  const ProfileImageStyle = {
+  const ProfileImageStyle: React.CSSProperties = {
     maxWidth: '250px',
     height: 'auto',
     fill: '#f5f5f5',
-  } as React.CSSProperties
+  }
 
   return (
     <Paper>
