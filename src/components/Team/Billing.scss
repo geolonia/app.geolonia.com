@@ -3,22 +3,22 @@
   display: flex;
   margin: 1em -4px;
   flex-wrap: nowrap;
-
+  align-items: center;
+  border-bottom: 1px solid #dedede;
 
   .item
   {
     width: 33.3%;
-    border: 1px solid #dedede;
     box-sizing: border-box;
-    padding: 16px;
+    padding: 8px;
     margin: 0 4px;
-    background-color: #f5f5f5;
   }
 
   .title
   {
     margin: 0;
     padding: 0;
+    color: #555555;
   }
 
   p, .title
@@ -28,15 +28,10 @@
 
   .value
   {
-    font-size: 2em;
+    font-size: 1.5em;
     color: rgba(0, 149, 221, 1);
     margin: 0;
     padding: 0;
-  }
-
-  .amount
-  {
-    font-weight: bolder;
   }
 
   .billed-on
@@ -45,6 +40,23 @@
     font-size: 0.9rem;
     margin: 0;
     padding: 0;
+  }
+
+  .empty
+  {
+    background-color: transparent;
+    border: none;
+  }
+
+  .amount
+  {
+    font-size: 200%;
+    font-weight: bolder;
+  }
+
+  &.no-border
+  {
+    border: none;
   }
 }
 

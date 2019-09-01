@@ -40,6 +40,14 @@ const Content = () => {
         borderColor: 'rgba(0, 149, 221, 1)',
         backgroundColor: 'rgba(0, 149, 221, 0.2)',
         data: [4, 4, 4, 2, 5, 7, 7, 7, 8, 9, 10, 11],
+        yAxisID: 'y-axis-1',
+      },
+      {
+        label: 'Map loads',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        data: [4000, 5000, 3000, 4560, 5000, 7000, 7200, 7100, 8000, 9100, 10000, 1100],
+        yAxisID: 'y-axis-2',
       },
     ],
   }
@@ -51,7 +59,11 @@ const Content = () => {
       yAxes: [{
         ticks: {
           min: 0,
-        }
+        },
+        id: 'y-axis-1'
+      }, {
+        position: 'right',
+        id: 'y-axis-2'
       }]
     }
   }
@@ -67,16 +79,54 @@ const Content = () => {
         <Typography component="h2" className="module-title">Your subscriptions</Typography>
         <div className="billing-container">
           <div className="item">
-            <h3 className="title">Price per user/month</h3>
+            <h3 className="title">Cost per user/month</h3>
             <p className="value">$6.0</p>
           </div>
           <div className="item">
             <h3 className="title">Users</h3>
             <p className="value">11</p>
           </div>
+          <div className="item subtotal">
+            <p className="value">$66.0</p>
+          </div>
+        </div>
+
+        <div className="billing-container">
           <div className="item">
+            <h3 className="title">Cost per 1,000 map loads/month</h3>
+            <p className="value">$3.0</p>
+            <p className="billed-on">Free for up to 50,000/month</p>
+          </div>
+          <div className="item">
+            <h3 className="title">Loads</h3>
+            <p className="value">85,000</p>
+          </div>
+          <div className="item subtotal">
+            <p className="value">$105.0</p>
+          </div>
+        </div>
+
+        <div className="billing-container">
+          <div className="item">
+            <h3 className="title">Cost per 1,000 API loads/month</h3>
+            <p className="value">$1.0</p>
+            <p className="billed-on">Free for up to 50,000/month</p>
+          </div>
+          <div className="item">
+            <h3 className="title">Loads</h3>
+            <p className="value">85,000</p>
+          </div>
+          <div className="item subtotal">
+            <p className="value">$35.0</p>
+          </div>
+        </div>
+
+        <div className="billing-container no-border">
+          <div className="item empty"></div>
+          <div className="item empty"></div>
+          <div className="item subtotal">
             <h3 className="title">Amount</h3>
-            <p className="value amount">$66.0</p>
+            <p className="value amount">$206.0</p>
             <p className="billed-on">Billed monthly on<br />Oct 1st, 2019</p>
           </div>
         </div>
