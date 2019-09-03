@@ -39,7 +39,7 @@ const Dashboard = (props: Props) => {
 
   const lastDay = moment().add('months', 1).date(0).date()
   const labels = []
-  for (let i = 1; i < lastDay; i++) {
+  for (let i = 1; i <= lastDay; i++) {
     labels.push(i)
   }
 
