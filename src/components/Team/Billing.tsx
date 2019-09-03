@@ -12,16 +12,6 @@ import './Billing.scss'
 import Save from '../custom/Save'
 
 const Content = () => {
-  const styleDangerZone: React.CSSProperties = {
-    border: '1px solid #ff0000',
-    padding: '16px 24px',
-  }
-
-  const ProfileImageStyle: React.CSSProperties = {
-    maxWidth: '250px',
-    height: 'auto',
-    fill: '#f5f5f5',
-  }
 
   const chartStyle: React.CSSProperties = {
     width: '100%',
@@ -69,19 +59,6 @@ const Content = () => {
         </div>
 
         <Typography component="h2" className="module-title">Your subscriptions</Typography>
-        <div className="billing-container">
-          <div className="item">
-            <h3 className="title">Cost per user/month</h3>
-            <p className="value">$6.0</p>
-          </div>
-          <div className="item">
-            <h3 className="title">Users</h3>
-            <p className="value">11</p>
-          </div>
-          <div className="item subtotal">
-            <p className="value">$66.0</p>
-          </div>
-        </div>
 
         <div className="billing-container">
           <div className="item">
@@ -110,6 +87,20 @@ const Content = () => {
           </div>
           <div className="item subtotal">
             <p className="value">$35.0</p>
+          </div>
+        </div>
+
+        <div className="billing-container">
+          <div className="item">
+            <h3 className="title">Cost per user/month</h3>
+            <p className="value">$6.0</p>
+          </div>
+          <div className="item">
+            <h3 className="title">Users</h3>
+            <p className="value">11</p>
+          </div>
+          <div className="item subtotal">
+            <p className="value">$66.0</p>
           </div>
         </div>
 

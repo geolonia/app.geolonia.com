@@ -1,5 +1,4 @@
 import React from 'react';
-import color from '@material-ui/core/colors/blueGrey';
 
 type Props= {
   children: string,
