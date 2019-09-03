@@ -28,9 +28,9 @@ const categories = [
     ],
   },
   {
-    id: 'Data',
+    id: 'APIs',
     children: [
-      { id: 'Features', icon: <RoomIcon />, href: "#/data/features", active: false },
+      { id: 'Geo API', icon: <RoomIcon />, href: "#/data/features", active: false },
     ],
   },
   {
