@@ -35,7 +35,7 @@ const Content = () => {
     <Paper>
       <Grid container spacing={4}>
         <Grid item sm={12} md={8}>
-          <Typography component="h2" className="module-title"><RoomIcon /> Features</Typography>
+          <Typography component="h2" className="module-title"><RoomIcon /> Geo API</Typography>
           <div style={mapStyle}></div>
 
           <TextField
