@@ -62,7 +62,7 @@ const Dashboard = (props: Props) => {
       {
         borderColor: 'rgba(255, 99, 132, 1)',
         backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        data: [3000, 4000, 5000, 7000, 8000, 12000, 13000, 52000, 53000],
+        data: [3000, 4000, 5000, 7000, 8000, 12000, 13000, 52000, 56000],
       },
     ],
   }
@@ -88,6 +88,10 @@ const Dashboard = (props: Props) => {
       <h1 className="app-title">Welcome, miya0001!</h1>
 
       <Grid container className={classes.root} spacing={2}>
+        <Grid item xs={12}>
+          <p>ここに Getting Started 的なコンテンツ</p>
+        </Grid>
+
         <Grid item sm={12} md={6}>
           <Paper>
             <Typography component="h2" className="module-title">Map loads</Typography>

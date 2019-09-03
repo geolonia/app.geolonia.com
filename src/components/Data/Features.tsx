@@ -16,7 +16,7 @@ function Content() {
   return (
     <Paper>
       <Typography component="p" paragraph={true} align="right"><Button variant="contained" color="primary"><RoomIcon />&nbsp;New</Button></Typography>
-      <Typography component="h3" className="module-title"><RoomIcon /> Features</Typography>
+      <Typography component="h3" className="module-title"><RoomIcon /> Geo APIs</Typography>
       <Table rows={rows} rowsPerPage={10} permalink="/data/features/%s" />
     </Paper>
   );
