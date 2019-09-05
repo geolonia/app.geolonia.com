@@ -74,12 +74,24 @@ const Dashboard = (props: Props) => {
     maintainAspectRatio: false,
     responsive: true,
     scales: {
-      yAxes: [{
-        title: 'aaaaaaaaa',
+      xAxes: [{
         ticks: {
           min: 0,
+          fontColor: '#ffffff',
         },
-      }]
+        gridLines: {
+          color: 'rgba(255, 255, 255, 0.4)',
+        },
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          fontColor: '#ffffff',
+        },
+        gridLines: {
+          color: 'rgba(255, 255, 255, 0.4)',
+        },
+      }],
     }
   }
 
