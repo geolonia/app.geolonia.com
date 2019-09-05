@@ -28,9 +28,9 @@ const categories = [
     ],
   },
   {
-    id: 'APIs',
+    id: 'API Services',
     children: [
-      { id: 'Geo API', icon: <RoomIcon />, href: "#/data/features", active: false },
+      { id: 'Geolonia Locations', icon: <RoomIcon />, href: "#/data/features", active: false },
     ],
   },
   {

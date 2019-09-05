@@ -14,4 +14,25 @@
     height: 250px;
     margin-top: 2em;
   }
+
+  .container-map-loads,
+  .container-geo-api-loads
+  {
+    color: #ffffff;
+
+    .module-title
+    {
+      color: #ffffff;
+    }
+  }
+
+  .container-map-loads
+  {
+    background-color: rgba(0, 149, 221, 1);
+  }
+
+  .container-geo-api-loads
+  {
+    background-color: rgba(255, 99, 132, 1);
+  }
 }
