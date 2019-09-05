@@ -49,9 +49,9 @@ const Dashboard = (props: Props) => {
     labels: labels,
     datasets: [
       {
-        borderColor: 'rgba(0, 149, 221, 1)',
-        backgroundColor: 'rgba(0, 149, 221, 0.2)',
-        data: [100, 110, 120, 150, 167, 170, 200, 500],
+        borderColor: '#ffffff',
+        backgroundColor: 'rgba(255, 255, 255, 0.4)',
+        data: [100, 110, 120, 150, 167, 170, 200, 500, 800, 1200, 1400],
       },
     ],
   }
@@ -60,9 +60,9 @@ const Dashboard = (props: Props) => {
     labels: labels,
     datasets: [
       {
-        borderColor: 'rgba(255, 99, 132, 1)',
-        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-        data: [3000, 4000, 5000, 7000, 8000, 12000, 13000, 52000, 56000],
+        borderColor: '#ffffff',
+        backgroundColor: 'rgba(255, 255, 255, 0.4)',
+        data: [3000, 4000, 5000, 7000, 8000, 12000, 13000, 52000, 56000, 58000],
       },
     ],
   }
@@ -93,7 +93,7 @@ const Dashboard = (props: Props) => {
         </Grid>
 
         <Grid item sm={12} md={6}>
-          <Paper>
+          <Paper className="container-map-loads">
             <Typography component="h2" className="module-title">Map loads</Typography>
             <div className="chart-container">
               <Line data={mapChartData} options={chartOptions} />
@@ -102,7 +102,7 @@ const Dashboard = (props: Props) => {
         </Grid>
 
         <Grid item sm={12} md={6}>
-          <Paper>
+          <Paper className="container-geo-api-loads">
             <Typography component="h2" className="module-title">Geo API loads</Typography>
             <div className="chart-container">
               <Line data={geoAPIChartData} options={chartOptions} />

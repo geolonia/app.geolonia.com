@@ -38,7 +38,6 @@ const Content = () => {
     responsive: true,
     scales: {
       yAxes: [{
-        title: 'aaaaaaaaa',
         ticks: {
           min: 0,
         },
