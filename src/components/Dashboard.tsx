@@ -101,7 +101,13 @@ const Dashboard = (props: Props) => {
 
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12}>
-          <p>ここに Getting Started 的なコンテンツ</p>
+          <h2>Getting started</h2>
+          <div className="getting-started">
+            <ul>
+              <li>Get API key - Get API key to create your map!</li>
+              <li>Geolonia Locations - Display your points, lines, polygons in your map application.</li>
+            </ul>
+          </div>
         </Grid>
 
         <Grid item sm={12} md={6}>
