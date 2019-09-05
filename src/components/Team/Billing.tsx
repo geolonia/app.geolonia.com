@@ -19,10 +19,6 @@ const Content = () => {
     margin: '2em 0',
   }
 
-  const cardContainerStyle: React.CSSProperties = {
-    margin: '1em 0',
-  }
-
   const chartData = {
     labels: ['Oct', 'Nov', 'Dec', 'Jan, 2019', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
     datasets: [
