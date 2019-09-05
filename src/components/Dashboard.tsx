@@ -121,7 +121,7 @@ const Dashboard = (props: Props) => {
 
         <Grid item sm={12} md={6}>
           <Paper className="container-geo-api-loads">
-            <Typography component="h2" className="module-title">Geo API loads</Typography>
+            <Typography component="h2" className="module-title">API loads</Typography>
             <div className="chart-container">
               <Line data={geoAPIChartData} options={chartOptions} />
             </div>
