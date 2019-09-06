@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles,Theme } from '@material-ui/core/styles';
 import CodeIcon from '@material-ui/icons/Code';
 import RoomIcon from '@material-ui/icons/Room';
+import Link from '@material-ui/core/Link';
 
 import { Line } from 'react-chartjs-2';
 import moment from 'moment'
@@ -99,13 +100,13 @@ const Dashboard = (props: Props) => {
 
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12}>
-          <h2>Getting started</h2>
-          <div className="getting-started">
+          <Paper className="getting-started">
+            <h2>Getting started</h2>
             <ul>
-              <li>Get API key - Get API key to create your map!</li>
-              <li>Geolonia Locations - Display your points, lines, polygons in your map application.</li>
+              <li><Link href="#" color="inherit" underline="always">Get API key</Link> - Get API key to create your map!</li>
+              <li><Link href="#" color="inherit" underline="always">Geolonia Locations</Link> - Display your points, lines, polygons in your map application.</li>
             </ul>
-          </div>
+          </Paper>
         </Grid>
 
         <Grid item sm={12} md={6}>
@@ -135,7 +136,7 @@ const Dashboard = (props: Props) => {
 
         <Grid item sm={12} md={6}>
           <Paper>
-            <Typography component="h2" className="module-title"><RoomIcon /> Features</Typography>
+            <Typography component="h2" className="module-title"><RoomIcon /> Locations</Typography>
             <Table rows={rowsFeatures} permalink="/data/features/%s" />
           </Paper>
         </Grid>
