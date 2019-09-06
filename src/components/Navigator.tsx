@@ -17,7 +17,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
 
 import './Navigator.css'
-import logo from './custom/logo.svg';
+import defaultGroupIcon from './custom/group.svg';
 
 const categories = [
   {
@@ -99,7 +99,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     <Drawer id="navigator" variant="permanent" {...other}>
       <List disablePadding>
         <ListItem className={clsx(classes.firebase, classes.item, classes.itemCategory)}>
-          <img src={logo} className="logo" alt=""/>
+          <img src={defaultGroupIcon} className="logo" alt=""/>
           <Select className="team" value="default-team">
             <MenuItem value="default-team">miya0001</MenuItem>
             <MenuItem className="create-new-team">Create new team</MenuItem>
