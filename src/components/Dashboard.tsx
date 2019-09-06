@@ -43,15 +43,13 @@ const Dashboard = (props: Props) => {
     labels.push(i)
   }
 
-  console.log(labels)
-
   const mapChartData = {
     labels: labels,
     datasets: [
       {
         borderColor: '#ffffff',
         backgroundColor: 'rgba(255, 255, 255, 0.4)',
-        data: [100, 110, 120, 150, 167, 170, 200, 500, 800, 1200, 1400],
+        data: [],
       },
     ],
   }
@@ -62,7 +60,7 @@ const Dashboard = (props: Props) => {
       {
         borderColor: '#ffffff',
         backgroundColor: 'rgba(255, 255, 255, 0.4)',
-        data: [3000, 4000, 5000, 7000, 8000, 12000, 13000, 52000, 56000, 58000],
+        data: [0, 0, 3000, 4000, 5000, 7000, 8000, 12000, 13000, 52000, 56000, 58000],
       },
     ],
   }
