@@ -6,8 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 
-import ProfileImage from '../custom/logo.svg';
 import Save from '../custom/Save'
+import defaultGroupIcon from '../custom/group.svg';
 
 const Content = () => {
   const styleDangerZone: React.CSSProperties = {
@@ -16,9 +16,9 @@ const Content = () => {
   }
 
   const ProfileImageStyle: React.CSSProperties = {
-    maxWidth: '250px',
+    width: '250px',
     height: 'auto',
-    fill: '#f5f5f5',
+    margin: '16px',
   }
 
   return (
@@ -56,7 +56,7 @@ const Content = () => {
         </Grid>
 
         <Grid item sm={12} md={4}>
-          <Typography component="p" align="center"><img src={ProfileImage} style={ProfileImageStyle} alt="" /><br />
+          <Typography component="p" align="center"><img src={defaultGroupIcon} style={ProfileImageStyle} alt="" /><br />
           <Button variant="contained" color="default">Upload new picture</Button></Typography>
         </Grid>
 
