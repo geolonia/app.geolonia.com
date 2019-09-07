@@ -12,6 +12,8 @@ import { Line } from 'react-chartjs-2';
 import moment from 'moment'
 
 import Table from './custom/Table';
+import iconPlane from './custom/plane.svg';
+
 import './Dashboard.scss'
 
 const styles = (theme:Theme) => ({
@@ -26,9 +28,9 @@ const rowsAPIKeys = [
 ];
 
 const rowsFeatures = [
-  {id: 1111, name: "My Map", updated: "2019-08-28", isPublic: true},
-  {id: 1112, name: "example.com", updated: "2019-08-28", isPublic: false},
-  {id: 1113, name: "example.jp", updated: "2019-08-28", isPublic: true},
+  {id: 1111, name: "和歌山県公衆トイレ", updated: "2019-08-28", isPublic: true},
+  {id: 1112, name: "USGS Earthquake", updated: "2019-08-28", isPublic: false},
+  {id: 1113, name: "テスト", updated: "2019-08-28", isPublic: true},
 ];
 
 type Props= {
@@ -50,7 +52,7 @@ const Dashboard = (props: Props) => {
       {
         borderColor: '#ffffff',
         backgroundColor: 'rgba(255, 255, 255, 0.4)',
-        data: [],
+        data: [1221, 2633, 3941, 4992, 6233, 7586],
       },
     ],
   }
@@ -61,7 +63,7 @@ const Dashboard = (props: Props) => {
       {
         borderColor: '#ffffff',
         backgroundColor: 'rgba(255, 255, 255, 0.4)',
-        data: [0, 0, 3000, 4000, 5000, 7000, 8000, 12000, 13000, 52000, 56000, 58000],
+        data: [0, 0, 3423, 4865, 5766, 7223],
       },
     ],
   }
@@ -98,20 +100,24 @@ const Dashboard = (props: Props) => {
     <div id="dashboard">
       <h1 className="app-title">Welcome, miya0001!</h1>
 
+      <Paper className="getting-started">
+        <div className="box-icon">
+          <img src={iconPlane} alt="" className="icon" />
+        </div>
+        <div className="box-content">
+          <h2>Getting started</h2>
+          <ul>
+            <li><Link href="#" color="inherit" underline="always">Get API key</Link> - Get API key to create your map!</li>
+            <li><Link href="#" color="inherit" underline="always">Geolonia Locations</Link> - Display your points, lines, polygons on your map application.</li>
+          </ul>
+        </div>
+      </Paper>
+
       <Grid container className={classes.root} spacing={2}>
-        <Grid item xs={12}>
-          <Paper className="getting-started">
-            <h2>Getting started</h2>
-            <ul>
-              <li><Link href="#" color="inherit" underline="always">Get API key</Link> - Get API key to create your map!</li>
-              <li><Link href="#" color="inherit" underline="always">Geolonia Locations</Link> - Display your points, lines, polygons in your map application.</li>
-            </ul>
-          </Paper>
-        </Grid>
 
         <Grid item sm={12} md={6}>
           <Paper className="container-map-loads">
-            <Typography component="h2" className="module-title">Map loads</Typography>
+            <Typography component="h2" className="module-title">Map loads for this month</Typography>
             <div className="chart-container">
               <Line data={mapChartData} options={chartOptions} />
             </div>
@@ -120,7 +126,7 @@ const Dashboard = (props: Props) => {
 
         <Grid item sm={12} md={6}>
           <Paper className="container-geo-api-loads">
-            <Typography component="h2" className="module-title">API loads</Typography>
+            <Typography component="h2" className="module-title">API loads for this month</Typography>
             <div className="chart-container">
               <Line data={geoAPIChartData} options={chartOptions} />
             </div>

@@ -41,10 +41,30 @@
     font-size: 140%;
     background-color: #41C464;
     color: #ffffff;
+    display: flex;
+    align-items: center;
+    margin-bottom: 1em;
 
-    h2
+    .box-icon
     {
-      margin: 0;
+      width: 200px;
+      max-width: 25%;
+
+      img
+      {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    .box-content
+    {
+      padding-left: 24px;
+
+      h2
+      {
+        margin: 0;
+      }
     }
   }
 }
