@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import CodeIcon from '@material-ui/icons/Code';
 
 import Table from '../custom/Table';
-import FormDialog from '../custom/FormDialog'
+import AddNew from '../custom/AddNew'
 
 const rows = [
   {id: 1111, name: "My Map", updated: "2019-08-28"},
@@ -15,11 +15,11 @@ const rows = [
 function Content() {
   return (
     <Paper>
-      <Typography component="p" paragraph={true} align="right"><FormDialog
+      <AddNew
         label="Create a new API key"
         description="Please enter the name of new API key."
         default="My API"
-      /></Typography>
+      />
       <Typography component="h3" className="module-title"><CodeIcon /> API Keys</Typography>
       <Table rows={rows} rowsPerPage={10} permalink="/maps/api-keys/%s" />
     </Paper>

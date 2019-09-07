@@ -2,9 +2,9 @@ import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import RoomIcon from '@material-ui/icons/Room';
-import Button from '@material-ui/core/Button';
 
 import Table from '../custom/Table';
+import AddNew from '../custom/AddNew'
 
 const rows = [
   {id: 1111, name: "My Map", updated: "2019-08-28", isPublic: true},
@@ -15,8 +15,12 @@ const rows = [
 function Content() {
   return (
     <Paper>
-      <Typography component="p" paragraph={true} align="right"><Button variant="contained" color="primary"><RoomIcon />&nbsp;New</Button></Typography>
-      <Typography component="h3" className="module-title"><RoomIcon /> Geo APIs</Typography>
+      <AddNew
+        label="Create a new Locations API"
+        description="Please enter the name of new Locations API."
+        default="My Locations"
+      />
+      <Typography component="h3" className="module-title"><RoomIcon /> Locations API</Typography>
       <Table rows={rows} rowsPerPage={10} permalink="/data/features/%s" />
     </Paper>
   );
