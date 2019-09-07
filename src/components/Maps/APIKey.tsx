@@ -31,7 +31,7 @@ const Content = () => {
   return (
     <Paper>
       <Grid container spacing={4}>
-        <Grid item sm={12} md={8}>
+        <Grid item xs={12} md={8}>
           <Typography component="h2" className="module-title">Settings</Typography>
           <TextField
             id="standard-name"
@@ -61,7 +61,7 @@ const Content = () => {
           </div>
         </Grid>
 
-        <Grid item sm={12} md={4}>
+        <Grid item xs={12} md={4}>
           <Typography component="h2" className="module-title">Your API Key</Typography>
           <Code>{apiKey}</Code>
           <Typography component="h2" className="module-title">Add the map to your site</Typography>
