@@ -24,7 +24,7 @@ const Content = () => {
   return (
     <Paper>
       <Grid container spacing={4}>
-        <Grid item sm={12} md={8}>
+        <Grid item xs={12} md={8}>
           <Typography component="h2" className="module-title">General</Typography>
           <TextField
             id="standard-name"
@@ -55,12 +55,12 @@ const Content = () => {
           <Save />
         </Grid>
 
-        <Grid item sm={12} md={4}>
+        <Grid item xs={12} md={4}>
           <Typography component="p" align="center"><img src={defaultGroupIcon} style={ProfileImageStyle} alt="" /><br />
           <Button variant="contained" color="default">Upload new picture</Button></Typography>
         </Grid>
 
-        <Grid item sm={12} md={12}>
+        <Grid item xs={12} md={12}>
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">Danger Zone</Typography>
             <p>Once you delete a team, there is no going back. Please be certain. </p>

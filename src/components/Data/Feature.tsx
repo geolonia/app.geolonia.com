@@ -34,7 +34,7 @@ const Content = () => {
   return (
     <Paper>
       <Grid container spacing={4}>
-        <Grid item sm={12} md={8}>
+        <Grid item xs={12} md={8}>
           <Typography component="h2" className="module-title"><RoomIcon /> Geo API</Typography>
           <div style={mapStyle}></div>
 
@@ -54,7 +54,7 @@ const Content = () => {
           />
         </Grid>
 
-        <Grid item sm={12} md={4}>
+        <Grid item xs={12} md={4}>
           <Card style={cardStyle}>
             <CardContent>
               <FormControlLabel
