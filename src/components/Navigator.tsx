@@ -15,7 +15,7 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
-import MyLocationIcon from '@material-ui/icons/MyLocation';
+// import MyLocationIcon from '@material-ui/icons/MyLocation';
 
 import './Navigator.css'
 import defaultGroupIcon from './custom/group.svg';
@@ -31,8 +31,8 @@ const categories = [
   {
     id: 'API Services',
     children: [
-      { id: 'Geolonia Locations', icon: <RoomIcon />, href: "#/data/features", active: false },
-      { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
+      { id: 'Locations API', icon: <RoomIcon />, href: "#/data/features", active: false },
+      // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
     ],
   },
   {
