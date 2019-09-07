@@ -7,6 +7,7 @@ import { withStyles,Theme } from '@material-ui/core/styles';
 import CodeIcon from '@material-ui/icons/Code';
 import RoomIcon from '@material-ui/icons/Room';
 import Link from '@material-ui/core/Link';
+import Hidden from '@material-ui/core/Hidden';
 
 import { Line } from 'react-chartjs-2';
 import moment from 'moment'
@@ -43,7 +44,11 @@ const Dashboard = (props: Props) => {
   const lastDay = moment().add('months', 1).date(0).date()
   const labels = []
   for (let i = 1; i <= lastDay; i++) {
-    labels.push(i)
+    if (1 === i || 0 === (i % 5) || i === lastDay) {
+      labels.push(i)
+    } else {
+      labels.push('')
+    }
   }
 
   const mapChartData = {
@@ -101,9 +106,11 @@ const Dashboard = (props: Props) => {
       <h1 className="app-title">Welcome, miya0001!</h1>
 
       <Paper className="getting-started">
-        <div className="box-icon">
-          <img src={iconPlane} alt="" className="icon" />
-        </div>
+        <Hidden smDown>
+          <div className="box-icon">
+            <img src={iconPlane} alt="" className="icon" />
+          </div>
+        </Hidden>
         <div className="box-content">
           <h2>Getting started</h2>
           <ul>
@@ -115,7 +122,7 @@ const Dashboard = (props: Props) => {
 
       <Grid container className={classes.root} spacing={2}>
 
-        <Grid item sm={12} md={6}>
+        <Grid item xs={12} md={6}>
           <Paper className="container-map-loads">
             <Typography component="h2" className="module-title">Map loads for this month</Typography>
             <div className="chart-container">
@@ -124,7 +131,7 @@ const Dashboard = (props: Props) => {
           </Paper>
         </Grid>
 
-        <Grid item sm={12} md={6}>
+        <Grid item xs={12} md={6}>
           <Paper className="container-geo-api-loads">
             <Typography component="h2" className="module-title">API loads for this month</Typography>
             <div className="chart-container">
@@ -133,14 +140,14 @@ const Dashboard = (props: Props) => {
           </Paper>
         </Grid>
 
-        <Grid item sm={12} md={6}>
+        <Grid item xs={12} md={6}>
           <Paper>
             <Typography component="h2" className="module-title"><CodeIcon /> API Keys</Typography>
             <Table rows={rowsAPIKeys} permalink="/maps/api-keys/%s" />
           </Paper>
         </Grid>
 
-        <Grid item sm={12} md={6}>
+        <Grid item xs={12} md={6}>
           <Paper>
             <Typography component="h2" className="module-title"><RoomIcon /> Locations</Typography>
             <Table rows={rowsFeatures} permalink="/data/features/%s" />
