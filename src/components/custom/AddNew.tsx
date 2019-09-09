@@ -9,8 +9,12 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import AddIcon from '@material-ui/icons/Add';
 
 type Props = {
+  buttonLabel: string,
   label: string,
   description: string,
+  fieldName: string,
+  fieldLabel: string,
+  fieldType: string,
   default: string,
   handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void,
 }
@@ -34,7 +38,7 @@ const AddNew = (props: Props) => {
   return (
     <div>
       <form>
-        <p style={buttonStyle}><Button variant="contained" color="primary" onClick={handleClickOpen}><AddIcon /> New</Button></p>
+        <p style={buttonStyle}><Button variant="contained" color="primary" onClick={handleClickOpen}><AddIcon /> {props.buttonLabel}</Button></p>
         <Dialog open={open} onClose={handleClose} fullWidth={true} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">{props.label}</DialogTitle>
           <DialogContent>
@@ -42,9 +46,9 @@ const AddNew = (props: Props) => {
             <TextField
               autoFocus
               margin="dense"
-              name="api-name"
-              label="Name"
-              type="text"
+              name={props.fieldName}
+              label={props.fieldLabel}
+              type={props.fieldType}
               value={props.default}
               fullWidth
             />
@@ -64,6 +68,10 @@ const AddNew = (props: Props) => {
 }
 
 AddNew.defaultProps = {
+  buttonLabel: 'New',
+  fieldName: 'name',
+  fieldLabel: 'Name',
+  fieldType: 'text',
   handler: (event: React.MouseEvent) => {
     console.log(event)
   },
