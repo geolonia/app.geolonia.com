@@ -11,8 +11,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-
 import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
+import PersonIcon from '@material-ui/icons/Person';
 
 import AddNew from '../custom/AddNew'
 
@@ -90,7 +90,7 @@ const Content = () => {
         <TableBody>
           {rows.map((row: any) => (
             <TableRow key={row.id} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} data-id={row.id}>
-              <TableCell style={firstCellStyle} padding="none"><img style={imgStyle} src={row.avatar} alt="" /></TableCell>
+              <TableCell style={firstCellStyle} padding="none"><PersonIcon /></TableCell>
               <TableCell component="th" scope="row">
                 {row.name}<br />@{row.username}
               </TableCell>
