@@ -14,13 +14,12 @@ import TableRow from '@material-ui/core/TableRow';
 
 import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
 
-import logo from '../custom/logo.svg';
 import AddNew from '../custom/AddNew'
 
 const rows = [
-  {id: 1111, icon: logo, name: "Taro Yamada", username: 'taro', isOwner: true},
-  {id: 1112, icon: logo, name: "Hanako Yamada", username: 'taro', isOwner: false},
-  {id: 1113, icon: logo, name: "Ichiro Suzuki", username: 'taro', isOwner: true},
+  {id: 1111, avatar: 'https://avatars2.githubusercontent.com/u/309946?s=400&v=4', name: "Taro Yamada", username: 'taro', isOwner: true},
+  {id: 1112, avatar: 'https://avatars2.githubusercontent.com/u/309946?s=400&v=4', name: "Hanako Yamada", username: 'taro', isOwner: false},
+  {id: 1113, avatar: 'https://avatars2.githubusercontent.com/u/309946?s=400&v=4', name: "Ichiro Suzuki", username: 'taro', isOwner: true},
 ];
 
 const Content = () => {
@@ -91,7 +90,7 @@ const Content = () => {
         <TableBody>
           {rows.map((row: any) => (
             <TableRow key={row.id} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} data-id={row.id}>
-              <TableCell style={firstCellStyle} padding="none"><img style={imgStyle} src={row.icon} alt="" /></TableCell>
+              <TableCell style={firstCellStyle} padding="none"><img style={imgStyle} src={row.avatar} alt="" /></TableCell>
               <TableCell component="th" scope="row">
                 {row.name}<br />@{row.username}
               </TableCell>
