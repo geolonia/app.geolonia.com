@@ -9,6 +9,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles, Theme } from '@material-ui/core/styles';
+import Person from '@material-ui/icons/person';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -39,7 +40,7 @@ type Props= {
   onDrawerToggle: () => void
 }
 
-function Header(props: Props) {
+const Header = (props: Props) => {
   const { classes, onDrawerToggle } = props;
 
   const headerStyle = {
