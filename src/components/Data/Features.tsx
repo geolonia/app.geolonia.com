@@ -13,12 +13,17 @@ const rows = [
 ];
 
 function Content() {
+  const handler = (event: React.MouseEvent) => {
+
+  }
+
   return (
     <Paper>
       <AddNew
         label="Create a new Locations API"
         description="Please enter the name of new Locations API."
         default="My Locations"
+        handler={handler}
       />
       <Typography component="h3" className="module-title"><RoomIcon /> Locations API</Typography>
       <Table rows={rows} rowsPerPage={10} permalink="/data/features/%s" />

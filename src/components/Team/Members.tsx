@@ -15,6 +15,7 @@ import TableRow from '@material-ui/core/TableRow';
 import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
 
 import logo from '../custom/logo.svg';
+import AddNew from '../custom/AddNew'
 
 const rows = [
   {id: 1111, icon: logo, name: "Taro Yamada", username: 'taro', isOwner: true},
@@ -67,8 +68,23 @@ const Content = () => {
     setAnchorEl(null);
   }
 
+  const inviteHandler = () => {
+
+  }
+
   return (
     <Paper>
+      <AddNew
+        buttonLabel="Invite"
+        label="Invite a member"
+        description="We automatically update your billing as you add and remove team members."
+        default=""
+        fieldName="email"
+        fieldLabel="Email"
+        fieldType="email"
+        handler={inviteHandler}
+      />
+
       <Typography component="h2" className="module-title">Team Members</Typography>
 
       <Table className="geolonia-list-table">
