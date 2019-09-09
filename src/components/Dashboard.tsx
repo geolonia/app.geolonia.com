@@ -103,8 +103,6 @@ const Dashboard = (props: Props) => {
 
   return (
     <div id="dashboard">
-      <h1 className="app-title">Welcome, miya0001!</h1>
-
       <Paper className="getting-started">
         <Hidden smDown>
           <div className="box-icon">
@@ -112,7 +110,7 @@ const Dashboard = (props: Props) => {
           </div>
         </Hidden>
         <div className="box-content">
-          <h2>Getting started</h2>
+          <h2>Welcome, miya0001!</h2>
           <ul>
             <li><Link href="#/maps/api-keys" color="inherit" underline="always">Get API key</Link> - Get API key to create your map!</li>
             <li><Link href="#/data/features" color="inherit" underline="always">Geolonia Locations</Link> - Display your points, lines, polygons on your map application.</li>
