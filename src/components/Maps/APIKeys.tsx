@@ -13,12 +13,17 @@ const rows = [
 ];
 
 function Content() {
+  const handler = (event: React.MouseEvent) => {
+
+  }
+
   return (
     <Paper>
       <AddNew
         label="Create a new API key"
         description="Please enter the name of new API key."
         default="My API"
+        handler={handler}
       />
       <Typography component="h3" className="module-title"><CodeIcon /> API Keys</Typography>
       <Table rows={rows} rowsPerPage={10} permalink="/maps/api-keys/%s" />
