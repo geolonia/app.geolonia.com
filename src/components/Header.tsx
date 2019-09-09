@@ -1,6 +1,5 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
-import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,7 +8,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles, Theme } from '@material-ui/core/styles';
-import Person from '@material-ui/icons/person';
+import PersonIcon from '@material-ui/icons/Person';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -43,9 +42,14 @@ type Props= {
 const Header = (props: Props) => {
   const { classes, onDrawerToggle } = props;
 
-  const headerStyle = {
+  const headerStyle: React.CSSProperties = {
     backgroundColor: '#EE5F28',
-  } as React.CSSProperties
+  }
+
+  const avatarStyle: React.CSSProperties = {
+    width: '24px',
+    height: '24px',
+  }
 
   const onClick = () => {
     window.location.hash = '/user'
@@ -69,20 +73,16 @@ const Header = (props: Props) => {
               </Grid>
             </Hidden>
             <Grid item xs />
-            <Grid item>
+            {/* <Grid item>
               <Tooltip title="Alerts • No alters">
                 <IconButton color="inherit">
                   <NotificationsIcon />
                 </IconButton>
               </Tooltip>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <IconButton onClick={onClick} color="inherit" className={classes.iconButtonAvatar}>
-                <Avatar
-                  className={classes.avatar}
-                  src="https://avatars2.githubusercontent.com/u/309946?s=400&v=4"
-                  alt="My Avatar"
-                />
+                <PersonIcon style={avatarStyle} />
               </IconButton>
             </Grid>
           </Grid>
