@@ -15,11 +15,12 @@ import Link from '@material-ui/core/Link';
 import Save from '../custom/Save'
 import Delete from '../custom/Delete'
 import Code from '../custom/Code'
+import MapEditor from '../custom/MapEditor'
 
 const Content = () => {
   const mapStyle: React.CSSProperties = {
     width: '100%',
-    height: '250px',
+    height: '400px',
     border: '1px solid #dedede',
     margin: '1em 0',
   }
@@ -51,7 +52,7 @@ const Content = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <Typography component="h2" className="module-title"><RoomIcon /> Geolonia GIS</Typography>
-          <div style={mapStyle}></div>
+          <div style={mapStyle}><MapEditor /></div>
 
           <TextField
             id="standard-name"
@@ -104,7 +105,7 @@ const Content = () => {
               <Typography style={styleHelpText} component="p" color="textSecondary">Public features will be displayed on <Link href="#">open data directory</Link> and anyone can download this features without API key.</Typography>
             </CardContent>
             <CardActions>
-              <Save />
+              <Save handler={saveHandler} />
             </CardActions>
           </Card>
 
