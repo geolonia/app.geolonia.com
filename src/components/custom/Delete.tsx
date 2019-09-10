@@ -65,7 +65,7 @@ const Delete = (props: Props) => {
 }
 
 Delete.defaultProps = {
-  text1: 'Are you sure you want to delete API key?',
+  text1: 'Are you sure you want to delete this API key?',
   text2: 'Please type in the name of the API key to confirm.',
   handler: (event: React.MouseEvent) => {
     console.log(event)
