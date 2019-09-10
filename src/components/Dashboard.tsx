@@ -148,7 +148,7 @@ const Dashboard = (props: Props) => {
         <Grid item xs={12} md={6}>
           <Paper>
             <Typography component="h2" className="module-title"><RoomIcon /> Locations</Typography>
-            <Table rows={rowsFeatures} permalink="/data/features/%s" />
+            <Table rows={rowsFeatures} permalink="/data/gis/%s" />
           </Paper>
         </Grid>
       </Grid>
