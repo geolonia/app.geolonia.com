@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 
 import Code from '../custom/Code'
 import Save from '../custom/Save'
+import Delete from '../custom/Delete'
 
 const Content = () => {
   const styleDangerZone = {
@@ -23,6 +24,14 @@ const Content = () => {
   const styleHelpText = {
     fontSize: '0.9rem',
   } as React.CSSProperties
+
+  const saveHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+  }
+
+  const deleteHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+  }
 
   const apiKey = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
   const embedCode = `<script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${apiKey}"></script>`
@@ -52,12 +61,12 @@ const Content = () => {
           <Typography style={styleHelpText} component="p" color="textSecondary">Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS.<br />
           Please enter a value of URLs on a new line.</Typography>
 
-          <Save />
+          <Save handler={saveHandler} />
 
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">Danger Zone</Typography>
             <p>Once you delete a API key, there is no going back. Please be certain. </p>
-            <Button variant="contained" color="secondary">Delete</Button>
+            <Delete handler={deleteHandler} />
           </div>
         </Grid>
 
