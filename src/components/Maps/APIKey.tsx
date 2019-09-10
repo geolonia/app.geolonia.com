@@ -42,7 +42,7 @@ const Content = () => {
       <Paper>
         <Grid container spacing={4}>
           <Grid item xs={12} md={8}>
-            <Typography component="h2" className="module-title">Settings</Typography>
+            <Typography component="h2" className="module-title">API Key</Typography>
             <TextField
               id="standard-name"
               label="Name"
