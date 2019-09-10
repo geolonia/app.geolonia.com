@@ -29,8 +29,8 @@ const Content = () => {
 
   }
 
-  const deleteHandler = (event: React.FormEvent) => {
-    console.log('aaaaaaaaaaaaaaaaaaaaaaaa')
+  const deleteHandler = (event: React.MouseEvent) => {
+
   }
 
   const apiKey = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
