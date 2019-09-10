@@ -8,8 +8,8 @@ import Dashboard from './Dashboard';
 import APIKeys from './Maps/APIKeys';
 import APIKey from './Maps/APIKey';
 
-import APIs from './Data/APIs';
-import API from './Data/API';
+import GISs from './Data/GISs';
+import GIS from './Data/GIS';
 
 import General from './Team/General';
 import Members from './Team/Members';
@@ -30,8 +30,8 @@ function Content(props: Props) {
       <Route exact path='/maps/api-keys' component={APIKeys} />
       <Route exact path='/maps/api-keys/:id' component={APIKey} />
 
-      <Route exact path='/data/gis' component={APIs} />
-      <Route exact path='/data/gis/:id' component={API} />
+      <Route exact path='/data/gis' component={GISs} />
+      <Route exact path='/data/gis/:id' component={GIS} />
 
       <Route exact path='/team/general' component={General} />
       <Route exact path='/team/members' component={Members} />
