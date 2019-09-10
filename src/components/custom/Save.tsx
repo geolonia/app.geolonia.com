@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 
 type Props= {
   label: string,
-  onClick: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
 const Save = (props: Props) => {
@@ -15,13 +15,13 @@ const Save = (props: Props) => {
   } as React.CSSProperties
 
   return (
-    <Typography style={style} component="p" paragraph={true} align="right"><Button variant="contained" color="primary" onClick={props.onClick}>{props.label}</Button></Typography>
+    <Typography style={style} component="p" paragraph={true} align="right"><Button variant="contained" color="primary" onClick={props.handler}>{props.label}</Button></Typography>
   );
 }
 
 Save.defaultProps = {
   label: 'Save',
-  onClick: (event: React.MouseEvent) => {
+  handler: (event: React.MouseEvent) => {
     console.log(event)
   }
 };
