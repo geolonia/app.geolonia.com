@@ -55,6 +55,11 @@ p.description
   color: #555555;
 }
 
+.snackbar-saved .MuiSnackbarContent-root
+{
+  background-color: #009be5;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
