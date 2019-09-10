@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 type Props= {
   text1: string,
   text2: string,
-  handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  handler: (event: React.FormEvent) => void
 }
 
 const Delete = (props: Props) => {
@@ -33,31 +33,33 @@ const Delete = (props: Props) => {
 
   return (
     <div>
-      <Typography style={style} component="p" paragraph={true} align="left"><Button variant="contained" color="secondary" onClick={handleClickOpen}>Delete</Button></Typography>
-      <Dialog open={open} onClose={handleClose} fullWidth={true} aria-labelledby="form-dialog-title">
-        <DialogTitle id="form-dialog-title">Delete</DialogTitle>
-        <DialogContent>
-          <DialogContentText>{props.text1}<br />{props.text2}</DialogContentText>
-          <TextField
-            autoFocus
-            error
-            margin="dense"
-            name="name"
-            label="Name"
-            type="text"
-            value=""
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="secondary">
-            Cancel
-          </Button>
-          <Button onSubmit={props.handler} color="secondary" type="submit">
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <form onSubmit={props.handler}>
+        <Typography style={style} component="p" paragraph={true} align="left"><Button variant="contained" color="secondary" onClick={handleClickOpen}>Delete</Button></Typography>
+        <Dialog open={open} onClose={handleClose} fullWidth={true} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Delete</DialogTitle>
+          <DialogContent>
+            <DialogContentText>{props.text1}<br />{props.text2}</DialogContentText>
+            <TextField
+              autoFocus
+              error
+              margin="dense"
+              name="name"
+              label="Name"
+              type="text"
+              value=""
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="inherit">
+              Cancel
+            </Button>
+            <Button color="secondary" type="submit">
+              Delete
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </form>
     </div>
   );
 }
@@ -65,7 +67,7 @@ const Delete = (props: Props) => {
 Delete.defaultProps = {
   text1: 'Are you sure you want to delete API key?',
   text2: 'Please type in the name of the API key to confirm.',
-  handler: (event: React.MouseEvent) => {
+  handler: (event: React.FormEvent) => {
     console.log(event)
   }
 };
