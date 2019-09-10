@@ -68,8 +68,6 @@ const Content = () => {
             <p>Once you delete an API, there is no going back. Please be certain. </p>
             <Delete
               handler={deleteHandler}
-              text1="Are you sure you want to delete this API?"
-              text2="Please type in the name of the API to confirm."
             />
           </div>
         </Grid>

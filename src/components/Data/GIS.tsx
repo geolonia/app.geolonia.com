@@ -50,7 +50,7 @@ const Content = () => {
     <Paper>
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <Typography component="h2" className="module-title"><RoomIcon /> Geo API</Typography>
+          <Typography component="h2" className="module-title"><RoomIcon /> Geolonia GIS</Typography>
           <div style={mapStyle}></div>
 
           <TextField
@@ -83,7 +83,11 @@ const Content = () => {
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">Danger Zone</Typography>
             <p>Once you delete a API key, there is no going back. Please be certain. </p>
-            <Delete handler={deleteHandler} />
+            <Delete
+              handler={deleteHandler}
+              text1="Are you sure you want to delete this dataset?"
+              text2="Please type in the name of the dataset to confirm."
+            />
           </div>
         </Grid>
 
