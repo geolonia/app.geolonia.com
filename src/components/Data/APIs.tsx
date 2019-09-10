@@ -25,8 +25,11 @@ function Content() {
         default="My Locations"
         handler={handler}
       />
-      <Typography component="h3" className="module-title"><RoomIcon /> Locations API</Typography>
-      <Table rows={rows} rowsPerPage={10} permalink="/data/features/%s" />
+      <Typography component="h3" className="module-title"><RoomIcon /> Geolonia GIS</Typography>
+
+      <p className="description">Geolonia GIS is an API service to display points, lines, polygons for your map application.</p>
+
+      <Table rows={rows} rowsPerPage={10} permalink="/data/gis/%s" />
     </Paper>
   );
 }
