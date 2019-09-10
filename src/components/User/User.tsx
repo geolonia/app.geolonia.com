@@ -6,16 +6,17 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
+import PersonIcon from '@material-ui/icons/Person';
 
 import ProfileImage from '../custom/logo.svg';
 import Save from '../custom/Save'
 
 const Content = () => {
-  const ProfileImageStyle = {
-    maxWidth: '250px',
+  const ProfileImageStyle: React.CSSProperties = {
+    width: '250px',
     height: 'auto',
-    fill: '#f5f5f5',
-  } as React.CSSProperties
+    fill: '#dedede',
+  }
 
   const linkStyle = {
     marginLeft: '1em',
@@ -77,7 +78,7 @@ const Content = () => {
         </Grid>
 
         <Grid item sm={12} md={4}>
-          <Typography component="p" align="center"><img src={ProfileImage} style={ProfileImageStyle} alt="" /><br />
+          <Typography component="p" align="center"><PersonIcon style={ProfileImageStyle} /><br />
           <Button variant="contained" color="default">Upload new picture</Button></Typography>
         </Grid>
       </Grid>
