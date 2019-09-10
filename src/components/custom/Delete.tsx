@@ -12,7 +12,7 @@ import TextField from '@material-ui/core/TextField';
 type Props= {
   text1: string,
   text2: string,
-  handler: (event: React.FormEvent) => void
+  handler: (event: React.MouseEvent) => void
 }
 
 const Delete = (props: Props) => {
@@ -33,7 +33,7 @@ const Delete = (props: Props) => {
 
   return (
     <div>
-      <form onSubmit={props.handler}>
+      <form>
         <Typography style={style} component="p" paragraph={true} align="left"><Button variant="contained" color="secondary" onClick={handleClickOpen}>Delete</Button></Typography>
         <Dialog open={open} onClose={handleClose} fullWidth={true} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">Delete</DialogTitle>
@@ -54,7 +54,7 @@ const Delete = (props: Props) => {
             <Button onClick={handleClose} color="inherit">
               Cancel
             </Button>
-            <Button color="secondary" type="submit">
+            <Button color="secondary" onClick={props.handler} type="submit">
               Delete
             </Button>
           </DialogActions>
@@ -67,7 +67,7 @@ const Delete = (props: Props) => {
 Delete.defaultProps = {
   text1: 'Are you sure you want to delete API key?',
   text2: 'Please type in the name of the API key to confirm.',
-  handler: (event: React.FormEvent) => {
+  handler: (event: React.MouseEvent) => {
     console.log(event)
   }
 };

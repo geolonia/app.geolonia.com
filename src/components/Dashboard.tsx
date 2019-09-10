@@ -41,7 +41,7 @@ type Props= {
 const Dashboard = (props: Props) => {
   const { classes } = props;
 
-  const lastDay = moment().add('months', 1).date(0).date()
+  const lastDay = moment().add(1, 'months').date(0).date()
   const labels = []
   for (let i = 1; i <= lastDay; i++) {
     if (1 === i || 0 === (i % 5) || i === lastDay) {
