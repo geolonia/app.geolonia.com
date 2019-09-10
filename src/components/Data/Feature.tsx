@@ -13,6 +13,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Link from '@material-ui/core/Link';
 
 import Save from '../custom/Save'
+import Delete from '../custom/Delete'
 import Code from '../custom/Code'
 
 const Content = () => {
@@ -23,12 +24,26 @@ const Content = () => {
     margin: '1em 0',
   }
 
+  const styleDangerZone = {
+    border: '1px solid #ff0000',
+    marginTop: '10em',
+    padding: '16px 24px',
+  } as React.CSSProperties
+
   const styleHelpText: React.CSSProperties = {
     fontSize: '0.9rem',
   }
 
   const cardStyle: React.CSSProperties = {
     marginTop: '1em',
+  }
+
+  const saveHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+
+  }
+
+  const deleteHandler = (event: React.MouseEvent) => {
+
   }
 
   return (
@@ -52,6 +67,24 @@ const Content = () => {
             rows={5}
             fullWidth={true}
           />
+          <TextField
+            id="standard-name"
+            label="URLs"
+            margin="normal"
+            multiline={true}
+            rows={5}
+            placeholder="https://example.com"
+            fullWidth={true}
+          />
+
+          <Typography style={styleHelpText} component="p" color="textSecondary">Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS.<br />
+            Please enter a value of URLs on a new line.</Typography>
+
+          <div style={styleDangerZone}>
+            <Typography component="h3" color="secondary">Danger Zone</Typography>
+            <p>Once you delete a API key, there is no going back. Please be certain. </p>
+            <Delete handler={deleteHandler} />
+          </div>
         </Grid>
 
         <Grid item xs={12} md={4}>
@@ -72,7 +105,7 @@ const Content = () => {
           </Card>
 
           <Card style={cardStyle}>
-            <Typography component="h2" className="module-title">API</Typography>
+            <Typography component="h2" className="module-title">Private URL</Typography>
             <Code>https://example.com/...</Code>
             <Typography component="h2" className="module-title">Public URL</Typography>
             <Code>https://example.com/...</Code>
