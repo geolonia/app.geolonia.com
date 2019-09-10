@@ -23,11 +23,6 @@ const rows = [
 ];
 
 const Content = () => {
-
-  const imgStyle: React.CSSProperties = {
-    width: '100%',
-  }
-
   const firstCellStyle: React.CSSProperties = {
     width: '56px',
     padding: '8px 0 3px 8px',
