@@ -100,6 +100,7 @@ const Content = () => {
                   onClose={handleClose}
                 >
                   <MenuItem onClick={handleClose}>Change role</MenuItem>
+                  <MenuItem onClick={handleClose}>Deactivate</MenuItem>
                   <MenuItem onClick={handleClose}>Remove from team</MenuItem>
                 </Menu>
               </TableCell>
