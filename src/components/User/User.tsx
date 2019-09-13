@@ -8,7 +8,6 @@ import Link from '@material-ui/core/Link';
 import TextField from '@material-ui/core/TextField';
 import PersonIcon from '@material-ui/icons/Person';
 
-import ProfileImage from '../custom/logo.svg';
 import Save from '../custom/Save'
 
 const Content = () => {
