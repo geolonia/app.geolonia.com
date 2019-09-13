@@ -21,11 +21,11 @@ const Content = (props: Props) => {
         <div className="form">
           <img src={Logo} alt="" className="logo" />
           <h1>Sign in to Geolonia</h1>
-          <label>
+          <label className="username">
             <h2>Username or email address</h2>
             <input type="text" />
           </label>
-          <label>
+          <label className="password">
             <h2>Password</h2>
             <input type="text" />
           </label>
