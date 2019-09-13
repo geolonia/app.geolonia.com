@@ -19,6 +19,17 @@
       border: 1px solid #dedede;
       border-radius: 5px;
       padding: 24px 32px;
+
+      label
+      {
+        padding: 0;
+        display: block;
+      }
+
+      button
+      {
+        margin-top: 1em;
+      }
     }
 
     .logo
