@@ -19,18 +19,19 @@ const Content = (props: Props) => {
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>Welcome to Geolonia</h1>
+        <h2>Create your account</h2>
 
         <div className="form">
           <label className="username">
-            <h2>Username</h2>
+            <h3>Username</h3>
             <input type="text" />
           </label>
           <label className="email">
-            <h2>Email address</h2>
+            <h3>Email address</h3>
             <input type="text" />
           </label>
           <label className="password">
-            <h2>Password</h2>
+            <h3>Password</h3>
             <input type="text" />
           </label>
           <p><Button variant="contained" color="primary" onClick={handleSignup}>Sign up</Button></p>
