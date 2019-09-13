@@ -6,9 +6,12 @@
 
   .container
   {
+    position: absolute;
     width: 320px;
     max-width: 95%;
-    margin: 40px auto;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
 
     .main
     {
@@ -21,6 +24,17 @@
       border: 1px solid #dedede;
       border-radius: 5px;
       padding: 24px 32px;
+
+      label
+      {
+        padding: 0;
+        display: block;
+      }
+
+      button
+      {
+        margin-top: 1em;
+      }
     }
 
     .logo
