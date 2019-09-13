@@ -3,11 +3,16 @@ import {  withStyles, createStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
+import { HashRouter, Route, Switch } from 'react-router-dom';
+
 import Navigator from './Navigator';
 import Router from './Router';
 import Header from './Header';
 import Footer from './Footer';
 import {theme} from '../assets/mui-theme'
+
+import Signup from './Signup'
+import Signin from './Signin'
 
 const drawerWidth = 256;
 const styles = createStyles({
@@ -52,26 +57,34 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <nav className={classes.drawer}>
-          <Hidden smUp implementation="js">
-            <Navigator
-              PaperProps={{ style: { width: drawerWidth } }}
-              variant="temporary"
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-            />
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Navigator PaperProps={{ style: { width: drawerWidth } }} />
-          </Hidden>
-        </nav>
-        <div className={classes.appContent}>
-          <Header onDrawerToggle={handleDrawerToggle} />
-          <main className={classes.mainContent}>
-            <Router />
-          </main>
-          <Footer />
-        </div>
+        <HashRouter>
+          <Switch>
+            <Route exact path='/signup' component={Signup} />
+            <Route exact path='/signin' component={Signin} />
+            <Route exact>
+              <nav className={classes.drawer}>
+                <Hidden smUp implementation="js">
+                  <Navigator
+                    PaperProps={{ style: { width: drawerWidth } }}
+                    variant="temporary"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                  />
+                </Hidden>
+                <Hidden xsDown implementation="css">
+                  <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+                </Hidden>
+              </nav>
+              <div className={classes.appContent}>
+                <Header onDrawerToggle={handleDrawerToggle} />
+                <main className={classes.mainContent}>
+                  <Router />
+                </main>
+                <Footer />
+              </div>
+            </Route>
+          </Switch>
+        </HashRouter>
       </div>
     </ThemeProvider>
   );
