@@ -4,7 +4,7 @@ import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import Navigator from './Navigator';
-import Content from './Content';
+import Router from './Router';
 import Header from './Header';
 import Footer from './Footer';
 import {theme} from '../assets/mui-theme'
@@ -68,7 +68,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
         <div className={classes.appContent}>
           <Header onDrawerToggle={handleDrawerToggle} />
           <main className={classes.mainContent}>
-            <Content />
+            <Router />
           </main>
           <Footer />
         </div>
