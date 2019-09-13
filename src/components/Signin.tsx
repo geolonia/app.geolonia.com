@@ -29,7 +29,7 @@ const Content = (props: Props) => {
             <h2>Password</h2>
             <input type="text" />
           </label>
-          <p className="forgot-password"><Link href="#/password">Forgot password?</Link></p>
+          <p className="forgot-password"><Link href="#/reset-password">Forgot password?</Link></p>
           <p><Button variant="contained" color="primary" onClick={handleSignin}>Sign in</Button></p>
         </div>
 
