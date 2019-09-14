@@ -13,6 +13,8 @@ import {theme} from '../assets/mui-theme'
 
 import Signup from './Signup'
 import Signin from './Signin'
+import ForgotPassword from './ForgotPassword'
+import ResetPassword from './ResetPassword'
 
 const drawerWidth = 256;
 const styles = createStyles({
@@ -61,6 +63,8 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
           <Switch>
             <Route exact path='/signup' component={Signup} />
             <Route exact path='/signin' component={Signin} />
+            <Route exact path='/forgot-password' component={ForgotPassword} />
+            <Route exact path='/reset-password' component={ResetPassword} />
             <Route exact>
               <nav className={classes.drawer}>
                 <Hidden smUp implementation="js">
