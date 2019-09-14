@@ -3,12 +3,15 @@ import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 import Toolbar from '@material-ui/core/Toolbar';
 // import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles, Theme } from '@material-ui/core/styles';
+
 import PersonIcon from '@material-ui/icons/Person';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -41,6 +44,7 @@ type Props= {
 
 const Header = (props: Props) => {
   const { classes, onDrawerToggle } = props;
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const headerStyle: React.CSSProperties = {
     backgroundColor: '#EE5F28',
@@ -51,8 +55,21 @@ const Header = (props: Props) => {
     height: '24px',
   }
 
-  const onClick = () => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget)
+  }
+
+  const handleClose = () => {
+    setAnchorEl(null)
+  }
+
+  const handleProfileClick = () => {
     window.location.hash = '/user'
+    handleClose()
+  }
+
+  const handleLogout = () => {
+    handleClose()
   }
 
   return (
@@ -81,9 +98,16 @@ const Header = (props: Props) => {
               </Tooltip>
             </Grid> */}
             <Grid item>
-              <IconButton onClick={onClick} color="inherit" className={classes.iconButtonAvatar}>
-                <PersonIcon style={avatarStyle} />
-              </IconButton>
+              <IconButton onClick={handleClick} color="inherit" className={classes.iconButtonAvatar}><PersonIcon style={avatarStyle} /></IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                keepMounted
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
+                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+              </Menu>
             </Grid>
           </Grid>
         </Toolbar>
