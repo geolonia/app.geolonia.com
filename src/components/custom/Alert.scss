@@ -1,0 +1,32 @@
+.alert
+{
+  width: 100%;
+  margin: 1em 0;
+
+  > div
+  {
+    padding: 12px;
+    border-radius: 3px;
+  }
+
+  .success
+  {
+    background-color: #cce5ff;
+    border: 1px solid #b8daff;
+    color: #004085;
+  }
+
+  .danger
+  {
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+  }
+
+  .warning
+  {
+    color: #856404;
+    background-color: #fff3cd;
+    border: 1px solid #ffeeba;
+  }
+}
