@@ -12,6 +12,7 @@ import Footer from './Footer';
 import {theme} from '../assets/mui-theme'
 
 import Signup from './Signup'
+import Verify from './verify'
 import Signin from './Signin'
 import ForgotPassword from './ForgotPassword'
 import ResetPassword from './ResetPassword'
@@ -62,6 +63,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
         <HashRouter>
           <Switch>
             <Route exact path='/signup' component={Signup} />
+            <Route exact path='/verify' component={Verify} />
             <Route exact path='/signin' component={Signin} />
             <Route exact path='/forgot-password' component={ForgotPassword} />
             <Route exact path='/reset-password' component={ResetPassword} />
