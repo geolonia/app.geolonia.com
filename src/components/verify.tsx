@@ -5,9 +5,9 @@ import Support from './custom/Support';
 import './Signup.scss';
 import Logo from './custom/logo.svg';
 import Alert from './custom/Alert';
-import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js'
 import {connect} from 'react-redux'
 import {AppState} from '../redux/store'
+import { verify } from '../auth'
 
 type OwnProps = {}
 type RouterProps = {
@@ -16,9 +16,8 @@ type RouterProps = {
   }
 }
 type StateProps = {
-  cognitoUser?: AmazonCognitoIdentity.CognitoUser,
+  signupUser?: string,
 }
-
 type Props = OwnProps & RouterProps & StateProps
 
 const messages = {
@@ -28,17 +27,17 @@ const messages = {
 
 const Content = (props: Props) => {
 
-  const {cognitoUser} = props
+  const {signupUser} = props
 
   const [username, setUsername] = React.useState('')
   const [code, setCode] = React.useState('')
   const [status, setStatus] = React.useState<null | 'success' | 'warning'>(null)
 
   React.useEffect(() => {
-    if (cognitoUser && username === '') {
-        setUsername(cognitoUser.getUsername())
+    if (signupUser && username === '') {
+        setUsername(signupUser)
     }
-  }, [cognitoUser, username])
+  }, [signupUser, username])
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null)
@@ -51,20 +50,15 @@ const Content = (props: Props) => {
 
   const handleVerify = () => {
     setStatus(null)
-    if (cognitoUser) {
-        cognitoUser.confirmRegistration(code, true, (err, result) => {
-          if (err) {
-              setStatus('warning')
-              console.error(err)
-          } else {
-            setStatus('success')
-            console.log(result)
-            props.history.push('/signin')
-          }
-        })
-    } else {
-      setStatus('warning')
-    }
+    verify(username, code)
+      .then(() => {
+        setStatus('success')
+        setTimeout(() => props.history.push('/signin'), 2000)
+      })
+      .catch((err) => {
+        setStatus('warning')
+        console.error(err)
+      })
   }
 
   return (
@@ -99,7 +93,7 @@ Content.defaultProps = {
 };
 
 const mapStateToProps = (state: AppState): StateProps => ({
-  cognitoUser: state.authSupport.cognitoUser
+  signupUser: state.authSupport.currentUser
 })
 const ConnectedContent = connect(mapStateToProps)(Content)
 
