@@ -7,7 +7,6 @@ import './Signup.scss';
 import Logo from './custom/logo.svg';
 import Alert from './custom/Alert';
 import { signUp } from '../auth'
-import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js'
 import Redux from 'redux'
 import {connect} from 'react-redux'
 import {createActions} from '../redux/actions/auth-support'
@@ -20,7 +19,7 @@ type RouterProps = {
 }
 type StateProps = {}
 type DispatchProps = {
-  setSignupResult: (user: AmazonCognitoIdentity.CognitoUser) => void
+  setCurrentUser: (user: string) => void
 }
 
 type Props = OwnProps & RouterProps & StateProps & DispatchProps
@@ -54,8 +53,8 @@ const Content = (props: Props) => {
     signUp(username, email, password)
       .then(result => {
         setStatus('success')
-        props.setSignupResult(result.user)
-        props.history.push('/verify')
+        props.setCurrentUser(result.user.getUsername())
+        setTimeout(() => props.history.push('/verify'), 2000)
       })
       .catch(err => {
         setStatus('warning')
@@ -101,7 +100,7 @@ Content.defaultProps = {
 
 const mapStateToProps = (): StateProps => ({})
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setSignupResult: (user: AmazonCognitoIdentity.CognitoUser) => dispatch(createActions.setCognitoUser(user))
+  setCurrentUser: (user: string) => dispatch(createActions.setCurrentUser(user))
 })
 const ConnectedContent = connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(Content)
 
