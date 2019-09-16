@@ -13,39 +13,54 @@ import {connect} from 'react-redux'
 import {createActions} from '../redux/actions/auth-support'
 
 type OwnProps = {}
+type RouterProps = {
+  history: {
+    push: (path: string) => void
+  }
+}
 type StateProps = {}
 type DispatchProps = {
   setSignupResult: (user: AmazonCognitoIdentity.CognitoUser) => void
 }
 
-type Props = OwnProps & StateProps & DispatchProps
+type Props = OwnProps & RouterProps & StateProps & DispatchProps
+
+const messages = {
+  'success': 'Signup successed.',
+  'warning': 'Signup failed.'
+}
 
 const Content = (props: Props) => {
   const [username, setUsername] = React.useState('')
   const [email, setEmail] = React.useState('')
   const [password, setPassword] = React.useState('')
-  const [error, setError] = React.useState<null | Error>(null)
+  const [status, setStatus] = React.useState<null | 'success' | 'warning'>(null)
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setError(null)
+    setStatus(null)
     setUsername(e.currentTarget.value)
   }
   const onEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setError(null)
+    setStatus(null)
     setEmail(e.currentTarget.value)
   }
   const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setError(null)
+    setStatus(null)
     setPassword(e.currentTarget.value)
   }
 
   const handleSignup = () => {
-    setError(null)
+    setStatus(null)
     signUp(username, email, password)
       .then(result => {
+        setStatus('success')
         props.setSignupResult(result.user)
+        props.history.push('/verify')
       })
-      .catch(setError)
+      .catch(err => {
+        setStatus('warning')
+        console.error(err)
+      })
   }
   return (
     <div className="signup">
@@ -75,7 +90,7 @@ const Content = (props: Props) => {
 
         <div className="support-container"><Support /></div>
       </div>
-      {error&&<Alert type={'warning'}>{'Failed'}</Alert>}
+      {status && <Alert type={status}>{messages[status]}</Alert>}
     </div>
   );
 }
