@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import RoomIcon from '@material-ui/icons/Room';
 import Checkbox from '@material-ui/core/Checkbox';
@@ -47,7 +46,7 @@ const Content = () => {
   }
 
   return (
-    <Paper>
+    <div>
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <Typography component="h2" className="module-title"><RoomIcon /> Geolonia GIS</Typography>
@@ -117,7 +116,7 @@ const Content = () => {
         </Grid>
 
       </Grid>
-    </Paper>
+    </div>
   );
 }
 
