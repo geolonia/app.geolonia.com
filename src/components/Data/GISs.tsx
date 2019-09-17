@@ -19,9 +19,9 @@ function Content() {
   return (
     <div>
       <AddNew
-        label="Create a new Locations API"
-        description="Please enter the name of new Locations API."
-        default="My Locations"
+        label="Create a new dataset"
+        description="Please enter the name of the new dataset."
+        default="My dataset"
         handler={handler}
       />
       <Typography component="h3" className="module-title"><RoomIcon /> Geolonia GIS</Typography>
