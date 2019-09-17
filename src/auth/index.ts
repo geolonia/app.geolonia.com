@@ -60,3 +60,9 @@ export const verify = (username: string, code: string) =>
         onFailure: reject
         })
     })
+
+export const resetPassword = (...args: any[]) =>
+  new Promise((resolve, reject) => {
+    // TODO: Implement password reset
+    resolve()
+  })

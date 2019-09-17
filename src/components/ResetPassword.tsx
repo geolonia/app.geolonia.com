@@ -5,13 +5,37 @@ import Support from './custom/Support';
 import './ResetPassword.scss';
 import Logo from './custom/logo.svg';
 import Alert from './custom/Alert';
+import { resetPassword } from '../auth'
 
-type Props= {
-
+type OwnProps = {}
+type RouterProps = {
+  history: {
+    push: (path: string) => void
+  }
 }
 
+type Props = OwnProps & RouterProps
+
 const Content = (props: Props) => {
+
+  const [password, setPassword] = React.useState('')
+  const [status, setStatus] = React.useState<null | 'success' | 'warning'>(null)
+  const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null)
+    setPassword(e.currentTarget.value)
+  }
+
   const handler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setStatus(null)
+    resetPassword(password)
+      .then(() => {
+        setStatus('success')
+        setTimeout(() => props.history.push('/'), 2000)
+      })
+      .catch(err => {
+        setStatus('warning')
+        console.error(err)
+      })
 
   }
 
@@ -24,7 +48,7 @@ const Content = (props: Props) => {
         <div className="form">
           <label className="password">
             <h3>Password</h3>
-            <input type="text" />
+            <input type="text" value={password} onChange={onPasswordChange} />
           </label>
           <label className="confirm-password">
             <h3>Confirm password</h3>
