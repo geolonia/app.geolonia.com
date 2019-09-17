@@ -17,7 +17,7 @@ class App extends Component {
       height: 400,
       latitude: 37.7577,
       longitude: -122.4376,
-      zoom: 8
+      zoom: 0
     },
     style: false,
   };
@@ -32,7 +32,7 @@ class App extends Component {
         height: 400,
         latitude: 37.7577,
         longitude: -122.4376,
-        zoom: 8
+        zoom: 0
       },
       style: false,
     };
