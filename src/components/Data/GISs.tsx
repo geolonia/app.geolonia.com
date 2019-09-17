@@ -1,5 +1,4 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import RoomIcon from '@material-ui/icons/Room';
 
@@ -18,7 +17,7 @@ function Content() {
   }
 
   return (
-    <Paper>
+    <div>
       <AddNew
         label="Create a new Locations API"
         description="Please enter the name of new Locations API."
@@ -30,7 +29,7 @@ function Content() {
       <p className="description">Geolonia GIS is an API service to display points, lines, polygons for your map application.</p>
 
       <Table rows={rows} rowsPerPage={10} permalink="/data/gis/%s" />
-    </Paper>
+    </div>
   );
 }
 

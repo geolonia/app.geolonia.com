@@ -1,5 +1,4 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import CodeIcon from '@material-ui/icons/Code';
 
@@ -22,16 +21,14 @@ function Content() {
 
   return (
     <div>
-      <Paper>
-        <AddNew
-          label="Create a new API key"
-          description="Please enter the name of new API key."
-          default="My API"
-          handler={handler}
-        />
-        <Typography component="h3" className="module-title"><CodeIcon /> API Keys</Typography>
-        <Table rows={rows} rowsPerPage={10} permalink="/maps/api-keys/%s" />
-      </Paper>
+      <AddNew
+        label="Create a new API key"
+        description="Please enter the name of new API key."
+        default="My API"
+        handler={handler}
+      />
+      <Typography component="h3" className="module-title"><CodeIcon /> API Keys</Typography>
+      <Table rows={rows} rowsPerPage={10} permalink="/maps/api-keys/%s" />
     </div>
   );
 }
