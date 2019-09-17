@@ -14,6 +14,7 @@ import moment from 'moment'
 
 import Table from './custom/Table';
 import iconPlane from './custom/plane.svg';
+import Help from './custom/Help';
 
 import './Dashboard.scss'
 
@@ -103,20 +104,22 @@ const Dashboard = (props: Props) => {
 
   return (
     <div id="dashboard">
-      <Paper className="getting-started">
-        <Hidden smDown>
-          <div className="box-icon">
-            <img src={iconPlane} alt="" className="icon" />
+      <Help>
+        <div className="getting-started">
+          <Hidden smDown>
+            <div className="box-icon">
+              <img src={iconPlane} alt="" className="icon" />
+            </div>
+          </Hidden>
+          <div className="box-content">
+            <h2>Welcome, miya0001!</h2>
+            <ul>
+              <li><Link href="#/maps/api-keys" color="inherit" underline="always">Get API key</Link> - Get API key to create your map!</li>
+              <li><Link href="#/data/features" color="inherit" underline="always">Geolonia Locations</Link> - Display your points, lines, polygons on your map application.</li>
+            </ul>
           </div>
-        </Hidden>
-        <div className="box-content">
-          <h2>Welcome, miya0001!</h2>
-          <ul>
-            <li><Link href="#/maps/api-keys" color="inherit" underline="always">Get API key</Link> - Get API key to create your map!</li>
-            <li><Link href="#/data/features" color="inherit" underline="always">Geolonia Locations</Link> - Display your points, lines, polygons on your map application.</li>
-          </ul>
         </div>
-      </Paper>
+      </Help>
 
       <Grid container className={classes.root} spacing={2}>
 
