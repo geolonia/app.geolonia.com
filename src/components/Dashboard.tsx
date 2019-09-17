@@ -114,8 +114,8 @@ const Dashboard = (props: Props) => {
           <div className="box-content">
             <h2>Welcome, miya0001!</h2>
             <ul>
-              <li><Link href="#/maps/api-keys" color="inherit" underline="always">Get API key</Link> - Get API key to create your map!</li>
-              <li><Link href="#/data/features" color="inherit" underline="always">Geolonia Locations</Link> - Display your points, lines, polygons on your map application.</li>
+              <li><Link href="#/maps/api-keys" color="inherit" underline="always">Get API key</Link> - Get API key then create your map!</li>
+              <li><Link href="#/data/gis" color="inherit" underline="always">Geolonia GIS</Link> - Display your points, lines, polygons on your map application.</li>
             </ul>
           </div>
         </div>
