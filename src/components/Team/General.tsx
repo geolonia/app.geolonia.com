@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -22,7 +21,7 @@ const Content = () => {
   }
 
   return (
-    <Paper>
+    <div>
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <Typography component="h2" className="module-title">General</Typography>
@@ -68,7 +67,7 @@ const Content = () => {
           </div>
         </Grid>
       </Grid>
-    </Paper>
+    </div>
   );
 }
 

@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -67,7 +66,7 @@ const Content = () => {
   }
 
   return (
-    <Paper>
+    <div>
       <AddNew
         buttonLabel="Invite"
         label="Invite a member"
@@ -125,7 +124,7 @@ const Content = () => {
           </TableRow>
         </TableFooter>
       </Table>
-    </Paper>
+    </div>
   );
 }
 

@@ -1,4 +1,5 @@
 import React from 'react';
+
 import {  withStyles, createStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -37,7 +38,7 @@ const styles = createStyles({
   mainContent: {
     flex: 1,
     padding: '48px 36px 48px',
-    background: '#eaeff1',
+    background: '#ffffff',
   },
 })
 
