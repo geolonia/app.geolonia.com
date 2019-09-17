@@ -54,7 +54,7 @@ const Content = (props: Props) => {
       .then(result => {
         setStatus('success')
         props.setCurrentUser(result.user.getUsername())
-        setTimeout(() => props.history.push('/verify'), 2000)
+        setTimeout(() => props.history.push('/dashboard'), 2000)
       })
       .catch(err => {
         setStatus('warning')
