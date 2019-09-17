@@ -1,35 +1,30 @@
-import React from 'react';
+import React from "react";
 
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
-import TextField from '@material-ui/core/TextField';
-import PersonIcon from '@material-ui/icons/Person';
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
+import TextField from "@material-ui/core/TextField";
+import PersonIcon from "@material-ui/icons/Person";
 
-import Save from '../custom/Save'
+import Save from "../custom/Save";
+import Security from "./security";
 
 const Content = () => {
   const ProfileImageStyle: React.CSSProperties = {
-    width: '250px',
-    height: 'auto',
-    fill: '#dedede',
-  }
-
-  const linkStyle = {
-    marginLeft: '1em',
-  } as React.CSSProperties
-
-  const paragraphStyle = {
-    marginTop: '1em',
-  } as React.CSSProperties
+    width: "250px",
+    height: "auto",
+    fill: "#dedede"
+  };
 
   return (
     <Paper>
       <Grid container spacing={4}>
         <Grid item sm={12} md={8}>
-          <Typography component="h2" className="module-title">Your profile</Typography>
+          <Typography component="h2" className="module-title">
+            Your profile
+          </Typography>
           <TextField
             id="standard-name"
             label="Username"
@@ -50,39 +45,21 @@ const Content = () => {
           />
           <Save />
 
-          <Typography component="h2" className="module-title">Security</Typography>
-          <TextField
-            id="standard-name"
-            label="Old password"
-            type="password"
-            margin="normal"
-            fullWidth={true}
-          />
-          <TextField
-            id="standard-name"
-            label="New password"
-            type="password"
-            margin="normal"
-            fullWidth={true}
-          />
-          <TextField
-            id="standard-name"
-            label="Confirm new password"
-            type="password"
-            margin="normal"
-            fullWidth={true}
-          />
-          <Typography style={paragraphStyle} paragraph={true} component="p"><Button variant="contained" color="inherit">Update password</Button>
-              <Link style={linkStyle} href="#">I forgot my password</Link></Typography>
+          <Security></Security>
         </Grid>
 
         <Grid item sm={12} md={4}>
-          <Typography component="p" align="center"><PersonIcon style={ProfileImageStyle} /><br />
-          <Button variant="contained" color="default">Upload new picture</Button></Typography>
+          <Typography component="p" align="center">
+            <PersonIcon style={ProfileImageStyle} />
+            <br />
+            <Button variant="contained" color="default">
+              Upload new picture
+            </Button>
+          </Typography>
         </Grid>
       </Grid>
     </Paper>
   );
-}
+};
 
 export default Content;
