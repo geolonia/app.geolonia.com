@@ -4,27 +4,26 @@
 
 ```typescript
 type State = {
-  value: number
-}
+  value: number;
+};
 
 type Props = {
-  name: string
-}
+  name: string;
+};
 
-class MyComponent extends React.Component<State, Props> {
-
+class MyComponent extends React.Component<Props, State> {
   state = {
-    value: 123,
-  }
+    value: 123
+  };
 
   static defaultProps = {
-    name: 'hello'
-  }
+    name: "hello"
+  };
 
   render() {
-    const state = this.state
-    const props = this.props
-    return <div></div>
+    const state = this.state;
+    const props = this.props;
+    return <div></div>;
   }
 }
 ```
