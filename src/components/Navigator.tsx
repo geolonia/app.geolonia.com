@@ -86,6 +86,10 @@ const styles = (theme: Theme) => ({
   },
 })
 
+const handleClickHome = () => {
+  window.location.hash = ''
+}
+
 type Props = {
   readonly classes: any
   readonly PaperProps: any
@@ -110,7 +114,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
         <ListItem
             button
             component="a"
-            href="/"
+            onClick={handleClickHome}
             className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
             <HomeIcon />
