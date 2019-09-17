@@ -6,15 +6,60 @@ import './Signin.scss';
 import Logo from './custom/logo.svg';
 import Support from './custom/Support';
 import Alert from './custom/Alert';
+import {connect} from 'react-redux'
+import {AppState} from '../redux/store'
+import {signin} from '../auth'
 
+type OwnProps = {}
+type RouterProps = {
+  history: {
+    push: (path: string) => void
+  }
+}
+type StateProps = {
+  signupUser?: string,
+}
+type Props = OwnProps & RouterProps & StateProps
 
-type Props= {
-
+const messages = {
+  'success': 'Signin successed.',
+  'warning': 'Signin failed.'
 }
 
 const Content = (props: Props) => {
-  const handleSignin = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
+  const {signupUser} = props
+
+  const [username, setUsername] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [status, setStatus] = React.useState<null | 'success' | 'warning'>(null)
+
+  React.useEffect(() => {
+    if (signupUser && username === '') {
+        setUsername(signupUser)
+    }
+  }, [signupUser, username])
+
+  const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null)
+    setUsername(e.currentTarget.value)
+  }
+  const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null)
+    setPassword(e.currentTarget.value)
+  }
+
+  const handleSignin = () => {
+    setStatus(null)
+    signin(username, password)
+      .then(() => {
+        setStatus('success')
+        setTimeout(() => props.history.push('/'), 2000)
+      })
+      .catch((err) => {
+        setStatus('warning')
+        console.error(err)
+      })
   }
 
   return (
@@ -26,11 +71,11 @@ const Content = (props: Props) => {
         <div className="form">
           <label className="username">
             <h2>Username or email address</h2>
-            <input type="text" />
+            <input type="text" value={username} onChange={onUsernameChange} />
           </label>
           <label className="password">
             <h2>Password</h2>
-            <input type="text" />
+            <input type="text" value={password} onChange={onPasswordChange}/>
           </label>
           <p className="forgot-password"><Link href="#/forgot-password">Forgot password?</Link></p>
           <p><Button variant="contained" color="primary" onClick={handleSignin}>Sign in</Button></p>
@@ -48,4 +93,9 @@ Content.defaultProps = {
 
 };
 
-export default Content;
+const mapStateToProps = (state: AppState): StateProps => ({
+  signupUser: state.authSupport.currentUser
+})
+const ConnectedContent = connect(mapStateToProps)(Content)
+
+export default ConnectedContent;

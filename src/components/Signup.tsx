@@ -6,16 +6,61 @@ import Support from './custom/Support';
 import './Signup.scss';
 import Logo from './custom/logo.svg';
 import Alert from './custom/Alert';
+import { signUp } from '../auth'
+import Redux from 'redux'
+import {connect} from 'react-redux'
+import {createActions} from '../redux/actions/auth-support'
 
-type Props= {
+type OwnProps = {}
+type RouterProps = {
+  history: {
+    push: (path: string) => void
+  }
+}
+type StateProps = {}
+type DispatchProps = {
+  setCurrentUser: (user: string) => void
+}
 
+type Props = OwnProps & RouterProps & StateProps & DispatchProps
+
+const messages = {
+  'success': 'Signup successed.',
+  'warning': 'Signup failed.'
 }
 
 const Content = (props: Props) => {
-  const handleSignup = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const [username, setUsername] = React.useState('')
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const [status, setStatus] = React.useState<null | 'success' | 'warning'>(null)
 
+  const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null)
+    setUsername(e.currentTarget.value)
+  }
+  const onEmailChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null)
+    setEmail(e.currentTarget.value)
+  }
+  const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null)
+    setPassword(e.currentTarget.value)
   }
 
+  const handleSignup = () => {
+    setStatus(null)
+    signUp(username, email, password)
+      .then(result => {
+        setStatus('success')
+        props.setCurrentUser(result.user.getUsername())
+        setTimeout(() => props.history.push('/verify'), 2000)
+      })
+      .catch(err => {
+        setStatus('warning')
+        console.error(err)
+      })
+  }
   return (
     <div className="signup">
       <div className="container">
@@ -26,15 +71,15 @@ const Content = (props: Props) => {
         <div className="form">
           <label className="username">
             <h3>Username</h3>
-            <input type="text" />
+            <input type="text" value={username} onChange={onUsernameChange} />
           </label>
           <label className="email">
             <h3>Email address</h3>
-            <input type="text" />
+            <input type="text" value={email} onChange={onEmailChange} />
           </label>
           <label className="password">
             <h3>Password</h3>
-            <input type="text" />
+            <input type="text" value={password} onChange={onPasswordChange} />
           </label>
           <p className="message">Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.</p>
 
@@ -44,6 +89,7 @@ const Content = (props: Props) => {
 
         <div className="support-container"><Support /></div>
       </div>
+      {status && <Alert type={status}>{messages[status]}</Alert>}
     </div>
   );
 }
@@ -52,4 +98,10 @@ Content.defaultProps = {
 
 };
 
-export default Content;
+const mapStateToProps = (): StateProps => ({})
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  setCurrentUser: (user: string) => dispatch(createActions.setCurrentUser(user))
+})
+const ConnectedContent = connect<StateProps, DispatchProps>(mapStateToProps, mapDispatchToProps)(Content)
+
+export default ConnectedContent;
