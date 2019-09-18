@@ -13,13 +13,14 @@ import Save from '../custom/Save'
 import Delete from '../custom/Delete'
 import Code from '../custom/Code'
 import MapEditor from '../custom/MapEditor'
+import Title from '../custom/Title'
 import Help from '../custom/Help'
 
 const Content = () => {
   const mapStyle: React.CSSProperties = {
     width: '100%',
     border: '1px solid #dedede',
-    margin: '1em 0',
+    margin: '0 0 1em 0',
   }
 
   const styleDangerZone: React.CSSProperties = {
@@ -50,13 +51,12 @@ const Content = () => {
 
   return (
     <div>
-      <Help>
-        <p>You can manage dataset in this page. Use tool buttons to manage features on the map.</p>
-      </Help>
+      <Title title="データセットの管理">
+        データセットの管理や設定を行ったり、データセット API にアクセスするためのアクセスポイントの URL を取得することができます。
+      </Title>
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <Typography component="h2" className="module-title"><RoomIcon /> Geolonia GIS</Typography>
           <div style={mapStyle}><MapEditor /></div>
 
           <TextField
