@@ -12,6 +12,21 @@ import Help from '../custom/Help'
 import Title from '../custom/Title'
 
 const Content = () => {
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/",
+    },
+    {
+      title: "API keys",
+      href: "#/maps/api-keys",
+    },
+    {
+      title: "API key settings",
+      href: null,
+    },
+  ]
+
   const styleDangerZone: React.CSSProperties = {
     border: '1px solid #ff0000',
     marginTop: '10em',
@@ -20,10 +35,6 @@ const Content = () => {
 
   const styleH3: React.CSSProperties = {
     marginTop: '1em',
-  }
-
-  const styleHelpText: React.CSSProperties = {
-    fontSize: '0.9rem',
   }
 
   const sidebarStyle: React.CSSProperties = {
@@ -44,7 +55,7 @@ const Content = () => {
 
   return (
     <div>
-      <Title title="API キーの設定">API キーのアクセスコントロールなどの設定や、ウェブページに地図を設置するための HTML コードを取得してください。</Title>
+      <Title breadcrumb={breadcrumbItems} title="API キーの設定">API キーのアクセスコントロールなどの設定や、ウェブページに地図を設置するための HTML コードを取得してください。</Title>
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>

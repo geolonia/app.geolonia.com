@@ -2,7 +2,6 @@ import React from 'react';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import RoomIcon from '@material-ui/icons/Room';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
@@ -14,9 +13,23 @@ import Delete from '../custom/Delete'
 import Code from '../custom/Code'
 import MapEditor from '../custom/MapEditor'
 import Title from '../custom/Title'
-import Help from '../custom/Help'
 
 const Content = () => {
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/"
+    },
+    {
+      title: "Geolonia GIS",
+      href: "#/data/gis"
+    },
+    {
+      title: "Dataset settings",
+      href: null
+    },
+  ]
+
   const mapStyle: React.CSSProperties = {
     width: '100%',
     border: '1px solid #dedede',
@@ -51,7 +64,7 @@ const Content = () => {
 
   return (
     <div>
-      <Title title="データセットの管理">
+      <Title breadcrumb={breadcrumbItems} title="データセットの管理">
         データセットの管理や設定を行ったり、データセット API にアクセスするためのアクセスポイントの URL を取得することができます。
       </Title>
 

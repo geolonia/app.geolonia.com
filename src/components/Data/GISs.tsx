@@ -1,6 +1,4 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import RoomIcon from '@material-ui/icons/Room';
 
 import Table from '../custom/Table';
 import AddNew from '../custom/AddNew'
@@ -13,13 +11,24 @@ const rows = [
 ];
 
 function Content() {
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/"
+    },
+    {
+      title: "Geolonia GIS",
+      href: null
+    },
+  ]
+
   const handler = (event: React.MouseEvent) => {
 
   }
 
   return (
     <div>
-      <Title title="Geolonia GIS">
+      <Title breadcrumb={breadcrumbItems} title="Geolonia GIS">
         Geolonia GIS は、位置情報データに特化した API サービスです。ユーザーのみなさんが持つ店舗や不動産情報などの様々な位置情報データを登録し、それらに対する緯度経度を使用した検索 API を提供します。
       </Title>
 

@@ -1,8 +1,5 @@
 import React from 'react';
 
-import Typography from '@material-ui/core/Typography';
-import CodeIcon from '@material-ui/icons/Code';
-
 import Table from '../custom/Table';
 import AddNew from '../custom/AddNew'
 import Title from '../custom/Title';
@@ -14,13 +11,24 @@ const rows = [
 ];
 
 function Content() {
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/"
+    },
+    {
+      title: "API keys",
+      href: ""
+    },
+  ]
+
   const handler = (event: React.MouseEvent) => {
 
   }
 
   return (
     <div>
-      <Title title="API keys">Geolonia の地図を表示するには API キーが必要です。 API キーはいくつでも発行することができ、それぞれの API キーで地図を表示するための URL を指定することができます。</Title>
+      <Title breadcrumb={breadcrumbItems} title="API keys">Geolonia の地図を表示するには API キーが必要です。 API キーはいくつでも発行することができ、それぞれの API キーで地図を表示するための URL を指定することができます。</Title>
 
       <AddNew
         label="Create a new API key"
