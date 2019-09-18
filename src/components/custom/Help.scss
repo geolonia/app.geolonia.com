@@ -1,0 +1,45 @@
+.help
+{
+  margin: 0 0 2em 0;
+  border: 1px solid #dedede;
+  border-radius: 5px;
+  background-color: #f7f7f7;
+
+  .outer
+  {
+    border-top: 5px solid #009BE5;
+    margin: -1px;
+    border-radius: 5px;
+    padding: 28px 32px;
+  }
+
+  .flex
+  {
+    display: flex;
+    align-items: center;
+  }
+
+  .help-icon
+  {
+    width: 48px;
+    margin-right: 16px;
+  }
+
+  .icon
+  {
+    font-size: 48px;
+  }
+
+  .learn-more
+  {
+    .MuiButtonBase-root
+    {
+      font-size: 14px;
+    }
+
+    .MuiSvgIcon-root
+    {
+      margin-right: 8px;
+    }
+  }
+}
