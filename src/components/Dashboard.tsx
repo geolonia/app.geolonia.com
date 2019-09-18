@@ -105,22 +105,20 @@ const Dashboard = (props: Props) => {
 
   return (
     <div id="dashboard">
-      <Help>
-        <div className="getting-started">
-          <Hidden smDown>
-            <div className="box-icon">
-              <img src={iconPlane} alt="" className="icon" />
-            </div>
-          </Hidden>
-          <div className="box-content">
-            <h2>Welcome, miya0001!</h2>
-            <ul>
-              <li><Link href="#/maps/api-keys" color="inherit" underline="always">Get API key</Link> - Get API key then create your map!</li>
-              <li><Link href="#/data/gis" color="inherit" underline="always">Geolonia GIS</Link> - Display your points, lines, polygons on your map application.</li>
-            </ul>
+      <Paper  className="getting-started">
+        <Hidden smDown>
+          <div className="box-icon">
+            <img src={iconPlane} alt="" className="icon" />
           </div>
+        </Hidden>
+        <div className="box-content">
+          <h2>Welcome, miya0001!</h2>
+          <ul>
+            <li><Link href="#/maps/api-keys" color="inherit" underline="always">Get API key</Link> - Get API key then create your map!</li>
+            <li><Link href="#/data/gis" color="inherit" underline="always">Geolonia GIS</Link> - Display your points, lines, polygons on your map application.</li>
+          </ul>
         </div>
-      </Help>
+      </Paper>
 
       <Grid container className={classes.root} spacing={2}>
 
