@@ -5,15 +5,12 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { withStyles,Theme } from '@material-ui/core/styles';
-import CodeIcon from '@material-ui/icons/Code';
-import RoomIcon from '@material-ui/icons/Room';
 import Link from '@material-ui/core/Link';
 import Hidden from '@material-ui/core/Hidden';
 
 import { Line } from 'react-chartjs-2';
 import moment from 'moment'
 
-import Table from './custom/Table';
 import iconPlane from './custom/plane.svg';
 
 import './Dashboard.scss'
@@ -136,20 +133,6 @@ const Dashboard = (props: Props) => {
             <div className="chart-container">
               <Line data={geoAPIChartData} options={chartOptions} />
             </div>
-          </Paper>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <Typography component="h2" className="module-title"><CodeIcon /> API Keys</Typography>
-            <Table rows={rowsAPIKeys} permalink="/maps/api-keys/%s" />
-          </Paper>
-        </Grid>
-
-        <Grid item xs={12} md={6}>
-          <Paper>
-            <Typography component="h2" className="module-title"><RoomIcon /> Locations</Typography>
-            <Table rows={rowsFeatures} permalink="/data/gis/%s" />
           </Paper>
         </Grid>
       </Grid>
