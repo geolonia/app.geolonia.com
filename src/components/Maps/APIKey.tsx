@@ -79,7 +79,7 @@ const Content = () => {
 
         <Help>
           Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS.<br />
-          Please enter a value of URLs on a new line.
+          Please enter a URL on a new line.
         </Help>
 
           <Save handler={saveHandler} />
