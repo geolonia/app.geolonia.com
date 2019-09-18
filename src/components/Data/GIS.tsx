@@ -13,6 +13,7 @@ import Save from '../custom/Save'
 import Delete from '../custom/Delete'
 import Code from '../custom/Code'
 import MapEditor from '../custom/MapEditor'
+import Help from '../custom/Help'
 
 const Content = () => {
   const mapStyle: React.CSSProperties = {
@@ -49,6 +50,10 @@ const Content = () => {
 
   return (
     <div>
+      <Help>
+        <p>You can manage dataset in this page. Use tool buttons to manage features on the map.</p>
+      </Help>
+
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <Typography component="h2" className="module-title"><RoomIcon /> Geolonia GIS</Typography>

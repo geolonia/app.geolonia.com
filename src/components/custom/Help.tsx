@@ -1,27 +1,34 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
+
+import Typography from '@material-ui/core/Typography';
+import Link from '@material-ui/core/Link';
+
+import Icon from '@material-ui/icons/NotificationsActive'
+import MenuBookIcon from '@material-ui/icons/MenuBook'
+import IconButton from '@material-ui/core/IconButton';
+
+import './Help.scss'
 
 type Props = {
   children: any,
+  icon: any,
 }
 
 const Help = (props: Props) => {
-
-  const style: React.CSSProperties = {
-    fontSize: '140%',
-    width: '100%',
-    backgroundColor: '#41C464',
-    color: '#ffffff',
-    marginBottom: '1em',
-  }
-
   return (
-    <Paper style={style}>{props.children}</Paper>
+    <div className="help"><div className="outer">
+      <div className="flex">
+        <div className="help-icon"><props.icon className="icon" /></div>
+        <div className="help-container">
+          {props.children}
+        </div>
+      </div>
+    </div></div>
   );
 }
 
 Help.defaultProps = {
-  children: "",
+  icon: Icon,
 };
 
 export default Help;

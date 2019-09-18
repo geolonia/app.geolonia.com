@@ -15,7 +15,6 @@ import moment from 'moment'
 
 import Table from './custom/Table';
 import iconPlane from './custom/plane.svg';
-import Help from './custom/Help';
 
 import './Dashboard.scss'
 
