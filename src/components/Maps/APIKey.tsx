@@ -8,6 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Code from '../custom/Code'
 import Save from '../custom/Save'
 import Delete from '../custom/Delete'
+import Help from '../custom/Help'
 
 const Content = () => {
   const styleDangerZone: React.CSSProperties = {
@@ -42,6 +43,10 @@ const Content = () => {
 
   return (
     <div>
+      <Help>
+        <p>API キーには、第三者によって利用されることによる意図しない課金を防ぐために、そのキーを利用する予定があるサイトの URL を指定してください。</p>
+      </Help>
+
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <Typography component="h2" className="module-title">API Key</Typography>
