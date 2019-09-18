@@ -21,11 +21,11 @@ const Content = () => {
     margin: '1em 0',
   }
 
-  const styleDangerZone = {
+  const styleDangerZone: React.CSSProperties = {
     border: '1px solid #ff0000',
     marginTop: '10em',
     padding: '16px 24px',
-  } as React.CSSProperties
+  }
 
   const styleHelpText: React.CSSProperties = {
     fontSize: '0.9rem',
