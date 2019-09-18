@@ -9,6 +9,7 @@ import Code from '../custom/Code'
 import Save from '../custom/Save'
 import Delete from '../custom/Delete'
 import Help from '../custom/Help'
+import Title from '../custom/Title'
 
 const Content = () => {
   const styleDangerZone: React.CSSProperties = {
@@ -43,19 +44,18 @@ const Content = () => {
 
   return (
     <div>
-      <Help>
-        <p>API キーには、第三者によって利用されることによる意図しない課金を防ぐために、そのキーを利用する予定があるサイトの URL を指定してください。</p>
-      </Help>
+      <Title title="API キーの設定">API キーのアクセスコントロールなどの設定や、ウェブページに地図を設置するための HTML コードを取得してください。</Title>
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <Typography component="h2" className="module-title">API Key</Typography>
+
           <TextField
             id="standard-name"
             label="Name"
             margin="normal"
             fullWidth={true}
           />
+
           <TextField
             id="standard-name"
             label="URLs"
@@ -66,8 +66,10 @@ const Content = () => {
             fullWidth={true}
           />
 
-          <Typography style={styleHelpText} component="p" color="textSecondary">Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS.<br />
-          Please enter a value of URLs on a new line.</Typography>
+        <Help>
+          Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS.<br />
+          Please enter a value of URLs on a new line.
+        </Help>
 
           <Save handler={saveHandler} />
 

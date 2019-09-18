@@ -2,21 +2,20 @@ import React from 'react';
 
 import Icon from '@material-ui/icons/Help'
 
-import './Help.scss'
+import './Title.scss'
 
 type Props = {
+  title: string,
   children: any,
   icon: any,
 }
 
 const Help = (props: Props) => {
   return (
-    <div className="help"><div className="outer">
-      <div className="flex">
-        <div className="help-icon"><props.icon className="icon" /></div>
-        <div className="help-container">
-          {props.children}
-        </div>
+    <div className="title"><div className="outer">
+      <h1>{props.title}</h1>
+      <div className="title-container">
+        {props.children}
       </div>
     </div></div>
   );

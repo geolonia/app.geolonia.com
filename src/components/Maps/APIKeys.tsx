@@ -5,7 +5,7 @@ import CodeIcon from '@material-ui/icons/Code';
 
 import Table from '../custom/Table';
 import AddNew from '../custom/AddNew'
-import Help from '../custom/Help';
+import Title from '../custom/Title';
 
 const rows = [
   {id: 1111, name: "My Map", updated: "2019-08-28"},
@@ -20,7 +20,7 @@ function Content() {
 
   return (
     <div>
-      <Help>You need an API key to configure map. Click "New" button to get a new API key.</Help>
+      <Title title="API keys">Geolonia の地図を表示するには API キーが必要です。 API キーはいくつでも発行することができ、それぞれの API キーで地図を表示するための URL を指定することができます。</Title>
 
       <AddNew
         label="Create a new API key"
@@ -28,7 +28,6 @@ function Content() {
         default="My API"
         handler={handler}
       />
-      <Typography component="h3" className="module-title"><CodeIcon /> API Keys</Typography>
 
       <Table rows={rows} rowsPerPage={10} permalink="/maps/api-keys/%s" />
     </div>
