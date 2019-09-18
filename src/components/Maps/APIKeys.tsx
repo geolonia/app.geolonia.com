@@ -28,7 +28,7 @@ function Content() {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title="API keys">Geolonia の地図を表示するには API キーが必要です。 API キーはいくつでも発行することができ、それぞれの API キーで地図を表示するための URL を指定することができます。</Title>
+      <Title breadcrumb={breadcrumbItems} title="API keys">Geolonia の地図を表示するには API キーが必要です。 API キーは料金に関係なくいくつでも発行することができ、それぞれの API キーに対するアクセス元の URL を指定することができます。</Title>
 
       <AddNew
         label="Create a new API key"
