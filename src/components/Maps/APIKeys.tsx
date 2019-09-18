@@ -4,9 +4,6 @@ import CodeIcon from '@material-ui/icons/Code';
 
 import Table from '../custom/Table';
 import AddNew from '../custom/AddNew'
-import Help from '../custom/Help'
-
-import Icon from '@material-ui/icons/EmojiObjects';
 
 const rows = [
   {id: 1111, name: "My Map", updated: "2019-08-28"},
