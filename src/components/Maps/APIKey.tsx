@@ -3,25 +3,30 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
 
 import Code from '../custom/Code'
 import Save from '../custom/Save'
 import Delete from '../custom/Delete'
 
 const Content = () => {
-  const styleDangerZone = {
+  const styleDangerZone: React.CSSProperties = {
     border: '1px solid #ff0000',
     marginTop: '10em',
     padding: '16px 24px',
-  } as React.CSSProperties
+  }
 
-  const styleH3 = {
+  const styleH3: React.CSSProperties = {
     marginTop: '1em',
-  } as React.CSSProperties
+  }
 
-  const styleHelpText = {
+  const styleHelpText: React.CSSProperties = {
     fontSize: '0.9rem',
-  } as React.CSSProperties
+  }
+
+  const sidebarStyle: React.CSSProperties = {
+    marginBottom: "2em",
+  }
 
   const saveHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
 
@@ -71,15 +76,19 @@ const Content = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <Typography component="h2" className="module-title">Your API Key</Typography>
-          <Code>{apiKey}</Code>
-          <Typography component="h2" className="module-title">Add the map to your site</Typography>
-          <Typography component="h3" style={styleH3}>Step 1</Typography>
-          <p>Include the following code before closing tag of the <code>body</code> in your HTML file.</p>
-          <Code>{embedCode}</Code>
-          <Typography component="h3" style={styleH3}>Step 2</Typography>
-          <p>Add the following code into the body of your HTML file.</p>
-          <Code>{embedHtml}</Code>
+          <Paper style={sidebarStyle}>
+            <Typography component="h2" className="module-title">Your API Key</Typography>
+            <Code>{apiKey}</Code>
+          </Paper>
+          <Paper style={sidebarStyle}>
+            <Typography component="h2" className="module-title">Add the map to your site</Typography>
+            <Typography component="h3" style={styleH3}>Step 1</Typography>
+            <p>Include the following code before closing tag of the <code>body</code> in your HTML file.</p>
+            <Code>{embedCode}</Code>
+            <Typography component="h3" style={styleH3}>Step 2</Typography>
+            <p>Add the following code into the body of your HTML file.</p>
+            <Code>{embedHtml}</Code>
+          </Paper>
         </Grid>
       </Grid>
     </div>
