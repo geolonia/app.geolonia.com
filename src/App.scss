@@ -68,6 +68,11 @@ p.description
   box-shadow: 0 0 5px #eeeeee !important;
 }
 
+.MuiDialog-paper.MuiPaper-rounded
+{
+  box-shadow: none !important;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
