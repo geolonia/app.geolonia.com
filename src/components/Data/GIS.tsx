@@ -6,9 +6,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
+import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 
 import Save from '../custom/Save'
@@ -34,7 +32,11 @@ const Content = () => {
   }
 
   const cardStyle: React.CSSProperties = {
-    marginTop: '1em',
+    marginBottom: '2em',
+  }
+
+  const StyleSaveButton: React.CSSProperties = {
+
   }
 
   const saveHandler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -91,28 +93,24 @@ const Content = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <Card style={cardStyle}>
-            <CardContent>
-              <FormControlLabel
-                control={
-                  <Checkbox value="1" color="primary" />
-                }
-                label="Public"
-              />
+          <Paper style={cardStyle}>
+            <FormControlLabel
+              control={
+                <Checkbox value="1" color="primary" />
+              }
+              label="Public"
+            />
 
-              <Typography style={styleHelpText} component="p" color="textSecondary">Public features will be displayed on <Link href="#">open data directory</Link> and anyone can download this features without API key.</Typography>
-            </CardContent>
-            <CardActions>
-              <Save handler={saveHandler} />
-            </CardActions>
-          </Card>
+            <Typography style={styleHelpText} component="p" color="textSecondary">Public features will be displayed on <Link href="#">open data directory</Link> and anyone can download this features without API key.</Typography>
+            <Save handler={saveHandler} style={StyleSaveButton} />
+          </Paper>
 
-          <Card style={cardStyle}>
+          <Paper style={cardStyle}>
             <Typography component="h2" className="module-title">Private URL</Typography>
             <Code>https://example.com/...</Code>
             <Typography component="h2" className="module-title">Public URL</Typography>
             <Code>https://example.com/...</Code>
-          </Card>
+          </Paper>
         </Grid>
 
       </Grid>
