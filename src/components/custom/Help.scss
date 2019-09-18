@@ -1,16 +1,14 @@
 .help
 {
-  margin: 0 0 2em 0;
-  border: 1px solid #dedede;
+  margin: 1em 0 1em 0;
+  border: 1px solid #faf2cc;
   border-radius: 5px;
-  background-color: #f7f7f7;
+  background-color: #fcf8e3;
 
   .outer
   {
-    border-top: 5px solid #009BE5;
-    margin: -1px;
-    border-radius: 5px;
     padding: 28px 32px;
+    color: #8a6d3b;
   }
 
   .flex
@@ -22,24 +20,11 @@
   .help-icon
   {
     width: 48px;
-    margin-right: 16px;
+    margin-right: 12px;
   }
 
   .icon
   {
     font-size: 48px;
-  }
-
-  .learn-more
-  {
-    .MuiButtonBase-root
-    {
-      font-size: 14px;
-    }
-
-    .MuiSvgIcon-root
-    {
-      margin-right: 8px;
-    }
   }
 }
