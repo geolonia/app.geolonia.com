@@ -26,7 +26,7 @@ const Content = () => {
   } as React.CSSProperties
 
   return (
-    <Paper>
+    <div>
       <Grid container spacing={4}>
         <Grid item sm={12} md={8}>
           <Typography component="h2" className="module-title">Your profile</Typography>
@@ -81,7 +81,7 @@ const Content = () => {
           <Button variant="contained" color="default">Upload new picture</Button></Typography>
         </Grid>
       </Grid>
-    </Paper>
+    </div>
   );
 }
 

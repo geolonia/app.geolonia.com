@@ -8,6 +8,7 @@ import CloseIcon from '@material-ui/icons/Close';
 
 type Props= {
   label: string,
+  style: React.CSSProperties,
   handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
@@ -16,7 +17,9 @@ const Save = (props: Props) => {
 
   const style: React.CSSProperties = {
     marginTop: '1em',
+    marginBottom: 0,
     width: '100%',
+    ...props.style
   }
 
   const handleSave = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -67,6 +70,7 @@ const Save = (props: Props) => {
 
 Save.defaultProps = {
   label: 'Save',
+  style: {},
   handler: (event: React.MouseEvent) => {
     console.log(event)
   }
