@@ -19,19 +19,6 @@ const styles = (theme:Theme) => ({
 
 });
 
-// TODO: Followings are mock data.
-const rowsAPIKeys = [
-  {id: 1111, name: "My Map", updated: "2019-08-28"},
-  {id: 1112, name: "example.com", updated: "2019-08-28"},
-  {id: 1113, name: "example.jp", updated: "2019-08-28"},
-];
-
-const rowsFeatures = [
-  {id: 1111, name: "和歌山県公衆トイレ", updated: "2019-08-28", isPublic: true},
-  {id: 1112, name: "USGS Earthquake", updated: "2019-08-28", isPublic: false},
-  {id: 1113, name: "テスト", updated: "2019-08-28", isPublic: true},
-];
-
 type Props= {
   classes: any
 }
