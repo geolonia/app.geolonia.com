@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import Support from './custom/Support';
 import './ResetPassword.scss';
 import Logo from './custom/logo.svg';
-import Alert from './custom/Alert';
 
 type Props= {
 
