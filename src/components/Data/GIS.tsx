@@ -97,7 +97,7 @@ const Content = () => {
           />
 
           <Typography style={styleHelpText} component="p" color="textSecondary">Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS.<br />
-            Please enter a value of URLs on a new line.</Typography>
+            Please enter a URL on a new line.</Typography>
 
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">Danger Zone</Typography>
