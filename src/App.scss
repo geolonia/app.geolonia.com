@@ -26,7 +26,7 @@
 .module-title
 {
   margin-top: 1em;
-  padding: 8px 0;
+  padding: 0 0 8px 0;
   font-weight: bolder !important;
   vertical-align: top;
   border-bottom: 4px solid #dedede;
@@ -58,6 +58,13 @@ p.description
 .snackbar-saved .MuiSnackbarContent-root
 {
   background-color: #009be5;
+}
+
+.MuiPaper-rounded
+{
+  border-radius: 3px !important;
+  box-shadow: none !important;
+  border: 1px solid #dedede !important;
 }
 
 @keyframes App-logo-spin {
