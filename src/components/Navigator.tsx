@@ -15,10 +15,17 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
-// import MyLocationIcon from '@material-ui/icons/MyLocation';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 import './Navigator.css'
 import defaultGroupIcon from './custom/group.svg';
+import { Link } from '@material-ui/core';
 
 const categories = [
   {
@@ -100,6 +107,19 @@ type Props = {
 
 const Navigator: React.FC<Props> = (props: Props) => {
   const { classes, ...other } = props;
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const saveHandler = () => {
+
+  }
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
@@ -108,7 +128,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           <img src={defaultGroupIcon} className="logo" alt=""/>
           <Select className="team" value="default-team">
             <MenuItem value="default-team">miya0001</MenuItem>
-            <MenuItem className="create-new-team">Create new team</MenuItem>
+            <MenuItem className="create-new-team"><Link onClick={handleClickOpen}>+ Create new team</Link></MenuItem>
           </Select>
         </ListItem>
         <ListItem
@@ -160,6 +180,31 @@ const Navigator: React.FC<Props> = (props: Props) => {
           </React.Fragment>
         ))}
       </List>
+
+      <form>
+        <Dialog open={open} onClose={handleClose} fullWidth={true} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">Create a new team</DialogTitle>
+          <DialogContent>
+            <DialogContentText>Please enter the name of new team.</DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              name="team-name"
+              label="Name"
+              value="My team"
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button onSubmit={saveHandler} color="primary" type="submit">
+              Save
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </form>
     </Drawer>
   );
 }
