@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import PersonIcon from '@material-ui/icons/Person';
 
 import Save from '../custom/Save'
+import Title from '../custom/Title';
 
 const Content = () => {
   const ProfileImageStyle: React.CSSProperties = {
@@ -16,19 +17,31 @@ const Content = () => {
     fill: '#dedede',
   }
 
-  const linkStyle = {
+  const linkStyle: React.CSSProperties = {
     marginLeft: '1em',
-  } as React.CSSProperties
+  }
 
-  const paragraphStyle = {
+  const paragraphStyle: React.CSSProperties = {
     marginTop: '1em',
-  } as React.CSSProperties
+  }
+
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/",
+    },
+    {
+      title: "Your profile",
+      href: null,
+    },
+  ]
 
   return (
     <div>
+      <Title title="Your profile" breadcrumb={breadcrumbItems}>ユーザー情報やパスワードを設定してください。</Title>
+
       <Grid container spacing={4}>
         <Grid item sm={12} md={8}>
-          <Typography component="h2" className="module-title">Your profile</Typography>
           <TextField
             id="standard-name"
             label="Username"
@@ -72,7 +85,7 @@ const Content = () => {
             fullWidth={true}
           />
           <Typography style={paragraphStyle} paragraph={true} component="p"><Button variant="contained" color="inherit">Update password</Button>
-              <Link style={linkStyle} href="#">I forgot my password</Link></Typography>
+              <Link style={linkStyle} href="#/forgot-password">I forgot my password</Link></Typography>
         </Grid>
 
         <Grid item sm={12} md={4}>

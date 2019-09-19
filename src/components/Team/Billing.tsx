@@ -9,7 +9,7 @@ import { Line } from 'react-chartjs-2';
 
 import './Billing.scss'
 import Save from '../custom/Save'
-import Title from '../custom/Title';
+import Title from '../custom/Title'
 
 const Content = () => {
 
@@ -61,7 +61,7 @@ const Content = () => {
   ]
 
   return (
-    <div>
+    <div className="billing">
       <Title title="Billing" breadcrumb={breadcrumbItems}>
         Geolonia のサービスではすべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザーと同じ名前のチームが自動的に生成されます。<br />
         サイドバー左上のプルダウンメニューでチームを切り替えることができます。
