@@ -11,6 +11,8 @@ import Redux from 'redux'
 import {connect} from 'react-redux'
 import {createActions} from '../redux/actions/auth-support'
 
+import { sprintf, __ } from '@wordpress/i18n';
+
 type OwnProps = {}
 type RouterProps = {
   history: {
@@ -61,6 +63,7 @@ const Content = (props: Props) => {
         console.error(err)
       })
   }
+
   return (
     <div className="signup">
       <div className="container">
@@ -81,10 +84,10 @@ const Content = (props: Props) => {
             <h3>Password</h3>
             <input type="text" value={password} onChange={onPasswordChange} />
           </label>
-          <p className="message">Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.</p>
+          <p className="message">{__('Make sure it\'s at least 15 characters OR at least 8 characters including a number and a lowercase letter.')}</p>
 
           <p><Button variant="contained" color="primary" onClick={handleSignup}>Sign up</Button></p>
-          <p className="message">By signing up to Geolonia, you agree to our <Link href="https://geolonia.com/terms">Terms of service</Link> and <Link href="https://geolonia.com/privacy">Privacy policy</Link>.</p>
+          <p className="message">{__('By signing up to Geolonia, you agree to our <Link href="https://geolonia.com/terms">Terms of service</Link> and <Link href="https://geolonia.com/privacy">Privacy policy</Link>.')}</p>
         </div>
 
         <div className="support-container"><Support /></div>
