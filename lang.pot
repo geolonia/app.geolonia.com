@@ -1,0 +1,76 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-19 20:23+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/components/Dashboard.tsx:99
+#, javascript-format
+msgid "Welcome, %s"
+msgstr ""
+
+#: src/components/Dashboard.tsx:101
+msgid "Get API key"
+msgstr ""
+
+#: src/components/Dashboard.tsx:101
+msgid "Get API key then create your map!"
+msgstr ""
+
+#: src/components/Dashboard.tsx:102
+msgid "Geolonia GIS"
+msgstr ""
+
+#: src/components/Dashboard.tsx:102
+msgid "Display your points, lines, polygons on your map application."
+msgstr ""
+
+#: src/components/Dashboard.tsx:111
+msgid "Map loads for this month"
+msgstr ""
+
+#: src/components/Dashboard.tsx:120
+msgid "API loads for this month"
+msgstr ""
+
+#: src/components/ResetPassword.tsx:23
+msgid "Change your password"
+msgstr ""
+
+#: src/components/ResetPassword.tsx:27
+msgid "Password"
+msgstr ""
+
+#: src/components/ResetPassword.tsx:31
+msgid "Confirm password"
+msgstr ""
+
+#: src/components/ResetPassword.tsx:34 src/components/Signup.tsx:86
+msgid ""
+"Make sure it's at least 15 characters OR at least 8 characters including a "
+"number and a lowercase letter."
+msgstr ""
+
+#: src/components/ResetPassword.tsx:35
+msgid "Send password reset email"
+msgstr ""
+
+#: src/components/Signup.tsx:89
+msgid ""
+"By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
+"terms\">Terms of service</a> and <Link href=\"https://geolonia.com/privacy"
+"\">Privacy policy</Link>."
+msgstr ""
