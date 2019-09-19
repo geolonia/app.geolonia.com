@@ -8,6 +8,9 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Link from '@material-ui/core/Link';
 
+import {__} from '@wordpress/i18n'
+import Interweave from 'interweave'
+
 import Save from '../custom/Save'
 import Delete from '../custom/Delete'
 import Code from '../custom/Code'
@@ -21,7 +24,7 @@ const Content = () => {
       href: "#/"
     },
     {
-      title: "API services",
+      title: __("API services"),
       href: "#/data"
     },
     {
@@ -29,7 +32,7 @@ const Content = () => {
       href: "#/data/gis"
     },
     {
-      title: "Dataset settings",
+      title: __("Dataset settings"),
       href: null
     },
   ]
@@ -68,8 +71,8 @@ const Content = () => {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title="データセットの管理">
-        データセットの管理や設定を行ったり、データセット API にアクセスするためのアクセスポイントの URL を取得することができます。
+      <Title breadcrumb={breadcrumbItems} title={__('Dataset settings')}>
+        {__('You can manage and set the dataset, and get the the access point URL of dataset API.')}
       </Title>
 
       <Grid container spacing={4}>
@@ -78,13 +81,13 @@ const Content = () => {
 
           <TextField
             id="standard-name"
-            label="Name"
+            label={__("Name")}
             margin="normal"
             fullWidth={true}
           />
           <TextField
             id="standard-name"
-            label="Description"
+            label={__("Description")}
             margin="normal"
             multiline={true}
             rows={5}
@@ -92,7 +95,7 @@ const Content = () => {
           />
           <TextField
             id="standard-name"
-            label="URLs"
+            label={__("URLs")}
             margin="normal"
             multiline={true}
             rows={5}
@@ -100,16 +103,15 @@ const Content = () => {
             fullWidth={true}
           />
 
-          <Typography style={styleHelpText} component="p" color="textSecondary">Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS.<br />
-            Please enter a URL on a new line.</Typography>
+          <Typography style={styleHelpText} component="p" color="textSecondary"><Interweave content={__('Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS. Please enter a URL on a new line.')} /></Typography>
 
           <div style={styleDangerZone}>
-            <Typography component="h3" color="secondary">Danger Zone</Typography>
-            <p>Once you delete a API key, there is no going back. Please be certain. </p>
+            <Typography component="h3" color="secondary">{__('Danger Zone')}</Typography>
+            <p>{__('Once you delete a API key, there is no going back. Please be certain.')}</p>
             <Delete
               handler={deleteHandler}
-              text1="Are you sure you want to delete this dataset?"
-              text2="Please type in the name of the dataset to confirm."
+              text1={__("Are you sure you want to delete this dataset?")}
+              text2={__("Please type in the name of the dataset to confirm.")}
             />
           </div>
         </Grid>
@@ -120,17 +122,17 @@ const Content = () => {
               control={
                 <Checkbox value="1" color="primary" />
               }
-              label="Public"
+              label={__('Public')}
             />
 
-            <Typography style={styleHelpText} component="p" color="textSecondary">Public features will be displayed on <Link href="#">open data directory</Link> and anyone can download this features without API key.</Typography>
+            <Typography style={styleHelpText} component="p" color="textSecondary"><Interweave content={__('Public features will be displayed on <a class="MuiTypography-colorPrimary" href="#">open data directory</a> and anyone can download this features without API key.')} /></Typography>
             <Save handler={saveHandler} style={StyleSaveButton} />
           </Paper>
 
           <Paper style={cardStyle}>
-            <Typography component="h2" className="module-title">Private URL</Typography>
+            <Typography component="h2" className="module-title">{__('Private URL')}</Typography>
             <Code>https://example.com/...</Code>
-            <Typography component="h2" className="module-title">Public URL</Typography>
+            <Typography component="h2" className="module-title">{__('Public URL')}</Typography>
             <Code>https://example.com/...</Code>
           </Paper>
         </Grid>

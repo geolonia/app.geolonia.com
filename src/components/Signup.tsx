@@ -11,7 +11,8 @@ import Redux from 'redux'
 import {connect} from 'react-redux'
 import {createActions} from '../redux/actions/auth-support'
 
-import { sprintf, __ } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
+import Interweave from 'interweave';
 
 type OwnProps = {}
 type RouterProps = {
@@ -87,7 +88,7 @@ const Content = (props: Props) => {
           <p className="message">{__('Make sure it\'s at least 15 characters OR at least 8 characters including a number and a lowercase letter.')}</p>
 
           <p><Button variant="contained" color="primary" onClick={handleSignup}>Sign up</Button></p>
-          <p className="message">{__('By signing up to Geolonia, you agree to our <Link href="https://geolonia.com/terms">Terms of service</Link> and <Link href="https://geolonia.com/privacy">Privacy policy</Link>.')}</p>
+          <p className="message"><Interweave content={__('By signing up to Geolonia, you agree to our <a href="https://geolonia.com/terms" class="MuiTypography-colorPrimary">Terms of service</a> and <a class="MuiTypography-colorPrimary" href="https://geolonia.com/privacy">Privacy policy</a>.')} /></p>
         </div>
 
         <div className="support-container"><Support /></div>

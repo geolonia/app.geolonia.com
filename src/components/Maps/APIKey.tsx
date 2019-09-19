@@ -5,6 +5,9 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 
+import {__} from '@wordpress/i18n'
+import Interweave from 'interweave'
+
 import Code from '../custom/Code'
 import Save from '../custom/Save'
 import Delete from '../custom/Delete'
@@ -22,11 +25,11 @@ const Content = () => {
       href: "#/maps",
     },
     {
-      title: "API keys",
+      title: __("API keys"),
       href: "#/maps/api-keys",
     },
     {
-      title: "API key settings",
+      title: __("API key settings"),
       href: null,
     },
   ]
@@ -59,21 +62,21 @@ const Content = () => {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title="API キーの設定">API キーのアクセスコントロールなどの設定や、ウェブページに地図を設置するための HTML コードを取得してください。</Title>
+      <Title breadcrumb={breadcrumbItems} title={__('API key settings')}>{__('Get the HTML code for the map on the web page, and configure access control for your API key.')}</Title>
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
 
           <TextField
             id="standard-name"
-            label="Name"
+            label={__("Name")}
             margin="normal"
             fullWidth={true}
           />
 
           <TextField
             id="standard-name"
-            label="URLs"
+            label={__("URLs")}
             margin="normal"
             multiline={true}
             rows={5}
@@ -82,15 +85,14 @@ const Content = () => {
           />
 
         <Help>
-          Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS.<br />
-          Please enter a URL on a new line.
+          <Interweave content={__('Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS. Please enter a URL on a new line.')} />
         </Help>
 
           <Save handler={saveHandler} />
 
           <div style={styleDangerZone}>
-            <Typography component="h3" color="secondary">Danger Zone</Typography>
-            <p>Once you delete an API, there is no going back. Please be certain. </p>
+            <Typography component="h3" color="secondary">{__('Danger Zone')}</Typography>
+            <p>{__('Once you delete an API, there is no going back. Please be certain.')}</p>
             <Delete
               handler={deleteHandler}
             />
@@ -99,16 +101,16 @@ const Content = () => {
 
         <Grid item xs={12} md={4}>
           <Paper style={sidebarStyle}>
-            <Typography component="h2" className="module-title">Your API Key</Typography>
+            <Typography component="h2" className="module-title">{__('Your API Key')}</Typography>
             <Code>{apiKey}</Code>
           </Paper>
           <Paper style={sidebarStyle}>
-            <Typography component="h2" className="module-title">Add the map to your site</Typography>
-            <Typography component="h3" style={styleH3}>Step 1</Typography>
-            <p>Include the following code before closing tag of the <code>body</code> in your HTML file.</p>
+            <Typography component="h2" className="module-title">{__('Add the map to your site')}</Typography>
+            <Typography component="h3" style={styleH3}>{__('Step 1')}</Typography>
+            <p><Interweave content={__('Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file.')} /></p>
             <Code>{embedCode}</Code>
-            <Typography component="h3" style={styleH3}>Step 2</Typography>
-            <p>Add the following code into the body of your HTML file.</p>
+            <Typography component="h3" style={styleH3}>{__('Step 2')}</Typography>
+            <p>{__('Add the following code into the body of your HTML file.')}</p>
             <Code>{embedHtml}</Code>
           </Paper>
         </Grid>

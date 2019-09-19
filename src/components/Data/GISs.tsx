@@ -1,5 +1,7 @@
 import React from 'react';
 
+import {__} from '@wordpress/i18n'
+
 import Table from '../custom/Table';
 import AddNew from '../custom/AddNew'
 import Title from '../custom/Title'
@@ -17,7 +19,7 @@ function Content() {
       href: "#/"
     },
     {
-      title: "API services",
+      title: __("API services"),
       href: "#/data"
     },
     {
@@ -33,13 +35,13 @@ function Content() {
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title="Geolonia GIS">
-        Geolonia GIS は、位置情報データに特化した API サービスです。ユーザーのみなさんが持つ店舗や不動産情報などの様々な位置情報データを登録し、それらに対する緯度経度を使用した検索 API を提供します。
+        {__('Geolonia GIS is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.')}
       </Title>
 
       <AddNew
-        label="Create a new dataset"
-        description="Please enter the name of the new dataset."
-        default="My dataset"
+        label={__("Create a new dataset")}
+        description={__("Please enter the name of the new dataset.")}
+        default={__("My dataset")}
         handler={handler}
       />
 
