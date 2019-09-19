@@ -7,6 +7,8 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
+import {__} from '@wordpress/i18n'
+
 import './Table.scss';
 
 type Props = {
@@ -43,7 +45,7 @@ const Content = (props: Props) => {
             <TableRow key={row.id} onMouseOver={onMouseOver} onMouseOut={onMouseOut} onClick={onClick} data-id={row.id}>
               <TableCell component="th" scope="row">
                 {row.name}
-                {row.isPublic && (<span className="private-or-public">Public</span>)}
+                {row.isPublic && (<span className="private-or-public">{__('Public')}</span>)}
               </TableCell>
               <TableCell align="right">{row.updated}</TableCell>
             </TableRow>
