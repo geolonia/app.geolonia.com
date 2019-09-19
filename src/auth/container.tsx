@@ -4,37 +4,38 @@ import { connect } from "react-redux";
 import { createActions } from "../redux/actions/auth-support";
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import Redux from "redux";
+import { AppState } from "../redux/store";
 
 type Props = {
-  setSession: (session: AmazonCognitoIdentity.ICognitoUserSessionData) => void;
+  session?: AmazonCognitoIdentity.CognitoUserSession;
+  setSession: (session: AmazonCognitoIdentity.CognitoUserSession) => void;
+  ready: () => void;
 };
 
 type State = {};
 
 export class AuthContainer extends React.Component<Props, State> {
   componentDidMount() {
-    console.log("aaa");
     getSession()
-      .then(session => {
-        const refreshToken = session.getRefreshToken();
-        const accessToken = session.getAccessToken();
-        console.log({ refreshToken, accessToken });
-      })
-      .catch(() => {
-        console.log(this.props);
-      });
+      .then(session => this.props.setSession(session))
+      .catch(err => console.error(err))
+      .finally(this.props.ready);
   }
 
   render() {
-    return <>{this.props.children}</>;
+    const { session, children } = this.props;
+    return <>{session && children}</>;
   }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state: AppState) => ({
+  session: state.authSupport.session
+});
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
-  setSession: (session: AmazonCognitoIdentity.ICognitoUserSessionData) =>
-    dispatch(createActions.setSession(session))
+  setSession: (session: AmazonCognitoIdentity.CognitoUserSession) =>
+    dispatch(createActions.setSession(session)),
+  ready: () => dispatch(createActions.ready())
 });
 
 export default connect(
