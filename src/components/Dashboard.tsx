@@ -82,6 +82,7 @@ const Dashboard = (props: Props) => {
         },
         gridLines: {
           color: 'rgba(255, 255, 255, 0.4)',
+          zeroLineColor: 'rgba(255, 255, 255, 0.4)',
         },
       }],
     }
