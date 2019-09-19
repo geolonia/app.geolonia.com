@@ -5,7 +5,7 @@ import Icon from '@material-ui/icons/Help'
 import './Help.scss'
 
 type Props = {
-  children: any,
+  children: React.ReactNode,
   icon: any,
 }
 
