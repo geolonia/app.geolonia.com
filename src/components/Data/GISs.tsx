@@ -17,6 +17,10 @@ function Content() {
       href: "#/"
     },
     {
+      title: "API services",
+      href: "#/data"
+    },
+    {
       title: "Geolonia GIS",
       href: null
     },

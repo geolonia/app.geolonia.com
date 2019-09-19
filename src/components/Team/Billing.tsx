@@ -9,6 +9,7 @@ import { Line } from 'react-chartjs-2';
 
 import './Billing.scss'
 import Save from '../custom/Save'
+import Title from '../custom/Title';
 
 const Content = () => {
 
@@ -44,8 +45,28 @@ const Content = () => {
     }
   }
 
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/",
+    },
+    {
+      title: "Team settings",
+      href: "#/team",
+    },
+    {
+      title: "General",
+      href: null,
+    },
+  ]
+
   return (
     <div>
+      <Title title="Billing" breadcrumb={breadcrumbItems}>
+        Geolonia のサービスではすべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザーと同じ名前のチームが自動的に生成されます。<br />
+        サイドバー左上のプルダウンメニューでチームを切り替えることができます。
+      </Title>
+
       <Typography component="h2" className="module-title">Payment history</Typography>
       <div style={chartStyle}>
         <Line data={chartData} options={chartOptions} />
