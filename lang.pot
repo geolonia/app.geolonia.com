@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-19 20:23+0900\n"
+"POT-Creation-Date: 2019-09-20 00:01+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -58,7 +58,7 @@ msgstr ""
 msgid "Confirm password"
 msgstr ""
 
-#: src/components/ResetPassword.tsx:34 src/components/Signup.tsx:86
+#: src/components/ResetPassword.tsx:34 src/components/Signup.tsx:88
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
@@ -68,9 +68,14 @@ msgstr ""
 msgid "Send password reset email"
 msgstr ""
 
-#: src/components/Signup.tsx:89
+#: src/components/Signup.tsx:91
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
-"terms\">Terms of service</a> and <Link href=\"https://geolonia.com/privacy"
-"\">Privacy policy</Link>."
+"terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
+"class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy"
+"\">Privacy policy</a>."
+msgstr ""
+
+#: src/components/custom/Save.tsx:73
+msgid "Save"
 msgstr ""

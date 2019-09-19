@@ -13,6 +13,8 @@ import TableRow from '@material-ui/core/TableRow';
 import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
 import PersonIcon from '@material-ui/icons/Person';
 
+import {__} from '@wordpress/i18n'
+
 import AddNew from '../custom/AddNew'
 import Title from '../custom/Title';
 
@@ -72,26 +74,26 @@ const Content = () => {
       href: "#/",
     },
     {
-      title: "Team settings",
+      title: __("Team settings"),
       href: "#/team",
     },
     {
-      title: "Members",
+      title: __("Members"),
       href: null,
     },
   ]
 
   return (
     <div>
-      <Title title="Members" breadcrumb={breadcrumbItems}>チームメンバーの管理を行うことができます。</Title>
+      <Title title="Members" breadcrumb={breadcrumbItems}>{__('You can manage members in your team.')}</Title>
 
       <AddNew
-        buttonLabel="Invite"
-        label="Invite a member"
-        description="We automatically update your billing as you add and remove team members."
+        buttonLabel={__("Invite")}
+        label={__("Invite a member")}
+        description={__("We automatically update your billing as you add and remove team members.")}
         default=""
         fieldName="email"
-        fieldLabel="Email"
+        fieldLabel={__("Email")}
         fieldType="email"
         handler={inviteHandler}
       />
@@ -104,7 +106,7 @@ const Content = () => {
               <TableCell component="th" scope="row">
                 {row.name}<br />@{row.username}
               </TableCell>
-              <TableCell align="center">{row.isOwner && 'Owner'}</TableCell>
+              <TableCell align="center">{row.isOwner && __('Owner')}</TableCell>
               <TableCell align="right">
                 <Button variant="outlined" color="default" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}><BrightnessLowIcon style={iconStyle} /></Button>
                 <Menu
@@ -114,9 +116,9 @@ const Content = () => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Change role</MenuItem>
-                  <MenuItem onClick={handleClose}>Deactivate</MenuItem>
-                  <MenuItem onClick={handleClose}>Remove from team</MenuItem>
+                  <MenuItem onClick={handleClose}>{__('Change role')}</MenuItem>
+                  <MenuItem onClick={handleClose}>{__('Deactivate')}</MenuItem>
+                  <MenuItem onClick={handleClose}>{__('Remove from team')}</MenuItem>
                 </Menu>
               </TableCell>
             </TableRow>

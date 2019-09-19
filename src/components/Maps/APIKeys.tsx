@@ -4,6 +4,8 @@ import Table from '../custom/Table';
 import AddNew from '../custom/AddNew'
 import Title from '../custom/Title';
 
+import {__} from '@wordpress/i18n'
+
 const rows = [
   {id: 1111, name: "My Map", updated: "2019-08-28"},
   {id: 1112, name: "exmaple.com", updated: "2019-08-28"},
@@ -32,7 +34,7 @@ function Content() {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title="API keys">Geolonia の地図を表示するには API キーが必要です。 API キーは料金に関係なくいくつでも発行することができ、それぞれの API キーに対するアクセス元の URL を指定することができます。</Title>
+      <Title breadcrumb={breadcrumbItems} title={__('API keys')}>{__('You need an API key to display map. Get an API key.')}</Title>
 
       <AddNew
         label="Create a new API key"
