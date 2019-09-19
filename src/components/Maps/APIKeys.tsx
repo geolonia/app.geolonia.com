@@ -17,8 +17,12 @@ function Content() {
       href: "#/"
     },
     {
+      title: "Maps",
+      href: "#/maps",
+    },
+    {
       title: "API keys",
-      href: ""
+      href: null
     },
   ]
 

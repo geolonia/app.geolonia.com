@@ -23,7 +23,7 @@ type Props = {
 const Title = (props: Props) => {
   return (
     <div className="page-title"><div className="outer">
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs aria-label="breadcrumb" className="breadcrums">
       {
         props.breadcrumb.map((item, index) => {
           if (item.href) {

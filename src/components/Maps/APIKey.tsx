@@ -18,6 +18,10 @@ const Content = () => {
       href: "#/",
     },
     {
+      title: "Maps",
+      href: "#/maps",
+    },
+    {
       title: "API keys",
       href: "#/maps/api-keys",
     },
