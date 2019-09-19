@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 
 import Save from '../custom/Save'
 import defaultGroupIcon from '../custom/group.svg';
+import Title from '../custom/Title';
 
 const Content = () => {
   const styleDangerZone: React.CSSProperties = {
@@ -20,11 +21,30 @@ const Content = () => {
     margin: '16px',
   }
 
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/",
+    },
+    {
+      title: "Team settings",
+      href: "#/team",
+    },
+    {
+      title: "General",
+      href: null,
+    },
+  ]
+
   return (
     <div>
+      <Title title="General" breadcrumb={breadcrumbItems}>
+        Geolonia のサービスではすべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザーと同じ名前のチームが自動的に生成されます。<br />
+        サイドバー左上のプルダウンメニューでチームを切り替えることができます。
+      </Title>
+
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <Typography component="h2" className="module-title">General</Typography>
           <TextField
             id="standard-name"
             label="Name"

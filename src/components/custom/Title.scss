@@ -1,20 +1,23 @@
 .page-title
 {
-  margin: 0 0 2em 0;
-  border: 1px solid #dedede;
-  border-radius: 5px;
-  background-color: #f7f7f7;
+  margin: 0 0 2em -0;
+  border-bottom: 5px solid #dedede;
+  border-top: 5px solid #009BE5;
 
   .outer
   {
-    border-top: 5px solid #009BE5;
     margin: -1px;
     border-radius: 5px;
-    padding: 28px 32px;
+    padding: 28px 0;
   }
 
   h1
   {
     margin: 0 0 0.5em;
+  }
+
+  .breadcrums, .breadcrums p
+  {
+    font-size: 14px;
   }
 }

@@ -14,6 +14,7 @@ import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
 import PersonIcon from '@material-ui/icons/Person';
 
 import AddNew from '../custom/AddNew'
+import Title from '../custom/Title';
 
 const rows = [
   {id: 1111, avatar: 'https://avatars2.githubusercontent.com/u/309946?s=400&v=4', name: "Taro Yamada", username: 'taro', isOwner: true},
@@ -65,8 +66,25 @@ const Content = () => {
 
   }
 
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/",
+    },
+    {
+      title: "Team settings",
+      href: "#/team",
+    },
+    {
+      title: "Members",
+      href: null,
+    },
+  ]
+
   return (
     <div>
+      <Title title="Members" breadcrumb={breadcrumbItems}>チームメンバーの管理を行うことができます。</Title>
+
       <AddNew
         buttonLabel="Invite"
         label="Invite a member"
@@ -77,8 +95,6 @@ const Content = () => {
         fieldType="email"
         handler={inviteHandler}
       />
-
-      <Typography component="h2" className="module-title">Team Members</Typography>
 
       <Table className="geolonia-list-table">
         <TableBody>
