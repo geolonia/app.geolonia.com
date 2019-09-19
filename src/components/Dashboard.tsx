@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import { withStyles,Theme } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Hidden from '@material-ui/core/Hidden';
+import { sprintf, __ } from '@wordpress/i18n';
 
 import { Line } from 'react-chartjs-2';
 import moment from 'moment'
@@ -95,10 +96,10 @@ const Dashboard = (props: Props) => {
           </div>
         </Hidden>
         <div className="box-content">
-          <h2>Welcome, miya0001!</h2>
+          <h2>{sprintf(__('Welcome, %s'), 'miya0001')}</h2>
           <ul>
-            <li><Link href="#/maps/api-keys" color="inherit" underline="always">Get API key</Link> - Get API key then create your map!</li>
-            <li><Link href="#/data/gis" color="inherit" underline="always">Geolonia GIS</Link> - Display your points, lines, polygons on your map application.</li>
+            <li><Link href="#/maps/api-keys" color="inherit" underline="always">{__('Get API key')}</Link> - {__('Get API key then create your map!')}</li>
+            <li><Link href="#/data/gis" color="inherit" underline="always">{__('Geolonia GIS')}</Link> - {__('Display your points, lines, polygons on your map application.')}</li>
           </ul>
         </div>
       </Paper>
@@ -107,7 +108,7 @@ const Dashboard = (props: Props) => {
 
         <Grid item xs={12} md={6}>
           <Paper className="container-map-loads">
-            <Typography component="h2" className="module-title">Map loads for this month</Typography>
+            <Typography component="h2" className="module-title">{__('Map loads for this month')}</Typography>
             <div className="chart-container">
               <Line data={mapChartData} options={chartOptions} />
             </div>
@@ -116,7 +117,7 @@ const Dashboard = (props: Props) => {
 
         <Grid item xs={12} md={6}>
           <Paper className="container-geo-api-loads">
-            <Typography component="h2" className="module-title">API loads for this month</Typography>
+            <Typography component="h2" className="module-title">{__('API loads for this month')}</Typography>
             <div className="chart-container">
               <Line data={geoAPIChartData} options={chartOptions} />
             </div>

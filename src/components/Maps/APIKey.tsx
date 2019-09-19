@@ -54,8 +54,8 @@ const Content = () => {
   }
 
   const apiKey = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-  const embedCode = `<script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${apiKey}"></script>`
   const embedHtml = '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n>日本経緯度原点</div>'
+  const embedCode = `<script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${apiKey}"></script>`
 
   return (
     <div>
