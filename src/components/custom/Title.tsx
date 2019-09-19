@@ -15,8 +15,7 @@ type breadcrumbItems = {
 
 type Props = {
   title: string,
-  children: any,
-  icon: any,
+  children: React.ReactNode,
   breadcrumb: Array<breadcrumbItems>,
 }
 
@@ -43,7 +42,7 @@ const Title = (props: Props) => {
 }
 
 Title.defaultProps = {
-  icon: Icon,
+
 };
 
 export default Title;
