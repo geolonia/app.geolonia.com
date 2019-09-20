@@ -14,6 +14,10 @@ import Delete from '../custom/Delete'
 import Help from '../custom/Help'
 import Title from '../custom/Title'
 
+const apiKey = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+const embedHtml = '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n></div>'
+const embedCode = `<script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${apiKey}"></script>`
+
 const Content = () => {
   const breadcrumbItems = [
     {
@@ -56,10 +60,6 @@ const Content = () => {
 
   }
 
-  const apiKey = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-  const embedHtml = '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n>日本経緯度原点</div>'
-  const embedCode = `<script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${apiKey}"></script>`
-
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title={__('API key settings')}>{__('Get the HTML code for the map on the web page, and configure access control for your API key.')}</Title>
@@ -84,9 +84,9 @@ const Content = () => {
             fullWidth={true}
           />
 
-        <Help>
-          <Interweave content={__('Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS. Please enter a URL on a new line.')} />
-        </Help>
+          <Help>
+            <Interweave content={__('Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS. Please enter a URL on a new line.')} ></Interweave>
+          </Help>
 
           <Save handler={saveHandler} />
 
