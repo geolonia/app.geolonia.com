@@ -10,6 +10,8 @@ import {connect} from 'react-redux'
 import {AppState} from '../redux/store'
 import {signin} from '../auth'
 
+import {__} from '@wordpress/i18n'
+
 type OwnProps = {}
 type RouterProps = {
   history: {
@@ -22,8 +24,8 @@ type StateProps = {
 type Props = OwnProps & RouterProps & StateProps
 
 const messages = {
-  'success': 'Signin successed.',
-  'warning': 'Signin failed.'
+  'success': __('Signin successed.'),
+  'warning': __('Signin failed.')
 }
 
 const Content = (props: Props) => {
@@ -66,22 +68,22 @@ const Content = (props: Props) => {
     <div className="signin">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
-        <h1>Sign in to Geolonia</h1>
-        <Alert type="success">Your password has beed successfully updated.</Alert>
+        <h1>{__('Sign in to Geolonia')}</h1>
+        <Alert type="success">{__('Your password has beed successfully updated.')}</Alert>
         <div className="form">
           <label className="username">
-            <h2>Username or email address</h2>
+            <h2>{__('Username or email address')}</h2>
             <input type="text" value={username} onChange={onUsernameChange} />
           </label>
           <label className="password">
-            <h2>Password</h2>
+            <h2>{__('Password')}</h2>
             <input type="text" value={password} onChange={onPasswordChange}/>
           </label>
-          <p className="forgot-password"><Link href="#/forgot-password">Forgot password?</Link></p>
-          <p><Button variant="contained" color="primary" onClick={handleSignin}>Sign in</Button></p>
+          <p className="forgot-password"><Link href="#/forgot-password">{__('Forgot password?')}</Link></p>
+          <p><Button variant="contained" color="primary" onClick={handleSignin}>{__('Sign in')}</Button></p>
         </div>
 
-        <p>New to Geolonia? <Link href="#/signup">Create an account.</Link></p>
+        <p>{__('New to Geolonia?')} <Link href="#/signup">{__('Create an account.')}</Link></p>
 
         <div className="support-container"><Support /></div>
       </div>
