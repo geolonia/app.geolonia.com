@@ -36,7 +36,10 @@
     "build": "source .env.development && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build-pot": "find . -name '*.tsx' | xargs xgettext --keyword=__ -L JavaScript -o lang.pot --from-code=utf-8"
+    "xgettext": "find . -name '*.tsx' | xargs xgettext --keyword=__ -L JavaScript -o src/lang/lang.pot --from-code=utf-8",
+    "msgmerge": "msgmerge -U src/lang/ja.po src/lang/lang.pot --lang=ja",
+    "po2json": "po2json src/lang/ja.po src/lang/ja.json",
+    "i18n": "npm run xgettext && npm run msgmerge"
   },
   "eslintConfig": {
     "extends": "react-app"
