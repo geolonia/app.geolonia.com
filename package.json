@@ -38,7 +38,7 @@
     "eject": "react-scripts eject",
     "xgettext": "find . -name '*.tsx' | xargs xgettext --keyword=__ -L JavaScript -o src/lang/lang.pot --from-code=utf-8",
     "msgmerge": "msgmerge -U src/lang/ja.po src/lang/lang.pot --lang=ja",
-    "po2json": "po2json src/lang/ja.po src/lang/ja.json",
+    "po2json": "po2json src/lang/ja.po src/lang/ja.json -f jed",
     "i18n": "npm run xgettext && npm run msgmerge"
   },
   "eslintConfig": {
