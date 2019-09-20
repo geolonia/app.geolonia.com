@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 
-import {__} from '@wordpress/i18n'
+import {sprintf, __} from '@wordpress/i18n'
 import Interweave from 'interweave'
 
 import Code from '../custom/Code'
@@ -14,11 +14,11 @@ import Delete from '../custom/Delete'
 import Help from '../custom/Help'
 import Title from '../custom/Title'
 
-const apiKey = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
-const embedHtml = '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n></div>'
-const embedCode = `<script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=${apiKey}"></script>`
-
 const Content = () => {
+  const apiKey = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+  const embedHtml = '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n></div>'
+  const embedCode = sprintf('<script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=%s"></script>', apiKey)
+
   const breadcrumbItems = [
     {
       title: "Home",
