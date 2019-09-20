@@ -9,6 +9,8 @@ import {connect} from 'react-redux'
 import {AppState} from '../redux/store'
 import { verify } from '../auth'
 
+import {__} from '@wordpress/i18n'
+
 type OwnProps = {}
 type RouterProps = {
   history: {
@@ -65,20 +67,20 @@ const Content = (props: Props) => {
     <div className="signup">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
-        <h1>Welcome to Geolonia</h1>
-        <h2>Verify your account</h2>
+        <h1>{__('Welcome to Geolonia')}</h1>
+        <h2>{__('Verify your account')}</h2>
 
         <div className="form">
           <label className="username">
-            <h3>Username</h3>
+            <h3>{__('Username')}</h3>
             <input type="text" value={username} onChange={onUsernameChange} />
           </label>
           <label className="text">
-            <h3>Verification code</h3>
+            <h3>{__('Verification code')}</h3>
             <input type="text" value={code} onChange={onCodeChange} />
           </label>
 
-          <p><Button variant="contained" color="primary" onClick={handleVerify}>verify</Button></p>
+          <p><Button variant="contained" color="primary" onClick={handleVerify}>{__('Verify')}</Button></p>
         </div>
 
         <div className="support-container"><Support /></div>

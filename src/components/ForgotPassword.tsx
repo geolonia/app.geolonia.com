@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Button from '@material-ui/core/Button';
+import {__} from '@wordpress/i18n';
 
 import Support from './custom/Support';
 import './ForgotPassword.scss';
@@ -18,15 +20,15 @@ const Content = (props: Props) => {
     <div className="signup">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
-        <h1>Reset your password</h1>
+        <h1>{__('Reset your password')}</h1>
 
         <div className="form">
           <label className="email">
-            <h3>Email address</h3>
+            <h3>{__('Email address')}</h3>
             <input type="text" />
           </label>
-          <p className="message">We will send you a link to reset your password.</p>
-          <p><Button variant="contained" color="primary" onClick={handleSignup}>Send password reset email</Button></p>
+          <p className="message">{__('We will send you a link to reset your password.')}</p>
+          <p><Button variant="contained" color="primary" onClick={handleSignup}>{__('Send password reset email')}</Button></p>
         </div>
 
         <div className="support-container"><Support /></div>

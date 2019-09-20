@@ -28,8 +28,8 @@ type DispatchProps = {
 type Props = OwnProps & RouterProps & StateProps & DispatchProps
 
 const messages = {
-  'success': 'Signup successed.',
-  'warning': 'Signup failed.'
+  'success': __('Signup successed.'),
+  'warning': __('Signup failed.')
 }
 
 const Content = (props: Props) => {
@@ -69,25 +69,25 @@ const Content = (props: Props) => {
     <div className="signup">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
-        <h1>Welcome to Geolonia</h1>
-        <h2>Create your account</h2>
+        <h1>{__('Welcome to Geolonia')}</h1>
+        <h2>{__('Create your account')}</h2>
 
         <div className="form">
           <label className="username">
-            <h3>Username</h3>
+            <h3>{__('Username')}</h3>
             <input type="text" value={username} onChange={onUsernameChange} />
           </label>
           <label className="email">
-            <h3>Email address</h3>
+            <h3>{__('Email address')}</h3>
             <input type="text" value={email} onChange={onEmailChange} />
           </label>
           <label className="password">
-            <h3>Password</h3>
+            <h3>{__('Password')}</h3>
             <input type="text" value={password} onChange={onPasswordChange} />
           </label>
           <p className="message">{__('Make sure it\'s at least 15 characters OR at least 8 characters including a number and a lowercase letter.')}</p>
 
-          <p><Button variant="contained" color="primary" onClick={handleSignup}>Sign up</Button></p>
+          <p><Button variant="contained" color="primary" onClick={handleSignup}>{__('Sign up')}</Button></p>
           <p className="message"><Interweave content={__('By signing up to Geolonia, you agree to our <a href="https://geolonia.com/terms" class="MuiTypography-colorPrimary">Terms of service</a> and <a class="MuiTypography-colorPrimary" href="https://geolonia.com/privacy">Privacy policy</a>.')} /></p>
         </div>
 

@@ -5,13 +5,13 @@ import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-// import NotificationsIcon from '@material-ui/icons/Notifications';
 import Toolbar from '@material-ui/core/Toolbar';
-// import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles, Theme } from '@material-ui/core/styles';
 
 import PersonIcon from '@material-ui/icons/Person';
 import MenuIcon from '@material-ui/icons/Menu';
+
+import {__} from '@wordpress/i18n'
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -105,8 +105,8 @@ const Header = (props: Props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleProfileClick}>Profile</MenuItem>
-                <MenuItem onClick={handleLogout}>Logout</MenuItem>
+                <MenuItem onClick={handleProfileClick}>{__('Profile')}</MenuItem>
+                <MenuItem onClick={handleLogout}>{__('Logout')}</MenuItem>
               </Menu>
             </Grid>
           </Grid>
