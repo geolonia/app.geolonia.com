@@ -27,32 +27,8 @@ import './Navigator.css'
 import defaultGroupIcon from './custom/group.svg';
 import { Link } from '@material-ui/core';
 
-import {__} from '@wordpress/i18n'
-
-const categories = [
-  {
-    id: __('Maps'),
-    children: [
-      { id: __('API Keys'), icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
-      // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
-    ],
-  },
-  {
-    id: __('API Services'),
-    children: [
-      { id: __('Geolonia GIS'), icon: <RoomIcon />, href: "#/data/gis", active: false },
-      // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
-    ],
-  },
-  {
-    id: __('Team Settings'),
-    children: [
-      { id: __('General'), icon: <ViewListIcon />, href: "#/team/general", active: false },
-      { id: __('Members'), icon: <GroupIcon />, href: "#/team/members", active: false },
-      { id: __('Billing'), icon: <PaymentIcon />, href: "#/team/billing", active: false },
-    ],
-  },
-];
+import {__, setLocaleData} from '@wordpress/i18n'
+import {loadLocale} from '../lib/loadLocale'
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -110,6 +86,36 @@ type Props = {
 const Navigator: React.FC<Props> = (props: Props) => {
   const { classes, ...other } = props;
   const [open, setOpen] = React.useState(false);
+
+  const localeData = loadLocale()
+  if (localeData) {
+    setLocaleData(localeData)
+  }
+
+  const categories = [
+    {
+      id: __('Maps'),
+      children: [
+        { id: __('API Keys'), icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
+        // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
+      ],
+    },
+    {
+      id: __('API Services'),
+      children: [
+        { id: __('Geolonia GIS'), icon: <RoomIcon />, href: "#/data/gis", active: false },
+        // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
+      ],
+    },
+    {
+      id: __('Team Settings'),
+      children: [
+        { id: __('General'), icon: <ViewListIcon />, href: "#/team/general", active: false },
+        { id: __('Members'), icon: <GroupIcon />, href: "#/team/members", active: false },
+        { id: __('Billing'), icon: <PaymentIcon />, href: "#/team/billing", active: false },
+      ],
+    },
+  ];
 
   const handleClickOpen = () => {
     setOpen(true);
