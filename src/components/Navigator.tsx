@@ -27,8 +27,7 @@ import './Navigator.css'
 import defaultGroupIcon from './custom/group.svg';
 import { Link } from '@material-ui/core';
 
-import {__, setLocaleData} from '@wordpress/i18n'
-import {loadLocale} from '../lib/loadLocale'
+import {__} from '@wordpress/i18n'
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -86,11 +85,6 @@ type Props = {
 const Navigator: React.FC<Props> = (props: Props) => {
   const { classes, ...other } = props;
   const [open, setOpen] = React.useState(false);
-
-  const localeData = loadLocale()
-  if (localeData) {
-    setLocaleData(localeData)
-  }
 
   const categories = [
     {
