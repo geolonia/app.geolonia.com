@@ -37,7 +37,7 @@ Make pot:
 $ npm run i18n
 ```
 
-Translate and run following.
+Translate `ja.po` and run following.
 
 ```
 $ npm run po2json
