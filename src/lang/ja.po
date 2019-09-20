@@ -1,0 +1,521 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-21 02:23+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/components/Maps/APIKey.tsx:32 src/components/Maps/APIKeys.tsx:37
+msgid "API keys"
+msgstr "API キー"
+
+#: src/components/Maps/APIKey.tsx:36 src/components/Maps/APIKey.tsx:65
+msgid "API key settings"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:65
+msgid ""
+"Get the HTML code for the map on the web page, and configure access control "
+"for your API key."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:72 src/components/Navigator.tsx:195
+#: src/components/Team/General.tsx:51 src/components/custom/Delete.tsx:49
+#: src/components/Data/GIS.tsx:84
+msgid "Name"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:79 src/components/Data/GIS.tsx:98
+msgid "URLs"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:88 src/components/Data/GIS.tsx:106
+msgid ""
+"Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
+"code> header for CORS. Please enter a URL on a new line."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:94 src/components/Team/General.tsx:85
+#: src/components/Data/GIS.tsx:109
+msgid "Danger Zone"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:95
+msgid "Once you delete an API, there is no going back. Please be certain."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:104
+msgid "Your API Key"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:108
+msgid "Add the map to your site"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:109
+msgid "Step 1"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:110
+msgid ""
+"Include the following code before closing tag of the <code>&lt;body /&gt;</"
+"code> in your HTML file."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:112
+msgid "Step 2"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:113
+msgid "Add the following code into the body of your HTML file."
+msgstr ""
+
+#: src/components/Maps/APIKeys.tsx:37
+msgid "You need an API key to display map. Get an API key."
+msgstr ""
+
+#: src/components/Navigator.tsx:34
+msgid "Maps"
+msgstr ""
+
+#: src/components/Navigator.tsx:36
+msgid "API Keys"
+msgstr ""
+
+#: src/components/Navigator.tsx:41
+msgid "API Services"
+msgstr ""
+
+#: src/components/Navigator.tsx:43 src/components/Dashboard.tsx:103
+msgid "Geolonia GIS"
+msgstr ""
+
+#: src/components/Navigator.tsx:48
+msgid "Team Settings"
+msgstr ""
+
+#: src/components/Navigator.tsx:50 src/components/Team/General.tsx:36
+#: src/components/Team/General.tsx:43
+msgid "General"
+msgstr ""
+
+#: src/components/Navigator.tsx:51 src/components/Team/Members.tsx:81
+msgid "Members"
+msgstr ""
+
+#: src/components/Navigator.tsx:52
+msgid "Billing"
+msgstr ""
+
+#: src/components/Navigator.tsx:133
+msgid "Create new team"
+msgstr ""
+
+#: src/components/Navigator.tsx:149
+msgid "Dashboard"
+msgstr ""
+
+#: src/components/Navigator.tsx:188
+msgid "Create a new team"
+msgstr ""
+
+#: src/components/Navigator.tsx:190
+msgid "Please enter the name of new team."
+msgstr ""
+
+#: src/components/Navigator.tsx:196
+msgid "My team"
+msgstr ""
+
+#: src/components/Navigator.tsx:202 src/components/custom/Delete.tsx:57
+msgid "Cancel"
+msgstr ""
+
+#: src/components/Navigator.tsx:205 src/components/custom/Save.tsx:73
+msgid "Save"
+msgstr ""
+
+#: src/components/Dashboard.tsx:100
+#, javascript-format
+msgid "Welcome, %s"
+msgstr ""
+
+#: src/components/Dashboard.tsx:102
+msgid "Get API key"
+msgstr ""
+
+#: src/components/Dashboard.tsx:102
+msgid "Get API key then create your map!"
+msgstr ""
+
+#: src/components/Dashboard.tsx:103
+msgid "Display your points, lines, polygons on your map application."
+msgstr ""
+
+#: src/components/Dashboard.tsx:112
+msgid "Map loads for this month"
+msgstr ""
+
+#: src/components/Dashboard.tsx:121
+msgid "API loads for this month"
+msgstr ""
+
+#: src/components/ResetPassword.tsx:23
+msgid "Change your password"
+msgstr ""
+
+#: src/components/ResetPassword.tsx:27 src/components/Signup.tsx:85
+#: src/components/Signin.tsx:79
+msgid "Password"
+msgstr ""
+
+#: src/components/ResetPassword.tsx:31
+msgid "Confirm password"
+msgstr ""
+
+#: src/components/ResetPassword.tsx:34 src/components/Signup.tsx:88
+msgid ""
+"Make sure it's at least 15 characters OR at least 8 characters including a "
+"number and a lowercase letter."
+msgstr ""
+
+#: src/components/ResetPassword.tsx:35 src/components/ForgotPassword.tsx:31
+msgid "Send password reset email"
+msgstr ""
+
+#: src/components/Signup.tsx:31
+msgid "Signup successed."
+msgstr ""
+
+#: src/components/Signup.tsx:32
+msgid "Signup failed."
+msgstr ""
+
+#: src/components/Signup.tsx:72 src/components/verify.tsx:70
+msgid "Welcome to Geolonia"
+msgstr ""
+
+#: src/components/Signup.tsx:73
+msgid "Create your account"
+msgstr ""
+
+#: src/components/Signup.tsx:77 src/components/verify.tsx:75
+msgid "Username"
+msgstr ""
+
+#: src/components/Signup.tsx:81 src/components/ForgotPassword.tsx:27
+msgid "Email address"
+msgstr ""
+
+#: src/components/Signup.tsx:90
+msgid "Sign up"
+msgstr ""
+
+#: src/components/Signup.tsx:91
+msgid ""
+"By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
+"terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
+"class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy"
+"\">Privacy policy</a>."
+msgstr ""
+
+#: src/components/Team/Members.tsx:77 src/components/Team/General.tsx:32
+msgid "Team settings"
+msgstr ""
+
+#: src/components/Team/Members.tsx:88
+msgid "You can manage members in your team."
+msgstr ""
+
+#: src/components/Team/Members.tsx:91
+msgid "Invite"
+msgstr ""
+
+#: src/components/Team/Members.tsx:92
+msgid "Invite a member"
+msgstr ""
+
+#: src/components/Team/Members.tsx:93
+msgid ""
+"We automatically update your billing as you add and remove team members."
+msgstr ""
+
+#: src/components/Team/Members.tsx:96
+msgid "Email"
+msgstr ""
+
+#: src/components/Team/Members.tsx:109
+msgid "Owner"
+msgstr ""
+
+#: src/components/Team/Members.tsx:119
+msgid "Change role"
+msgstr ""
+
+#: src/components/Team/Members.tsx:120
+msgid "Deactivate"
+msgstr ""
+
+#: src/components/Team/Members.tsx:121
+msgid "Remove from team"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:69
+msgid "Hello world"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:72
+msgid "Payment history"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:77
+msgid "Your subscriptions"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:81
+msgid "Cost per 1,000 map loads/month"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:83 src/components/Team/Billing.tsx:98
+msgid "Free for up to 50,000/month"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:86 src/components/Team/Billing.tsx:101
+msgid "Loads"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:96
+msgid "Cost per 1,000 API loads/month"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:111
+msgid "Cost per user/month"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:115
+msgid "Users"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:127
+msgid "Amount"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:129
+msgid "Billed monthly on"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:133
+msgid "Payment information"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:137
+msgid "Payment method:"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:139
+msgid "Change payment method"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:142
+msgid "Coupon:"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:144
+msgid "Redeem a coupon"
+msgstr ""
+
+#: src/components/Team/General.tsx:44
+msgid ""
+"All users on the Geolonia service belong to one of the teams, and a team "
+"with the same name as the user is automatically generated when you sign up. "
+"You can switch teams in the pull-down menu at the top left of the sidebar."
+msgstr ""
+
+#: src/components/Team/General.tsx:57
+msgid "Slug"
+msgstr ""
+
+#: src/components/Team/General.tsx:63 src/components/Data/GIS.tsx:90
+msgid "Description"
+msgstr ""
+
+#: src/components/Team/General.tsx:71
+msgid "URL"
+msgstr ""
+
+#: src/components/Team/General.tsx:80
+msgid "Upload new picture"
+msgstr ""
+
+#: src/components/Team/General.tsx:86
+msgid "Once you delete a team, there is no going back. Please be certain. "
+msgstr ""
+
+#: src/components/Team/General.tsx:87 src/components/custom/Delete.tsx:39
+#: src/components/custom/Delete.tsx:41 src/components/custom/Delete.tsx:60
+msgid "Delete"
+msgstr ""
+
+#: src/components/Header.tsx:108
+msgid "Profile"
+msgstr ""
+
+#: src/components/Header.tsx:109
+msgid "Logout"
+msgstr ""
+
+#: src/components/verify.tsx:71
+msgid "Verify your account"
+msgstr ""
+
+#: src/components/verify.tsx:79
+msgid "Verification code"
+msgstr ""
+
+#: src/components/verify.tsx:83
+msgid "Verify"
+msgstr ""
+
+#: src/components/ForgotPassword.tsx:23
+msgid "Reset your password"
+msgstr ""
+
+#: src/components/ForgotPassword.tsx:30
+msgid "We will send you a link to reset your password."
+msgstr ""
+
+#: src/components/custom/Support.tsx:16
+msgid "Terms"
+msgstr ""
+
+#: src/components/custom/Support.tsx:17
+msgid "Privacy"
+msgstr ""
+
+#: src/components/custom/Support.tsx:18
+msgid "Contact Geolonia"
+msgstr ""
+
+#: src/components/custom/Delete.tsx:70
+msgid "Are you sure you want to delete this API key?"
+msgstr ""
+
+#: src/components/custom/Delete.tsx:71
+msgid "Please type in the name of the API key to confirm."
+msgstr ""
+
+#: src/components/custom/Table.tsx:48
+msgid "Public"
+msgstr ""
+
+#: src/components/custom/Save.tsx:56
+msgid "Saved."
+msgstr ""
+
+#: src/components/Data/GIS.tsx:27 src/components/Data/GISs.tsx:22
+msgid "API services"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:35 src/components/Data/GIS.tsx:74
+msgid "Dataset settings"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:75
+msgid ""
+"You can manage and set the dataset, and get the the access point URL of "
+"dataset API."
+msgstr ""
+
+#: src/components/Data/GIS.tsx:110
+msgid "Once you delete a API key, there is no going back. Please be certain."
+msgstr ""
+
+#: src/components/Data/GIS.tsx:113
+msgid "Are you sure you want to delete this dataset?"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:114
+msgid "Please type in the name of the dataset to confirm."
+msgstr ""
+
+#: src/components/Data/GIS.tsx:128
+msgid ""
+"Public features will be displayed on <a class=\"MuiTypography-colorPrimary\" "
+"href=\"#\">open data directory</a> and anyone can download this features "
+"without API key."
+msgstr ""
+
+#: src/components/Data/GIS.tsx:133
+msgid "Private URL"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:135
+msgid "Public URL"
+msgstr ""
+
+#: src/components/Data/GISs.tsx:38
+msgid ""
+"Geolonia GIS is an API service specialized for location data. Register "
+"various location information data such as stores and real estate "
+"informations that you have."
+msgstr ""
+
+#: src/components/Data/GISs.tsx:42
+msgid "Create a new dataset"
+msgstr ""
+
+#: src/components/Data/GISs.tsx:43
+msgid "Please enter the name of the new dataset."
+msgstr ""
+
+#: src/components/Data/GISs.tsx:44
+msgid "My dataset"
+msgstr ""
+
+#: src/components/Signin.tsx:27
+msgid "Signin successed."
+msgstr ""
+
+#: src/components/Signin.tsx:28
+msgid "Signin failed."
+msgstr ""
+
+#: src/components/Signin.tsx:71
+msgid "Sign in to Geolonia"
+msgstr ""
+
+#: src/components/Signin.tsx:72
+msgid "Your password has beed successfully updated."
+msgstr ""
+
+#: src/components/Signin.tsx:75
+msgid "Username or email address"
+msgstr ""
+
+#: src/components/Signin.tsx:82
+msgid "Forgot password?"
+msgstr ""
+
+#: src/components/Signin.tsx:83
+msgid "Sign in"
+msgstr ""
+
+#: src/components/Signin.tsx:86
+msgid "New to Geolonia?"
+msgstr ""
+
+#: src/components/Signin.tsx:86
+msgid "Create an account."
+msgstr ""
