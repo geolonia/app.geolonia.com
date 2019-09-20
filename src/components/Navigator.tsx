@@ -27,27 +27,29 @@ import './Navigator.css'
 import defaultGroupIcon from './custom/group.svg';
 import { Link } from '@material-ui/core';
 
+import {__} from '@wordpress/i18n'
+
 const categories = [
   {
-    id: 'Maps',
+    id: __('Maps'),
     children: [
-      { id: 'API Keys', icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
+      { id: __('API Keys'), icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
       // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
     ],
   },
   {
-    id: 'API Services',
+    id: __('API Services'),
     children: [
-      { id: 'Geolonia GIS', icon: <RoomIcon />, href: "#/data/gis", active: false },
+      { id: __('Geolonia GIS'), icon: <RoomIcon />, href: "#/data/gis", active: false },
       // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
     ],
   },
   {
-    id: 'Team Settings',
+    id: __('Team Settings'),
     children: [
-      { id: 'General', icon: <ViewListIcon />, href: "#/team/general", active: false },
-      { id: 'Members', icon: <GroupIcon />, href: "#/team/members", active: false },
-      { id: 'Billing', icon: <PaymentIcon />, href: "#/team/billing", active: false },
+      { id: __('General'), icon: <ViewListIcon />, href: "#/team/general", active: false },
+      { id: __('Members'), icon: <GroupIcon />, href: "#/team/members", active: false },
+      { id: __('Billing'), icon: <PaymentIcon />, href: "#/team/billing", active: false },
     ],
   },
 ];
@@ -128,7 +130,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           <img src={defaultGroupIcon} className="logo" alt=""/>
           <Select className="team" value="default-team">
             <MenuItem value="default-team">miya0001</MenuItem>
-            <MenuItem className="create-new-team"><Link onClick={handleClickOpen}>+ Create new team</Link></MenuItem>
+            <MenuItem className="create-new-team"><Link onClick={handleClickOpen}>+ {__('Create new team')}</Link></MenuItem>
           </Select>
         </ListItem>
         <ListItem
@@ -144,7 +146,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
               primary: classes.itemPrimary,
             }}
           >
-            Dashboard
+            {__('Dashboard')}
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
@@ -183,24 +185,24 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
       <form>
         <Dialog open={open} onClose={handleClose} fullWidth={true} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Create a new team</DialogTitle>
+          <DialogTitle id="form-dialog-title">{__('Create a new team')}</DialogTitle>
           <DialogContent>
-            <DialogContentText>Please enter the name of new team.</DialogContentText>
+            <DialogContentText>{__('Please enter the name of new team.')}</DialogContentText>
             <TextField
               autoFocus
               margin="dense"
               name="team-name"
-              label="Name"
-              value="My team"
+              label={__('Name')}
+              value={__('My team')}
               fullWidth
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Cancel
+              {__('Cancel')}
             </Button>
             <Button onSubmit={saveHandler} color="primary" type="submit">
-              Save
+              {__('Save')}
             </Button>
           </DialogActions>
         </Dialog>
