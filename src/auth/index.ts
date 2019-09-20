@@ -68,6 +68,15 @@ export const getSession = () =>
     }
   });
 
+export const signout = () =>
+  new Promise(resolve => {
+    const cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser) {
+      cognitoUser.signOut();
+    }
+    resolve();
+  });
+
 export const resetPassword = (...args: any[]) =>
   new Promise((resolve, reject) => {
     // TODO: Implement password reset
