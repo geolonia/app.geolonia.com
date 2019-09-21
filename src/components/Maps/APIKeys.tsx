@@ -19,11 +19,11 @@ function Content() {
       href: "#/"
     },
     {
-      title: "Maps",
+      title: __("Maps"),
       href: "#/maps",
     },
     {
-      title: "API keys",
+      title: __("API keys"),
       href: null
     },
   ]
