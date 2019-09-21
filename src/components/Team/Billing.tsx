@@ -66,7 +66,7 @@ const Content = () => {
   return (
     <div className="billing">
       <Title title="Billing" breadcrumb={breadcrumbItems}>
-        {__('Hello world')}
+        {__('You can see subscriptions for this team in this month.')}
       </Title>
 
       <Typography component="h2" className="module-title">{__('Payment history')}</Typography>
