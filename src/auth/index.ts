@@ -26,6 +26,22 @@ export const signUp = (username: string, email: string, password: string) =>
     });
   });
 
+  export const verify = (username: string, code: string) =>
+    new Promise((resolve, reject) => {
+      const userData = {
+            Username : username,
+            Pool : userPool
+        };
+      const cognitoUser = new CognitoIdentity.CognitoUser(userData);
+      cognitoUser.confirmRegistration(code, true, (err, result) => {
+        if (err) {
+          reject(err)
+        } else {
+          resolve(result)
+        }
+      })
+    })
+
 export const signin = (username: string, password: string) =>
   new Promise((resolve, reject) => {
     const cognitoUser = new CognitoIdentity.CognitoUser({
