@@ -78,9 +78,7 @@ const Content = (props: Props) => {
             )}
           </Alert>
         )}
-        {/* <Alert type="success">
-          {__("Your password has beed successfully updated.")}
-        </Alert> */}
+        {/* <Alert type="success">{__('Your password has been successfully updated.')}</Alert> */}
         <div className="form">
           <label className="username">
             <h2>{__("Username or email address")}</h2>

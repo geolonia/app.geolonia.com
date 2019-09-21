@@ -62,7 +62,7 @@ const Content = () => {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title={__('API key settings')}>{__('Get the HTML code for the map on the web page, and configure access control for your API key.')}</Title>
+      <Title breadcrumb={breadcrumbItems} title={__('API key settings')}>{__('Configure access control for your API key and Get the HTML code for your map.')}</Title>
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
@@ -110,7 +110,7 @@ const Content = () => {
             <p><Interweave content={__('Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file.')} /></p>
             <Code>{embedCode}</Code>
             <Typography component="h3" style={styleH3}>{__('Step 2')}</Typography>
-            <p>{__('Add the following code into the body of your HTML file.')}</p>
+            <p>{__('Add the following code where you want to place the map.')}</p>
             <Code>{embedHtml}</Code>
           </Paper>
         </Grid>
