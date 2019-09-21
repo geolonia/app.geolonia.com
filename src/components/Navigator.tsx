@@ -15,35 +15,19 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
-// import MyLocationIcon from '@material-ui/icons/MyLocation';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Button from '@material-ui/core/Button';
 
 import './Navigator.css'
 import defaultGroupIcon from './custom/group.svg';
+import { Link } from '@material-ui/core';
 
-const categories = [
-  {
-    id: 'Maps',
-    children: [
-      { id: 'API Keys', icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
-      // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
-    ],
-  },
-  {
-    id: 'API Services',
-    children: [
-      { id: 'Geolonia GIS', icon: <RoomIcon />, href: "#/data/gis", active: false },
-      // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
-    ],
-  },
-  {
-    id: 'Team Settings',
-    children: [
-      { id: 'General', icon: <ViewListIcon />, href: "#/team/general", active: false },
-      { id: 'Members', icon: <GroupIcon />, href: "#/team/members", active: false },
-      { id: 'Billing', icon: <PaymentIcon />, href: "#/team/billing", active: false },
-    ],
-  },
-];
+import {__} from '@wordpress/i18n'
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -86,6 +70,10 @@ const styles = (theme: Theme) => ({
   },
 })
 
+const handleClickHome = () => {
+  window.location.hash = ''
+}
+
 type Props = {
   readonly classes: any
   readonly PaperProps: any
@@ -96,6 +84,44 @@ type Props = {
 
 const Navigator: React.FC<Props> = (props: Props) => {
   const { classes, ...other } = props;
+  const [open, setOpen] = React.useState(false);
+
+  const categories = [
+    {
+      id: __('Maps'),
+      children: [
+        { id: __('API Keys'), icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
+        // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
+      ],
+    },
+    {
+      id: __('API Services'),
+      children: [
+        { id: __('Geolonia GIS'), icon: <RoomIcon />, href: "#/data/gis", active: false },
+        // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
+      ],
+    },
+    {
+      id: __('Team Settings'),
+      children: [
+        { id: __('General'), icon: <ViewListIcon />, href: "#/team/general", active: false },
+        { id: __('Members'), icon: <GroupIcon />, href: "#/team/members", active: false },
+        { id: __('Billing'), icon: <PaymentIcon />, href: "#/team/billing", active: false },
+      ],
+    },
+  ];
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const saveHandler = () => {
+
+  }
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
@@ -104,13 +130,13 @@ const Navigator: React.FC<Props> = (props: Props) => {
           <img src={defaultGroupIcon} className="logo" alt=""/>
           <Select className="team" value="default-team">
             <MenuItem value="default-team">miya0001</MenuItem>
-            <MenuItem className="create-new-team">Create new team</MenuItem>
+            <MenuItem className="create-new-team"><Link onClick={handleClickOpen}>+ {__('Create new team')}</Link></MenuItem>
           </Select>
         </ListItem>
         <ListItem
             button
             component="a"
-            href="/"
+            onClick={handleClickHome}
             className={clsx(classes.item, classes.itemCategory)}>
           <ListItemIcon className={classes.itemIcon}>
             <HomeIcon />
@@ -120,7 +146,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
               primary: classes.itemPrimary,
             }}
           >
-            Dashboard
+            {__('Dashboard')}
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
@@ -156,6 +182,31 @@ const Navigator: React.FC<Props> = (props: Props) => {
           </React.Fragment>
         ))}
       </List>
+
+      <form>
+        <Dialog open={open} onClose={handleClose} fullWidth={true} aria-labelledby="form-dialog-title">
+          <DialogTitle id="form-dialog-title">{__('Create a new team')}</DialogTitle>
+          <DialogContent>
+            <DialogContentText>{__('Please enter the name of new team.')}</DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              name="team-name"
+              label={__('Name')}
+              value={__('My team')}
+              fullWidth
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              {__('Cancel')}
+            </Button>
+            <Button onSubmit={saveHandler} color="primary" type="submit">
+              {__('Save')}
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </form>
     </Drawer>
   );
 }

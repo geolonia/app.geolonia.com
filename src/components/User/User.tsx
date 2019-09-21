@@ -1,30 +1,47 @@
 import React from "react";
 
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import TextField from "@material-ui/core/TextField";
-import PersonIcon from "@material-ui/icons/Person";
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import TextField from '@material-ui/core/TextField';
+import PersonIcon from '@material-ui/icons/Person';
 
-import Save from "../custom/Save";
-import Security from "./security";
+import Save from '../custom/Save'
+import Title from '../custom/Title';
 
 const Content = () => {
   const ProfileImageStyle: React.CSSProperties = {
-    width: "250px",
-    height: "auto",
-    fill: "#dedede"
-  };
+    width: '250px',
+    height: 'auto',
+    fill: '#dedede',
+  }
+
+  const linkStyle: React.CSSProperties = {
+    marginLeft: '1em',
+  }
+
+  const paragraphStyle: React.CSSProperties = {
+    marginTop: '1em',
+  }
+
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/",
+    },
+    {
+      title: "Your profile",
+      href: null,
+    },
+  ]
 
   return (
-    <Paper>
+    <div>
+      <Title title="Your profile" breadcrumb={breadcrumbItems}>ユーザー情報やパスワードを設定してください。</Title>
+
       <Grid container spacing={4}>
         <Grid item sm={12} md={8}>
-          <Typography component="h2" className="module-title">
-            Your profile
-          </Typography>
           <TextField
             id="standard-name"
             label="Username"
@@ -44,8 +61,30 @@ const Content = () => {
             fullWidth={true}
           />
           <Save />
-
-          <Security></Security>
+          <Typography component="h2" className="module-title">Security</Typography>
+          <TextField
+            id="standard-name"
+            label="Old password"
+            type="password"
+            margin="normal"
+            fullWidth={true}
+          />
+          <TextField
+            id="standard-name"
+            label="New password"
+            type="password"
+            margin="normal"
+            fullWidth={true}
+          />
+          <TextField
+            id="standard-name"
+            label="Confirm new password"
+            type="password"
+            margin="normal"
+            fullWidth={true}
+          />
+          <Typography style={paragraphStyle} paragraph={true} component="p"><Button variant="contained" color="inherit">Update password</Button>
+              <Link style={linkStyle} href="#/forgot-password">I forgot my password</Link></Typography>
         </Grid>
 
         <Grid item sm={12} md={4}>
@@ -58,7 +97,7 @@ const Content = () => {
           </Typography>
         </Grid>
       </Grid>
-    </Paper>
+    </div>
   );
 };
 
