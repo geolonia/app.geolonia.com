@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-21 14:33+0900\n"
+"POT-Creation-Date: 2019-09-22 06:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,8 +28,7 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:65
 msgid ""
-"Get the HTML code for the map on the web page, and configure access control "
-"for your API key."
+"Configure access control for your API key and Get the HTML code for your map."
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:72 src/components/Navigator.tsx:195
@@ -80,7 +79,7 @@ msgid "Step 2"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:113
-msgid "Add the following code into the body of your HTML file."
+msgid "Add the following code where you want to place the map."
 msgstr ""
 
 #: src/components/Maps/APIKeys.tsx:37
@@ -116,16 +115,12 @@ msgstr ""
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:133
-msgid "Create new team"
+#: src/components/Navigator.tsx:133 src/components/Navigator.tsx:188
+msgid "Create a new team"
 msgstr ""
 
 #: src/components/Navigator.tsx:149
 msgid "Dashboard"
-msgstr ""
-
-#: src/components/Navigator.tsx:188
-msgid "Create a new team"
 msgstr ""
 
 #: src/components/Navigator.tsx:190
@@ -270,7 +265,7 @@ msgid "Remove from team"
 msgstr ""
 
 #: src/components/Team/Billing.tsx:69
-msgid "Hello world"
+msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
 #: src/components/Team/Billing.tsx:72
@@ -494,7 +489,7 @@ msgid "Sign in to Geolonia"
 msgstr ""
 
 #: src/components/Signin.tsx:72
-msgid "Your password has beed successfully updated."
+msgid "Your password has been successfully updated."
 msgstr ""
 
 #: src/components/Signin.tsx:75
