@@ -1,14 +1,17 @@
-import {createStore, combineReducers} from 'redux'
-import {reducer as authSupportReducer,AuthSupportState } from './actions/auth-support'
+import { createStore, combineReducers } from "redux";
+import {
+  reducer as authSupportReducer,
+  AuthSupportState
+} from "./actions/auth-support";
 
 // app type
 export type AppState = {
-  authSupport: AuthSupportState
-}
+  authSupport: AuthSupportState;
+};
 
 const appReducer = combineReducers({
   authSupport: authSupportReducer
-})
+});
 
 // store
-export default createStore(appReducer)
+export default createStore(appReducer);

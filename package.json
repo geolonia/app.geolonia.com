@@ -42,7 +42,7 @@
     "msgmerge": "msgmerge -U src/lang/ja.po src/lang/lang.pot --lang=ja",
     "po2json": "po2json src/lang/ja.po src/lang/ja.json -f jed",
     "i18n": "npm run xgettext && npm run msgmerge",
-    "format": "prettier ./src/**/*.ts ./src/**/*.tsx"
+    "format": "prettier './src/**/*.ts' './src/**/*.tsx' --write"
   },
   "eslintConfig": {
     "extends": "react-app"
