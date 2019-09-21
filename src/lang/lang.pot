@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-22 06:51+0900\n"
+"POT-Creation-Date: 2019-09-22 07:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,13 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/components/Maps/APIKey.tsx:32 src/components/Maps/APIKeys.tsx:37
-#: src/components/Navigator.tsx:93
+#: src/components/Maps/APIKey.tsx:28 src/components/Maps/APIKeys.tsx:22
+#: src/components/Navigator.tsx:91
+msgid "Maps"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:32 src/components/Maps/APIKeys.tsx:26
+#: src/components/Maps/APIKeys.tsx:37 src/components/Navigator.tsx:93
 msgid "API keys"
 msgstr ""
 
@@ -84,10 +89,6 @@ msgstr ""
 
 #: src/components/Maps/APIKeys.tsx:37
 msgid "You need an API key to display map. Get an API key."
-msgstr ""
-
-#: src/components/Navigator.tsx:91
-msgid "Maps"
 msgstr ""
 
 #: src/components/Navigator.tsx:98
