@@ -1,9 +1,10 @@
-import React from "react";
-import { withStyles, createStyles } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Hidden from "@material-ui/core/Hidden";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import React from 'react';
+
+import {  withStyles, createStyles } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Hidden from '@material-ui/core/Hidden';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import RouteController from "./route-controller";
 
 import Navigator from "./Navigator";
@@ -41,10 +42,10 @@ const styles = createStyles({
   },
   mainContent: {
     flex: 1,
-    padding: "48px 36px 48px",
-    background: "#eaeff1"
-  }
-});
+    padding: '48px 36px 48px',
+    background: '#ffffff',
+  },
+})
 
 type Props = {
   classes: {

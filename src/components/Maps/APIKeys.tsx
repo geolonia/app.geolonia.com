@@ -1,10 +1,10 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
-import CodeIcon from '@material-ui/icons/Code';
 
 import Table from '../custom/Table';
 import AddNew from '../custom/AddNew'
+import Title from '../custom/Title';
+
+import {__} from '@wordpress/i18n'
 
 const rows = [
   {id: 1111, name: "My Map", updated: "2019-08-28"},
@@ -13,21 +13,38 @@ const rows = [
 ];
 
 function Content() {
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/"
+    },
+    {
+      title: "Maps",
+      href: "#/maps",
+    },
+    {
+      title: "API keys",
+      href: null
+    },
+  ]
+
   const handler = (event: React.MouseEvent) => {
 
   }
 
   return (
-    <Paper>
+    <div>
+      <Title breadcrumb={breadcrumbItems} title={__('API keys')}>{__('You need an API key to display map. Get an API key.')}</Title>
+
       <AddNew
         label="Create a new API key"
         description="Please enter the name of new API key."
         default="My API"
         handler={handler}
       />
-      <Typography component="h3" className="module-title"><CodeIcon /> API Keys</Typography>
+
       <Table rows={rows} rowsPerPage={10} permalink="/maps/api-keys/%s" />
-    </Paper>
+    </div>
   );
 }
 

@@ -1,0 +1,30 @@
+.help
+{
+  margin: 1em 0 1em 0;
+  border: 1px solid #faf2cc;
+  border-radius: 5px;
+  background-color: #fcf8e3;
+
+  .outer
+  {
+    padding: 20px 24px;
+    color: #8a6d3b;
+  }
+
+  .flex
+  {
+    display: flex;
+    align-items: center;
+  }
+
+  .help-icon
+  {
+    width: 48px;
+    margin-right: 12px;
+  }
+
+  .icon
+  {
+    font-size: 48px;
+  }
+}

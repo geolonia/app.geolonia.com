@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
@@ -14,7 +13,10 @@ import TableRow from '@material-ui/core/TableRow';
 import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
 import PersonIcon from '@material-ui/icons/Person';
 
+import {__} from '@wordpress/i18n'
+
 import AddNew from '../custom/AddNew'
+import Title from '../custom/Title';
 
 const rows = [
   {id: 1111, avatar: 'https://avatars2.githubusercontent.com/u/309946?s=400&v=4', name: "Taro Yamada", username: 'taro', isOwner: true},
@@ -66,20 +68,35 @@ const Content = () => {
 
   }
 
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/",
+    },
+    {
+      title: __("Team settings"),
+      href: "#/team",
+    },
+    {
+      title: __("Members"),
+      href: null,
+    },
+  ]
+
   return (
-    <Paper>
+    <div>
+      <Title title="Members" breadcrumb={breadcrumbItems}>{__('You can manage members in your team.')}</Title>
+
       <AddNew
-        buttonLabel="Invite"
-        label="Invite a member"
-        description="We automatically update your billing as you add and remove team members."
+        buttonLabel={__("Invite")}
+        label={__("Invite a member")}
+        description={__("We automatically update your billing as you add and remove team members.")}
         default=""
         fieldName="email"
-        fieldLabel="Email"
+        fieldLabel={__("Email")}
         fieldType="email"
         handler={inviteHandler}
       />
-
-      <Typography component="h2" className="module-title">Team Members</Typography>
 
       <Table className="geolonia-list-table">
         <TableBody>
@@ -89,7 +106,7 @@ const Content = () => {
               <TableCell component="th" scope="row">
                 {row.name}<br />@{row.username}
               </TableCell>
-              <TableCell align="center">{row.isOwner && 'Owner'}</TableCell>
+              <TableCell align="center">{row.isOwner && __('Owner')}</TableCell>
               <TableCell align="right">
                 <Button variant="outlined" color="default" aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}><BrightnessLowIcon style={iconStyle} /></Button>
                 <Menu
@@ -99,9 +116,9 @@ const Content = () => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>Change role</MenuItem>
-                  <MenuItem onClick={handleClose}>Deactivate</MenuItem>
-                  <MenuItem onClick={handleClose}>Remove from team</MenuItem>
+                  <MenuItem onClick={handleClose}>{__('Change role')}</MenuItem>
+                  <MenuItem onClick={handleClose}>{__('Deactivate')}</MenuItem>
+                  <MenuItem onClick={handleClose}>{__('Remove from team')}</MenuItem>
                 </Menu>
               </TableCell>
             </TableRow>
@@ -125,7 +142,7 @@ const Content = () => {
           </TableRow>
         </TableFooter>
       </Table>
-    </Paper>
+    </div>
   );
 }
 

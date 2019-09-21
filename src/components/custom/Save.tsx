@@ -5,9 +5,11 @@ import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { __ } from '@wordpress/i18n';
 
 type Props= {
   label: string,
+  style: React.CSSProperties,
   handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
 }
 
@@ -16,7 +18,9 @@ const Save = (props: Props) => {
 
   const style: React.CSSProperties = {
     marginTop: '1em',
+    marginBottom: 0,
     width: '100%',
+    ...props.style
   }
 
   const handleSave = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -49,7 +53,7 @@ const Save = (props: Props) => {
         ContentProps={{
           'aria-describedby': 'message-id',
         }}
-        message={<span id="message-id">Saved.</span>}
+        message={<span id="message-id">{__('Saved.')}</span>}
         action={[
           <IconButton
             key="close"
@@ -66,7 +70,8 @@ const Save = (props: Props) => {
 }
 
 Save.defaultProps = {
-  label: 'Save',
+  label: __('Save'),
+  style: {},
   handler: (event: React.MouseEvent) => {
     console.log(event)
   }
