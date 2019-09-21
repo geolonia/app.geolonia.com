@@ -90,7 +90,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     {
       id: __('Maps'),
       children: [
-        { id: __('API Keys'), icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
+        { id: __('API keys'), icon: <CodeIcon />, href: "#/maps/api-keys", active: false },
         // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
       ],
     },
@@ -130,7 +130,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           <img src={defaultGroupIcon} className="logo" alt=""/>
           <Select className="team" value="default-team">
             <MenuItem value="default-team">miya0001</MenuItem>
-            <MenuItem className="create-new-team"><Link onClick={handleClickOpen}>+ {__('Create new team')}</Link></MenuItem>
+            <MenuItem className="create-new-team"><Link onClick={handleClickOpen}>+ {__('Create a new team')}</Link></MenuItem>
           </Select>
         </ListItem>
         <ListItem
