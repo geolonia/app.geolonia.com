@@ -5,6 +5,7 @@ import { createActions } from "../redux/actions/auth-support";
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import Redux from "redux";
 import { AppState } from "../redux/store";
+import delay from "../lib/promise-delay";
 
 type Props = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
@@ -16,7 +17,7 @@ type State = {};
 
 export class AuthContainer extends React.Component<Props, State> {
   componentDidMount() {
-    getSession()
+    delay(getSession(), 2000)
       .then(session => this.props.setSession(session))
       .catch(err => console.error(err))
       .finally(this.props.ready);
