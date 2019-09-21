@@ -3,6 +3,7 @@ import React from "react";
 import { withStyles, createStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import { HashRouter, Route, Switch } from "react-router-dom";
 import RouteController from "./route-controller";
@@ -23,6 +24,7 @@ import { connect } from "react-redux";
 import { AppState } from "../redux/store";
 
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { CircularProgress } from "@material-ui/core";
 
 const drawerWidth = 256;
 const styles = createStyles({
@@ -70,8 +72,22 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
 
   if (!isReady) {
-    // NOTE: You can show loading here
-    return null;
+    return (
+      <ThemeProvider theme={theme}>
+        <Grid
+          container
+          spacing={0}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          style={{ minHeight: "100vh" }}
+        >
+          <Grid item xs={3}>
+            <CircularProgress></CircularProgress>
+          </Grid>
+        </Grid>
+      </ThemeProvider>
+    );
   }
 
   return (
