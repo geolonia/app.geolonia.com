@@ -69,7 +69,7 @@ const Content = (props: Props) => {
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__('Sign in to Geolonia')}</h1>
-        <Alert type="success">{__('Your password has beed successfully updated.')}</Alert>
+        <Alert type="success">{__('Your password has been successfully updated.')}</Alert>
         <div className="form">
           <label className="username">
             <h2>{__('Username or email address')}</h2>
