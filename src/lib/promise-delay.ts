@@ -1,16 +1,16 @@
 const wait = (msec: number) =>
-  new Promise(resolve => setTimeout(resolve, msec));
+  new Promise<void>(resolve => setTimeout(resolve, msec));
 
-const catched = Symbol("is-catched");
+const catched = Symbol("has catched");
 
 const delayPromise = (promise: Promise<any>, msec: number) => {
-  const catchedPromise = promise.catch(err => ({ [catched]: err }));
+  const catchablePromise = promise.catch(err => ({ [catched]: err }));
 
-  return Promise.all([catchedPromise, wait(msec)]).then(result => {
-    if (result[0] && result[0][catched]) {
-      throw result[0][catched];
+  return Promise.all([catchablePromise, wait(msec)]).then(results => {
+    if (results[0] && results[0].hasOwnProperty(catched)) {
+      throw results[0][catched];
     } else {
-      return result[0];
+      return results[0];
     }
   });
 };
