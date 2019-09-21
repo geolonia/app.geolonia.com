@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-22 06:38+0900\n"
+"POT-Creation-Date: 2019-09-22 07:28+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,8 +13,13 @@ msgstr ""
 "lang: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/components/Maps/APIKey.tsx:32 src/components/Maps/APIKeys.tsx:37
-#: src/components/Navigator.tsx:93
+#: src/components/Maps/APIKey.tsx:28 src/components/Maps/APIKeys.tsx:22
+#: src/components/Navigator.tsx:91
+msgid "Maps"
+msgstr "地図"
+
+#: src/components/Maps/APIKey.tsx:32 src/components/Maps/APIKeys.tsx:26
+#: src/components/Maps/APIKeys.tsx:37 src/components/Navigator.tsx:93
 msgid "API keys"
 msgstr "API キー"
 
@@ -88,10 +93,6 @@ msgstr "以下のコードを地図を表示したい場所に挿入してくだ
 #: src/components/Maps/APIKeys.tsx:37
 msgid "You need an API key to display map. Get an API key."
 msgstr "地図を表示するには API キーが必要です。 API キーを取得してください。"
-
-#: src/components/Navigator.tsx:91
-msgid "Maps"
-msgstr "地図"
 
 #: src/components/Navigator.tsx:98
 msgid "API Services"
@@ -184,7 +185,8 @@ msgstr "パスワードを確認"
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
-msgstr "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
+msgstr ""
+"15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
 
 #: src/components/ResetPassword.tsx:35 src/components/ForgotPassword.tsx:31
 msgid "Send password reset email"
@@ -224,10 +226,11 @@ msgid ""
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
 "class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy"
 "\">Privacy policy</a>."
-msgstr "サインアップすることで、私たちの <a href=\"https://geolonia.com/"
-"terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a "
-"class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy"
-"\">プライバシーポリシー</a> に同意したものとさせていただきます。"
+msgstr ""
+"サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" "
+"class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class="
+"\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
+"シーポリシー</a> に同意したものとさせていただきます。"
 
 #: src/components/Team/Members.tsx:77 src/components/Team/General.tsx:32
 msgid "Team settings"
@@ -434,11 +437,15 @@ msgstr "データセットの設定"
 msgid ""
 "You can manage and set the dataset, and get the the access point URL of "
 "dataset API."
-msgstr "データセットの管理や設定を行ったり、データセット API のアクセスポイントの URLの を取得することができます。"
+msgstr ""
+"データセットの管理や設定を行ったり、データセット API のアクセスポイントの URL"
+"の を取得することができます。"
 
 #: src/components/Data/GIS.tsx:110
 msgid "Once you delete a API key, there is no going back. Please be certain."
-msgstr "一度 API キーを削除するともとに戻すことはできません。よく確認してから実行してください。"
+msgstr ""
+"一度 API キーを削除するともとに戻すことはできません。よく確認してから実行して"
+"ください。"
 
 #: src/components/Data/GIS.tsx:113
 msgid "Are you sure you want to delete this dataset?"
@@ -453,7 +460,10 @@ msgid ""
 "Public features will be displayed on <a class=\"MuiTypography-colorPrimary\" "
 "href=\"#\">open data directory</a> and anyone can download this features "
 "without API key."
-msgstr "一般公開のデータは、<a class=\"MuiTypography-colorPrimary\" href=\"#\">オープンデータディレクトリ</a>にて公開され、だれでも API キー無しでデータをダウンロードすることができます。"
+msgstr ""
+"一般公開のデータは、<a class=\"MuiTypography-colorPrimary\" href=\"#\">オープ"
+"ンデータディレクトリ</a>にて公開され、だれでも API キー無しでデータをダウン"
+"ロードすることができます。"
 
 #: src/components/Data/GIS.tsx:133
 msgid "Private URL"
@@ -468,7 +478,9 @@ msgid ""
 "Geolonia GIS is an API service specialized for location data. Register "
 "various location information data such as stores and real estate "
 "informations that you have."
-msgstr "Geolonia GIS は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
+msgstr ""
+"Geolonia GIS は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗"
+"情報や不動産情報などのデータを登録しましょう。"
 
 #: src/components/Data/GISs.tsx:42
 msgid "Create a new dataset"
