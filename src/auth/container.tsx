@@ -17,7 +17,7 @@ type State = {};
 
 export class AuthContainer extends React.Component<Props, State> {
   componentDidMount() {
-    delay(getSession(), 2000)
+    delay(getSession(), 500)
       .then(session => this.props.setSession(session))
       .catch(err => console.error(err))
       .finally(this.props.ready);
