@@ -1,35 +1,40 @@
-import React from 'react';
+import React from "react";
 
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import { __ } from '@wordpress/i18n';
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import { __ } from "@wordpress/i18n";
 
-type Props= {
-  label: string,
-  style: React.CSSProperties,
-  handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
-}
+type Props = {
+  label: string;
+  style: React.CSSProperties;
+  handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+};
 
 const Save = (props: Props) => {
   const [open, setOpen] = React.useState(false);
 
   const style: React.CSSProperties = {
-    marginTop: '1em',
+    marginTop: "1em",
     marginBottom: 0,
-    width: '100%',
+    width: "100%",
     ...props.style
-  }
+  };
 
-  const handleSave = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    props.handler(event)
-    setOpen(true)
-  }
+  const handleSave = (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    props.handler(event);
+    setOpen(true);
+  };
 
-  function handleClose(event: React.SyntheticEvent | React.MouseEvent, reason?: string) {
-    if (reason === 'clickaway') {
+  function handleClose(
+    event: React.SyntheticEvent | React.MouseEvent,
+    reason?: string
+  ) {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -39,21 +44,23 @@ const Save = (props: Props) => {
   return (
     <div>
       <Typography style={style} component="p" paragraph={true} align="right">
-        <Button variant="contained" color="primary" onClick={handleSave}>{props.label}</Button>
+        <Button variant="contained" color="primary" onClick={handleSave}>
+          {props.label}
+        </Button>
       </Typography>
       <Snackbar
         className="snackbar-saved"
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left',
+          vertical: "bottom",
+          horizontal: "left"
         }}
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
         ContentProps={{
-          'aria-describedby': 'message-id',
+          "aria-describedby": "message-id"
         }}
-        message={<span id="message-id">{__('Saved.')}</span>}
+        message={<span id="message-id">{__("Saved.")}</span>}
         action={[
           <IconButton
             key="close"
@@ -62,18 +69,18 @@ const Save = (props: Props) => {
             onClick={handleClose}
           >
             <CloseIcon />
-          </IconButton>,
+          </IconButton>
         ]}
       />
     </div>
   );
-}
+};
 
 Save.defaultProps = {
-  label: __('Save'),
+  label: __("Save"),
   style: {},
   handler: (event: React.MouseEvent) => {
-    console.log(event)
+    console.log(event);
   }
 };
 
