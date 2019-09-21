@@ -7,7 +7,7 @@ const delayPromise = (promise: Promise<any>, msec: number) => {
   const catchedPromise = promise.catch(err => ({ [catched]: err }));
 
   return Promise.all([catchedPromise, wait(msec)]).then(result => {
-    if (result[0][catched]) {
+    if (result[0] && result[0][catched]) {
       throw result[0][catched];
     } else {
       return result[0];
