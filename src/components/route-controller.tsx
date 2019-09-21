@@ -3,6 +3,9 @@ import React from "react";
 type Props = {
   isLoggedIn: boolean;
   history: {
+    location: {
+      pathname: string;
+    };
     replace: (path: string) => void;
   };
 };
@@ -10,9 +13,19 @@ type Props = {
 type State = {};
 
 export const RouteController = (props: Props) => {
-  const { isLoggedIn, history } = props;
+  const {
+    isLoggedIn,
+    history: {
+      location: { pathname },
+      replace
+    }
+  } = props;
+
   React.useEffect(() => {
-    isLoggedIn || history.replace("/signin");
+    !isLoggedIn &&
+      pathname !== "/signup" &&
+      pathname !== "/forgot-password" &&
+      replace("/signin");
   }, [isLoggedIn]);
 
   return <></>;
