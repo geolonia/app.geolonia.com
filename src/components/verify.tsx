@@ -8,8 +8,8 @@ import Alert from "./custom/Alert";
 import { connect } from "react-redux";
 import { AppState } from "../redux/store";
 import { verify } from "../auth";
-import Redux from "redux";
-import { createActions } from "../redux/actions/auth-support";
+import { CircularProgress } from "@material-ui/core";
+import delay from "../lib/promise-delay";
 
 import { __ } from "@wordpress/i18n";
 
@@ -35,9 +35,9 @@ const Content = (props: Props) => {
 
   const [username, setUsername] = React.useState("");
   const [code, setCode] = React.useState("");
-  const [status, setStatus] = React.useState<null | "success" | "warning">(
-    null
-  );
+  const [status, setStatus] = React.useState<
+    null | "requesting" | "success" | "warning"
+  >(null);
 
   React.useEffect(() => {
     if (signupUser && username === "") {
@@ -55,8 +55,8 @@ const Content = (props: Props) => {
   };
 
   const handleVerify = () => {
-    setStatus(null);
-    verify(username, code)
+    setStatus("requesting");
+    delay(verify(username, code), 500)
       .then(() => {
         setStatus("success");
         setTimeout(() => props.history.push("/signin"), 2000);
@@ -95,7 +95,9 @@ const Content = (props: Props) => {
           <Support />
         </div>
       </div>
-      {status && <Alert type={status}>{messages[status]}</Alert>}
+      {status && status !== "requesting" && (
+        <Alert type={status}>{messages[status]}</Alert>
+      )}
     </div>
   );
 };

@@ -9,7 +9,8 @@ import Alert from "./custom/Alert";
 import { connect } from "react-redux";
 import { AppState } from "../redux/store";
 import { signin } from "../auth";
-
+import { CircularProgress } from "@material-ui/core";
+import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
@@ -33,9 +34,9 @@ const Content = (props: Props) => {
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [status, setStatus] = React.useState<null | "success" | "warning">(
-    null
-  );
+  const [status, setStatus] = React.useState<
+    null | "requesting" | "success" | "warning"
+  >(null);
 
   React.useEffect(() => {
     if (signupUser && username === "") {
@@ -53,8 +54,8 @@ const Content = (props: Props) => {
   };
 
   const handleSignin = () => {
-    setStatus(null);
-    signin(username, password)
+    setStatus("requesting");
+    delay(signin(username, password), 500)
       .then(() => {
         setStatus("success");
         props.history.push("/");
@@ -97,6 +98,11 @@ const Content = (props: Props) => {
               {__("Sign in")}
             </Button>
           </p>
+          {status === "requesting" && (
+            <p>
+              <CircularProgress size={20}></CircularProgress>
+            </p>
+          )}
         </div>
 
         <p>
