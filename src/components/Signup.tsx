@@ -10,7 +10,8 @@ import { signUp } from "../auth";
 import Redux from "redux";
 import { connect } from "react-redux";
 import { createActions } from "../redux/actions/auth-support";
-
+import { CircularProgress } from "@material-ui/core";
+import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
 import Interweave from "interweave";
 
@@ -36,9 +37,9 @@ const Content = (props: Props) => {
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [status, setStatus] = React.useState<null | "success" | "warning">(
-    null
-  );
+  const [status, setStatus] = React.useState<
+    null | "requesting" | "success" | "warning"
+  >(null);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -54,8 +55,8 @@ const Content = (props: Props) => {
   };
 
   const handleSignup = () => {
-    setStatus(null);
-    signUp(username, email, password)
+    setStatus("requesting");
+    delay(signUp(username, email, password), 500)
       .then(result => {
         setStatus("success");
         props.setCurrentUser(result.user.getUsername());
@@ -98,6 +99,11 @@ const Content = (props: Props) => {
               {__("Sign up")}
             </Button>
           </p>
+          {status === "requesting" && (
+            <p>
+              <CircularProgress size={20}></CircularProgress>
+            </p>
+          )}
           <p className="message">
             <Interweave
               content={__(
@@ -111,7 +117,9 @@ const Content = (props: Props) => {
           <Support />
         </div>
       </div>
-      {status && <Alert type={status}>{messages[status]}</Alert>}
+      {status && status !== "requesting" && (
+        <Alert type={status}>{messages[status]}</Alert>
+      )}
     </div>
   );
 };
