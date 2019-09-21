@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import {  withStyles, createStyles } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Hidden from '@material-ui/core/Hidden';
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import { withStyles, createStyles } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Hidden from "@material-ui/core/Hidden";
+import { HashRouter, Route, Switch } from "react-router-dom";
 import RouteController from "./route-controller";
 
 import Navigator from "./Navigator";
@@ -14,6 +14,7 @@ import Footer from "./Footer";
 import { theme } from "../assets/mui-theme";
 
 import Signup from "./Signup";
+import Verify from "./verify";
 import Signin from "./Signin";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
@@ -42,10 +43,10 @@ const styles = createStyles({
   },
   mainContent: {
     flex: 1,
-    padding: '48px 36px 48px',
-    background: '#ffffff',
-  },
-})
+    padding: "48px 36px 48px",
+    background: "#ffffff"
+  }
+});
 
 type Props = {
   classes: {
@@ -80,12 +81,13 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
         <HashRouter>
           <Route
             path="/"
-            component={(props: any) => {
+            render={(props: any) => {
               return <RouteController {...props} isLoggedIn={isLoggedIn} />;
             }}
           />
           <Switch>
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/verify" component={Verify} />
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/reset-password" component={ResetPassword} />
