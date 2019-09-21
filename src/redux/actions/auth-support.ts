@@ -8,12 +8,14 @@ export type AuthSupportState = {
   currentUser?: string;
   session?: AmazonCognitoIdentity.CognitoUserSession;
   isReady: boolean;
+  isVerified: boolean;
 };
 
 const initialState: AuthSupportState = {
   currentUser: void 0,
   session: void 0,
-  isReady: false
+  isReady: false,
+  isVerified: false
 };
 
 type SetCognitoUserAction = {
