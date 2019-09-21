@@ -27,3 +27,17 @@ class MyComponent extends React.Component<Props, State> {
   }
 }
 ```
+
+## i18n
+
+Make pot:
+
+```
+$ npm run i18n
+```
+
+Translate `ja.po` and run following.
+
+```
+$ npm run po2json
+```

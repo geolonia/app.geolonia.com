@@ -1,76 +1,90 @@
-.billing-container
+.billing
 {
-  display: flex;
-  margin: 1em -4px;
-  flex-wrap: nowrap;
-  align-items: center;
-  border-bottom: 1px solid #dedede;
-
-  .item
+  .billing-container
   {
-    width: 33.3%;
-    box-sizing: border-box;
-    padding: 8px;
-    margin: 0 4px;
+    display: flex;
+    margin: 1em -4px;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-bottom: 1px solid #dedede;
+
+    .item
+    {
+      width: 33.3%;
+      box-sizing: border-box;
+      padding: 8px;
+      margin: 0 4px;
+    }
+
+    .title
+    {
+      margin: 0;
+      padding: 0;
+      color: #555555;
+    }
+
+    p, .title
+    {
+      text-align: center;
+    }
+
+    .value
+    {
+      font-size: 1.5em;
+      color: rgba(0, 149, 221, 1);
+      margin: 0;
+      padding: 0;
+    }
+
+    .billed-on
+    {
+      color: #555555;
+      font-size: 0.9rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .empty
+    {
+      background-color: transparent;
+      border: none;
+    }
+
+    .amount
+    {
+      font-size: 200%;
+      font-weight: bolder;
+    }
+
+    .module-title
+    {
+      padding-left: 16px !important;
+    }
+
+    &.no-border
+    {
+      border: none;
+    }
   }
 
-  .title
+  .payment-info
   {
-    margin: 0;
-    padding: 0;
-    color: #555555;
+    th
+    {
+      font-weight: bolder;
+      color: #555555;
+      max-width: 200px;
+    }
+
+    .MuiTableCell-body
+    {
+      padding: 8px;
+    }
   }
 
-  p, .title
+  .module-title
   {
-    text-align: center;
-  }
-
-  .value
-  {
-    font-size: 1.5em;
-    color: rgba(0, 149, 221, 1);
-    margin: 0;
-    padding: 0;
-  }
-
-  .billed-on
-  {
-    color: #555555;
-    font-size: 0.9rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .empty
-  {
-    background-color: transparent;
-    border: none;
-  }
-
-  .amount
-  {
-    font-size: 200%;
-    font-weight: bolder;
-  }
-
-  &.no-border
-  {
-    border: none;
-  }
-}
-
-.payment-info
-{
-  th
-  {
-    font-weight: bolder;
-    color: #555555;
-    max-width: 200px;
-  }
-
-  .MuiTableCell-body
-  {
-    padding: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
   }
 }

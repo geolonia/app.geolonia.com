@@ -37,8 +37,8 @@ const AddNew = (props: Props) => {
 
   return (
     <div>
+      <p style={buttonStyle}><Button variant="contained" color="primary" onClick={handleClickOpen}><AddIcon /> {props.buttonLabel}</Button></p>
       <form>
-        <p style={buttonStyle}><Button variant="contained" color="primary" onClick={handleClickOpen}><AddIcon /> {props.buttonLabel}</Button></p>
         <Dialog open={open} onClose={handleClose} fullWidth={true} aria-labelledby="form-dialog-title">
           <DialogTitle id="form-dialog-title">{props.label}</DialogTitle>
           <DialogContent>

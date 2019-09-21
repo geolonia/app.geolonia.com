@@ -1,13 +1,15 @@
-import React from 'react';
+import React from 'react'
 
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
+import TextField from '@material-ui/core/TextField'
+
+import {__} from '@wordpress/i18n'
 
 type Props= {
   text1: string,
@@ -34,9 +36,9 @@ const Delete = (props: Props) => {
   return (
     <div>
       <form>
-        <Typography style={style} component="p" paragraph={true} align="left"><Button variant="contained" color="secondary" onClick={handleClickOpen}>Delete</Button></Typography>
+        <Typography style={style} component="p" paragraph={true} align="left"><Button variant="contained" color="secondary" onClick={handleClickOpen}>{__('Delete')}</Button></Typography>
         <Dialog open={open} onClose={handleClose} fullWidth={true} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Delete</DialogTitle>
+          <DialogTitle id="form-dialog-title">{__('Delete')}</DialogTitle>
           <DialogContent>
             <DialogContentText>{props.text1}<br />{props.text2}</DialogContentText>
             <TextField
@@ -44,7 +46,7 @@ const Delete = (props: Props) => {
               error
               margin="dense"
               name="name"
-              label="Name"
+              label={__("Name")}
               type="text"
               value=""
               fullWidth
@@ -52,10 +54,10 @@ const Delete = (props: Props) => {
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="inherit">
-              Cancel
+              {__('Cancel')}
             </Button>
             <Button color="secondary" onClick={props.handler} type="submit">
-              Delete
+              {__('Delete')}
             </Button>
           </DialogActions>
         </Dialog>
@@ -65,8 +67,8 @@ const Delete = (props: Props) => {
 }
 
 Delete.defaultProps = {
-  text1: 'Are you sure you want to delete this API key?',
-  text2: 'Please type in the name of the API key to confirm.',
+  text1: __('Are you sure you want to delete this API key?'),
+  text2: __('Please type in the name of the API key to confirm.'),
   handler: (event: React.MouseEvent) => {
     console.log(event)
   }
