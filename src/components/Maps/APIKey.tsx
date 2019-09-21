@@ -25,7 +25,7 @@ const Content = () => {
       href: "#/",
     },
     {
-      title: "Maps",
+      title: __("Maps"),
       href: "#/maps",
     },
     {
