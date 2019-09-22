@@ -34,8 +34,8 @@
     "typescript": "3.5.3"
   },
   "scripts": {
-    "start": ". .env.development && react-scripts start",
-    "build": ". .env.development && react-scripts build",
+    "start": ". ./.env.development && react-scripts start",
+    "build": ". ./.env.development && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "xgettext": "find . -name '*.tsx' | xargs xgettext --keyword=__ -L JavaScript -o src/lang/lang.pot --from-code=utf-8",
