@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-22 07:28+0900\n"
+"POT-Creation-Date: 2019-09-23 04:22+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,15 +36,15 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:72 src/components/Navigator.tsx:195
 #: src/components/Team/General.tsx:51 src/components/custom/Delete.tsx:49
-#: src/components/Data/GIS.tsx:84
+#: src/components/Data/GIS.tsx:83
 msgid "Name"
 msgstr "名前"
 
-#: src/components/Maps/APIKey.tsx:79 src/components/Data/GIS.tsx:98
+#: src/components/Maps/APIKey.tsx:79 src/components/Data/GIS.tsx:97
 msgid "URLs"
 msgstr "URL のリスト"
 
-#: src/components/Maps/APIKey.tsx:88 src/components/Data/GIS.tsx:106
+#: src/components/Maps/APIKey.tsx:88 src/components/Data/GIS.tsx:105
 msgid ""
 "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
 "code> header for CORS. Please enter a URL on a new line."
@@ -53,7 +53,7 @@ msgstr ""
 "ヘッダーに使用されます。 URL は1行にひとつずつ入力してください。"
 
 #: src/components/Maps/APIKey.tsx:94 src/components/Team/General.tsx:85
-#: src/components/Data/GIS.tsx:109
+#: src/components/Data/GIS.tsx:108
 msgid "Danger Zone"
 msgstr ""
 
@@ -348,7 +348,7 @@ msgstr ""
 msgid "Slug"
 msgstr ""
 
-#: src/components/Team/General.tsx:63 src/components/Data/GIS.tsx:90
+#: src/components/Team/General.tsx:63 src/components/Data/GIS.tsx:89
 msgid "Description"
 msgstr ""
 
@@ -409,6 +409,16 @@ msgstr ""
 msgid "Contact Geolonia"
 msgstr ""
 
+#: src/components/custom/GeoloniaMap.tsx:35
+msgctxt "Default value of latitude for map"
+msgid "0"
+msgstr "35.65810422222222"
+
+#: src/components/custom/GeoloniaMap.tsx:36
+msgctxt "Default value of longitude for map"
+msgid "0"
+msgstr "139.74135747222223"
+
 #: src/components/custom/Delete.tsx:70
 msgid "Are you sure you want to delete this API key?"
 msgstr ""
@@ -425,15 +435,15 @@ msgstr "一般公開"
 msgid "Saved."
 msgstr "保存しました。"
 
-#: src/components/Data/GIS.tsx:27 src/components/Data/GISs.tsx:22
+#: src/components/Data/GIS.tsx:26 src/components/Data/GISs.tsx:22
 msgid "API services"
 msgstr "API サービス"
 
-#: src/components/Data/GIS.tsx:35 src/components/Data/GIS.tsx:74
+#: src/components/Data/GIS.tsx:34 src/components/Data/GIS.tsx:73
 msgid "Dataset settings"
 msgstr "データセットの設定"
 
-#: src/components/Data/GIS.tsx:75
+#: src/components/Data/GIS.tsx:74
 msgid ""
 "You can manage and set the dataset, and get the the access point URL of "
 "dataset API."
@@ -441,21 +451,21 @@ msgstr ""
 "データセットの管理や設定を行ったり、データセット API のアクセスポイントの URL"
 "の を取得することができます。"
 
-#: src/components/Data/GIS.tsx:110
+#: src/components/Data/GIS.tsx:109
 msgid "Once you delete a API key, there is no going back. Please be certain."
 msgstr ""
 "一度 API キーを削除するともとに戻すことはできません。よく確認してから実行して"
 "ください。"
 
-#: src/components/Data/GIS.tsx:113
+#: src/components/Data/GIS.tsx:112
 msgid "Are you sure you want to delete this dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
-#: src/components/Data/GIS.tsx:114
+#: src/components/Data/GIS.tsx:113
 msgid "Please type in the name of the dataset to confirm."
 msgstr "確認のためにデータセット名を入力してください。"
 
-#: src/components/Data/GIS.tsx:128
+#: src/components/Data/GIS.tsx:127
 msgid ""
 "Public features will be displayed on <a class=\"MuiTypography-colorPrimary\" "
 "href=\"#\">open data directory</a> and anyone can download this features "
@@ -465,11 +475,11 @@ msgstr ""
 "ンデータディレクトリ</a>にて公開され、だれでも API キー無しでデータをダウン"
 "ロードすることができます。"
 
-#: src/components/Data/GIS.tsx:133
+#: src/components/Data/GIS.tsx:132
 msgid "Private URL"
 msgstr "プライベート URL"
 
-#: src/components/Data/GIS.tsx:135
+#: src/components/Data/GIS.tsx:134
 msgid "Public URL"
 msgstr "公開 URL"
 
