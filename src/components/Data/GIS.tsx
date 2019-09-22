@@ -6,7 +6,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import Link from '@material-ui/core/Link';
 
 import {__} from '@wordpress/i18n'
 import Interweave from 'interweave'
@@ -14,7 +13,7 @@ import Interweave from 'interweave'
 import Save from '../custom/Save'
 import Delete from '../custom/Delete'
 import Code from '../custom/Code'
-import MapEditor from '../custom/MapEditor'
+import MapEditor from '../custom/GeoloniaMap'
 import Title from '../custom/Title'
 
 const Content = () => {
@@ -77,7 +76,7 @@ const Content = () => {
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <div style={mapStyle}><MapEditor /></div>
+          <div style={mapStyle}><MapEditor id="map-editor" width="100%" height="400px" /></div>
 
           <TextField
             id="standard-name"
