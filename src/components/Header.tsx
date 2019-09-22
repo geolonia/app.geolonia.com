@@ -1,80 +1,85 @@
-import React from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Grid from '@material-ui/core/Grid';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import Toolbar from '@material-ui/core/Toolbar';
-import { withStyles, Theme } from '@material-ui/core/styles';
+import React from "react";
+import AppBar from "@material-ui/core/AppBar";
+import Grid from "@material-ui/core/Grid";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Toolbar from "@material-ui/core/Toolbar";
+import { withStyles, Theme } from "@material-ui/core/styles";
 
-import PersonIcon from '@material-ui/icons/Person';
-import MenuIcon from '@material-ui/icons/Menu';
+import PersonIcon from "@material-ui/icons/Person";
+import MenuIcon from "@material-ui/icons/Menu";
 
-import {__} from '@wordpress/i18n'
+import { __ } from "@wordpress/i18n";
 
-const lightColor = 'rgba(255, 255, 255, 0.7)';
+const lightColor = "rgba(255, 255, 255, 0.7)";
 
 const styles = (theme: Theme) => ({
   secondaryBar: {
-    zIndex: 0,
+    zIndex: 0
   },
   menuButton: {
-    marginLeft: -theme.spacing(1),
+    marginLeft: -theme.spacing(1)
   },
   iconButtonAvatar: {
-    padding: 4,
+    padding: 4
   },
   link: {
-    textDecoration: 'none',
+    textDecoration: "none",
     color: lightColor,
-    '&:hover': {
-      color: theme.palette.common.white,
-    },
+    "&:hover": {
+      color: theme.palette.common.white
+    }
   },
   button: {
-    borderColor: lightColor,
-  },
+    borderColor: lightColor
+  }
 });
 
-type Props= {
-  classes: any,
-  onDrawerToggle: () => void
-}
+type Props = {
+  classes: any;
+  onDrawerToggle: () => void;
+};
 
 const Header = (props: Props) => {
   const { classes, onDrawerToggle } = props;
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const headerStyle: React.CSSProperties = {
-    backgroundColor: '#EE5F28',
-  }
+    backgroundColor: "#EE5F28"
+  };
 
   const avatarStyle: React.CSSProperties = {
-    width: '24px',
-    height: '24px',
-  }
+    width: "24px",
+    height: "24px"
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
+    setAnchorEl(event.currentTarget);
+  };
 
   const handleClose = () => {
-    setAnchorEl(null)
-  }
+    setAnchorEl(null);
+  };
 
   const handleProfileClick = () => {
-    window.location.hash = '/user'
-    handleClose()
-  }
+    window.location.hash = "/user";
+    handleClose();
+  };
 
   const handleLogout = () => {
-    handleClose()
-  }
+    handleClose();
+  };
 
   return (
     <React.Fragment>
-      <AppBar color="primary" style={headerStyle} position="sticky" elevation={0}>
+      <AppBar
+        color="primary"
+        style={headerStyle}
+        position="sticky"
+        elevation={0}
+      >
         <Toolbar>
           <Grid container spacing={1} alignItems="center">
             <Hidden smUp>
@@ -98,15 +103,23 @@ const Header = (props: Props) => {
               </Tooltip>
             </Grid> */}
             <Grid item>
-              <IconButton onClick={handleClick} color="inherit" className={classes.iconButtonAvatar}><PersonIcon style={avatarStyle} /></IconButton>
+              <IconButton
+                onClick={handleClick}
+                color="inherit"
+                className={classes.iconButtonAvatar}
+              >
+                <PersonIcon style={avatarStyle} />
+              </IconButton>
               <Menu
                 anchorEl={anchorEl}
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleProfileClick}>{__('Profile')}</MenuItem>
-                <MenuItem onClick={handleLogout}>{__('Logout')}</MenuItem>
+                <MenuItem onClick={handleProfileClick}>
+                  {__("Profile")}
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>{__("Logout")}</MenuItem>
               </Menu>
             </Grid>
           </Grid>
@@ -114,6 +127,6 @@ const Header = (props: Props) => {
       </AppBar>
     </React.Fragment>
   );
-}
+};
 
 export default withStyles(styles)(Header);
