@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 
-import './App.scss';
-import Paperbase from './components/Paperbase'
+import "./App.scss";
+import Paperbase from "./components/Paperbase";
 
-import {Provider} from 'react-redux'
-import store from './redux/store'
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 const App: React.FC = () => {
   return (
@@ -12,6 +12,6 @@ const App: React.FC = () => {
       <Paperbase></Paperbase>
     </Provider>
   );
-}
+};
 
 export default App;
