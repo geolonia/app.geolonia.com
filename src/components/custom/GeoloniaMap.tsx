@@ -1,5 +1,5 @@
 import React from 'react';
-import {__, _x} from '@wordpress/i18n';
+import {_x} from '@wordpress/i18n';
 
 // typeguard
 const isMapboxStyle = (obj: any): obj is mapboxgl.Style => !!obj
@@ -11,9 +11,11 @@ type Props = {
   id: string,
   width: string,
   height: string,
-  gestureHandling: 'on' | 'off'
+  gestureHandling: 'on' | 'off',
   lat: number,
   lng: number,
+  marker:  'on' | 'off',
+  zoom: number,
   afterLoad: Function,
 }
 
@@ -32,8 +34,10 @@ class Map extends React.Component<Props> {
     width: '100%',
     height: '200px',
     gestureHandling: 'off',
-    lat: __('0', 'lat'),
-    lng: __('0', 'lng'),
+    lat: _x('0', 'Default value of latitude for map'), // TODO: The value is always '0'. Why?
+    lng: _x('0', 'Default value of longitude for map'), // TODO: The value is always '0'. Why?
+    marker: 'off',
+    zoom: 8,
     afterLoad: () => {}
   }
 
@@ -43,14 +47,27 @@ class Map extends React.Component<Props> {
   }
 
   render() {
+    // TODO: It couldn't be loaded on `defaultProps`.
+    const defaults = {
+      lat: _x('0', 'Default value of latitude for map'),
+      lng: _x('0', 'Default value of longitude for map'),
+    }
+
+    const props = {
+      ...this.props,
+      ...defaults
+    }
+
     return (
       <div
-        id={this.props.id}
+        id={props.id}
         ref={this.container}
         style={this.style}
         data-gesture-handling={this.props.gestureHandling}
-        data-lat={this.props.lat.toString()}
-        data-lng={this.props.lng.toString()}
+        data-lat={props.lat.toString()}
+        data-lng={props.lng.toString()}
+        data-marker={props.marker}
+        data-zoom={props.zoom}
       />
     );
   }
