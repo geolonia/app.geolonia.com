@@ -89,12 +89,25 @@ const Content = (props: Props) => {
               {__("Verify")}
             </Button>
           </p>
+
+          {status === "requesting" && (
+            <p>
+              <CircularProgress size={20}></CircularProgress>
+            </p>
+          )}
         </div>
 
         <div className="support-container">
           <Support />
         </div>
       </div>
+      {username && !status && (
+        <Alert type="success">
+          {__(
+            "Please check your email and enter the verification code like 123456."
+          )}
+        </Alert>
+      )}
       {status && status !== "requesting" && (
         <Alert type={status}>{messages[status]}</Alert>
       )}
