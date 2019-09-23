@@ -71,28 +71,47 @@ const Content = (props: Props) => {
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Sign in to Geolonia")}</h1>
-        {signupUser && (
+        {signupUser ? (
           <Alert type="success">
             {__(
               "Your account has been successfully verified. Please enter your password again and sign in to your account."
             )}
           </Alert>
-        )}
+        ) : status === "warning" ? (
+          <Alert type="warning">{messages.warning}</Alert>
+        ) : null}
         {/* <Alert type="success">{__('Your password has been successfully updated.')}</Alert> */}
         <div className="form">
           <label className="username">
             <h2>{__("Username or email address")}</h2>
-            <input type="text" value={username} onChange={onUsernameChange} />
+            <input
+              type="text"
+              value={username}
+              onChange={onUsernameChange}
+              tabIndex={100}
+            />
           </label>
           <label className="password">
             <h2>{__("Password")}</h2>
-            <input type="text" value={password} onChange={onPasswordChange} />
+            <input
+              type="text"
+              value={password}
+              onChange={onPasswordChange}
+              tabIndex={200}
+            />
           </label>
           <p className="forgot-password">
-            <Link href="#/forgot-password">{__("Forgot password?")}</Link>
+            <Link href="#/forgot-password" tabIndex={400}>
+              {__("Forgot password?")}
+            </Link>
           </p>
           <p>
-            <Button variant="contained" color="primary" onClick={handleSignin}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSignin}
+              tabIndex={300}
+            >
               {__("Sign in")}
             </Button>
           </p>
@@ -105,7 +124,9 @@ const Content = (props: Props) => {
 
         <p>
           {__("New to Geolonia?")}{" "}
-          <Link href="#/signup">{__("Create an account.")}</Link>
+          <Link href="#/signup" tabIndex={500}>
+            {__("Create an account.")}
+          </Link>
         </p>
 
         <div className="support-container">
