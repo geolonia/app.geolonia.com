@@ -4,15 +4,43 @@ import Button from "@material-ui/core/Button";
 import Support from "./custom/Support";
 import "./ResetPassword.scss";
 import Logo from "./custom/logo.svg";
+import Alert from "./custom/Alert";
+import { resetPassword } from "../auth";
 
 import { sprintf, __ } from "@wordpress/i18n";
 
-type Props = {};
+type OwnProps = {};
+type RouterProps = {
+  history: {
+    push: (path: string) => void;
+  };
+};
+
+type Props = OwnProps & RouterProps;
 
 const Content = (props: Props) => {
-  const handler = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {};
+  const [password, setPassword] = React.useState("");
+  const [code, setCode] = React.useState("");
+  const [status, setStatus] = React.useState<null | "success" | "warning">(
+    null
+  );
+  const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null);
+    setPassword(e.currentTarget.value);
+  };
+
+  const handler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setStatus(null);
+    resetPassword(code, password)
+      .then(() => {
+        setStatus("success");
+        props.history.push("/");
+      })
+      .catch(err => {
+        setStatus("warning");
+        console.error(err);
+      });
+  };
 
   return (
     <div className="signup">
@@ -23,7 +51,7 @@ const Content = (props: Props) => {
         <div className="form">
           <label className="password">
             <h3>{__("Password")}</h3>
-            <input type="text" />
+            <input type="text" value={password} onChange={onPasswordChange} />
           </label>
           <label className="confirm-password">
             <h3>{__("Confirm password")}</h3>

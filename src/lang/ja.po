@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-23 04:22+0900\n"
+"POT-Creation-Date: 2019-09-23 11:34+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -13,38 +13,38 @@ msgstr ""
 "lang: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/components/Maps/APIKey.tsx:28 src/components/Maps/APIKeys.tsx:22
+#: src/components/Maps/APIKey.tsx:32 src/components/Maps/APIKeys.tsx:22
 #: src/components/Navigator.tsx:91
 msgid "Maps"
 msgstr "地図"
 
-#: src/components/Maps/APIKey.tsx:32 src/components/Maps/APIKeys.tsx:26
-#: src/components/Maps/APIKeys.tsx:37 src/components/Navigator.tsx:93
+#: src/components/Maps/APIKey.tsx:36 src/components/Maps/APIKeys.tsx:26
+#: src/components/Maps/APIKeys.tsx:35 src/components/Navigator.tsx:94
 msgid "API keys"
 msgstr "API キー"
 
-#: src/components/Maps/APIKey.tsx:36 src/components/Maps/APIKey.tsx:65
+#: src/components/Maps/APIKey.tsx:40 src/components/Maps/APIKey.tsx:67
 msgid "API key settings"
 msgstr "API キーの設定"
 
-#: src/components/Maps/APIKey.tsx:65
+#: src/components/Maps/APIKey.tsx:69
 msgid ""
 "Configure access control for your API key and Get the HTML code for your map."
 msgstr ""
 "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを"
 "取得しましょう。"
 
-#: src/components/Maps/APIKey.tsx:72 src/components/Navigator.tsx:195
-#: src/components/Team/General.tsx:51 src/components/custom/Delete.tsx:49
-#: src/components/Data/GIS.tsx:83
+#: src/components/Maps/APIKey.tsx:77 src/components/Navigator.tsx:232
+#: src/components/Team/General.tsx:53 src/components/custom/Delete.tsx:66
+#: src/components/Data/GIS.tsx:94
 msgid "Name"
 msgstr "名前"
 
-#: src/components/Maps/APIKey.tsx:79 src/components/Data/GIS.tsx:97
+#: src/components/Maps/APIKey.tsx:84 src/components/Data/GIS.tsx:108
 msgid "URLs"
 msgstr "URL のリスト"
 
-#: src/components/Maps/APIKey.tsx:88 src/components/Data/GIS.tsx:105
+#: src/components/Maps/APIKey.tsx:95 src/components/Data/GIS.tsx:119
 msgid ""
 "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
 "code> header for CORS. Please enter a URL on a new line."
@@ -52,175 +52,175 @@ msgstr ""
 "それぞれの URL は、CORS のための <code>Access-Control-Allow-Origin</code> "
 "ヘッダーに使用されます。 URL は1行にひとつずつ入力してください。"
 
-#: src/components/Maps/APIKey.tsx:94 src/components/Team/General.tsx:85
-#: src/components/Data/GIS.tsx:108
+#: src/components/Maps/APIKey.tsx:104 src/components/Team/General.tsx:93
+#: src/components/Data/GIS.tsx:126
 msgid "Danger Zone"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:95
+#: src/components/Maps/APIKey.tsx:108
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してくだ"
 "さい。"
 
-#: src/components/Maps/APIKey.tsx:104
+#: src/components/Maps/APIKey.tsx:118
 msgid "Your API Key"
 msgstr "あなたの API キー"
 
-#: src/components/Maps/APIKey.tsx:108
+#: src/components/Maps/APIKey.tsx:124
 msgid "Add the map to your site"
 msgstr "ウェブサイトに地図を追加しましょう"
 
-#: src/components/Maps/APIKey.tsx:109
+#: src/components/Maps/APIKey.tsx:127
 msgid "Step 1"
 msgstr "ステップ 1"
 
-#: src/components/Maps/APIKey.tsx:110
+#: src/components/Maps/APIKey.tsx:132
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body /&gt;</"
 "code> in your HTML file."
 msgstr ""
 "<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
 
-#: src/components/Maps/APIKey.tsx:112
+#: src/components/Maps/APIKey.tsx:138
 msgid "Step 2"
 msgstr "ステップ 2"
 
-#: src/components/Maps/APIKey.tsx:113
+#: src/components/Maps/APIKey.tsx:141
 msgid "Add the following code where you want to place the map."
 msgstr "以下のコードを地図を表示したい場所に挿入してください。"
 
-#: src/components/Maps/APIKeys.tsx:37
+#: src/components/Maps/APIKeys.tsx:36
 msgid "You need an API key to display map. Get an API key."
 msgstr "地図を表示するには API キーが必要です。 API キーを取得してください。"
 
-#: src/components/Navigator.tsx:98
+#: src/components/Navigator.tsx:103
 msgid "API Services"
 msgstr "API サービス"
 
-#: src/components/Navigator.tsx:100 src/components/Dashboard.tsx:103
+#: src/components/Navigator.tsx:106 src/components/Dashboard.tsx:114
 msgid "Geolonia GIS"
 msgstr ""
 
-#: src/components/Navigator.tsx:105
+#: src/components/Navigator.tsx:115
 msgid "Team Settings"
 msgstr "チーム設定"
 
-#: src/components/Navigator.tsx:107 src/components/Team/General.tsx:36
+#: src/components/Navigator.tsx:118 src/components/Team/General.tsx:36
 #: src/components/Team/General.tsx:43
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:108 src/components/Team/Members.tsx:81
+#: src/components/Navigator.tsx:124 src/components/Team/Members.tsx:91
 msgid "Members"
 msgstr "メンバー"
 
-#: src/components/Navigator.tsx:109
+#: src/components/Navigator.tsx:130
 msgid "Billing"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:133 src/components/Navigator.tsx:188
+#: src/components/Navigator.tsx:159 src/components/Navigator.tsx:222
 msgid "Create a new team"
 msgstr "新しいチームを作成"
 
-#: src/components/Navigator.tsx:149
+#: src/components/Navigator.tsx:177
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-#: src/components/Navigator.tsx:190
+#: src/components/Navigator.tsx:226
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Navigator.tsx:196
+#: src/components/Navigator.tsx:233
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:202 src/components/custom/Delete.tsx:57
+#: src/components/Navigator.tsx:239 src/components/custom/Delete.tsx:74
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: src/components/Navigator.tsx:205 src/components/custom/Save.tsx:73
+#: src/components/Navigator.tsx:242 src/components/custom/Save.tsx:80
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Dashboard.tsx:100
+#: src/components/Dashboard.tsx:104
 #, javascript-format
 msgid "Welcome, %s"
 msgstr "ようこそ %s さん"
 
-#: src/components/Dashboard.tsx:102
+#: src/components/Dashboard.tsx:108
 msgid "Get API key"
 msgstr "API キーを取得"
 
-#: src/components/Dashboard.tsx:102
+#: src/components/Dashboard.tsx:110
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:103
+#: src/components/Dashboard.tsx:118
 msgid "Display your points, lines, polygons on your map application."
 msgstr "あなたの地図アプリに、ポイントや線、ポリゴンを表示しましょう。"
 
-#: src/components/Dashboard.tsx:112
+#: src/components/Dashboard.tsx:129
 msgid "Map loads for this month"
 msgstr "今月の地図のロード回数"
 
-#: src/components/Dashboard.tsx:121
+#: src/components/Dashboard.tsx:140
 msgid "API loads for this month"
 msgstr "今月の API のロード回数"
 
-#: src/components/ResetPassword.tsx:23
+#: src/components/ResetPassword.tsx:48
 msgid "Change your password"
 msgstr "パスワードを変更"
 
-#: src/components/ResetPassword.tsx:27 src/components/Signup.tsx:85
-#: src/components/Signin.tsx:79
+#: src/components/ResetPassword.tsx:52 src/components/Signup.tsx:88
+#: src/components/Signin.tsx:95
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/ResetPassword.tsx:31
+#: src/components/ResetPassword.tsx:56
 msgid "Confirm password"
 msgstr "パスワードを確認"
 
-#: src/components/ResetPassword.tsx:34 src/components/Signup.tsx:88
+#: src/components/ResetPassword.tsx:61 src/components/Signup.tsx:93
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
 msgstr ""
 "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
 
-#: src/components/ResetPassword.tsx:35 src/components/ForgotPassword.tsx:31
+#: src/components/ResetPassword.tsx:66 src/components/ForgotPassword.tsx:33
 msgid "Send password reset email"
 msgstr "パスワードリセットメールを送信する"
 
-#: src/components/Signup.tsx:31
+#: src/components/Signup.tsx:32
 msgid "Signup successed."
 msgstr "サインアップ成功"
 
-#: src/components/Signup.tsx:32
+#: src/components/Signup.tsx:33
 msgid "Signup failed."
 msgstr "サインアップ失敗"
 
-#: src/components/Signup.tsx:72 src/components/verify.tsx:70
+#: src/components/Signup.tsx:75 src/components/verify.tsx:74
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:73
+#: src/components/Signup.tsx:76
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:77 src/components/verify.tsx:75
+#: src/components/Signup.tsx:80 src/components/verify.tsx:79
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/components/Signup.tsx:81 src/components/ForgotPassword.tsx:27
+#: src/components/Signup.tsx:84 src/components/ForgotPassword.tsx:25
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:90
+#: src/components/Signup.tsx:99
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:91
+#: src/components/Signup.tsx:110
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -232,206 +232,200 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Team/Members.tsx:77 src/components/Team/General.tsx:32
+#: src/components/Team/Members.tsx:87 src/components/Team/General.tsx:32
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Members.tsx:88
+#: src/components/Team/Members.tsx:99
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/Members.tsx:91
+#: src/components/Team/Members.tsx:103
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/Members.tsx:92
+#: src/components/Team/Members.tsx:104
 msgid "Invite a member"
 msgstr ""
 
-#: src/components/Team/Members.tsx:93
+#: src/components/Team/Members.tsx:106
 msgid ""
 "We automatically update your billing as you add and remove team members."
 msgstr ""
 
-#: src/components/Team/Members.tsx:96
+#: src/components/Team/Members.tsx:110
 msgid "Email"
 msgstr ""
 
-#: src/components/Team/Members.tsx:109
+#: src/components/Team/Members.tsx:132
 msgid "Owner"
 msgstr ""
 
-#: src/components/Team/Members.tsx:119
+#: src/components/Team/Members.tsx:150
 msgid "Change role"
 msgstr ""
 
-#: src/components/Team/Members.tsx:120
+#: src/components/Team/Members.tsx:151
 msgid "Deactivate"
 msgstr ""
 
-#: src/components/Team/Members.tsx:121
+#: src/components/Team/Members.tsx:153
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:69
+#: src/components/Team/Billing.tsx:83
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:72
+#: src/components/Team/Billing.tsx:87
 msgid "Payment history"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:77
+#: src/components/Team/Billing.tsx:94
 msgid "Your subscriptions"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:81
+#: src/components/Team/Billing.tsx:99
 msgid "Cost per 1,000 map loads/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:83 src/components/Team/Billing.tsx:98
+#: src/components/Team/Billing.tsx:101 src/components/Team/Billing.tsx:116
 msgid "Free for up to 50,000/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:86 src/components/Team/Billing.tsx:101
+#: src/components/Team/Billing.tsx:104 src/components/Team/Billing.tsx:119
 msgid "Loads"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:96
+#: src/components/Team/Billing.tsx:114
 msgid "Cost per 1,000 API loads/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:111
+#: src/components/Team/Billing.tsx:129
 msgid "Cost per user/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:115
+#: src/components/Team/Billing.tsx:133
 msgid "Users"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:127
+#: src/components/Team/Billing.tsx:145
 msgid "Amount"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:129
+#: src/components/Team/Billing.tsx:148
 msgid "Billed monthly on"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:133
+#: src/components/Team/Billing.tsx:156
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:137
+#: src/components/Team/Billing.tsx:162
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:139
+#: src/components/Team/Billing.tsx:166
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:142
+#: src/components/Team/Billing.tsx:171
 msgid "Coupon:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:144
+#: src/components/Team/Billing.tsx:175
 msgid "Redeem a coupon"
 msgstr ""
 
-#: src/components/Team/General.tsx:44
+#: src/components/Team/General.tsx:45
 msgid ""
 "All users on the Geolonia service belong to one of the teams, and a team "
 "with the same name as the user is automatically generated when you sign up. "
 "You can switch teams in the pull-down menu at the top left of the sidebar."
 msgstr ""
 
-#: src/components/Team/General.tsx:57
+#: src/components/Team/General.tsx:59
 msgid "Slug"
 msgstr ""
 
-#: src/components/Team/General.tsx:63 src/components/Data/GIS.tsx:89
+#: src/components/Team/General.tsx:65 src/components/Data/GIS.tsx:100
 msgid "Description"
 msgstr ""
 
-#: src/components/Team/General.tsx:71
+#: src/components/Team/General.tsx:73
 msgid "URL"
 msgstr ""
 
-#: src/components/Team/General.tsx:80
+#: src/components/Team/General.tsx:85
 msgid "Upload new picture"
 msgstr ""
 
-#: src/components/Team/General.tsx:86
+#: src/components/Team/General.tsx:97
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr ""
 
-#: src/components/Team/General.tsx:87 src/components/custom/Delete.tsx:39
-#: src/components/custom/Delete.tsx:41 src/components/custom/Delete.tsx:60
+#: src/components/Team/General.tsx:101 src/components/custom/Delete.tsx:45
+#: src/components/custom/Delete.tsx:54 src/components/custom/Delete.tsx:77
 msgid "Delete"
 msgstr ""
 
-#: src/components/Header.tsx:108
+#: src/components/Header.tsx:126
 msgid "Profile"
 msgstr ""
 
-#: src/components/Header.tsx:109
+#: src/components/Header.tsx:128
 msgid "Logout"
 msgstr ""
 
-#: src/components/verify.tsx:71
+#: src/components/verify.tsx:75
 msgid "Verify your account"
-msgstr ""
-
-#: src/components/verify.tsx:79
-msgid "Verification code"
-msgstr ""
+msgstr "アカウントの確認"
 
 #: src/components/verify.tsx:83
+msgid "Verification code"
+msgstr "検証コード"
+
+#: src/components/verify.tsx:89
 msgid "Verify"
-msgstr ""
+msgstr "検証する"
 
-#: src/components/ForgotPassword.tsx:23
+#: src/components/verify.tsx:107
+msgid "Please check your email and enter the verification code like 123456."
+msgstr "Eメールを確認して 123456 のような検証コードを入力してください。"
+
+#: src/components/ForgotPassword.tsx:21
 msgid "Reset your password"
-msgstr ""
+msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:30
+#: src/components/ForgotPassword.tsx:29
 msgid "We will send you a link to reset your password."
 msgstr ""
 
-#: src/components/custom/Support.tsx:16
+#: src/components/custom/Support.tsx:15
 msgid "Terms"
 msgstr ""
 
-#: src/components/custom/Support.tsx:17
+#: src/components/custom/Support.tsx:18
 msgid "Privacy"
 msgstr ""
 
-#: src/components/custom/Support.tsx:18
+#: src/components/custom/Support.tsx:22
 msgid "Contact Geolonia"
 msgstr ""
 
-#: src/components/custom/GeoloniaMap.tsx:35
-msgctxt "Default value of latitude for map"
-msgid "0"
-msgstr "35.65810422222222"
-
-#: src/components/custom/GeoloniaMap.tsx:36
-msgctxt "Default value of longitude for map"
-msgid "0"
-msgstr "139.74135747222223"
-
-#: src/components/custom/Delete.tsx:70
+#: src/components/custom/Delete.tsx:87
 msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
-#: src/components/custom/Delete.tsx:71
+#: src/components/custom/Delete.tsx:88
 msgid "Please type in the name of the API key to confirm."
 msgstr ""
 
-#: src/components/custom/Table.tsx:48
+#: src/components/custom/Table.tsx:54
 msgid "Public"
 msgstr "一般公開"
 
-#: src/components/custom/Save.tsx:56
+#: src/components/custom/Save.tsx:63
 msgid "Saved."
 msgstr "保存しました。"
 
@@ -439,11 +433,21 @@ msgstr "保存しました。"
 msgid "API services"
 msgstr "API サービス"
 
-#: src/components/Data/GIS.tsx:34 src/components/Data/GIS.tsx:73
+#: src/components/Data/GIS.tsx:34 src/components/Data/GIS.tsx:81
 msgid "Dataset settings"
 msgstr "データセットの設定"
 
-#: src/components/Data/GIS.tsx:74
+#: src/components/Data/GIS.tsx:71
+msgctxt "Default value of latitude for map"
+msgid "0"
+msgstr "35.65810422222222"
+
+#: src/components/Data/GIS.tsx:72
+msgctxt "Default value of longitude for map"
+msgid "0"
+msgstr "139.74135747222223"
+
+#: src/components/Data/GIS.tsx:83
 msgid ""
 "You can manage and set the dataset, and get the the access point URL of "
 "dataset API."
@@ -451,21 +455,21 @@ msgstr ""
 "データセットの管理や設定を行ったり、データセット API のアクセスポイントの URL"
 "の を取得することができます。"
 
-#: src/components/Data/GIS.tsx:109
+#: src/components/Data/GIS.tsx:130
 msgid "Once you delete a API key, there is no going back. Please be certain."
 msgstr ""
 "一度 API キーを削除するともとに戻すことはできません。よく確認してから実行して"
 "ください。"
 
-#: src/components/Data/GIS.tsx:112
+#: src/components/Data/GIS.tsx:135
 msgid "Are you sure you want to delete this dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
-#: src/components/Data/GIS.tsx:113
+#: src/components/Data/GIS.tsx:136
 msgid "Please type in the name of the dataset to confirm."
 msgstr "確認のためにデータセット名を入力してください。"
 
-#: src/components/Data/GIS.tsx:127
+#: src/components/Data/GIS.tsx:155
 msgid ""
 "Public features will be displayed on <a class=\"MuiTypography-colorPrimary\" "
 "href=\"#\">open data directory</a> and anyone can download this features "
@@ -475,15 +479,15 @@ msgstr ""
 "ンデータディレクトリ</a>にて公開され、だれでも API キー無しでデータをダウン"
 "ロードすることができます。"
 
-#: src/components/Data/GIS.tsx:132
+#: src/components/Data/GIS.tsx:164
 msgid "Private URL"
 msgstr "プライベート URL"
 
-#: src/components/Data/GIS.tsx:134
+#: src/components/Data/GIS.tsx:168
 msgid "Public URL"
 msgstr "公開 URL"
 
-#: src/components/Data/GISs.tsx:38
+#: src/components/Data/GISs.tsx:37
 msgid ""
 "Geolonia GIS is an API service specialized for location data. Register "
 "various location information data such as stores and real estate "
@@ -504,38 +508,43 @@ msgstr "新しいデータセットの名前を入力してください。"
 msgid "My dataset"
 msgstr "データセット"
 
-#: src/components/Signin.tsx:27
+#: src/components/Signin.tsx:28
 msgid "Signin successed."
 msgstr "サインイン成功"
 
-#: src/components/Signin.tsx:28
+#: src/components/Signin.tsx:29
 msgid "Signin failed."
 msgstr "サインイン失敗"
 
-#: src/components/Signin.tsx:71
+#: src/components/Signin.tsx:73
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:72
-msgid "Your password has been successfully updated."
-msgstr "パスワードを変更しました。"
+#: src/components/Signin.tsx:77
+msgid ""
+"Your account has been successfully verified. Please enter your password "
+"again and sign in to your account."
+msgstr ""
 
-#: src/components/Signin.tsx:75
+#: src/components/Signin.tsx:86
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:82
+#: src/components/Signin.tsx:105
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:83
+#: src/components/Signin.tsx:115
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:86
+#: src/components/Signin.tsx:126
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:86
+#: src/components/Signin.tsx:128
 msgid "Create an account."
 msgstr "アカウントを作成"
+
+#~ msgid "Your password has been successfully updated."
+#~ msgstr "パスワードを変更しました。"

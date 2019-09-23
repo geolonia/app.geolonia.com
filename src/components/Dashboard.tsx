@@ -11,7 +11,6 @@ import { sprintf, __ } from "@wordpress/i18n";
 
 import { Line } from "react-chartjs-2";
 import moment from "moment";
-
 import iconPlane from "./custom/plane.svg";
 
 import "./Dashboard.scss";
