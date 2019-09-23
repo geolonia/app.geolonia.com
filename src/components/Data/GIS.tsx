@@ -13,7 +13,7 @@ import Interweave from "interweave";
 import Save from "../custom/Save";
 import Delete from "../custom/Delete";
 import Code from "../custom/Code";
-import MapEditor from "../custom/GeoloniaMap";
+import GeoloniaMap from "../custom/GeoloniaMap";
 import Title from "../custom/Title";
 
 import jsonStyle from '../custom/drawStyle'
@@ -98,7 +98,7 @@ const Content = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
 
-          <div style={mapStyle}><MapEditor
+          <div style={mapStyle}><GeoloniaMap
             width="100%"
             height="400px"
             gestureHandling='off'
