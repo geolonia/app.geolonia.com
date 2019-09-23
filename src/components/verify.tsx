@@ -8,6 +8,8 @@ import Alert from "./custom/Alert";
 import { connect } from "react-redux";
 import { AppState } from "../redux/store";
 import { verify } from "../auth";
+import { CircularProgress } from "@material-ui/core";
+import delay from "../lib/promise-delay";
 
 import { __ } from "@wordpress/i18n";
 
@@ -20,7 +22,8 @@ type RouterProps = {
 type StateProps = {
   signupUser?: string;
 };
-type Props = OwnProps & RouterProps & StateProps;
+type DispatchProps = {};
+type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 const messages = {
   success: "Verification successed.",
@@ -32,9 +35,9 @@ const Content = (props: Props) => {
 
   const [username, setUsername] = React.useState("");
   const [code, setCode] = React.useState("");
-  const [status, setStatus] = React.useState<null | "success" | "warning">(
-    null
-  );
+  const [status, setStatus] = React.useState<
+    null | "requesting" | "success" | "warning"
+  >(null);
 
   React.useEffect(() => {
     if (signupUser && username === "") {
@@ -52,11 +55,11 @@ const Content = (props: Props) => {
   };
 
   const handleVerify = () => {
-    setStatus(null);
-    verify(username, code)
+    setStatus("requesting");
+    delay(verify(username, code), 500)
       .then(() => {
         setStatus("success");
-        setTimeout(() => props.history.push("/signin"), 2000);
+        props.history.push("/signin");
       })
       .catch(err => {
         setStatus("warning");
@@ -86,13 +89,28 @@ const Content = (props: Props) => {
               {__("Verify")}
             </Button>
           </p>
+
+          {status === "requesting" && (
+            <p>
+              <CircularProgress size={20}></CircularProgress>
+            </p>
+          )}
         </div>
 
         <div className="support-container">
           <Support />
         </div>
       </div>
-      {status && <Alert type={status}>{messages[status]}</Alert>}
+      {username && !status && (
+        <Alert type="success">
+          {__(
+            "Please check your email and enter the verification code like 123456."
+          )}
+        </Alert>
+      )}
+      {status && status !== "requesting" && (
+        <Alert type={status}>{messages[status]}</Alert>
+      )}
     </div>
   );
 };
