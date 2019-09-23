@@ -59,7 +59,7 @@ const Content = (props: Props) => {
     delay(verify(username, code), 500)
       .then(() => {
         setStatus("success");
-        setTimeout(() => props.history.push("/signin"), 2000);
+        props.history.push("/signin");
       })
       .catch(err => {
         setStatus("warning");
@@ -107,7 +107,6 @@ Content.defaultProps = {};
 const mapStateToProps = (state: AppState): StateProps => ({
   signupUser: state.authSupport.currentUser
 });
-
 const ConnectedContent = connect(mapStateToProps)(Content);
 
 export default ConnectedContent;
