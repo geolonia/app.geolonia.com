@@ -1,10 +1,5 @@
 import React from 'react';
 
-// To prevent error "tilecloud doesn't exist"
-// class win extends Window {
-//   tilecloud: any | null
-// }
-
 type Toggle = 'on' | 'off'
 
 type Props = {
