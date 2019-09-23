@@ -9,7 +9,8 @@ import Alert from "./custom/Alert";
 import { connect } from "react-redux";
 import { AppState } from "../redux/store";
 import { signin } from "../auth";
-
+import { CircularProgress } from "@material-ui/core";
+import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
@@ -33,9 +34,9 @@ const Content = (props: Props) => {
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [status, setStatus] = React.useState<null | "success" | "warning">(
-    null
-  );
+  const [status, setStatus] = React.useState<
+    null | "requesting" | "success" | "warning"
+  >(null);
 
   React.useEffect(() => {
     if (signupUser && username === "") {
@@ -53,11 +54,11 @@ const Content = (props: Props) => {
   };
 
   const handleSignin = () => {
-    setStatus(null);
-    signin(username, password)
+    setStatus("requesting");
+    delay(signin(username, password), 500)
       .then(() => {
         setStatus("success");
-        setTimeout(() => props.history.push("/"), 2000);
+        props.history.push("/");
       })
       .catch(err => {
         setStatus("warning");
@@ -70,31 +71,62 @@ const Content = (props: Props) => {
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Sign in to Geolonia")}</h1>
-        <Alert type="success">
-          {__("Your password has been successfully updated.")}
-        </Alert>
+        {signupUser ? (
+          <Alert type="success">
+            {__(
+              "Your account has been successfully verified. Please enter your password again and sign in to your account."
+            )}
+          </Alert>
+        ) : status === "warning" ? (
+          <Alert type="warning">{messages.warning}</Alert>
+        ) : null}
+        {/* <Alert type="success">{__('Your password has been successfully updated.')}</Alert> */}
         <div className="form">
           <label className="username">
             <h2>{__("Username or email address")}</h2>
-            <input type="text" value={username} onChange={onUsernameChange} />
+            <input
+              type="text"
+              value={username}
+              onChange={onUsernameChange}
+              tabIndex={100}
+            />
           </label>
           <label className="password">
             <h2>{__("Password")}</h2>
-            <input type="text" value={password} onChange={onPasswordChange} />
+            <input
+              type="text"
+              value={password}
+              onChange={onPasswordChange}
+              tabIndex={200}
+            />
           </label>
           <p className="forgot-password">
-            <Link href="#/forgot-password">{__("Forgot password?")}</Link>
+            <Link href="#/forgot-password" tabIndex={400}>
+              {__("Forgot password?")}
+            </Link>
           </p>
           <p>
-            <Button variant="contained" color="primary" onClick={handleSignin}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSignin}
+              tabIndex={300}
+            >
               {__("Sign in")}
             </Button>
           </p>
+          {status === "requesting" && (
+            <p>
+              <CircularProgress size={20}></CircularProgress>
+            </p>
+          )}
         </div>
 
         <p>
           {__("New to Geolonia?")}{" "}
-          <Link href="#/signup">{__("Create an account.")}</Link>
+          <Link href="#/signup" tabIndex={500}>
+            {__("Create an account.")}
+          </Link>
         </p>
 
         <div className="support-container">
