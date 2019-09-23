@@ -100,7 +100,6 @@ const Content = () => {
         <Grid item xs={12} md={8}>
 
           <div style={mapStyle}><MapEditor
-            id="map-editor"
             width="100%"
             height="400px"
             gestureHandling='off'
