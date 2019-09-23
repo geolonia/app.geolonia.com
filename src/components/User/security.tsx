@@ -5,11 +5,17 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
 import PersonIcon from "@material-ui/icons/Person";
+import { __ } from "@wordpress/i18n";
+import delay from "../../lib/promise-delay";
+import { changePassword } from "../../auth";
+import { CircularProgress } from "@material-ui/core";
+import Alert from "../custom/Alert";
 
 type State = {
   oldPassword: string;
   newPassword: string;
   newPasswordAgain: string;
+  status: null | "requesting" | "success" | "failure";
 };
 
 type Props = {};
@@ -26,19 +32,37 @@ export class Security extends React.Component<Props, State> {
   state = {
     oldPassword: "",
     newPassword: "",
-    newPasswordAgain: ""
+    newPasswordAgain: "",
+    status: null
   };
 
   setOldPassword = (e: React.ChangeEvent<HTMLInputElement>) =>
-    this.setState({ oldPassword: e.currentTarget.value });
+    this.setState({ status: null, oldPassword: e.currentTarget.value });
   setNewPassword = (e: React.ChangeEvent<HTMLInputElement>) =>
-    this.setState({ newPassword: e.currentTarget.value });
+    this.setState({ status: null, newPassword: e.currentTarget.value });
   setNewPasswordAgain = (e: React.ChangeEvent<HTMLInputElement>) =>
-    this.setState({ newPasswordAgain: e.currentTarget.value });
-  onUpdatePasswordClick = () => console.log(this.state);
+    this.setState({ status: null, newPasswordAgain: e.currentTarget.value });
+  onUpdatePasswordClick = () => {
+    const { oldPassword, newPassword } = this.state;
+    this.setState({ status: "requesting" });
+    delay(changePassword(oldPassword, newPassword), 500)
+      .then(() => {
+        this.setState({ status: "success" });
+      })
+      .catch(err => {
+        console.error(err);
+        this.setState({ status: "failure" });
+      });
+  };
 
   render() {
-    const { oldPassword, newPassword, newPasswordAgain } = this.state;
+    const { oldPassword, newPassword, newPasswordAgain, status } = this.state;
+    const isButtonEnabled = !!(
+      oldPassword &&
+      newPassword &&
+      newPasswordAgain &&
+      newPassword === newPasswordAgain
+    );
 
     return (
       <>
@@ -46,7 +70,7 @@ export class Security extends React.Component<Props, State> {
           Security
         </Typography>
         <TextField
-          id="standard-name"
+          id="old-password"
           label="Old password"
           type="password"
           margin="normal"
@@ -55,7 +79,7 @@ export class Security extends React.Component<Props, State> {
           onChange={this.setOldPassword}
         />
         <TextField
-          id="standard-name"
+          id="new-password"
           label="New password"
           type="password"
           margin="normal"
@@ -64,7 +88,7 @@ export class Security extends React.Component<Props, State> {
           onChange={this.setNewPassword}
         />
         <TextField
-          id="standard-name"
+          id="new-password-again"
           label="Confirm new password"
           type="password"
           margin="normal"
@@ -77,13 +101,25 @@ export class Security extends React.Component<Props, State> {
             variant="contained"
             color="inherit"
             onClick={this.onUpdatePasswordClick}
+            disabled={!isButtonEnabled}
           >
-            Update password
+            {__("Update password")}
           </Button>
           <Link style={linkStyle} href="#">
-            I forgot my password
+            {__("I forgot my password")}
           </Link>
         </Typography>
+        {status === "requesting" && (
+          <p>
+            <CircularProgress size={20}></CircularProgress>
+          </p>
+        )}
+        {status === "success" && (
+          <Alert type="success">{__("Password changed successfuly.")}</Alert>
+        )}
+        {status === "failure" && (
+          <Alert type="warning">{__("Failed to change password.")}</Alert>
+        )}
       </>
     );
   }

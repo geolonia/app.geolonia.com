@@ -26,7 +26,7 @@ const Content = (props: Props) => {
             <input type="text" />
           </label>
           <p className="message">
-            {__("We will send you a link to reset your password.")}
+            {__("We will send you a verification code to reset your password.")}
           </p>
           <p>
             <Button variant="contained" color="primary" onClick={handleSignup}>
