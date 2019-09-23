@@ -16,7 +16,6 @@ import Code from "../custom/Code";
 import MapEditor from "../custom/GeoloniaMap";
 import Title from "../custom/Title";
 
-import mapboxgl from "mapbox-gl";
 import jsonStyle from '../custom/drawStyle'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
