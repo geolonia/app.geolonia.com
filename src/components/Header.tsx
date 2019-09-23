@@ -14,9 +14,9 @@ import PersonIcon from "@material-ui/icons/Person";
 import MenuIcon from "@material-ui/icons/Menu";
 import { signout } from "../auth";
 
-import {__} from '@wordpress/i18n'
+import { __ } from "@wordpress/i18n";
 
-const lightColor = 'rgba(255, 255, 255, 0.7)';
+const lightColor = "rgba(255, 255, 255, 0.7)";
 
 const styles = (theme: Theme) => ({
   secondaryBar: {
@@ -122,8 +122,10 @@ const Header = (props: Props) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleProfileClick}>{__('Profile')}</MenuItem>
-                <MenuItem onClick={handleLogout}>{__('Logout')}</MenuItem>
+                <MenuItem onClick={handleProfileClick}>
+                  {__("Profile")}
+                </MenuItem>
+                <MenuItem onClick={handleLogout}>{__("Logout")}</MenuItem>
               </Menu>
             </Grid>
           </Grid>

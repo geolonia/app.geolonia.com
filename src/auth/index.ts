@@ -52,11 +52,10 @@ export const signin = (username: string, password: string) =>
       Username: username,
       Password: password
     });
-
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: result => {
-        const accessToken = result.getAccessToken().getJwtToken();
-        console.log(accessToken);
+        // const accessToken = result.getAccessToken().getJwtToken();
+        // console.log(accessToken);
         // TODO: handle access token here
         resolve();
       },
