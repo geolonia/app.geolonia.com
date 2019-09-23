@@ -1,15 +1,15 @@
-import React from 'react';
+import React from "react";
 
-import {__} from '@wordpress/i18n'
+import { __ } from "@wordpress/i18n";
 
-import Table from '../custom/Table';
-import AddNew from '../custom/AddNew'
-import Title from '../custom/Title'
+import Table from "../custom/Table";
+import AddNew from "../custom/AddNew";
+import Title from "../custom/Title";
 
 const rows = [
-  {id: 1111, name: "My Map", updated: "2019-08-28", isPublic: true},
-  {id: 1112, name: "exmaple.com", updated: "2019-08-28", isPublic: false},
-  {id: 1113, name: "exmaple.jp", updated: "2019-08-28", isPublic: true},
+  { id: 1111, name: "My Map", updated: "2019-08-28", isPublic: true },
+  { id: 1112, name: "exmaple.com", updated: "2019-08-28", isPublic: false },
+  { id: 1113, name: "exmaple.jp", updated: "2019-08-28", isPublic: true }
 ];
 
 function Content() {
@@ -25,17 +25,17 @@ function Content() {
     {
       title: "Geolonia GIS",
       href: null
-    },
-  ]
+    }
+  ];
 
-  const handler = (event: React.MouseEvent) => {
-
-  }
+  const handler = (event: React.MouseEvent) => {};
 
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title="Geolonia GIS">
-        {__('Geolonia GIS is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.')}
+        {__(
+          "Geolonia GIS is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have."
+        )}
       </Title>
 
       <AddNew
