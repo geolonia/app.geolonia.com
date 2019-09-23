@@ -10,7 +10,7 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
-
+import Security from "./security";
 import Save from "../custom/Save";
 import Title from "../custom/Title";
 
@@ -83,46 +83,8 @@ const Content = () => {
           </FormControl>
 
           <Save />
-          <Typography
-            component="h2"
-            className="module-title"
-            style={{ marginTop: "2em" }}
-          >
-            Security
-          </Typography>
 
-          <TextField
-            id="standard-name"
-            label="Old password"
-            type="password"
-            margin="normal"
-            fullWidth={true}
-          />
-
-          <TextField
-            id="standard-name"
-            label="New password"
-            type="password"
-            margin="normal"
-            fullWidth={true}
-          />
-
-          <TextField
-            id="standard-name"
-            label="Confirm new password"
-            type="password"
-            margin="normal"
-            fullWidth={true}
-          />
-
-          <Typography style={paragraphStyle} paragraph={true} component="p">
-            <Button variant="contained" color="inherit">
-              Update password
-            </Button>
-            <Link style={linkStyle} href="#/forgot-password">
-              I forgot my password
-            </Link>
-          </Typography>
+          <Security />
         </Grid>
 
         <Grid item sm={12} md={4}>
