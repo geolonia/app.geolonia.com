@@ -20,6 +20,7 @@ type Props = OwnProps & RouterProps;
 
 const Content = (props: Props) => {
   const [password, setPassword] = React.useState("");
+  const [code, setCode] = React.useState("");
   const [status, setStatus] = React.useState<null | "success" | "warning">(
     null
   );
@@ -30,7 +31,7 @@ const Content = (props: Props) => {
 
   const handler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setStatus(null);
-    resetPassword(password)
+    resetPassword(code, password)
       .then(() => {
         setStatus("success");
         props.history.push("/");
