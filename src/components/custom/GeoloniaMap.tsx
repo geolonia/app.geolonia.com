@@ -15,7 +15,8 @@ type Props = {
   zoom: number,
   fullscreenControl: string,
   geolocateControl: string,
-  afterLoad: Function,
+  style: string,
+  onAfterLoad: Function,
 }
 
 class Map extends React.Component<Props> {
@@ -32,19 +33,20 @@ class Map extends React.Component<Props> {
   static defaultProps = {
     width: '100%',
     height: '200px',
-    gestureHandling: 'off',
+    gestureHandling: 'on',
     lat: 0,
     lng: 0,
     marker: 'on',
     zoom: 0,
     fullscreenControl: 'off',
     geolocateControl: 'off',
-    afterLoad: () => {}
+    style: null,
+    onAfterLoad: () => {}
   }
 
   componentDidMount() {
     const map = new window.tilecloud.Map(this.container.current);
-    this.props.afterLoad(map)
+    this.props.onAfterLoad(map)
   }
 
   render() {
@@ -60,6 +62,7 @@ class Map extends React.Component<Props> {
         data-zoom={this.props.zoom}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
+        data-style={this.props.style}
       />
     );
   }

@@ -16,6 +16,12 @@ import Code from "../custom/Code";
 import MapEditor from "../custom/GeoloniaMap";
 import Title from "../custom/Title";
 
+import mapboxgl from "mapbox-gl";
+import jsonStyle from '../custom/drawStyle'
+import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
+
+const MapboxDraw = require('@mapbox/mapbox-gl-draw') // `@types/mapbox__mapbox-gl-draw` doesn't exist.
+
 const Content = () => {
   const breadcrumbItems = [
     {
@@ -64,16 +70,40 @@ const Content = () => {
 
   const deleteHandler = (event: React.MouseEvent) => {};
 
+  type OnOff = 'on' | 'off'
+
+  const handleOnAfterLoad = (map: mapboxgl.Map) => {
+    const draw = new MapboxDraw({
+      boxSelect: false,
+      controls: {
+        point: true,
+        line_string: true,
+        polygon: true,
+        trash: true,
+        combine_features: false,
+        uncombine_features: false,
+      },
+      styles: jsonStyle,
+      userProperties: true,
+    })
+
+    interface map{ addControl: any | null }
+
+    map.addControl(draw, 'top-right')
+  }
+
   const mapAtts = {
     id: "map-editor",
     width: "100%",
     height: "400px",
+    gestureHandling: 'off',
     lat: parseFloat(_x('0', 'Default value of latitude for map')),
     lng: parseFloat(_x('0', 'Default value of longitude for map')),
     marker: 'off',
-    zoom: 8,
+    zoom: 6,
     fullscreenControl: 'on',
     geolocateControl: 'on',
+    onAfterLoad: handleOnAfterLoad,
   }
 
   return (
