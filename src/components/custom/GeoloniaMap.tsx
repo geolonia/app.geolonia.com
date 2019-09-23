@@ -8,7 +8,6 @@ import React from 'react';
 type Toggle = 'on' | 'off'
 
 type Props = {
-  id: string,
   width: string,
   height: string,
   gestureHandling: Toggle,
@@ -57,7 +56,6 @@ class Map extends React.Component<Props> {
   render() {
     return (
       <div
-        id={this.props.id}
         ref={this.container}
         style={this.style}
         data-gesture-handling={this.props.gestureHandling}
