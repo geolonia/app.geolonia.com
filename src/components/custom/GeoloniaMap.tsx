@@ -1,22 +1,19 @@
 import React from 'react';
 
-// To prevent error "tilecloud doesn't exist"
-interface Window { tilecloud: any | null }
-declare const window: Window;
+type Toggle = 'on' | 'off'
 
 type Props = {
-  id: string,
   width: string,
   height: string,
-  gestureHandling: string,
+  gestureHandling: Toggle,
   lat: number,
   lng: number,
-  marker: string,
+  marker: Toggle,
   zoom: number,
-  fullscreenControl: string,
-  geolocateControl: string,
+  fullscreenControl: Toggle,
+  geolocateControl: Toggle,
   style: string,
-  onAfterLoad: Function,
+  onAfterLoad: (map: mapboxgl.Map) => void,
 }
 
 class Map extends React.Component<Props> {
@@ -45,14 +42,15 @@ class Map extends React.Component<Props> {
   }
 
   componentDidMount() {
-    const map = new window.tilecloud.Map(this.container.current);
+    // @ts-ignore
+    const { tilecloud } = window
+    const map = new tilecloud.Map(this.container.current);
     this.props.onAfterLoad(map)
   }
 
   render() {
     return (
       <div
-        id={this.props.id}
         ref={this.container}
         style={this.style}
         data-gesture-handling={this.props.gestureHandling}
