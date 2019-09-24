@@ -3,10 +3,18 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import PersonIcon from "@material-ui/icons/Person";
 import Avatar from "@material-ui/core/Avatar";
+import updateAvatar from "../../api/users/avatar/update";
+import { connect } from "react-redux";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
-type Props = {};
+type OwnProps = {};
+type StateProps = {
+  session: AmazonCognitoIdentity.CognitoUserSession;
+};
+type Props = OwnProps & StateProps;
 type State = {
   avatarUrl?: string;
+  status: false | "requesting" | "success" | "failure";
   isFileAPISupported: boolean;
 };
 
@@ -25,6 +33,7 @@ export class AvatarSection extends React.Component<Props, State> {
     this.inputFileRef = null;
     this.state = {
       avatarUrl: void 0,
+      status: false,
       isFileAPISupported: true // TODO: check it
     };
   }
@@ -37,9 +46,32 @@ export class AvatarSection extends React.Component<Props, State> {
 
   onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      // TODO: check file type and size
       const file = e.target.files[0];
       const avatarUrl = URL.createObjectURL(file);
-      this.setState({ avatarUrl });
+      this.setState({ avatarUrl, status: "requesting" });
+
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        const base64Image = reader.result;
+        if (!base64Image || typeof base64Image !== "string") {
+          return;
+        }
+        const { session } = this.props;
+        updateAvatar(base64Image, session)
+          .then((avatarUrl: string) => {
+            this.setState({ avatarUrl, status: "success" });
+          })
+          .catch((err: any) => {
+            console.error(err);
+            this.setState({ status: "failure" });
+          });
+      };
+      reader.onerror = err => {
+        console.error(err);
+        this.setState({ status: "failure" });
+      };
     }
   };
 
@@ -74,4 +106,8 @@ export class AvatarSection extends React.Component<Props, State> {
   }
 }
 
-export default AvatarSection;
+const mapStateToProps = (state: any) => ({
+  session: state.authSupport.session
+});
+
+export default connect(mapStateToProps)(AvatarSection);
