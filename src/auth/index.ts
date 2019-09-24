@@ -43,31 +43,35 @@ export const verify = (username: string, code: string) =>
   });
 
 export const signin = (username: string, password: string) =>
-  new Promise<{ cognitoUser: CognitoIdentity.CognitoUser }>(
-    (resolve, reject) => {
-      const cognitoUser = new CognitoIdentity.CognitoUser({
-        Username: username,
-        Pool: userPool
-      });
-      const authenticationDetails = new CognitoIdentity.AuthenticationDetails({
-        Username: username,
-        Password: password
-      });
-      cognitoUser.authenticateUser(authenticationDetails, {
-        onSuccess: result => {
-          // const accessToken = result.getAccessToken().getJwtToken();
-          // console.log(accessToken);
-          // TODO: handle access token here
-          resolve({ cognitoUser });
-        },
+  new Promise<{
+    cognitoUser: CognitoIdentity.CognitoUser;
+    accessToken: string;
+  }>((resolve, reject) => {
+    const cognitoUser = new CognitoIdentity.CognitoUser({
+      Username: username,
+      Pool: userPool
+    });
+    const authenticationDetails = new CognitoIdentity.AuthenticationDetails({
+      Username: username,
+      Password: password
+    });
+    cognitoUser.authenticateUser(authenticationDetails, {
+      onSuccess: result => {
+        const accessToken = result.getAccessToken().getJwtToken();
+        // console.log(accessToken);
+        // TODO: handle access token here
+        resolve({ cognitoUser, accessToken });
+      },
 
-        onFailure: reject
-      });
-    }
-  );
+      onFailure: reject
+    });
+  });
 
 export const getSession = () =>
-  new Promise<CognitoIdentity.CognitoUserSession>((resolve, reject) => {
+  new Promise<{
+    session: CognitoIdentity.CognitoUserSession;
+    accessToken: string;
+  }>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser !== null) {
       cognitoUser.getSession(
@@ -76,7 +80,10 @@ export const getSession = () =>
             cognitoUser.signOut();
             reject(err);
           } else {
-            resolve(session);
+            resolve({
+              session,
+              accessToken: session.getAccessToken().getJwtToken()
+            });
           }
         }
       );

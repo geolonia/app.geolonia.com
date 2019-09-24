@@ -12,7 +12,8 @@ import { signin } from "../auth";
 import { CircularProgress } from "@material-ui/core";
 import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
-
+import Redux from "redux";
+import { createActions } from "../redux/actions/auth-support";
 type OwnProps = {};
 type RouterProps = {
   history: {
@@ -22,7 +23,10 @@ type RouterProps = {
 type StateProps = {
   signupUser?: string;
 };
-type Props = OwnProps & RouterProps & StateProps;
+type DispatchProps = {
+  setAccessToken: (accessToken: string) => void;
+};
+type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 const messages = {
   success: __("Signin successed."),
@@ -56,8 +60,9 @@ const Content = (props: Props) => {
   const handleSignin = () => {
     setStatus("requesting");
     delay(signin(username, password), 500)
-      .then(() => {
+      .then(({ accessToken }) => {
         setStatus("success");
+        props.setAccessToken(accessToken);
         props.history.push("/");
       })
       .catch(err => {
@@ -142,6 +147,13 @@ Content.defaultProps = {};
 const mapStateToProps = (state: AppState): StateProps => ({
   signupUser: state.authSupport.currentUser
 });
-const ConnectedContent = connect(mapStateToProps)(Content);
+const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
+  setAccessToken: (accessToken: string) =>
+    dispatch(createActions.setAccessToken(accessToken))
+});
+const ConnectedContent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
 
 export default ConnectedContent;

@@ -10,6 +10,7 @@ import delay from "../lib/promise-delay";
 type Props = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
   setSession: (session: AmazonCognitoIdentity.CognitoUserSession) => void;
+  setAccessToken: (accessToken: string) => void;
   ready: () => void;
 };
 
@@ -18,13 +19,16 @@ type State = {};
 export class AuthContainer extends React.Component<Props, State> {
   componentDidMount() {
     delay(getSession(), 500)
-      .then(session => this.props.setSession(session))
+      .then(({ session, accessToken }) => {
+        this.props.setSession(session);
+        this.props.setAccessToken(accessToken);
+      })
       .catch(err => console.error(err))
       .finally(this.props.ready);
   }
 
   render() {
-    const { children, session } = this.props;
+    const { children } = this.props;
     return <>{children}</>;
   }
 }
@@ -36,6 +40,8 @@ const mapStateToProps = (state: AppState) => ({
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setSession: (session: AmazonCognitoIdentity.CognitoUserSession) =>
     dispatch(createActions.setSession(session)),
+  setAccessToken: (accessToken: string) =>
+    dispatch(createActions.setAccessToken(accessToken)),
   ready: () => dispatch(createActions.ready())
 });
 

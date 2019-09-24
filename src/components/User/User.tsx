@@ -7,13 +7,13 @@ import Avatar from "./avatar";
 import Title from "../custom/Title";
 
 const Content = () => {
-  const linkStyle: React.CSSProperties = {
-    marginLeft: "1em"
-  };
+  // const linkStyle: React.CSSProperties = {
+  //   marginLeft: "1em"
+  // };
 
-  const paragraphStyle: React.CSSProperties = {
-    marginTop: "1em"
-  };
+  // const paragraphStyle: React.CSSProperties = {
+  //   marginTop: "1em"
+  // };
 
   const breadcrumbItems = [
     {
