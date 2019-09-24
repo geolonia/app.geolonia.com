@@ -102,34 +102,42 @@ export const signout = () =>
     resolve();
   });
 
-export const resetPassword = (code: string, password: string) =>
+export const sendVerificationEmail = (email: string) =>
   new Promise((resolve, reject) => {
-    const cognitoUser = userPool.getCurrentUser();
+    const cognitoUser = new CognitoIdentity.CognitoUser({
+      Username: email,
+      Pool: userPool
+    });
     if (cognitoUser) {
       cognitoUser.forgotPassword({
-        onSuccess: data => {
-          // successfully initiated reset password request
-          console.log("CodeDeliveryData from forgotPassword: " + data);
-          resolve();
-        },
+        onSuccess: () => resolve(),
         onFailure: err => {
           reject(err.message || JSON.stringify(err));
-        },
-        //Optional automatic callback
-        inputVerificationCode: data => {
-          console.log("Code sent to: " + data);
-          cognitoUser.confirmPassword(code, password, {
-            onSuccess() {
-              console.log("Password confirmed!");
-            },
-            onFailure(err) {
-              console.log("Password not confirmed!");
-            }
-          });
         }
       });
     }
   });
+
+export const resetPassword = (
+  username: string,
+  code: string,
+  password: string
+) => {
+  const cognitoUser = new CognitoIdentity.CognitoUser({
+    Username: username,
+    Pool: userPool
+  });
+  return new Promise((resolve, reject) => {
+    cognitoUser.confirmPassword(code, password, {
+      onFailure(err) {
+        reject(err);
+      },
+      onSuccess() {
+        resolve();
+      }
+    });
+  });
+};
 
 export const changePassword = (oldPassword: string, newPassword: string) =>
   new Promise((resolve, reject) => {
