@@ -100,10 +100,10 @@ const Navigator: React.FC<Props> = (props: Props) => {
       ]
     },
     {
-      id: __("API Services"),
+      id: __("GIS Services"),
       children: [
         {
-          id: __("Geolonia GIS"),
+          id: __("Gcloud"),
           icon: <RoomIcon />,
           href: "#/data/gis",
           active: false
