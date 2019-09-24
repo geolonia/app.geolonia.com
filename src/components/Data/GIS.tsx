@@ -11,7 +11,7 @@ import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
-import {__, _x} from '@wordpress/i18n';
+import {__, _x, sprintf} from '@wordpress/i18n';
 import Interweave from "interweave";
 
 import Save from "../custom/Save";
@@ -81,8 +81,8 @@ const Content = () => {
 
   const a11yProps = (index: any) => {
     return {
-      id: `tab-${index}`,
-      'aria-controls': `tabpanel-${index}`,
+      id: sprintf('tab-', index),
+      'aria-controls': sprintf('tabpanel-', index),
     };
   }
 
@@ -101,8 +101,8 @@ const Content = () => {
         component="div"
         role="tabpanel"
         hidden={value !== index}
-        id={`tabpanel-${index}`}
-        aria-labelledby={`tab-${index}`}
+        id={sprintf('tabpanel-', index)}
+        aria-labelledby={sprintf('tab-', index)}
         {...other}
       >{children}</Typography>
     );
