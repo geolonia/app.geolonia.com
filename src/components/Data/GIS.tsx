@@ -13,10 +13,9 @@ import Interweave from "interweave";
 import Save from "../custom/Save";
 import Delete from "../custom/Delete";
 import Code from "../custom/Code";
-import MapEditor from "../custom/GeoloniaMap";
+import GeoloniaMap from "../custom/GeoloniaMap";
 import Title from "../custom/Title";
 
-import mapboxgl from "mapbox-gl";
 import jsonStyle from '../custom/drawStyle'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
@@ -70,8 +69,6 @@ const Content = () => {
 
   const deleteHandler = (event: React.MouseEvent) => {};
 
-  type OnOff = 'on' | 'off'
-
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw = new MapboxDraw({
       boxSelect: false,
@@ -87,23 +84,7 @@ const Content = () => {
       userProperties: true,
     })
 
-    interface map{ addControl: any | null }
-
     map.addControl(draw, 'top-right')
-  }
-
-  const mapAtts = {
-    id: "map-editor",
-    width: "100%",
-    height: "400px",
-    gestureHandling: 'off',
-    lat: parseFloat(_x('0', 'Default value of latitude for map')),
-    lng: parseFloat(_x('0', 'Default value of longitude for map')),
-    marker: 'off',
-    zoom: 6,
-    fullscreenControl: 'on',
-    geolocateControl: 'on',
-    onAfterLoad: handleOnAfterLoad,
   }
 
   return (
@@ -117,7 +98,18 @@ const Content = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
 
-          <div style={mapStyle}><MapEditor {...mapAtts} /></div>
+          <div style={mapStyle}><GeoloniaMap
+            width="100%"
+            height="400px"
+            gestureHandling='off'
+            lat={parseFloat(_x('0', 'Default value of latitude for map'))}
+            lng={parseFloat(_x('0', 'Default value of longitude for map'))}
+            marker={'off'}
+            zoom={6}
+            fullscreenControl={'on'}
+            geolocateControl={'on'}
+            onAfterLoad={handleOnAfterLoad}
+          /></div>
 
           <TextField
             id="standard-name"
