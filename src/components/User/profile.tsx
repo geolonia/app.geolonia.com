@@ -45,6 +45,7 @@ export class Profile extends React.Component<Props, State> {
   };
 
   onLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // @ts-ignore
     this.setState({ language: e.currentTarget.value });
   };
 
@@ -86,6 +87,7 @@ export class Profile extends React.Component<Props, State> {
             id="select-language"
             fullWidth={true}
             value={language}
+            // @ts-ignore
             onChange={this.onLanguageChange}
           >
             <MenuItem value="en">English</MenuItem>
