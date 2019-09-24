@@ -1,20 +1,12 @@
 import React from "react";
 
 import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import PersonIcon from "@material-ui/icons/Person";
 import Security from "./security";
 import Profile from "./profile";
+import Avatar from "./avatar";
 import Title from "../custom/Title";
 
 const Content = () => {
-  const ProfileImageStyle: React.CSSProperties = {
-    width: "250px",
-    height: "auto",
-    fill: "#dedede"
-  };
-
   const linkStyle: React.CSSProperties = {
     marginLeft: "1em"
   };
@@ -47,13 +39,7 @@ const Content = () => {
         </Grid>
 
         <Grid item sm={12} md={4}>
-          <Typography component="p" align="center">
-            <PersonIcon style={ProfileImageStyle} />
-            <br />
-            <Button variant="contained" color="default">
-              Upload new picture
-            </Button>
-          </Typography>
+          <Avatar />
         </Grid>
       </Grid>
     </div>
