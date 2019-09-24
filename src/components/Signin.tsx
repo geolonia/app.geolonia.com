@@ -94,7 +94,7 @@ const Content = (props: Props) => {
           <label className="password">
             <h2>{__("Password")}</h2>
             <input
-              type="text"
+              type="password"
               value={password}
               onChange={onPasswordChange}
               tabIndex={200}
