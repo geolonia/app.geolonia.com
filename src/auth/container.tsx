@@ -25,7 +25,7 @@ export class AuthContainer extends React.Component<Props, State> {
 
   render() {
     const { children, session } = this.props;
-    return (<>{children}</>);
+    return <>{children}</>;
   }
 }
 
