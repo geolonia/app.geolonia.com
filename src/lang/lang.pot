@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-25 05:56+0900\n"
+"POT-Creation-Date: 2019-09-25 01:04+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,20 +38,22 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:77 src/components/Navigator.tsx:232
 #: src/components/Team/General.tsx:53 src/components/custom/Delete.tsx:66
+#: src/components/Data/GIS.tsx:116
 msgid "Name"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:84
+#: src/components/Maps/APIKey.tsx:84 src/components/Data/GIS.tsx:130
 msgid "URLs"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:95
+#: src/components/Maps/APIKey.tsx:95 src/components/Data/GIS.tsx:141
 msgid ""
 "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
 "code> header for CORS. Please enter a URL on a new line."
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:104 src/components/Team/General.tsx:93
+#: src/components/Data/GIS.tsx:148
 msgid "Danger Zone"
 msgstr ""
 
@@ -90,11 +92,11 @@ msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
 #: src/components/Navigator.tsx:103
-msgid "GIS Services"
+msgid "API Services"
 msgstr ""
 
-#: src/components/Navigator.tsx:106
-msgid "Gcloud"
+#: src/components/Navigator.tsx:106 src/components/Dashboard.tsx:114
+msgid "Geolonia GIS"
 msgstr ""
 
 #: src/components/Navigator.tsx:115
@@ -149,10 +151,6 @@ msgstr ""
 
 #: src/components/Dashboard.tsx:110
 msgid "Get API key then create your map!"
-msgstr ""
-
-#: src/components/Dashboard.tsx:114
-msgid "Geolonia GIS"
 msgstr ""
 
 #: src/components/Dashboard.tsx:118
@@ -358,7 +356,7 @@ msgstr ""
 msgid "Slug"
 msgstr ""
 
-#: src/components/Team/General.tsx:65
+#: src/components/Team/General.tsx:65 src/components/Data/GIS.tsx:122
 msgid "Description"
 msgstr ""
 
@@ -439,12 +437,55 @@ msgstr ""
 msgid "Saved."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:45 src/components/Data/GISs.tsx:22
-msgid "GIS services"
+#: src/components/Data/GIS.tsx:31 src/components/Data/GISs.tsx:22
+msgid "API services"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:53
+#: src/components/Data/GIS.tsx:39 src/components/Data/GIS.tsx:92
 msgid "Dataset settings"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:94
+msgid ""
+"You can manage and set the dataset, and get the the access point URL of "
+"dataset API."
+msgstr ""
+
+#: src/components/Data/GIS.tsx:105
+msgctxt "Default value of latitude for map"
+msgid "0"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:106
+msgctxt "Default value of longitude for map"
+msgid "0"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:152
+msgid "Once you delete a API key, there is no going back. Please be certain."
+msgstr ""
+
+#: src/components/Data/GIS.tsx:157
+msgid "Are you sure you want to delete this dataset?"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:158
+msgid "Please type in the name of the dataset to confirm."
+msgstr ""
+
+#: src/components/Data/GIS.tsx:177
+msgid ""
+"Public features will be displayed on <a class=\"MuiTypography-colorPrimary\" "
+"href=\"#\">open data directory</a> and anyone can download this features "
+"without API key."
+msgstr ""
+
+#: src/components/Data/GIS.tsx:186
+msgid "Private URL"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:190
+msgid "Public URL"
 msgstr ""
 
 #: src/components/Data/GISs.tsx:37
