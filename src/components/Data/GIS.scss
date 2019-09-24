@@ -11,6 +11,14 @@
     }
   }
 
+  .tab-panel
+  {
+    textarea
+    {
+      resize: none;
+    }
+  }
+
   .file-upload
   {
     display: flex;
