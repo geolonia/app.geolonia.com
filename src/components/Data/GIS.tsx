@@ -6,6 +6,10 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
+import Button from '@material-ui/core/Button';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 import {__, _x} from '@wordpress/i18n';
 import Interweave from "interweave";
@@ -19,20 +23,30 @@ import Title from "../custom/Title";
 import jsonStyle from '../custom/drawStyle'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 
+import './GIS.scss'
+
 const MapboxDraw = require('@mapbox/mapbox-gl-draw') // `@types/mapbox__mapbox-gl-draw` doesn't exist.
 
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: any;
+  value: any;
+}
+
 const Content = () => {
+  const [value, setValue] = React.useState(0)
+
   const breadcrumbItems = [
     {
       title: "Home",
       href: "#/"
     },
     {
-      title: __("API services"),
+      title: __("GIS services"),
       href: "#/data"
     },
     {
-      title: "Geolonia GIS",
+      title: "Gcloud",
       href: "#/data/gis"
     },
     {
@@ -61,7 +75,44 @@ const Content = () => {
     marginBottom: "2em"
   };
 
+  const handleChangeTab = (event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  }
+
+  const a11yProps = (index: any) => {
+    return {
+      id: `tab-${index}`,
+      'aria-controls': `tabpanel-${index}`,
+    };
+  }
+
+  const TabPanel = (props: TabPanelProps) => {
+    const { children, value, index, ...other } = props;
+
+    const style: React.CSSProperties = {
+      width: '100%',
+      height: '400px',
+    }
+
+    return (
+      <Typography
+        style={style}
+        component="div"
+        role="tabpanel"
+        hidden={value !== index}
+        id={`tabpanel-${index}`}
+        aria-labelledby={`tab-${index}`}
+        {...other}
+      >{children}</Typography>
+    );
+  }
+
   const StyleSaveButton: React.CSSProperties = {};
+
+  const styleTextarea: React.CSSProperties = {
+    width: '100%',
+    height: '100%',
+  }
 
   const saveHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -88,7 +139,7 @@ const Content = () => {
   }
 
   return (
-    <div>
+    <div className="gis-panel">
       <Title breadcrumb={breadcrumbItems} title={__("Dataset settings")}>
         {__(
           "You can manage and set the dataset, and get the the access point URL of dataset API."
@@ -98,18 +149,49 @@ const Content = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
 
-          <div style={mapStyle}><GeoloniaMap
-            width="100%"
-            height="400px"
-            gestureHandling='off'
-            lat={parseFloat(_x('0', 'Default value of latitude for map'))}
-            lng={parseFloat(_x('0', 'Default value of longitude for map'))}
-            marker={'off'}
-            zoom={6}
-            fullscreenControl={'on'}
-            geolocateControl={'on'}
-            onAfterLoad={handleOnAfterLoad}
-          /></div>
+          <Tabs
+            className="gis-editor-tab"
+            textColor="primary"
+            value={value}
+            onChange={handleChangeTab}
+            aria-label="simple tabs example"
+          >
+            <Tab label="Map" {...a11yProps(0)} />
+            <Tab label="GeoJSON" {...a11yProps(1)} />
+            <Tab label="Upload" {...a11yProps(2)} />
+          </Tabs>
+
+          <TabPanel value={value} index={0}>
+            <div style={mapStyle}><GeoloniaMap
+              width="100%"
+              height="400px"
+              gestureHandling='off'
+              lat={parseFloat(_x('0', 'Default value of latitude for map'))}
+              lng={parseFloat(_x('0', 'Default value of longitude for map'))}
+              marker={'off'}
+              zoom={6}
+              fullscreenControl={'on'}
+              geolocateControl={'on'}
+              onAfterLoad={handleOnAfterLoad}
+            /></div>
+          </TabPanel>
+
+          <TabPanel value={value} index={1}>
+            <textarea style={styleTextarea}></textarea>
+          </TabPanel>
+
+          <TabPanel value={value} index={2}>
+            <Button
+              className="file-upload"
+              component="label"
+            >
+              <div>GeoJSON ファイルを選択してください。<br /><CloudUploadIcon /></div>
+              <input
+                type="file"
+                className="inputFileBtnHide"
+              />
+            </Button>
+          </TabPanel>
 
           <TextField
             id="standard-name"

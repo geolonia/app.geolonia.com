@@ -19,11 +19,11 @@ function Content() {
       href: "#/"
     },
     {
-      title: __("API services"),
+      title: __("GIS services"),
       href: "#/data"
     },
     {
-      title: "Geolonia GIS",
+      title: "Gcloud",
       href: null
     }
   ];
@@ -32,7 +32,7 @@ function Content() {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title="Geolonia GIS">
+      <Title breadcrumb={breadcrumbItems} title="Gcloud">
         {__(
           "Geolonia GIS is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have."
         )}
