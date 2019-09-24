@@ -4,7 +4,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
-import PersonIcon from "@material-ui/icons/Person";
 import { __ } from "@wordpress/i18n";
 import delay from "../../lib/promise-delay";
 import { changePassword } from "../../auth";

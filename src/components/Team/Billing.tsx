@@ -8,7 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import { Line } from "react-chartjs-2";
 
 import { __ } from "@wordpress/i18n";
-import Interweave from "interweave";
+// import Interweave from "interweave";
 
 import "./Billing.scss";
 import Save from "../custom/Save";

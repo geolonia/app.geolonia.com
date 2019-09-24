@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -11,7 +10,7 @@ type State = {
   username: string;
   displayName: string;
   email: string;
-  language: "en" | "ja";
+  language: string;
 };
 
 type Props = {};
@@ -44,9 +43,8 @@ export class Profile extends React.Component<Props, State> {
     this.setState({ email: e.currentTarget.value });
   };
 
-  onLanguageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    // @ts-ignore
-    this.setState({ language: e.currentTarget.value });
+  onLanguageChange = (e: any) => {
+    this.setState({ language: e.target.value });
   };
 
   render() {
@@ -87,7 +85,6 @@ export class Profile extends React.Component<Props, State> {
             id="select-language"
             fullWidth={true}
             value={language}
-            // @ts-ignore
             onChange={this.onLanguageChange}
           >
             <MenuItem value="en">English</MenuItem>
