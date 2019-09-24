@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-23 11:34+0900\n"
+"POT-Creation-Date: 2019-09-25 01:04+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,22 +38,22 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:77 src/components/Navigator.tsx:232
 #: src/components/Team/General.tsx:53 src/components/custom/Delete.tsx:66
-#: src/components/Data/GIS.tsx:94
+#: src/components/Data/GIS.tsx:116
 msgid "Name"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:84 src/components/Data/GIS.tsx:108
+#: src/components/Maps/APIKey.tsx:84 src/components/Data/GIS.tsx:130
 msgid "URLs"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:95 src/components/Data/GIS.tsx:119
+#: src/components/Maps/APIKey.tsx:95 src/components/Data/GIS.tsx:141
 msgid ""
 "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
 "code> header for CORS. Please enter a URL on a new line."
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:104 src/components/Team/General.tsx:93
-#: src/components/Data/GIS.tsx:126
+#: src/components/Data/GIS.tsx:148
 msgid "Danger Zone"
 msgstr ""
 
@@ -165,26 +165,42 @@ msgstr ""
 msgid "API loads for this month"
 msgstr ""
 
-#: src/components/ResetPassword.tsx:48
+#: src/components/User/security.tsx:106
+msgid "Update password"
+msgstr ""
+
+#: src/components/User/security.tsx:109
+msgid "I forgot my password"
+msgstr ""
+
+#: src/components/User/security.tsx:118
+msgid "Password changed successfuly."
+msgstr ""
+
+#: src/components/User/security.tsx:121
+msgid "Failed to change password."
+msgstr ""
+
+#: src/components/ResetPassword.tsx:49
 msgid "Change your password"
 msgstr ""
 
-#: src/components/ResetPassword.tsx:52 src/components/Signup.tsx:88
+#: src/components/ResetPassword.tsx:53 src/components/Signup.tsx:88
 #: src/components/Signin.tsx:95
 msgid "Password"
 msgstr ""
 
-#: src/components/ResetPassword.tsx:56
+#: src/components/ResetPassword.tsx:57
 msgid "Confirm password"
 msgstr ""
 
-#: src/components/ResetPassword.tsx:61 src/components/Signup.tsx:93
+#: src/components/ResetPassword.tsx:62 src/components/Signup.tsx:93
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
 msgstr ""
 
-#: src/components/ResetPassword.tsx:66 src/components/ForgotPassword.tsx:33
+#: src/components/ResetPassword.tsx:67 src/components/ForgotPassword.tsx:33
 msgid "Send password reset email"
 msgstr ""
 
@@ -340,7 +356,7 @@ msgstr ""
 msgid "Slug"
 msgstr ""
 
-#: src/components/Team/General.tsx:65 src/components/Data/GIS.tsx:100
+#: src/components/Team/General.tsx:65 src/components/Data/GIS.tsx:122
 msgid "Description"
 msgstr ""
 
@@ -390,7 +406,7 @@ msgid "Reset your password"
 msgstr ""
 
 #: src/components/ForgotPassword.tsx:29
-msgid "We will send you a link to reset your password."
+msgid "We will send you a verification code to reset your password."
 msgstr ""
 
 #: src/components/custom/Support.tsx:15
@@ -421,54 +437,54 @@ msgstr ""
 msgid "Saved."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:26 src/components/Data/GISs.tsx:22
+#: src/components/Data/GIS.tsx:31 src/components/Data/GISs.tsx:22
 msgid "API services"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:34 src/components/Data/GIS.tsx:81
+#: src/components/Data/GIS.tsx:39 src/components/Data/GIS.tsx:92
 msgid "Dataset settings"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:71
-msgctxt "Default value of latitude for map"
-msgid "0"
-msgstr ""
-
-#: src/components/Data/GIS.tsx:72
-msgctxt "Default value of longitude for map"
-msgid "0"
-msgstr ""
-
-#: src/components/Data/GIS.tsx:83
+#: src/components/Data/GIS.tsx:94
 msgid ""
 "You can manage and set the dataset, and get the the access point URL of "
 "dataset API."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:130
+#: src/components/Data/GIS.tsx:105
+msgctxt "Default value of latitude for map"
+msgid "0"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:106
+msgctxt "Default value of longitude for map"
+msgid "0"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:152
 msgid "Once you delete a API key, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:135
+#: src/components/Data/GIS.tsx:157
 msgid "Are you sure you want to delete this dataset?"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:136
+#: src/components/Data/GIS.tsx:158
 msgid "Please type in the name of the dataset to confirm."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:155
+#: src/components/Data/GIS.tsx:177
 msgid ""
 "Public features will be displayed on <a class=\"MuiTypography-colorPrimary\" "
 "href=\"#\">open data directory</a> and anyone can download this features "
 "without API key."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:164
+#: src/components/Data/GIS.tsx:186
 msgid "Private URL"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:168
+#: src/components/Data/GIS.tsx:190
 msgid "Public URL"
 msgstr ""
 
