@@ -96,6 +96,7 @@ const Content = () => {
 
     return (
       <Typography
+        className="tab-panel"
         style={style}
         component="div"
         role="tabpanel"
