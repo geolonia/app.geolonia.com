@@ -7,7 +7,12 @@ import Logo from "./custom/logo.svg";
 import Alert from "./custom/Alert";
 import { resetPassword } from "../auth";
 
-import { sprintf, __ } from "@wordpress/i18n";
+import { __ } from "@wordpress/i18n";
+
+import { CircularProgress } from "@material-ui/core";
+import delay from "../lib/promise-delay";
+import { AppState } from "../redux/store";
+import { connect } from "react-redux";
 
 type OwnProps = {};
 type RouterProps = {
@@ -15,26 +20,39 @@ type RouterProps = {
     push: (path: string) => void;
   };
 };
-
-type Props = OwnProps & RouterProps;
+type StateProps = {
+  currentUser: string;
+};
+type Props = OwnProps & RouterProps & StateProps;
 
 const Content = (props: Props) => {
-  const [password, setPassword] = React.useState("");
   const [code, setCode] = React.useState("");
-  const [status, setStatus] = React.useState<null | "success" | "warning">(
-    null
-  );
+  const [password, setPassword] = React.useState("");
+  const [passwordAgain, setPasswordAgain] = React.useState("");
+
+  const [status, setStatus] = React.useState<
+    null | "requesting" | "success" | "warning"
+  >(null);
+
+  const onCodeChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null);
+    setCode(e.currentTarget.value);
+  };
   const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
     setPassword(e.currentTarget.value);
   };
+  const onPasswordAgainChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null);
+    setPasswordAgain(e.currentTarget.value);
+  };
 
   const handler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setStatus(null);
-    resetPassword(code, password)
+    delay(resetPassword(props.currentUser, code, password), 500)
       .then(() => {
         setStatus("success");
-        props.history.push("/");
+        props.history.push("/signin");
       })
       .catch(err => {
         setStatus("warning");
@@ -45,17 +63,32 @@ const Content = (props: Props) => {
   return (
     <div className="signup">
       <div className="container">
+        <Alert type="success">
+          {__("We have sent verification code via email.")}
+        </Alert>
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Change your password")}</h1>
 
         <div className="form">
+          <label className="code">
+            <h3>{__("Verification Code")}</h3>
+            <input type="text" value={code} onChange={onCodeChange} />
+          </label>
           <label className="password">
             <h3>{__("Password")}</h3>
-            <input type="text" value={password} onChange={onPasswordChange} />
+            <input
+              type="password"
+              value={password}
+              onChange={onPasswordChange}
+            />
           </label>
           <label className="confirm-password">
             <h3>{__("Confirm password")}</h3>
-            <input type="text" />
+            <input
+              type="password"
+              value={passwordAgain}
+              onChange={onPasswordAgainChange}
+            />
           </label>
           <p className="message">
             {__(
@@ -67,6 +100,11 @@ const Content = (props: Props) => {
               {__("Send password reset email")}
             </Button>
           </p>
+          {status === "requesting" && (
+            <p>
+              <CircularProgress size={20}></CircularProgress>
+            </p>
+          )}
         </div>
 
         <div className="support-container">
@@ -79,4 +117,8 @@ const Content = (props: Props) => {
 
 Content.defaultProps = {};
 
-export default Content;
+const mapStateToProps = (state: AppState) => ({
+  currentUser: state.authSupport.currentUser || ""
+});
+
+export default connect(mapStateToProps)(Content);
