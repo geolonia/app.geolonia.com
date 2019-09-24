@@ -186,11 +186,11 @@ const Content = () => {
               className="file-upload"
               component="label"
             >
-              <div>GeoJSON ファイルを選択してください。<br /><CloudUploadIcon /></div>
+              <div>GeoJSON ファイルを選択してください。<br /><CloudUploadIcon /><br />
               <input
                 type="file"
                 className="inputFileBtnHide"
-              />
+              /></div>
             </Button>
           </TabPanel>
 
