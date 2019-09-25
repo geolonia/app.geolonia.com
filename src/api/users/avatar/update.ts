@@ -7,7 +7,6 @@ const updateAvatar = (
 ) => {
   const userSub = session.getAccessToken().decodePayload().sub;
   const accessToken = session.getAccessToken().getJwtToken();
-  console.log(accessToken);
   return fetch(`${REACT_APP_API_BASE}/users/${userSub}/avatar`, {
     method: "PUT",
     headers: {
