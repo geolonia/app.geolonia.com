@@ -1,0 +1,4 @@
+{
+  "presets": ["@babel/preset-react", "@babel/preset-typescript"],
+  "plugins": [["@wordpress/babel-plugin-makepot",{"output":"src/lang/lang.pot"}]]
+}
