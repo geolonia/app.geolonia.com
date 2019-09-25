@@ -57,7 +57,7 @@ export const signin = (username: string, password: string) =>
     });
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: result => {
-        const accessToken = result.getAccessToken().getJwtToken();
+        const accessToken = result.getIdToken().getJwtToken();
         // console.log(accessToken);
         // TODO: handle access token here
         resolve({ cognitoUser, accessToken });
@@ -82,7 +82,7 @@ export const getSession = () =>
           } else {
             resolve({
               session,
-              accessToken: session.getAccessToken().getJwtToken()
+              accessToken: session.getIdToken().getJwtToken()
             });
           }
         }

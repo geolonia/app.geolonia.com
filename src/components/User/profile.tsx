@@ -5,6 +5,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Save from "../custom/Save";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import getUserMeta from "../../api/users/get";
+import { connect } from "react-redux";
+import { AppState } from "../../redux/store";
 
 type State = {
   username: string;
@@ -13,7 +17,9 @@ type State = {
   language: string;
 };
 
-type Props = {};
+type OwnProps = {};
+type StateProps = { session?: AmazonCognitoIdentity.CognitoUserSession };
+type Props = StateProps & OwnProps;
 
 const selectStyle: React.CSSProperties = {
   marginTop: "16px",
@@ -29,6 +35,12 @@ export class Profile extends React.Component<Props, State> {
       email: "",
       language: "en"
     };
+  }
+
+  componentDidMount() {
+    const { session } = this.props;
+    // session should not be null when this component mount
+    session && getUserMeta(session).then(userMeta => console.log(userMeta));
   }
 
   onUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,4 +110,8 @@ export class Profile extends React.Component<Props, State> {
   }
 }
 
-export default Profile;
+const mapStateToProps = (state: AppState) => ({
+  session: state.authSupport.session
+});
+
+export default connect(mapStateToProps)(Profile);
