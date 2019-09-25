@@ -28,7 +28,7 @@ export const RouteController = (props: Props) => {
       replace("/signin");
   }, []);
 
-  return <></>;
+  return (<></>);
 };
 
 export default RouteController;
