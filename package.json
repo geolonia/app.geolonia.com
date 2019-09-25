@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/preset-typescript": "^7.6.0",
     "@mapbox/mapbox-gl-draw": "^1.1.2",
     "@material-ui/core": "^4.4.3",
     "@material-ui/icons": "^4.4.3",
+    "@wordpress/babel-plugin-makepot": "^3.2.0",
     "@wordpress/i18n": "^3.6.0",
     "amazon-cognito-identity-js": "^3.0.15",
     "chart.js": "^2.8.0",
@@ -28,10 +30,10 @@
     "build": ". ./.env.development && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "xgettext": "find . -name '*.tsx' | xargs xgettext --keyword=__ -k_x:1,2c -k_n:1,2 -k_nx:1,2 -L JavaScript -o src/lang/lang.pot --from-code=utf-8",
+    "makepot": "node_modules/@babel/cli/bin/babel.js ./src -x '.tsx' --config-file ./.babelrc.i18n",
     "msgmerge": "msgmerge -U src/lang/ja.po src/lang/lang.pot --lang=ja",
     "po2json": "po2json src/lang/ja.po src/lang/ja.json -f jed",
-    "i18n": "npm run xgettext && npm run msgmerge",
+    "i18n": "npm run makepot && npm run msgmerge",
     "format": "prettier './src/**/*.ts' './src/**/*.tsx' --write"
   },
   "eslintConfig": {
@@ -50,6 +52,8 @@
     ]
   },
   "devDependencies": {
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
     "@types/jest": "24.0.18",
     "@types/mapbox-gl": "^0.54.3",
     "@types/node": "12.7.2",
