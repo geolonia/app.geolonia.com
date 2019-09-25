@@ -2,8 +2,8 @@ import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 const { REACT_APP_API_BASE } = process.env;
 
 const getUser = (session: AmazonCognitoIdentity.CognitoUserSession) => {
-  const userSub = session.getAccessToken().decodePayload().sub;
-  const accessToken = session.getAccessToken().getJwtToken();
+  const userSub = session.getIdToken().decodePayload().sub;
+  const accessToken = session.getIdToken().getJwtToken();
 
   return fetch(`${REACT_APP_API_BASE}/users/${userSub}`, {
     method: "GET",
@@ -13,4 +13,4 @@ const getUser = (session: AmazonCognitoIdentity.CognitoUserSession) => {
   }).then((res: any) => res.json());
 };
 
-export default updateAvatar;
+export default getUser;
