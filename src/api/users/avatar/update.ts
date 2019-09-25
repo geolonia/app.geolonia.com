@@ -5,8 +5,8 @@ const updateAvatar = (
   base64Image: string,
   session: AmazonCognitoIdentity.CognitoUserSession
 ) => {
-  const userSub = session.getAccessToken().decodePayload().sub;
-  const accessToken = session.getAccessToken().getJwtToken();
+  const userSub = session.getIdToken().decodePayload().sub;
+  const accessToken = session.getIdToken().getJwtToken();
   return fetch(`${REACT_APP_API_BASE}/users/${userSub}/avatar`, {
     method: "PUT",
     headers: {
