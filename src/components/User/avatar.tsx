@@ -59,9 +59,17 @@ export class AvatarSection extends React.Component<Props, State> {
           return;
         }
         const { session } = this.props;
-        updateAvatar(base64Image, session)
+        updateAvatar(session, base64Image)
           .then((avatarUrl: string) => {
-            this.setState({ avatarUrl, status: "success" });
+            console.log(avatarUrl);
+            fetch(avatarUrl)
+              .then(res => res.json())
+              .then(data =>
+                this.setState({
+                  avatarUrl: data.base64Image,
+                  status: "success"
+                })
+              );
           })
           .catch((err: any) => {
             console.error(err);
