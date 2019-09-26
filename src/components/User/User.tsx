@@ -3,7 +3,6 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
 import PersonIcon from "@material-ui/icons/Person";
 import Select from "@material-ui/core/Select";
@@ -19,14 +18,6 @@ const Content = () => {
     width: "250px",
     height: "auto",
     fill: "#dedede"
-  };
-
-  const linkStyle: React.CSSProperties = {
-    marginLeft: "1em"
-  };
-
-  const paragraphStyle: React.CSSProperties = {
-    marginTop: "1em"
   };
 
   const selectStyle: React.CSSProperties = {
