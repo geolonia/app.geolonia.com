@@ -6,20 +6,19 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Save from "../custom/Save";
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import getUserMeta from "../../api/users/get";
 import { connect } from "react-redux";
 import { AppState } from "../../redux/store";
-
-type State = {
-  username: string;
-  displayName: string;
-  email: string;
-  language: string;
-};
+import { UserMetaState } from "../../redux/actions/user-meta";
+import updateUserMeta from "../../api/users/update";
 
 type OwnProps = {};
-type StateProps = { session?: AmazonCognitoIdentity.CognitoUserSession };
+type StateProps = {
+  session?: AmazonCognitoIdentity.CognitoUserSession;
+  userMeta: UserMetaState;
+};
 type Props = StateProps & OwnProps;
+
+type State = UserMetaState;
 
 const selectStyle: React.CSSProperties = {
   marginTop: "16px",
@@ -29,18 +28,7 @@ const selectStyle: React.CSSProperties = {
 export class Profile extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = {
-      username: "",
-      displayName: "",
-      email: "",
-      language: "en"
-    };
-  }
-
-  componentDidMount() {
-    const { session } = this.props;
-    // session should not be null when this component mount
-    session && getUserMeta(session).then(userMeta => console.log(userMeta));
+    this.state = { ...props.userMeta };
   }
 
   onUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +36,7 @@ export class Profile extends React.Component<Props, State> {
   };
 
   onDispayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ displayName: e.currentTarget.value });
+    this.setState({ name: e.currentTarget.value });
   };
 
   onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,8 +47,13 @@ export class Profile extends React.Component<Props, State> {
     this.setState({ language: e.target.value });
   };
 
+  onSaveClick = (e: any) => {
+    const { session } = this.props;
+    session && updateUserMeta(session, this.state);
+  };
+
   render() {
-    const { username, displayName, email, language } = this.state;
+    const { username, name, email, language } = this.state;
 
     return (
       <>
@@ -77,7 +70,7 @@ export class Profile extends React.Component<Props, State> {
           id="display-name"
           label="Name"
           margin="normal"
-          value={displayName}
+          value={name}
           onChange={this.onDispayNameChange}
           fullWidth={true}
         />
@@ -104,14 +97,15 @@ export class Profile extends React.Component<Props, State> {
           </Select>
         </FormControl>
 
-        <Save />
+        <Save handler={this.onSaveClick} />
       </>
     );
   }
 }
 
 const mapStateToProps = (state: AppState) => ({
-  session: state.authSupport.session
+  session: state.authSupport.session,
+  userMeta: state.userMeta
 });
 
 export default connect(mapStateToProps)(Profile);
