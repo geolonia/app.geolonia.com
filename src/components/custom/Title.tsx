@@ -4,8 +4,6 @@ import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 
-import Icon from "@material-ui/icons/Help";
-
 import "./Title.scss";
 
 type breadcrumbItems = {
