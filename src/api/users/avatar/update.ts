@@ -2,21 +2,21 @@ import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 const { REACT_APP_API_BASE } = process.env;
 
 const updateAvatar = (
-  base64Image: string,
-  session: AmazonCognitoIdentity.CognitoUserSession
+  session: AmazonCognitoIdentity.CognitoUserSession,
+  base64Image: string
 ) => {
   const userSub = session.getIdToken().decodePayload().sub;
-  const accessToken = session.getIdToken().getJwtToken();
+  const idToken = session.getIdToken().getJwtToken();
   return fetch(`${REACT_APP_API_BASE}/users/${userSub}/avatar`, {
     method: "PUT",
     headers: {
-      Authorization: `bearer ${accessToken}`,
-      ContentType: "application/octed-stream"
+      Authorization: idToken,
+      "Content-Type": "application/json"
     },
-    body: base64Image
+    body: JSON.stringify({ base64Image })
   })
     .then((res: any) => res.json())
-    .then(({ avatarUrl }: any) => avatarUrl as string);
+    .then(() => `${REACT_APP_API_BASE}/users/${userSub}/avatar`);
 };
 
 export default updateAvatar;
