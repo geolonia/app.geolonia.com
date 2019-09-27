@@ -146,7 +146,7 @@ msgstr "データセット"
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:25 src/components/Signup.tsx:84
+#: src/components/ForgotPassword.tsx:25 src/components/Signup.tsx:83
 msgid "Email address"
 msgstr "Email アドレス"
 
@@ -154,7 +154,7 @@ msgstr "Email アドレス"
 msgid "We will send you a verification code to reset your password."
 msgstr ""
 
-#: src/components/ForgotPassword.tsx:33 src/components/ResetPassword.tsx:67
+#: src/components/ForgotPassword.tsx:33
 msgid "Send password reset email"
 msgstr "パスワードリセットメールを送信する"
 
@@ -241,7 +241,7 @@ msgstr "チーム設定"
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:124 src/components/Team/Members.tsx:91
+#: src/components/Navigator.tsx:124 src/components/Team/Members.tsx:90
 msgid "Members"
 msgstr "メンバー"
 
@@ -273,39 +273,44 @@ msgstr "キャンセル"
 msgid "Save"
 msgstr "保存"
 
-#: src/components/ResetPassword.tsx:49
+#: src/components/ResetPassword.tsx:51
 msgid "Change your password"
 msgstr "パスワードを変更"
 
-#: src/components/ResetPassword.tsx:53 src/components/Signin.tsx:95
-#: src/components/Signup.tsx:88
+#: src/components/ResetPassword.tsx:55 src/components/Signin.tsx:101
+#: src/components/Signup.tsx:87
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/ResetPassword.tsx:57
+#: src/components/ResetPassword.tsx:59
 msgid "Confirm password"
 msgstr "パスワードを確認"
 
-#: src/components/ResetPassword.tsx:61 src/components/Signup.tsx:92
+#: src/components/ResetPassword.tsx:63 src/components/Signup.tsx:91
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
 msgstr ""
 "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
 
-#: src/components/Signin.tsx:105
+#: src/components/ResetPassword.tsx:69
+#, fuzzy
+msgid "Change password"
+msgstr "パスワードを変更"
+
+#: src/components/Signin.tsx:112
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:115
+#: src/components/Signin.tsx:122
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:126
+#: src/components/Signin.tsx:133
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:128
+#: src/components/Signin.tsx:135
 msgid "Create an account."
 msgstr "アカウントを作成"
 
@@ -317,21 +322,21 @@ msgstr "サインイン成功"
 msgid "Signin failed."
 msgstr "サインイン失敗"
 
-#: src/components/Signin.tsx:73
+#: src/components/Signin.tsx:78
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:76
+#: src/components/Signin.tsx:81
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
 msgstr ""
 
-#: src/components/Signin.tsx:86
+#: src/components/Signin.tsx:91
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signup.tsx:109
+#: src/components/Signup.tsx:108
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -343,91 +348,91 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Signup.tsx:32
+#: src/components/Signup.tsx:31
 msgid "Signup successed."
 msgstr "サインアップ成功"
 
-#: src/components/Signup.tsx:33
+#: src/components/Signup.tsx:32
 msgid "Signup failed."
 msgstr "サインアップ失敗"
 
-#: src/components/Signup.tsx:75 src/components/verify.tsx:74
+#: src/components/Signup.tsx:74 src/components/verify.tsx:74
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:76
+#: src/components/Signup.tsx:75
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:80 src/components/verify.tsx:79
+#: src/components/Signup.tsx:79 src/components/verify.tsx:79
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/components/Signup.tsx:99
+#: src/components/Signup.tsx:98
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Team/Billing.tsx:114
+#: src/components/Team/Billing.tsx:113
 msgid "Cost per 1,000 API loads/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:116
+#: src/components/Team/Billing.tsx:115
 msgid "Free for up to 50,000/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:119
+#: src/components/Team/Billing.tsx:118
 msgid "Loads"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:129
+#: src/components/Team/Billing.tsx:128
 msgid "Cost per user/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:133
+#: src/components/Team/Billing.tsx:132
 msgid "Users"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:145
+#: src/components/Team/Billing.tsx:144
 msgid "Amount"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:148
+#: src/components/Team/Billing.tsx:147
 msgid "Billed monthly on"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:156
+#: src/components/Team/Billing.tsx:155
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:162
+#: src/components/Team/Billing.tsx:161
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:166
+#: src/components/Team/Billing.tsx:165
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:171
+#: src/components/Team/Billing.tsx:170
 msgid "Coupon:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:175
+#: src/components/Team/Billing.tsx:174
 msgid "Redeem a coupon"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:83
+#: src/components/Team/Billing.tsx:82
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:87
+#: src/components/Team/Billing.tsx:86
 msgid "Payment history"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:94
+#: src/components/Team/Billing.tsx:93
 msgid "Your subscriptions"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:99
+#: src/components/Team/Billing.tsx:98
 msgid "Cost per 1,000 map loads/month"
 msgstr ""
 
@@ -435,7 +440,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: src/components/Team/General.tsx:32 src/components/Team/Members.tsx:87
+#: src/components/Team/General.tsx:32 src/components/Team/Members.tsx:86
 msgid "Team settings"
 msgstr "チーム設定"
 
@@ -462,59 +467,59 @@ msgstr ""
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr ""
 
-#: src/components/Team/Members.tsx:103
+#: src/components/Team/Members.tsx:102
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/Members.tsx:104
+#: src/components/Team/Members.tsx:103
 msgid "Invite a member"
 msgstr ""
 
-#: src/components/Team/Members.tsx:105
+#: src/components/Team/Members.tsx:104
 msgid ""
 "We automatically update your billing as you add and remove team members."
 msgstr ""
 
-#: src/components/Team/Members.tsx:110
+#: src/components/Team/Members.tsx:109
 msgid "Email"
 msgstr ""
 
-#: src/components/Team/Members.tsx:132
+#: src/components/Team/Members.tsx:131
 msgid "Owner"
 msgstr ""
 
-#: src/components/Team/Members.tsx:150
+#: src/components/Team/Members.tsx:149
 msgid "Change role"
 msgstr ""
 
-#: src/components/Team/Members.tsx:151
+#: src/components/Team/Members.tsx:150
 msgid "Deactivate"
 msgstr ""
 
-#: src/components/Team/Members.tsx:153
+#: src/components/Team/Members.tsx:152
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/Members.tsx:99
+#: src/components/Team/Members.tsx:98
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/User/security.tsx:106
+#: src/components/User/security.tsx:105
 #, fuzzy
 msgid "Update password"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/User/security.tsx:109
+#: src/components/User/security.tsx:108
 #, fuzzy
 msgid "I forgot my password"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/User/security.tsx:118
+#: src/components/User/security.tsx:117
 #, fuzzy
 msgid "Password changed successfuly."
 msgstr "パスワードを変更しました。"
 
-#: src/components/User/security.tsx:121
+#: src/components/User/security.tsx:120
 #, fuzzy
 msgid "Failed to change password."
 msgstr "パスワードを変更"
