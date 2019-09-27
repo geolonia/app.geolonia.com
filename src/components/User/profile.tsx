@@ -8,15 +8,22 @@ import Save from "../custom/Save";
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { connect } from "react-redux";
 import { AppState } from "../../redux/store";
-import { UserMetaState } from "../../redux/actions/user-meta";
+import {
+  UserMetaState,
+  createActions as createUserMetaActions
+} from "../../redux/actions/user-meta";
 import updateUserMeta from "../../api/users/update";
+import Redux from "redux";
 
 type OwnProps = {};
 type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
   userMeta: UserMetaState;
 };
-type Props = StateProps & OwnProps;
+type DispatchProps = {
+  setUserMetaState: (userMeta: UserMetaState) => void;
+};
+type Props = StateProps & OwnProps & DispatchProps;
 
 type State = UserMetaState;
 
@@ -49,7 +56,10 @@ export class Profile extends React.Component<Props, State> {
 
   onSaveClick = (e: any) => {
     const { session } = this.props;
-    session && updateUserMeta(session, this.state);
+    session &&
+      updateUserMeta(session, this.state).then(() => {
+        this.props.setUserMetaState(this.state);
+      });
   };
 
   render() {
@@ -108,4 +118,12 @@ const mapStateToProps = (state: AppState) => ({
   userMeta: state.userMeta
 });
 
-export default connect(mapStateToProps)(Profile);
+const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
+  setUserMetaState: (userMeta: UserMetaState) =>
+    dispatch(createUserMetaActions.setUserMeta(userMeta))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Profile);
