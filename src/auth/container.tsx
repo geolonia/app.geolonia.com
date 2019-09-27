@@ -37,13 +37,14 @@ export class AuthContainer extends React.Component<Props, State> {
 
   getUserMeta = (session: AmazonCognitoIdentity.CognitoUserSession) => {
     return getUserMeta(session).then(({ item, links }) => {
+      this.props.setUserMeta({ ...item, links } || initialUserMetaState);
+    }).finally(() => {
       const localeData = loadLocale();
       console.log(localeData)
       if (localeData) {
         setLocaleData(localeData);
       }
-      this.props.setUserMeta({ ...item, links } || initialUserMetaState);
-    });
+    })
   };
 
   render() {
