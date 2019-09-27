@@ -61,7 +61,7 @@ msgstr "名前"
 
 #: src/components/Data/GIS.tsx:205 src/components/Team/General.tsx:59
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 #: src/components/Data/GIS.tsx:213 src/components/Maps/APIKey.tsx:84
 msgid "URLs"
@@ -78,7 +78,7 @@ msgstr ""
 #: src/components/Data/GIS.tsx:231 src/components/Maps/APIKey.tsx:104
 #: src/components/Team/General.tsx:87
 msgid "Danger Zone"
-msgstr ""
+msgstr "危険"
 
 #: src/components/Data/GIS.tsx:234
 msgid "Once you delete a API key, there is no going back. Please be certain."
@@ -384,7 +384,7 @@ msgstr "Email アドレス"
 
 #: src/components/Team/Billing.tsx:112
 msgid "Cost per 1,000 API loads/month"
-msgstr "API リクエスト月間 1,000 回あたりのコスト"
+msgstr "API 1,000ロードあたりのコスト"
 
 #: src/components/Team/Billing.tsx:114
 msgid "Free for up to 50,000/month"
@@ -444,7 +444,7 @@ msgstr "あなたのサブスクリプション"
 
 #: src/components/Team/Billing.tsx:97
 msgid "Cost per 1,000 map loads/month"
-msgstr "地図を 1,000 回ロードしたあたりのコスト"
+msgstr "地図 1,000ロードあたりのコスト"
 
 #: src/components/Team/General.tsx:32 src/components/Team/Members.tsx:86
 msgid "Team settings"
