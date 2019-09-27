@@ -1,20 +1,20 @@
 import React from "react";
 
 import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import PersonIcon from "@material-ui/icons/Person";
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
 import Security from "./security";
 import Profile from "./profile";
 import Avatar from "./avatar";
 import Title from "../custom/Title";
 
 const Content = () => {
-  // const linkStyle: React.CSSProperties = {
-  //   marginLeft: "1em"
-  // };
-
-  // const paragraphStyle: React.CSSProperties = {
-  //   marginTop: "1em"
-  // };
-
   const breadcrumbItems = [
     {
       title: "Home",
