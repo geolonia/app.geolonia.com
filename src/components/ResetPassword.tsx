@@ -1,18 +1,15 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-
 import Support from "./custom/Support";
 import "./ResetPassword.scss";
 import Logo from "./custom/logo.svg";
-import Alert from "./custom/Alert";
 import { resetPassword } from "../auth";
-
 import { __ } from "@wordpress/i18n";
-
 import { CircularProgress } from "@material-ui/core";
 import delay from "../lib/promise-delay";
 import { AppState } from "../redux/store";
 import { connect } from "react-redux";
+import Alert from "./custom/Alert";
 
 type OwnProps = {};
 type RouterProps = {
@@ -60,6 +57,8 @@ const Content = (props: Props) => {
       });
   };
 
+  const autocompleteNewPassword = { autocomplete: "new-password" };
+
   return (
     <div className="signup">
       <div className="container">
@@ -80,6 +79,7 @@ const Content = (props: Props) => {
               type="password"
               value={password}
               onChange={onPasswordChange}
+              {...autocompleteNewPassword}
             />
           </label>
           <label className="confirm-password">
@@ -88,6 +88,7 @@ const Content = (props: Props) => {
               type="password"
               value={passwordAgain}
               onChange={onPasswordAgainChange}
+              {...autocompleteNewPassword}
             />
           </label>
           <p className="message">
@@ -97,7 +98,7 @@ const Content = (props: Props) => {
           </p>
           <p>
             <Button variant="contained" color="primary" onClick={handler}>
-              {__("Send password reset email")}
+              {__("Change password")}
             </Button>
           </p>
           {status === "requesting" && (

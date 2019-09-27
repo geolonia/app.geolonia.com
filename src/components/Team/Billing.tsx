@@ -6,13 +6,11 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import { Line } from "react-chartjs-2";
-
 import { __ } from "@wordpress/i18n";
-// import Interweave from "interweave";
 
-import "./Billing.scss";
 import Save from "../custom/Save";
 import Title from "../custom/Title";
+import "./Billing.scss";
 
 const Content = () => {
   const chartStyle: React.CSSProperties = {
