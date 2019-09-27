@@ -6,13 +6,44 @@ import { __ } from "@wordpress/i18n";
 import Support from "./custom/Support";
 import "./ForgotPassword.scss";
 import Logo from "./custom/logo.svg";
+import { CircularProgress } from "@material-ui/core";
+import { sendVerificationEmail } from "../auth";
+import delay from "../lib/promise-delay";
+import { connect } from "react-redux";
+import { createActions } from "../redux/actions/auth-support";
 
-type Props = {};
+type OwnProps = {};
+type RouterProps = {
+  history: {
+    push: (path: string) => void;
+  };
+};
+type DispatchProps = {
+  setCurrentUser: (currentUser: string) => void;
+};
+type Props = OwnProps & RouterProps & DispatchProps;
 
 const Content = (props: Props) => {
+  const [username, setUsername] = React.useState("");
+  const [status, setStatus] = React.useState<
+    null | "requesting" | "success" | "failure"
+  >(null);
+
   const handleSignup = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {};
+  ) => {
+    setStatus("requesting");
+    props.setCurrentUser(username);
+    delay(sendVerificationEmail(username), 500)
+      .then(() => {
+        setStatus("success");
+      })
+      .catch(err => {
+        console.error(err);
+        setStatus("failure");
+      })
+      .finally(() => props.history.push("/reset-password"));
+  };
 
   return (
     <div className="signup">
@@ -22,8 +53,12 @@ const Content = (props: Props) => {
 
         <div className="form">
           <label className="email">
-            <h3>{__("Email address")}</h3>
-            <input type="text" />
+            <h3>{__("Username")}</h3>
+            <input
+              type="text"
+              value={username}
+              onChange={e => setUsername(e.target.value)}
+            />
           </label>
           <p className="message">
             {__("We will send you a verification code to reset your password.")}
@@ -33,6 +68,11 @@ const Content = (props: Props) => {
               {__("Send password reset email")}
             </Button>
           </p>
+          {status === "requesting" && (
+            <p>
+              <CircularProgress size={20}></CircularProgress>
+            </p>
+          )}
         </div>
 
         <div className="support-container">
@@ -45,4 +85,12 @@ const Content = (props: Props) => {
 
 Content.defaultProps = {};
 
-export default Content;
+const mapDispatchToProps = (dispatch: any) => ({
+  setCurrentUser: (currentUser: string) =>
+    dispatch(createActions.setCurrentUser(currentUser))
+});
+
+export default connect(
+  void 0,
+  mapDispatchToProps
+)(Content);
