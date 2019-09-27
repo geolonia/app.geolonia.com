@@ -521,6 +521,10 @@ msgstr ""
 msgid "Failed to change password."
 msgstr ""
 
+#: src/components/User/security.tsx:69
+msgid "Security"
+msgstr ""
+
 #: src/components/User/security.tsx:73
 msgid "Old password"
 msgstr ""
