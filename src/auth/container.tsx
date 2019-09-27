@@ -40,7 +40,6 @@ export class AuthContainer extends React.Component<Props, State> {
       this.props.setUserMeta({ ...item, links } || initialUserMetaState);
     }).finally(() => {
       const localeData = loadLocale();
-      console.log(localeData)
       if (localeData) {
         setLocaleData(localeData);
       }
