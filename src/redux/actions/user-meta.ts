@@ -1,28 +1,22 @@
 const SET_USER_META_ACTION = "USER_META/SET";
 
 export type UserMetaState = {
-  username: string;
   name: string;
-  email: string;
   language: string;
-  avatarUrl: string;
   links: {
     getAvatar: string;
     putAvatar: string;
-  }
+  };
 };
 
 export const initialState: UserMetaState = {
-  username: "",
   name: "",
-  email: "",
   language: "ja",
-  avatarUrl: "",
   links: {
     getAvatar: "",
     putAvatar: ""
   }
-}
+};
 
 type SetUserMetaAction = {
   type: typeof SET_USER_META_ACTION;
