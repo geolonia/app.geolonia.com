@@ -42,8 +42,6 @@ const Content = (props: Props) => {
       });
   };
 
-  const autocompleteNewPassword = { autocomplete: 'new-password' }
-
   return (
     <div className="signup">
       <div className="container">
@@ -53,11 +51,11 @@ const Content = (props: Props) => {
         <div className="form">
           <label className="password">
             <h3>{__("Password")}</h3>
-            <input type="password" value={password} onChange={onPasswordChange} {...autocompleteNewPassword} />
+            <input type="password" value={password} onChange={onPasswordChange} autoComplete={'new-password'} />
           </label>
           <label className="confirm-password">
             <h3>{__("Confirm password")}</h3>
-            <input type="password" {...autocompleteNewPassword} />
+            <input type="password" autoComplete={'new-password'} />
           </label>
           <p className="message">
             {__(
