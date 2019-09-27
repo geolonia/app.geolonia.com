@@ -11,6 +11,7 @@ import delay from "../lib/promise-delay";
 import { UserMetaState } from "../redux/actions/user-meta";
 import { initialState as initialUserMetaState } from "../redux/actions/user-meta";
 import { setLocaleData } from "@wordpress/i18n";
+import { loadLocale } from "../lib/loadLocale";
 
 type Props = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
@@ -36,7 +37,12 @@ export class AuthContainer extends React.Component<Props, State> {
 
   getUserMeta = (session: AmazonCognitoIdentity.CognitoUserSession) => {
     return getUserMeta(session).then(({ item, links }) => {
-      // fetch('./lang.ja.json').then((localData) => setLocaleData(locale))
+      const localeData = loadLocale();
+      console.log(localeData)
+      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+      if (localeData) {
+        setLocaleData(localeData);
+      }
       this.props.setUserMeta({ ...item, links } || initialUserMetaState);
     });
   };
