@@ -117,9 +117,8 @@ msgid "Public URL"
 msgstr "公開 URL"
 
 #: src/components/Data/GIS.tsx:45 src/components/Data/GISs.tsx:22
-#, fuzzy
 msgid "GIS services"
-msgstr "API サービス"
+msgstr "GIS サービス"
 
 #: src/components/Data/GISs.tsx:36
 msgid ""
@@ -226,9 +225,8 @@ msgid "You need an API key to display map. Get an API key."
 msgstr "地図を表示するには API キーが必要です。 API キーを取得してください。"
 
 #: src/components/Navigator.tsx:103
-#, fuzzy
 msgid "GIS Services"
-msgstr "API サービス"
+msgstr "GIS サービス"
 
 #: src/components/Navigator.tsx:106
 msgid "Gcloud"
@@ -514,6 +512,14 @@ msgstr "チームから削除"
 #: src/components/Team/Members.tsx:98
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
+
+#: src/components/User/User.tsx:24
+msgid "Your profile"
+msgstr "プロフィール"
+
+#: src/components/User/User.tsx:25
+msgid "You can update your profile and security."
+msgstr "プロフィールとセキュリティを設定できます。"
 
 #: src/components/User/profile.tsx:99
 msgid "Language"
