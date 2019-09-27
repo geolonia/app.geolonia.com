@@ -13,31 +13,31 @@ msgstr ""
 "lang: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/components/Dashboard.tsx:104
+#: src/components/Dashboard.tsx:111
 msgid "Welcome, %s"
 msgstr "ようこそ %s さん"
 
-#: src/components/Dashboard.tsx:108
+#: src/components/Dashboard.tsx:115
 msgid "Get API key"
 msgstr "API キーを取得"
 
-#: src/components/Dashboard.tsx:110
+#: src/components/Dashboard.tsx:117
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:114
+#: src/components/Dashboard.tsx:121
 msgid "Geolonia GIS"
 msgstr ""
 
-#: src/components/Dashboard.tsx:117
+#: src/components/Dashboard.tsx:124
 msgid "Display your points, lines, polygons on your map application."
 msgstr "あなたの地図アプリに、ポイントや線、ポリゴンを表示しましょう。"
 
-#: src/components/Dashboard.tsx:129
+#: src/components/Dashboard.tsx:136
 msgid "Map loads for this month"
 msgstr "今月の地図のロード回数"
 
-#: src/components/Dashboard.tsx:140
+#: src/components/Dashboard.tsx:147
 msgid "API loads for this month"
 msgstr "今月の API のロード回数"
 
@@ -142,19 +142,20 @@ msgstr "新しいデータセットの名前を入力してください。"
 msgid "My dataset"
 msgstr "データセット"
 
-#: src/components/ForgotPassword.tsx:21
+#: src/components/ForgotPassword.tsx:52
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:25 src/components/Signup.tsx:83
-msgid "Email address"
-msgstr "Email アドレス"
+#: src/components/ForgotPassword.tsx:56 src/components/Signup.tsx:79
+#: src/components/verify.tsx:79
+msgid "Username"
+msgstr "ユーザー名"
 
-#: src/components/ForgotPassword.tsx:29
+#: src/components/ForgotPassword.tsx:64
 msgid "We will send you a verification code to reset your password."
 msgstr ""
 
-#: src/components/ForgotPassword.tsx:33
+#: src/components/ForgotPassword.tsx:68
 msgid "Send password reset email"
 msgstr "パスワードリセットメールを送信する"
 
@@ -273,70 +274,83 @@ msgstr "キャンセル"
 msgid "Save"
 msgstr "保存"
 
-#: src/components/ResetPassword.tsx:51
+#: src/components/ResetPassword.tsx:64
+msgid "We have sent verification code via email."
+msgstr ""
+
+#: src/components/ResetPassword.tsx:67
 msgid "Change your password"
 msgstr "パスワードを変更"
 
-#: src/components/ResetPassword.tsx:55 src/components/Signin.tsx:101
+#: src/components/ResetPassword.tsx:71
+#, fuzzy
+msgid "Verification Code"
+msgstr "検証コード"
+
+#: src/components/ResetPassword.tsx:75 src/components/Signin.tsx:104
 #: src/components/Signup.tsx:87
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/ResetPassword.tsx:59
+#: src/components/ResetPassword.tsx:84
 msgid "Confirm password"
 msgstr "パスワードを確認"
 
-#: src/components/ResetPassword.tsx:63 src/components/Signup.tsx:91
+#: src/components/ResetPassword.tsx:88 src/components/Signup.tsx:96
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
 msgstr ""
 "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
 
-#: src/components/ResetPassword.tsx:69
+#: src/components/ResetPassword.tsx:94
 #, fuzzy
 msgid "Change password"
 msgstr "パスワードを変更"
 
-#: src/components/Signin.tsx:112
+#: src/components/Signin.tsx:115
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:122
+#: src/components/Signin.tsx:125
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:133
+#: src/components/Signin.tsx:136
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:135
+#: src/components/Signin.tsx:138
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signin.tsx:28
+#: src/components/Signin.tsx:33
 msgid "Signin successed."
 msgstr "サインイン成功"
 
-#: src/components/Signin.tsx:29
+#: src/components/Signin.tsx:34
 msgid "Signin failed."
 msgstr "サインイン失敗"
 
-#: src/components/Signin.tsx:78
+#: src/components/Signin.tsx:81
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:81
+#: src/components/Signin.tsx:84
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
 msgstr ""
 
-#: src/components/Signin.tsx:91
+#: src/components/Signin.tsx:94
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signup.tsx:108
+#: src/components/Signup.tsx:103
+msgid "Sign up"
+msgstr "サインアップ"
+
+#: src/components/Signup.tsx:113
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -364,75 +378,71 @@ msgstr "Geolonia へようこそ"
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:79 src/components/verify.tsx:79
-msgid "Username"
-msgstr "ユーザー名"
+#: src/components/Signup.tsx:83
+msgid "Email address"
+msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:98
-msgid "Sign up"
-msgstr "サインアップ"
-
-#: src/components/Team/Billing.tsx:113
+#: src/components/Team/Billing.tsx:112
 msgid "Cost per 1,000 API loads/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:115
+#: src/components/Team/Billing.tsx:114
 msgid "Free for up to 50,000/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:118
+#: src/components/Team/Billing.tsx:117
 msgid "Loads"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:128
+#: src/components/Team/Billing.tsx:127
 msgid "Cost per user/month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:132
+#: src/components/Team/Billing.tsx:131
 msgid "Users"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:144
+#: src/components/Team/Billing.tsx:143
 msgid "Amount"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:147
+#: src/components/Team/Billing.tsx:146
 msgid "Billed monthly on"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:155
+#: src/components/Team/Billing.tsx:154
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:161
+#: src/components/Team/Billing.tsx:160
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:165
+#: src/components/Team/Billing.tsx:164
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:170
+#: src/components/Team/Billing.tsx:169
 msgid "Coupon:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:174
+#: src/components/Team/Billing.tsx:173
 msgid "Redeem a coupon"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:82
+#: src/components/Team/Billing.tsx:81
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:86
+#: src/components/Team/Billing.tsx:85
 msgid "Payment history"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:93
+#: src/components/Team/Billing.tsx:92
 msgid "Your subscriptions"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:98
+#: src/components/Team/Billing.tsx:97
 msgid "Cost per 1,000 map loads/month"
 msgstr ""
 
