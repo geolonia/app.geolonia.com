@@ -66,7 +66,7 @@ export class Security extends React.Component<Props, State> {
     return (
       <>
         <Typography component="h2" className="module-title">
-          Security
+          {__('Security')}
         </Typography>
         <TextField
           id="old-password"
