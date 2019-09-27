@@ -14,15 +14,22 @@ import moment from "moment";
 import iconPlane from "./custom/plane.svg";
 
 import "./Dashboard.scss";
+import { connect } from "react-redux";
+import { AppState } from "../redux/store";
+import { UserMetaState } from "../redux/actions/user-meta";
 
 const styles = (theme: Theme) => ({});
 
-type Props = {
+type OwnProps = {
   classes: any;
 };
+type StateProps = {
+  userMeta: UserMetaState;
+};
+type Props = OwnProps & StateProps;
 
 const Dashboard = (props: Props) => {
-  const { classes } = props;
+  const { classes, userMeta } = props;
 
   const lastDay = moment()
     .add(1, "months")
@@ -101,7 +108,7 @@ const Dashboard = (props: Props) => {
           </div>
         </Hidden>
         <div className="box-content">
-          <h2>{sprintf(__("Welcome, %s"), "miya0001")}</h2>
+          <h2>{sprintf(__("Welcome, %s"), userMeta.username)}</h2>
           <ul>
             <li>
               <Link href="#/maps/api-keys" color="inherit" underline="always">
@@ -153,4 +160,7 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Dashboard);
+const mapStateToProps = (state: AppState) => ({ userMeta: state.userMeta });
+const ConnectedDashboard = connect(mapStateToProps)(Dashboard);
+
+export default withStyles(styles)(ConnectedDashboard);
