@@ -45,12 +45,13 @@ msgstr ""
 #: src/components/Maps/APIKey.tsx:77
 #: src/components/Navigator.tsx:232
 #: src/components/Team/General.tsx:53
+#: src/components/User/profile.tsx:82
 #: src/components/custom/Delete.tsx:66
 msgid "Name"
 msgstr ""
 
 #: src/components/Data/GIS.tsx:205
-#: src/components/Team/General.tsx:65
+#: src/components/Team/General.tsx:59
 msgid "Description"
 msgstr ""
 
@@ -69,7 +70,7 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:231
 #: src/components/Maps/APIKey.tsx:104
-#: src/components/Team/General.tsx:93
+#: src/components/Team/General.tsx:87
 msgid "Danger Zone"
 msgstr ""
 
@@ -135,6 +136,7 @@ msgstr ""
 
 #: src/components/ForgotPassword.tsx:56
 #: src/components/Signup.tsx:79
+#: src/components/User/profile.tsx:73
 #: src/components/verify.tsx:79
 msgid "Username"
 msgstr ""
@@ -432,11 +434,6 @@ msgstr ""
 msgid "Cost per 1,000 map loads/month"
 msgstr ""
 
-#: src/components/Team/General.tsx:101
-#: src/components/custom/Delete.tsx:77
-msgid "Delete"
-msgstr ""
-
 #: src/components/Team/General.tsx:32
 #: src/components/Team/Members.tsx:86
 msgid "Team settings"
@@ -449,20 +446,22 @@ msgid ""
 "You can switch teams in the pull-down menu at the top left of the sidebar."
 msgstr ""
 
-#: src/components/Team/General.tsx:59
-msgid "Slug"
-msgstr ""
-
-#: src/components/Team/General.tsx:73
+#: src/components/Team/General.tsx:67
 msgid "URL"
 msgstr ""
 
-#: src/components/Team/General.tsx:85
+#: src/components/Team/General.tsx:79
+#: src/components/User/avatar.tsx:111
 msgid "Upload new picture"
 msgstr ""
 
-#: src/components/Team/General.tsx:96
+#: src/components/Team/General.tsx:90
 msgid "Once you delete a team, there is no going back. Please be certain. "
+msgstr ""
+
+#: src/components/Team/General.tsx:95
+#: src/components/custom/Delete.tsx:77
+msgid "Delete"
 msgstr ""
 
 #: src/components/Team/Members.tsx:102
@@ -478,6 +477,7 @@ msgid "We automatically update your billing as you add and remove team members."
 msgstr ""
 
 #: src/components/Team/Members.tsx:109
+#: src/components/User/profile.tsx:91
 msgid "Email"
 msgstr ""
 
@@ -501,6 +501,10 @@ msgstr ""
 msgid "You can manage members in your team."
 msgstr ""
 
+#: src/components/User/profile.tsx:99
+msgid "Language"
+msgstr ""
+
 #: src/components/User/security.tsx:105
 msgid "Update password"
 msgstr ""
@@ -515,6 +519,18 @@ msgstr ""
 
 #: src/components/User/security.tsx:120
 msgid "Failed to change password."
+msgstr ""
+
+#: src/components/User/security.tsx:73
+msgid "Old password"
+msgstr ""
+
+#: src/components/User/security.tsx:82
+msgid "New password"
+msgstr ""
+
+#: src/components/User/security.tsx:91
+msgid "Confirm new password"
 msgstr ""
 
 #: src/components/custom/Delete.tsx:87
@@ -564,5 +580,10 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:171
 msgctxt "Default value of longitude for map"
+msgid "0"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:173
+msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr ""
