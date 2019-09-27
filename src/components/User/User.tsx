@@ -5,6 +5,7 @@ import Security from "./security";
 import Profile from "./profile";
 import Avatar from "./avatar";
 import Title from "../custom/Title";
+import { __ } from "@wordpress/i18n";
 
 const Content = () => {
   const breadcrumbItems = [
@@ -13,15 +14,15 @@ const Content = () => {
       href: "#/"
     },
     {
-      title: "Your profile",
+      title: __("Your profile"),
       href: null
     }
   ];
 
   return (
     <div>
-      <Title title="Your profile" breadcrumb={breadcrumbItems}>
-        You can update your profile and security.
+      <Title title={__("Your profile")} breadcrumb={breadcrumbItems}>
+        {__('You can update your profile and security.')}
       </Title>
 
       <Grid container spacing={4}>
