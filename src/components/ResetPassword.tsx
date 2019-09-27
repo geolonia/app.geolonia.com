@@ -4,10 +4,9 @@ import Button from "@material-ui/core/Button";
 import Support from "./custom/Support";
 import "./ResetPassword.scss";
 import Logo from "./custom/logo.svg";
-import Alert from "./custom/Alert";
 import { resetPassword } from "../auth";
 
-import { sprintf, __ } from "@wordpress/i18n";
+import {__} from "@wordpress/i18n";
 
 type OwnProps = {};
 type RouterProps = {
@@ -20,10 +19,11 @@ type Props = OwnProps & RouterProps;
 
 const Content = (props: Props) => {
   const [password, setPassword] = React.useState("");
-  const [code, setCode] = React.useState("");
-  const [status, setStatus] = React.useState<null | "success" | "warning">(
+  const [code] = React.useState("");
+  const setStatus = React.useState<null | "success" | "warning">(
     null
-  );
+  )[1];
+
   const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
     setPassword(e.currentTarget.value);
@@ -42,6 +42,8 @@ const Content = (props: Props) => {
       });
   };
 
+  const autocompleteNewPassword = { autocomplete: 'new-password' }
+
   return (
     <div className="signup">
       <div className="container">
@@ -51,11 +53,11 @@ const Content = (props: Props) => {
         <div className="form">
           <label className="password">
             <h3>{__("Password")}</h3>
-            <input type="password" value={password} onChange={onPasswordChange} />
+            <input type="password" value={password} onChange={onPasswordChange} {...autocompleteNewPassword} />
           </label>
           <label className="confirm-password">
             <h3>{__("Confirm password")}</h3>
-            <input type="password" />
+            <input type="password" {...autocompleteNewPassword} />
           </label>
           <p className="message">
             {__(
@@ -64,7 +66,7 @@ const Content = (props: Props) => {
           </p>
           <p>
             <Button variant="contained" color="primary" onClick={handler}>
-              {__("Send password reset email")}
+              {__("Change password")}
             </Button>
           </p>
         </div>
