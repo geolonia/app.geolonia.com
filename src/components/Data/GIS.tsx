@@ -170,7 +170,7 @@ const Content = () => {
               lat={parseFloat(_x('0', 'Default value of latitude for map'))}
               lng={parseFloat(_x('0', 'Default value of longitude for map'))}
               marker={'off'}
-              zoom={6}
+              zoom={parseFloat(_x('0', 'Default value of zoom level of map'))}
               fullscreenControl={'on'}
               geolocateControl={'on'}
               onAfterLoad={handleOnAfterLoad}
