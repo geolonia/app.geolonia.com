@@ -501,6 +501,14 @@ msgstr ""
 msgid "You can manage members in your team."
 msgstr ""
 
+#: src/components/User/User.tsx:24
+msgid "Your profile"
+msgstr ""
+
+#: src/components/User/User.tsx:25
+msgid "You can update your profile and security."
+msgstr ""
+
 #: src/components/User/profile.tsx:99
 msgid "Language"
 msgstr ""
