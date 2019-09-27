@@ -56,12 +56,6 @@ const Content = () => {
           />
           <TextField
             id="standard-name"
-            label={__("Slug")}
-            margin="normal"
-            fullWidth={true}
-          />
-          <TextField
-            id="standard-name"
             label={__("Description")}
             margin="normal"
             multiline={true}

@@ -3,11 +3,11 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import PersonIcon from "@material-ui/icons/Person";
 import Avatar from "@material-ui/core/Avatar";
-import updateAvatar from "../../api/users/avatar/update";
 import { connect } from "react-redux";
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { UserMetaState } from "../../redux/actions/user-meta";
 import { AppState } from "../../redux/store";
+import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
 type StateProps = {
@@ -108,7 +108,7 @@ export class AvatarSection extends React.Component<Props, State> {
           color="default"
           onClick={this.onUploadClick}
         >
-          Upload new picture
+          {__('Upload new picture')}
         </Button>
         <input
           ref={ref => (this.inputFileRef = ref)}

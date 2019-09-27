@@ -14,6 +14,7 @@ import {
 } from "../../redux/actions/user-meta";
 import updateUserMeta from "../../api/users/update";
 import Redux from "redux";
+import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
 type StateProps = {
@@ -69,7 +70,7 @@ export class Profile extends React.Component<Props, State> {
       <>
         <TextField
           id="username"
-          label="Username"
+          label={__("Username")}
           margin="normal"
           value={username}
           onChange={this.onUsernameChange}
@@ -78,7 +79,7 @@ export class Profile extends React.Component<Props, State> {
 
         <TextField
           id="display-name"
-          label="Name"
+          label={__("Name")}
           margin="normal"
           value={name}
           onChange={this.onDispayNameChange}
@@ -87,7 +88,7 @@ export class Profile extends React.Component<Props, State> {
 
         <TextField
           id="email"
-          label="Email"
+          label={__("Email")}
           margin="normal"
           value={email}
           onChange={this.onEmailChange}
@@ -95,7 +96,7 @@ export class Profile extends React.Component<Props, State> {
         />
 
         <FormControl fullWidth={true} style={selectStyle}>
-          <InputLabel htmlFor="select-language">Language</InputLabel>
+          <InputLabel htmlFor="select-language">{__('Language')}</InputLabel>
           <Select
             id="select-language"
             fullWidth={true}

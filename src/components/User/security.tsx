@@ -70,7 +70,7 @@ export class Security extends React.Component<Props, State> {
         </Typography>
         <TextField
           id="old-password"
-          label="Old password"
+          label={__("Old password")}
           type="password"
           margin="normal"
           fullWidth={true}
@@ -79,7 +79,7 @@ export class Security extends React.Component<Props, State> {
         />
         <TextField
           id="new-password"
-          label="New password"
+          label={__("New password")}
           type="password"
           margin="normal"
           fullWidth={true}
@@ -88,7 +88,7 @@ export class Security extends React.Component<Props, State> {
         />
         <TextField
           id="new-password-again"
-          label="Confirm new password"
+          label={__("Confirm new password")}
           type="password"
           margin="normal"
           fullWidth={true}
