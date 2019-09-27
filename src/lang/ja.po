@@ -152,7 +152,7 @@ msgstr "ユーザー名"
 
 #: src/components/ForgotPassword.tsx:64
 msgid "We will send you a verification code to reset your password."
-msgstr "パスワードをリセットするための認証コードを送付します。"
+msgstr "パスワードをリセットするための検証コードを送付します。"
 
 #: src/components/ForgotPassword.tsx:68
 msgid "Send password reset email"
@@ -274,14 +274,13 @@ msgstr "保存"
 
 #: src/components/ResetPassword.tsx:64
 msgid "We have sent verification code via email."
-msgstr "認証コードを電子メールで送信しました。"
+msgstr "検証コードを電子メールで送信しました。"
 
 #: src/components/ResetPassword.tsx:67
 msgid "Change your password"
 msgstr "パスワードを変更"
 
 #: src/components/ResetPassword.tsx:71
-#, fuzzy
 msgid "Verification Code"
 msgstr "検証コード"
 
@@ -302,7 +301,6 @@ msgstr ""
 "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
 
 #: src/components/ResetPassword.tsx:94
-#, fuzzy
 msgid "Change password"
 msgstr "パスワードを変更"
 
