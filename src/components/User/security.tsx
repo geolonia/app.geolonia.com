@@ -104,7 +104,7 @@ export class Security extends React.Component<Props, State> {
           >
             {__("Update password")}
           </Button>
-          <Link style={linkStyle} href="#">
+          <Link style={linkStyle} href="/#/forgot-password">
             {__("I forgot my password")}
           </Link>
         </Typography>
