@@ -153,7 +153,7 @@ msgstr "ユーザー名"
 
 #: src/components/ForgotPassword.tsx:64
 msgid "We will send you a verification code to reset your password."
-msgstr ""
+msgstr "パスワードをリセットするための認証コードを送付します。"
 
 #: src/components/ForgotPassword.tsx:68
 msgid "Send password reset email"
@@ -161,11 +161,11 @@ msgstr "パスワードリセットメールを送信する"
 
 #: src/components/Header.tsx:126
 msgid "Profile"
-msgstr ""
+msgstr "プロフィール"
 
 #: src/components/Header.tsx:128
 msgid "Logout"
-msgstr ""
+msgstr "ログアウト"
 
 #: src/components/Maps/APIKey.tsx:107
 msgid "Once you delete an API, there is no going back. Please be certain."
@@ -493,7 +493,7 @@ msgstr "チームメンバーの追加や削除に伴う料金変更は自動的
 
 #: src/components/Team/Members.tsx:109 src/components/User/profile.tsx:91
 msgid "Email"
-msgstr "電子メール"
+msgstr "メールアドレス"
 
 #: src/components/Team/Members.tsx:131
 msgid "Owner"
@@ -517,7 +517,7 @@ msgstr "チームメンバーの管理ができます。"
 
 #: src/components/User/profile.tsx:99
 msgid "Language"
-msgstr ""
+msgstr "言語ƒ"
 
 #: src/components/User/security.tsx:105
 msgid "Update password"
@@ -534,6 +534,10 @@ msgstr "パスワードを変更しました。"
 #: src/components/User/security.tsx:120
 msgid "Failed to change password."
 msgstr "パスワードの変更を失敗しました。"
+
+#: src/components/User/security.tsx:69
+msgid "Security"
+msgstr "セキュリティ"
 
 #: src/components/User/security.tsx:73
 msgid "Old password"
