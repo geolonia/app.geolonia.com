@@ -74,10 +74,6 @@ const Content = (props: Props) => {
       });
   };
 
-  // See https://developer.apple.com/documentation/security/password_autofill/enabling_password_autofill_on_an_html_input_element
-  const autocompleteUsername = { autocomplete: "username" };
-  const autocompletePassword = { autocomplete: "current-password" };
-
   return (
     <div className="signin">
       <div className="container">
@@ -101,7 +97,7 @@ const Content = (props: Props) => {
               value={username}
               onChange={onUsernameChange}
               tabIndex={100}
-              {...autocompleteUsername}
+              autoComplete={"username"}
             />
           </label>
           <label className="password">
@@ -111,7 +107,7 @@ const Content = (props: Props) => {
               value={password}
               onChange={onPasswordChange}
               tabIndex={200}
-              {...autocompletePassword}
+              autoComplete={"current-password"}
             />
           </label>
           <p className="forgot-password">

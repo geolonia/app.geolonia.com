@@ -86,9 +86,10 @@ const Content = (props: Props) => {
           <label className="password">
             <h3>{__("Password")}</h3>
             <input
-              type={"password"}
+              type="password"
               value={password}
               onChange={onPasswordChange}
+              autoComplete={"new-password"}
             />
           </label>
           <p className="message">
