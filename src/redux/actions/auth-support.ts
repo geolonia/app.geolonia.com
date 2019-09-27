@@ -2,11 +2,13 @@ import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
 const SET_CURRENT_USER_ACTION = "AUTH_SUPPORT/SET_CURRENT_USER_ACTION";
 const SET_SESSION_ACTION = "AUTH_SUPPORT/SET_SESSION";
+const SET_ACCESS_TOKEN = "AUTH_SUPPORT/SET_ACCESS_TOKEN";
 const READY_ACTION = "AUTH_SUPPORT/READY";
 
 export type AuthSupportState = {
   currentUser?: string;
   session?: AmazonCognitoIdentity.CognitoUserSession;
+  accessToken?: string;
   isReady: boolean;
   isVerified: boolean;
 };
@@ -14,6 +16,7 @@ export type AuthSupportState = {
 const initialState: AuthSupportState = {
   currentUser: void 0,
   session: void 0,
+  accessToken: void 0,
   isReady: false,
   isVerified: false
 };
@@ -28,12 +31,21 @@ type SetSessionAction = {
   payload: { session: AmazonCognitoIdentity.CognitoUserSession };
 };
 
+type SetAccessTokenAction = {
+  type: typeof SET_ACCESS_TOKEN;
+  payload: { accessToken: string };
+};
+
 type ReadyAction = {
   type: typeof READY_ACTION;
   pyload: {};
 };
 
-type AuthSupportAction = SetCognitoUserAction | SetSessionAction | ReadyAction;
+type AuthSupportAction =
+  | SetCognitoUserAction
+  | SetSessionAction
+  | SetAccessTokenAction
+  | ReadyAction;
 
 export const createActions = {
   setCurrentUser: (currentUser: string) => ({
@@ -44,6 +56,10 @@ export const createActions = {
     type: SET_SESSION_ACTION,
     payload: { session }
   }),
+  setAccessToken: (accessToken: string) => ({
+    type: SET_ACCESS_TOKEN,
+    payload: { accessToken }
+  }),
   ready: () => ({ type: READY_ACTION, payload: {} })
 };
 const isSetCurrentUserAction = (
@@ -53,6 +69,10 @@ const isSetCurrentUserAction = (
 const isSetSessionAction = (
   action: AuthSupportAction
 ): action is SetSessionAction => action.type === SET_SESSION_ACTION;
+
+const isSetAccessTokenAction = (
+  action: AuthSupportAction
+): action is SetAccessTokenAction => action.type === SET_ACCESS_TOKEN;
 
 const isReadyAction = (action: AuthSupportAction): action is ReadyAction =>
   action.type === READY_ACTION;
@@ -65,6 +85,8 @@ export const reducer = (
     return { ...state, currentUser: action.payload.currentUser };
   } else if (isSetSessionAction(action)) {
     return { ...state, session: action.payload.session };
+  } else if (isSetAccessTokenAction(action)) {
+    return { ...state, accessToken: action.payload.accessToken };
   } else if (isReadyAction(action)) {
     return { ...state, isReady: true };
   } else {

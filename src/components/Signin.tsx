@@ -12,6 +12,8 @@ import { signin } from "../auth";
 import { CircularProgress } from "@material-ui/core";
 import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
+import Redux from "redux";
+import { createActions } from "../redux/actions/auth-support";
 
 type OwnProps = {};
 type RouterProps = {
@@ -22,7 +24,10 @@ type RouterProps = {
 type StateProps = {
   signupUser?: string;
 };
-type Props = OwnProps & RouterProps & StateProps;
+type DispatchProps = {
+  setAccessToken: (accessToken: string) => void;
+};
+type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 const messages = {
   success: __("Signin successed."),
@@ -57,8 +62,10 @@ const Content = (props: Props) => {
   const handleSignin = () => {
     setStatus("requesting");
     delay(signin(username, password), 500)
-      .then(() => {
+      .then(({ session, accessToken }) => {
+        console.log(session);
         setStatus("success");
+        props.setAccessToken(accessToken);
         props.history.push("/");
       })
       .catch(err => {
@@ -90,17 +97,17 @@ const Content = (props: Props) => {
               value={username}
               onChange={onUsernameChange}
               tabIndex={100}
-              autoComplete={'username'}
+              autoComplete={"username"}
             />
           </label>
           <label className="password">
             <h2>{__("Password")}</h2>
             <input
-              type="password"
+              type={"password"}
               value={password}
               onChange={onPasswordChange}
               tabIndex={200}
-              autoComplete={'current-password'}
+              autoComplete={"current-password"}
             />
           </label>
           <p className="forgot-password">
@@ -145,6 +152,13 @@ Content.defaultProps = {};
 const mapStateToProps = (state: AppState): StateProps => ({
   signupUser: state.authSupport.currentUser
 });
-const ConnectedContent = connect(mapStateToProps)(Content);
+const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
+  setAccessToken: (accessToken: string) =>
+    dispatch(createActions.setAccessToken(accessToken))
+});
+const ConnectedContent = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
 
 export default ConnectedContent;

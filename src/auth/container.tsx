@@ -1,31 +1,49 @@
 import React from "react";
 import { getSession } from "./";
+import getUserMeta from "../api/users/get";
 import { connect } from "react-redux";
-import { createActions } from "../redux/actions/auth-support";
+import { createActions as createAuthSupportActions } from "../redux/actions/auth-support";
+import { createActions as createUserMetaActions } from "../redux/actions/user-meta";
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import Redux from "redux";
 import { AppState } from "../redux/store";
 import delay from "../lib/promise-delay";
+import { UserMetaState } from "../redux/actions/user-meta";
+import { initialState as initialUserMetaState } from "../redux/actions/user-meta";
+import { setLocaleData } from "@wordpress/i18n";
 
 type Props = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
   setSession: (session: AmazonCognitoIdentity.CognitoUserSession) => void;
+  setAccessToken: (accessToken: string) => void;
   ready: () => void;
+  setUserMeta: (userMeta: UserMetaState) => void;
 };
 
 type State = {};
 
 export class AuthContainer extends React.Component<Props, State> {
   componentDidMount() {
-    delay(getSession(), 500)
-      .then(session => this.props.setSession(session))
+    delay(getSession() /*API access*/, 500)
+      .then(({ session, accessToken }) => {
+        this.props.setSession(session);
+        this.props.setAccessToken(accessToken);
+        return this.getUserMeta(session);
+      })
       .catch(err => console.error(err))
       .finally(this.props.ready);
   }
 
+  getUserMeta = (session: AmazonCognitoIdentity.CognitoUserSession) => {
+    return getUserMeta(session).then(({ item, links }) => {
+      // fetch('./lang.ja.json').then((localData) => setLocaleData(locale))
+      this.props.setUserMeta({ ...item, links } || initialUserMetaState);
+    });
+  };
+
   render() {
     const { children } = this.props;
-    return (<>{children}</>);
+    return <>{children}</>;
   }
 }
 
@@ -35,8 +53,12 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setSession: (session: AmazonCognitoIdentity.CognitoUserSession) =>
-    dispatch(createActions.setSession(session)),
-  ready: () => dispatch(createActions.ready())
+    dispatch(createAuthSupportActions.setSession(session)),
+  setAccessToken: (accessToken: string) =>
+    dispatch(createAuthSupportActions.setAccessToken(accessToken)),
+  ready: () => dispatch(createAuthSupportActions.ready()),
+  setUserMeta: (userMeta: UserMetaState) =>
+    dispatch(createUserMetaActions.setUserMeta(userMeta))
 });
 
 export default connect(
