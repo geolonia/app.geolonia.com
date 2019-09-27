@@ -14,6 +14,7 @@ import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
 import Redux from "redux";
 import { createActions } from "../redux/actions/auth-support";
+
 type OwnProps = {};
 type RouterProps = {
   history: {
@@ -61,7 +62,8 @@ const Content = (props: Props) => {
   const handleSignin = () => {
     setStatus("requesting");
     delay(signin(username, password), 500)
-      .then(({ accessToken }) => {
+      .then(({ session, accessToken }) => {
+        console.log(session);
         setStatus("success");
         props.setAccessToken(accessToken);
         props.history.push("/");
@@ -73,8 +75,8 @@ const Content = (props: Props) => {
   };
 
   // See https://developer.apple.com/documentation/security/password_autofill/enabling_password_autofill_on_an_html_input_element
-  const autocompleteUsername = { autocomplete: 'username' }
-  const autocompletePassword = { autocomplete: 'current-password' }
+  const autocompleteUsername = { autocomplete: "username" };
+  const autocompletePassword = { autocomplete: "current-password" };
 
   return (
     <div className="signin">

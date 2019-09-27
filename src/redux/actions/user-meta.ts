@@ -6,6 +6,10 @@ export type UserMetaState = {
   email: string;
   language: string;
   avatarUrl: string;
+  links: {
+    getAvatar: string;
+    putAvatar: string;
+  }
 };
 
 export const initialState: UserMetaState = {
@@ -13,8 +17,12 @@ export const initialState: UserMetaState = {
   name: "",
   email: "",
   language: "ja",
-  avatarUrl: ""
-};
+  avatarUrl: "",
+  links: {
+    getAvatar: "",
+    putAvatar: ""
+  }
+}
 
 type SetUserMetaAction = {
   type: typeof SET_USER_META_ACTION;

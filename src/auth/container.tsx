@@ -10,6 +10,7 @@ import { AppState } from "../redux/store";
 import delay from "../lib/promise-delay";
 import { UserMetaState } from "../redux/actions/user-meta";
 import { initialState as initialUserMetaState } from "../redux/actions/user-meta";
+import { setLocaleData } from "@wordpress/i18n";
 
 type Props = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
@@ -23,18 +24,22 @@ type State = {};
 
 export class AuthContainer extends React.Component<Props, State> {
   componentDidMount() {
-    delay(getSession(), 500)
+    delay(getSession() /*API access*/, 500)
       .then(({ session, accessToken }) => {
         this.props.setSession(session);
         this.props.setAccessToken(accessToken);
-
-        return getUserMeta(session).then(({ item }) =>
-          this.props.setUserMeta(item || initialUserMetaState)
-        );
+        return this.getUserMeta(session);
       })
       .catch(err => console.error(err))
       .finally(this.props.ready);
   }
+
+  getUserMeta = (session: AmazonCognitoIdentity.CognitoUserSession) => {
+    return getUserMeta(session).then(({ item, links }) => {
+      // fetch('./lang.ja.json').then((localData) => setLocaleData(locale))
+      this.props.setUserMeta({ ...item, links } || initialUserMetaState);
+    });
+  };
 
   render() {
     const { children } = this.props;
