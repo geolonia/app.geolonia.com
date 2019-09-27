@@ -6,16 +6,20 @@ import Avatar from "@material-ui/core/Avatar";
 import updateAvatar from "../../api/users/avatar/update";
 import { connect } from "react-redux";
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { UserMetaState } from "../../redux/actions/user-meta";
+import { AppState } from "../../redux/store";
 
 type OwnProps = {};
 type StateProps = {
-  session: AmazonCognitoIdentity.CognitoUserSession;
+  session?: AmazonCognitoIdentity.CognitoUserSession;
+  userMeta: UserMetaState;
 };
 type Props = OwnProps & StateProps;
 type State = {
-  avatarUrl?: string;
+  avatarUrl: string;
   status: false | "requesting" | "success" | "failure";
   isFileAPISupported: boolean;
+  isAvatarReady: boolean;
 };
 
 const ProfileImageStyle: React.CSSProperties = {
@@ -32,10 +36,18 @@ export class AvatarSection extends React.Component<Props, State> {
     super(props);
     this.inputFileRef = null;
     this.state = {
-      avatarUrl: void 0,
+      avatarUrl: props.userMeta.links.getAvatar,
       status: false,
-      isFileAPISupported: true // TODO: check it
+      isFileAPISupported: true, // TODO: check it
+      isAvatarReady: false
     };
+  }
+
+  componentDidMount() {
+    // image fallback
+    fetch(this.state.avatarUrl, { method: "GET" }).then(
+      res => res.ok && this.setState({ isAvatarReady: true })
+    );
   }
 
   onUploadClick = () => {
@@ -51,6 +63,16 @@ export class AvatarSection extends React.Component<Props, State> {
       const avatarUrl = URL.createObjectURL(file);
       this.setState({ avatarUrl, status: "requesting" });
 
+      fetch(this.props.userMeta.links.putAvatar, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type
+        },
+        body: file
+      })
+        .then(console.log)
+        .catch(console.error);
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -58,23 +80,10 @@ export class AvatarSection extends React.Component<Props, State> {
         if (!base64Image || typeof base64Image !== "string") {
           return;
         }
-        const { session } = this.props;
-        updateAvatar(session, base64Image)
-          .then((avatarUrl: string) => {
-            console.log(avatarUrl);
-            fetch(avatarUrl)
-              .then(res => res.json())
-              .then(data =>
-                this.setState({
-                  avatarUrl: data.base64Image,
-                  status: "success"
-                })
-              );
-          })
-          .catch((err: any) => {
-            console.error(err);
-            this.setState({ status: "failure" });
-          });
+        this.setState({
+          avatarUrl: base64Image,
+          status: "success"
+        });
       };
       reader.onerror = err => {
         console.error(err);
@@ -84,11 +93,11 @@ export class AvatarSection extends React.Component<Props, State> {
   };
 
   render() {
-    const { avatarUrl } = this.state;
+    const { avatarUrl, isAvatarReady } = this.state;
 
     return (
-      <Typography component="p" align="center">
-        {avatarUrl ? (
+      <Typography component="div" align="center">
+        {isAvatarReady ? (
           <Avatar src={avatarUrl} style={ProfileImageStyle}></Avatar>
         ) : (
           <PersonIcon style={ProfileImageStyle} />
@@ -114,8 +123,9 @@ export class AvatarSection extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: any) => ({
-  session: state.authSupport.session
+const mapStateToProps = (state: AppState): StateProps => ({
+  session: state.authSupport.session,
+  userMeta: state.userMeta
 });
 
 export default connect(mapStateToProps)(AvatarSection);

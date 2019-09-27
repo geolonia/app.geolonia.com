@@ -45,6 +45,7 @@ export const verify = (username: string, code: string) =>
 export const signin = (username: string, password: string) =>
   new Promise<{
     cognitoUser: CognitoIdentity.CognitoUser;
+    session: CognitoIdentity.CognitoUserSession;
     accessToken: string;
   }>((resolve, reject) => {
     const cognitoUser = new CognitoIdentity.CognitoUser({
@@ -60,7 +61,15 @@ export const signin = (username: string, password: string) =>
         const accessToken = result.getIdToken().getJwtToken();
         // console.log(accessToken);
         // TODO: handle access token here
-        resolve({ cognitoUser, accessToken });
+        cognitoUser.getSession(
+          (err: any, session: CognitoIdentity.CognitoUserSession) => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve({ cognitoUser, session, accessToken });
+            }
+          }
+        );
       },
 
       onFailure: reject
