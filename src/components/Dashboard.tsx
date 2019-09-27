@@ -108,7 +108,7 @@ const Dashboard = (props: Props) => {
           </div>
         </Hidden>
         <div className="box-content">
-          <h2>{sprintf(__("Welcome, %s"), userMeta.username)}</h2>
+          <h2>{sprintf(__("Welcome, %s"), userMeta.name)}</h2>
           <ul>
             <li>
               <Link href="#/maps/api-keys" color="inherit" underline="always">
