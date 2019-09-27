@@ -4,14 +4,6 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { setLocaleData } from "@wordpress/i18n";
-import { loadLocale } from "./lib/loadLocale";
-
-const localeData = loadLocale();
-if (localeData) {
-  setLocaleData(localeData);
-}
-
 ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
