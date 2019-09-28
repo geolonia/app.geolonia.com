@@ -16,7 +16,6 @@ import updateUserMeta from "../../api/users/update";
 import Redux from "redux";
 import { __ } from "@wordpress/i18n";
 import momentTimeZone from 'moment-timezone';
-import moment from "moment-timezone";
 
 type OwnProps = {};
 type MappedStateProps = {
