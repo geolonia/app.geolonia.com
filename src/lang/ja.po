@@ -55,7 +55,7 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:199 src/components/Maps/APIKey.tsx:77
 #: src/components/Navigator.tsx:232 src/components/Team/General.tsx:53
-#: src/components/User/profile.tsx:117 src/components/custom/Delete.tsx:66
+#: src/components/User/profile.tsx:124 src/components/custom/Delete.tsx:66
 msgid "Name"
 msgstr "名前"
 
@@ -146,7 +146,7 @@ msgid "Reset your password"
 msgstr "パスワードのリセット"
 
 #: src/components/ForgotPassword.tsx:56 src/components/Signup.tsx:79
-#: src/components/User/profile.tsx:96 src/components/verify.tsx:79
+#: src/components/User/profile.tsx:103 src/components/verify.tsx:79
 msgid "Username"
 msgstr "ユーザー名"
 
@@ -284,7 +284,7 @@ msgstr "パスワードを変更"
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/ResetPassword.tsx:75 src/components/Signin.tsx:104
+#: src/components/ResetPassword.tsx:75 src/components/Signin.tsx:107
 #: src/components/Signup.tsx:90
 msgid "Password"
 msgstr "パスワード"
@@ -304,35 +304,35 @@ msgstr ""
 msgid "Change password"
 msgstr "パスワードを変更"
 
-#: src/components/Signin.tsx:115
+#: src/components/Signin.tsx:118
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:125
+#: src/components/Signin.tsx:128
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:136
+#: src/components/Signin.tsx:143
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:138
+#: src/components/Signin.tsx:145
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signin.tsx:33
+#: src/components/Signin.tsx:34
 msgid "Signin successed."
 msgstr "サインイン成功"
 
-#: src/components/Signin.tsx:34
+#: src/components/Signin.tsx:35
 msgid "Signin failed."
 msgstr "サインイン失敗"
 
-#: src/components/Signin.tsx:81
+#: src/components/Signin.tsx:84
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:84
+#: src/components/Signin.tsx:87
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -340,7 +340,7 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:94
+#: src/components/Signin.tsx:97
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
@@ -491,7 +491,7 @@ msgid ""
 "We automatically update your billing as you add and remove team members."
 msgstr "チームメンバーの追加や削除に伴う料金変更は自動的に行われます。"
 
-#: src/components/Team/Members.tsx:109 src/components/User/profile.tsx:105
+#: src/components/Team/Members.tsx:109 src/components/User/profile.tsx:112
 msgid "Email"
 msgstr "メールアドレス"
 
@@ -523,9 +523,13 @@ msgstr "プロフィール"
 msgid "You can update your profile and security."
 msgstr "プロフィールとセキュリティを設定できます。"
 
-#: src/components/User/profile.tsx:124
+#: src/components/User/profile.tsx:132
 msgid "Language"
 msgstr "言語"
+
+#: src/components/User/profile.tsx:145
+msgid "Time zone"
+msgstr "タイムゾーン"
 
 #: src/components/User/security.tsx:105
 msgid "Update password"
