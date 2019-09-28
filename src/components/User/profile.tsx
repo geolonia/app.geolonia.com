@@ -15,6 +15,8 @@ import {
 import updateUserMeta from "../../api/users/update";
 import Redux from "redux";
 import { __ } from "@wordpress/i18n";
+import momentTimeZone from 'moment-timezone';
+import moment from "moment-timezone";
 
 type OwnProps = {};
 type MappedStateProps = {
@@ -82,6 +84,8 @@ export class Profile extends React.Component<Props, State> {
       });
   };
 
+  timezones = momentTimeZone.tz.names()
+
   render() {
     const {
       userMeta: { name, language },
@@ -120,6 +124,7 @@ export class Profile extends React.Component<Props, State> {
           onChange={this.onNameChange}
           fullWidth={true}
         />
+
         <FormControl fullWidth={true} style={selectStyle}>
           <InputLabel htmlFor="select-language">{__("Language")}</InputLabel>
           <Select
@@ -130,6 +135,20 @@ export class Profile extends React.Component<Props, State> {
           >
             <MenuItem value="en">English</MenuItem>
             <MenuItem value="ja">日本語</MenuItem>
+          </Select>
+        </FormControl>
+
+        <FormControl fullWidth={true} style={selectStyle}>
+          <InputLabel htmlFor="select-timezone">{__("Time zone")}</InputLabel>
+          <Select
+            id="select-timezone"
+            fullWidth={true}
+            value={language}
+            onChange={this.onLanguageChange}
+          >
+          {this.timezones.map((timezoneName: string) => (
+            <MenuItem value={timezoneName}>{timezoneName}</MenuItem>
+          ))}
           </Select>
         </FormControl>
 
