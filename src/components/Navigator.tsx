@@ -28,6 +28,13 @@ import defaultGroupIcon from "./custom/group.svg";
 import { Link } from "@material-ui/core";
 
 import { __ } from "@wordpress/i18n";
+import { connect } from "react-redux";
+import { AppState } from "../redux/store";
+import {
+  createActions as createGroupActions,
+  Group
+} from "../redux/actions/group";
+import Redux from "redux";
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -74,7 +81,7 @@ const handleClickHome = () => {
   window.location.hash = "";
 };
 
-type Props = {
+type OwnProps = {
   readonly classes: any;
   readonly PaperProps: any;
   readonly variant?: "temporary";
@@ -82,8 +89,19 @@ type Props = {
   readonly onClose?: () => any;
 };
 
+type StateProps = {
+  groups: Group[];
+  selectedGroupIndex: number;
+};
+
+type DispatchProps = {
+  selectGroup: (index: number) => void;
+};
+
+type Props = OwnProps & StateProps & DispatchProps;
+
 const Navigator: React.FC<Props> = (props: Props) => {
-  const { classes, ...other } = props;
+  const { classes, groups, selectedGroupIndex, selectGroup, ...other } = props;
   const [open, setOpen] = React.useState(false);
 
   const categories = [
@@ -145,7 +163,6 @@ const Navigator: React.FC<Props> = (props: Props) => {
   };
 
   const saveHandler = () => {};
-
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
       <List disablePadding>
@@ -153,8 +170,14 @@ const Navigator: React.FC<Props> = (props: Props) => {
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
           <img src={defaultGroupIcon} className="logo" alt="" />
-          <Select className="team" value="default-team">
-            <MenuItem value="default-team">miya0001</MenuItem>
+          <Select
+            className="team"
+            value={selectedGroupIndex}
+            onChange={(e: any) => props.selectGroup(e.target.value)}
+          >
+            {groups.map((group, index) => (
+              <MenuItem value={index}>{group.name}</MenuItem>
+            ))}
             <MenuItem className="create-new-team">
               <Link onClick={handleClickOpen}>+ {__("Create a new team")}</Link>
             </MenuItem>
@@ -248,4 +271,18 @@ const Navigator: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(Navigator);
+const mapStateToProps = (state: AppState): StateProps => ({
+  groups: state.group.data,
+  selectedGroupIndex: state.group.selectedIndex
+});
+
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  selectGroup: (index: number) => dispatch(createGroupActions.select(index))
+});
+
+const ConnectedNavigator = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Navigator);
+
+export default withStyles(styles)(ConnectedNavigator);
