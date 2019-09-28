@@ -14,6 +14,7 @@ import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
 import Redux from "redux";
 import { createActions } from "../redux/actions/auth-support";
+import CheckIcon from "@material-ui/icons/Check";
 
 type OwnProps = {};
 type RouterProps = {
@@ -61,12 +62,14 @@ const Content = (props: Props) => {
 
   const handleSignin = () => {
     setStatus("requesting");
-    delay(signin(username, password), 500)
-      .then(({ session, accessToken }) => {
-        console.log(session);
+    delay(signin(username, password), 250)
+      .then(() => {
         setStatus("success");
-        props.setAccessToken(accessToken);
-        props.history.push("/");
+        // Force reloadading and use componentDidMount of AuthContainer to get session
+        setTimeout(() => (window.location.href = "/"), 250);
+        // console.log(session);
+        // props.setAccessToken(accessToken);
+        // props.history.push("/");
       })
       .catch(err => {
         setStatus("warning");
@@ -125,11 +128,15 @@ const Content = (props: Props) => {
               {__("Sign in")}
             </Button>
           </p>
-          {status === "requesting" && (
+          {status === "requesting" ? (
             <p>
               <CircularProgress size={20}></CircularProgress>
             </p>
-          )}
+          ) : status === "success" ? (
+            <p>
+              <CheckIcon fontSize={"default"} color={"primary"}></CheckIcon>
+            </p>
+          ) : null}
         </div>
 
         <p>
