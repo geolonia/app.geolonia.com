@@ -1,3 +1,5 @@
+// @file Wrapper for Cognito related API
+
 import "isomorphic-fetch";
 import * as CognitoIdentity from "amazon-cognito-identity-js";
 
@@ -165,3 +167,25 @@ export const changePassword = (oldPassword: string, newPassword: string) =>
       reject();
     }
   });
+
+// NOTE: not tested
+export const changeEmail = (email: string) => {
+  return new Promise((resolve, reject) => {
+    const cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser) {
+      const attr: CognitoIdentity.ICognitoUserAttributeData = {
+        Name: "email",
+        Value: email
+      };
+      cognitoUser.updateAttributes([attr], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    } else {
+      reject();
+    }
+  });
+};
