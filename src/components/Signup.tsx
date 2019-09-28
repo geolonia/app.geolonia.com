@@ -78,6 +78,9 @@ const Content = (props: Props) => {
           <label className="username">
             <h3>{__("Username")}</h3>
             <input type="text" value={username} onChange={onUsernameChange} />
+            <p className="message">
+              {__("Username cannot be modified later.")}
+            </p>
           </label>
           <label className="email">
             <h3>{__("Email address")}</h3>

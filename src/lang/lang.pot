@@ -3,31 +3,31 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/Dashboard.tsx:111
+#: src/components/Dashboard.tsx:118
 msgid "Welcome, %s"
 msgstr ""
 
-#: src/components/Dashboard.tsx:115
+#: src/components/Dashboard.tsx:122
 msgid "Get API key"
 msgstr ""
 
-#: src/components/Dashboard.tsx:117
+#: src/components/Dashboard.tsx:124
 msgid "Get API key then create your map!"
 msgstr ""
 
-#: src/components/Dashboard.tsx:121
+#: src/components/Dashboard.tsx:128
 msgid "Geolonia GIS"
 msgstr ""
 
-#: src/components/Dashboard.tsx:124
+#: src/components/Dashboard.tsx:131
 msgid "Display your points, lines, polygons on your map application."
 msgstr ""
 
-#: src/components/Dashboard.tsx:136
+#: src/components/Dashboard.tsx:143
 msgid "Map loads for this month"
 msgstr ""
 
-#: src/components/Dashboard.tsx:147
+#: src/components/Dashboard.tsx:154
 msgid "API loads for this month"
 msgstr ""
 
@@ -45,7 +45,7 @@ msgstr ""
 #: src/components/Maps/APIKey.tsx:77
 #: src/components/Navigator.tsx:232
 #: src/components/Team/General.tsx:53
-#: src/components/User/profile.tsx:82
+#: src/components/User/profile.tsx:117
 #: src/components/custom/Delete.tsx:66
 msgid "Name"
 msgstr ""
@@ -136,7 +136,7 @@ msgstr ""
 
 #: src/components/ForgotPassword.tsx:56
 #: src/components/Signup.tsx:79
-#: src/components/User/profile.tsx:73
+#: src/components/User/profile.tsx:96
 #: src/components/verify.tsx:79
 msgid "Username"
 msgstr ""
@@ -279,7 +279,7 @@ msgstr ""
 
 #: src/components/ResetPassword.tsx:75
 #: src/components/Signin.tsx:104
-#: src/components/Signup.tsx:87
+#: src/components/Signup.tsx:90
 msgid "Password"
 msgstr ""
 
@@ -288,7 +288,7 @@ msgid "Confirm password"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:88
-#: src/components/Signup.tsx:96
+#: src/components/Signup.tsx:99
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
@@ -336,11 +336,11 @@ msgstr ""
 msgid "Username or email address"
 msgstr ""
 
-#: src/components/Signup.tsx:103
+#: src/components/Signup.tsx:106
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:113
+#: src/components/Signup.tsx:116
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" "
@@ -366,7 +366,11 @@ msgstr ""
 msgid "Create your account"
 msgstr ""
 
-#: src/components/Signup.tsx:83
+#: src/components/Signup.tsx:82
+msgid "Username cannot be modified later."
+msgstr ""
+
+#: src/components/Signup.tsx:86
 msgid "Email address"
 msgstr ""
 
@@ -451,7 +455,7 @@ msgid "URL"
 msgstr ""
 
 #: src/components/Team/General.tsx:79
-#: src/components/User/avatar.tsx:111
+#: src/components/User/avatar.tsx:112
 msgid "Upload new picture"
 msgstr ""
 
@@ -477,7 +481,7 @@ msgid "We automatically update your billing as you add and remove team members."
 msgstr ""
 
 #: src/components/Team/Members.tsx:109
-#: src/components/User/profile.tsx:91
+#: src/components/User/profile.tsx:105
 msgid "Email"
 msgstr ""
 
@@ -509,7 +513,7 @@ msgstr ""
 msgid "You can update your profile and security."
 msgstr ""
 
-#: src/components/User/profile.tsx:99
+#: src/components/User/profile.tsx:124
 msgid "Language"
 msgstr ""
 

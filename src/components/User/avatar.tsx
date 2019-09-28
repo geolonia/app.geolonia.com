@@ -45,6 +45,7 @@ export class AvatarSection extends React.Component<Props, State> {
 
   componentDidMount() {
     // image fallback
+    // TODO: can method HEAD be used?
     fetch(this.state.avatarUrl, { method: "GET" }).then(
       res => res.ok && this.setState({ isAvatarReady: true })
     );
@@ -108,7 +109,7 @@ export class AvatarSection extends React.Component<Props, State> {
           color="default"
           onClick={this.onUploadClick}
         >
-          {__('Upload new picture')}
+          {__("Upload new picture")}
         </Button>
         <input
           ref={ref => (this.inputFileRef = ref)}
