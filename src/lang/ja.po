@@ -521,7 +521,7 @@ msgstr "プロフィールとセキュリティを設定できます。"
 
 #: src/components/User/profile.tsx:99
 msgid "Language"
-msgstr "言語ƒ"
+msgstr "言語"
 
 #: src/components/User/security.tsx:105
 msgid "Update password"

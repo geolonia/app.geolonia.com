@@ -107,9 +107,10 @@ export class Profile extends React.Component<Props, State> {
           value={email}
           onChange={this.onEmailChange}
           fullWidth={true}
+          // NOTE: currently disabled
+          disabled
         />
-        {/* TODO: create handler to call Cognito attribute:email change method */}
-        <Save></Save>
+        {/* <Save></Save> */}
 
         <TextField
           id="display-name"
