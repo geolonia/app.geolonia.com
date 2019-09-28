@@ -13,31 +13,31 @@ msgstr ""
 "lang: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/components/Dashboard.tsx:111
+#: src/components/Dashboard.tsx:118
 msgid "Welcome, %s"
 msgstr "ようこそ %s さん"
 
-#: src/components/Dashboard.tsx:115
+#: src/components/Dashboard.tsx:122
 msgid "Get API key"
 msgstr "API キーを取得"
 
-#: src/components/Dashboard.tsx:117
+#: src/components/Dashboard.tsx:124
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:121
+#: src/components/Dashboard.tsx:128
 msgid "Geolonia GIS"
 msgstr ""
 
-#: src/components/Dashboard.tsx:124
+#: src/components/Dashboard.tsx:131
 msgid "Display your points, lines, polygons on your map application."
 msgstr "あなたの地図アプリに、ポイントや線、ポリゴンを表示しましょう。"
 
-#: src/components/Dashboard.tsx:136
+#: src/components/Dashboard.tsx:143
 msgid "Map loads for this month"
 msgstr "今月の地図のロード回数"
 
-#: src/components/Dashboard.tsx:147
+#: src/components/Dashboard.tsx:154
 msgid "API loads for this month"
 msgstr "今月の API のロード回数"
 
@@ -55,7 +55,7 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:199 src/components/Maps/APIKey.tsx:77
 #: src/components/Navigator.tsx:232 src/components/Team/General.tsx:53
-#: src/components/User/profile.tsx:82 src/components/custom/Delete.tsx:66
+#: src/components/User/profile.tsx:117 src/components/custom/Delete.tsx:66
 msgid "Name"
 msgstr "名前"
 
@@ -146,7 +146,7 @@ msgid "Reset your password"
 msgstr "パスワードのリセット"
 
 #: src/components/ForgotPassword.tsx:56 src/components/Signup.tsx:79
-#: src/components/User/profile.tsx:73 src/components/verify.tsx:79
+#: src/components/User/profile.tsx:96 src/components/verify.tsx:79
 msgid "Username"
 msgstr "ユーザー名"
 
@@ -285,7 +285,7 @@ msgid "Verification Code"
 msgstr "検証コード"
 
 #: src/components/ResetPassword.tsx:75 src/components/Signin.tsx:104
-#: src/components/Signup.tsx:87
+#: src/components/Signup.tsx:90
 msgid "Password"
 msgstr "パスワード"
 
@@ -293,7 +293,7 @@ msgstr "パスワード"
 msgid "Confirm password"
 msgstr "パスワードを確認"
 
-#: src/components/ResetPassword.tsx:88 src/components/Signup.tsx:96
+#: src/components/ResetPassword.tsx:88 src/components/Signup.tsx:99
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
@@ -344,11 +344,11 @@ msgstr ""
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signup.tsx:103
+#: src/components/Signup.tsx:106
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:113
+#: src/components/Signup.tsx:116
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -376,7 +376,11 @@ msgstr "Geolonia へようこそ"
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:83
+#: src/components/Signup.tsx:82
+msgid "Username cannot be modified later."
+msgstr "ユーザー名は後から変更できません。"
+
+#: src/components/Signup.tsx:86
 msgid "Email address"
 msgstr "Email アドレス"
 
@@ -462,7 +466,7 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: src/components/Team/General.tsx:79 src/components/User/avatar.tsx:111
+#: src/components/Team/General.tsx:79 src/components/User/avatar.tsx:112
 msgid "Upload new picture"
 msgstr "新しい写真をアップロード"
 
@@ -487,7 +491,7 @@ msgid ""
 "We automatically update your billing as you add and remove team members."
 msgstr "チームメンバーの追加や削除に伴う料金変更は自動的に行われます。"
 
-#: src/components/Team/Members.tsx:109 src/components/User/profile.tsx:91
+#: src/components/Team/Members.tsx:109 src/components/User/profile.tsx:105
 msgid "Email"
 msgstr "メールアドレス"
 
@@ -519,7 +523,7 @@ msgstr "プロフィール"
 msgid "You can update your profile and security."
 msgstr "プロフィールとセキュリティを設定できます。"
 
-#: src/components/User/profile.tsx:99
+#: src/components/User/profile.tsx:124
 msgid "Language"
 msgstr "言語"
 
