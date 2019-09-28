@@ -17,6 +17,7 @@ import "./Dashboard.scss";
 import { connect } from "react-redux";
 import { AppState } from "../redux/store";
 import { UserMetaState } from "../redux/actions/user-meta";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
 const styles = (theme: Theme) => ({});
 
@@ -25,6 +26,7 @@ type OwnProps = {
 };
 type StateProps = {
   userMeta: UserMetaState;
+  session: AmazonCognitoIdentity.CognitoUserSession | void;
 };
 type Props = OwnProps & StateProps;
 
@@ -99,6 +101,11 @@ const Dashboard = (props: Props) => {
     }
   };
 
+  const payload = props.session ? props.session.getIdToken().payload : {};
+  const displayName = (userMeta.name ||
+    payload["cognito:username"] ||
+    "") as string;
+
   return (
     <div id="dashboard">
       <Paper className="getting-started">
@@ -108,7 +115,7 @@ const Dashboard = (props: Props) => {
           </div>
         </Hidden>
         <div className="box-content">
-          <h2>{sprintf(__("Welcome, %s"), userMeta.username)}</h2>
+          <h2>{sprintf(__("Welcome, %s"), displayName)}</h2>
           <ul>
             <li>
               <Link href="#/maps/api-keys" color="inherit" underline="always">
@@ -160,7 +167,10 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state: AppState) => ({ userMeta: state.userMeta });
+const mapStateToProps = (state: AppState) => ({
+  userMeta: state.userMeta,
+  session: state.authSupport.session
+});
 const ConnectedDashboard = connect(mapStateToProps)(Dashboard);
 
 export default withStyles(styles)(ConnectedDashboard);
