@@ -1,8 +1,10 @@
+import momentTimeZone from "moment-timezone";
 const SET_USER_META_ACTION = "USER_META/SET";
 
 export type UserMetaState = {
   name: string;
   language: string;
+  timezone: string;
   links: {
     getAvatar: string;
     putAvatar: string;
@@ -12,6 +14,7 @@ export type UserMetaState = {
 export const initialState: UserMetaState = {
   name: "",
   language: "ja",
+  timezone: "",
   links: {
     getAvatar: "",
     putAvatar: ""

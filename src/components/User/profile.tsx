@@ -15,7 +15,7 @@ import {
 import updateUserMeta from "../../api/users/update";
 import Redux from "redux";
 import { __ } from "@wordpress/i18n";
-import momentTimeZone from 'moment-timezone';
+import momentTimeZone from "moment-timezone";
 
 type OwnProps = {};
 type MappedStateProps = {
@@ -44,7 +44,10 @@ export class Profile extends React.Component<Props, State> {
     const { session } = this.props;
     const payload = session ? session.getIdToken().payload : {};
     this.state = {
-      userMeta: { ...props.userMeta },
+      userMeta: {
+        ...props.userMeta,
+        timezone: props.userMeta.timezone || momentTimeZone.tz.guess()
+      },
       username: payload["cognito:username"] || "",
       email: payload.email || "",
       status: false
@@ -65,6 +68,7 @@ export class Profile extends React.Component<Props, State> {
     this.setState({ email: e.target.value });
 
   onLanguageChange = (e: any) => this._setUserMeta("language", e.target.value);
+  onTimezoneChange = (e: any) => this._setUserMeta("timezone", e.target.value);
 
   onSaveClick = (e: any) => {
     const { session } = this.props;
@@ -83,11 +87,11 @@ export class Profile extends React.Component<Props, State> {
       });
   };
 
-  timezones = momentTimeZone.tz.names()
+  timezones = momentTimeZone.tz.names();
 
   render() {
     const {
-      userMeta: { name, language },
+      userMeta: { name, language, timezone },
       email,
       username
     } = this.state;
@@ -142,12 +146,14 @@ export class Profile extends React.Component<Props, State> {
           <Select
             id="select-timezone"
             fullWidth={true}
-            value={language}
-            onChange={this.onLanguageChange}
+            value={timezone}
+            onChange={this.onTimezoneChange}
           >
-          {this.timezones.map((timezoneName: string) => (
-            <MenuItem value={timezoneName}>{timezoneName}</MenuItem>
-          ))}
+            {this.timezones.map((timezoneName: string) => (
+              <MenuItem key={timezoneName} value={timezoneName}>
+                {timezoneName}
+              </MenuItem>
+            ))}
           </Select>
         </FormControl>
 
