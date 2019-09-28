@@ -79,10 +79,7 @@ export const signin = (username: string, password: string) =>
   });
 
 export const getSession = () =>
-  new Promise<{
-    session: CognitoIdentity.CognitoUserSession;
-    accessToken: string;
-  }>((resolve, reject) => {
+  new Promise<CognitoIdentity.CognitoUserSession | null>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser !== null) {
       cognitoUser.getSession(
@@ -91,15 +88,12 @@ export const getSession = () =>
             cognitoUser.signOut();
             reject(err);
           } else {
-            resolve({
-              session,
-              accessToken: session.getIdToken().getJwtToken()
-            });
+            resolve(session);
           }
         }
       );
     } else {
-      reject(null);
+      resolve(null);
     }
   });
 

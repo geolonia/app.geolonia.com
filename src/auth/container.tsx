@@ -23,28 +23,38 @@ type Props = {
 
 type State = {};
 
+const APILoads = () => {
+  return getSession().then(session => {
+    if (session === null) {
+      throw new Error("no session found");
+    }
+    return Promise.all([
+      getUserMeta(session)
+      /*more API loads here*/
+    ]).then(([userMeta]) => ({
+      session,
+      userMeta
+    }));
+  });
+};
+
 export class AuthContainer extends React.Component<Props, State> {
   componentDidMount() {
-    delay(getSession() /*API access*/, 500)
-      .then(({ session, accessToken }) => {
+    delay(APILoads(), 500)
+      .then(({ session, userMeta }) => {
+        const { item, links } = userMeta;
         this.props.setSession(session);
-        this.props.setAccessToken(accessToken);
-        return this.getUserMeta(session);
+        this.props.setUserMeta({ ...item, links });
       })
       .catch(err => console.error(err))
-      .finally(this.props.ready);
+      .finally(() => {
+        const localeData = loadLocale();
+        if (localeData) {
+          setLocaleData(localeData);
+        }
+        this.props.ready();
+      });
   }
-
-  getUserMeta = (session: AmazonCognitoIdentity.CognitoUserSession) => {
-    return getUserMeta(session).then(({ item, links }) => {
-      this.props.setUserMeta({ ...item, links } || initialUserMetaState);
-    }).finally(() => {
-      const localeData = loadLocale();
-      if (localeData) {
-        setLocaleData(localeData);
-      }
-    })
-  };
 
   render() {
     const { children } = this.props;
