@@ -16,7 +16,8 @@ const updateUser = (
 
   const pickedProps = {
     name: userMeta.name,
-    language: userMeta.language
+    language: userMeta.language,
+    timezone: userMeta.timezone
   };
 
   return fetch(`${REACT_APP_API_BASE}/users/${userSub}`, {
