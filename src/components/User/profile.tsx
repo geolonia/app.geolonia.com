@@ -17,17 +17,21 @@ import Redux from "redux";
 import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
-type StateProps = {
+type MappedStateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
   userMeta: UserMetaState;
 };
 type DispatchProps = {
   setUserMetaState: (userMeta: UserMetaState) => void;
 };
-type Props = StateProps & OwnProps & DispatchProps;
+type Props = MappedStateProps & OwnProps & DispatchProps;
 
-type State = UserMetaState;
-
+type State = {
+  userMeta: UserMetaState;
+  email: string;
+  username: string;
+  status: false | "requesting" | "success" | "failure";
+};
 const selectStyle: React.CSSProperties = {
   marginTop: "16px",
   marginBottom: "8px"
@@ -36,35 +40,54 @@ const selectStyle: React.CSSProperties = {
 export class Profile extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { ...props.userMeta };
+    const { session } = this.props;
+    const payload = session ? session.getIdToken().payload : {};
+    this.state = {
+      userMeta: { ...props.userMeta },
+      username: payload["cognito:username"] || "",
+      email: payload.email || "",
+      status: false
+    };
   }
 
-  onUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ username: e.currentTarget.value });
+  _setUserMeta = (key: keyof UserMetaState, value: string) => {
+    this.setState({
+      userMeta: { ...this.state.userMeta, [key]: value }
+    });
   };
 
-  onDispayNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ name: e.currentTarget.value });
+  onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this._setUserMeta("name", e.currentTarget.value);
   };
 
-  onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ email: e.currentTarget.value });
-  };
+  onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+    this.setState({ email: e.target.value });
 
-  onLanguageChange = (e: any) => {
-    this.setState({ language: e.target.value });
-  };
+  onLanguageChange = (e: any) => this._setUserMeta("language", e.target.value);
 
   onSaveClick = (e: any) => {
     const { session } = this.props;
-    session &&
-      updateUserMeta(session, this.state).then(() => {
-        this.props.setUserMetaState(this.state);
+    const nextUserMeta = this.state.userMeta;
+
+    this.setState({ status: "requesting" });
+
+    updateUserMeta(session, nextUserMeta)
+      .then(() => {
+        this.props.setUserMetaState(nextUserMeta);
+        this.setState({ status: "success" });
+      })
+      .catch(err => {
+        console.error(err);
+        this.setState({ status: "failure" });
       });
   };
 
   render() {
-    const { username, name, email, language } = this.state;
+    const {
+      userMeta: { name, language },
+      email,
+      username
+    } = this.state;
 
     return (
       <>
@@ -73,17 +96,8 @@ export class Profile extends React.Component<Props, State> {
           label={__("Username")}
           margin="normal"
           value={username}
-          onChange={this.onUsernameChange}
           fullWidth={true}
-        />
-
-        <TextField
-          id="display-name"
-          label={__("Name")}
-          margin="normal"
-          value={name}
-          onChange={this.onDispayNameChange}
-          fullWidth={true}
+          disabled
         />
 
         <TextField
@@ -93,10 +107,21 @@ export class Profile extends React.Component<Props, State> {
           value={email}
           onChange={this.onEmailChange}
           fullWidth={true}
+          // NOTE: currently disabled
+          disabled
         />
+        {/* <Save></Save> */}
 
+        <TextField
+          id="display-name"
+          label={__("Name")}
+          margin="normal"
+          value={name}
+          onChange={this.onNameChange}
+          fullWidth={true}
+        />
         <FormControl fullWidth={true} style={selectStyle}>
-          <InputLabel htmlFor="select-language">{__('Language')}</InputLabel>
+          <InputLabel htmlFor="select-language">{__("Language")}</InputLabel>
           <Select
             id="select-language"
             fullWidth={true}
@@ -108,6 +133,7 @@ export class Profile extends React.Component<Props, State> {
           </Select>
         </FormControl>
 
+        {/* TODO: show loading */}
         <Save handler={this.onSaveClick} />
       </>
     );

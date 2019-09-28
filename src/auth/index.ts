@@ -1,3 +1,5 @@
+// @file Wrapper for Cognito related API
+
 import "isomorphic-fetch";
 import * as CognitoIdentity from "amazon-cognito-identity-js";
 
@@ -77,10 +79,7 @@ export const signin = (username: string, password: string) =>
   });
 
 export const getSession = () =>
-  new Promise<{
-    session: CognitoIdentity.CognitoUserSession;
-    accessToken: string;
-  }>((resolve, reject) => {
+  new Promise<CognitoIdentity.CognitoUserSession | null>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser !== null) {
       cognitoUser.getSession(
@@ -89,15 +88,12 @@ export const getSession = () =>
             cognitoUser.signOut();
             reject(err);
           } else {
-            resolve({
-              session,
-              accessToken: session.getIdToken().getJwtToken()
-            });
+            resolve(session);
           }
         }
       );
     } else {
-      reject(null);
+      resolve(null);
     }
   });
 
@@ -165,3 +161,25 @@ export const changePassword = (oldPassword: string, newPassword: string) =>
       reject();
     }
   });
+
+// NOTE: not tested
+export const changeEmail = (email: string) => {
+  return new Promise((resolve, reject) => {
+    const cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser) {
+      const attr: CognitoIdentity.ICognitoUserAttributeData = {
+        Name: "email",
+        Value: email
+      };
+      cognitoUser.updateAttributes([attr], (err, result) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(result);
+        }
+      });
+    } else {
+      reject();
+    }
+  });
+};
