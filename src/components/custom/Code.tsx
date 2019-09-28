@@ -7,13 +7,13 @@ type Props = {
 };
 
 const Code = (props: Props) => {
-  const style = {
+  const style: React.CSSProperties = {
     padding: "16px",
     backgroundColor: props.backgroundColor,
     whiteSpace: "pre-wrap",
     color: props.color,
     fontSize: "12px"
-  } as React.CSSProperties;
+  }
 
   const click = (event: any) => {
     const range = document.createRange();
