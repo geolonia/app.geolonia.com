@@ -1,6 +1,7 @@
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { UserMetaState } from "../../redux/actions/user-meta";
 const { REACT_APP_API_BASE } = process.env;
+const failure = Symbol("request failed");
 
 const updateUser = (
   session: AmazonCognitoIdentity.CognitoUserSession | void,
@@ -30,11 +31,11 @@ const updateUser = (
       if (res.ok) {
         return res.json();
       } else {
-        return res.json().then(data => ({ ...data, _success: false }));
+        return res.json().then(data => ({ ...data, [failure]: true }));
       }
     })
     .then(data => {
-      if (!data._success) {
+      if (data[failure]) {
         console.error(data);
         throw new Error("Request failed");
       } else {
