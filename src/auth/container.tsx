@@ -9,7 +9,7 @@ import Redux from "redux";
 import { AppState } from "../redux/store";
 import delay from "../lib/promise-delay";
 import { UserMetaState } from "../redux/actions/user-meta";
-import { initialState as initialUserMetaState } from "../redux/actions/user-meta";
+// import { initialState as initialUserMetaState } from "../redux/actions/user-meta";
 import { setLocaleData } from "@wordpress/i18n";
 import { loadLocale } from "../lib/loadLocale";
 
