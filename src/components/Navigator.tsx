@@ -96,13 +96,19 @@ type StateProps = {
 
 type DispatchProps = {
   selectGroup: (index: number) => void;
+  addGroup: (group: Group) => void;
 };
 
 type Props = OwnProps & StateProps & DispatchProps;
 
+const initialValueForNewGroupName = __("My team");
+
 const Navigator: React.FC<Props> = (props: Props) => {
   const { classes, groups, selectedGroupIndex, selectGroup, ...other } = props;
   const [open, setOpen] = React.useState(false);
+  const [newGroupName, setNewGroupName] = React.useState(
+    initialValueForNewGroupName
+  );
 
   const categories = [
     {
@@ -162,7 +168,16 @@ const Navigator: React.FC<Props> = (props: Props) => {
     setOpen(false);
   };
 
-  const saveHandler = () => {};
+  const saveHandler = () => {
+    props.addGroup({
+      groupSub: "brabrabra hash-value",
+      name: newGroupName,
+      role: "Owner" // MUST TO DO: check permission at API
+    });
+    setNewGroupName(initialValueForNewGroupName);
+    handleClose();
+  };
+
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
       <List disablePadding>
@@ -253,7 +268,8 @@ const Navigator: React.FC<Props> = (props: Props) => {
               margin="dense"
               name="team-name"
               label={__("Name")}
-              value={__("My team")}
+              value={newGroupName}
+              onChange={a => setNewGroupName(a.target.value)}
               fullWidth
             />
           </DialogContent>
@@ -261,7 +277,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
             <Button onClick={handleClose} color="primary">
               {__("Cancel")}
             </Button>
-            <Button onSubmit={saveHandler} color="primary" type="submit">
+            <Button onClick={saveHandler} color="primary" type="submit">
               {__("Save")}
             </Button>
           </DialogActions>
@@ -277,7 +293,8 @@ const mapStateToProps = (state: AppState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  selectGroup: (index: number) => dispatch(createGroupActions.select(index))
+  selectGroup: (index: number) => dispatch(createGroupActions.select(index)),
+  addGroup: (group: Group) => dispatch(createGroupActions.add(group))
 });
 
 const ConnectedNavigator = connect(
