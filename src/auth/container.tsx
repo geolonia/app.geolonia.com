@@ -45,15 +45,14 @@ export class AuthContainer extends React.Component<Props, State> {
         const { item, links } = userMeta;
         this.props.setSession(session);
         this.props.setUserMeta({ ...item, links });
-      })
-      .catch(err => console.error(err))
-      .finally(() => {
-        const localeData = loadLocale();
+        const {language} = item
+        const localeData = loadLocale(language);
         if (localeData) {
           setLocaleData(localeData);
         }
-        this.props.ready();
-      });
+      })
+      .catch(err => console.error(err))
+      .finally(() => this.props.ready());
   }
 
   render() {
