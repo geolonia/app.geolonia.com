@@ -19,7 +19,6 @@ const updateUser = (
     language: userMeta.language,
     timezone: userMeta.timezone
   };
-
   return fetch(`${REACT_APP_API_BASE}/users/${userSub}`, {
     method: "PUT",
     headers: {
