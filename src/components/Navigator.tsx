@@ -29,11 +29,16 @@ import { Link } from "@material-ui/core";
 
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
-import { AppState } from "../redux/store";
 import {
   createActions as createGroupActions,
   Group
 } from "../redux/actions/group";
+
+import createGroup from "../api/groups/create";
+
+// types
+import { AppState } from "../redux/store";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import Redux from "redux";
 
 const styles = (theme: Theme) => ({
@@ -90,6 +95,7 @@ type OwnProps = {
 };
 
 type StateProps = {
+  session?: AmazonCognitoIdentity.CognitoUserSession;
   groups: Group[];
   selectedGroupIndex: number;
 };
@@ -169,13 +175,15 @@ const Navigator: React.FC<Props> = (props: Props) => {
   };
 
   const saveHandler = () => {
-    props.addGroup({
-      groupSub: "brabrabra hash-value",
-      name: newGroupName,
-      role: "Owner" // MUST TO DO: check permission at API
-    });
-    setNewGroupName(initialValueForNewGroupName);
-    handleClose();
+    const { session } = props;
+    // TODO: error handling
+    session &&
+      createGroup(session, newGroupName).then(group => {
+        console.log(group);
+        props.addGroup(group);
+        setNewGroupName(initialValueForNewGroupName);
+        handleClose();
+      });
   };
 
   return (
@@ -188,12 +196,15 @@ const Navigator: React.FC<Props> = (props: Props) => {
           <Select
             className="team"
             value={selectedGroupIndex}
-            onChange={(e: any) => props.selectGroup(e.target.value)}
+            onChange={(e: any) => {
+              "__not_selectable" !== e.target.value &&
+                props.selectGroup(e.target.value);
+            }}
           >
             {groups.map((group, index) => (
               <MenuItem value={index}>{group.name}</MenuItem>
             ))}
-            <MenuItem className="create-new-team">
+            <MenuItem className="create-new-team" value="__not_selectable">
               <Link onClick={handleClickOpen}>+ {__("Create a new team")}</Link>
             </MenuItem>
           </Select>
@@ -289,7 +300,8 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
 const mapStateToProps = (state: AppState): StateProps => ({
   groups: state.group.data,
-  selectedGroupIndex: state.group.selectedIndex
+  selectedGroupIndex: state.group.selectedIndex,
+  session: state.authSupport.session
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
