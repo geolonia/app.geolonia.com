@@ -1,5 +1,5 @@
 export type Group = {
-  groupSub: string; // TODO: 外に出さないほうがいいかもしれないので、消す気がする
+  groupId: string; // TODO: Add Slug and hide groupId
   name: string;
   isDefault?: true;
   role: "Owner" | "Member" | "Fired";

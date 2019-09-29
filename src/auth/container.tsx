@@ -7,7 +7,7 @@ import { setLocaleData } from "@wordpress/i18n";
 // API
 import { getSession } from "./";
 import getUserMeta from "../api/users/get";
-import getGroups from "../api/groups/get";
+import listGroups from "../api/groups/list";
 
 // Utils
 import delay from "../lib/promise-delay";
@@ -43,7 +43,7 @@ const APILoads = () => {
     }
     return Promise.all([
       getUserMeta(session),
-      getGroups(session)
+      listGroups(session)
       /*more API loads here*/
     ]).then(([userMeta, groups]) => ({
       session,
