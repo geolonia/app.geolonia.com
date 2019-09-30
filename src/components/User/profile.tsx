@@ -74,17 +74,17 @@ export class Profile extends React.Component<Props, State> {
     const { session } = this.props;
     const nextUserMeta = this.state.userMeta;
 
-    this.setState({ status: "requesting" });
+    // this.setState({ status: "requesting" });
 
-    updateUserMeta(session, nextUserMeta)
-      .then(() => {
-        this.props.setUserMetaState(nextUserMeta);
-        this.setState({ status: "success" });
-      })
-      .catch(err => {
-        console.error(err);
-        this.setState({ status: "failure" });
-      });
+    return updateUserMeta(session, nextUserMeta);
+    // .then(() => {
+    //   this.props.setUserMetaState(nextUserMeta);
+    //   this.setState({ status: "success" });
+    // })
+    // .catch(err => {
+    //   console.error(err);
+    //   this.setState({ status: "failure" });
+    // });
   };
 
   timezones = momentTimeZone.tz.names();
