@@ -17,13 +17,13 @@ import { connect } from "react-redux";
 import { createActions as createAuthSupportActions } from "../redux/actions/auth-support";
 import { createActions as createUserMetaActions } from "../redux/actions/user-meta";
 import { createActions as createGroupActions } from "../redux/actions/group";
-import Redux from "redux";
 
 // Types
 import { UserMetaState } from "../redux/actions/user-meta";
 import { AppState } from "../redux/store";
 import { Group } from "../redux/actions/group";
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import Redux from "redux";
 
 type Props = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
@@ -61,15 +61,14 @@ export class AuthContainer extends React.Component<Props, State> {
         this.props.setSession(session);
         this.props.setUserMeta({ ...item, links });
         this.props.setGroups(groups);
-      })
-      .catch(err => console.error(err))
-      .finally(() => {
-        const localeData = loadLocale();
+        const {language} = item
+        const localeData = loadLocale(language);
         if (localeData) {
           setLocaleData(localeData);
         }
-        this.props.ready();
-      });
+      })
+      .catch(err => console.error(err))
+      .finally(() => this.props.ready());
   }
 
   render() {

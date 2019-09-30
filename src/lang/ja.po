@@ -156,7 +156,7 @@ msgstr "パスワードをリセットするための検証コードを送付し
 
 #: src/components/ForgotPassword.tsx:68
 msgid "Send password reset email"
-msgstr "パスワードリセットメールを送信する"
+msgstr "メールを送信"
 
 #: src/components/Header.tsx:126
 msgid "Profile"
