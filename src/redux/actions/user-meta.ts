@@ -1,4 +1,3 @@
-import momentTimeZone from "moment-timezone";
 const SET_USER_META_ACTION = "USER_META/SET";
 
 export type UserMetaState = {
