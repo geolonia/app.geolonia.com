@@ -21,6 +21,7 @@
     "react-redux": "^7.1.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.1.1",
+    "react-test-renderer": "^16.10.1",
     "redux": "^4.0.4"
   },
   "scripts": {
@@ -53,6 +54,7 @@
     "@babel/cli": "^7.6.2",
     "@babel/core": "^7.6.2",
     "@babel/preset-typescript": "^7.6.0",
+    "@testing-library/react": "^9.2.0",
     "@types/jest": "24.0.18",
     "@types/mapbox-gl": "^0.54.3",
     "@types/moment-timezone": "^0.5.12",
