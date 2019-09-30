@@ -60,8 +60,10 @@ export class AuthContainer extends React.Component<Props, State> {
         const { item, links } = userMeta;
         this.props.setSession(session);
         this.props.setUserMeta({ ...item, links });
-        this.props.setGroups(groups);
-        const {language} = item
+        // TODO これはモンキーパッチ。API が死んでいる
+        console.log(groups);
+        this.props.setGroups(Array.isArray(groups) ? groups : []);
+        const { language } = item;
         const localeData = loadLocale(language);
         if (localeData) {
           setLocaleData(localeData);
