@@ -10,11 +10,12 @@ import { __ } from "@wordpress/i18n";
 type Props = {
   label: string;
   style: React.CSSProperties;
-  handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<any>;
 };
 
 const Save = (props: Props) => {
   const [open, setOpen] = React.useState(false);
+  const [status, setStatus] = React.useState();
 
   const style: React.CSSProperties = {
     marginTop: "1em",
@@ -26,7 +27,10 @@ const Save = (props: Props) => {
   const handleSave = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    props.handler(event);
+    props
+      .handler(event)
+      .then(() => setStatus("success"))
+      .catch(() => setStatus("failure"));
     setOpen(true);
   };
 
