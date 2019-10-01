@@ -21,9 +21,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Button from "@material-ui/core/Button";
+import Save from "./custom/Save";
 
-import "./Navigator.css";
+import "./Navigator.scss";
 import defaultGroupIcon from "./custom/group.svg";
 import { Link } from "@material-ui/core";
 
@@ -144,7 +144,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     setOpen(false);
   };
 
-  const saveHandler = () => {};
+  const onCreateTeam = () => {};
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
@@ -222,25 +222,22 @@ const Navigator: React.FC<Props> = (props: Props) => {
             {__("Create a new team")}
           </DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              {__("Please enter the name of new team.")}
-            </DialogContentText>
             <TextField
               autoFocus
-              margin="dense"
               name="team-name"
               label={__("Name")}
               value={__("My team")}
-              fullWidth
+              fullWidth={true}
             />
+            <TextField
+              label={__("Billing email")}
+              value=""
+              fullWidth={true}
+            />
+            <p className="mute">We’ll send receipts to this inbox.</p>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              {__("Cancel")}
-            </Button>
-            <Button onSubmit={saveHandler} color="primary" type="submit">
-              {__("Save")}
-            </Button>
+            <Save handler={onCreateTeam} />
           </DialogActions>
         </Dialog>
       </form>
