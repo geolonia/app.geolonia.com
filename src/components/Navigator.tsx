@@ -21,13 +21,25 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import Save from "./custom/Save";
+import Button from "@material-ui/core/Button";
 
 import "./Navigator.scss";
 import defaultGroupIcon from "./custom/group.svg";
 import { Link } from "@material-ui/core";
 
 import { __ } from "@wordpress/i18n";
+import { connect } from "react-redux";
+import {
+  createActions as createGroupActions,
+  Group
+} from "../redux/actions/group";
+
+import createGroup from "../api/groups/create";
+
+// types
+import { AppState } from "../redux/store";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import Redux from "redux";
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -74,7 +86,7 @@ const handleClickHome = () => {
   window.location.hash = "";
 };
 
-type Props = {
+type OwnProps = {
   readonly classes: any;
   readonly PaperProps: any;
   readonly variant?: "temporary";
@@ -82,9 +94,27 @@ type Props = {
   readonly onClose?: () => any;
 };
 
+type StateProps = {
+  session?: AmazonCognitoIdentity.CognitoUserSession;
+  groups: Group[];
+  selectedGroupIndex: number;
+};
+
+type DispatchProps = {
+  selectGroup: (index: number) => void;
+  addGroup: (group: Group) => void;
+};
+
+type Props = OwnProps & StateProps & DispatchProps;
+
+const initialValueForNewGroupName = __("My team");
+
 const Navigator: React.FC<Props> = (props: Props) => {
-  const { classes, ...other } = props;
+  const { classes, groups, selectedGroupIndex, selectGroup, ...other } = props;
   const [open, setOpen] = React.useState(false);
+  const [newGroupName, setNewGroupName] = React.useState(
+    initialValueForNewGroupName
+  );
 
   const categories = [
     {
@@ -144,7 +174,17 @@ const Navigator: React.FC<Props> = (props: Props) => {
     setOpen(false);
   };
 
-  const onCreateTeam = () => {};
+  const saveHandler = () => {
+    const { session } = props;
+    // TODO: error handling
+    session &&
+      createGroup(session, newGroupName).then(group => {
+        console.log(group);
+        props.addGroup(group);
+        setNewGroupName(initialValueForNewGroupName);
+        handleClose();
+      });
+  };
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
@@ -153,9 +193,18 @@ const Navigator: React.FC<Props> = (props: Props) => {
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
           <img src={defaultGroupIcon} className="logo" alt="" />
-          <Select className="team" value="default-team">
-            <MenuItem value="default-team">miya0001</MenuItem>
-            <MenuItem className="create-new-team">
+          <Select
+            className="team"
+            value={selectedGroupIndex}
+            onChange={(e: any) => {
+              "__not_selectable" !== e.target.value &&
+                props.selectGroup(e.target.value);
+            }}
+          >
+            {groups.map((group, index) => (
+              <MenuItem value={index}>{group.name}</MenuItem>
+            ))}
+            <MenuItem className="create-new-team" value="__not_selectable">
               <Link onClick={handleClickOpen}>+ {__("Create a new team")}</Link>
             </MenuItem>
           </Select>
@@ -222,22 +271,34 @@ const Navigator: React.FC<Props> = (props: Props) => {
             {__("Create a new team")}
           </DialogTitle>
           <DialogContent>
+            <DialogContentText>
+              {__("Please enter the name of new team.")}
+            </DialogContentText>
             <TextField
               autoFocus
+              margin="normal"
               name="team-name"
               label={__("Name")}
-              value={__("My team")}
-              fullWidth={true}
+              value={newGroupName}
+              onChange={a => setNewGroupName(a.target.value)}
+              fullWidth
             />
             <TextField
+              id="team-billing-email"
               label={__("Billing email")}
               value=""
+              margin="normal"
               fullWidth={true}
             />
             <p className="mute">We’ll send receipts to this inbox.</p>
           </DialogContent>
           <DialogActions>
-            <Save handler={onCreateTeam} />
+            <Button onClick={handleClose} color="primary">
+              {__("Cancel")}
+            </Button>
+            <Button onClick={saveHandler} color="primary" type="submit">
+              {__("Save")}
+            </Button>
           </DialogActions>
         </Dialog>
       </form>
@@ -245,4 +306,20 @@ const Navigator: React.FC<Props> = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(Navigator);
+const mapStateToProps = (state: AppState): StateProps => ({
+  groups: state.group.data,
+  selectedGroupIndex: state.group.selectedIndex,
+  session: state.authSupport.session
+});
+
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  selectGroup: (index: number) => dispatch(createGroupActions.select(index)),
+  addGroup: (group: Group) => dispatch(createGroupActions.add(group))
+});
+
+const ConnectedNavigator = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Navigator);
+
+export default withStyles(styles)(ConnectedNavigator);
