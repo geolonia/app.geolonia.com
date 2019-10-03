@@ -1,23 +1,22 @@
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { UserMetaState } from "../../redux/actions/user-meta";
+import { Team } from "../../redux/actions/team";
 const { REACT_APP_API_BASE } = process.env;
 
-const getUser = (session: AmazonCognitoIdentity.CognitoUserSession) => {
-  const userSub = session.getIdToken().decodePayload().sub;
+const listTeams = (session: AmazonCognitoIdentity.CognitoUserSession) => {
   const idToken = session.getIdToken().getJwtToken();
 
-  return fetch(`${REACT_APP_API_BASE}/users/${userSub}`, {
+  return fetch(`${REACT_APP_API_BASE}/teams`, {
     method: "GET",
     headers: {
       Authorization: idToken
     }
   }).then(res => {
     if (res.ok) {
-      return res.json() as Promise<UserMetaState>;
+      return res.json() as Promise<Team[]>;
     } else {
       throw new Error("network error");
     }
   });
 };
 
-export default getUser;
+export default listTeams;
