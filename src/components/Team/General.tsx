@@ -8,7 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import { __ } from "@wordpress/i18n";
 
 import Save from "../custom/Save";
-import defaultGroupIcon from "../custom/group.svg";
+import defaultTeamIcon from "../custom/team.svg";
 import Title from "../custom/Title";
 
 const Content = () => {
@@ -73,7 +73,7 @@ const Content = () => {
 
         <Grid item xs={12} md={4}>
           <Typography component="p" align="center">
-            <img src={defaultGroupIcon} style={ProfileImageStyle} alt="" />
+            <img src={defaultTeamIcon} style={ProfileImageStyle} alt="" />
             <br />
             <Button variant="contained" color="default">
               {__("Upload new picture")}

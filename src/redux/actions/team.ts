@@ -1,5 +1,5 @@
 export type Team = {
-  groupId: string; // TODO: Add Slug and hide groupId
+  teamId: string;
   name: string;
   isDefault?: true;
   role: "Owner" | "Member" | "Fired";
