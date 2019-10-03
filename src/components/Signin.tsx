@@ -23,6 +23,7 @@ type RouterProps = {
   };
 };
 type StateProps = {
+  serverTrouble: boolean;
   signupUser?: string;
 };
 type DispatchProps = {
@@ -36,7 +37,7 @@ const messages = {
 };
 
 const Content = (props: Props) => {
-  const { signupUser } = props;
+  const { signupUser, serverTrouble } = props;
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -91,6 +92,11 @@ const Content = (props: Props) => {
         ) : status === "warning" ? (
           <Alert type="warning">{messages.warning}</Alert>
         ) : null}
+        {serverTrouble && (
+          <Alert type={"warning"}>
+            {__("Oops, the server seems not to be responding correctly.")}
+          </Alert>
+        )}
         {/* <Alert type="success">{__('Your password has been successfully updated.')}</Alert> */}
         <div className="form">
           <label className="username">
@@ -157,6 +163,7 @@ const Content = (props: Props) => {
 Content.defaultProps = {};
 
 const mapStateToProps = (state: AppState): StateProps => ({
+  serverTrouble: state.authSupport.hasTrouble,
   signupUser: state.authSupport.currentUser
 });
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
