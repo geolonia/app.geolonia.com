@@ -23,7 +23,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 
-import "./Navigator.css";
+import "./Navigator.scss";
 import defaultTeamIcon from "./custom/team.svg";
 import { Link } from "@material-ui/core";
 
