@@ -24,17 +24,17 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 
 import "./Navigator.scss";
-import defaultGroupIcon from "./custom/group.svg";
+import defaultTeamIcon from "./custom/team.svg";
 import { Link } from "@material-ui/core";
 
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import {
-  createActions as createGroupActions,
-  Group
-} from "../redux/actions/group";
+  createActions as createTeamActions,
+  Team
+} from "../redux/actions/team";
 
-import createGroup from "../api/groups/create";
+import createTeam from "../api/teams/create";
 
 // types
 import { AppState } from "../redux/store";
@@ -96,24 +96,24 @@ type OwnProps = {
 
 type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
-  groups: Group[];
-  selectedGroupIndex: number;
+  teams: Team[];
+  selectedTeamIndex: number;
 };
 
 type DispatchProps = {
-  selectGroup: (index: number) => void;
-  addGroup: (group: Group) => void;
+  selectTeam: (index: number) => void;
+  addTeam: (team: Team) => void;
 };
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const initialValueForNewGroupName = __("My team");
+const initialValueForNewTeamName = __("My team");
 
 const Navigator: React.FC<Props> = (props: Props) => {
-  const { classes, groups, selectedGroupIndex, selectGroup, ...other } = props;
+  const { classes, teams, selectedTeamIndex, selectTeam, ...other } = props;
   const [open, setOpen] = React.useState(false);
-  const [newGroupName, setNewGroupName] = React.useState(
-    initialValueForNewGroupName
+  const [newTeamName, setNewTeamName] = React.useState(
+    initialValueForNewTeamName
   );
 
   const categories = [
@@ -178,10 +178,9 @@ const Navigator: React.FC<Props> = (props: Props) => {
     const { session } = props;
     // TODO: error handling
     session &&
-      createGroup(session, newGroupName).then(group => {
-        console.log(group);
-        props.addGroup(group);
-        setNewGroupName(initialValueForNewGroupName);
+      createTeam(session, newTeamName).then(team => {
+        props.addTeam(team);
+        setNewTeamName(initialValueForNewTeamName);
         handleClose();
       });
   };
@@ -192,17 +191,17 @@ const Navigator: React.FC<Props> = (props: Props) => {
         <ListItem
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
-          <img src={defaultGroupIcon} className="logo" alt="" />
+          <img src={defaultTeamIcon} className="logo" alt="" />
           <Select
             className="team"
-            value={selectedGroupIndex}
+            value={selectedTeamIndex}
             onChange={(e: any) => {
               "__not_selectable" !== e.target.value &&
-                props.selectGroup(e.target.value);
+                props.selectTeam(e.target.value);
             }}
           >
-            {groups.map((group, index) => (
-              <MenuItem value={index}>{group.name}</MenuItem>
+            {teams.map((team, index) => (
+              <MenuItem value={index}>{team.name}</MenuItem>
             ))}
             <MenuItem className="create-new-team" value="__not_selectable">
               <Link onClick={handleClickOpen}>+ {__("Create a new team")}</Link>
@@ -279,8 +278,8 @@ const Navigator: React.FC<Props> = (props: Props) => {
               margin="normal"
               name="team-name"
               label={__("Name")}
-              value={newGroupName}
-              onChange={a => setNewGroupName(a.target.value)}
+              value={newTeamName}
+              onChange={a => setNewTeamName(a.target.value)}
               fullWidth
             />
             <TextField
@@ -307,14 +306,14 @@ const Navigator: React.FC<Props> = (props: Props) => {
 };
 
 const mapStateToProps = (state: AppState): StateProps => ({
-  groups: state.group.data,
-  selectedGroupIndex: state.group.selectedIndex,
+  teams: state.team.data,
+  selectedTeamIndex: state.team.selectedIndex,
   session: state.authSupport.session
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  selectGroup: (index: number) => dispatch(createGroupActions.select(index)),
-  addGroup: (group: Group) => dispatch(createGroupActions.add(group))
+  selectTeam: (index: number) => dispatch(createTeamActions.select(index)),
+  addTeam: (team: Team) => dispatch(createTeamActions.add(team))
 });
 
 const ConnectedNavigator = connect(
