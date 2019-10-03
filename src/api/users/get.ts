@@ -13,7 +13,10 @@ const getUser = (session: AmazonCognitoIdentity.CognitoUserSession) => {
     }
   }).then(res => {
     if (res.ok) {
-      return res.json() as Promise<UserMetaState>;
+      return res.json().then(json => {
+        const { item, links } = json;
+        return { ...item, links };
+      }) as Promise<UserMetaState>;
     } else {
       throw new Error("network error");
     }

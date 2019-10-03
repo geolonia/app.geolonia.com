@@ -13,7 +13,7 @@ import HomeIcon from "@material-ui/icons/Home";
 import CodeIcon from "@material-ui/icons/Code";
 import ViewListIcon from "@material-ui/icons/ViewList";
 import RoomIcon from "@material-ui/icons/Room";
-import TeamIcon from "@material-ui/icons/Group";
+import GroupIcon from "@material-ui/icons/Group";
 import PaymentIcon from "@material-ui/icons/Payment";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -24,7 +24,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
 
 import "./Navigator.css";
-import defaultTeamIcon from "./custom/group.svg";
+import defaultTeamIcon from "./custom/team.svg";
 import { Link } from "@material-ui/core";
 
 import { __ } from "@wordpress/i18n";
@@ -152,7 +152,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
         },
         {
           id: __("Members"),
-          icon: <TeamIcon />,
+          icon: <GroupIcon />,
           href: "#/team/members",
           active: false
         },
