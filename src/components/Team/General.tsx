@@ -49,13 +49,13 @@ const Content = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <TextField
-            id="standard-name"
+            id="team-name"
             label={__("Name")}
             margin="normal"
             fullWidth={true}
           />
           <TextField
-            id="standard-name"
+            id="team-description"
             label={__("Description")}
             margin="normal"
             multiline={true}
@@ -63,11 +63,20 @@ const Content = () => {
             fullWidth={true}
           />
           <TextField
-            id="standard-name"
+            id="team-url"
             label={__("URL")}
             margin="normal"
             fullWidth={true}
           />
+          <TextField
+            id="team-billing-email"
+            label={__("Billing email")}
+            value=""
+            margin="normal"
+            fullWidth={true}
+          />
+          <p className="mute">We’ll send receipts to this inbox.</p>
+
           <Save />
         </Grid>
 
