@@ -275,13 +275,21 @@ const Navigator: React.FC<Props> = (props: Props) => {
             </DialogContentText>
             <TextField
               autoFocus
-              margin="dense"
+              margin="normal"
               name="team-name"
               label={__("Name")}
               value={newTeamName}
               onChange={a => setNewTeamName(a.target.value)}
               fullWidth
             />
+            <TextField
+              id="team-billing-email"
+              label={__("Billing email")}
+              value=""
+              margin="normal"
+              fullWidth={true}
+            />
+            <p className="mute">We’ll send receipts to this inbox.</p>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
