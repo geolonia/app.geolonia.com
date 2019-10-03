@@ -5,7 +5,7 @@ import { loadLocale } from "../lib/loadLocale";
 import { setLocaleData } from "@wordpress/i18n";
 
 // API
-import { getSession, signout } from "./";
+import { getSession } from "./";
 import getUserMeta from "../api/users/get";
 import listTeams from "../api/teams/list";
 
@@ -77,6 +77,7 @@ export class AuthContainer extends React.Component<Props, State> {
       this.props.setTeams(Array.isArray(teams) ? teams : []);
       const { language } = userMeta;
       const localeData = loadLocale(language);
+      console.log(userMeta);
       if (localeData) {
         setLocaleData(localeData);
       }
