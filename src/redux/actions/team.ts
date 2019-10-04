@@ -1,8 +1,11 @@
 export type Team = {
   teamId: string;
   name: string;
-  isDefault?: true;
+  description: string;
+  url: string;
+  isDefault?: boolean;
   role: "Owner" | "Member" | "Fired";
+  billingEmail: string;
 };
 
 export type TeamState = {
