@@ -110,11 +110,19 @@ type Props = OwnProps & StateProps & DispatchProps;
 const initialValueForNewTeamName = __("My team");
 
 const Navigator: React.FC<Props> = (props: Props) => {
-  const { classes, teams, selectedTeamIndex, selectTeam, ...other } = props;
+  const {
+    classes,
+    teams,
+    selectedTeamIndex,
+    selectTeam,
+    addTeam,
+    ...other
+  } = props;
   const [open, setOpen] = React.useState(false);
   const [newTeamName, setNewTeamName] = React.useState(
     initialValueForNewTeamName
   );
+  const [billingEmail, setBillingEmail] = React.useState("");
 
   const categories = [
     {
@@ -178,8 +186,8 @@ const Navigator: React.FC<Props> = (props: Props) => {
     const { session } = props;
     // TODO: error handling
     session &&
-      createTeam(session, newTeamName).then(team => {
-        props.addTeam(team);
+      createTeam(session, newTeamName, billingEmail).then(team => {
+        addTeam(team);
         setNewTeamName(initialValueForNewTeamName);
         handleClose();
       });
@@ -201,7 +209,9 @@ const Navigator: React.FC<Props> = (props: Props) => {
             }}
           >
             {teams.map((team, index) => (
-              <MenuItem value={index}>{team.name}</MenuItem>
+              <MenuItem key={team.teamId} value={index}>
+                {team.name}
+              </MenuItem>
             ))}
             <MenuItem className="create-new-team" value="__not_selectable">
               <Link onClick={handleClickOpen}>+ {__("Create a new team")}</Link>
@@ -279,15 +289,16 @@ const Navigator: React.FC<Props> = (props: Props) => {
               name="team-name"
               label={__("Name")}
               value={newTeamName}
-              onChange={a => setNewTeamName(a.target.value)}
+              onChange={e => setNewTeamName(e.target.value)}
               fullWidth
             />
             <TextField
               id="team-billing-email"
               label={__("Billing email")}
-              value=""
               margin="normal"
               fullWidth={true}
+              value={billingEmail}
+              onChange={e => setBillingEmail(e.target.value)}
             />
             <p className="mute">We’ll send receipts to this inbox.</p>
           </DialogContent>
@@ -295,7 +306,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
             <Button onClick={handleClose} color="primary">
               {__("Cancel")}
             </Button>
-            <Button onClick={saveHandler} color="primary" type="submit">
+            <Button
+              onClick={saveHandler}
+              color="primary"
+              type="submit"
+              disabled={!newTeamName || !billingEmail}
+            >
               {__("Save")}
             </Button>
           </DialogActions>
