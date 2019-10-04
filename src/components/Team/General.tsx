@@ -10,8 +10,17 @@ import { __ } from "@wordpress/i18n";
 import Save from "../custom/Save";
 import defaultTeamIcon from "../custom/team.svg";
 import Title from "../custom/Title";
+import { AppState } from "../../redux/store";
+import { connect } from "react-redux";
+import { Team } from "../../redux/actions/team";
 
-const Content = () => {
+type OwnProps = {};
+type StateProps = {
+  team: Team;
+};
+type Props = OwnProps & StateProps;
+
+const Content = (props: Props) => {
   const styleDangerZone: React.CSSProperties = {
     border: "1px solid #ff0000",
     padding: "16px 24px"
@@ -38,6 +47,8 @@ const Content = () => {
     }
   ];
 
+  const { name, description, url, billingEmail } = props.team;
+
   return (
     <div>
       <Title title={__("General")} breadcrumb={breadcrumbItems}>
@@ -53,6 +64,7 @@ const Content = () => {
             label={__("Name")}
             margin="normal"
             fullWidth={true}
+            value={name}
           />
           <TextField
             id="team-description"
@@ -61,19 +73,21 @@ const Content = () => {
             multiline={true}
             rows={5}
             fullWidth={true}
+            value={description}
           />
           <TextField
             id="team-url"
             label={__("URL")}
             margin="normal"
             fullWidth={true}
+            value={url}
           />
           <TextField
             id="team-billing-email"
             label={__("Billing email")}
-            value=""
             margin="normal"
             fullWidth={true}
+            value={billingEmail}
           />
           <p className="mute">We’ll send receipts to this inbox.</p>
 
@@ -110,4 +124,10 @@ const Content = () => {
   );
 };
 
-export default Content;
+const mapStateToProps = (state: AppState) => {
+  return {
+    team: state.team.data[state.team.selectedIndex]
+  };
+};
+
+export default connect(mapStateToProps)(Content);
