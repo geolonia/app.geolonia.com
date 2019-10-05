@@ -1,4 +1,5 @@
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { UserMetaState } from "../../redux/actions/user-meta";
 const { REACT_APP_API_BASE } = process.env;
 
 const getUser = (session: AmazonCognitoIdentity.CognitoUserSession) => {
@@ -10,8 +11,16 @@ const getUser = (session: AmazonCognitoIdentity.CognitoUserSession) => {
     headers: {
       Authorization: idToken
     }
-    // TODO: handle 40x, 50x
-  }).then((res: any) => res.json());
+  }).then(res => {
+    if (res.ok) {
+      return res.json().then(json => {
+        const { item, links } = json;
+        return { ...item, links };
+      }) as Promise<UserMetaState>;
+    } else {
+      throw new Error("network error");
+    }
+  });
 };
 
 export default getUser;

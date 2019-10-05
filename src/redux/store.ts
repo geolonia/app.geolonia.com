@@ -4,19 +4,19 @@ import {
   AuthSupportState
 } from "./actions/auth-support";
 import { reducer as userMetaReducer, UserMetaState } from "./actions/user-meta";
-import { reducer as groupReducer, GroupState } from "./actions/group";
+import { reducer as teamReducer, TeamState } from "./actions/team";
 
 // app type
 export type AppState = {
   authSupport: AuthSupportState;
   userMeta: UserMetaState;
-  group: GroupState;
+  team: TeamState;
 };
 
 const appReducer = combineReducers({
   authSupport: authSupportReducer,
   userMeta: userMetaReducer,
-  group: groupReducer
+  team: teamReducer
 });
 
 // store

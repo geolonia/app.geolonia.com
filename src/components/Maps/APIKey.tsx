@@ -58,7 +58,9 @@ const Content = () => {
 
   const saveHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {};
+  ) => {
+    return Promise.resolve();
+  };
 
   const deleteHandler = (event: React.MouseEvent) => {};
 
