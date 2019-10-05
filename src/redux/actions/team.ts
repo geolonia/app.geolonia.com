@@ -3,7 +3,6 @@ export type Team = {
   name: string;
   description: string;
   url: string;
-  isDefault?: boolean;
   role: "Owner" | "Member" | "Fired";
   billingEmail: string;
 };
