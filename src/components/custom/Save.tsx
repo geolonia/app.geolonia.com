@@ -36,10 +36,7 @@ const Save = (props: Props) => {
       .handler(event)
       .then(() => setStatus("success"))
       .catch(() => setStatus("failure"))
-      .finally(() => {
-        setStatus(false);
-        setOpen(true);
-      });
+      .finally(() => setOpen(true));
   };
 
   function handleClose(
@@ -50,6 +47,7 @@ const Save = (props: Props) => {
       return;
     }
 
+    setStatus(false);
     setOpen(false);
   }
 
@@ -80,7 +78,11 @@ const Save = (props: Props) => {
         ContentProps={{
           "aria-describedby": "message-id"
         }}
-        message={<span id="message-id">{__("Saved.")}</span>}
+        message={
+          <span id="message-id">
+            {status === "success" ? __("Saved.") : __("Failed to save.")}
+          </span>
+        }
         action={[
           <IconButton
             key="close"
