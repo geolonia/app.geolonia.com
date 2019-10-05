@@ -68,8 +68,7 @@ export const reducer = (
       ...action.payload.team
     };
     return { ...state, data: nextTeams };
-  }
-  {
+  } else {
     return state;
   }
 };
