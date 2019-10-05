@@ -77,7 +77,6 @@ export class AuthContainer extends React.Component<Props, State> {
       this.props.setTeams(Array.isArray(teams) ? teams : []);
       const { language } = userMeta;
       const localeData = loadLocale(language);
-      console.log(userMeta);
       if (localeData) {
         setLocaleData(localeData);
       }

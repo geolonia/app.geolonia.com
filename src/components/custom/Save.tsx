@@ -11,6 +11,7 @@ type Props = {
   label: string;
   style: React.CSSProperties;
   handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  disabled?: boolean;
 };
 
 const Save = (props: Props) => {
@@ -44,7 +45,12 @@ const Save = (props: Props) => {
   return (
     <div>
       <Typography style={style} component="p" paragraph={true} align="right">
-        <Button variant="contained" color="primary" onClick={handleSave}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+          disabled={props.disabled}
+        >
           {props.label}
         </Button>
       </Typography>
