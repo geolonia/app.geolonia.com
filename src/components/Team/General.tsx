@@ -13,41 +13,66 @@ import Title from "../custom/Title";
 import { AppState } from "../../redux/store";
 import { connect } from "react-redux";
 import { Team } from "../../redux/actions/team";
+import Redux from "redux";
+import { createActions as createTeamActions } from "../../redux/actions/team";
+import updateTeam from "../../api/teams/update";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
 type OwnProps = {};
 type StateProps = {
+  session?: AmazonCognitoIdentity.CognitoUserSession;
+  selectedIndex: number;
   team: Team;
 };
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  updateTeamState: (index: number, team: Partial<Team>) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
+
+const styleDangerZone: React.CSSProperties = {
+  border: "1px solid #ff0000",
+  padding: "16px 24px"
+};
+
+const ProfileImageStyle: React.CSSProperties = {
+  width: "250px",
+  height: "auto",
+  margin: "16px"
+};
+
+const breadcrumbItems = [
+  {
+    title: "Home",
+    href: "#/"
+  },
+  {
+    title: __("Team settings"),
+    href: "#/team"
+  },
+  {
+    title: __("General"),
+    href: null
+  }
+];
 
 const Content = (props: Props) => {
-  const styleDangerZone: React.CSSProperties = {
-    border: "1px solid #ff0000",
-    padding: "16px 24px"
+  const [draft, setDraft] = React.useState<Partial<Team>>({});
+  const { session, team, selectedIndex, updateTeamState } = props;
+  const { teamId, name, description, url, billingEmail } = team;
+
+  // clear draft on Team change
+  React.useEffect(() => setDraft({}), [selectedIndex]);
+
+  const onSaveClick = () => {
+    // update client side state
+    updateTeamState(selectedIndex, { ...draft });
+    setDraft({});
+
+    // update server side
+    updateTeam(session, teamId, team)
+      .then(console.log)
+      .catch(console.error);
   };
-
-  const ProfileImageStyle: React.CSSProperties = {
-    width: "250px",
-    height: "auto",
-    margin: "16px"
-  };
-
-  const breadcrumbItems = [
-    {
-      title: "Home",
-      href: "#/"
-    },
-    {
-      title: __("Team settings"),
-      href: "#/team"
-    },
-    {
-      title: __("General"),
-      href: null
-    }
-  ];
-
-  const { name, description, url, billingEmail } = props.team;
 
   return (
     <div>
@@ -64,7 +89,8 @@ const Content = (props: Props) => {
             label={__("Name")}
             margin="normal"
             fullWidth={true}
-            value={name}
+            value={draft.name || name || ""}
+            onChange={e => setDraft({ ...draft, name: e.target.value })}
           />
           <TextField
             id="team-description"
@@ -73,25 +99,31 @@ const Content = (props: Props) => {
             multiline={true}
             rows={5}
             fullWidth={true}
-            value={description}
+            value={draft.description || description || ""}
+            onChange={e => setDraft({ ...draft, description: e.target.value })}
           />
           <TextField
             id="team-url"
             label={__("URL")}
             margin="normal"
             fullWidth={true}
-            value={url}
+            value={draft.url || url || ""}
+            onChange={e => setDraft({ ...draft, url: e.target.value })}
           />
           <TextField
             id="team-billing-email"
             label={__("Billing email")}
             margin="normal"
             fullWidth={true}
-            value={billingEmail}
+            value={draft.billingEmail || billingEmail || ""}
+            onChange={e => setDraft({ ...draft, billingEmail: e.target.value })}
           />
           <p className="mute">We’ll send receipts to this inbox.</p>
 
-          <Save />
+          <Save
+            handler={onSaveClick}
+            disabled={Object.keys(draft).length === 0}
+          />
         </Grid>
 
         <Grid item xs={12} md={4}>
@@ -126,8 +158,20 @@ const Content = (props: Props) => {
 
 const mapStateToProps = (state: AppState) => {
   return {
+    session: state.authSupport.session,
+    selectedIndex: state.team.selectedIndex,
     team: state.team.data[state.team.selectedIndex]
   };
 };
 
-export default connect(mapStateToProps)(Content);
+const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
+  return {
+    updateTeamState: (index: number, team: Partial<Team>) =>
+      dispatch(createTeamActions.update(index, team))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
