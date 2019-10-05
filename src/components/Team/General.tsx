@@ -64,14 +64,13 @@ const Content = (props: Props) => {
   React.useEffect(() => setDraft({}), [selectedIndex]);
 
   const onSaveClick = () => {
-    // update client side state
-    updateTeamState(selectedIndex, { ...draft });
-    setDraft({});
-
     // update server side
-    return updateTeam(session, teamId, team)
-      .then(console.log)
-      .catch(console.error);
+    return updateTeam(session, teamId, draft).then(result => {
+      console.log({ result });
+      // update client side state
+      updateTeamState(selectedIndex, draft);
+      setDraft({});
+    });
   };
 
   return (
@@ -89,7 +88,7 @@ const Content = (props: Props) => {
             label={__("Name")}
             margin="normal"
             fullWidth={true}
-            value={draft.name || name || ""}
+            value={(draft.name === void 0 ? name : draft.name) || ""}
             onChange={e => setDraft({ ...draft, name: e.target.value })}
           />
           <TextField
@@ -99,7 +98,11 @@ const Content = (props: Props) => {
             multiline={true}
             rows={5}
             fullWidth={true}
-            value={draft.description || description || ""}
+            value={
+              (draft.description === void 0
+                ? description
+                : draft.description) || ""
+            }
             onChange={e => setDraft({ ...draft, description: e.target.value })}
           />
           <TextField
@@ -107,7 +110,7 @@ const Content = (props: Props) => {
             label={__("URL")}
             margin="normal"
             fullWidth={true}
-            value={draft.url || url || ""}
+            value={(draft.url === void 0 ? url : draft.url) || ""}
             onChange={e => setDraft({ ...draft, url: e.target.value })}
           />
           <TextField
@@ -115,7 +118,11 @@ const Content = (props: Props) => {
             label={__("Billing email")}
             margin="normal"
             fullWidth={true}
-            value={draft.billingEmail || billingEmail || ""}
+            value={
+              (draft.billingEmail === void 0
+                ? billingEmail
+                : draft.billingEmail) || ""
+            }
             onChange={e => setDraft({ ...draft, billingEmail: e.target.value })}
           />
           <p className="mute">We’ll send receipts to this inbox.</p>
