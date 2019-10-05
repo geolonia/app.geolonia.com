@@ -37,12 +37,6 @@ type Props = {
 
 type State = {};
 
-enum APIStatus {
-  noSession = "no-session",
-  allGreen = "all-green",
-  trouble = "trouble"
-}
-
 type APIResult = {
   teams: Team[];
   userMeta: UserMetaState;
