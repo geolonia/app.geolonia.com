@@ -1,4 +1,5 @@
-const SET_USER_META_ACTION = "USER_META/SET";
+const SET_ACTION = "USER_META/SET";
+const SET_AVATAR_ACTION = "USER_META/SET_AVATAR";
 
 export type UserMetaState = {
   name: string;
@@ -8,6 +9,7 @@ export type UserMetaState = {
     getAvatar: string;
     putAvatar: string;
   };
+  avatarImage: string | void;
 };
 
 export const initialState: UserMetaState = {
@@ -17,33 +19,51 @@ export const initialState: UserMetaState = {
   links: {
     getAvatar: "",
     putAvatar: ""
-  }
+  },
+  avatarImage: undefined
 };
 
-type SetUserMetaAction = {
-  type: typeof SET_USER_META_ACTION;
+type SetAction = {
+  type: typeof SET_ACTION;
   payload: UserMetaState;
 };
 
-type UserMetaAction = SetUserMetaAction;
-
-export const createActions = {
-  setUserMeta: (userMeta: UserMetaState) => ({
-    type: SET_USER_META_ACTION,
-    payload: userMeta
-  })
+type SetAvatarAction = {
+  type: typeof SET_AVATAR_ACTION;
+  payload: { avatarImage: string | void };
 };
 
-const isSetUserMetaAction = (
-  action: UserMetaAction
-): action is SetUserMetaAction => action.type === SET_USER_META_ACTION;
+type UserMetaAction = SetAction | SetAvatarAction;
+
+export const createActions = {
+  set: (userMeta: UserMetaState) => ({
+    type: SET_ACTION,
+    payload: userMeta
+  }),
+  setAvatar: (avatarImage: string | void) => {
+    return {
+      type: SET_AVATAR_ACTION,
+      payload: {
+        avatarImage
+      }
+    };
+  }
+};
+
+const isSetAction = (action: UserMetaAction): action is SetAction =>
+  action.type === SET_ACTION;
+
+const isSetAvatarAction = (action: UserMetaAction): action is SetAvatarAction =>
+  action.type === SET_AVATAR_ACTION;
 
 export const reducer = (
   state: UserMetaState = initialState,
   action: UserMetaAction
 ) => {
-  if (isSetUserMetaAction(action)) {
+  if (isSetAction(action)) {
     return { ...state, ...action.payload };
+  } else if (isSetAvatarAction(action)) {
+    return { ...state, avatarImage: action.payload.avatarImage };
   } else {
     return state;
   }

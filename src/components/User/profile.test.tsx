@@ -11,7 +11,8 @@ const userMeta: UserMetaState = {
   name: "hello",
   language: "en",
   timezone: "Aasia/Tokyo",
-  links: { getAvatar: "", putAvatar: "" }
+  links: { getAvatar: "", putAvatar: "" },
+  avatarImage: undefined
 };
 const mockSession: any = {
   getIdToken: () => ({

@@ -1,25 +1,35 @@
 import React from "react";
+
+// components
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import PersonIcon from "@material-ui/icons/Person";
 import Avatar from "@material-ui/core/Avatar";
+
+// redux
 import { connect } from "react-redux";
+import Redux from "redux";
+import { createActions as createUserMetaActions } from "../../redux/actions/user-meta";
+
+// utils
+import { __ } from "@wordpress/i18n";
+
+// types
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { UserMetaState } from "../../redux/actions/user-meta";
 import { AppState } from "../../redux/store";
-import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
   userMeta: UserMetaState;
 };
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  setAvatar: (avatarBlobUrl: string | void) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 type State = {
-  avatarUrl: string;
   status: false | "requesting" | "success" | "failure";
   isFileAPISupported: boolean;
-  isAvatarReady: boolean;
 };
 
 const ProfileImageStyle: React.CSSProperties = {
@@ -36,19 +46,9 @@ export class AvatarSection extends React.Component<Props, State> {
     super(props);
     this.inputFileRef = null;
     this.state = {
-      avatarUrl: props.userMeta.links.getAvatar,
       status: false,
-      isFileAPISupported: true, // TODO: check it
-      isAvatarReady: false
+      isFileAPISupported: true // TODO: check it
     };
-  }
-
-  componentDidMount() {
-    // image fallback
-    // TODO: can method HEAD be used?
-    fetch(this.state.avatarUrl, { method: "GET" }).then(
-      res => res.ok && this.setState({ isAvatarReady: true })
-    );
   }
 
   onUploadClick = () => {
@@ -62,7 +62,9 @@ export class AvatarSection extends React.Component<Props, State> {
       // TODO: check file type and size
       const file = e.target.files[0];
       const avatarUrl = URL.createObjectURL(file);
-      this.setState({ avatarUrl, status: "requesting" });
+      const prevAvatarUrl = this.props.userMeta.avatarImage;
+      this.props.setAvatar(avatarUrl);
+      this.setState({ status: "requesting" });
 
       fetch(this.props.userMeta.links.putAvatar, {
         method: "PUT",
@@ -71,35 +73,25 @@ export class AvatarSection extends React.Component<Props, State> {
         },
         body: file
       })
-        .then(console.log)
-        .catch(console.error);
-
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const base64Image = reader.result;
-        if (!base64Image || typeof base64Image !== "string") {
-          return;
-        }
-        this.setState({
-          avatarUrl: base64Image,
-          status: "success"
+        .then(() => {
+          this.setState({ status: "success" });
+        })
+        .catch(err => {
+          this.props.setAvatar(prevAvatarUrl); // roleback
+          this.setState({ status: "failure" });
         });
-      };
-      reader.onerror = err => {
-        console.error(err);
-        this.setState({ status: "failure" });
-      };
     }
   };
 
   render() {
-    const { avatarUrl, isAvatarReady } = this.state;
+    const {
+      userMeta: { avatarImage }
+    } = this.props;
 
     return (
       <Typography component="div" align="center">
-        {isAvatarReady ? (
-          <Avatar src={avatarUrl} style={ProfileImageStyle}></Avatar>
+        {avatarImage ? (
+          <Avatar src={avatarImage} style={ProfileImageStyle}></Avatar>
         ) : (
           <PersonIcon style={ProfileImageStyle} />
         )}
@@ -125,8 +117,14 @@ export class AvatarSection extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState): StateProps => ({
-  session: state.authSupport.session,
   userMeta: state.userMeta
 });
 
-export default connect(mapStateToProps)(AvatarSection);
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  setAvatar: blobUrl => dispatch(createUserMetaActions.setAvatar(blobUrl))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AvatarSection);

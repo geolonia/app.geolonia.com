@@ -5,16 +5,23 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import { CircularProgress } from "@material-ui/core";
+
+// utils
 import { __ } from "@wordpress/i18n";
 
 type Props = {
   label: string;
   style: React.CSSProperties;
-  handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<any>;
+  disabled?: boolean;
 };
 
 const Save = (props: Props) => {
   const [open, setOpen] = React.useState(false);
+  const [status, setStatus] = React.useState<
+    false | "working" | "success" | "failure"
+  >(false);
 
   const style: React.CSSProperties = {
     marginTop: "1em",
@@ -26,8 +33,18 @@ const Save = (props: Props) => {
   const handleSave = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    props.handler(event);
-    setOpen(true);
+    setStatus("working");
+    props
+      .handler(event)
+      .then(() => {
+        setStatus("success");
+        setOpen(true);
+      })
+      .catch(err => {
+        setStatus("failure");
+        setOpen(true);
+        throw err; // Parent should handle me
+      });
   };
 
   function handleClose(
@@ -38,13 +55,22 @@ const Save = (props: Props) => {
       return;
     }
 
+    setStatus(false);
     setOpen(false);
   }
 
   return (
     <div>
       <Typography style={style} component="p" paragraph={true} align="right">
-        <Button variant="contained" color="primary" onClick={handleSave}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
+          disabled={props.disabled || status !== false}
+        >
+          {status === "working" && (
+            <CircularProgress size={16} style={{ marginRight: 8 }} />
+          )}
           {props.label}
         </Button>
       </Typography>
@@ -60,7 +86,11 @@ const Save = (props: Props) => {
         ContentProps={{
           "aria-describedby": "message-id"
         }}
-        message={<span id="message-id">{__("Saved.")}</span>}
+        message={
+          <span id="message-id">
+            {status === "success" ? __("Saved.") : __("Failed to save.")}
+          </span>
+        }
         action={[
           <IconButton
             key="close"
