@@ -11,9 +11,19 @@ import {
   TextField,
   DialogActions
 } from "@material-ui/core";
+import { CircularProgress } from "@material-ui/core";
+import CheckIcon from "@material-ui/icons/Check";
 
 // utils
 import { __ } from "@wordpress/i18n";
+
+// api
+import deleteTeam from "../../../api/teams/delete";
+
+// types
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { connect } from "react-redux";
+import { AppState } from "../../../redux/store";
 
 // parameters
 const styleDangerZone: React.CSSProperties = {
@@ -21,14 +31,39 @@ const styleDangerZone: React.CSSProperties = {
   padding: "16px 24px"
 };
 
-const Content = () => {
+type OwnProps = {};
+type StateProps = {
+  session?: AmazonCognitoIdentity.CognitoUserSession;
+  teamId: string;
+};
+type Props = OwnProps & StateProps;
+
+const Content = (props: Props) => {
   // state
   const [open, setOpen] = React.useState(false);
   const [confirmation, setConfirmation] = React.useState("");
+  const [status, setStatus] = React.useState<
+    false | "requesting" | "success" | "failure"
+  >(false);
 
   const saveHandler = () => {
     if (confirmation.toUpperCase() === "DELETE") {
-      setOpen(false);
+      const { teamId, session } = props;
+      setStatus("requesting");
+      deleteTeam(session, teamId)
+        .then(() => {
+          setStatus("success");
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 2000);
+        })
+        .catch(() => {
+          setStatus("failure");
+          setTimeout(() => {
+            setStatus(false);
+            setOpen(false);
+          }, 3000);
+        });
     }
   };
 
@@ -58,7 +93,9 @@ const Content = () => {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            {__("Confirm deletion")}
+            <Typography component="span" color="secondary">
+              {__("Confirm deletion")}
+            </Typography>
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -66,24 +103,42 @@ const Content = () => {
             </DialogContentText>
             <TextField
               autoFocus
+              error
               margin="normal"
               name="team-deletion-confirm"
               label={__("Confirm")}
               value={confirmation}
               onChange={e => setConfirmation(e.target.value)}
+              disabled={status !== false}
               fullWidth
+              placeholder="delete"
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setOpen(false)} color="primary">
+            <Button
+              onClick={() => setOpen(false)}
+              color="default"
+              disabled={status !== false}
+            >
               {__("Cancel")}
             </Button>
             <Button
               onClick={saveHandler}
-              color="primary"
+              color="secondary"
               type="submit"
-              disabled={confirmation.toUpperCase() !== "DELETE"}
+              disabled={
+                confirmation.toUpperCase() !== "DELETE" || status !== false
+              }
             >
+              {status === "requesting" ? (
+                <CircularProgress
+                  size={16}
+                  style={{ marginRight: 8 }}
+                  color={"secondary"}
+                />
+              ) : status === "success" ? (
+                <CheckIcon fontSize={"default"} color={"secondary"} />
+              ) : null}
               {__("Delete")}
             </Button>
           </DialogActions>
@@ -93,4 +148,11 @@ const Content = () => {
   );
 };
 
-export default Content;
+const mapStateToProps = (state: AppState): StateProps => {
+  return {
+    session: state.authSupport.session,
+    teamId: state.team.data[state.team.selectedIndex].teamId
+  };
+};
+
+export default connect(mapStateToProps)(Content);
