@@ -10,13 +10,23 @@ import { __ } from "@wordpress/i18n";
 
 // types
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState } from "../../../redux/store";
+import { Team } from "../../../redux/actions/team";
+
+// redux
+import Redux from "redux";
+import { createActions as createTeamActions } from "../../../redux/actions/team";
+import { connect } from "react-redux";
 
 type OwnProps = {};
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
+  team: Team;
+  index: number;
 };
-
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  setAvatar: (index: number, blobUrl: string | void) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 const ProfileImageStyle: React.CSSProperties = {
   width: "250px",
@@ -25,29 +35,36 @@ const ProfileImageStyle: React.CSSProperties = {
 };
 
 const Content = (props: Props) => {
-  // state
-  const [avatarUrl, setAvatarUrl] = React.useState<string | void>();
+  // states
+  const [status, setStatus] = React.useState<
+    false | "requesting" | "success" | "failure"
+  >(false);
 
+  // refs
   const refContainer = React.useRef<HTMLInputElement | null>(null);
 
   const onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      const nextAvatarUrl = URL.createObjectURL(file);
-      setAvatarUrl(nextAvatarUrl);
+      const avatarUrl = URL.createObjectURL(file);
+      const prevAvatarUrl = props.team.avatarImage;
+      props.setAvatar(props.index, avatarUrl);
+      setStatus("requesting");
 
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        const base64Image = reader.result;
-        if (!base64Image || typeof base64Image !== "string") {
-          return;
-        }
-        console.log(base64Image);
-      };
-      reader.onerror = err => {
-        console.error(err);
-      };
+      fetch(props.team.links.putAvatar, {
+        method: "PUT",
+        headers: {
+          "Content-Type": file.type
+        },
+        body: file
+      })
+        .then(() => {
+          setStatus("success");
+        })
+        .catch(err => {
+          props.setAvatar(props.index, prevAvatarUrl); // roleback
+          setStatus("failure");
+        });
     }
   };
 
@@ -61,7 +78,7 @@ const Content = (props: Props) => {
     <>
       <Typography component="p" align="center">
         <img
-          src={avatarUrl || defaultTeamIcon}
+          src={props.team.avatarImage || defaultTeamIcon}
           style={ProfileImageStyle}
           alt=""
         />
@@ -82,4 +99,17 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+const mapStateToProps = (state: AppState): StateProps => ({
+  team: state.team.data[state.team.selectedIndex],
+  index: state.team.selectedIndex
+});
+
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  setAvatar: (index, blobUrl) =>
+    dispatch(createTeamActions.setAvatar(index, blobUrl))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
