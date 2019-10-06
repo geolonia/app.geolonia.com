@@ -70,7 +70,7 @@ const Content = (props: Props) => {
           </p>
           {status === "requesting" && (
             <p>
-              <CircularProgress size={20}></CircularProgress>
+              <CircularProgress size={20} />
             </p>
           )}
         </div>

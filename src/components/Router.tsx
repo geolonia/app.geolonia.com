@@ -11,7 +11,7 @@ import APIKey from "./Maps/APIKey";
 import GISs from "./Data/GISs";
 import GIS from "./Data/GIS";
 
-import General from "./Team/General";
+import General from "./Team/general";
 import Members from "./Team/Members";
 import Billing from "./Team/Billing";
 
