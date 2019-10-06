@@ -199,7 +199,11 @@ const Navigator: React.FC<Props> = (props: Props) => {
         <ListItem
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
-          <img src={defaultTeamIcon} className="logo" alt="" />
+          <img
+            src={teams[selectedTeamIndex].avatarImage || defaultTeamIcon}
+            className="logo"
+            alt=""
+          />
           <Select
             className="team"
             value={selectedTeamIndex}
