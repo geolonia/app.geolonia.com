@@ -136,11 +136,11 @@ const Content = (props: Props) => {
           </p>
           {status === "requesting" ? (
             <p>
-              <CircularProgress size={20}></CircularProgress>
+              <CircularProgress size={20} />
             </p>
           ) : status === "success" ? (
             <p>
-              <CheckIcon fontSize={"default"} color={"primary"}></CheckIcon>
+              <CheckIcon fontSize={"default"} color={"primary"} />
             </p>
           ) : null}
         </div>

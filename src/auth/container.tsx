@@ -66,9 +66,13 @@ export class AuthContainer extends React.Component<Props, State> {
         APILoads(session),
         500
       ) as Promise<APIResult>);
+      console.log(teams);
+      const teamsWithoutDeleted = (Array.isArray(teams) ? teams : []).filter(
+        team => !team.isDeleted
+      );
       this.props.setSession(session);
       this.props.setUserMeta(userMeta);
-      this.props.setTeams(Array.isArray(teams) ? teams : []);
+      this.props.setTeams(teamsWithoutDeleted);
       const { language } = userMeta;
       const localeData = loadLocale(language);
       if (localeData) {
