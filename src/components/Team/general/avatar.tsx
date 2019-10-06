@@ -9,7 +9,6 @@ import defaultTeamIcon from "../../custom/team.svg";
 import { __ } from "@wordpress/i18n";
 
 // types
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { AppState } from "../../../redux/store";
 import { Team } from "../../../redux/actions/team";
 
@@ -74,6 +73,8 @@ const Content = (props: Props) => {
     }
   };
 
+  const isUploadEnabled = !!props.team.links.putAvatar;
+
   return (
     <>
       <Typography component="p" align="center">
@@ -83,7 +84,12 @@ const Content = (props: Props) => {
           alt=""
         />
         <br />
-        <Button variant="contained" color="default" onClick={onUploadClick}>
+        <Button
+          variant="contained"
+          color="default"
+          onClick={onUploadClick}
+          disabled={!isUploadEnabled}
+        >
           {__("Upload new picture")}
         </Button>
         <input
