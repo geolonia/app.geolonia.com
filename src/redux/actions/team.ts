@@ -5,6 +5,7 @@ export type Team = {
   url: string;
   role: "Owner" | "Member" | "Fired";
   billingEmail: string;
+  isDeleted?: boolean;
 };
 
 export type TeamState = {
