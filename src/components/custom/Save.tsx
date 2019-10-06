@@ -36,9 +36,15 @@ const Save = (props: Props) => {
     setStatus("working");
     props
       .handler(event)
-      .then(() => setStatus("success"))
-      .catch(() => setStatus("failure"))
-      .finally(() => setOpen(true));
+      .then(() => {
+        setStatus("success");
+        setOpen(true);
+      })
+      .catch(err => {
+        setStatus("failure");
+        setOpen(true);
+        throw err; // Parent should handle me
+      });
   };
 
   function handleClose(

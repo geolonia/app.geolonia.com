@@ -200,7 +200,11 @@ const Navigator: React.FC<Props> = (props: Props) => {
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
           <img
-            src={teams[selectedTeamIndex].avatarImage || defaultTeamIcon}
+            src={
+              (teams[selectedTeamIndex] &&
+                teams[selectedTeamIndex].avatarImage) ||
+              defaultTeamIcon
+            }
             className="logo"
             alt=""
           />
