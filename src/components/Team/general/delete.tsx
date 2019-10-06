@@ -15,7 +15,8 @@ import { CircularProgress } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 
 // utils
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
+import Interweave from "interweave";
 
 // api
 import deleteTeam from "../../../api/teams/delete";
@@ -24,6 +25,7 @@ import deleteTeam from "../../../api/teams/delete";
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { connect } from "react-redux";
 import { AppState } from "../../../redux/store";
+import { Team } from "../../../redux/actions/team";
 
 // parameters
 const styleDangerZone: React.CSSProperties = {
@@ -34,7 +36,7 @@ const styleDangerZone: React.CSSProperties = {
 type OwnProps = {};
 type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
-  teamId: string;
+  team: Team;
 };
 type Props = OwnProps & StateProps;
 
@@ -46,11 +48,14 @@ const Content = (props: Props) => {
     false | "requesting" | "success" | "failure"
   >(false);
 
+  // props
+  const { team } = props;
+
   const saveHandler = () => {
     if (confirmation.toUpperCase() === "DELETE") {
-      const { teamId, session } = props;
+      const { session } = props;
       setStatus("requesting");
-      deleteTeam(session, teamId)
+      deleteTeam(session, team.teamId)
         .then(() => {
           setStatus("success");
           setTimeout(() => {
@@ -99,7 +104,14 @@ const Content = (props: Props) => {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {__("Please enter delete if you really want to delete the team.")}
+              <Interweave
+                content={sprintf(
+                  __(
+                    "Please enter <code>delete</code> if you really want to delete the team <strong>%1$s</strong>."
+                  ),
+                  team.name
+                )}
+              />
             </DialogContentText>
             <TextField
               autoFocus
@@ -151,7 +163,7 @@ const Content = (props: Props) => {
 const mapStateToProps = (state: AppState): StateProps => {
   return {
     session: state.authSupport.session,
-    teamId: state.team.data[state.team.selectedIndex].teamId
+    team: state.team.data[state.team.selectedIndex]
   };
 };
 
