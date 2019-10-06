@@ -15,6 +15,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import { signout } from "../auth";
 
 import { __ } from "@wordpress/i18n";
+import { connect } from "react-redux";
+import { AppState } from "../redux/store";
+import Avatar from "@material-ui/core/Avatar";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -40,10 +43,16 @@ const styles = (theme: Theme) => ({
   }
 });
 
-type Props = {
+type OwnProps = {
   classes: any;
   onDrawerToggle: () => void;
 };
+
+type StateProps = {
+  userAvatar: string | void;
+};
+
+type Props = OwnProps & StateProps;
 
 const Header = (props: Props) => {
   const { classes, onDrawerToggle } = props;
@@ -77,7 +86,6 @@ const Header = (props: Props) => {
       window.location.href = "/";
     });
   };
-
   return (
     <React.Fragment>
       <AppBar
@@ -114,7 +122,11 @@ const Header = (props: Props) => {
                 color="inherit"
                 className={classes.iconButtonAvatar}
               >
-                <PersonIcon style={avatarStyle} />
+                {props.userAvatar ? (
+                  <Avatar src={props.userAvatar} style={avatarStyle} />
+                ) : (
+                  <PersonIcon style={avatarStyle} />
+                )}
               </IconButton>
               <Menu
                 anchorEl={anchorEl}
@@ -135,4 +147,11 @@ const Header = (props: Props) => {
   );
 };
 
-export default withStyles(styles)(Header);
+const mapStateToProps = (state: AppState): StateProps => {
+  return {
+    userAvatar: state.userMeta.avatarImage
+  };
+};
+const ConnectedHeader = connect(mapStateToProps)(Header);
+
+export default withStyles(styles)(ConnectedHeader);

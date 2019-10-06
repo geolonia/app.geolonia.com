@@ -171,7 +171,7 @@ const mapStateToProps = (state: AppState) => ({
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setUserMetaState: (userMeta: UserMetaState) =>
-    dispatch(createUserMetaActions.setUserMeta(userMeta))
+    dispatch(createUserMetaActions.set(userMeta))
 });
 
 export default connect(
