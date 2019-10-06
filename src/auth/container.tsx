@@ -68,10 +68,11 @@ export class AuthContainer extends React.Component<Props, State> {
     }
 
     try {
-      const { userMeta, teams } = await (delay(
+      const { userMeta, teams } = (await delay(
         APILoads(session),
         500
-      ) as Promise<APIResult>);
+      )) as APIResult;
+
       const teamsWithoutDeleted = (Array.isArray(teams) ? teams : []).filter(
         team => !team.isDeleted
       );
