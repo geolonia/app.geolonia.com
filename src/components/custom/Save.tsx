@@ -5,8 +5,10 @@ import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-import { __ } from "@wordpress/i18n";
 import { CircularProgress } from "@material-ui/core";
+
+// utils
+import { __ } from "@wordpress/i18n";
 
 type Props = {
   label: string;
