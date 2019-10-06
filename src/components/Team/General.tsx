@@ -1,22 +1,29 @@
 import React from "react";
 
+// Components
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-
-import { __ } from "@wordpress/i18n";
-
 import Save from "../custom/Save";
 import defaultTeamIcon from "../custom/team.svg";
 import Title from "../custom/Title";
-import { AppState } from "../../redux/store";
-import { connect } from "react-redux";
-import { Team } from "../../redux/actions/team";
+
+// Redux
 import Redux from "redux";
+import { connect } from "react-redux";
 import { createActions as createTeamActions } from "../../redux/actions/team";
+
+// API
 import updateTeam from "../../api/teams/update";
+
+// types
+import { AppState } from "../../redux/store";
+import { Team } from "../../redux/actions/team";
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+
+// utils
+import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
 type StateProps = {
@@ -29,38 +36,16 @@ type DispatchProps = {
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
-const styleDangerZone: React.CSSProperties = {
-  border: "1px solid #ff0000",
-  padding: "16px 24px"
-};
-
-const ProfileImageStyle: React.CSSProperties = {
-  width: "250px",
-  height: "auto",
-  margin: "16px"
-};
-
-const breadcrumbItems = [
-  {
-    title: "Home",
-    href: "#/"
-  },
-  {
-    title: __("Team settings"),
-    href: "#/team"
-  },
-  {
-    title: __("General"),
-    href: null
-  }
-];
-
 const Content = (props: Props) => {
-  const [draft, setDraft] = React.useState<Partial<Team>>({});
+  // props
   const { session, team, selectedIndex, updateTeamState } = props;
   const { teamId, name, description, url, billingEmail } = team;
 
-  // clear draft on Team change
+  // state
+  const [draft, setDraft] = React.useState<Partial<Team>>({});
+
+  // effects
+  //// clear draft on Team change
   React.useEffect(() => setDraft({}), [selectedIndex]);
 
   const onSaveClick = () => {
@@ -72,6 +57,33 @@ const Content = (props: Props) => {
       setDraft({});
     });
   };
+
+  // parameters
+  const styleDangerZone: React.CSSProperties = {
+    border: "1px solid #ff0000",
+    padding: "16px 24px"
+  };
+
+  const ProfileImageStyle: React.CSSProperties = {
+    width: "250px",
+    height: "auto",
+    margin: "16px"
+  };
+
+  const breadcrumbItems = [
+    {
+      title: "Home",
+      href: "#/"
+    },
+    {
+      title: __("Team settings"),
+      href: "#/team"
+    },
+    {
+      title: __("General"),
+      href: null
+    }
+  ];
 
   return (
     <div>
