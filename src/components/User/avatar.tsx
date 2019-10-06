@@ -1,13 +1,21 @@
 import React from "react";
+
+// components
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import PersonIcon from "@material-ui/icons/Person";
 import Avatar from "@material-ui/core/Avatar";
+
+// redux
 import { connect } from "react-redux";
+
+// utils
+import { __ } from "@wordpress/i18n";
+
+// types
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { UserMetaState } from "../../redux/actions/user-meta";
 import { AppState } from "../../redux/store";
-import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
 type StateProps = {
