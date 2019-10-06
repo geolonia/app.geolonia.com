@@ -82,7 +82,8 @@ export const reducer = (
   } else if (isSelectAction(action)) {
     return { ...state, selectedIndex: action.payload.index };
   } else if (isAddAction(action)) {
-    return { ...state, data: [...state.data, action.payload.team] };
+    const newTeam = { links: {}, ...action.payload.team };
+    return { ...state, data: [...state.data, newTeam] };
   } else if (isUpdateAciton(action)) {
     const nextTeams = [...state.data];
     nextTeams[action.payload.index] = {
