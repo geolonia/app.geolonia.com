@@ -31,7 +31,6 @@ type State = {
   userMeta: UserMetaState;
   email: string;
   username: string;
-  status: false | "requesting" | "success" | "failure";
 };
 const selectStyle: React.CSSProperties = {
   marginTop: "16px",
@@ -49,8 +48,7 @@ export class Profile extends React.Component<Props, State> {
         timezone: props.userMeta.timezone || momentTimeZone.tz.guess()
       },
       username: payload["cognito:username"] || "",
-      email: payload.email || "",
-      status: false
+      email: payload.email || ""
     };
   }
 
@@ -76,15 +74,13 @@ export class Profile extends React.Component<Props, State> {
 
     // this.setState({ status: "requesting" });
 
-    return updateUserMeta(session, nextUserMeta);
-    // .then(() => {
-    //   this.props.setUserMetaState(nextUserMeta);
-    //   this.setState({ status: "success" });
-    // })
-    // .catch(err => {
-    //   console.error(err);
-    //   this.setState({ status: "failure" });
-    // });
+    return updateUserMeta(session, nextUserMeta)
+      .then(() => {
+        this.props.setUserMetaState(nextUserMeta);
+      })
+      .catch(err => {
+        console.error(err);
+      });
   };
 
   timezones = momentTimeZone.tz.names();
