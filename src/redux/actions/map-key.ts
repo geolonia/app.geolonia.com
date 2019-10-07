@@ -8,6 +8,8 @@ export type Key = {
   enabled: boolean;
   forceDisabled: boolean;
   allowedOrigins: string[];
+  updateAt: string;
+  createAt: string;
 };
 
 export type State = {
