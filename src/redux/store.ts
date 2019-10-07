@@ -9,6 +9,10 @@ import {
   reducer as mapKeyReducer,
   State as MapKeyState
 } from "./actions/map-key";
+import {
+  reducer as teamMemberReducer,
+  State as TeamMemberState
+} from "./actions/team-member";
 
 // app type
 export type AppState = {
@@ -16,13 +20,15 @@ export type AppState = {
   userMeta: UserMetaState;
   team: TeamState;
   mapKey: MapKeyState;
+  teamMember: TeamMemberState;
 };
 
 const appReducer = combineReducers({
   authSupport: authSupportReducer,
   userMeta: userMetaReducer,
   team: teamReducer,
-  mapKey: mapKeyReducer
+  mapKey: mapKeyReducer,
+  teamMember: teamMemberReducer
 });
 
 // store

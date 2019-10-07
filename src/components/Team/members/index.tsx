@@ -14,8 +14,11 @@ import PersonIcon from "@material-ui/icons/Person";
 
 import { __ } from "@wordpress/i18n";
 
-import AddNew from "../custom/AddNew";
-import Title from "../custom/Title";
+import AddNew from "../../custom/AddNew";
+import Title from "../../custom/Title";
+import { AppState } from "../../../redux/store";
+import { connect } from "react-redux";
+import { Member } from "../../../redux/actions/team-member";
 
 const rows = [
   {
@@ -41,7 +44,16 @@ const rows = [
   }
 ];
 
-const Content = () => {
+type OwnProps = {};
+type StateProps = {
+  members: Member[];
+};
+type Props = OwnProps & StateProps;
+
+const Content = (props: Props) => {
+  const { members } = props;
+  console.log(members);
+
   const firstCellStyle: React.CSSProperties = {
     width: "56px",
     padding: "8px 0 3px 8px"
@@ -181,4 +193,15 @@ const Content = () => {
   );
 };
 
-export default Content;
+export const mapStateToProps = (state: AppState) => {
+  const selectedTeamIndex = state.team.selectedIndex;
+  const { teamId } = state.team.data[selectedTeamIndex];
+  const memberObject = state.teamMember[teamId];
+  if (memberObject) {
+    return { members: memberObject.data };
+  } else {
+    return { members: [] };
+  }
+};
+
+export default connect(mapStateToProps)(Content);
