@@ -69,23 +69,25 @@ const Content = (props: Props) => {
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TablePagination
-            rowsPerPageOptions={[5]}
-            colSpan={3}
-            count={props.rows.length}
-            rowsPerPage={props.rowsPerPage}
-            page={0}
-            SelectProps={{
-              inputProps: { "aria-label": "rows per page" },
-              native: true
-            }}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </TableRow>
-      </TableFooter>
+      {props.rows.length > 0 && (
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5]}
+              colSpan={3}
+              count={props.rows.length}
+              rowsPerPage={props.rowsPerPage}
+              page={0}
+              SelectProps={{
+                inputProps: { "aria-label": "rows per page" },
+                native: true
+              }}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </TableRow>
+        </TableFooter>
+      )}
     </Table>
   );
 };
