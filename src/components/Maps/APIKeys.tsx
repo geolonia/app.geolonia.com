@@ -5,14 +5,33 @@ import AddNew from "../custom/AddNew";
 import Title from "../custom/Title";
 
 import { __ } from "@wordpress/i18n";
+import { connect } from "react-redux";
 
-const rows = [
-  { id: 1111, name: "My Map", updated: "2019-08-28" },
-  { id: 1112, name: "exmaple.com", updated: "2019-08-28" },
-  { id: 1113, name: "exmaple.jp", updated: "2019-08-28" }
-];
+// api
+import createKey from "../../api/keys/create";
 
-function Content() {
+// types
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState } from "../../redux/store";
+import { Key } from "../../redux/actions/map-key";
+
+// redux
+import Redux from "redux";
+import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
+
+type OwnProps = {};
+type StateProps = {
+  session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+  mapKeys: Key[];
+  error: boolean;
+  teamId: string;
+};
+type DispatchProps = {
+  addKey: (teamId: string, key: Key) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
+
+function Content(props: Props) {
   const breadcrumbItems = [
     {
       title: "Home",
@@ -28,7 +47,20 @@ function Content() {
     }
   ];
 
-  const handler = (event: React.MouseEvent) => {};
+  const handler = (name: string) => {
+    return createKey(props.session, props.teamId, name).then(mapKey => {
+      props.addKey(props.teamId, mapKey);
+    });
+  };
+
+  const { mapKeys } = props;
+  const rows = mapKeys.map(key => {
+    return {
+      id: key.userKey,
+      name: key.name,
+      updated: key.updateAt
+    };
+  });
 
   return (
     <div>
@@ -37,9 +69,9 @@ function Content() {
       </Title>
 
       <AddNew
-        label="Create a new API key"
-        description="Please enter the name of new API key."
-        default="My API"
+        label={__("Create a new API key")}
+        description={__("Please enter the name of new API key.")}
+        default={__("My API")}
         handler={handler}
       />
 
@@ -48,4 +80,23 @@ function Content() {
   );
 }
 
-export default Content;
+const mapStateToProps = (state: AppState): StateProps => {
+  const session = state.authSupport.session;
+  const { data: teams, selectedIndex } = state.team;
+  const teamId = teams[selectedIndex].teamId;
+  const { data: mapKeys = [], error = false } = state.mapKey[teamId] || {};
+
+  return { session, mapKeys, error, teamId };
+};
+
+const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
+  return {
+    addKey: (teamId: string, key: Key) =>
+      dispatch(createMapKeyActions.add(teamId, key))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
