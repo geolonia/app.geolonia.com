@@ -46,7 +46,7 @@ type GetInTroubleAction = {
 
 type ReadyAction = {
   type: typeof READY_ACTION;
-  pyload: {};
+  payload: {};
 };
 
 type AuthSupportAction =

@@ -13,8 +13,9 @@ import Save from "../custom/Save";
 import Delete from "../custom/Delete";
 import Help from "../custom/Help";
 import Title from "../custom/Title";
+
+// types
 import { AppState } from "../../redux/store";
-import { connect } from "react-redux";
 import { Key } from "../../redux/actions/map-key";
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
@@ -22,15 +23,26 @@ import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import updateKey from "../../api/keys/update";
 import deleteKey from "../../api/keys/delete";
 
+// redux
+import Redux from "redux";
+import { connect } from "react-redux";
+import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
+
 type OwnProps = {
   match: { params: { id: string } };
+  history: { push: (path: string) => void };
 };
 type StateProps = {
   mapKey?: Key;
   teamId: string;
   session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+  selectedTeamIndex: number;
 };
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  updateKey: (teamId: string, userKey: string, key: Partial<Key>) => void;
+  deleteKey: (teamId: string, userKey: string) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
   // state
@@ -39,6 +51,14 @@ const Content = (props: Props) => {
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
+  const [prevIndex] = React.useState(props.selectedTeamIndex);
+
+  // move on team change
+  React.useEffect(() => {
+    if (prevIndex !== props.selectedTeamIndex) {
+      props.history.push("/maps/api-keys");
+    }
+  }, [props.selectedTeamIndex]);
 
   // props
   const propName = (props.mapKey || { name: "" }).name;
@@ -96,19 +116,22 @@ const Content = (props: Props) => {
     marginBottom: "2em"
   };
 
-  const fetchMock = () =>
-    new Promise((resolve, reject) => setTimeout(reject, 2000));
-
   const saveHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     setStatus("requesting");
-    return updateKey(props.session, props.teamId, apiKey, {
+    const normalizedAllowedOrigins = allowedOrigins
+      .split("\n")
+      .filter(url => !!url);
+
+    const nextKey = {
       name,
-      allowedOrigins: allowedOrigins.split("\n")
-    })
+      allowedOrigins: normalizedAllowedOrigins
+    };
+
+    return updateKey(props.session, props.teamId, apiKey, nextKey)
       .then(() => {
-        // TODO: update key locale state here
+        props.updateKey(props.teamId, apiKey, nextKey);
         setStatus("success");
       })
       .catch(err => {
@@ -121,7 +144,8 @@ const Content = (props: Props) => {
     return deleteKey(props.session, props.teamId, apiKey)
       .then(() => {
         setStatus("success");
-        window.location.href = "/";
+        props.history.push("/maps/api-keys");
+        props.deleteKey(props.teamId, apiKey);
       })
       .catch(err => {
         setStatus("failure");
@@ -222,19 +246,34 @@ const Content = (props: Props) => {
 
 const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
   const session = state.authSupport.session;
-
+  const selectedTeamIndex = state.team.selectedIndex;
   // TODO: typing enhancement
-  const { teamId } = state.team.data[state.team.selectedIndex] || {
+  const { teamId } = state.team.data[selectedTeamIndex] || {
     teamId: "-- unexpected fallback when no team id found --"
   };
   if (!state.mapKey[teamId]) {
-    return { session, teamId };
+    return { session, teamId, selectedTeamIndex };
   }
   const mapKeys = state.mapKey[teamId].data;
   const mapKey = mapKeys.find(
     mapKey => mapKey.userKey === ownProps.match.params.id
   );
-  return { session, mapKey, teamId };
+  return {
+    session,
+    mapKey,
+    teamId,
+    selectedTeamIndex
+  };
 };
 
-export default connect(mapStateToProps)(Content);
+const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
+  updateKey: (teamId: string, userKey: string, key: Partial<Key>) =>
+    dispatch(createMapKeyActions.update(teamId, userKey, key)),
+  deleteKey: (teamId: string, userKey: string) =>
+    dispatch(createMapKeyActions.delete(teamId, userKey))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
