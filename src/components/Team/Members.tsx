@@ -75,7 +75,10 @@ const Content = () => {
     setAnchorEl(null);
   };
 
-  const inviteHandler = () => {};
+  const inviteHandler = (value: string) => {
+    console.log(value);
+    return Promise.resolve();
+  };
 
   const breadcrumbItems = [
     {

@@ -144,7 +144,6 @@ export class AuthContainer extends React.Component<Props, State> {
     const handleListKeys = (teamId: string) => {
       return listKeys(session, teamId)
         .then(keys => {
-          console.log(keys);
           this.props.setMapKeys(teamId, keys);
         })
         .catch(err => {
