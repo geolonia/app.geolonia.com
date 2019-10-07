@@ -7,12 +7,19 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 
+// utils
+import moment from "moment";
 import { __ } from "@wordpress/i18n";
 
 import "./Table.scss";
 
 type Props = {
-  rows: any;
+  rows: {
+    id: string | number;
+    name: string;
+    isPublic?: boolean;
+    updated: string;
+  }[];
   rowsPerPage: number;
   permalink: string;
 };
@@ -40,7 +47,7 @@ const Content = (props: Props) => {
   return (
     <Table className="geolonia-list-table">
       <TableBody>
-        {props.rows.map((row: any) => (
+        {props.rows.map(row => (
           <TableRow
             key={row.id}
             onMouseOver={onMouseOver}
@@ -54,27 +61,33 @@ const Content = (props: Props) => {
                 <span className="private-or-public">{__("Public")}</span>
               )}
             </TableCell>
-            <TableCell align="right">{row.updated}</TableCell>
+            <TableCell align="right">
+              {row.updated
+                ? moment(row.updated).format("YYYY-MM-DD")
+                : __("(No date)")}
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
-      <TableFooter>
-        <TableRow>
-          <TablePagination
-            rowsPerPageOptions={[5]}
-            colSpan={3}
-            count={props.rows.length}
-            rowsPerPage={props.rowsPerPage}
-            page={0}
-            SelectProps={{
-              inputProps: { "aria-label": "rows per page" },
-              native: true
-            }}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </TableRow>
-      </TableFooter>
+      {props.rows.length > 0 && (
+        <TableFooter>
+          <TableRow>
+            <TablePagination
+              rowsPerPageOptions={[5]}
+              colSpan={3}
+              count={props.rows.length}
+              rowsPerPage={props.rowsPerPage}
+              page={0}
+              SelectProps={{
+                inputProps: { "aria-label": "rows per page" },
+                native: true
+              }}
+              onChangePage={handleChangePage}
+              onChangeRowsPerPage={handleChangeRowsPerPage}
+            />
+          </TableRow>
+        </TableFooter>
+      )}
     </Table>
   );
 };

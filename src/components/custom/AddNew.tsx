@@ -7,6 +7,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddIcon from "@material-ui/icons/Add";
+import { CircularProgress } from "@material-ui/core";
+import { __ } from "@wordpress/i18n";
 
 type Props = {
   buttonLabel: string;
@@ -15,12 +17,17 @@ type Props = {
   fieldName: string;
   fieldLabel: string;
   fieldType: string;
+  errorMessage: string;
   default: string;
-  handler: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  handler: (value: string) => Promise<any>;
 };
 
 const AddNew = (props: Props) => {
+  const [text, setText] = React.useState(props.default);
   const [open, setOpen] = React.useState(false);
+  const [status, setStatus] = React.useState<
+    false | "working" | "success" | "failure"
+  >(false);
 
   const buttonStyle: React.CSSProperties = {
     textAlign: "right",
@@ -32,8 +39,23 @@ const AddNew = (props: Props) => {
   }
 
   function handleClose() {
+    setStatus(false);
     setOpen(false);
   }
+
+  const onSaveClick = () => {
+    setStatus("working");
+    props
+      .handler(text)
+      .then(() => {
+        setStatus("success");
+        handleClose();
+      })
+      .catch(err => {
+        setStatus("failure");
+        throw err; // Please catch on Parent
+      });
+  };
 
   return (
     <div>
@@ -58,16 +80,23 @@ const AddNew = (props: Props) => {
               name={props.fieldName}
               label={props.fieldLabel}
               type={props.fieldType}
-              value={props.default}
+              value={text}
+              onChange={e => setText(e.target.value)}
               fullWidth
             />
+            {status === "failure" && (
+              <DialogContentText>{props.errorMessage}</DialogContentText>
+            )}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
-              Cancel
+              {__("Cancel")}
             </Button>
-            <Button onSubmit={props.handler} color="primary" type="submit">
-              Save
+            <Button onClick={onSaveClick} color="primary" type="submit">
+              {status === "working" && (
+                <CircularProgress size={16} style={{ marginRight: 8 }} />
+              )}
+              {__("Save")}
             </Button>
           </DialogActions>
         </Dialog>
@@ -77,12 +106,14 @@ const AddNew = (props: Props) => {
 };
 
 AddNew.defaultProps = {
-  buttonLabel: "New",
-  fieldName: "name",
-  fieldLabel: "Name",
-  fieldType: "text",
-  handler: (event: React.MouseEvent) => {
-    console.log(event);
+  buttonLabel: __("New"),
+  fieldName: __("name"),
+  fieldLabel: __("Name"),
+  fieldType: __("text"),
+  errorMessage: __("Some error."),
+  handler: (value: string) => {
+    console.log(value);
+    return Promise.resolve();
   }
 };
 

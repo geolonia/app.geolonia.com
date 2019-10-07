@@ -8,6 +8,7 @@ import { setLocaleData } from "@wordpress/i18n";
 import { getSession } from "./";
 import getUserMeta from "../api/users/get";
 import listTeams from "../api/teams/list";
+import listKeys from "../api/keys/list";
 
 // Utils
 import delay from "../lib/promise-delay";
@@ -17,6 +18,7 @@ import { connect } from "react-redux";
 import { createActions as createAuthSupportActions } from "../redux/actions/auth-support";
 import { createActions as createUserMetaActions } from "../redux/actions/user-meta";
 import { createActions as createTeamActions } from "../redux/actions/team";
+import { createActions as createMapKeyActions } from "../redux/actions/map-key";
 
 // Types
 import { UserMetaState } from "../redux/actions/user-meta";
@@ -24,6 +26,7 @@ import { AppState } from "../redux/store";
 import { Team } from "../redux/actions/team";
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import Redux from "redux";
+import { Key } from "../redux/actions/map-key";
 
 type OwnProps = {};
 type StateProps = {
@@ -38,6 +41,8 @@ type DispatchProps = {
   setTeams: (teams: Team[]) => void;
   setUserAvatar: (avatarImage: string | void) => void;
   setTeamAvatar: (teamIndex: number, avatarImage: string | void) => void;
+  setMapKeys: (teamId: string, keys: Key[]) => void;
+  markMapKeyError: (teamId: string) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
@@ -48,7 +53,9 @@ type APIResult = {
   userMeta: UserMetaState;
 };
 
-const APILoads = (session: AmazonCognitoIdentity.CognitoUserSession) => {
+const fundamentalAPILoads = (
+  session: AmazonCognitoIdentity.CognitoUserSession
+) => {
   return Promise.all([
     getUserMeta(session),
     listTeams(session)
@@ -69,7 +76,7 @@ export class AuthContainer extends React.Component<Props, State> {
 
     try {
       const { userMeta, teams } = (await delay(
-        APILoads(session),
+        fundamentalAPILoads(session),
         500
       )) as APIResult;
 
@@ -85,8 +92,11 @@ export class AuthContainer extends React.Component<Props, State> {
         setLocaleData(localeData);
       }
 
-      // do not wait then.
+      const teamIds = teamsWithoutDeleted.map(team => team.teamId);
+
+      // do not await then.
       this.loadAvatars(userMeta, teamsWithoutDeleted);
+      this.loadMapKeys(session, teamIds);
     } catch (error) {
       console.error(error);
       this.props.serverTrouble();
@@ -127,6 +137,24 @@ export class AuthContainer extends React.Component<Props, State> {
     });
   };
 
+  loadMapKeys = (
+    session: AmazonCognitoIdentity.CognitoUserSession,
+    teamIds: string[]
+  ) => {
+    const handleListKeys = (teamId: string) => {
+      return listKeys(session, teamId)
+        .then(keys => {
+          this.props.setMapKeys(teamId, keys);
+        })
+        .catch(err => {
+          console.error(err);
+          this.props.markMapKeyError(teamId);
+        });
+    };
+
+    return Promise.all(teamIds.map(teamId => handleListKeys(teamId)));
+  };
+
   render() {
     const { children } = this.props;
     return <>{children}</>;
@@ -150,7 +178,11 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   setUserAvatar: avatarImage =>
     dispatch(createUserMetaActions.setAvatar(avatarImage)),
   setTeamAvatar: (teamIndex: number, avatarImage) =>
-    dispatch(createTeamActions.setAvatar(teamIndex, avatarImage))
+    dispatch(createTeamActions.setAvatar(teamIndex, avatarImage)),
+  setMapKeys: (teamId: string, keys: Key[]) =>
+    dispatch(createMapKeyActions.set(teamId, keys)),
+  markMapKeyError: (teamId: string) =>
+    dispatch(createMapKeyActions.markError(teamId))
 });
 
 export default connect(
