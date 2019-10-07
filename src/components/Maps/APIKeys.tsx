@@ -5,6 +5,13 @@ import AddNew from "../custom/AddNew";
 import Title from "../custom/Title";
 
 import { __ } from "@wordpress/i18n";
+import { AppState } from "../../redux/store";
+import { connect } from "react-redux";
+import { Key } from "../../redux/actions/map-key";
+
+type OwnProps = {};
+type StateProps = { mapKeys: Key[]; error: boolean };
+type Props = OwnProps & StateProps;
 
 const rows = [
   { id: 1111, name: "My Map", updated: "2019-08-28" },
@@ -12,7 +19,7 @@ const rows = [
   { id: 1113, name: "exmaple.jp", updated: "2019-08-28" }
 ];
 
-function Content() {
+function Content(props: Props) {
   const breadcrumbItems = [
     {
       title: "Home",
@@ -29,7 +36,7 @@ function Content() {
   ];
 
   const handler = (event: React.MouseEvent) => {};
-
+  console.log(props);
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title={__("API keys")}>
@@ -48,4 +55,12 @@ function Content() {
   );
 }
 
-export default Content;
+const mapStateToProps = (state: AppState): StateProps => {
+  const { data: teams, selectedIndex } = state.team;
+  const teamId = teams[selectedIndex].teamId;
+  const { data: mapKeys = [], error = false } = state.mapKey[teamId] || {};
+
+  return { mapKeys, error };
+};
+
+export default connect(mapStateToProps)(Content);
