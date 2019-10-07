@@ -15,6 +15,10 @@ import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { AppState } from "../../redux/store";
 import { Key } from "../../redux/actions/map-key";
 
+// redux
+import Redux from "redux";
+import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
+
 type OwnProps = {};
 type StateProps = {
   session: AmazonCognitoIdentity.CognitoUserSession | undefined;
@@ -22,7 +26,10 @@ type StateProps = {
   error: boolean;
   teamId: string;
 };
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  addKey: (teamId: string, key: Key) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 function Content(props: Props) {
   const breadcrumbItems = [
@@ -41,8 +48,9 @@ function Content(props: Props) {
   ];
 
   const handler = (name: string) => {
-    // TODO: add key to local State
-    return createKey(props.session, props.teamId, name).then(console.log);
+    return createKey(props.session, props.teamId, name).then(mapKey => {
+      props.addKey(props.teamId, mapKey);
+    });
   };
 
   const { mapKeys } = props;
@@ -81,4 +89,14 @@ const mapStateToProps = (state: AppState): StateProps => {
   return { session, mapKeys, error, teamId };
 };
 
-export default connect(mapStateToProps)(Content);
+const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
+  return {
+    addKey: (teamId: string, key: Key) =>
+      dispatch(createMapKeyActions.add(teamId, key))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
