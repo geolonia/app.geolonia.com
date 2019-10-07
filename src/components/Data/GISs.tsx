@@ -28,7 +28,10 @@ function Content() {
     }
   ];
 
-  const handler = (event: React.MouseEvent) => {};
+  const handler = (name: string) => {
+    console.log(name);
+    return Promise.resolve();
+  };
 
   return (
     <div>

@@ -13,9 +13,49 @@ import Save from "../custom/Save";
 import Delete from "../custom/Delete";
 import Help from "../custom/Help";
 import Title from "../custom/Title";
+import { AppState } from "../../redux/store";
+import { connect } from "react-redux";
+import { Key } from "../../redux/actions/map-key";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
-const Content = () => {
-  const apiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+// api
+import updateKey from "../../api/keys/update";
+import deleteKey from "../../api/keys/delete";
+
+type OwnProps = {
+  match: { params: { id: string } };
+};
+type StateProps = {
+  mapKey?: Key;
+  teamId: string;
+  session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+};
+type Props = OwnProps & StateProps;
+
+const Content = (props: Props) => {
+  // state
+  const [name, setName] = React.useState("");
+  const [allowedOrigins, setAllowedOrigins] = React.useState("");
+  const [status, setStatus] = React.useState<
+    false | "requesting" | "success" | "failure"
+  >(false);
+
+  // props
+  const propName = (props.mapKey || { name: "" }).name;
+  const propOrigins = (props.mapKey || { allowedOrigins: [] }).allowedOrigins;
+
+  // effects
+  React.useEffect(() => {
+    setName(propName);
+    setAllowedOrigins(propOrigins.join("\n"));
+  }, [propName, propOrigins]);
+
+  if (!props.mapKey) {
+    // no key found
+    return null;
+  }
+
+  const apiKey = props.mapKey.userKey;
   const embedHtml =
     '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n></div>';
   const embedCode = sprintf(
@@ -56,13 +96,37 @@ const Content = () => {
     marginBottom: "2em"
   };
 
+  const fetchMock = () =>
+    new Promise((resolve, reject) => setTimeout(reject, 2000));
+
   const saveHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    return Promise.resolve();
+    setStatus("requesting");
+    return updateKey(props.session, props.teamId, apiKey, {
+      name,
+      allowedOrigins: allowedOrigins.split("\n")
+    })
+      .then(() => {
+        // TODO: update key locale state here
+        setStatus("success");
+      })
+      .catch(err => {
+        setStatus("failure");
+      });
   };
 
-  const deleteHandler = (event: React.MouseEvent) => {};
+  const deleteHandler = (event: React.MouseEvent) => {
+    setStatus("requesting");
+    return deleteKey(props.session, props.teamId, apiKey)
+      .then(() => {
+        setStatus("success");
+        window.location.href = "/";
+      })
+      .catch(err => {
+        setStatus("failure");
+      });
+  };
 
   return (
     <div>
@@ -79,6 +143,9 @@ const Content = () => {
             label={__("Name")}
             margin="normal"
             fullWidth={true}
+            value={name}
+            onChange={e => setName(e.target.value)}
+            disabled={status === "requesting"}
           />
 
           <TextField
@@ -89,6 +156,9 @@ const Content = () => {
             rows={5}
             placeholder="https://example.com"
             fullWidth={true}
+            value={allowedOrigins}
+            onChange={e => setAllowedOrigins(e.target.value)}
+            disabled={status === "requesting"}
           />
 
           <Help>
@@ -150,4 +220,21 @@ const Content = () => {
   );
 };
 
-export default Content;
+const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
+  const session = state.authSupport.session;
+
+  // TODO: typing enhancement
+  const { teamId } = state.team.data[state.team.selectedIndex] || {
+    teamId: "-- unexpected fallback when no team id found --"
+  };
+  if (!state.mapKey[teamId]) {
+    return { session, teamId };
+  }
+  const mapKeys = state.mapKey[teamId].data;
+  const mapKey = mapKeys.find(
+    mapKey => mapKey.userKey === ownProps.match.params.id
+  );
+  return { session, mapKey, teamId };
+};
+
+export default connect(mapStateToProps)(Content);
