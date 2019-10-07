@@ -254,7 +254,8 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
   if (!state.mapKey[teamId]) {
     return { session, teamId, selectedTeamIndex };
   }
-  const mapKeys = state.mapKey[teamId].data;
+  const mapKeyObject = state.mapKey[teamId] || { data: [] };
+  const mapKeys = mapKeyObject.data;
   const mapKey = mapKeys.find(
     mapKey => mapKey.userKey === ownProps.match.params.id
   );
