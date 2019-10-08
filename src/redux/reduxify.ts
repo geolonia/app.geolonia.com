@@ -35,13 +35,13 @@ export const appendReduxifyReducers: Redux.Reducer = (
 };
 
 const reduxify = (MyComponent: any) => {
-  const mapStateToProps = (state: AppState) => {
-    return { state };
+  const mapStateToProps = (appState: AppState) => {
+    return { appState };
   };
   const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
     return {
       dispatch,
-      setState: (param: ReduxifySetStateParam) => {
+      setAppState: (param: ReduxifySetStateParam) => {
         (Object.keys(param) as AppStateCompositionKey[]).forEach(key => {
           param[key] &&
             dispatch({
