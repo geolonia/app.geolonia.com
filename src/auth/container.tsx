@@ -9,6 +9,7 @@ import { getSession } from "./";
 import getUserMeta from "../api/users/get";
 import listTeams from "../api/teams/list";
 import listKeys from "../api/keys/list";
+import listTeamMembers from "../api/members/list";
 
 // Utils
 import delay from "../lib/promise-delay";
@@ -19,6 +20,7 @@ import { createActions as createAuthSupportActions } from "../redux/actions/auth
 import { createActions as createUserMetaActions } from "../redux/actions/user-meta";
 import { createActions as createTeamActions } from "../redux/actions/team";
 import { createActions as createMapKeyActions } from "../redux/actions/map-key";
+import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
 
 // Types
 import { UserMetaState } from "../redux/actions/user-meta";
@@ -27,6 +29,7 @@ import { Team } from "../redux/actions/team";
 import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import Redux from "redux";
 import { Key } from "../redux/actions/map-key";
+import { Member } from "../redux/actions/team-member";
 
 type OwnProps = {};
 type StateProps = {
@@ -42,6 +45,7 @@ type DispatchProps = {
   setUserAvatar: (avatarImage: string | void) => void;
   setTeamAvatar: (teamIndex: number, avatarImage: string | void) => void;
   setMapKeys: (teamId: string, keys: Key[]) => void;
+  setTeamMembers: (teamId: string, members: Member[]) => void;
   markMapKeyError: (teamId: string) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
@@ -97,6 +101,7 @@ export class AuthContainer extends React.Component<Props, State> {
       // do not await then.
       this.loadAvatars(userMeta, teamsWithoutDeleted);
       this.loadMapKeys(session, teamIds);
+      this.loadTeamMembers(session, teamIds);
     } catch (error) {
       console.error(error);
       this.props.serverTrouble();
@@ -155,6 +160,23 @@ export class AuthContainer extends React.Component<Props, State> {
     return Promise.all(teamIds.map(teamId => handleListKeys(teamId)));
   };
 
+  loadTeamMembers = (
+    session: AmazonCognitoIdentity.CognitoUserSession,
+    teamIds: string[]
+  ) => {
+    const handleListTeamMembers = (teamId: string) => {
+      return listTeamMembers(session, teamId)
+        .then((members: Member[]) => {
+          this.props.setTeamMembers(teamId, members);
+        })
+        .catch(err => {
+          console.error(err);
+        });
+    };
+
+    return Promise.all(teamIds.map(teamId => handleListTeamMembers(teamId)));
+  };
+
   render() {
     const { children } = this.props;
     return <>{children}</>;
@@ -181,6 +203,8 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
     dispatch(createTeamActions.setAvatar(teamIndex, avatarImage)),
   setMapKeys: (teamId: string, keys: Key[]) =>
     dispatch(createMapKeyActions.set(teamId, keys)),
+  setTeamMembers: (teamId: string, members: Member[]) =>
+    dispatch(createTeamMemberActions.set(teamId, members)),
   markMapKeyError: (teamId: string) =>
     dispatch(createMapKeyActions.markError(teamId))
 });

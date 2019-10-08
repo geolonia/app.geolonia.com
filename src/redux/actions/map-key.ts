@@ -112,18 +112,22 @@ export const reducer = (state: State = initialState, action: MapKeyAction) => {
       }
     };
   } else if (isAddAction(action)) {
+    const { teamId, key } = action.payload;
+    const mapKeyObject = state[teamId] || { data: [] };
     return {
       ...state,
-      [action.payload.teamId]: {
-        ...state[action.payload.teamId],
-        data: [...state[action.payload.teamId].data, action.payload.key]
+      [teamId]: {
+        ...mapKeyObject,
+        data: [...mapKeyObject.data, key]
       }
     };
   } else if (isUpdateAction(action)) {
-    const nextKeyIndex = state[action.payload.teamId].data
+    const { teamId, mapKey } = action.payload;
+    const mapKeyObject = state[teamId] || { data: [] };
+    const nextKeyIndex = mapKeyObject.data
       .map(key => key.userKey)
-      .indexOf(action.payload.mapKey);
-    const nextKeys = [...state[action.payload.teamId].data];
+      .indexOf(mapKey);
+    const nextKeys = [...mapKeyObject.data];
     nextKeys[nextKeyIndex] = {
       ...nextKeys[nextKeyIndex],
       ...action.payload.key
@@ -131,22 +135,24 @@ export const reducer = (state: State = initialState, action: MapKeyAction) => {
 
     return {
       ...state,
-      [action.payload.teamId]: {
-        ...state[action.payload.teamId],
+      [teamId]: {
+        ...state[teamId],
         data: nextKeys
       }
     };
   } else if (isDeleteAction(action)) {
-    const nextKeyIndex = state[action.payload.teamId].data
+    const { teamId, mapKey } = action.payload;
+    const mapKeyObject = state[teamId] || { data: [] };
+    const nextKeyIndex = mapKeyObject.data
       .map(key => key.userKey)
-      .indexOf(action.payload.mapKey);
-    const nextKeys = [...state[action.payload.teamId].data];
+      .indexOf(mapKey);
+    const nextKeys = [...mapKeyObject.data];
     nextKeys.splice(nextKeyIndex, 1);
 
     return {
       ...state,
-      [action.payload.teamId]: {
-        ...state[action.payload.teamId],
+      [teamId]: {
+        ...state[teamId],
         data: nextKeys
       }
     };
