@@ -15,9 +15,9 @@ export type GLOBAL_UTIL_ACITON = {
 export const appendReduxifyReducers: Redux.Reducer = (
   reducerMapObjects: Redux.ReducersMapObject
 ) => {
-  const result: any = {};
+  const result: Redux.ReducersMapObject = {};
   for (let key in reducerMapObjects) {
-    result[key] = (state: any, action: any) => {
+    result[key] = (state: any, action: Redux.AnyAction) => {
       const nextState = reducerMapObjects[key](state, action);
 
       if (
