@@ -3,11 +3,11 @@ import reduxify from "../../redux/reduxify";
 
 export const Sample = (props: any) => {
   const [name, setName] = React.useState("");
-  const propName = props.state.userMeta.name;
+  const propName = props.appState.userMeta.name;
   React.useEffect(() => setName(propName), [propName]);
 
   const onUpdateClick = () => {
-    props.setState({ userMeta: { ...props.state.userMeta, name } });
+    props.setAppState({ userMeta: { ...props.appState.userMeta, name } });
   };
 
   return (
