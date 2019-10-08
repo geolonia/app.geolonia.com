@@ -12,7 +12,7 @@ import GISs from "./Data/GISs";
 import GIS from "./Data/GIS";
 
 import General from "./Team/general";
-import Members from "./Team/Members";
+import Members from "./Team/members";
 import Billing from "./Team/Billing";
 
 import User from "./User/User";
