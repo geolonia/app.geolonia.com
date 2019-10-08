@@ -1,4 +1,4 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
+import { createStore, combineReducers } from "redux";
 import {
   reducer as authSupportReducer,
   AuthSupportState
@@ -37,11 +37,5 @@ const appReducer = combineReducers(
   })
 );
 
-// middleware
-export const middleware: Redux.Middleware = store => next => action => {
-  // console.log(action);
-  return next(action);
-};
-
 // store
-export default createStore(appReducer, applyMiddleware(middleware));
+export default createStore(appReducer);

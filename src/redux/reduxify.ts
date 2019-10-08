@@ -1,31 +1,40 @@
 import { connect } from "react-redux";
 import { AppState } from "./store";
 import Redux from "redux";
-import { reducer } from "./actions/user-meta";
 
-type AppStateCompositionKey = keyof AppState;
-type ReduxifySetStateParam = { [key in AppStateCompositionKey]: any };
+export const REDUXIFY = "UTIL/REDIXFY";
 
-export const GLOBAL_UTIL_ACTION_TYPE = "UTIL/REDIXFY";
-export type GLOBAL_UTIL_ACITON = {
-  type: typeof GLOBAL_UTIL_ACTION_TYPE;
-  payload: { key: string; nextLocalState: any };
+export type ReduxifyAction = {
+  type: typeof REDUXIFY;
+  payload: {
+    key: keyof AppState;
+    state: any;
+  };
 };
+
+type StateProps = { appState: AppState };
+type DispatchProps = {
+  dispatch: Redux.Dispatch;
+  setAppState: (nextAppState: Partial<AppState>) => void;
+};
+
+export type ReduxifyProps = StateProps & DispatchProps;
+
+const isReduxifyAction = (action: Redux.AnyAction): action is ReduxifyAction =>
+  action.type === REDUXIFY && action.payload && !!action.payload.state;
 
 export const appendReduxifyReducers: Redux.Reducer = (
   reducerMapObjects: Redux.ReducersMapObject
 ) => {
   const result: Redux.ReducersMapObject = {};
+
   for (let key in reducerMapObjects) {
+    // Proxy all reducer composition
     result[key] = (state: any, action: Redux.AnyAction) => {
       const nextState = reducerMapObjects[key](state, action);
 
-      if (
-        action.type === GLOBAL_UTIL_ACTION_TYPE &&
-        key === action.payload.key &&
-        action.payload.nextLocalState
-      ) {
-        return action.payload.nextLocalState;
+      if (isReduxifyAction(action) && key === action.payload.key) {
+        return action.payload.state;
       } else {
         return nextState;
       }
@@ -35,23 +44,26 @@ export const appendReduxifyReducers: Redux.Reducer = (
 };
 
 const reduxify = (MyComponent: any) => {
-  const mapStateToProps = (appState: AppState) => {
+  const mapStateToProps = (appState: AppState): StateProps => {
     return { appState };
   };
-  const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
+  const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => {
     return {
       dispatch,
-      setAppState: (param: ReduxifySetStateParam) => {
-        (Object.keys(param) as AppStateCompositionKey[]).forEach(key => {
-          param[key] &&
+      setAppState: (nextAppState: Partial<AppState>) => {
+        (Object.keys(nextAppState) as (keyof AppState)[]).forEach(key => {
+          const state = nextAppState[key];
+          if (state) {
             dispatch({
-              type: GLOBAL_UTIL_ACTION_TYPE,
-              payload: { key, nextLocalState: param[key] }
+              type: REDUXIFY,
+              payload: { key, state }
             });
+          }
         });
       }
     };
   };
+
   return connect(
     mapStateToProps,
     mapDispatchToProps

@@ -1,7 +1,10 @@
 import React from "react";
-import reduxify from "../../redux/reduxify";
+import reduxify, { ReduxifyProps } from "../../redux/reduxify";
 
-export const Sample = (props: any) => {
+type OwnProps = {};
+type Props = OwnProps & ReduxifyProps;
+
+export const Sample = (props: Props) => {
   const [name, setName] = React.useState("");
   const propName = props.appState.userMeta.name;
   React.useEffect(() => setName(propName), [propName]);
@@ -9,6 +12,8 @@ export const Sample = (props: any) => {
   const onUpdateClick = () => {
     props.setAppState({ userMeta: { ...props.appState.userMeta, name } });
   };
+
+  console.log(props.appState);
 
   return (
     <div>
