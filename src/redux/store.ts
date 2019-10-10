@@ -13,6 +13,9 @@ import {
   reducer as teamMemberReducer,
   State as TeamMemberState
 } from "./actions/team-member";
+import Redux from "redux";
+
+import { appendReduxifyReducers } from "./reduxify";
 
 // app type
 export type AppState = {
@@ -23,13 +26,16 @@ export type AppState = {
   teamMember: TeamMemberState;
 };
 
-const appReducer = combineReducers({
-  authSupport: authSupportReducer,
-  userMeta: userMetaReducer,
-  team: teamReducer,
-  mapKey: mapKeyReducer,
-  teamMember: teamMemberReducer
-});
+const appReducer = combineReducers(
+  // @ts-ignore
+  appendReduxifyReducers({
+    authSupport: authSupportReducer,
+    userMeta: userMetaReducer,
+    team: teamReducer,
+    mapKey: mapKeyReducer,
+    teamMember: teamMemberReducer
+  })
+);
 
 // store
 export default createStore(appReducer);
