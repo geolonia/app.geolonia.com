@@ -22,6 +22,8 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
+import Cancel from "./custom/Cancel";
+import Save from "./custom/Save";
 
 import "./Navigator.scss";
 import defaultTeamIcon from "./custom/team.svg";
@@ -186,15 +188,13 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
   const saveHandler = () => {
     const { session } = props;
-    // TODO: error handling
-    session &&
-      createTeam(session, newTeamName, billingEmail).then(team => {
-        addTeam(team);
-        handleClose();
-        const nextTeamIndex = props.teams.length;
-        props.selectTeam(nextTeamIndex);
-        window.location.hash = "#/team/general";
-      });
+    return createTeam(session, newTeamName, billingEmail).then(team => {
+      addTeam(team);
+      handleClose();
+      const nextTeamIndex = props.teams.length;
+      props.selectTeam(nextTeamIndex);
+      window.location.hash = "#/team/general";
+    });
   };
 
   return (
@@ -312,20 +312,11 @@ const Navigator: React.FC<Props> = (props: Props) => {
               value={billingEmail}
               onChange={e => setBillingEmail(e.target.value)}
             />
-            <p className="mute">We’ll send receipts to this inbox.</p>
+            <p className="mute">{__("We’ll send receipts to this inbox.")}</p>
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              {__("Cancel")}
-            </Button>
-            <Button
-              onClick={saveHandler}
-              color="primary"
-              type="submit"
-              disabled={!newTeamName || !billingEmail}
-            >
-              {__("Save")}
-            </Button>
+            <Cancel handler={handleClose}></Cancel>
+            <Save onClick={saveHandler}></Save>
           </DialogActions>
         </Dialog>
       </form>
