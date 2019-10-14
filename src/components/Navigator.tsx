@@ -190,6 +190,10 @@ const Navigator: React.FC<Props> = (props: Props) => {
         addTeam(team);
         setNewTeamName(initialValueForNewTeamName);
         handleClose();
+        const nextTeamIndex = props.teams.length
+        props.selectTeam(nextTeamIndex)
+        window.location.hash = "#/team/general"
+        // props.history.push('/team/general')
       });
   };
 
