@@ -180,6 +180,8 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
   const handleClose = () => {
     setOpen(false);
+    setNewTeamName(initialValueForNewTeamName);
+    setBillingEmail("");
   };
 
   const saveHandler = () => {
@@ -188,11 +190,10 @@ const Navigator: React.FC<Props> = (props: Props) => {
     session &&
       createTeam(session, newTeamName, billingEmail).then(team => {
         addTeam(team);
-        setNewTeamName(initialValueForNewTeamName);
         handleClose();
-        const nextTeamIndex = props.teams.length
-        props.selectTeam(nextTeamIndex)
-        window.location.hash = "#/team/general"
+        const nextTeamIndex = props.teams.length;
+        props.selectTeam(nextTeamIndex);
+        window.location.hash = "#/team/general";
       });
   };
 
