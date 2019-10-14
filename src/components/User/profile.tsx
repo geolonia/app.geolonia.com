@@ -74,13 +74,9 @@ export class Profile extends React.Component<Props, State> {
 
     // this.setState({ status: "requesting" });
 
-    return updateUserMeta(session, nextUserMeta)
-      .then(() => {
-        this.props.setUserMetaState(nextUserMeta);
-      })
-      .catch(err => {
-        console.error(err);
-      });
+    return updateUserMeta(session, nextUserMeta).then(() => {
+      this.props.setUserMetaState(nextUserMeta);
+    });
   };
 
   timezones = momentTimeZone.tz.names();
@@ -154,7 +150,7 @@ export class Profile extends React.Component<Props, State> {
         </FormControl>
 
         {/* TODO: show loading */}
-        <Save handler={this.onSaveClick} />
+        <Save onClick={this.onSaveClick} />
       </>
     );
   }

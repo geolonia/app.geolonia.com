@@ -129,15 +129,13 @@ const Content = (props: Props) => {
       allowedOrigins: normalizedAllowedOrigins
     };
 
-    return updateKey(props.session, props.teamId, apiKey, nextKey)
-      .then(() => {
-        props.updateKey(props.teamId, apiKey, nextKey);
-        setStatus("success");
-      })
-      .catch(err => {
-        setStatus("failure");
-      });
+    return updateKey(props.session, props.teamId, apiKey, nextKey).then(() => {
+      props.updateKey(props.teamId, apiKey, nextKey);
+      setStatus("success");
+    });
   };
+
+  const onRequestError = () => setStatus("failure");
 
   const deleteHandler = (event: React.MouseEvent) => {
     setStatus("requesting");
@@ -193,7 +191,7 @@ const Content = (props: Props) => {
             ></Interweave>
           </Help>
 
-          <Save handler={saveHandler} />
+          <Save onClick={saveHandler} onError={onRequestError} />
 
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">

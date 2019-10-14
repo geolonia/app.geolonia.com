@@ -123,7 +123,7 @@ const Content = (props: Props) => {
       />
       <p className="mute">We’ll send receipts to this inbox.</p>
 
-      <Save handler={onSaveClick} disabled={Object.keys(draft).length === 0} />
+      <Save onClick={onSaveClick} disabled={Object.keys(draft).length === 0} />
     </>
   );
 };
