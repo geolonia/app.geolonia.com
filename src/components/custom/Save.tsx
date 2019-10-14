@@ -13,7 +13,8 @@ import { __ } from "@wordpress/i18n";
 type Props = {
   label: string;
   style: React.CSSProperties;
-  handler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<any>;
+  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<any>;
+  onError: (err: Error) => any;
   disabled?: boolean;
 };
 
@@ -35,7 +36,7 @@ const Save = (props: Props) => {
   ) => {
     setStatus("working");
     props
-      .handler(event)
+      .onClick(event)
       .then(() => {
         setStatus("success");
         setOpen(true);
@@ -43,7 +44,7 @@ const Save = (props: Props) => {
       .catch(err => {
         setStatus("failure");
         setOpen(true);
-        throw err; // Parent should handle me
+        props.onError(err);
       });
   };
 
@@ -109,8 +110,11 @@ const Save = (props: Props) => {
 Save.defaultProps = {
   label: __("Save"),
   style: {},
-  handler: (event: React.MouseEvent) => {
+  onClick: (event: React.MouseEvent) => {
     console.log(event);
+  },
+  onError: (err: Error) => {
+    console.error(err);
   }
 };
 

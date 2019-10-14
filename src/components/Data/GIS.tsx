@@ -265,7 +265,7 @@ const Content = () => {
                 )}
               />
             </Typography>
-            <Save handler={saveHandler} style={StyleSaveButton} />
+            <Save onClick={saveHandler} style={StyleSaveButton} />
           </Paper>
 
           <Paper style={cardStyle}>
