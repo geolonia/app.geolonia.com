@@ -193,7 +193,6 @@ const Navigator: React.FC<Props> = (props: Props) => {
         const nextTeamIndex = props.teams.length
         props.selectTeam(nextTeamIndex)
         window.location.hash = "#/team/general"
-        // props.history.push('/team/general')
       });
   };
 
