@@ -143,7 +143,6 @@ export class Profile extends React.Component<Props, State> {
           </Select>
         </FormControl>
 
-        {/* TODO: show loading */}
         <Save onClick={this.onSaveClick} />
       </>
     );
