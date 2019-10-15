@@ -16,7 +16,7 @@ type OwnProps = {};
 type Props = OwnProps & ReduxifyProps;
 
 type State = {
-  userMeta: Pick<UserMetaState, "name" | "language" | "timezone">;
+  user: Pick<UserMetaState, "name" | "language" | "timezone">;
   email: string;
   username: string;
 };
@@ -32,7 +32,7 @@ export class Profile extends React.Component<Props, State> {
     const { session } = this.props;
     const payload = session ? session.getIdToken().payload : {};
     this.state = {
-      userMeta: {
+      user: {
         name: props.user.name,
         language: props.user.language,
         timezone: props.user.timezone || momentTimeZone.tz.guess()
@@ -44,7 +44,7 @@ export class Profile extends React.Component<Props, State> {
 
   _setUserMeta = (key: keyof UserMetaState, value: string) => {
     this.setState({
-      userMeta: { ...this.state.userMeta, [key]: value }
+      user: { ...this.state.user, [key]: value }
     });
   };
 
@@ -60,7 +60,7 @@ export class Profile extends React.Component<Props, State> {
 
   onSaveClick = (e: any) => {
     const { session, user } = this.props;
-    const nextUserMeta = { ...user, ...this.state.userMeta };
+    const nextUserMeta = { ...user, ...this.state.user };
 
     return updateUserMeta(session, nextUserMeta).then(() => {
       this.props.updateUser(nextUserMeta);
@@ -74,10 +74,8 @@ export class Profile extends React.Component<Props, State> {
   timezones = momentTimeZone.tz.names();
 
   render() {
-    const { team, user } = this.props;
-
     const {
-      userMeta: { name, language, timezone },
+      user: { name, language, timezone },
       email,
       username
     } = this.state;
