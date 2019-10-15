@@ -5,33 +5,22 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Save from "../custom/Save";
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { connect } from "react-redux";
-import { AppState } from "../../redux/store";
-import {
-  UserMetaState,
-  createActions as createUserMetaActions
-} from "../../redux/actions/user-meta";
+import { UserMetaState } from "../../redux/actions/user-meta";
 import updateUserMeta from "../../api/users/update";
-import Redux from "redux";
 import { __ } from "@wordpress/i18n";
 import momentTimeZone from "moment-timezone";
+import reduxify, { ReduxifyProps } from "../../redux/reduxify";
 
 type OwnProps = {};
-type MappedStateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
-  userMeta: UserMetaState;
-};
-type DispatchProps = {
-  setUserMetaState: (userMeta: UserMetaState) => void;
-};
-type Props = MappedStateProps & OwnProps & DispatchProps;
+
+type Props = OwnProps & ReduxifyProps;
 
 type State = {
-  userMeta: UserMetaState;
+  userMeta: Pick<UserMetaState, "name" | "language" | "timezone">;
   email: string;
   username: string;
 };
+
 const selectStyle: React.CSSProperties = {
   marginTop: "16px",
   marginBottom: "8px"
@@ -44,8 +33,9 @@ export class Profile extends React.Component<Props, State> {
     const payload = session ? session.getIdToken().payload : {};
     this.state = {
       userMeta: {
-        ...props.userMeta,
-        timezone: props.userMeta.timezone || momentTimeZone.tz.guess()
+        name: props.user.name,
+        language: props.user.language,
+        timezone: props.user.timezone || momentTimeZone.tz.guess()
       },
       username: payload["cognito:username"] || "",
       email: payload.email || ""
@@ -69,19 +59,23 @@ export class Profile extends React.Component<Props, State> {
   onTimezoneChange = (e: any) => this._setUserMeta("timezone", e.target.value);
 
   onSaveClick = (e: any) => {
-    const { session } = this.props;
-    const nextUserMeta = this.state.userMeta;
-
-    // this.setState({ status: "requesting" });
+    const { session, user } = this.props;
+    const nextUserMeta = { ...user, ...this.state.userMeta };
 
     return updateUserMeta(session, nextUserMeta).then(() => {
-      this.props.setUserMetaState(nextUserMeta);
+      this.props.updateUser(nextUserMeta);
+      // wait to show success effect
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     });
   };
 
   timezones = momentTimeZone.tz.names();
 
   render() {
+    const { team, user } = this.props;
+
     const {
       userMeta: { name, language, timezone },
       email,
@@ -156,17 +150,4 @@ export class Profile extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: AppState) => ({
-  session: state.authSupport.session,
-  userMeta: state.userMeta
-});
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
-  setUserMetaState: (userMeta: UserMetaState) =>
-    dispatch(createUserMetaActions.set(userMeta))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Profile);
+export default reduxify(Profile);
