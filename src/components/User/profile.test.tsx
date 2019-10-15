@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import { Profile } from "./profile";
 import { UserMetaState } from "../../redux/actions/user-meta";
 import { cleanup, render } from "@testing-library/react";
-import { nextTick } from "q";
 
 // test assets
 const noop = () => void 0;
@@ -14,6 +13,7 @@ const userMeta: UserMetaState = {
   links: { getAvatar: "", putAvatar: "" },
   avatarImage: undefined
 };
+const team = { teamId: "aaa" };
 const mockSession: any = {
   getIdToken: () => ({
     decodePayload: () => ({ sub: "mock-sub" }),
@@ -24,7 +24,8 @@ const mockSession: any = {
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
-  ReactDOM.render(<Profile userMeta={userMeta} setUserMetaState={noop} />, div);
+  // @ts-ignore
+  ReactDOM.render(<Profile user={userMeta} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
 
@@ -40,18 +41,15 @@ describe("DOM testing", () => {
 
     const setHandler = jest.fn(noop);
     const renderResult = render(
-      <Profile
-        userMeta={userMeta}
-        setUserMetaState={setHandler}
-        session={mockSession}
-      />
+      // @ts-ignore
+      <Profile user={userMeta} updateUser={setHandler} session={mockSession} />
     );
 
     return new Promise((resolve, reject) => {
       renderResult.findByText("Save").then(saveButton => {
         saveButton.click();
         // wait event loop
-        nextTick(() => {
+        process.nextTick(() => {
           expect(setHandler).toBeCalled();
           resolve();
         });
