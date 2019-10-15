@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import PersonIcon from "@material-ui/icons/Person";
 import Avatar from "@material-ui/core/Avatar";
+import { CircularProgress } from "@material-ui/core";
 
 // redux
 import { connect } from "react-redux";
@@ -14,6 +15,9 @@ import { createActions as createUserMetaActions } from "../../redux/actions/user
 // utils
 import { __ } from "@wordpress/i18n";
 
+// API
+import putAvatar from "../../api/users/put-avatar";
+
 // types
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { UserMetaState } from "../../redux/actions/user-meta";
@@ -21,6 +25,7 @@ import { AppState } from "../../redux/store";
 
 type OwnProps = {};
 type StateProps = {
+  session?: AmazonCognitoIdentity.CognitoUserSession;
   userMeta: UserMetaState;
 };
 type DispatchProps = {
@@ -63,17 +68,11 @@ export class AvatarSection extends React.Component<Props, State> {
       const file = e.target.files[0];
       const avatarUrl = URL.createObjectURL(file);
       const prevAvatarUrl = this.props.userMeta.avatarImage;
-      this.props.setAvatar(avatarUrl);
       this.setState({ status: "requesting" });
 
-      fetch(this.props.userMeta.links.putAvatar, {
-        method: "PUT",
-        headers: {
-          "Content-Type": file.type
-        },
-        body: file
-      })
+      putAvatar(this.props.session, file)
         .then(() => {
+          this.props.setAvatar(avatarUrl);
           this.setState({ status: "success" });
         })
         .catch(err => {
@@ -91,7 +90,13 @@ export class AvatarSection extends React.Component<Props, State> {
     return (
       <Typography component="div" align="center">
         {avatarImage ? (
-          <Avatar src={avatarImage} style={ProfileImageStyle}></Avatar>
+          <Avatar
+            src={avatarImage}
+            style={{
+              ...ProfileImageStyle,
+              opacity: this.state.status === "requesting" ? 0.6 : 1
+            }}
+          ></Avatar>
         ) : (
           <PersonIcon style={ProfileImageStyle} />
         )}
@@ -101,6 +106,9 @@ export class AvatarSection extends React.Component<Props, State> {
           color="default"
           onClick={this.onUploadClick}
         >
+          {this.state.status === "requesting" && (
+            <CircularProgress size={16} style={{ marginRight: 8 }} />
+          )}
           {__("Upload new picture")}
         </Button>
         <input
@@ -117,6 +125,7 @@ export class AvatarSection extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: AppState): StateProps => ({
+  session: state.authSupport.session,
   userMeta: state.userMeta
 });
 
