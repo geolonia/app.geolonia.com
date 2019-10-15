@@ -86,6 +86,29 @@ import MyComponent from "path/to/my-component";
 ReactDOM.render(<MyComponent ownValue={"hello"} />);
 ```
 
+### The alternative
+
+Sample to use `reduxify` container and simplify the connection between the global Redux store and local components
+
+```typescript
+import reduxify, { ReduxifyProps } from "src/redux/reduxify";
+
+type OwnProps = {};
+type Props = OwnProps & ReduxifyProps;
+
+export class MyComponent extends React.Component {
+  render() {
+    const { appState, setAppState } = this.props;
+    // appState: AppState
+    // setAppState: (nextState: Partial<AppState>) => void
+    return <>{/* ... */}</>;
+  }
+}
+
+const ConnetctedMyComponent = reduxify(MyComponent);
+export default ConnectedMyComponent;
+```
+
 ## i18n
 
 Make pot:
