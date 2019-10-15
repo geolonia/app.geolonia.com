@@ -8,40 +8,19 @@ import Avatar from "@material-ui/core/Avatar";
 import { CircularProgress } from "@material-ui/core";
 
 // redux
-import { connect } from "react-redux";
-import Redux from "redux";
-import { createActions as createUserMetaActions } from "../../redux/actions/user-meta";
+import connect, { StateProps, DispatchProps } from "./connect";
 
 // utils
 import { __ } from "@wordpress/i18n";
 
 // API
-import putAvatar from "../../api/users/put-avatar";
-
-// types
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { UserMetaState } from "../../redux/actions/user-meta";
-import { AppState } from "../../redux/store";
+import putAvatar from "../../../api/users/put-avatar";
 
 type OwnProps = {};
-type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
-  userMeta: UserMetaState;
-};
-type DispatchProps = {
-  setAvatar: (avatarBlobUrl: string | void) => void;
-};
 type Props = OwnProps & StateProps & DispatchProps;
 type State = {
   status: false | "requesting" | "success" | "failure";
   isFileAPISupported: boolean;
-};
-
-const ProfileImageStyle: React.CSSProperties = {
-  width: "250px",
-  height: "auto",
-  fill: "#dedede",
-  margin: "auto"
 };
 
 export class AvatarSection extends React.Component<Props, State> {
@@ -87,6 +66,13 @@ export class AvatarSection extends React.Component<Props, State> {
       userMeta: { avatarImage }
     } = this.props;
 
+    const ProfileImageStyle: React.CSSProperties = {
+      width: "250px",
+      height: "auto",
+      fill: "#dedede",
+      margin: "auto"
+    };
+
     return (
       <Typography component="div" align="center">
         {avatarImage ? (
@@ -124,16 +110,4 @@ export class AvatarSection extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: AppState): StateProps => ({
-  session: state.authSupport.session,
-  userMeta: state.userMeta
-});
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setAvatar: blobUrl => dispatch(createUserMetaActions.setAvatar(blobUrl))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AvatarSection);
+export default connect(AvatarSection);
