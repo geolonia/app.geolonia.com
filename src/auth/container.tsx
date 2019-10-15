@@ -30,6 +30,7 @@ import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import Redux from "redux";
 import { Key } from "../redux/actions/map-key";
 import { Member } from "../redux/actions/team-member";
+import { SELECTED_TEAM_ID } from "../redux/middlewares/local-storage";
 
 type OwnProps = {};
 type StateProps = {
@@ -42,6 +43,7 @@ type DispatchProps = {
   ready: () => void;
   setUserMeta: (userMeta: UserMetaState) => void;
   setTeams: (teams: Team[]) => void;
+  selectTeam: (index: number) => void;
   setUserAvatar: (avatarImage: string | void) => void;
   setTeamAvatar: (teamIndex: number, avatarImage: string | void) => void;
   setMapKeys: (teamId: string, keys: Key[]) => void;
@@ -68,6 +70,16 @@ const fundamentalAPILoads = (
     teams,
     userMeta
   }));
+};
+
+const getTeamIdToSelect = async (teams: Team[]) => {
+  const prevTeamId = localStorage.getItem(SELECTED_TEAM_ID) || "";
+  const teamIndex = teams.map(team => team.teamId).indexOf(prevTeamId);
+  if (teamIndex > -1) {
+    return teamIndex;
+  } else {
+    return 0;
+  }
 };
 
 export class AuthContainer extends React.Component<Props, State> {
@@ -102,6 +114,7 @@ export class AuthContainer extends React.Component<Props, State> {
       this.loadAvatars(userMeta, teamsWithoutDeleted);
       this.loadMapKeys(session, teamIds);
       this.loadTeamMembers(session, teamIds);
+      getTeamIdToSelect(teamsWithoutDeleted).then(this.props.selectTeam);
     } catch (error) {
       console.error(error);
       this.props.serverTrouble();
@@ -188,25 +201,22 @@ const mapStateToProps = (state: AppState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setSession: (session: AmazonCognitoIdentity.CognitoUserSession) =>
-    dispatch(createAuthSupportActions.setSession(session)),
-  setAccessToken: (accessToken: string) =>
+  setSession: session => dispatch(createAuthSupportActions.setSession(session)),
+  setAccessToken: accessToken =>
     dispatch(createAuthSupportActions.setAccessToken(accessToken)),
   serverTrouble: () => dispatch(createAuthSupportActions.encounterTrouble()),
   ready: () => dispatch(createAuthSupportActions.ready()),
-  setUserMeta: (userMeta: UserMetaState) =>
-    dispatch(createUserMetaActions.set(userMeta)),
-  setTeams: (teams: Team[]) => dispatch(createTeamActions.set(teams)),
+  setUserMeta: userMeta => dispatch(createUserMetaActions.set(userMeta)),
+  setTeams: teams => dispatch(createTeamActions.set(teams)),
+  selectTeam: index => dispatch(createTeamActions.select(index)),
   setUserAvatar: avatarImage =>
     dispatch(createUserMetaActions.setAvatar(avatarImage)),
-  setTeamAvatar: (teamIndex: number, avatarImage) =>
+  setTeamAvatar: (teamIndex, avatarImage) =>
     dispatch(createTeamActions.setAvatar(teamIndex, avatarImage)),
-  setMapKeys: (teamId: string, keys: Key[]) =>
-    dispatch(createMapKeyActions.set(teamId, keys)),
-  setTeamMembers: (teamId: string, members: Member[]) =>
+  setMapKeys: (teamId, keys) => dispatch(createMapKeyActions.set(teamId, keys)),
+  setTeamMembers: (teamId, members) =>
     dispatch(createTeamMemberActions.set(teamId, members)),
-  markMapKeyError: (teamId: string) =>
-    dispatch(createMapKeyActions.markError(teamId))
+  markMapKeyError: teamId => dispatch(createMapKeyActions.markError(teamId))
 });
 
 export default connect(
