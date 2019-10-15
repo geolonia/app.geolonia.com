@@ -4,11 +4,16 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import defaultTeamIcon from "../../custom/team.svg";
+import { CircularProgress } from "@material-ui/core";
 
 // utils
 import { __ } from "@wordpress/i18n";
 
+// API
+import putAvatar from "../../../api/teams/put-avatar";
+
 // types
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { AppState } from "../../../redux/store";
 import { Team } from "../../../redux/actions/team";
 
@@ -19,6 +24,7 @@ import { connect } from "react-redux";
 
 type OwnProps = {};
 type StateProps = {
+  session?: AmazonCognitoIdentity.CognitoUserSession;
   team: Team;
   index: number;
 };
@@ -47,17 +53,11 @@ const Content = (props: Props) => {
       const file = e.target.files[0];
       const avatarUrl = URL.createObjectURL(file);
       const prevAvatarUrl = props.team.avatarImage;
-      props.setAvatar(props.index, avatarUrl);
       setStatus("requesting");
 
-      fetch(props.team.links.putAvatar, {
-        method: "PUT",
-        headers: {
-          "Content-Type": file.type
-        },
-        body: file
-      })
+      putAvatar(props.session, props.team.teamId, file)
         .then(() => {
+          props.setAvatar(props.index, avatarUrl);
           setStatus("success");
         })
         .catch(err => {
@@ -80,7 +80,10 @@ const Content = (props: Props) => {
       <Typography component="p" align="center">
         <img
           src={props.team.avatarImage || defaultTeamIcon}
-          style={ProfileImageStyle}
+          style={{
+            ...ProfileImageStyle,
+            opacity: status === "requesting" ? 0.6 : 1
+          }}
           alt=""
         />
         <br />
@@ -90,6 +93,9 @@ const Content = (props: Props) => {
           onClick={onUploadClick}
           disabled={!isUploadEnabled}
         >
+          {status === "requesting" && (
+            <CircularProgress size={16} style={{ marginRight: 8 }} />
+          )}
           {__("Upload new picture")}
         </Button>
         <input
@@ -106,6 +112,7 @@ const Content = (props: Props) => {
 };
 
 const mapStateToProps = (state: AppState): StateProps => ({
+  session: state.authSupport.session,
   team: state.team.data[state.team.selectedIndex],
   index: state.team.selectedIndex
 });
