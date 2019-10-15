@@ -1,4 +1,4 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import {
   reducer as authSupportReducer,
   AuthSupportState
@@ -13,9 +13,9 @@ import {
   reducer as teamMemberReducer,
   State as TeamMemberState
 } from "./actions/team-member";
-import Redux from "redux";
 
 import { appendReduxifyReducers } from "./reduxify";
+import localStorageMiddleware from "./middlewares/local-storage";
 
 // app type
 export type AppState = {
@@ -38,4 +38,4 @@ const appReducer = combineReducers(
 );
 
 // store
-export default createStore(appReducer);
+export default createStore(appReducer, applyMiddleware(localStorageMiddleware));
