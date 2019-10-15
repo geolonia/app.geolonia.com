@@ -28,7 +28,7 @@ type DispatchProps = {
 type Props = MappedStateProps & OwnProps & DispatchProps;
 
 type State = {
-  userMeta: UserMetaState;
+  userMeta: Omit<UserMetaState, "avatarImage" | "links">;
   email: string;
   username: string;
 };
@@ -44,7 +44,8 @@ export class Profile extends React.Component<Props, State> {
     const payload = session ? session.getIdToken().payload : {};
     this.state = {
       userMeta: {
-        ...props.userMeta,
+        name: props.userMeta.name,
+        language: props.userMeta.language,
         timezone: props.userMeta.timezone || momentTimeZone.tz.guess()
       },
       username: payload["cognito:username"] || "",
@@ -70,12 +71,14 @@ export class Profile extends React.Component<Props, State> {
 
   onSaveClick = (e: any) => {
     const { session } = this.props;
-    const nextUserMeta = this.state.userMeta;
-
-    // this.setState({ status: "requesting" });
+    const nextUserMeta = { ...this.props.userMeta, ...this.state.userMeta };
 
     return updateUserMeta(session, nextUserMeta).then(() => {
       this.props.setUserMetaState(nextUserMeta);
+      // wait to show success effect
+      setTimeout(() => {
+        window.location.reload();
+      }, 500);
     });
   };
 
@@ -149,7 +152,6 @@ export class Profile extends React.Component<Props, State> {
           </Select>
         </FormControl>
 
-        {/* TODO: show loading */}
         <Save onClick={this.onSaveClick} />
       </>
     );
