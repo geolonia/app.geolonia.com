@@ -47,7 +47,7 @@ type TeamAction =
 const isSetAction = (action: TeamAction): action is SetAction =>
   action.type === SET_ACTION;
 
-const isSelectAction = (action: TeamAction): action is SelectAction =>
+export const isSelectAction = (action: TeamAction): action is SelectAction =>
   action.type === SELECT_ACTION;
 
 const isAddAction = (action: TeamAction): action is AddAction =>
