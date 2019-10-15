@@ -1,3 +1,6 @@
+// reduxify コンテナのサンプルコンポーネント
+// 不要なのでファイルごと削除しても良い
+
 import React from "react";
 import reduxify, { ReduxifyProps } from "../../redux/reduxify";
 
