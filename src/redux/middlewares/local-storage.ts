@@ -10,7 +10,6 @@ const localStorageMiddleware: Middleware = store => next => action => {
     const nextTeam = (store.getState() as AppState).team.data[
       selecttingTeamIndex
     ];
-    console.log(nextTeam);
     if (nextTeam) {
       const nextTeamId = nextTeam.teamId;
       localStorage.setItem(SELECTED_TEAM_ID, nextTeamId);
