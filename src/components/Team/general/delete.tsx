@@ -130,7 +130,10 @@ const Content = (props: Props) => {
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={() => setOpen(false)}
+              onClick={() => {
+                setConfirmation("");
+                setOpen(false);
+              }}
               color="default"
               disabled={status !== false}
             >
