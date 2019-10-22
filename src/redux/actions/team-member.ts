@@ -6,7 +6,10 @@ const ADD = "TEAM_MEMBER/ADD";
 const UPDATE = "TEAM_MEMBER/UPDATE";
 const DELETE = "TEAM_MEMBER/DELETE";
 
-export type Member = UserMetaState & { userSub: string };
+export type Member = UserMetaState & {
+  userSub: string;
+  role: "Owner" | "Member" | "Fired";
+};
 
 export type State = {
   [teamId: string]: {
