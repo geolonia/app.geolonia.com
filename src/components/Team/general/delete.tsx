@@ -57,12 +57,14 @@ const Content = (props: Props) => {
       setStatus("requesting");
       deleteTeam(session, team.teamId)
         .then(() => {
+          setConfirmation("");
           setStatus("success");
           setTimeout(() => {
             window.location.href = "/";
           }, 2000);
         })
         .catch(() => {
+          setConfirmation("");
           setStatus("failure");
           setTimeout(() => {
             setStatus(false);
