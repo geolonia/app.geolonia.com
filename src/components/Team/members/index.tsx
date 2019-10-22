@@ -20,29 +20,13 @@ import { AppState } from "../../../redux/store";
 import { connect } from "react-redux";
 import { Member } from "../../../redux/actions/team-member";
 
-const rows = [
-  {
-    id: 1111,
-    avatar: "https://avatars2.githubusercontent.com/u/309946?s=400&v=4",
-    name: "Taro Yamada",
-    username: "taro",
-    isOwner: true
-  },
-  {
-    id: 1112,
-    avatar: "https://avatars2.githubusercontent.com/u/309946?s=400&v=4",
-    name: "Hanako Yamada",
-    username: "taro",
-    isOwner: false
-  },
-  {
-    id: 1113,
-    avatar: "https://avatars2.githubusercontent.com/u/309946?s=400&v=4",
-    name: "Ichiro Suzuki",
-    username: "taro",
-    isOwner: true
-  }
-];
+type Row = {
+  id: number | string;
+  avatar: string | void;
+  name: string;
+  username: string;
+  isOwner: boolean;
+};
 
 type OwnProps = {};
 type StateProps = {
@@ -52,6 +36,17 @@ type Props = OwnProps & StateProps;
 
 const Content = (props: Props) => {
   const { members } = props;
+
+  const rows: Row[] = members.map(member => {
+    return {
+      id: member.userSub,
+      avatar: member.avatarImage,
+      name: member.name,
+      username: member.username,
+      isOwner: member.role === "Owner"
+    };
+  });
+
   console.log(members);
 
   const firstCellStyle: React.CSSProperties = {
