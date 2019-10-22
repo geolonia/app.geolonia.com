@@ -8,17 +8,25 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
+import { CircularProgress } from "@material-ui/core";
+import CheckIcon from "@material-ui/icons/Check";
 
 import { __ } from "@wordpress/i18n";
 
 type Props = {
   text1: string;
   text2: string;
-  handler: (event: React.MouseEvent) => void;
+  onClick: () => Promise<any>;
+  onFailure: () => void;
+  enable: (inputValue: string) => boolean;
 };
 
 const Delete = (props: Props) => {
   const [open, setOpen] = React.useState(false);
+  const [confirmation, setConfirmation] = React.useState("");
+  const [status, setStatus] = React.useState<
+    false | "working" | "success" | "failure"
+  >(false);
 
   const style = {
     marginTop: "1em",
@@ -30,8 +38,28 @@ const Delete = (props: Props) => {
   }
 
   function handleClose() {
+    setConfirmation("");
     setOpen(false);
   }
+
+  const onButtonClick = () => {
+    if (props.enable(confirmation)) {
+      setStatus("working");
+      props
+        .onClick()
+        .then(() => {
+          setStatus("success");
+        })
+        .catch(() => {
+          setStatus("failure");
+          props.onFailure();
+        })
+        .finally(() => {
+          setConfirmation("");
+          setTimeout(() => setStatus(false), 1000);
+        });
+    }
+  };
 
   return (
     <div>
@@ -65,7 +93,8 @@ const Delete = (props: Props) => {
               name="name"
               label={__("Name")}
               type="text"
-              value=""
+              value={confirmation}
+              onChange={e => setConfirmation(e.target.value)}
               fullWidth
             />
           </DialogContent>
@@ -73,7 +102,21 @@ const Delete = (props: Props) => {
             <Button onClick={handleClose} color="inherit">
               {__("Cancel")}
             </Button>
-            <Button color="secondary" onClick={props.handler} type="submit">
+            <Button
+              color="secondary"
+              onClick={onButtonClick}
+              type="submit"
+              disabled={!props.enable(confirmation)}
+            >
+              {status === "working" ? (
+                <CircularProgress
+                  size={16}
+                  style={{ marginRight: 8 }}
+                  color={"secondary"}
+                />
+              ) : status === "success" ? (
+                <CheckIcon fontSize={"default"} color={"secondary"} />
+              ) : null}
               {__("Delete")}
             </Button>
           </DialogActions>
@@ -84,11 +127,15 @@ const Delete = (props: Props) => {
 };
 
 Delete.defaultProps = {
-  text1: __("Are you sure you want to delete this API key?"),
-  text2: __("Please type in the name of the API key to confirm."),
-  handler: (event: React.MouseEvent) => {
+  text1: __("Are you sure you want to delete this item?"),
+  text2: __("Please type as <code>delete</code> to confirm."),
+  onClick: (event: React.MouseEvent) => {
     console.log(event);
+  },
+  onFailure: () => {},
+  enable: (text: string) => {
+    return text === "delete";
   }
-};
+} as Partial<Props>;
 
 export default Delete;

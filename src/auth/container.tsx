@@ -17,8 +17,14 @@ import delay from "../lib/promise-delay";
 // redux
 import { connect } from "react-redux";
 import { createActions as createAuthSupportActions } from "../redux/actions/auth-support";
-import { createActions as createUserMetaActions } from "../redux/actions/user-meta";
-import { createActions as createTeamActions } from "../redux/actions/team";
+import {
+  createActions as createUserMetaActions,
+  isUserMeta
+} from "../redux/actions/user-meta";
+import {
+  createActions as createTeamActions,
+  isTeam
+} from "../redux/actions/team";
 import { createActions as createMapKeyActions } from "../redux/actions/map-key";
 import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
 
@@ -67,8 +73,8 @@ const fundamentalAPILoads = (
     listTeams(session)
     /*more API loads here*/
   ]).then(([userMeta, teams]) => ({
-    teams,
-    userMeta
+    userMeta,
+    teams
   }));
 };
 
@@ -95,6 +101,15 @@ export class AuthContainer extends React.Component<Props, State> {
         fundamentalAPILoads(session),
         500
       )) as APIResult;
+
+      if (!isUserMeta(userMeta)) {
+        throw new Error("invalid user meta response");
+      }
+
+      if (teams.some(team => !isTeam(team))) {
+        console.log(teams);
+        throw new Error("invalid team response");
+      }
 
       const teamsWithoutDeleted = (Array.isArray(teams) ? teams : []).filter(
         team => !team.isDeleted

@@ -123,7 +123,7 @@ const Content = () => {
     return Promise.resolve();
   };
 
-  const deleteHandler = (event: React.MouseEvent) => {};
+  const deleteHandler = () => Promise.resolve();
 
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw = new MapboxDraw({
@@ -240,7 +240,7 @@ const Content = () => {
               )}
             </p>
             <Delete
-              handler={deleteHandler}
+              onClick={deleteHandler}
               text1={__("Are you sure you want to delete this dataset?")}
               text2={__("Please type in the name of the dataset to confirm.")}
             />

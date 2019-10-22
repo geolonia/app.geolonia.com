@@ -137,17 +137,15 @@ const Content = (props: Props) => {
 
   const onRequestError = () => setStatus("failure");
 
-  const deleteHandler = (event: React.MouseEvent) => {
+  const onClick = () => {
     setStatus("requesting");
-    return deleteKey(props.session, props.teamId, apiKey)
-      .then(() => {
-        setStatus("success");
+    return deleteKey(props.session, props.teamId, apiKey).then(() => {
+      setStatus("success");
+      setTimeout(() => {
         props.history.push("/maps/api-keys");
         props.deleteKey(props.teamId, apiKey);
-      })
-      .catch(err => {
-        setStatus("failure");
-      });
+      }, 2000);
+    });
   };
 
   return (
@@ -202,7 +200,13 @@ const Content = (props: Props) => {
                 "Once you delete an API, there is no going back. Please be certain."
               )}
             </p>
-            <Delete handler={deleteHandler} />
+            <Delete
+              text1={"Are you sure you want to delete this API key?"}
+              text2={"Please type in the name of the API key to confirm."}
+              onClick={onClick}
+              onFailure={onRequestError}
+              enable={input => input === name}
+            />
           </div>
         </Grid>
 
