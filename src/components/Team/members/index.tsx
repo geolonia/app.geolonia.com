@@ -19,6 +19,12 @@ import Title from "../../custom/Title";
 import { AppState } from "../../../redux/store";
 import { connect } from "react-redux";
 import { Member } from "../../../redux/actions/team-member";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import Redux from "redux";
+import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
+
+// API
+import addMember from "../../../api/members/add";
 
 type Row = {
   id: number | string;
@@ -30,9 +36,14 @@ type Row = {
 
 type OwnProps = {};
 type StateProps = {
+  session?: AmazonCognitoIdentity.CognitoUserSession;
+  teamId: string;
   members: Member[];
 };
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  addMemberState: (teamId: string, member: Member) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
   const { members } = props;
@@ -46,8 +57,6 @@ const Content = (props: Props) => {
       isOwner: member.role === "Owner"
     };
   });
-
-  console.log(members);
 
   const firstCellStyle: React.CSSProperties = {
     width: "56px",
@@ -82,9 +91,12 @@ const Content = (props: Props) => {
     setAnchorEl(null);
   };
 
-  const inviteHandler = (value: string) => {
-    console.log(value);
-    return Promise.resolve();
+  const inviteHandler = (email: string) => {
+    const { session, teamId, addMemberState } = props;
+    // TODO: loading
+    return addMember(session, teamId, email).then(member => {
+      addMemberState(teamId, member);
+    });
   };
 
   const breadcrumbItems = [
@@ -189,14 +201,23 @@ const Content = (props: Props) => {
 };
 
 export const mapStateToProps = (state: AppState) => {
+  const { session } = state.authSupport;
   const selectedTeamIndex = state.team.selectedIndex;
   const { teamId } = state.team.data[selectedTeamIndex];
   const memberObject = state.teamMember[teamId];
   if (memberObject) {
-    return { members: memberObject.data };
+    return { session, teamId, members: memberObject.data };
   } else {
-    return { members: [] };
+    return { session, teamId, members: [] };
   }
 };
 
-export default connect(mapStateToProps)(Content);
+export const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
+  addMemberState: (teamId: string, member: Member) =>
+    dispatch(createTeamMemberActions.add(teamId, member))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
