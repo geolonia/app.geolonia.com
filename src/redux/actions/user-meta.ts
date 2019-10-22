@@ -3,6 +3,7 @@ const SET_AVATAR_ACTION = "USER_META/SET_AVATAR";
 
 export type UserMetaState = {
   name: string;
+  username: string;
   language: string;
   timezone: string;
   links: {
@@ -12,8 +13,21 @@ export type UserMetaState = {
   avatarImage: string | void;
 };
 
+export const isUserMeta = (user: any): user is UserMetaState => {
+  if (!user) {
+    return false;
+  } else if (!user.username) {
+    return false;
+  } else if (!(user.links && user.links.getAvatar)) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 export const initialState: UserMetaState = {
   name: "",
+  username: "",
   language: "ja",
   timezone: "",
   links: {
