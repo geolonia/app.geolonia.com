@@ -13,6 +13,14 @@ export type Team = {
   avatarImage: string | void;
 };
 
+export const isTeam = (team: any): team is Team => {
+  if (!team || !team.teamId || !team.role || !team.links) {
+    return false;
+  } else {
+    return true;
+  }
+};
+
 export type TeamState = {
   data: Team[];
   selectedIndex: number;

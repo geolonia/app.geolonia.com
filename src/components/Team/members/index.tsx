@@ -19,40 +19,44 @@ import Title from "../../custom/Title";
 import { AppState } from "../../../redux/store";
 import { connect } from "react-redux";
 import { Member } from "../../../redux/actions/team-member";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import Redux from "redux";
+import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 
-const rows = [
-  {
-    id: 1111,
-    avatar: "https://avatars2.githubusercontent.com/u/309946?s=400&v=4",
-    name: "Taro Yamada",
-    username: "taro",
-    isOwner: true
-  },
-  {
-    id: 1112,
-    avatar: "https://avatars2.githubusercontent.com/u/309946?s=400&v=4",
-    name: "Hanako Yamada",
-    username: "taro",
-    isOwner: false
-  },
-  {
-    id: 1113,
-    avatar: "https://avatars2.githubusercontent.com/u/309946?s=400&v=4",
-    name: "Ichiro Suzuki",
-    username: "taro",
-    isOwner: true
-  }
-];
+// API
+import addMember from "../../../api/members/add";
+
+type Row = {
+  id: number | string;
+  avatar: string | void;
+  name: string;
+  username: string;
+  isOwner: boolean;
+};
 
 type OwnProps = {};
 type StateProps = {
+  session?: AmazonCognitoIdentity.CognitoUserSession;
+  teamId: string;
   members: Member[];
 };
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  addMemberState: (teamId: string, member: Member) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
   const { members } = props;
-  console.log(members);
+
+  const rows: Row[] = members.map(member => {
+    return {
+      id: member.userSub,
+      avatar: member.avatarImage,
+      name: member.name,
+      username: member.username,
+      isOwner: member.role === "Owner"
+    };
+  });
 
   const firstCellStyle: React.CSSProperties = {
     width: "56px",
@@ -87,9 +91,12 @@ const Content = (props: Props) => {
     setAnchorEl(null);
   };
 
-  const inviteHandler = (value: string) => {
-    console.log(value);
-    return Promise.resolve();
+  const inviteHandler = (email: string) => {
+    const { session, teamId, addMemberState } = props;
+    // TODO: loading
+    return addMember(session, teamId, email).then(member => {
+      addMemberState(teamId, member);
+    });
   };
 
   const breadcrumbItems = [
@@ -194,14 +201,23 @@ const Content = (props: Props) => {
 };
 
 export const mapStateToProps = (state: AppState) => {
+  const { session } = state.authSupport;
   const selectedTeamIndex = state.team.selectedIndex;
   const { teamId } = state.team.data[selectedTeamIndex];
   const memberObject = state.teamMember[teamId];
   if (memberObject) {
-    return { members: memberObject.data };
+    return { session, teamId, members: memberObject.data };
   } else {
-    return { members: [] };
+    return { session, teamId, members: [] };
   }
 };
 
-export default connect(mapStateToProps)(Content);
+export const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
+  addMemberState: (teamId: string, member: Member) =>
+    dispatch(createTeamMemberActions.add(teamId, member))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Content);
