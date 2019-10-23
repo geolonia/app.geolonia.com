@@ -1,5 +1,16 @@
 # app.geolonia.com
 
+## development
+
+```shell
+$ git clone git@github.com:geolonia/app.geolonia.com.git
+$ cd app.geolonia.com
+$ npm install
+$ cp .env.development.sample .env.development
+$ vi .env.development
+$ npm start
+```
+
 ## Component Template
 
 ### Without Redux
