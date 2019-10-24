@@ -5,7 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { CircularProgress, Box } from "@material-ui/core";
+import { CircularProgress, Box, Chip } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
 
 // libs
@@ -35,18 +35,16 @@ type StateProps = {
   teamName: string;
 };
 type DispatchProps = {
-  deactivateMemberState: (teamId: string, memberSub: string) => void;
+  updateMemberState: (
+    teamId: string,
+    memberSub: string,
+    deactivated: boolean
+  ) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
 const DeactivateMember = (props: Props) => {
-  const {
-    currentMember,
-    teamName,
-    open,
-    toggle,
-    deactivateMemberState
-  } = props;
+  const { currentMember, teamName, open, toggle, updateMemberState } = props;
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
@@ -54,11 +52,15 @@ const DeactivateMember = (props: Props) => {
   const onDeactivateClick = () => {
     setStatus("requesting");
     updateMember(props.session, props.teamId, currentMember.userSub, {
-      deactivated: true
+      deactivated: !currentMember.deactivated
     })
       .then(() => {
         setStatus("success");
-        deactivateMemberState(props.teamId, currentMember.userSub);
+        updateMemberState(
+          props.teamId,
+          currentMember.userSub,
+          !currentMember.deactivated
+        );
         toggle(false);
       })
       .catch(() => {
@@ -76,11 +78,15 @@ const DeactivateMember = (props: Props) => {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            {sprintf("Deactivating 1 member from %s.", teamName)}
+            {currentMember.deactivated
+              ? sprintf("Activating 1 member from %s.", teamName)
+              : sprintf("Deactivating 1 member from %s.", teamName)}
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {__("The following members will be deactivate:")}
+              {currentMember.deactivated
+                ? __("The following members will be activated:")
+                : __("The following members will be deactivated:")}
             </DialogContentText>
 
             <Box display="flex" alignItems="center">
@@ -89,17 +95,22 @@ const DeactivateMember = (props: Props) => {
                 {currentMember.name}
                 <br />@{currentMember.username}
               </p>
+              <p style={{ marginLeft: "1em" }}>
+                {currentMember.deactivated && (
+                  <Chip label={__("Deactivated")} color={"secondary"} />
+                )}
+              </p>
             </Box>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => toggle(false)} color="primary">
               {__("Cancel")}
             </Button>
-            <Button color="primary" type="submit">
+            <Button color="primary" type="submit" onClick={onDeactivateClick}>
               {status === "requesting" && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
               )}
-              {__("Deactivate")}
+              {currentMember.deactivated ? __("Activate") : __("Deactivate")}
             </Button>
           </DialogActions>
         </Dialog>
@@ -118,10 +129,8 @@ const mapStateToProps = (state: AppState): StateProps => {
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  deactivateMemberState: (teamId, userSub) =>
-    dispatch(
-      createTeamMemberActions.update(teamId, userSub, { deactivated: true })
-    )
+  updateMemberState: (teamId, userSub, deactivated) =>
+    dispatch(createTeamMemberActions.update(teamId, userSub, { deactivated }))
 });
 
 export default connect(

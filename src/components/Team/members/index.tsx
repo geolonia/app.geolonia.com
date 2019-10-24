@@ -33,6 +33,8 @@ import { createActions as createTeamMemberActions } from "../../../redux/actions
 
 // API
 import addMember from "../../../api/members/add";
+import { Team } from "../../../redux/actions/team";
+import { Chip } from "@material-ui/core";
 
 type Row = {
   id: number | string;
@@ -46,8 +48,7 @@ type Row = {
 type OwnProps = {};
 type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
-  teamId: string;
-  teamName: string;
+  team: Team | void;
   members: Member[];
 };
 type DispatchProps = {
@@ -56,7 +57,7 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
-  const { members, teamName } = props;
+  const { members } = props;
   const [currentMember, setCurrentMember] = React.useState<false | Member>(
     false
   );
@@ -118,11 +119,15 @@ const Content = (props: Props) => {
   };
 
   const inviteHandler = (email: string) => {
-    const { session, teamId, addMemberState } = props;
-    // TODO: loading
-    return addMember(session, teamId, email).then(member => {
-      addMemberState(teamId, member);
-    });
+    const { session, team, addMemberState } = props;
+    if (team) {
+      // TODO: loading
+      return addMember(session, team.teamId, email).then(member => {
+        addMemberState(team.teamId, member);
+      });
+    } else {
+      return Promise.resolve();
+    }
   };
 
   const breadcrumbItems = [
@@ -180,53 +185,68 @@ const Content = (props: Props) => {
       )}
       <Table className="geolonia-list-table">
         <TableBody>
-          {rows.map((row, index) => (
-            <TableRow
-              key={row.id}
-              onMouseOver={onMouseOver}
-              onMouseOut={onMouseOut}
-              onClick={onClick}
-              data-id={row.id}
-            >
-              <TableCell style={firstCellStyle} padding="none">
-                <PersonIcon />
-              </TableCell>
-              <TableCell component="th" scope="row">
-                {row.name}
-                <br />@{row.username}
-              </TableCell>
-              <TableCell align="center">{row.isOwner && __("Owner")}</TableCell>
-              <TableCell align="right">
-                <Button
-                  variant="outlined"
-                  color="default"
-                  aria-controls="simple-menu"
-                  aria-haspopup="true"
-                  onClick={handleClick}
-                  value={index}
-                >
-                  <BrightnessLowIcon style={iconStyle} />
-                </Button>
-                <Menu
-                  id={`simple-menu-${row.id}`}
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={() => setOpenChangeRole(true)}>
-                    {__("Change role")}
-                  </MenuItem>
-                  <MenuItem onClick={() => setOpenDeactivateMember(true)}>
-                    {__("Deactivate")}
-                  </MenuItem>
-                  <MenuItem onClick={() => setOpenRemoveMember(true)}>
-                    {__("Remove from team")}
-                  </MenuItem>
-                </Menu>
-              </TableCell>
-            </TableRow>
-          ))}
+          {rows.map((row, index) => {
+            const permission = [
+              row.isOwner ? __("Owner") : "",
+              row.deactivated ? __("Deactivated") : ""
+            ]
+              .filter(text => text !== "")
+              .join(" ");
+            return (
+              <TableRow
+                key={row.id}
+                onMouseOver={onMouseOver}
+                onMouseOut={onMouseOut}
+                onClick={onClick}
+                data-id={row.id}
+              >
+                <TableCell style={firstCellStyle} padding="none">
+                  <PersonIcon />
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row.name}
+                  <br />@{row.username}
+                </TableCell>
+                <TableCell align="center">
+                  {row.isOwner && <Chip label={__("Owner")} />}
+                  {row.deactivated && (
+                    <Chip label={__("Deactivated")} color={"secondary"} />
+                  )}
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    variant="outlined"
+                    color="default"
+                    aria-controls="simple-menu"
+                    aria-haspopup="true"
+                    onClick={handleClick}
+                    value={index}
+                  >
+                    <BrightnessLowIcon style={iconStyle} />
+                  </Button>
+                  <Menu
+                    id={`simple-menu-${row.id}`}
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                  >
+                    <MenuItem onClick={() => setOpenChangeRole(true)}>
+                      {__("Change role")}
+                    </MenuItem>
+                    <MenuItem onClick={() => setOpenDeactivateMember(true)}>
+                      {currentMember && currentMember.deactivated
+                        ? __("Activate")
+                        : __("Deactivate")}
+                    </MenuItem>
+                    <MenuItem onClick={() => setOpenRemoveMember(true)}>
+                      {__("Remove from team")}
+                    </MenuItem>
+                  </Menu>
+                </TableCell>
+              </TableRow>
+            );
+          })}
         </TableBody>
         <TableFooter>
           <TableRow>
@@ -250,16 +270,18 @@ const Content = (props: Props) => {
   );
 };
 
-export const mapStateToProps = (state: AppState) => {
+export const mapStateToProps = (state: AppState): StateProps => {
   const { session } = state.authSupport;
   const selectedTeamIndex = state.team.selectedIndex;
-  const { teamId, name: teamName } = state.team.data[selectedTeamIndex];
-  const memberObject = state.teamMember[teamId];
-  if (memberObject) {
-    return { session, teamId, teamName, members: memberObject.data };
-  } else {
-    return { session, teamId, teamName, members: [] };
+  const team = state.team.data[selectedTeamIndex] as Team | void;
+  let members: Member[] = [];
+  if (team) {
+    const memberObject = state.teamMember[team.teamId];
+    if (memberObject) {
+      members = memberObject.data;
+    }
   }
+  return { session, team, members };
 };
 
 export const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
