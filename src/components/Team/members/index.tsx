@@ -121,7 +121,7 @@ const Content = (props: Props) => {
   const inviteHandler = (email: string) => {
     const { session, team, addMemberState } = props;
     if (team) {
-      // TODO: loading
+      // TODO: show loading error
       return addMember(session, team.teamId, email).then(member => {
         addMemberState(team.teamId, member);
       });

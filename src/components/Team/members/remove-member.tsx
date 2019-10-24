@@ -56,6 +56,7 @@ const RemoveMember = (props: Props) => {
         toggle(false);
       })
       .catch(() => {
+        // TODO: show error
         setStatus("failure");
       });
   };
