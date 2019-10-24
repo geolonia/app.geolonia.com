@@ -30,13 +30,13 @@ import Redux from "redux";
 
 type OwnProps = {
   currentMember: Member;
-  teamName: string;
   open: boolean;
   toggle: (open: boolean) => void;
 };
 type StateProps = {
   session: AmazonCognitoIdentity.CognitoUserSession | undefined;
   teamId: string;
+  teamName: string;
 };
 type DispatchProps = {
   updateMemberRoleState: (
@@ -140,10 +140,14 @@ const ChangeRole = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => ({
-  session: state.authSupport.session,
-  teamId: state.team.data[state.team.selectedIndex].teamId
-});
+const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  return {
+    session: state.authSupport.session,
+    teamId: team.teamId,
+    teamName: team.name
+  };
+};
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   updateMemberRoleState: (teamId, userSub, role) =>

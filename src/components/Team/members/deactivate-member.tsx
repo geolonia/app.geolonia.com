@@ -7,20 +7,64 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { CircularProgress, Box } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
+
+// libs
 import { __, sprintf } from "@wordpress/i18n";
+
+// API
+import updateMember from "../../../api/members/update";
 
 // Types
 import { Member } from "../../../redux/actions/team-member";
+import { AppState } from "../../../redux/store";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
-type Props = {
+// Redux
+import { connect } from "react-redux";
+import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
+import Redux from "redux";
+
+type OwnProps = {
   currentMember: Member;
-  teamName: string;
   open: boolean;
   toggle: (open: boolean) => void;
 };
+type StateProps = {
+  session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+  teamId: string;
+  teamName: string;
+};
+type DispatchProps = {
+  deactivateMemberState: (teamId: string, memberSub: string) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 const DeactivateMember = (props: Props) => {
-  const { currentMember, teamName, open, toggle } = props;
+  const {
+    currentMember,
+    teamName,
+    open,
+    toggle,
+    deactivateMemberState
+  } = props;
+  const [status, setStatus] = React.useState<
+    false | "requesting" | "success" | "failure"
+  >(false);
+
+  const onDeactivateClick = () => {
+    setStatus("requesting");
+    updateMember(props.session, props.teamId, currentMember.userSub, {
+      deactivated: true
+    })
+      .then(() => {
+        setStatus("success");
+        deactivateMemberState(props.teamId, currentMember.userSub);
+        toggle(false);
+      })
+      .catch(() => {
+        setStatus("failure");
+      });
+  };
 
   return (
     <div>
@@ -52,6 +96,9 @@ const DeactivateMember = (props: Props) => {
               {__("Cancel")}
             </Button>
             <Button color="primary" type="submit">
+              {status === "requesting" && (
+                <CircularProgress size={16} style={{ marginRight: 8 }} />
+              )}
               {__("Deactivate")}
             </Button>
           </DialogActions>
@@ -61,4 +108,23 @@ const DeactivateMember = (props: Props) => {
   );
 };
 
-export default DeactivateMember;
+const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  return {
+    session: state.authSupport.session,
+    teamId: team.teamId,
+    teamName: team.name
+  };
+};
+
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  deactivateMemberState: (teamId, userSub) =>
+    dispatch(
+      createTeamMemberActions.update(teamId, userSub, { deactivated: true })
+    )
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeactivateMember);

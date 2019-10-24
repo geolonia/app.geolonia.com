@@ -18,21 +18,21 @@ import updateMember from "../../../api/members/update";
 import { Member } from "../../../redux/actions/team-member";
 import { AppState } from "../../../redux/store";
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { connect } from "react-redux";
 
 // Redux
+import { connect } from "react-redux";
 import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 import Redux from "redux";
 
 type OwnProps = {
   currentMember: Member;
-  teamName: string;
   open: boolean;
   toggle: (open: boolean) => void;
 };
 type StateProps = {
   session: AmazonCognitoIdentity.CognitoUserSession | undefined;
   teamId: string;
+  teamName: string;
 };
 type DispatchProps = {
   deleteMemberState: (teamId: string, memberSub: string) => void;
@@ -102,10 +102,14 @@ const RemoveMember = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => ({
-  session: state.authSupport.session,
-  teamId: state.team.data[state.team.selectedIndex].teamId
-});
+const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  return {
+    session: state.authSupport.session,
+    teamId: team.teamId,
+    teamName: team.name
+  };
+};
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   deleteMemberState: (teamId, userSub) =>

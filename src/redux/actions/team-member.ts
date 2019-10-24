@@ -9,6 +9,7 @@ const DELETE = "TEAM_MEMBER/DELETE";
 export type Member = UserMetaState & {
   userSub: string;
   role: "Owner" | "Member" | "Fired";
+  deactivated?: boolean;
 };
 
 export type State = {

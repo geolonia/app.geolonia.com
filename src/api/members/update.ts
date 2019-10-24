@@ -6,7 +6,10 @@ const updateMember = (
   session: AmazonCognitoIdentity.CognitoUserSession | undefined,
   teamId: string,
   memberSub: string,
-  { disabled, role }: { disabled?: boolean; role: "Member" | "Owner" | "Fired" }
+  {
+    deactivated,
+    role
+  }: { deactivated?: boolean; role?: "Member" | "Owner" | "Fired" }
 ) => {
   if (!session) {
     return Promise.reject(new Error("No session found."));
@@ -16,7 +19,7 @@ const updateMember = (
 
   return fetch(`${REACT_APP_API_BASE}/teams/${teamId}/members/${memberSub}`, {
     method: "PUT",
-    body: JSON.stringify({ disabled, role }),
+    body: JSON.stringify({ deactivated, role }),
     headers: {
       "Content-Type": "Application/json",
       Authorization: idToken

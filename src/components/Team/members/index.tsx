@@ -39,6 +39,7 @@ type Row = {
   avatar: string | void;
   name: string;
   username: string;
+  deactivated: boolean;
   isOwner: boolean;
 };
 
@@ -63,12 +64,17 @@ const Content = (props: Props) => {
   const [openDeactivateMember, setOpenDeactivateMember] = React.useState(false);
   const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
 
+  React.useEffect(() => {
+    handleClose();
+  }, [openChangeRole, openDeactivateMember, openRemoveMember]);
+
   const rows: Row[] = members.map(member => {
     return {
       id: member.userSub,
       avatar: member.avatarImage,
       name: member.name,
       username: member.username,
+      deactivated: !!member.deactivated,
       isOwner: member.role === "Owner"
     };
   });
@@ -157,19 +163,16 @@ const Content = (props: Props) => {
         <>
           <ChangeRole
             currentMember={currentMember}
-            teamName={teamName}
             open={openChangeRole}
             toggle={setOpenChangeRole}
           />
           <DeactivateMember
             currentMember={currentMember}
-            teamName={teamName}
             open={openDeactivateMember}
             toggle={setOpenDeactivateMember}
           />
           <RemoveMember
             currentMember={currentMember}
-            teamName={teamName}
             open={openRemoveMember}
             toggle={setOpenRemoveMember}
           />
