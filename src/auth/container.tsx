@@ -195,7 +195,10 @@ export class AuthContainer extends React.Component<Props, State> {
     const handleListTeamMembers = (teamId: string) => {
       return listTeamMembers(session, teamId)
         .then((members: Member[]) => {
-          this.props.setTeamMembers(teamId, members);
+          this.props.setTeamMembers(
+            teamId,
+            members.filter(member => member.role !== "Fired")
+          );
         })
         .catch(err => {
           console.error(err);
