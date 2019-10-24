@@ -1,5 +1,6 @@
 import React from "react";
 
+// Components
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -11,15 +12,22 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import BrightnessLowIcon from "@material-ui/icons/BrightnessLow";
 import PersonIcon from "@material-ui/icons/Person";
-
-import { __ } from "@wordpress/i18n";
-
 import AddNew from "../../custom/AddNew";
 import Title from "../../custom/Title";
 import { AppState } from "../../../redux/store";
 import { connect } from "react-redux";
 import { Member } from "../../../redux/actions/team-member";
+import ChangeRole from "./change-role";
+import DeactivateMember from "./deactivate-member";
+import RemoveMember from "./remove-member";
+
+// utils
+import { __ } from "@wordpress/i18n";
+
+// types
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+
+// redux
 import Redux from "redux";
 import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 
@@ -38,6 +46,7 @@ type OwnProps = {};
 type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
   teamId: string;
+  teamName: string;
   members: Member[];
 };
 type DispatchProps = {
@@ -46,7 +55,13 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
-  const { members } = props;
+  const { members, teamName } = props;
+  const [currentMember, setCurrentMember] = React.useState<false | Member>(
+    false
+  );
+  const [openChangeRole, setOpenChangeRole] = React.useState(false);
+  const [openDeactivateMember, setOpenDeactivateMember] = React.useState(false);
+  const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
 
   const rows: Row[] = members.map(member => {
     return {
@@ -84,7 +99,12 @@ const Content = (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+    const index = parseInt(event.currentTarget.value);
+    const member = members[index];
+    if (member) {
+      setCurrentMember(members[index]);
+      setAnchorEl(event.currentTarget);
+    }
   };
 
   const handleClose = () => {
@@ -119,7 +139,6 @@ const Content = (props: Props) => {
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
       </Title>
-
       <AddNew
         buttonLabel={__("Invite")}
         label={__("Invite a member")}
@@ -133,9 +152,32 @@ const Content = (props: Props) => {
         handler={inviteHandler}
       />
 
+      {/* each member management */}
+      {currentMember && (
+        <>
+          <ChangeRole
+            currentMember={currentMember}
+            teamName={teamName}
+            open={openChangeRole}
+            toggle={setOpenChangeRole}
+          />
+          <DeactivateMember
+            currentMember={currentMember}
+            teamName={teamName}
+            open={openDeactivateMember}
+            toggle={setOpenDeactivateMember}
+          />
+          <RemoveMember
+            currentMember={currentMember}
+            teamName={teamName}
+            open={openRemoveMember}
+            toggle={setOpenRemoveMember}
+          />
+        </>
+      )}
       <Table className="geolonia-list-table">
         <TableBody>
-          {rows.map((row: any) => (
+          {rows.map((row, index) => (
             <TableRow
               key={row.id}
               onMouseOver={onMouseOver}
@@ -158,19 +200,24 @@ const Content = (props: Props) => {
                   aria-controls="simple-menu"
                   aria-haspopup="true"
                   onClick={handleClick}
+                  value={index}
                 >
                   <BrightnessLowIcon style={iconStyle} />
                 </Button>
                 <Menu
-                  id="simple-menu"
+                  id={`simple-menu-${row.id}`}
                   anchorEl={anchorEl}
                   keepMounted
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={handleClose}>{__("Change role")}</MenuItem>
-                  <MenuItem onClick={handleClose}>{__("Deactivate")}</MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={() => setOpenChangeRole(true)}>
+                    {__("Change role")}
+                  </MenuItem>
+                  <MenuItem onClick={() => setOpenDeactivateMember(true)}>
+                    {__("Deactivate")}
+                  </MenuItem>
+                  <MenuItem onClick={() => setOpenRemoveMember(true)}>
                     {__("Remove from team")}
                   </MenuItem>
                 </Menu>
@@ -203,12 +250,12 @@ const Content = (props: Props) => {
 export const mapStateToProps = (state: AppState) => {
   const { session } = state.authSupport;
   const selectedTeamIndex = state.team.selectedIndex;
-  const { teamId } = state.team.data[selectedTeamIndex];
+  const { teamId, name: teamName } = state.team.data[selectedTeamIndex];
   const memberObject = state.teamMember[teamId];
   if (memberObject) {
-    return { session, teamId, members: memberObject.data };
+    return { session, teamId, teamName, members: memberObject.data };
   } else {
-    return { session, teamId, members: [] };
+    return { session, teamId, teamName, members: [] };
   }
 };
 
