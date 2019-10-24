@@ -18,6 +18,8 @@ import { AppState } from "../../../redux/store";
 import { connect } from "react-redux";
 import { Member } from "../../../redux/actions/team-member";
 import ChangeRole from "./change-role";
+import DeactivateMember from "./deactivate-member";
+import RemoveMember from "./remove-member";
 
 // utils
 import { __ } from "@wordpress/i18n";
@@ -44,6 +46,7 @@ type OwnProps = {};
 type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
   teamId: string;
+  teamName: string;
   members: Member[];
 };
 type DispatchProps = {
@@ -52,11 +55,13 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
-  const { members } = props;
+  const { members, teamName } = props;
   const [currentMember, setCurrentMember] = React.useState<false | Member>(
     false
   );
   const [openChangeRole, setOpenChangeRole] = React.useState(false);
+  const [openDeactivateMember, setOpenDeactivateMember] = React.useState(false);
+  const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
 
   const rows: Row[] = members.map(member => {
     return {
@@ -106,10 +111,6 @@ const Content = (props: Props) => {
     setAnchorEl(null);
   };
 
-  const onChangeRoleClick = () => {
-    setOpenChangeRole(true);
-  };
-
   const inviteHandler = (email: string) => {
     const { session, teamId, addMemberState } = props;
     // TODO: loading
@@ -150,12 +151,29 @@ const Content = (props: Props) => {
         fieldType="email"
         handler={inviteHandler}
       />
+
+      {/* each member management */}
       {currentMember && (
-        <ChangeRole
-          currentMember={currentMember}
-          open={openChangeRole}
-          toggle={setOpenChangeRole}
-        />
+        <>
+          <ChangeRole
+            currentMember={currentMember}
+            teamName={teamName}
+            open={openChangeRole}
+            toggle={setOpenChangeRole}
+          />
+          <DeactivateMember
+            currentMember={currentMember}
+            teamName={teamName}
+            open={openDeactivateMember}
+            toggle={setOpenDeactivateMember}
+          />
+          <RemoveMember
+            currentMember={currentMember}
+            teamName={teamName}
+            open={openRemoveMember}
+            toggle={setOpenRemoveMember}
+          />
+        </>
       )}
       <Table className="geolonia-list-table">
         <TableBody>
@@ -193,11 +211,13 @@ const Content = (props: Props) => {
                   open={Boolean(anchorEl)}
                   onClose={handleClose}
                 >
-                  <MenuItem onClick={onChangeRoleClick}>
+                  <MenuItem onClick={() => setOpenChangeRole(true)}>
                     {__("Change role")}
                   </MenuItem>
-                  <MenuItem onClick={handleClose}>{__("Deactivate")}</MenuItem>
-                  <MenuItem onClick={handleClose}>
+                  <MenuItem onClick={() => setOpenDeactivateMember(true)}>
+                    {__("Deactivate")}
+                  </MenuItem>
+                  <MenuItem onClick={() => setOpenRemoveMember(true)}>
                     {__("Remove from team")}
                   </MenuItem>
                 </Menu>
@@ -230,12 +250,12 @@ const Content = (props: Props) => {
 export const mapStateToProps = (state: AppState) => {
   const { session } = state.authSupport;
   const selectedTeamIndex = state.team.selectedIndex;
-  const { teamId } = state.team.data[selectedTeamIndex];
+  const { teamId, name: teamName } = state.team.data[selectedTeamIndex];
   const memberObject = state.teamMember[teamId];
   if (memberObject) {
-    return { session, teamId, members: memberObject.data };
+    return { session, teamId, teamName, members: memberObject.data };
   } else {
-    return { session, teamId, members: [] };
+    return { session, teamId, teamName, members: [] };
   }
 };
 

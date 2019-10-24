@@ -18,12 +18,13 @@ import { Member } from "../../../redux/actions/team-member";
 
 type Props = {
   currentMember: Member;
+  teamName: string;
   open: boolean;
   toggle: (open: boolean) => void;
 };
 
 const ChangeRole = (props: Props) => {
-  const { currentMember, open, toggle } = props;
+  const { currentMember, teamName, open, toggle } = props;
   const [role, setRole] = React.useState<false | Member["role"]>(
     currentMember.role
   );
