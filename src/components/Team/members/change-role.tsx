@@ -13,25 +13,73 @@ import {
 } from "@material-ui/core";
 import { __, sprintf } from "@wordpress/i18n";
 
+// API
+import updateMember from "../../../api/members/update";
+
 // Types
 import { Member } from "../../../redux/actions/team-member";
+import { AppState } from "../../../redux/store";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { connect } from "react-redux";
 
-type Props = {
+// Redux
+import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
+import Redux from "redux";
+
+type OwnProps = {
   currentMember: Member;
   teamName: string;
   open: boolean;
   toggle: (open: boolean) => void;
 };
+type StateProps = {
+  session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+  teamId: string;
+};
+type DispatchProps = {
+  updateMemberRoleState: (
+    teamId: string,
+    memberSub: string,
+    role: "Owner" | "Member" | "Fired"
+  ) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 const ChangeRole = (props: Props) => {
-  const { currentMember, teamName, open, toggle } = props;
+  const {
+    currentMember,
+    teamName,
+    open,
+    toggle,
+    updateMemberRoleState
+  } = props;
   const [role, setRole] = React.useState<false | Member["role"]>(
     currentMember.role
   );
+  const [status, setStatus] = React.useState<
+    false | "requesting" | "success" | "failure"
+  >(false);
 
   React.useEffect(() => {
     setRole(currentMember.role);
   }, [currentMember]);
+
+  const onSaveClick = () => {
+    if (role) {
+      setStatus("requesting");
+      updateMember(props.session, props.teamId, currentMember.userSub, {
+        role
+      })
+        .then(() => {
+          setStatus("success");
+          updateMemberRoleState(props.teamId, currentMember.userSub, role);
+          toggle(false);
+        })
+        .catch(() => {
+          setStatus("failure");
+        });
+    }
+  };
 
   return (
     <div>
@@ -77,7 +125,10 @@ const ChangeRole = (props: Props) => {
             <Button onClick={() => toggle(false)} color="primary">
               {__("Cancel")}
             </Button>
-            <Button color="primary" type="submit">
+            <Button color="primary" type="submit" onClick={onSaveClick}>
+              {status === "requesting" && (
+                <CircularProgress size={16} style={{ marginRight: 8 }} />
+              )}
               {__("Save")}
             </Button>
           </DialogActions>
@@ -87,4 +138,17 @@ const ChangeRole = (props: Props) => {
   );
 };
 
-export default ChangeRole;
+const mapStateToProps = (state: AppState): StateProps => ({
+  session: state.authSupport.session,
+  teamId: state.team.data[state.team.selectedIndex].teamId
+});
+
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  updateMemberRoleState: (teamId, userSub, role) =>
+    dispatch(createTeamMemberActions.update(teamId, userSub, { role }))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChangeRole);
