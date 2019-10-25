@@ -26,7 +26,10 @@ import {
   isTeam
 } from "../redux/actions/team";
 import { createActions as createMapKeyActions } from "../redux/actions/map-key";
-import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
+import {
+  createActions as createTeamMemberActions,
+  Roles
+} from "../redux/actions/team-member";
 
 // Types
 import { UserMetaState } from "../redux/actions/user-meta";
@@ -197,7 +200,7 @@ export class AuthContainer extends React.Component<Props, State> {
         .then((members: Member[]) => {
           this.props.setTeamMembers(
             teamId,
-            members.filter(member => member.role !== "Fired")
+            members.filter(member => member.role !== Roles.Deactivated)
           );
         })
         .catch(err => {

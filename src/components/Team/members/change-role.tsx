@@ -42,7 +42,7 @@ type DispatchProps = {
   updateMemberRoleState: (
     teamId: string,
     memberSub: string,
-    role: "Owner" | "Member" | "Fired"
+    role: Member["role"]
   ) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
@@ -69,9 +69,7 @@ const ChangeRole = (props: Props) => {
   const onSaveClick = () => {
     if (role) {
       setStatus("requesting");
-      updateMember(props.session, props.teamId, currentMember.userSub, {
-        role
-      })
+      updateMember(props.session, props.teamId, currentMember.userSub, role)
         .then(() => {
           setStatus("success");
           updateMemberRoleState(props.teamId, currentMember.userSub, role);
@@ -120,7 +118,16 @@ const ChangeRole = (props: Props) => {
                 label="Member"
               />
               <DialogContentText>
-                {__("Can access every resource in the team.")}
+                {__("Can access all resource in the team.")}
+              </DialogContentText>
+
+              <FormControlLabel
+                value="Deactivated"
+                control={<Radio />}
+                label="Deactivated"
+              />
+              <DialogContentText>
+                {__("Can not access all resouces in the team.")}
               </DialogContentText>
             </RadioGroup>
           </DialogContent>

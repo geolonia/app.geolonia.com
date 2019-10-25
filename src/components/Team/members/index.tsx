@@ -16,9 +16,8 @@ import AddNew from "../../custom/AddNew";
 import Title from "../../custom/Title";
 import { AppState } from "../../../redux/store";
 import { connect } from "react-redux";
-import { Member } from "../../../redux/actions/team-member";
+import { Member, Roles } from "../../../redux/actions/team-member";
 import ChangeRole from "./change-role";
-import DeactivateMember from "./deactivate-member";
 import RemoveMember from "./remove-member";
 
 // utils
@@ -41,8 +40,7 @@ type Row = {
   avatar: string | void;
   name: string;
   username: string;
-  deactivated: boolean;
-  isOwner: boolean;
+  role: Member["role"];
 };
 
 type OwnProps = {};
@@ -75,8 +73,7 @@ const Content = (props: Props) => {
       avatar: member.avatarImage,
       name: member.name,
       username: member.username,
-      deactivated: !!member.deactivated,
-      isOwner: member.role === "Owner"
+      role: member.role
     };
   });
 
@@ -171,11 +168,6 @@ const Content = (props: Props) => {
             open={openChangeRole}
             toggle={setOpenChangeRole}
           />
-          <DeactivateMember
-            currentMember={currentMember}
-            open={openDeactivateMember}
-            toggle={setOpenDeactivateMember}
-          />
           <RemoveMember
             currentMember={currentMember}
             open={openRemoveMember}
@@ -186,12 +178,6 @@ const Content = (props: Props) => {
       <Table className="geolonia-list-table">
         <TableBody>
           {rows.map((row, index) => {
-            const permission = [
-              row.isOwner ? __("Owner") : "",
-              row.deactivated ? __("Deactivated") : ""
-            ]
-              .filter(text => text !== "")
-              .join(" ");
             return (
               <TableRow
                 key={row.id}
@@ -208,10 +194,11 @@ const Content = (props: Props) => {
                   <br />@{row.username}
                 </TableCell>
                 <TableCell align="center">
-                  {row.isOwner && <Chip label={__("Owner")} />}
-                  {row.deactivated && (
+                  {row.role === Roles.Owner ? (
+                    <Chip label={__("Owner")} />
+                  ) : row.role === Roles.Deactivated ? (
                     <Chip label={__("Deactivated")} color={"secondary"} />
-                  )}
+                  ) : null}
                 </TableCell>
                 <TableCell align="right">
                   <Button
@@ -233,11 +220,6 @@ const Content = (props: Props) => {
                   >
                     <MenuItem onClick={() => setOpenChangeRole(true)}>
                       {__("Change role")}
-                    </MenuItem>
-                    <MenuItem onClick={() => setOpenDeactivateMember(true)}>
-                      {currentMember && currentMember.deactivated
-                        ? __("Activate")
-                        : __("Deactivate")}
                     </MenuItem>
                     <MenuItem onClick={() => setOpenRemoveMember(true)}>
                       {__("Remove from team")}
