@@ -511,7 +511,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:45
-#: src/components/Team/members/index.tsx:215
+#: src/components/Team/members/index.tsx:232
 msgid "Change role"
 msgstr ""
 
@@ -534,7 +534,7 @@ msgid "The following members will be deactivate:"
 msgstr ""
 
 #: src/components/Team/members/deactivate-member.tsx:55
-#: src/components/Team/members/index.tsx:218
+#: src/components/Team/members/index.tsx:235
 msgid "Deactivate"
 msgstr ""
 
@@ -563,7 +563,7 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:221
+#: src/components/Team/members/index.tsx:238
 msgid "Remove from team"
 msgstr ""
 
