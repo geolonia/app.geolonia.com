@@ -3,17 +3,17 @@ import React from 'react';
 type Toggle = 'on' | 'off'
 
 type Props = {
-  width: string,
-  height: string,
-  gestureHandling: Toggle,
-  lat: number,
-  lng: number,
-  marker: Toggle,
-  zoom: number,
-  fullscreenControl: Toggle,
-  geolocateControl: Toggle,
-  style: string,
-  onAfterLoad: (map: mapboxgl.Map) => void,
+  width: string;
+  height: string;
+  gestureHandling: Toggle;
+  lat: number;
+  lng: number;
+  marker: Toggle;
+  zoom: number;
+  fullscreenControl: Toggle;
+  geolocateControl: Toggle;
+  style: string;
+  onAfterLoad: (map: mapboxgl.Map) => void;
 }
 
 class Map extends React.Component<Props> {

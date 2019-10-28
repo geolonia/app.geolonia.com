@@ -58,7 +58,7 @@ const Content = (props: Props) => {
     if (prevIndex !== props.selectedTeamIndex) {
       props.history.push("/maps/api-keys");
     }
-  }, [props.selectedTeamIndex]);
+  }, [prevIndex, props.history, props.selectedTeamIndex]);
 
   // props
   const propName = (props.mapKey || { name: "" }).name;

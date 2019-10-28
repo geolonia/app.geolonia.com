@@ -39,7 +39,7 @@ export const appendReduxifyReducers: Redux.Reducer = (
 ) => {
   const result: Redux.ReducersMapObject = {};
 
-  for (let key in reducerMapObjects) {
+  for (const key in reducerMapObjects) {
     // Proxy all reducer composition
     result[key] = (state: any, action: Redux.AnyAction) => {
       const nextState = reducerMapObjects[key](state, action);
