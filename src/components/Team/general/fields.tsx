@@ -53,33 +53,6 @@ const Content = (props: Props) => {
     });
   };
 
-  // parameters
-  const styleDangerZone: React.CSSProperties = {
-    border: "1px solid #ff0000",
-    padding: "16px 24px"
-  };
-
-  const ProfileImageStyle: React.CSSProperties = {
-    width: "250px",
-    height: "auto",
-    margin: "16px"
-  };
-
-  const breadcrumbItems = [
-    {
-      title: "Home",
-      href: "#/"
-    },
-    {
-      title: __("Team settings"),
-      href: "#/team"
-    },
-    {
-      title: __("General"),
-      href: null
-    }
-  ];
-
   return (
     <>
       <TextField

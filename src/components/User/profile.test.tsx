@@ -8,12 +8,12 @@ import { cleanup, render } from "@testing-library/react";
 const noop = () => void 0;
 const userMeta: UserMetaState = {
   name: "hello",
+  username: 'aaa',
   language: "en",
   timezone: "Aasia/Tokyo",
   links: { getAvatar: "", putAvatar: "" },
   avatarImage: undefined
 };
-const team = { teamId: "aaa" };
 const mockSession: any = {
   getIdToken: () => ({
     decodePayload: () => ({ sub: "mock-sub" }),

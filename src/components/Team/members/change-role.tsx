@@ -5,12 +5,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import {
-  CircularProgress,
-  RadioGroup,
-  FormControlLabel,
-  Radio
-} from "@material-ui/core";
+import { RadioGroup, FormControlLabel, Radio } from "@material-ui/core";
 import { __, sprintf } from "@wordpress/i18n";
 
 // Types
@@ -24,7 +19,7 @@ type Props = {
 };
 
 const ChangeRole = (props: Props) => {
-  const { currentMember, teamName, open, toggle } = props;
+  const { currentMember, open, toggle } = props;
   const [role, setRole] = React.useState<false | Member["role"]>(
     currentMember.role
   );

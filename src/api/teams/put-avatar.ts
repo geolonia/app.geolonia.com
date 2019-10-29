@@ -1,5 +1,4 @@
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { Team } from "../../redux/actions/team";
 const { REACT_APP_API_BASE } = process.env;
 
 const putAvatar = (
