@@ -13,7 +13,8 @@ module.exports = {
   rules: {
     "no-console": "warn",
     "@typescript-eslint/ban-ts-ignore": "warn",
-    "@typescript-eslint/camelcase": "off"
+    "@typescript-eslint/camelcase": "off",
+    "@typescript-eslint/explicit-function-return-type": "off"
   },
   settings: {
     react: {
