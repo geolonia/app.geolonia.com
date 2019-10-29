@@ -14,7 +14,8 @@ module.exports = {
     "no-console": "warn",
     "@typescript-eslint/ban-ts-ignore": "warn",
     "@typescript-eslint/camelcase": "off",
-    "@typescript-eslint/explicit-function-return-type": "off"
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/no-unused-vars": "error"
   },
   settings: {
     react: {

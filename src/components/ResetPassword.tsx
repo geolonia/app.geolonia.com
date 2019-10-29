@@ -82,7 +82,12 @@ const Content = (props: Props) => {
           </label>
           <label className="confirm-password">
             <h3>{__("Confirm password")}</h3>
-            <input type="password" autoComplete={"new-password"} />
+            <input
+              type="password"
+              value={passwordAgain}
+              onChange={onPasswordAgainChange}
+              autoComplete={"new-password"}
+            />
           </label>
           <p className="message">
             {__(
@@ -90,7 +95,16 @@ const Content = (props: Props) => {
             )}
           </p>
           <p>
-            <Button variant="contained" color="primary" onClick={handler}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handler}
+              disabled={
+                password === "" ||
+                passwordAgain === "" ||
+                password !== passwordAgain
+              }
+            >
               {__("Change password")}
             </Button>
           </p>
