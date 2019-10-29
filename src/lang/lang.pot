@@ -3,31 +3,31 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/Dashboard.tsx:118
+#: src/components/Dashboard.tsx:119
 msgid "Welcome, %s"
 msgstr ""
 
-#: src/components/Dashboard.tsx:122
+#: src/components/Dashboard.tsx:123
 msgid "Get API key"
 msgstr ""
 
-#: src/components/Dashboard.tsx:124
+#: src/components/Dashboard.tsx:125
 msgid "Get API key then create your map!"
 msgstr ""
 
-#: src/components/Dashboard.tsx:128
+#: src/components/Dashboard.tsx:129
 msgid "Geolonia GIS"
 msgstr ""
 
-#: src/components/Dashboard.tsx:131
+#: src/components/Dashboard.tsx:132
 msgid "Display your points, lines, polygons on your map application."
 msgstr ""
 
-#: src/components/Dashboard.tsx:143
+#: src/components/Dashboard.tsx:144
 msgid "Map loads for this month"
 msgstr ""
 
-#: src/components/Dashboard.tsx:154
+#: src/components/Dashboard.tsx:155
 msgid "API loads for this month"
 msgstr ""
 
@@ -42,11 +42,12 @@ msgid ""
 msgstr ""
 
 #: src/components/Data/GIS.tsx:203
-#: src/components/Maps/APIKey.tsx:79
-#: src/components/Navigator.tsx:294
+#: src/components/Maps/APIKey.tsx:163
+#: src/components/Navigator.tsx:302
 #: src/components/Team/general/fields.tsx:87
-#: src/components/User/profile.tsx:124
-#: src/components/custom/Delete.tsx:66
+#: src/components/User/profile.tsx:108
+#: src/components/custom/AddNew.tsx:111
+#: src/components/custom/Delete.tsx:94
 msgid "Name"
 msgstr ""
 
@@ -56,12 +57,12 @@ msgid "Description"
 msgstr ""
 
 #: src/components/Data/GIS.tsx:217
-#: src/components/Maps/APIKey.tsx:86
+#: src/components/Maps/APIKey.tsx:173
 msgid "URLs"
 msgstr ""
 
 #: src/components/Data/GIS.tsx:227
-#: src/components/Maps/APIKey.tsx:96
+#: src/components/Maps/APIKey.tsx:186
 msgid ""
 "Each URLs will be used as a value of "
 "<code>Access-Control-Allow-Origin</code> header for CORS. Please enter a "
@@ -69,8 +70,8 @@ msgid ""
 msgstr ""
 
 #: src/components/Data/GIS.tsx:235
-#: src/components/Maps/APIKey.tsx:106
-#: src/components/Team/general/delete.tsx:78
+#: src/components/Maps/APIKey.tsx:196
+#: src/components/Team/general/delete.tsx:80
 msgid "Danger Zone"
 msgstr ""
 
@@ -87,7 +88,7 @@ msgid "Please type in the name of the dataset to confirm."
 msgstr ""
 
 #: src/components/Data/GIS.tsx:254
-#: src/components/custom/Table.tsx:54
+#: src/components/custom/Table.tsx:61
 msgid "Public"
 msgstr ""
 
@@ -111,22 +112,22 @@ msgstr ""
 msgid "GIS services"
 msgstr ""
 
-#: src/components/Data/GISs.tsx:36
+#: src/components/Data/GISs.tsx:39
 msgid ""
 "Geolonia GIS is an API service specialized for location data. Register "
 "various location information data such as stores and real estate "
 "informations that you have."
 msgstr ""
 
-#: src/components/Data/GISs.tsx:42
+#: src/components/Data/GISs.tsx:45
 msgid "Create a new dataset"
 msgstr ""
 
-#: src/components/Data/GISs.tsx:43
+#: src/components/Data/GISs.tsx:46
 msgid "Please enter the name of the new dataset."
 msgstr ""
 
-#: src/components/Data/GISs.tsx:44
+#: src/components/Data/GISs.tsx:47
 msgid "My dataset"
 msgstr ""
 
@@ -136,7 +137,7 @@ msgstr ""
 
 #: src/components/ForgotPassword.tsx:56
 #: src/components/Signup.tsx:79
-#: src/components/User/profile.tsx:103
+#: src/components/User/profile.tsx:87
 #: src/components/verify.tsx:79
 msgid "Username"
 msgstr ""
@@ -157,119 +158,124 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:109
-msgid "Once you delete an API, there is no going back. Please be certain."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:120
-msgid "Your API Key"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:126
-msgid "Add the map to your site"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:129
-msgid "Step 1"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:133
-msgid ""
-"Include the following code before closing tag of the <code>&lt;body "
-"/&gt;</code> in your HTML file."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:140
-msgid "Step 2"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:143
-msgid "Add the following code where you want to place the map."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:32
-#: src/components/Maps/APIKeys.tsx:22
-#: src/components/Navigator.tsx:129
-msgid "Maps"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:36
-#: src/components/Maps/APIKeys.tsx:35
-#: src/components/Navigator.tsx:132
-msgid "API keys"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:69
+#: src/components/Maps/APIKey.tsx:153
 msgid "API key settings"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:70
+#: src/components/Maps/APIKey.tsx:154
 msgid ""
 "Configure access control for your API key and Get the HTML code for your "
 "map."
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:36
+#: src/components/Maps/APIKey.tsx:199
+msgid "Once you delete an API, there is no going back. Please be certain."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:216
+msgid "Your API Key"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:222
+msgid "Add the map to your site"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:225
+msgid "Step 1"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:229
+msgid ""
+"Include the following code before closing tag of the <code>&lt;body "
+"/&gt;</code> in your HTML file."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:236
+msgid "Step 2"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:239
+msgid "Add the following code where you want to place the map."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:92
+#: src/components/Maps/APIKeys.tsx:41
+#: src/components/Navigator.tsx:131
+msgid "Maps"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:96
+#: src/components/Maps/APIKeys.tsx:67
+#: src/components/Navigator.tsx:134
+msgid "API keys"
+msgstr ""
+
+#: src/components/Maps/APIKeys.tsx:68
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
-#: src/components/Navigator.tsx:110
+#: src/components/Maps/APIKeys.tsx:72
+msgid "Create a new API key"
+msgstr ""
+
+#: src/components/Maps/APIKeys.tsx:73
+msgid "Please enter the name of new API key."
+msgstr ""
+
+#: src/components/Maps/APIKeys.tsx:74
+msgid "My API"
+msgstr ""
+
+#: src/components/Navigator.tsx:112
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:141
+#: src/components/Navigator.tsx:143
 msgid "GIS Services"
 msgstr ""
 
-#: src/components/Navigator.tsx:144
+#: src/components/Navigator.tsx:146
 msgid "Gcloud"
 msgstr ""
 
-#: src/components/Navigator.tsx:153
+#: src/components/Navigator.tsx:155
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:156
+#: src/components/Navigator.tsx:158
 #: src/components/Team/general/fields.tsx:78
 #: src/components/Team/general/index.tsx:31
 msgid "General"
 msgstr ""
 
-#: src/components/Navigator.tsx:162
-#: src/components/Team/Members.tsx:90
+#: src/components/Navigator.tsx:164
+#: src/components/Team/members/index.tsx:132
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:168
+#: src/components/Navigator.tsx:170
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:239
+#: src/components/Navigator.tsx:247
 msgid "Dashboard"
 msgstr ""
 
-#: src/components/Navigator.tsx:284
+#: src/components/Navigator.tsx:292
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:288
+#: src/components/Navigator.tsx:296
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:301
+#: src/components/Navigator.tsx:309
 #: src/components/Team/general/fields.tsx:115
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:311
-#: src/components/Team/general/delete.tsx:135
-#: src/components/custom/Delete.tsx:74
-msgid "Cancel"
-msgstr ""
-
-#: src/components/Navigator.tsx:319
-#: src/components/custom/Save.tsx:104
-msgid "Save"
+#: src/components/Navigator.tsx:315
+msgid "We’ll send receipts to this inbox."
 msgstr ""
 
 #: src/components/ResetPassword.tsx:64
@@ -449,74 +455,41 @@ msgstr ""
 msgid "Cost per 1,000 map loads/month"
 msgstr ""
 
-#: src/components/Team/Members.tsx:102
-msgid "Invite"
-msgstr ""
-
-#: src/components/Team/Members.tsx:103
-msgid "Invite a member"
-msgstr ""
-
-#: src/components/Team/Members.tsx:104
-msgid "We automatically update your billing as you add and remove team members."
-msgstr ""
-
-#: src/components/Team/Members.tsx:109
-#: src/components/User/profile.tsx:112
-msgid "Email"
-msgstr ""
-
-#: src/components/Team/Members.tsx:131
-msgid "Owner"
-msgstr ""
-
-#: src/components/Team/Members.tsx:149
-msgid "Change role"
-msgstr ""
-
-#: src/components/Team/Members.tsx:150
-msgid "Deactivate"
-msgstr ""
-
-#: src/components/Team/Members.tsx:152
-msgid "Remove from team"
-msgstr ""
-
-#: src/components/Team/Members.tsx:86
-#: src/components/Team/general/fields.tsx:74
-#: src/components/Team/general/index.tsx:20
-msgid "Team settings"
-msgstr ""
-
-#: src/components/Team/Members.tsx:98
-msgid "You can manage members in your team."
-msgstr ""
-
-#: src/components/Team/general/avatar.tsx:87
-#: src/components/User/avatar.tsx:104
+#: src/components/Team/general/avatar.tsx:99
+#: src/components/User/avatar.tsx:112
 msgid "Upload new picture"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:102
+#: src/components/Team/general/delete.tsx:104
 msgid "Confirm deletion"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:109
+#: src/components/Team/general/delete.tsx:111
 msgid ""
 "Please enter <code>delete</code> if you really want to delete the team "
 "<strong>%1$s</strong>."
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:121
+#: src/components/Team/general/delete.tsx:123
 msgid "Confirm"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:154
-#: src/components/custom/Delete.tsx:77
+#: src/components/Team/general/delete.tsx:140
+#: src/components/Team/members/change-role.tsx:78
+#: src/components/Team/members/deactivate-member.tsx:52
+#: src/components/Team/members/remove-member.tsx:52
+#: src/components/custom/AddNew.tsx:93
+#: src/components/custom/Cancel.tsx:40
+#: src/components/custom/Delete.tsx:103
+msgid "Cancel"
+msgstr ""
+
+#: src/components/Team/general/delete.tsx:159
+#: src/components/custom/Delete.tsx:120
 msgid "Delete"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:81
+#: src/components/Team/general/delete.tsx:83
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr ""
 
@@ -524,11 +497,82 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
+#: src/components/Team/general/fields.tsx:74
+#: src/components/Team/general/index.tsx:20
+#: src/components/Team/members/index.tsx:128
+msgid "Team settings"
+msgstr ""
+
 #: src/components/Team/general/index.tsx:32
 msgid ""
 "All users on the Geolonia service belong to one of the teams, and a team "
 "with the same name as the user is automatically generated when you sign up. "
 "You can switch teams in the pull-down menu at the top left of the sidebar."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:45
+#: src/components/Team/members/index.tsx:232
+msgid "Change role"
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:63
+msgid "Has full administrative access to the entire team."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:72
+msgid "Can access every resource in the team."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:81
+#: src/components/custom/AddNew.tsx:99
+#: src/components/custom/Save.tsx:111
+msgid "Save"
+msgstr ""
+
+#: src/components/Team/members/deactivate-member.tsx:39
+msgid "The following members will be deactivate:"
+msgstr ""
+
+#: src/components/Team/members/deactivate-member.tsx:55
+#: src/components/Team/members/index.tsx:235
+msgid "Deactivate"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:140
+msgid "You can manage members in your team."
+msgstr ""
+
+#: src/components/Team/members/index.tsx:143
+msgid "Invite"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:144
+msgid "Invite a member"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:145
+msgid "We automatically update your billing as you add and remove team members."
+msgstr ""
+
+#: src/components/Team/members/index.tsx:150
+#: src/components/User/profile.tsx:96
+msgid "Email"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:195
+msgid "Owner"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:238
+msgid "Remove from team"
+msgstr ""
+
+#: src/components/Team/members/remove-member.tsx:39
+msgid "The following members will be removed:"
+msgstr ""
+
+#: src/components/Team/members/remove-member.tsx:55
+msgid "Remove"
 msgstr ""
 
 #: src/components/User/User.tsx:24
@@ -539,11 +583,11 @@ msgstr ""
 msgid "You can update your profile and security."
 msgstr ""
 
-#: src/components/User/profile.tsx:132
+#: src/components/User/profile.tsx:116
 msgid "Language"
 msgstr ""
 
-#: src/components/User/profile.tsx:145
+#: src/components/User/profile.tsx:129
 msgid "Time zone"
 msgstr ""
 
@@ -579,19 +623,35 @@ msgstr ""
 msgid "Confirm new password"
 msgstr ""
 
-#: src/components/custom/Delete.tsx:87
-msgid "Are you sure you want to delete this API key?"
+#: src/components/custom/AddNew.tsx:109
+msgid "New"
 msgstr ""
 
-#: src/components/custom/Delete.tsx:88
-msgid "Please type in the name of the API key to confirm."
+#: src/components/custom/AddNew.tsx:110
+msgid "name"
 msgstr ""
 
-#: src/components/custom/Save.tsx:85
+#: src/components/custom/AddNew.tsx:112
+msgid "text"
+msgstr ""
+
+#: src/components/custom/AddNew.tsx:113
+msgid "Some error."
+msgstr ""
+
+#: src/components/custom/Delete.tsx:130
+msgid "Are you sure you want to delete this item?"
+msgstr ""
+
+#: src/components/custom/Delete.tsx:131
+msgid "Please type as <code>delete</code> to confirm."
+msgstr ""
+
+#: src/components/custom/Save.tsx:92
 msgid "Saved."
 msgstr ""
 
-#: src/components/custom/Save.tsx:85
+#: src/components/custom/Save.tsx:92
 msgid "Failed to save."
 msgstr ""
 
@@ -605,6 +665,10 @@ msgstr ""
 
 #: src/components/custom/Support.tsx:22
 msgid "Contact Geolonia"
+msgstr ""
+
+#: src/components/custom/Table.tsx:67
+msgid "(No date)"
 msgstr ""
 
 #: src/components/verify.tsx:106

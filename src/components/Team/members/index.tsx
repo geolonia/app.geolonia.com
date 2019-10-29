@@ -204,23 +204,43 @@ const Content = (props: Props) => {
                 >
                   <BrightnessLowIcon style={iconStyle} />
                 </Button>
-                <Menu
-                  id={`simple-menu-${row.id}`}
-                  anchorEl={anchorEl}
-                  keepMounted
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem onClick={() => setOpenChangeRole(true)}>
-                    {__("Change role")}
-                  </MenuItem>
-                  <MenuItem onClick={() => setOpenDeactivateMember(true)}>
-                    {__("Deactivate")}
-                  </MenuItem>
-                  <MenuItem onClick={() => setOpenRemoveMember(true)}>
-                    {__("Remove from team")}
-                  </MenuItem>
-                </Menu>
+                {(() => {
+                  if (row.isOwner) {
+                    return(
+                      <Menu
+                        id={`simple-menu-${row.id}`}
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                      >
+                        <MenuItem onClick={() => setOpenChangeRole(true)}>
+                          {__("Change role")}
+                        </MenuItem>
+                      </Menu>
+                    );
+                  } else {
+                    return(
+                      <Menu
+                        id={`simple-menu-${row.id}`}
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                      >
+                        <MenuItem onClick={() => setOpenChangeRole(true)}>
+                          {__("Change role")}
+                        </MenuItem>
+                        <MenuItem onClick={() => setOpenDeactivateMember(true)}>
+                          {__("Deactivate")}
+                        </MenuItem>
+                        <MenuItem onClick={() => setOpenRemoveMember(true)}>
+                          {__("Remove from team")}
+                        </MenuItem>
+                      </Menu>
+                    );
+                  }
+                })()}
               </TableCell>
             </TableRow>
           ))}
