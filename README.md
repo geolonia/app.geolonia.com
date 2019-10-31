@@ -13,34 +13,49 @@ $ npm start
 
 ## Component Template
 
-### Without Redux
+### Simple
 
-```typescript
+```tsx
+// hello.tsx
 import React from "react";
-import { connect } from "react-redux";
+import './hello.scss'
 
 type Props = {
   name: string;
 };
 
-type State = {
-  value: number;
-};
-
-export default class MyComponent extends React.Component<Props, State> {
-  state = {
-    value: 123
-  };
-
-  static defaultProps = {
-    name: "hello"
-  };
-
+export class HelloComponent extends React.Component<Props> {
   render() {
-    const state = this.state;
-    const props = this.props;
-    return <div></div>;
+    const name = this.props.name
+    const text = 'Hello, ' + name + '!'
+    return <h1 className="hello">{text}</h1>;
   }
+}
+
+export default HelloComponent
+```
+
+```tsx
+// hello.test.tsx
+import React from "react";
+import ReactDOM from "react-dom";
+import MySample from "./my-sample";
+
+it("renders text", () => {
+  const div = document.createElement("div");
+  // @ts-ignore
+  ReactDOM.render(<MySample name="Geolonia" />, div);
+  expect(div.innerHTML).toEqual('<h1 class="hello">Hello, Geolonia!</h1>')
+
+  ReactDOM.unmountComponentAtNode(div);
+});
+```
+
+```css
+// hello.scss
+
+.hello {
+  font-weight: bold;
 }
 ```
 
