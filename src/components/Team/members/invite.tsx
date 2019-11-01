@@ -2,7 +2,6 @@ import React from "react";
 
 // Component
 import AddNew from "../../custom/AddNew";
-import { CircularProgress } from "@material-ui/core";
 
 // Util
 import { __ } from "@wordpress/i18n";
@@ -25,6 +24,7 @@ type OwnProps = {};
 
 type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
+  members: Member[];
   team: Team | void;
 };
 type DispatchProps = {
@@ -34,11 +34,16 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 export const Invite = (props: Props) => {
   const inviteHandler = (email: string) => {
-    const { session, team, addMemberState } = props;
+    const { session, team, addMemberState, members } = props;
     if (team) {
-      // TODO: show loading error
-      return addMember(session, team.teamId, email).then(member => {
-        addMemberState(team.teamId, member);
+      return addMember(session, team.teamId, email).then(newMember => {
+        if (members.find(member => member.userSub === newMember.userSub)) {
+          console.warn("Already joined");
+          // TODO: Raise error and show message inside Add New component.
+          // Related issue: https://github.com/geolonia/app.geolonia.com/issues/106
+        } else {
+          addMemberState(team.teamId, newMember);
+        }
       });
     } else {
       return Promise.resolve();
@@ -65,7 +70,14 @@ export const mapStateToProps = (state: AppState): StateProps => {
   const { session } = state.authSupport;
   const selectedTeamIndex = state.team.selectedIndex;
   const team = state.team.data[selectedTeamIndex] as Team | void;
-  return { session, team };
+  let members: Member[] = [];
+  if (team) {
+    const memberObject = state.teamMember[team.teamId];
+    if (memberObject) {
+      members = memberObject.data;
+    }
+  }
+  return { session, team, members };
 };
 
 export const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
