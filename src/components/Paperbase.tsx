@@ -19,12 +19,16 @@ import Verify from "./verify";
 import Signin from "./Signin";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
-
-import { connect } from "react-redux";
-import { AppState } from "../redux/store";
-
-import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { CircularProgress } from "@material-ui/core";
+
+// Types
+import { AppState } from "../redux/store";
+import { Team } from "../redux/actions/team";
+import { UserMetaState } from "../redux/actions/user-meta";
+import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
+
+// redux
+import { connect } from "react-redux";
 
 const drawerWidth = 256;
 const styles = createStyles({
@@ -50,20 +54,25 @@ const styles = createStyles({
   }
 });
 
-type Props = {
+type OwnProps = {
   classes: {
     root: string;
     drawer: string;
     appContent: string;
     mainContent: string;
   };
-  // stateProps
+};
+type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
   isReady: boolean;
+  teams: Team[];
+  currentTeam?: Team;
+  userMeta: UserMetaState;
 };
+type Props = OwnProps & StateProps;
 
 export const Paperbase: React.FC<Props> = (props: Props) => {
-  const { classes, isReady, session } = props;
+  const { classes, isReady, session, teams, currentTeam, userMeta } = props;
 
   const isLoggedIn = isReady && !!session;
 
@@ -136,10 +145,23 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
-  isReady: state.authSupport.isReady,
-  session: state.authSupport.session
-});
+const mapStateToProps = (state: AppState): StateProps => {
+  // map Teams
+  const selectedTeamIndex = state.team.selectedIndex;
+  const teams = state.team.data;
+  const currentTeam = state.team.data[selectedTeamIndex] as Team | undefined;
+
+  // map UserMeta
+  const userMeta = state.userMeta;
+
+  return {
+    isReady: state.authSupport.isReady,
+    session: state.authSupport.session,
+    teams,
+    currentTeam,
+    userMeta
+  };
+};
 
 const ConnectedPaperbase = connect(mapStateToProps)(Paperbase);
 

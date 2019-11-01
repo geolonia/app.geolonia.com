@@ -1,5 +1,4 @@
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { UserMetaState } from "../../redux/actions/user-meta";
 const { REACT_APP_API_BASE } = process.env;
 
 const putAvatar = (

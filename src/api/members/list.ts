@@ -21,6 +21,7 @@ const listMembers = (
     if (res.ok) {
       return res.json() as Promise<Member[]>;
     } else {
+      console.error(res.text());
       throw new Error("network error");
     }
   });

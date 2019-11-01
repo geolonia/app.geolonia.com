@@ -24,8 +24,8 @@ import jsonStyle from "../custom/drawStyle";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 
 import "./GIS.scss";
-
-const MapboxDraw = require("@mapbox/mapbox-gl-draw"); // `@types/mapbox__mapbox-gl-draw` doesn't exist.
+// @ts-ignore
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
 interface TabPanelProps {
   children?: React.ReactNode;

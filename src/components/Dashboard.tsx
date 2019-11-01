@@ -18,7 +18,6 @@ import { connect } from "react-redux";
 import { AppState } from "../redux/store";
 import { UserMetaState } from "../redux/actions/user-meta";
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import ReduxifySample from "./custom/reduxify-sample";
 
 const styles = (theme: Theme) => ({});
 

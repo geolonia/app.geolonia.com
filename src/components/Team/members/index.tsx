@@ -60,12 +60,11 @@ const Content = (props: Props) => {
     false
   );
   const [openChangeRole, setOpenChangeRole] = React.useState(false);
-  const [openDeactivateMember, setOpenDeactivateMember] = React.useState(false);
   const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
 
   React.useEffect(() => {
     handleClose();
-  }, [openChangeRole, openDeactivateMember, openRemoveMember]);
+  }, [openChangeRole, openRemoveMember]);
 
   const rows: Row[] = members.map(member => {
     return {
@@ -177,58 +176,42 @@ const Content = (props: Props) => {
       )}
       <Table className="geolonia-list-table">
         <TableBody>
-          {rows.map((row, index) => {
-            return (
-              <TableRow
-                key={row.id}
-                onMouseOver={onMouseOver}
-                onMouseOut={onMouseOut}
-                onClick={onClick}
-                data-id={row.id}
-              >
-                <TableCell style={firstCellStyle} padding="none">
-                  <PersonIcon />
-                </TableCell>
-                <TableCell component="th" scope="row">
-                  {row.name}
-                  <br />@{row.username}
-                </TableCell>
-                <TableCell align="center">
-                  {row.role === Roles.Owner ? (
-                    <Chip label={__("Owner")} />
-                  ) : row.role === Roles.Deactivated ? (
-                    <Chip label={__("Deactivated")} color={"secondary"} />
-                  ) : null}
-                </TableCell>
-                <TableCell align="right">
-                  <Button
-                    variant="outlined"
-                    color="default"
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={handleClick}
-                    value={index}
-                  >
-                    <BrightnessLowIcon style={iconStyle} />
-                  </Button>
-                  <Menu
-                    id={`simple-menu-${row.id}`}
-                    anchorEl={anchorEl}
-                    keepMounted
-                    open={Boolean(anchorEl)}
-                    onClose={handleClose}
-                  >
-                    <MenuItem onClick={() => setOpenChangeRole(true)}>
-                      {__("Change role")}
-                    </MenuItem>
-                    <MenuItem onClick={() => setOpenRemoveMember(true)}>
-                      {__("Remove from team")}
-                    </MenuItem>
-                  </Menu>
-                </TableCell>
-              </TableRow>
-            );
-          })}
+          {rows.map((row, index) => (
+            <TableRow
+              key={row.id}
+              onMouseOver={onMouseOver}
+              onMouseOut={onMouseOut}
+              onClick={onClick}
+              data-id={row.id}
+            >
+              <TableCell style={firstCellStyle} padding="none">
+                <PersonIcon />
+              </TableCell>
+              <TableCell component="th" scope="row">
+                {row.name}
+                <br />@{row.username}
+              </TableCell>
+              <TableCell align="center">
+                {row.role === Roles.Owner ? (
+                  <Chip label={__("Owner")} />
+                ) : row.role === Roles.Deactivated ? (
+                  <Chip label={__("Deactivated")} color={"secondary"} />
+                ) : null}
+              </TableCell>
+              <TableCell align="right">
+                <Button
+                  variant="outlined"
+                  color="default"
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                  value={index}
+                >
+                  <BrightnessLowIcon style={iconStyle} />
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))}
         </TableBody>
         <TableFooter>
           <TableRow>
@@ -248,6 +231,44 @@ const Content = (props: Props) => {
           </TableRow>
         </TableFooter>
       </Table>
+
+      {(() => {
+        if (!currentMember) {
+          return null;
+        }
+
+        if (currentMember.role === Roles.Owner) {
+          return (
+            <Menu
+              id={"simple-menu"}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => setOpenChangeRole(true)}>
+                {__("Change role")}
+              </MenuItem>
+            </Menu>
+          );
+        } else {
+          return (
+            <Menu
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => setOpenChangeRole(true)}>
+                {__("Change role")}
+              </MenuItem>
+              <MenuItem onClick={() => setOpenRemoveMember(true)}>
+                {__("Remove from team")}
+              </MenuItem>
+            </Menu>
+          );
+        }
+      })()}
     </div>
   );
 };

@@ -21,6 +21,7 @@ type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
   user: UserMetaState;
   team?: Team;
+  teams: Team[];
 };
 
 type DispatchProps = {
@@ -39,7 +40,7 @@ export const appendReduxifyReducers: Redux.Reducer = (
 ) => {
   const result: Redux.ReducersMapObject = {};
 
-  for (let key in reducerMapObjects) {
+  for (const key in reducerMapObjects) {
     // Proxy all reducer composition
     result[key] = (state: any, action: Redux.AnyAction) => {
       const nextState = reducerMapObjects[key](state, action);
@@ -62,7 +63,7 @@ const reduxify = (MyComponent: any) => {
     const teams = appState.team.data;
     const session = appState.authSupport.session;
 
-    return { appState, session, user, team };
+    return { appState, session, user, team, teams };
   };
   const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => {
     const setAppState = (nextAppState: Partial<AppState>) => {

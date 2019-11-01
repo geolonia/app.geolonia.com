@@ -26,7 +26,7 @@ export const RouteController = (props: Props) => {
       pathname !== "/signup" &&
       pathname !== "/forgot-password" &&
       replace("/signin");
-  }, []);
+  }, [isLoggedIn, pathname, replace]);
 
   return (<></>);
 };

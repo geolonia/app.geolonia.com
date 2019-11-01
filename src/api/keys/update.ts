@@ -1,5 +1,4 @@
 import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { Team } from "../../redux/actions/team";
 import { Key } from "../../redux/actions/map-key";
 const { REACT_APP_API_BASE } = process.env;
 
