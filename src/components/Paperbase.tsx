@@ -72,7 +72,7 @@ type StateProps = {
 type Props = OwnProps & StateProps;
 
 export const Paperbase: React.FC<Props> = (props: Props) => {
-  const { classes, isReady, session, teams, currentTeam, userMeta } = props;
+  const { classes, isReady, session } = props;
 
   const isLoggedIn = isReady && !!session;
 

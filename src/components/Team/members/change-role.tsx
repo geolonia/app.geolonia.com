@@ -48,13 +48,7 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const ChangeRole = (props: Props) => {
-  const {
-    currentMember,
-    teamName,
-    open,
-    toggle,
-    updateMemberRoleState
-  } = props;
+  const { currentMember, open, toggle, updateMemberRoleState } = props;
   const [role, setRole] = React.useState<false | Member["role"]>(
     currentMember.role
   );

@@ -26,10 +26,7 @@ import {
   isTeam
 } from "../redux/actions/team";
 import { createActions as createMapKeyActions } from "../redux/actions/map-key";
-import {
-  createActions as createTeamMemberActions,
-  Roles
-} from "../redux/actions/team-member";
+import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
 
 // Types
 import { UserMetaState } from "../redux/actions/user-meta";
