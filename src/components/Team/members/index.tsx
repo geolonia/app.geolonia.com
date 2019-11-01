@@ -12,28 +12,20 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import BrightnessLowIcon from "@material-ui/icons/BrightnessLow";
 import PersonIcon from "@material-ui/icons/Person";
-import AddNew from "../../custom/AddNew";
 import Title from "../../custom/Title";
 import { AppState } from "../../../redux/store";
 import { connect } from "react-redux";
-import { Member, Roles } from "../../../redux/actions/team-member";
+import Invite from "./invite";
 import ChangeRole from "./change-role";
 import RemoveMember from "./remove-member";
+import { Chip } from "@material-ui/core";
 
 // utils
 import { __ } from "@wordpress/i18n";
 
-// types
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-
-// redux
-import Redux from "redux";
-import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
-
-// API
-import addMember from "../../../api/members/add";
+// Types
 import { Team } from "../../../redux/actions/team";
-import { Chip } from "@material-ui/core";
+import { Member, Roles } from "../../../redux/actions/team-member";
 
 type Row = {
   id: number | string;
@@ -45,14 +37,11 @@ type Row = {
 
 type OwnProps = {};
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
   team: Team | void;
   members: Member[];
 };
-type DispatchProps = {
-  addMemberState: (teamId: string, member: Member) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
+
+type Props = OwnProps & StateProps;
 
 const Content = (props: Props) => {
   const { members } = props;
@@ -114,18 +103,6 @@ const Content = (props: Props) => {
     setAnchorEl(null);
   };
 
-  const inviteHandler = (email: string) => {
-    const { session, team, addMemberState } = props;
-    if (team) {
-      // TODO: show loading error
-      return addMember(session, team.teamId, email).then(member => {
-        addMemberState(team.teamId, member);
-      });
-    } else {
-      return Promise.resolve();
-    }
-  };
-
   const breadcrumbItems = [
     {
       title: "Home",
@@ -146,18 +123,7 @@ const Content = (props: Props) => {
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
       </Title>
-      <AddNew
-        buttonLabel={__("Invite")}
-        label={__("Invite a member")}
-        description={__(
-          "We automatically update your billing as you add and remove team members."
-        )}
-        default=""
-        fieldName="email"
-        fieldLabel={__("Email")}
-        fieldType="email"
-        handler={inviteHandler}
-      />
+      <Invite />
 
       {/* each member management */}
       {currentMember && (
@@ -274,7 +240,6 @@ const Content = (props: Props) => {
 };
 
 export const mapStateToProps = (state: AppState): StateProps => {
-  const { session } = state.authSupport;
   const selectedTeamIndex = state.team.selectedIndex;
   const team = state.team.data[selectedTeamIndex] as Team | void;
   let members: Member[] = [];
@@ -284,15 +249,7 @@ export const mapStateToProps = (state: AppState): StateProps => {
       members = memberObject.data;
     }
   }
-  return { session, team, members };
+  return { team, members };
 };
 
-export const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
-  addMemberState: (teamId: string, member: Member) =>
-    dispatch(createTeamMemberActions.add(teamId, member))
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+export default connect(mapStateToProps)(Content);
