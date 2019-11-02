@@ -5,22 +5,67 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { Box } from "@material-ui/core";
+import { Box, CircularProgress } from "@material-ui/core";
 import PersonIcon from "@material-ui/icons/Person";
+
+// libs
 import { __, sprintf } from "@wordpress/i18n";
+
+// API
+import updateMember from "../../../api/members/update";
 
 // Types
 import { Member } from "../../../redux/actions/team-member";
+import { AppState } from "../../../redux/store";
+import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 
-type Props = {
+// Redux
+import { connect } from "react-redux";
+import {
+  createActions as createTeamMemberActions,
+  Roles
+} from "../../../redux/actions/team-member";
+import Redux from "redux";
+
+type OwnProps = {
   currentMember: Member;
-  teamName: string;
   open: boolean;
   toggle: (open: boolean) => void;
 };
+type StateProps = {
+  session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+  teamId: string;
+  teamName: string;
+};
+type DispatchProps = {
+  deleteMemberState: (teamId: string, memberSub: string) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 const RemoveMember = (props: Props) => {
-  const { currentMember, teamName, open, toggle } = props;
+  const { currentMember, teamName, open, toggle, deleteMemberState } = props;
+  const [status, setStatus] = React.useState<
+    false | "requesting" | "success" | "failure"
+  >(false);
+
+  const onRemoveClick = () => {
+    setStatus("requesting");
+    updateMember(
+      props.session,
+      props.teamId,
+      currentMember.userSub,
+      Roles.Deactivated
+    )
+      .then(() => {
+        setStatus("success");
+        deleteMemberState(props.teamId, currentMember.userSub);
+        toggle(false);
+      })
+      .catch(() => {
+        // TODO: show error
+        setStatus("failure");
+      });
+  };
 
   return (
     <div>
@@ -51,7 +96,10 @@ const RemoveMember = (props: Props) => {
             <Button onClick={() => toggle(false)} color="primary">
               {__("Cancel")}
             </Button>
-            <Button color="primary" type="submit">
+            <Button color="primary" type="submit" onClick={onRemoveClick}>
+              {status === "requesting" && (
+                <CircularProgress size={16} style={{ marginRight: 8 }} />
+              )}
               {__("Remove")}
             </Button>
           </DialogActions>
@@ -61,4 +109,21 @@ const RemoveMember = (props: Props) => {
   );
 };
 
-export default RemoveMember;
+const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  return {
+    session: state.authSupport.session,
+    teamId: team.teamId,
+    teamName: team.name
+  };
+};
+
+const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+  deleteMemberState: (teamId, userSub) =>
+    dispatch(createTeamMemberActions.delete(teamId, userSub))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RemoveMember);

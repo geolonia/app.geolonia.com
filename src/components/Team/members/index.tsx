@@ -16,9 +16,8 @@ import AddNew from "../../custom/AddNew";
 import Title from "../../custom/Title";
 import { AppState } from "../../../redux/store";
 import { connect } from "react-redux";
-import { Member } from "../../../redux/actions/team-member";
+import { Member, Roles } from "../../../redux/actions/team-member";
 import ChangeRole from "./change-role";
-import DeactivateMember from "./deactivate-member";
 import RemoveMember from "./remove-member";
 
 // utils
@@ -33,20 +32,21 @@ import { createActions as createTeamMemberActions } from "../../../redux/actions
 
 // API
 import addMember from "../../../api/members/add";
+import { Team } from "../../../redux/actions/team";
+import { Chip } from "@material-ui/core";
 
 type Row = {
   id: number | string;
   avatar: string | void;
   name: string;
   username: string;
-  isOwner: boolean;
+  role: Member["role"];
 };
 
 type OwnProps = {};
 type StateProps = {
   session?: AmazonCognitoIdentity.CognitoUserSession;
-  teamId: string;
-  teamName: string;
+  team: Team | void;
   members: Member[];
 };
 type DispatchProps = {
@@ -55,13 +55,16 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
-  const { members, teamName } = props;
+  const { members } = props;
   const [currentMember, setCurrentMember] = React.useState<false | Member>(
     false
   );
   const [openChangeRole, setOpenChangeRole] = React.useState(false);
-  const [openDeactivateMember, setOpenDeactivateMember] = React.useState(false);
   const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
+
+  React.useEffect(() => {
+    handleClose();
+  }, [openChangeRole, openRemoveMember]);
 
   const rows: Row[] = members.map(member => {
     return {
@@ -69,7 +72,7 @@ const Content = (props: Props) => {
       avatar: member.avatarImage,
       name: member.name,
       username: member.username,
-      isOwner: member.role === "Owner"
+      role: member.role
     };
   });
 
@@ -112,11 +115,15 @@ const Content = (props: Props) => {
   };
 
   const inviteHandler = (email: string) => {
-    const { session, teamId, addMemberState } = props;
-    // TODO: loading
-    return addMember(session, teamId, email).then(member => {
-      addMemberState(teamId, member);
-    });
+    const { session, team, addMemberState } = props;
+    if (team) {
+      // TODO: show loading error
+      return addMember(session, team.teamId, email).then(member => {
+        addMemberState(team.teamId, member);
+      });
+    } else {
+      return Promise.resolve();
+    }
   };
 
   const breadcrumbItems = [
@@ -157,19 +164,11 @@ const Content = (props: Props) => {
         <>
           <ChangeRole
             currentMember={currentMember}
-            teamName={teamName}
             open={openChangeRole}
             toggle={setOpenChangeRole}
           />
-          <DeactivateMember
-            currentMember={currentMember}
-            teamName={teamName}
-            open={openDeactivateMember}
-            toggle={setOpenDeactivateMember}
-          />
           <RemoveMember
             currentMember={currentMember}
-            teamName={teamName}
             open={openRemoveMember}
             toggle={setOpenRemoveMember}
           />
@@ -192,7 +191,13 @@ const Content = (props: Props) => {
                 {row.name}
                 <br />@{row.username}
               </TableCell>
-              <TableCell align="center">{row.isOwner && __("Owner")}</TableCell>
+              <TableCell align="center">
+                {row.role === Roles.Owner ? (
+                  <Chip label={__("Owner")} />
+                ) : row.role === Roles.Deactivated ? (
+                  <Chip label={__("Deactivated")} color={"secondary"} />
+                ) : null}
+              </TableCell>
               <TableCell align="right">
                 <Button
                   variant="outlined"
@@ -204,43 +209,6 @@ const Content = (props: Props) => {
                 >
                   <BrightnessLowIcon style={iconStyle} />
                 </Button>
-                {(() => {
-                  if (row.isOwner) {
-                    return(
-                      <Menu
-                        id={`simple-menu-${row.id}`}
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                      >
-                        <MenuItem onClick={() => setOpenChangeRole(true)}>
-                          {__("Change role")}
-                        </MenuItem>
-                      </Menu>
-                    );
-                  } else {
-                    return(
-                      <Menu
-                        id={`simple-menu-${row.id}`}
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                      >
-                        <MenuItem onClick={() => setOpenChangeRole(true)}>
-                          {__("Change role")}
-                        </MenuItem>
-                        <MenuItem onClick={() => setOpenDeactivateMember(true)}>
-                          {__("Deactivate")}
-                        </MenuItem>
-                        <MenuItem onClick={() => setOpenRemoveMember(true)}>
-                          {__("Remove from team")}
-                        </MenuItem>
-                      </Menu>
-                    );
-                  }
-                })()}
               </TableCell>
             </TableRow>
           ))}
@@ -263,20 +231,60 @@ const Content = (props: Props) => {
           </TableRow>
         </TableFooter>
       </Table>
+
+      {(() => {
+        if (!currentMember) {
+          return null;
+        }
+
+        if (currentMember.role === Roles.Owner) {
+          return (
+            <Menu
+              id={"simple-menu"}
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => setOpenChangeRole(true)}>
+                {__("Change role")}
+              </MenuItem>
+            </Menu>
+          );
+        } else {
+          return (
+            <Menu
+              anchorEl={anchorEl}
+              keepMounted
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              <MenuItem onClick={() => setOpenChangeRole(true)}>
+                {__("Change role")}
+              </MenuItem>
+              <MenuItem onClick={() => setOpenRemoveMember(true)}>
+                {__("Remove from team")}
+              </MenuItem>
+            </Menu>
+          );
+        }
+      })()}
     </div>
   );
 };
 
-export const mapStateToProps = (state: AppState) => {
+export const mapStateToProps = (state: AppState): StateProps => {
   const { session } = state.authSupport;
   const selectedTeamIndex = state.team.selectedIndex;
-  const { teamId, name: teamName } = state.team.data[selectedTeamIndex];
-  const memberObject = state.teamMember[teamId];
-  if (memberObject) {
-    return { session, teamId, teamName, members: memberObject.data };
-  } else {
-    return { session, teamId, teamName, members: [] };
+  const team = state.team.data[selectedTeamIndex] as Team | void;
+  let members: Member[] = [];
+  if (team) {
+    const memberObject = state.teamMember[team.teamId];
+    if (memberObject) {
+      members = memberObject.data;
+    }
   }
+  return { session, team, members };
 };
 
 export const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({

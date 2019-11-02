@@ -1,9 +1,11 @@
+import { Member } from "./team-member";
+
 export type Team = {
   teamId: string;
   name: string;
   description: string;
   url: string;
-  role: "Owner" | "Member" | "Fired";
+  role: Member["role"];
   billingEmail: string;
   isDeleted?: boolean;
   links: {
