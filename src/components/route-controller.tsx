@@ -22,13 +22,18 @@ export const RouteController = (props: Props) => {
   } = props;
 
   React.useEffect(() => {
-    !isLoggedIn &&
+    if (
+      !isLoggedIn &&
       pathname !== "/signup" &&
+      pathname !== "/verify" &&
       pathname !== "/forgot-password" &&
+      pathname !== "/reset-password"
+    ) {
       replace("/signin");
+    }
   }, [isLoggedIn, pathname, replace]);
 
-  return (<></>);
+  return <></>;
 };
 
 export default RouteController;
