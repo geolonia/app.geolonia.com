@@ -114,15 +114,6 @@ const ChangeRole = (props: Props) => {
               <DialogContentText>
                 {__("Can access all resource in the team.")}
               </DialogContentText>
-
-              <FormControlLabel
-                value="Deactivated"
-                control={<Radio />}
-                label="Deactivated"
-              />
-              <DialogContentText>
-                {__("Can not access all resouces in the team.")}
-              </DialogContentText>
             </RadioGroup>
           </DialogContent>
           <DialogActions>
