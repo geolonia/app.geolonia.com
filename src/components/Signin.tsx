@@ -1,20 +1,28 @@
+import "./Signin.scss";
+
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
-
-import "./Signin.scss";
 import Logo from "./custom/logo.svg";
 import Support from "./custom/Support";
 import Alert from "./custom/Alert";
-import { connect } from "react-redux";
-import { AppState } from "../redux/store";
-import { signin } from "../auth";
 import { CircularProgress } from "@material-ui/core";
+import CheckIcon from "@material-ui/icons/Check";
+
+// Utils
 import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
+
+// Types
+import { AppState } from "../types";
+
+// API
+import { signin } from "../auth";
+
+// Redux
 import Redux from "redux";
 import { createActions } from "../redux/actions/auth-support";
-import CheckIcon from "@material-ui/icons/Check";
+import { connect } from "react-redux";
 
 type OwnProps = {};
 type RouterProps = {

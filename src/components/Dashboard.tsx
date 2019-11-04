@@ -15,9 +15,7 @@ import iconPlane from "./custom/plane.svg";
 
 import "./Dashboard.scss";
 import { connect } from "react-redux";
-import { AppState } from "../redux/store";
-import { UserMetaState } from "../redux/actions/user-meta";
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState, Session, User } from "../types";
 
 const styles = (theme: Theme) => ({});
 
@@ -25,8 +23,8 @@ type OwnProps = {
   classes: any;
 };
 type StateProps = {
-  userMeta: UserMetaState;
-  session: AmazonCognitoIdentity.CognitoUserSession | void;
+  userMeta: User;
+  session: Session;
 };
 type Props = OwnProps & StateProps;
 

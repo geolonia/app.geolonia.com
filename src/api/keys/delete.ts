@@ -1,11 +1,7 @@
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { Session } from "../../types";
 const { REACT_APP_API_BASE } = process.env;
 
-const deleteKey = (
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined,
-  teamId: string,
-  apiKey: string
-) => {
+const deleteKey = (session: Session, teamId: string, apiKey: string) => {
   if (!session) {
     return Promise.reject(new Error("No session found."));
   }

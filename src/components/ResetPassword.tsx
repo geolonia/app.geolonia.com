@@ -1,15 +1,22 @@
+import "./ResetPassword.scss";
+
 import React from "react";
 import Button from "@material-ui/core/Button";
 import Support from "./custom/Support";
-import "./ResetPassword.scss";
 import Logo from "./custom/logo.svg";
-import { resetPassword } from "../auth";
-import { __ } from "@wordpress/i18n";
 import { CircularProgress } from "@material-ui/core";
-import delay from "../lib/promise-delay";
-import { AppState } from "../redux/store";
-import { connect } from "react-redux";
 import Alert from "./custom/Alert";
+
+// API
+import { resetPassword } from "../auth";
+
+// Utils
+import { __ } from "@wordpress/i18n";
+import delay from "../lib/promise-delay";
+import { connect } from "react-redux";
+
+// Types
+import { AppState } from "../types";
 
 type OwnProps = {};
 type RouterProps = {

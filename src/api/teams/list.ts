@@ -1,8 +1,11 @@
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { Team } from "../../redux/actions/team";
+import { Session, Team } from "../../types";
 const { REACT_APP_API_BASE } = process.env;
 
-const listTeams = (session: AmazonCognitoIdentity.CognitoUserSession) => {
+const listTeams = (session: Session) => {
+  if (!session) {
+    return Promise.reject("no sesion found");
+  }
+
   const idToken = session.getIdToken().getJwtToken();
 
   return fetch(`${REACT_APP_API_BASE}/teams`, {

@@ -1,12 +1,8 @@
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { UserMetaState } from "../../redux/actions/user-meta";
+import { Session, User } from "../../types";
 const { REACT_APP_API_BASE } = process.env;
 const failure = Symbol("request failed");
 
-const updateUser = (
-  session: AmazonCognitoIdentity.CognitoUserSession | void,
-  userMeta: UserMetaState
-) => {
+const updateUser = (session: Session, userMeta: User) => {
   if (!session) {
     throw new Error("Unknown Error. No session found.");
   }

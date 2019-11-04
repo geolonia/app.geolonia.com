@@ -16,7 +16,7 @@ import { signout } from "../auth";
 
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
-import { AppState } from "../redux/store";
+import { AppState } from "../types";
 import Avatar from "@material-ui/core/Avatar";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";

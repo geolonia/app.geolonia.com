@@ -1,8 +1,11 @@
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { UserMetaState } from "../../redux/actions/user-meta";
+import { Session, User } from "../../types";
 const { REACT_APP_API_BASE } = process.env;
 
-const getUser = (session: AmazonCognitoIdentity.CognitoUserSession) => {
+const getUser = (session: Session) => {
+  if (!session) {
+    return Promise.reject("no session found");
+  }
+
   const userSub = session.getIdToken().decodePayload().sub;
   const idToken = session.getIdToken().getJwtToken();
 
@@ -16,7 +19,7 @@ const getUser = (session: AmazonCognitoIdentity.CognitoUserSession) => {
       return res.json().then(json => {
         const { item, links } = json;
         return { ...item, links };
-      }) as Promise<UserMetaState>;
+      }) as Promise<User>;
     } else {
       throw new Error("network error");
     }

@@ -38,8 +38,7 @@ import {
 import createTeam from "../api/teams/create";
 
 // types
-import { AppState } from "../redux/store";
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState, Session } from "../types";
 import Redux from "redux";
 
 const styles = (theme: Theme) => ({
@@ -96,7 +95,7 @@ type OwnProps = {
 };
 
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
+  session: Session;
   teams: Team[];
   selectedTeamIndex: number;
 };

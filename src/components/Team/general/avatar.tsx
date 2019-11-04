@@ -13,9 +13,7 @@ import { __ } from "@wordpress/i18n";
 import putAvatar from "../../../api/teams/put-avatar";
 
 // types
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { AppState } from "../../../redux/store";
-import { Team } from "../../../redux/actions/team";
+import { AppState, Team, Session } from "../../../types";
 
 // redux
 import Redux from "redux";
@@ -24,7 +22,7 @@ import { connect } from "react-redux";
 
 type OwnProps = {};
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
+  session: Session;
   team: Team;
   index: number;
 };

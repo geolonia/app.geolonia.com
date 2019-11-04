@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Profile } from "./profile";
-import { UserMetaState } from "../../redux/actions/user-meta";
+import { User } from "../../types";
 import { cleanup, render } from "@testing-library/react";
 
 // test assets
 const noop = () => void 0;
-const userMeta: UserMetaState = {
+const userMeta: User = {
   name: "hello",
-  username: 'aaa',
+  username: "aaa",
   language: "en",
   timezone: "Aasia/Tokyo",
   links: { getAvatar: "", putAvatar: "" },

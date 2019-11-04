@@ -11,9 +11,7 @@ import { connect } from "react-redux";
 import createKey from "../../api/keys/create";
 
 // types
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { AppState } from "../../redux/store";
-import { Key } from "../../redux/actions/map-key";
+import { AppState, Key, Session } from "../../types";
 
 // redux
 import Redux from "redux";
@@ -21,7 +19,7 @@ import { createActions as createMapKeyActions } from "../../redux/actions/map-ke
 
 type OwnProps = {};
 type StateProps = {
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+  session: Session;
   mapKeys: Key[];
   error: boolean;
   teamId: string;

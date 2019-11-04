@@ -1,10 +1,12 @@
-import { UserMetaState } from "./user-meta";
+import { State as UserMetaState } from "./user-meta";
 
 const SET = "TEAM_MEMBER/SET";
 const MARK_ERROR = "TEAM_MEMBER/MARK_ERROR";
 const ADD = "TEAM_MEMBER/ADD";
 const UPDATE = "TEAM_MEMBER/UPDATE";
 const DELETE = "TEAM_MEMBER/DELETE";
+
+export type Role = "Owner" | "Member" | "Deactivated";
 
 export const Roles = {
   Owner: "Owner" as "Owner",

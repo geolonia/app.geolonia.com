@@ -5,7 +5,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Save from "../custom/Save";
-import { UserMetaState } from "../../redux/actions/user-meta";
+import { User } from "../../types";
 import updateUserMeta from "../../api/users/update";
 import { __ } from "@wordpress/i18n";
 import momentTimeZone from "moment-timezone";
@@ -16,7 +16,7 @@ type OwnProps = {};
 type Props = OwnProps & ReduxifyProps;
 
 type State = {
-  user: Pick<UserMetaState, "name" | "language" | "timezone">;
+  user: Pick<User, "name" | "language" | "timezone">;
   email: string;
   username: string;
 };
@@ -42,7 +42,7 @@ export class Profile extends React.Component<Props, State> {
     };
   }
 
-  _setUserMeta = (key: keyof UserMetaState, value: string) => {
+  _setUserMeta = (key: keyof User, value: string) => {
     this.setState({
       user: { ...this.state.user, [key]: value }
     });

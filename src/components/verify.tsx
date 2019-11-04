@@ -6,7 +6,7 @@ import "./Signup.scss";
 import Logo from "./custom/logo.svg";
 import Alert from "./custom/Alert";
 import { connect } from "react-redux";
-import { AppState } from "../redux/store";
+import { AppState } from "../types";
 import { verify } from "../auth";
 import { CircularProgress } from "@material-ui/core";
 import delay from "../lib/promise-delay";

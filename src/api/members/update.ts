@@ -1,12 +1,11 @@
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { Member } from "../../redux/actions/team-member";
+import { Session, Role } from "../../types";
 const { REACT_APP_API_BASE } = process.env;
 
 const updateMember = (
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined,
+  session: Session,
   teamId: string,
   memberSub: string,
-  role: Member["role"]
+  role: Role
 ) => {
   if (!session) {
     return Promise.reject(new Error("No session found."));

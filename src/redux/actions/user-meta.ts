@@ -1,7 +1,7 @@
 const SET_ACTION = "USER_META/SET";
 const SET_AVATAR_ACTION = "USER_META/SET_AVATAR";
 
-export type UserMetaState = {
+export type State = {
   name: string;
   username: string;
   language: string;
@@ -13,7 +13,7 @@ export type UserMetaState = {
   avatarImage: string | void;
 };
 
-export const isUserMeta = (user: any): user is UserMetaState => {
+export const isUserMeta = (user: any): user is State => {
   if (!user) {
     return false;
   } else if (!user.username) {
@@ -25,7 +25,7 @@ export const isUserMeta = (user: any): user is UserMetaState => {
   }
 };
 
-export const initialState: UserMetaState = {
+export const initialState: State = {
   name: "",
   username: "",
   language: "ja",
@@ -39,7 +39,7 @@ export const initialState: UserMetaState = {
 
 type SetAction = {
   type: typeof SET_ACTION;
-  payload: UserMetaState;
+  payload: State;
 };
 
 type SetAvatarAction = {
@@ -50,7 +50,7 @@ type SetAvatarAction = {
 type UserMetaAction = SetAction | SetAvatarAction;
 
 export const createActions = {
-  set: (userMeta: UserMetaState) => ({
+  set: (userMeta: State) => ({
     type: SET_ACTION,
     payload: userMeta
   }),
@@ -71,7 +71,7 @@ const isSetAvatarAction = (action: UserMetaAction): action is SetAvatarAction =>
   action.type === SET_AVATAR_ACTION;
 
 export const reducer = (
-  state: UserMetaState = initialState,
+  state: State = initialState,
   action: UserMetaAction
 ) => {
   if (isSetAction(action)) {

@@ -23,12 +23,12 @@ export const isTeam = (team: any): team is Team => {
   }
 };
 
-export type TeamState = {
+export type State = {
   data: Team[];
   selectedIndex: number;
 };
 
-const initialState = { data: [], selectedIndex: 0 };
+const initialState: State = { data: [], selectedIndex: 0 };
 
 const SET_ACTION = "TEAM/SET";
 const SELECT_ACTION = "TEAM/SELECT";
@@ -83,10 +83,7 @@ export const createActions = {
   })
 };
 
-export const reducer = (
-  state: TeamState = initialState,
-  action: TeamAction
-) => {
+export const reducer = (state: State = initialState, action: TeamAction) => {
   if (isSetAction(action)) {
     return { ...state, data: action.payload.teams };
   } else if (isSelectAction(action)) {

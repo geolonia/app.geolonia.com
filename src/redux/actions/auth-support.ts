@@ -6,7 +6,7 @@ const SET_ACCESS_TOKEN = "AUTH_SUPPORT/SET_ACCESS_TOKEN";
 const GET_IN_TROUBLE_ACTION = "AUTH_SUPORT/GET_IN_TROUBLE";
 const READY_ACTION = "AUTH_SUPPORT/READY";
 
-export type AuthSupportState = {
+export type State = {
   currentUser?: string;
   session?: AmazonCognitoIdentity.CognitoUserSession;
   accessToken?: string;
@@ -15,7 +15,7 @@ export type AuthSupportState = {
   isVerified: boolean;
 };
 
-const initialState: AuthSupportState = {
+const initialState: State = {
   currentUser: void 0,
   session: void 0,
   accessToken: void 0,
@@ -92,7 +92,7 @@ const isReadyAction = (action: AuthSupportAction): action is ReadyAction =>
   action.type === READY_ACTION;
 
 export const reducer = (
-  state: AuthSupportState = initialState,
+  state: State = initialState,
   action: AuthSupportAction
 ) => {
   if (isSetCurrentUserAction(action)) {

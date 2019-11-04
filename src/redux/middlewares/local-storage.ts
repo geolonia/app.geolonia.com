@@ -1,6 +1,6 @@
 import { Middleware } from "redux";
 import { isSelectAction } from "../actions/team";
-import { AppState } from "../store";
+import { AppState } from "../../types";
 
 export const SELECTED_TEAM_ID = "geolonia__selectedTeamId";
 
