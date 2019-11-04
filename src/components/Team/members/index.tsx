@@ -175,7 +175,7 @@ const Content = (props: Props) => {
               <TableCell align="center">
                 {row.role === Roles.Owner ? (
                   <Chip label={__("Owner")} />
-                ) : row.role === Roles.Deactivated ? (
+                ) : row.role === Roles.Suspended ? (
                   <Chip label={__("Suspended")} color={"secondary"} />
                 ) : null}
               </TableCell>
@@ -251,7 +251,7 @@ const Content = (props: Props) => {
               <MenuItem onClick={() => setOpenChangeRole(true)}>
                 {__("Change role")}
               </MenuItem>
-              {currentMember.role === "Deactivated" || (
+              {currentMember.role === Roles.Suspended || (
                 <MenuItem onClick={() => setOpenSuspend(true)}>
                   {__("Suspend")}
                 </MenuItem>

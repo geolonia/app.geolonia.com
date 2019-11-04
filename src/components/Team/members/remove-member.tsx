@@ -52,7 +52,7 @@ const RemoveMember = (props: Props) => {
       props.session,
       props.teamId,
       currentMember.userSub,
-      Roles.Deactivated
+      Roles.Suspended
     )
       .then(() => {
         setStatus("success");

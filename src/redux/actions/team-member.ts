@@ -6,12 +6,12 @@ const ADD = "TEAM_MEMBER/ADD";
 const UPDATE = "TEAM_MEMBER/UPDATE";
 const DELETE = "TEAM_MEMBER/DELETE";
 
-export type Role = "Owner" | "Member" | "Deactivated";
+export type Role = "Owner" | "Member" | "Suspended";
 
 export const Roles = {
   Owner: "Owner" as "Owner",
   Member: "Member" as "Member",
-  Deactivated: "Deactivated" as "Deactivated"
+  Suspended: "Suspended" as "Suspended"
 };
 
 export type Member = UserMetaState & {
