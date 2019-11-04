@@ -49,6 +49,7 @@ const Content = (props: Props) => {
     false
   );
   const [openChangeRole, setOpenChangeRole] = React.useState(false);
+  const [openSuspend, setOpenSuspend] = React.useState(false);
   const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
 
   React.useEffect(() => {
@@ -227,6 +228,9 @@ const Content = (props: Props) => {
             >
               <MenuItem onClick={() => setOpenChangeRole(true)}>
                 {__("Change role")}
+              </MenuItem>
+              <MenuItem onClick={() => setOpenSuspend(true)}>
+                {__("Suspend")}
               </MenuItem>
               <MenuItem onClick={() => setOpenRemoveMember(true)}>
                 {__("Remove from team")}
