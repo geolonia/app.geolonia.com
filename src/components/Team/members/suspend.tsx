@@ -90,7 +90,9 @@ const Suspend = (props: Props) => {
           fullWidth={true}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">{__("Change role")}</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            {__("Suspend team members")}
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
               {__("The following members will be suspended:")}
