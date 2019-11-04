@@ -66,6 +66,13 @@ const Content = (props: Props) => {
     };
   });
 
+  let numOwners = 0;
+  for (let i = 0; i < rows.length; i++) {
+    if ('Owner' === rows[i]['role']) {
+      numOwners = numOwners + 1;
+    }
+  }
+
   const firstCellStyle: React.CSSProperties = {
     width: "56px",
     padding: "8px 0 3px 8px"
@@ -166,16 +173,22 @@ const Content = (props: Props) => {
                 ) : null}
               </TableCell>
               <TableCell align="right">
-                <Button
-                  variant="outlined"
-                  color="default"
-                  aria-controls="simple-menu"
-                  aria-haspopup="true"
-                  onClick={handleClick}
-                  value={index}
-                >
-                  <BrightnessLowIcon style={iconStyle} />
-                </Button>
+                {(() => {
+                  if (2 > numOwners && 'Owner' === row.role) {
+                    // There is only one owner and the row is owner, so nothing to return.
+                  } else {
+                    return (<Button
+                      variant="outlined"
+                      color="default"
+                      aria-controls="simple-menu"
+                      aria-haspopup="true"
+                      onClick={handleClick}
+                      value={index}
+                    >
+                      <BrightnessLowIcon style={iconStyle} />
+                    </Button>)
+                  }
+                })()}
               </TableCell>
             </TableRow>
           ))}
