@@ -245,7 +245,7 @@ const Content = (props: Props) => {
               <MenuItem onClick={() => setOpenChangeRole(true)}>
                 {__("Change role")}
               </MenuItem>
-              <MenuItem onClick={() => setSuspend(true)}>
+              <MenuItem onClick={() => setSuspend()}>
                 {__("Suspend")}
               </MenuItem>
               <MenuItem onClick={() => setOpenRemoveMember(true)}>
