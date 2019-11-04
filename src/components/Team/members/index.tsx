@@ -49,12 +49,15 @@ const Content = (props: Props) => {
     false
   );
   const [openChangeRole, setOpenChangeRole] = React.useState(false);
-  const [openSuspend, setOpenSuspend] = React.useState(false);
   const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
 
   React.useEffect(() => {
     handleClose();
   }, [openChangeRole, openRemoveMember]);
+
+  const setSuspend = () => {
+
+  }
 
   const rows: Row[] = members.map(member => {
     return {
@@ -242,7 +245,7 @@ const Content = (props: Props) => {
               <MenuItem onClick={() => setOpenChangeRole(true)}>
                 {__("Change role")}
               </MenuItem>
-              <MenuItem onClick={() => setOpenSuspend(true)}>
+              <MenuItem onClick={() => setSuspend(true)}>
                 {__("Suspend")}
               </MenuItem>
               <MenuItem onClick={() => setOpenRemoveMember(true)}>
