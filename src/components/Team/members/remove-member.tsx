@@ -12,17 +12,14 @@ import PersonIcon from "@material-ui/icons/Person";
 import { __, sprintf } from "@wordpress/i18n";
 
 // API
-import updateMember from "../../../api/members/update";
+import deleteMember from "../../../api/members/delete";
 
 // Types
 import { AppState, Session, Member } from "../../../types";
 
 // Redux
 import { connect } from "react-redux";
-import {
-  createActions as createTeamMemberActions,
-  Roles
-} from "../../../redux/actions/team-member";
+import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 import Redux from "redux";
 
 type OwnProps = {
@@ -48,12 +45,7 @@ const RemoveMember = (props: Props) => {
 
   const onRemoveClick = () => {
     setStatus("requesting");
-    updateMember(
-      props.session,
-      props.teamId,
-      currentMember.userSub,
-      Roles.Suspended
-    )
+    deleteMember(props.session, props.teamId, currentMember.userSub)
       .then(() => {
         setStatus("success");
         deleteMemberState(props.teamId, currentMember.userSub);
