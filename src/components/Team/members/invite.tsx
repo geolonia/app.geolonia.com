@@ -1,6 +1,6 @@
 import React from "react";
 
-// Component
+// Components
 import AddNew from "../../custom/AddNew";
 
 // Util
@@ -43,7 +43,7 @@ export const Invite = (props: Props) => {
         }
       });
     } else {
-      return Promise.resolve();
+      return Promise.reject("Unknown Error");
     }
   };
 
@@ -58,7 +58,10 @@ export const Invite = (props: Props) => {
       fieldName="email"
       fieldLabel={__("Email")}
       fieldType="email"
-      handler={inviteHandler}
+      onClick={inviteHandler}
+      onError={() => {
+        /*TODO: show messages*/
+      }}
     />
   );
 };
