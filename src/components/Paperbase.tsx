@@ -22,10 +22,12 @@ import ResetPassword from "./ResetPassword";
 import { CircularProgress } from "@material-ui/core";
 
 // Types
-import { AppState, Team, Session, User } from "../types";
+import { AppState, Team, Session, User, Role, Roles } from "../types";
 
 // redux
 import { connect } from "react-redux";
+import Alert from "./custom/Alert";
+import { __ } from "@wordpress/i18n";
 
 const drawerWidth = 256;
 const styles = createStyles({
@@ -44,6 +46,14 @@ const styles = createStyles({
     display: "flex",
     flexDirection: "column"
   },
+  notificationContent: {
+    padding: "48px 36px 48px",
+    background: "#ffffff"
+  },
+  warningContent: {
+    padding: "48px 36px 48px",
+    border: "1px solid #ff0000"
+  },
   mainContent: {
     flex: 1,
     padding: "48px 36px 48px",
@@ -56,6 +66,8 @@ type OwnProps = {
     root: string;
     drawer: string;
     appContent: string;
+    notificationContent: string;
+    warningContent: string;
     mainContent: string;
   };
 };
@@ -64,12 +76,13 @@ type StateProps = {
   isReady: boolean;
   teams: Team[];
   currentTeam?: Team;
+  currentRole?: Role;
   userMeta: User;
 };
 type Props = OwnProps & StateProps;
 
 export const Paperbase: React.FC<Props> = (props: Props) => {
-  const { classes, isReady, session } = props;
+  const { classes, isReady, session, currentRole } = props;
 
   const isLoggedIn = isReady && !!session;
 
@@ -130,6 +143,11 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
               <div className={classes.appContent}>
                 <Header onDrawerToggle={handleDrawerToggle} />
                 <main className={classes.mainContent}>
+                  {currentRole === Roles.Suspended && (
+                    <Alert type={"warning"}>
+                      {__("You are suspended. Please contact the team owner.")}
+                    </Alert>
+                  )}
                   <Router />
                 </main>
                 <Footer />
@@ -147,6 +165,7 @@ const mapStateToProps = (state: AppState): StateProps => {
   const selectedTeamIndex = state.team.selectedIndex;
   const teams = state.team.data;
   const currentTeam = state.team.data[selectedTeamIndex] as Team | undefined;
+  const currentRole = currentTeam ? currentTeam.role : void 0;
 
   // map UserMeta
   const userMeta = state.userMeta;
@@ -156,6 +175,7 @@ const mapStateToProps = (state: AppState): StateProps => {
     session: state.authSupport.session,
     teams,
     currentTeam,
+    currentRole,
     userMeta
   };
 };
