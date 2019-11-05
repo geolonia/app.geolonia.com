@@ -19,10 +19,7 @@ import { AppState, Session, Member } from "../../../types";
 
 // Redux
 import { connect } from "react-redux";
-import {
-  createActions as createTeamMemberActions,
-  Roles
-} from "../../../redux/actions/team-member";
+import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 import Redux from "redux";
 
 type OwnProps = {
