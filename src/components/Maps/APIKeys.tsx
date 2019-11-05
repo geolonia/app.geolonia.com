@@ -70,7 +70,10 @@ function Content(props: Props) {
         label={__("Create a new API key")}
         description={__("Please enter the name of new API key.")}
         default={__("My API")}
-        handler={handler}
+        onClick={handler}
+        onError={() => {
+          /*TODO: show messages*/
+        }}
       />
 
       <Table rows={rows} rowsPerPage={10} permalink="/maps/api-keys/%s" />

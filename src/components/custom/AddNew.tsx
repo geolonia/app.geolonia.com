@@ -11,18 +11,21 @@ import { CircularProgress } from "@material-ui/core";
 import { __ } from "@wordpress/i18n";
 
 type Props = {
-  buttonLabel: string;
+  // required
   label: string;
   description: string;
+  default: string;
+  // optionals
+  buttonLabel: string;
   fieldName: string;
   fieldLabel: string;
   fieldType: string;
   errorMessage: string;
-  default: string;
-  handler: (value: string) => Promise<any>;
+  onClick: (value: string) => Promise<any>;
+  onError: (error: any) => void;
 };
 
-const AddNew = (props: Props) => {
+export const AddNew = (props: Props) => {
   const [text, setText] = React.useState(props.default);
   const [open, setOpen] = React.useState(false);
   const [status, setStatus] = React.useState<
@@ -46,14 +49,14 @@ const AddNew = (props: Props) => {
   const onSaveClick = () => {
     setStatus("working");
     props
-      .handler(text)
+      .onClick(text)
       .then(() => {
         setStatus("success");
         handleClose();
       })
       .catch(err => {
         setStatus("failure");
-        throw err; // Please catch on Parent
+        props.onError(err);
       });
   };
 
@@ -105,16 +108,16 @@ const AddNew = (props: Props) => {
   );
 };
 
+const noop = (x: any) => x;
+
 AddNew.defaultProps = {
   buttonLabel: __("New"),
   fieldName: __("name"),
   fieldLabel: __("Name"),
   fieldType: __("text"),
   errorMessage: __("Some error."),
-  handler: (value: string) => {
-    console.log(value);
-    return Promise.resolve();
-  }
+  onClick: noop,
+  onError: noop
 };
 
 export default AddNew;

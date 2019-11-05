@@ -45,7 +45,10 @@ function Content() {
         label={__("Create a new dataset")}
         description={__("Please enter the name of the new dataset.")}
         default={__("My dataset")}
-        handler={handler}
+        onClick={handler}
+        onError={() => {
+          /*TODO: show messages*/
+        }}
       />
 
       <Table rows={rows} rowsPerPage={10} permalink="/data/gis/%s" />
