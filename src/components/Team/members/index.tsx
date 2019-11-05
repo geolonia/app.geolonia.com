@@ -17,6 +17,7 @@ import { AppState } from "../../../redux/store";
 import { connect } from "react-redux";
 import Invite from "./invite";
 import ChangeRole from "./change-role";
+import Suspend from "./suspend";
 import RemoveMember from "./remove-member";
 import { Chip } from "@material-ui/core";
 
@@ -48,16 +49,15 @@ const Content = (props: Props) => {
   const [currentMember, setCurrentMember] = React.useState<false | Member>(
     false
   );
+
+  // Dialogs open
   const [openChangeRole, setOpenChangeRole] = React.useState(false);
+  const [openSuspend, setOpenSuspend] = React.useState(false);
   const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
 
   React.useEffect(() => {
     handleClose();
   }, [openChangeRole, openRemoveMember]);
-
-  const setSuspend = () => {
-
-  }
 
   const rows: Row[] = members.map(member => {
     return {
@@ -71,7 +71,7 @@ const Content = (props: Props) => {
 
   let numOwners = 0;
   for (let i = 0; i < rows.length; i++) {
-    if ('Owner' === rows[i]['role']) {
+    if ("Owner" === rows[i]["role"]) {
       numOwners = numOwners + 1;
     }
   }
@@ -144,6 +144,11 @@ const Content = (props: Props) => {
             open={openChangeRole}
             toggle={setOpenChangeRole}
           />
+          <Suspend
+            currentMember={currentMember}
+            open={openSuspend}
+            toggle={setOpenSuspend}
+          />
           <RemoveMember
             currentMember={currentMember}
             open={openRemoveMember}
@@ -172,24 +177,26 @@ const Content = (props: Props) => {
                 {row.role === Roles.Owner ? (
                   <Chip label={__("Owner")} />
                 ) : row.role === Roles.Deactivated ? (
-                  <Chip label={__("Deactivated")} color={"secondary"} />
+                  <Chip label={__("Suspended")} color={"secondary"} />
                 ) : null}
               </TableCell>
               <TableCell align="right">
                 {(() => {
-                  if (2 > numOwners && 'Owner' === row.role) {
+                  if (2 > numOwners && "Owner" === row.role) {
                     // There is only one owner and the row is owner, so nothing to return.
                   } else {
-                    return (<Button
-                      variant="outlined"
-                      color="default"
-                      aria-controls="simple-menu"
-                      aria-haspopup="true"
-                      onClick={handleClick}
-                      value={index}
-                    >
-                      <BrightnessLowIcon style={iconStyle} />
-                    </Button>)
+                    return (
+                      <Button
+                        variant="outlined"
+                        color="default"
+                        aria-controls="simple-menu"
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                        value={index}
+                      >
+                        <BrightnessLowIcon style={iconStyle} />
+                      </Button>
+                    );
                   }
                 })()}
               </TableCell>
@@ -245,9 +252,11 @@ const Content = (props: Props) => {
               <MenuItem onClick={() => setOpenChangeRole(true)}>
                 {__("Change role")}
               </MenuItem>
-              <MenuItem onClick={() => setSuspend()}>
-                {__("Suspend")}
-              </MenuItem>
+              {currentMember.role === "Deactivated" || (
+                <MenuItem onClick={() => setOpenSuspend(true)}>
+                  {__("Suspend")}
+                </MenuItem>
+              )}
               <MenuItem onClick={() => setOpenRemoveMember(true)}>
                 {__("Remove from team")}
               </MenuItem>
