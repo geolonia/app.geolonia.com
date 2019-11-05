@@ -3,31 +3,31 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/Dashboard.tsx:119
+#: src/components/Dashboard.tsx:118
 msgid "Welcome, %s"
 msgstr ""
 
-#: src/components/Dashboard.tsx:123
+#: src/components/Dashboard.tsx:122
 msgid "Get API key"
 msgstr ""
 
-#: src/components/Dashboard.tsx:125
+#: src/components/Dashboard.tsx:124
 msgid "Get API key then create your map!"
 msgstr ""
 
-#: src/components/Dashboard.tsx:129
+#: src/components/Dashboard.tsx:128
 msgid "Geolonia GIS"
 msgstr ""
 
-#: src/components/Dashboard.tsx:132
+#: src/components/Dashboard.tsx:131
 msgid "Display your points, lines, polygons on your map application."
 msgstr ""
 
-#: src/components/Dashboard.tsx:144
+#: src/components/Dashboard.tsx:143
 msgid "Map loads for this month"
 msgstr ""
 
-#: src/components/Dashboard.tsx:155
+#: src/components/Dashboard.tsx:154
 msgid "API loads for this month"
 msgstr ""
 
@@ -43,8 +43,8 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:203
 #: src/components/Maps/APIKey.tsx:163
-#: src/components/Navigator.tsx:302
-#: src/components/Team/general/fields.tsx:87
+#: src/components/Navigator.tsx:301
+#: src/components/Team/general/fields.tsx:60
 #: src/components/User/profile.tsx:108
 #: src/components/custom/AddNew.tsx:111
 #: src/components/custom/Delete.tsx:94
@@ -52,7 +52,7 @@ msgid "Name"
 msgstr ""
 
 #: src/components/Data/GIS.tsx:209
-#: src/components/Team/general/fields.tsx:95
+#: src/components/Team/general/fields.tsx:68
 msgid "Description"
 msgstr ""
 
@@ -200,13 +200,13 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:92
 #: src/components/Maps/APIKeys.tsx:41
-#: src/components/Navigator.tsx:131
+#: src/components/Navigator.tsx:130
 msgid "Maps"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:96
 #: src/components/Maps/APIKeys.tsx:67
-#: src/components/Navigator.tsx:134
+#: src/components/Navigator.tsx:133
 msgid "API keys"
 msgstr ""
 
@@ -226,56 +226,59 @@ msgstr ""
 msgid "My API"
 msgstr ""
 
-#: src/components/Navigator.tsx:112
+#: src/components/Navigator.tsx:111
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:143
+#: src/components/Navigator.tsx:142
 msgid "GIS Services"
 msgstr ""
 
-#: src/components/Navigator.tsx:146
+#: src/components/Navigator.tsx:145
 msgid "Gcloud"
 msgstr ""
 
-#: src/components/Navigator.tsx:155
+#: src/components/Navigator.tsx:154
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:158
-#: src/components/Team/general/fields.tsx:78
+#: src/components/Navigator.tsx:157
 #: src/components/Team/general/index.tsx:31
 msgid "General"
 msgstr ""
 
-#: src/components/Navigator.tsx:164
-#: src/components/Team/members/index.tsx:132
+#: src/components/Navigator.tsx:163
+#: src/components/Team/members/index.tsx:117
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:170
+#: src/components/Navigator.tsx:169
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:247
+#: src/components/Navigator.tsx:246
 msgid "Dashboard"
 msgstr ""
 
-#: src/components/Navigator.tsx:292
+#: src/components/Navigator.tsx:291
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:296
+#: src/components/Navigator.tsx:295
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:309
-#: src/components/Team/general/fields.tsx:115
+#: src/components/Navigator.tsx:308
+#: src/components/Team/general/fields.tsx:88
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:315
+#: src/components/Navigator.tsx:314
 msgid "We’ll send receipts to this inbox."
+msgstr ""
+
+#: src/components/ResetPassword.tsx:108
+msgid "Change password"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:64
@@ -300,15 +303,11 @@ msgstr ""
 msgid "Confirm password"
 msgstr ""
 
-#: src/components/ResetPassword.tsx:88
+#: src/components/ResetPassword.tsx:93
 #: src/components/Signup.tsx:99
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
-msgstr ""
-
-#: src/components/ResetPassword.tsx:94
-msgid "Change password"
 msgstr ""
 
 #: src/components/Signin.tsx:103
@@ -475,9 +474,8 @@ msgid "Confirm"
 msgstr ""
 
 #: src/components/Team/general/delete.tsx:140
-#: src/components/Team/members/change-role.tsx:78
-#: src/components/Team/members/deactivate-member.tsx:52
-#: src/components/Team/members/remove-member.tsx:52
+#: src/components/Team/members/change-role.tsx:121
+#: src/components/Team/members/remove-member.tsx:97
 #: src/components/custom/AddNew.tsx:93
 #: src/components/custom/Cancel.tsx:40
 #: src/components/custom/Delete.tsx:103
@@ -493,13 +491,12 @@ msgstr ""
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr ""
 
-#: src/components/Team/general/fields.tsx:107
+#: src/components/Team/general/fields.tsx:80
 msgid "URL"
 msgstr ""
 
-#: src/components/Team/general/fields.tsx:74
 #: src/components/Team/general/index.tsx:20
-#: src/components/Team/members/index.tsx:128
+#: src/components/Team/members/index.tsx:113
 msgid "Team settings"
 msgstr ""
 
@@ -510,69 +507,68 @@ msgid ""
 "You can switch teams in the pull-down menu at the top left of the sidebar."
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:45
-#: src/components/Team/members/index.tsx:232
-msgid "Change role"
-msgstr ""
-
-#: src/components/Team/members/change-role.tsx:63
+#: src/components/Team/members/change-role.tsx:106
 msgid "Has full administrative access to the entire team."
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:72
-msgid "Can access every resource in the team."
+#: src/components/Team/members/change-role.tsx:115
+msgid "Can access all resource in the team."
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:81
+#: src/components/Team/members/change-role.tsx:127
 #: src/components/custom/AddNew.tsx:99
 #: src/components/custom/Save.tsx:111
 msgid "Save"
 msgstr ""
 
-#: src/components/Team/members/deactivate-member.tsx:39
-msgid "The following members will be deactivate:"
+#: src/components/Team/members/change-role.tsx:88
+#: src/components/Team/members/index.tsx:230
+msgid "Change role"
 msgstr ""
 
-#: src/components/Team/members/deactivate-member.tsx:55
-#: src/components/Team/members/index.tsx:235
-msgid "Deactivate"
-msgstr ""
-
-#: src/components/Team/members/index.tsx:140
+#: src/components/Team/members/index.tsx:125
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:143
+#: src/components/Team/members/index.tsx:163
+msgid "Owner"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:165
+msgid "Deactivated"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:233
+msgid "Suspend"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:236
+msgid "Remove from team"
+msgstr ""
+
+#: src/components/Team/members/invite.tsx:55
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:144
+#: src/components/Team/members/invite.tsx:56
 msgid "Invite a member"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:145
+#: src/components/Team/members/invite.tsx:57
 msgid "We automatically update your billing as you add and remove team members."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:150
+#: src/components/Team/members/invite.tsx:62
 #: src/components/User/profile.tsx:96
 msgid "Email"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:195
-msgid "Owner"
-msgstr ""
-
-#: src/components/Team/members/index.tsx:238
-msgid "Remove from team"
-msgstr ""
-
-#: src/components/Team/members/remove-member.tsx:39
-msgid "The following members will be removed:"
-msgstr ""
-
-#: src/components/Team/members/remove-member.tsx:55
+#: src/components/Team/members/remove-member.tsx:103
 msgid "Remove"
+msgstr ""
+
+#: src/components/Team/members/remove-member.tsx:84
+msgid "The following members will be removed:"
 msgstr ""
 
 #: src/components/User/User.tsx:24

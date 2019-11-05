@@ -5,15 +5,11 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import {
-  CircularProgress,
-  RadioGroup,
-  FormControlLabel,
-  Radio
-} from "@material-ui/core";
+import { CircularProgress, Box } from "@material-ui/core";
+import PersonIcon from "@material-ui/icons/Person";
 
 // libs
-import { __, sprintf } from "@wordpress/i18n";
+import { __ } from "@wordpress/i18n";
 
 // API
 import updateMember from "../../../api/members/update";
@@ -47,7 +43,7 @@ type DispatchProps = {
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
-const ChangeRole = (props: Props) => {
+const Suspend = (props: Props) => {
   const { currentMember, open, toggle, updateMemberRoleState } = props;
   const [role, setRole] = React.useState<false | Member["role"]>(
     currentMember.role
@@ -63,10 +59,19 @@ const ChangeRole = (props: Props) => {
   const onSaveClick = () => {
     if (role) {
       setStatus("requesting");
-      updateMember(props.session, props.teamId, currentMember.userSub, role)
+      updateMember(
+        props.session,
+        props.teamId,
+        currentMember.userSub,
+        "Deactivated"
+      )
         .then(() => {
           setStatus("success");
-          updateMemberRoleState(props.teamId, currentMember.userSub, role);
+          updateMemberRoleState(
+            props.teamId,
+            currentMember.userSub,
+            "Deactivated"
+          );
           toggle(false);
         })
         .catch(() => {
@@ -85,36 +90,21 @@ const ChangeRole = (props: Props) => {
           fullWidth={true}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">{__("Change role")}</DialogTitle>
+          <DialogTitle id="form-dialog-title">
+            {__("Suspend team members")}
+          </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {sprintf("Select a new role of %s.", currentMember.username)}
+              {__("The following members will be suspended:")}
             </DialogContentText>
 
-            <RadioGroup
-              aria-label="role"
-              name="role"
-              value={role}
-              onChange={e => setRole(e.target.value as (Member["role"]))}
-            >
-              <FormControlLabel
-                value="Owner"
-                control={<Radio />}
-                label="Owner"
-              />
-              <DialogContentText>
-                {__("Has full administrative access to the entire team.")}
-              </DialogContentText>
-
-              <FormControlLabel
-                value="Member"
-                control={<Radio />}
-                label="Member"
-              />
-              <DialogContentText>
-                {__("Can access all resource in the team.")}
-              </DialogContentText>
-            </RadioGroup>
+            <Box display="flex" alignItems="center">
+              <PersonIcon />
+              <p style={{ marginLeft: "1em" }}>
+                {currentMember.name}
+                <br />@{currentMember.username}
+              </p>
+            </Box>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => toggle(false)} color="primary">
@@ -150,4 +140,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ChangeRole);
+)(Suspend);
