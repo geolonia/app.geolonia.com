@@ -13,7 +13,7 @@ import TableRow from "@material-ui/core/TableRow";
 import BrightnessLowIcon from "@material-ui/icons/BrightnessLow";
 import PersonIcon from "@material-ui/icons/Person";
 import Title from "../../custom/Title";
-import { AppState } from "../../../redux/store";
+import { AppState } from "../../../types";
 import { connect } from "react-redux";
 import Invite from "./invite";
 import ChangeRole from "./change-role";
@@ -25,15 +25,14 @@ import { Chip } from "@material-ui/core";
 import { __ } from "@wordpress/i18n";
 
 // Types
-import { Team } from "../../../redux/actions/team";
-import { Member, Roles } from "../../../redux/actions/team-member";
+import { Team, Member, Role, Roles } from "../../../types";
 
 type Row = {
   id: number | string;
   avatar: string | void;
   name: string;
   username: string;
-  role: Member["role"];
+  role: Role;
 };
 
 type OwnProps = {};
@@ -176,7 +175,7 @@ const Content = (props: Props) => {
               <TableCell align="center">
                 {row.role === Roles.Owner ? (
                   <Chip label={__("Owner")} />
-                ) : row.role === Roles.Deactivated ? (
+                ) : row.role === Roles.Suspended ? (
                   <Chip label={__("Suspended")} color={"secondary"} />
                 ) : null}
               </TableCell>
@@ -252,7 +251,7 @@ const Content = (props: Props) => {
               <MenuItem onClick={() => setOpenChangeRole(true)}>
                 {__("Change role")}
               </MenuItem>
-              {currentMember.role === "Deactivated" || (
+              {currentMember.role === Roles.Suspended || (
                 <MenuItem onClick={() => setOpenSuspend(true)}>
                   {__("Suspend")}
                 </MenuItem>

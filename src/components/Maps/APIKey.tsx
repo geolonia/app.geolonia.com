@@ -15,9 +15,7 @@ import Help from "../custom/Help";
 import Title from "../custom/Title";
 
 // types
-import { AppState } from "../../redux/store";
-import { Key } from "../../redux/actions/map-key";
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState, Session, Key } from "../../types";
 
 // api
 import updateKey from "../../api/keys/update";
@@ -35,7 +33,7 @@ type OwnProps = {
 type StateProps = {
   mapKey?: Key;
   teamId: string;
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+  session: Session;
   selectedTeamIndex: number;
 };
 type DispatchProps = {

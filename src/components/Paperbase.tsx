@@ -22,10 +22,7 @@ import ResetPassword from "./ResetPassword";
 import { CircularProgress } from "@material-ui/core";
 
 // Types
-import { AppState } from "../redux/store";
-import { Team } from "../redux/actions/team";
-import { UserMetaState } from "../redux/actions/user-meta";
-import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState, Team, Session, User } from "../types";
 
 // redux
 import { connect } from "react-redux";
@@ -63,11 +60,11 @@ type OwnProps = {
   };
 };
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
+  session: Session;
   isReady: boolean;
   teams: Team[];
   currentTeam?: Team;
-  userMeta: UserMetaState;
+  userMeta: User;
 };
 type Props = OwnProps & StateProps;
 

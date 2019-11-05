@@ -29,25 +29,18 @@ import { createActions as createMapKeyActions } from "../redux/actions/map-key";
 import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
 
 // Types
-import { UserMetaState } from "../redux/actions/user-meta";
-import { AppState } from "../redux/store";
-import { Team } from "../redux/actions/team";
-import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState, User, Session, Team, Key, Member } from "../types";
 import Redux from "redux";
-import { Key } from "../redux/actions/map-key";
-import { Member } from "../redux/actions/team-member";
 import { SELECTED_TEAM_ID } from "../redux/middlewares/local-storage";
 
 type OwnProps = {};
-type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
-};
+type StateProps = { session: Session };
 type DispatchProps = {
-  setSession: (session: AmazonCognitoIdentity.CognitoUserSession) => void;
+  setSession: (session: Session) => void;
   setAccessToken: (accessToken: string) => void;
   serverTrouble: () => void;
   ready: () => void;
-  setUserMeta: (userMeta: UserMetaState) => void;
+  setUserMeta: (userMeta: User) => void;
   setTeams: (teams: Team[]) => void;
   selectTeam: (index: number) => void;
   setUserAvatar: (avatarImage: string | void) => void;
@@ -62,12 +55,13 @@ type State = {};
 
 type APIResult = {
   teams: Team[];
-  userMeta: UserMetaState;
+  userMeta: User;
 };
 
-const fundamentalAPILoads = (
-  session: AmazonCognitoIdentity.CognitoUserSession
-) => {
+const fundamentalAPILoads = (session: Session) => {
+  if (!session) {
+    return Promise.reject("nosession");
+  }
   return Promise.all([
     getUserMeta(session),
     listTeams(session)
@@ -138,7 +132,7 @@ export class AuthContainer extends React.Component<Props, State> {
     }
   }
 
-  loadAvatars = (userMeta: UserMetaState, teams: Team[]) => {
+  loadAvatars = (userMeta: User, teams: Team[]) => {
     const handleResponse = (res: Response) => {
       if (res.ok) {
         return res.blob().then(URL.createObjectURL);
@@ -170,10 +164,7 @@ export class AuthContainer extends React.Component<Props, State> {
     });
   };
 
-  loadMapKeys = (
-    session: AmazonCognitoIdentity.CognitoUserSession,
-    teamIds: string[]
-  ) => {
+  loadMapKeys = (session: Session, teamIds: string[]) => {
     const handleListKeys = (teamId: string) => {
       return listKeys(session, teamId)
         .then(keys => {
@@ -188,10 +179,7 @@ export class AuthContainer extends React.Component<Props, State> {
     return Promise.all(teamIds.map(teamId => handleListKeys(teamId)));
   };
 
-  loadTeamMembers = (
-    session: AmazonCognitoIdentity.CognitoUserSession,
-    teamIds: string[]
-  ) => {
+  loadTeamMembers = (session: Session, teamIds: string[]) => {
     const handleListTeamMembers = (teamId: string) => {
       return listTeamMembers(session, teamId)
         .then((members: Member[]) => {
@@ -216,7 +204,8 @@ const mapStateToProps = (state: AppState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setSession: session => dispatch(createAuthSupportActions.setSession(session)),
+  setSession: session =>
+    session && dispatch(createAuthSupportActions.setSession(session)),
   setAccessToken: accessToken =>
     dispatch(createAuthSupportActions.setAccessToken(accessToken)),
   serverTrouble: () => dispatch(createAuthSupportActions.encounterTrouble()),

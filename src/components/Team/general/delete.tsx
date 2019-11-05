@@ -22,10 +22,8 @@ import Interweave from "interweave";
 import deleteTeam from "../../../api/teams/delete";
 
 // types
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { connect } from "react-redux";
-import { AppState } from "../../../redux/store";
-import { Team } from "../../../redux/actions/team";
+import { AppState, Team, Session } from "../../../types";
 
 // parameters
 const styleDangerZone: React.CSSProperties = {
@@ -35,7 +33,7 @@ const styleDangerZone: React.CSSProperties = {
 
 type OwnProps = {};
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
+  session: Session;
   team: Team;
 };
 type Props = OwnProps & StateProps;

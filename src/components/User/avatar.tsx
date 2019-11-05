@@ -19,14 +19,12 @@ import { __ } from "@wordpress/i18n";
 import putAvatar from "../../api/users/put-avatar";
 
 // types
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { UserMetaState } from "../../redux/actions/user-meta";
-import { AppState } from "../../redux/store";
+import { AppState, Session, User } from "../../types";
 
 type OwnProps = {};
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
-  userMeta: UserMetaState;
+  session: Session;
+  userMeta: User;
 };
 type DispatchProps = {
   setAvatar: (avatarBlobUrl: string | void) => void;

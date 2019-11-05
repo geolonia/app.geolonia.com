@@ -1,10 +1,7 @@
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { Session } from "../../types";
 const { REACT_APP_API_BASE } = process.env;
 
-const putAvatar = (
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined,
-  file: File
-) => {
+const putAvatar = (session: Session, file: File) => {
   if (!session) {
     return Promise.reject(new Error("no session"));
   }

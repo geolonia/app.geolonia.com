@@ -1,14 +1,11 @@
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { Team } from "../../redux/actions/team";
+import { Session, Team } from "../../types";
 const { REACT_APP_API_BASE } = process.env;
 
-const updateTeam = (
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined,
-  teamId: string,
-  team: Partial<
-    Omit<Team, "teamId" | "role" | "avatarImage" | "links" | "isDeleted">
-  >
-) => {
+type WritableTeam = Partial<
+  Omit<Team, "teamId" | "role" | "avatarImage" | "links" | "isDeleted">
+>;
+
+const updateTeam = (session: Session, teamId: string, team: WritableTeam) => {
   if (!session) {
     return Promise.reject(new Error("No session found."));
   }

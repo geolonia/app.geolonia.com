@@ -1,12 +1,8 @@
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { Key } from "../../redux/actions/map-key";
+import { Session, Key } from "../../types";
+
 const { REACT_APP_API_BASE } = process.env;
 
-const createKey = (
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined,
-  teamId: string,
-  name: string
-) => {
+const createKey = (session: Session, teamId: string, name: string) => {
   if (!session) {
     return Promise.reject(new Error("No session found."));
   }

@@ -10,20 +10,17 @@ import { __ } from "@wordpress/i18n";
 import addMember from "../../../api/members/add";
 
 // Types
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { Team } from "../../../redux/actions/team";
-import { Member } from "../../../redux/actions/team-member";
-import Redux from "redux";
-import { AppState } from "../../../redux/store";
+import { AppState, Session, Team, Member } from "../../../types";
 
 // redux
+import Redux from "redux";
 import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 import { connect } from "react-redux";
 
 type OwnProps = {};
 
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
+  session: Session;
   members: Member[];
   team: Team | void;
 };

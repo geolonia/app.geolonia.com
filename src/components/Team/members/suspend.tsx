@@ -15,9 +15,7 @@ import { __ } from "@wordpress/i18n";
 import updateMember from "../../../api/members/update";
 
 // Types
-import { Member } from "../../../redux/actions/team-member";
-import { AppState } from "../../../redux/store";
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState, Member, Session, Role, Roles } from "../../../types";
 import { connect } from "react-redux";
 
 // Redux
@@ -30,7 +28,7 @@ type OwnProps = {
   toggle: (open: boolean) => void;
 };
 type StateProps = {
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+  session: Session;
   teamId: string;
   teamName: string;
 };
@@ -38,16 +36,14 @@ type DispatchProps = {
   updateMemberRoleState: (
     teamId: string,
     memberSub: string,
-    role: Member["role"]
+    role: Role
   ) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
 const Suspend = (props: Props) => {
   const { currentMember, open, toggle, updateMemberRoleState } = props;
-  const [role, setRole] = React.useState<false | Member["role"]>(
-    currentMember.role
-  );
+  const [role, setRole] = React.useState<false | Role>(currentMember.role);
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
@@ -63,14 +59,14 @@ const Suspend = (props: Props) => {
         props.session,
         props.teamId,
         currentMember.userSub,
-        "Deactivated"
+        Roles.Suspended
       )
         .then(() => {
           setStatus("success");
           updateMemberRoleState(
             props.teamId,
             currentMember.userSub,
-            "Deactivated"
+            Roles.Suspended
           );
           toggle(false);
         })

@@ -13,16 +13,14 @@ import { createActions as createTeamActions } from "../../../redux/actions/team"
 import updateTeam from "../../../api/teams/update";
 
 // types
-import { AppState } from "../../../redux/store";
-import { Team } from "../../../redux/actions/team";
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState, Session, Team } from "../../../types";
 
 // utils
 import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
 type StateProps = {
-  session?: AmazonCognitoIdentity.CognitoUserSession;
+  session: Session;
   selectedIndex: number;
   team: Team;
 };

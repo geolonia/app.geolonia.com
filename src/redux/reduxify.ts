@@ -1,9 +1,6 @@
 import { connect } from "react-redux";
-import { AppState } from "./store";
+import { AppState, Session, User, Team } from "../types";
 import Redux from "redux";
-import { UserMetaState } from "./actions/user-meta";
-import { Team } from "./actions/team";
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
 import { createActions as createUserMetaActions } from "./actions/user-meta";
 
 export const REDUXIFY = "UTIL/REDIXFY";
@@ -18,8 +15,8 @@ export type ReduxifyAction = {
 
 type StateProps = {
   appState: AppState;
-  session?: AmazonCognitoIdentity.CognitoUserSession;
-  user: UserMetaState;
+  session: Session;
+  user: User;
   team?: Team;
   teams: Team[];
 };
@@ -27,7 +24,7 @@ type StateProps = {
 type DispatchProps = {
   dispatch: Redux.Dispatch;
   setAppState: (nextAppState: Partial<AppState>) => void;
-  updateUser: (user: UserMetaState) => void;
+  updateUser: (user: User) => void;
 };
 
 export type ReduxifyProps = StateProps & DispatchProps;
@@ -78,7 +75,7 @@ const reduxify = (MyComponent: any) => {
       });
     };
 
-    const updateUser = (user: UserMetaState) => {
+    const updateUser = (user: User) => {
       dispatch(createUserMetaActions.set(user));
     };
 

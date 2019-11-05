@@ -15,9 +15,7 @@ import { __, sprintf } from "@wordpress/i18n";
 import updateMember from "../../../api/members/update";
 
 // Types
-import { Member } from "../../../redux/actions/team-member";
-import { AppState } from "../../../redux/store";
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
+import { AppState, Session, Member } from "../../../types";
 
 // Redux
 import { connect } from "react-redux";
@@ -33,7 +31,7 @@ type OwnProps = {
   toggle: (open: boolean) => void;
 };
 type StateProps = {
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined;
+  session: Session;
   teamId: string;
   teamName: string;
 };
@@ -54,7 +52,7 @@ const RemoveMember = (props: Props) => {
       props.session,
       props.teamId,
       currentMember.userSub,
-      Roles.Deactivated
+      Roles.Suspended
     )
       .then(() => {
         setStatus("success");

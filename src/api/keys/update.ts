@@ -1,9 +1,8 @@
-import AmazonCognitoIdentity from "amazon-cognito-identity-js";
-import { Key } from "../../redux/actions/map-key";
+import { Session, Key } from "../../types";
 const { REACT_APP_API_BASE } = process.env;
 
 const updateTeam = (
-  session: AmazonCognitoIdentity.CognitoUserSession | undefined,
+  session: Session,
   teamId: string,
   mapKey: string,
   key: Partial<
