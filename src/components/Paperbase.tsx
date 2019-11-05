@@ -26,7 +26,6 @@ import { AppState, Team, Session, User, Role, Roles } from "../types";
 
 // redux
 import { connect } from "react-redux";
-import { classDeclaration } from "@babel/types";
 import Alert from "./custom/Alert";
 import { __ } from "@wordpress/i18n";
 
