@@ -51,7 +51,7 @@ msgid ""
 "dataset API."
 msgstr ""
 "データセットの管理や設定を行ったり、データセット API のアクセスポイントの URL"
-"の を取得することができます。"
+" を取得することができます。"
 
 #: src/components/Data/GIS.tsx:203 src/components/Maps/APIKey.tsx:163
 #: src/components/Navigator.tsx:301 src/components/Team/general/fields.tsx:60
