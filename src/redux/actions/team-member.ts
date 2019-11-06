@@ -14,6 +14,12 @@ export const Roles = {
   Suspended: "Suspended" as "Suspended"
 };
 
+export const RoleOrders = {
+  [Roles.Owner]: 0,
+  [Roles.Member]: 1,
+  [Roles.Suspended]: 2
+};
+
 export type Member = UserMetaState & {
   userSub: string;
   role: keyof typeof Roles;
@@ -104,11 +110,13 @@ export const reducer = (
   action: TeamMemberAction
 ) => {
   if (isSetAction(action)) {
+    const members = [...action.payload.members];
+    members.sort((a, b) => RoleOrders[a.role] - RoleOrders[b.role]);
     return {
       ...state,
       [action.payload.teamId]: {
         ...state[action.payload.teamId],
-        data: action.payload.members
+        data: members
       }
     };
   } else if (isMarkErrorAction(action)) {
@@ -122,11 +130,13 @@ export const reducer = (
   } else if (isAddAction(action)) {
     const { teamId, member } = action.payload;
     const teamMemberObject = state[teamId] || { data: [] };
+    const members = [...teamMemberObject.data, member];
+    members.sort((a, b) => RoleOrders[a.role] - RoleOrders[b.role]);
     return {
       ...state,
       [teamId]: {
         ...state[teamId],
-        data: [...teamMemberObject.data, member]
+        data: members
       }
     };
   } else if (isUpdateAction(action)) {
@@ -140,7 +150,7 @@ export const reducer = (
       ...nextMembers[nextMemberIndex],
       ...member
     };
-
+    nextMembers.sort((a, b) => RoleOrders[a.role] - RoleOrders[b.role]);
     return {
       ...state,
       [teamId]: {
