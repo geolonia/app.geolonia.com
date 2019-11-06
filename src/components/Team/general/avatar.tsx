@@ -32,7 +32,8 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const ProfileImageStyle: React.CSSProperties = {
-  width: "250px",
+  width: "100%",
+  maxWidth: "250px",
   height: "auto",
   margin: "16px"
 };
