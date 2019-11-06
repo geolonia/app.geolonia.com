@@ -36,7 +36,7 @@ type State = {
 };
 
 const ProfileImageStyle: React.CSSProperties = {
-  width: "250px",
+  width: "100%",
   height: "auto",
   fill: "#dedede",
   margin: "auto"
