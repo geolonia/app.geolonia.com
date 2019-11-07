@@ -13,7 +13,7 @@ import { __ } from "@wordpress/i18n";
 import putAvatar from "../../../api/teams/put-avatar";
 
 // types
-import { AppState, Team, Session } from "../../../types";
+import { AppState, Team, Session, Roles } from "../../../types";
 
 // redux
 import Redux from "redux";
@@ -76,6 +76,9 @@ const Content = (props: Props) => {
   };
 
   const isUploadEnabled = !!props.team.links.putAvatar;
+  const isOwner = team.role === Roles.Owner;
+
+  const buttonDisabled = !isUploadEnabled && !isOwner;
 
   return (
     <>
@@ -93,7 +96,7 @@ const Content = (props: Props) => {
           variant="contained"
           color="default"
           onClick={onUploadClick}
-          disabled={!isUploadEnabled}
+          disabled={!buttonDisabled}
         >
           {status === "requesting" && (
             <CircularProgress size={16} style={{ marginRight: 8 }} />
