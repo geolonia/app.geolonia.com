@@ -9,6 +9,7 @@ import Delete from "./delete";
 
 // utils
 import { __ } from "@wordpress/i18n";
+import { Roles } from "../../../types";
 
 // types
 import { Role, AppState } from "../../../types";
@@ -36,6 +37,8 @@ const Content = (props: Props) => {
     }
   ];
 
+  const isOwner = role === Roles.Owner;
+
   return (
     <div>
       <Title title={__("General")} breadcrumb={breadcrumbItems}>
@@ -53,9 +56,11 @@ const Content = (props: Props) => {
           <Avatar />
         </Grid>
 
+      {isOwner &&
         <Grid item xs={12} md={12}>
           <Delete />
         </Grid>
+      }
       </Grid>
     </div>
   );
