@@ -12,7 +12,6 @@ import { resetPassword } from "../auth";
 
 // Utils
 import { __ } from "@wordpress/i18n";
-import delay from "../lib/promise-delay";
 import { connect } from "react-redux";
 
 // Types
@@ -53,7 +52,7 @@ const Content = (props: Props) => {
 
   const handler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setStatus(null);
-    delay(resetPassword(props.currentUser, code, password), 500)
+    resetPassword(props.currentUser, code, password)
       .then(() => {
         setStatus("success");
         props.history.push("/signin");
