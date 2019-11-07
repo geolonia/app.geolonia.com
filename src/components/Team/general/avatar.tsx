@@ -78,7 +78,7 @@ const Content = (props: Props) => {
   const isUploadEnabled = !!props.team.links.putAvatar;
   const isOwner = team.role === Roles.Owner;
 
-  const buttonDisabled = !isUploadEnabled && !isOwner;
+  const buttonDisabled = !(isUploadEnabled && isOwner);
 
   return (
     <>
@@ -96,7 +96,7 @@ const Content = (props: Props) => {
           variant="contained"
           color="default"
           onClick={onUploadClick}
-          disabled={!buttonDisabled}
+          disabled={buttonDisabled}
         >
           {status === "requesting" && (
             <CircularProgress size={16} style={{ marginRight: 8 }} />
