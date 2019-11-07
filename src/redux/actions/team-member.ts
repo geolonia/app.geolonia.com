@@ -5,6 +5,7 @@ const MARK_ERROR = "TEAM_MEMBER/MARK_ERROR";
 const ADD = "TEAM_MEMBER/ADD";
 const UPDATE = "TEAM_MEMBER/UPDATE";
 const DELETE = "TEAM_MEMBER/DELETE";
+const SET_AVATAR = "TEAM_MEMBER/SET_AVATAR";
 
 export type Role = "Owner" | "Member" | "Suspended";
 
@@ -20,9 +21,10 @@ export const RoleOrders = {
   [Roles.Suspended]: 2
 };
 
-export type Member = UserMetaState & {
+export type Member = Omit<UserMetaState, "links"> & {
   userSub: string;
   role: keyof typeof Roles;
+  links: { getAvatar: string };
 };
 
 export type State = {
@@ -54,13 +56,18 @@ type DeleteAction = {
   type: typeof DELETE;
   payload: { teamId: string; userSub: string };
 };
+type SetAvatarAction = {
+  type: typeof SET_AVATAR;
+  payload: { teamId: string; userSub: string; avatarImage: string | void };
+};
 
 type TeamMemberAction =
   | SetAction
   | MarkErrorAction
   | AddAction
   | UpdateAction
-  | DeleteAction;
+  | DeleteAction
+  | SetAvatarAction;
 
 export const createActions = {
   set: (teamId: string, members: Member[]): SetAction => ({
@@ -86,6 +93,14 @@ export const createActions = {
   delete: (teamId: string, userSub: string): DeleteAction => ({
     type: DELETE,
     payload: { teamId, userSub }
+  }),
+  setAvatar: (
+    teamId: string,
+    userSub: string,
+    avatarImage: string | void
+  ): SetAvatarAction => ({
+    type: SET_AVATAR,
+    payload: { teamId, userSub, avatarImage }
   })
 };
 
@@ -104,6 +119,10 @@ const isUpdateAction = (action: TeamMemberAction): action is UpdateAction =>
 
 const isDeleteAction = (action: TeamMemberAction): action is DeleteAction =>
   action.type === DELETE;
+
+const isSetAvatarAction = (
+  action: TeamMemberAction
+): action is SetAvatarAction => action.type === SET_AVATAR;
 
 export const reducer = (
   state: State = initialState,
@@ -166,6 +185,24 @@ export const reducer = (
       .indexOf(action.payload.userSub);
     const nextMembers = [...teamMemberObject.data];
     nextMembers.splice(nextMemberIndex, 1);
+
+    return {
+      ...state,
+      [teamId]: {
+        ...state[teamId],
+        data: nextMembers
+      }
+    };
+  } else if (isSetAvatarAction(action)) {
+    const { teamId, userSub, avatarImage } = action.payload;
+    const prevMembers = state[teamId].data;
+    const nextMembers = prevMembers.map(member => {
+      if (member.userSub === userSub) {
+        return { ...member, avatarImage };
+      } else {
+        return member;
+      }
+    });
 
     return {
       ...state,

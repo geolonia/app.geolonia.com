@@ -19,7 +19,7 @@ import Invite from "./invite";
 import ChangeRole from "./change-role";
 import Suspend from "./suspend";
 import RemoveMember from "./remove-member";
-import { Chip } from "@material-ui/core";
+import { Chip, Avatar } from "@material-ui/core";
 
 // utils
 import { __ } from "@wordpress/i18n";
@@ -57,7 +57,6 @@ const Content = (props: Props) => {
   React.useEffect(() => {
     handleClose();
   }, [openChangeRole, openRemoveMember]);
-
   const rows: Row[] = members.map(member => {
     return {
       id: member.userSub,
@@ -82,6 +81,11 @@ const Content = (props: Props) => {
 
   const iconStyle: React.CSSProperties = {
     fontSize: "16px"
+  };
+
+  const avatarStyle: React.CSSProperties = {
+    width: "24px",
+    height: "24px"
   };
 
   const handleChangePage = () => {};
@@ -166,7 +170,11 @@ const Content = (props: Props) => {
               data-id={row.id}
             >
               <TableCell style={firstCellStyle} padding="none">
-                <PersonIcon />
+                {row.avatar ? (
+                  <Avatar src={row.avatar} style={avatarStyle} />
+                ) : (
+                  <PersonIcon />
+                )}
               </TableCell>
               <TableCell component="th" scope="row">
                 {row.name}

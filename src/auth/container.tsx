@@ -45,6 +45,11 @@ type DispatchProps = {
   selectTeam: (index: number) => void;
   setUserAvatar: (avatarImage: string | void) => void;
   setTeamAvatar: (teamIndex: number, avatarImage: string | void) => void;
+  setTeamMemberAvatar: (
+    teamId: string,
+    userSub: string,
+    avatarImage: string | void
+  ) => void;
   setMapKeys: (teamId: string, keys: Key[]) => void;
   setTeamMembers: (teamId: string, members: Member[]) => void;
   markMapKeyError: (teamId: string) => void;
@@ -132,19 +137,19 @@ export class AuthContainer extends React.Component<Props, State> {
     }
   }
 
-  loadAvatars = (userMeta: User, teams: Team[]) => {
-    const handleResponse = (res: Response) => {
-      if (res.ok) {
-        return res.blob().then(URL.createObjectURL);
-      } else {
-        throw new Error("Request failed");
-      }
-    };
+  _handleAvatarResponse = (res: Response) => {
+    if (res.ok) {
+      return res.blob().then(URL.createObjectURL);
+    } else {
+      throw new Error("Request failed");
+    }
+  };
 
+  loadAvatars = (userMeta: User, teams: Team[]) => {
     return Promise.all([
       userMeta.links.getAvatar
         ? fetch(userMeta.links.getAvatar)
-            .then(handleResponse)
+            .then(this._handleAvatarResponse)
             .catch(err => {
               console.error(err);
               return void 0;
@@ -153,7 +158,7 @@ export class AuthContainer extends React.Component<Props, State> {
       ...teams.map(team =>
         team.links.getAvatar
           ? fetch(team.links.getAvatar)
-              .then(handleResponse)
+              .then(this._handleAvatarResponse)
               .catch(err => {
                 console.error(err);
                 return void 0;
@@ -185,16 +190,40 @@ export class AuthContainer extends React.Component<Props, State> {
 
   loadTeamMembers = (session: Session, teamIds: string[]) => {
     const handleListTeamMembers = (teamId: string) => {
-      return listTeamMembers(session, teamId)
-        .then((members: Member[]) => {
-          this.props.setTeamMembers(teamId, members);
-        })
-        .catch(err => {
-          console.error(err);
-        });
+      return listTeamMembers(session, teamId).then((members: Member[]) => {
+        this.props.setTeamMembers(teamId, members);
+        return members;
+      });
     };
 
-    return Promise.all(teamIds.map(teamId => handleListTeamMembers(teamId)));
+    return Promise.all(
+      teamIds.map(teamId =>
+        handleListTeamMembers(teamId).then(members => {
+          return Promise.all(
+            members.map(member =>
+              member.links.getAvatar
+                ? fetch(member.links.getAvatar)
+                    .then(this._handleAvatarResponse)
+                    .catch(err => {
+                      console.error(err);
+                      return void 0;
+                    })
+                : void 0
+            )
+          ).then(teamMemberAvatarImages => {
+            teamMemberAvatarImages.map((avatarImage, index) => {
+              this.props.setTeamMemberAvatar(
+                teamId,
+                members[index].userSub,
+                avatarImage
+              );
+            });
+          });
+        })
+      )
+    ).catch(err => {
+      console.error(err);
+    });
   };
 
   render() {
@@ -221,6 +250,8 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
     dispatch(createUserMetaActions.setAvatar(avatarImage)),
   setTeamAvatar: (teamIndex, avatarImage) =>
     dispatch(createTeamActions.setAvatar(teamIndex, avatarImage)),
+  setTeamMemberAvatar: (teamId, userSub, avatarImage) =>
+    dispatch(createTeamMemberActions.setAvatar(teamId, userSub, avatarImage)),
   setMapKeys: (teamId, keys) => dispatch(createMapKeyActions.set(teamId, keys)),
   setTeamMembers: (teamId, members) =>
     dispatch(createTeamMemberActions.set(teamId, members)),
