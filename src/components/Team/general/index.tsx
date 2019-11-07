@@ -10,7 +10,17 @@ import Delete from "./delete";
 // utils
 import { __ } from "@wordpress/i18n";
 
-const Content = () => {
+// types
+import { Role, AppState } from "../../../types";
+import { connect } from "react-redux";
+
+type OwnProps = {};
+type StateProps = { role?: Role };
+type Props = OwnProps & StateProps;
+
+const Content = (props: Props) => {
+  const { role } = props;
+
   const breadcrumbItems = [
     {
       title: "Home",
@@ -51,4 +61,10 @@ const Content = () => {
   );
 };
 
-export default Content;
+const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  const role = team && team.role;
+  return { role };
+};
+
+export default connect(mapStateToProps)(Content);
