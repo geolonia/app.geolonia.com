@@ -17,6 +17,7 @@ import { AppState, Session, Team } from "../../../types";
 
 // utils
 import { __ } from "@wordpress/i18n";
+import { Roles } from "../../../redux/actions/team-member";
 
 type OwnProps = {};
 type StateProps = {
@@ -51,6 +52,11 @@ const Content = (props: Props) => {
     });
   };
 
+  const draftExists = Object.keys(draft).length !== 0;
+  const isOwner = team.role === Roles.Owner;
+
+  const saveDisabled = !draftExists && !isOwner;
+
   return (
     <>
       <TextField
@@ -60,6 +66,7 @@ const Content = (props: Props) => {
         fullWidth={true}
         value={(draft.name === void 0 ? name : draft.name) || ""}
         onChange={e => setDraft({ ...draft, name: e.target.value })}
+        disabled={isOwner !== true}
       />
       <TextField
         id="team-description"
@@ -72,6 +79,7 @@ const Content = (props: Props) => {
           (draft.description === void 0 ? description : draft.description) || ""
         }
         onChange={e => setDraft({ ...draft, description: e.target.value })}
+        disabled={isOwner !== true}
       />
       <TextField
         id="team-url"
@@ -80,6 +88,7 @@ const Content = (props: Props) => {
         fullWidth={true}
         value={(draft.url === void 0 ? url : draft.url) || ""}
         onChange={e => setDraft({ ...draft, url: e.target.value })}
+        disabled={isOwner !== true}
       />
       <TextField
         id="team-billing-email"
@@ -91,10 +100,11 @@ const Content = (props: Props) => {
           ""
         }
         onChange={e => setDraft({ ...draft, billingEmail: e.target.value })}
+        disabled={isOwner !== true}
       />
       <p className="mute">We’ll send receipts to this inbox.</p>
 
-      <Save onClick={onSaveClick} disabled={Object.keys(draft).length === 0} />
+      <Save onClick={onSaveClick} disabled={saveDisabled} />
     </>
   );
 };

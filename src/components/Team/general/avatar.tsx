@@ -13,7 +13,7 @@ import { __ } from "@wordpress/i18n";
 import putAvatar from "../../../api/teams/put-avatar";
 
 // types
-import { AppState, Team, Session } from "../../../types";
+import { AppState, Team, Session, Roles } from "../../../types";
 
 // redux
 import Redux from "redux";
@@ -32,7 +32,8 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const ProfileImageStyle: React.CSSProperties = {
-  width: "250px",
+  width: "100%",
+  maxWidth: "250px",
   height: "auto",
   margin: "16px"
 };
@@ -43,6 +44,9 @@ const Content = (props: Props) => {
     false | "requesting" | "success" | "failure"
   >(false);
 
+  // props
+  const { team } = props;
+
   // refs
   const refContainer = React.useRef<HTMLInputElement | null>(null);
 
@@ -50,10 +54,10 @@ const Content = (props: Props) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const avatarUrl = URL.createObjectURL(file);
-      const prevAvatarUrl = props.team.avatarImage;
+      const prevAvatarUrl = team.avatarImage;
       setStatus("requesting");
 
-      putAvatar(props.session, props.team.teamId, file)
+      putAvatar(props.session, team.teamId, file)
         .then(() => {
           props.setAvatar(props.index, avatarUrl);
           setStatus("success");
@@ -72,6 +76,9 @@ const Content = (props: Props) => {
   };
 
   const isUploadEnabled = !!props.team.links.putAvatar;
+  const isOwner = team.role === Roles.Owner;
+
+  const buttonDisabled = !(isUploadEnabled && isOwner);
 
   return (
     <>
@@ -89,7 +96,7 @@ const Content = (props: Props) => {
           variant="contained"
           color="default"
           onClick={onUploadClick}
-          disabled={!isUploadEnabled}
+          disabled={buttonDisabled}
         >
           {status === "requesting" && (
             <CircularProgress size={16} style={{ marginRight: 8 }} />
