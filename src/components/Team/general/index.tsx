@@ -9,8 +9,19 @@ import Delete from "./delete";
 
 // utils
 import { __ } from "@wordpress/i18n";
+import { Roles } from "../../../types";
 
-const Content = () => {
+// types
+import { Role, AppState } from "../../../types";
+import { connect } from "react-redux";
+
+type OwnProps = {};
+type StateProps = { role?: Role };
+type Props = OwnProps & StateProps;
+
+const Content = (props: Props) => {
+  const { role } = props;
+
   const breadcrumbItems = [
     {
       title: "Home",
@@ -25,6 +36,8 @@ const Content = () => {
       href: null
     }
   ];
+
+  const isOwner = role === Roles.Owner;
 
   return (
     <div>
@@ -43,12 +56,20 @@ const Content = () => {
           <Avatar />
         </Grid>
 
+      {isOwner &&
         <Grid item xs={12} md={12}>
           <Delete />
         </Grid>
+      }
       </Grid>
     </div>
   );
 };
 
-export default Content;
+const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  const role = team && team.role;
+  return { role };
+};
+
+export default connect(mapStateToProps)(Content);
