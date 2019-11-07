@@ -132,12 +132,20 @@ const Content = (props: Props) => {
     }
   ];
 
+  const { team } = props;
+  let isOwner = false;
+  if (team) {
+    isOwner = team.role === Roles.Owner;
+  }
+
   return (
     <div>
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
       </Title>
-      <Invite />
+      {isOwner &&
+        <Invite />
+      }
 
       {/* each member management */}
       {currentMember && (
