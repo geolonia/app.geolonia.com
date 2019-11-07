@@ -18,7 +18,7 @@ export const isUserMeta = (user: any): user is State => {
     return false;
   } else if (!user.username) {
     return false;
-  } else if (!(user.links && user.links.getAvatar)) {
+  } else if (!(user.links && typeof user.links.getAvatar === "string")) {
     return false;
   } else {
     return true;
