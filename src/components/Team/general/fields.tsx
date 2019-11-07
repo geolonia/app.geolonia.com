@@ -17,6 +17,7 @@ import { AppState, Session, Team } from "../../../types";
 
 // utils
 import { __ } from "@wordpress/i18n";
+import { Roles } from "../../../redux/actions/team-member";
 
 type OwnProps = {};
 type StateProps = {
@@ -50,6 +51,8 @@ const Content = (props: Props) => {
       setDraft({});
     });
   };
+
+  const isOwner = team.role === Roles.Owner;
 
   return (
     <>
