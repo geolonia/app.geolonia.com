@@ -619,7 +619,7 @@ msgstr "パスワードを変更しました。"
 
 #: src/components/User/security.tsx:120
 msgid "Failed to change password."
-msgstr "パスワードの変更を失敗しました。"
+msgstr "パスワードの変更に失敗しました。"
 
 #: src/components/User/security.tsx:69
 msgid "Security"
