@@ -44,6 +44,9 @@ const Content = (props: Props) => {
     false | "requesting" | "success" | "failure"
   >(false);
 
+  // props
+  const { team } = props;
+
   // refs
   const refContainer = React.useRef<HTMLInputElement | null>(null);
 
@@ -51,10 +54,10 @@ const Content = (props: Props) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
       const avatarUrl = URL.createObjectURL(file);
-      const prevAvatarUrl = props.team.avatarImage;
+      const prevAvatarUrl = team.avatarImage;
       setStatus("requesting");
 
-      putAvatar(props.session, props.team.teamId, file)
+      putAvatar(props.session, team.teamId, file)
         .then(() => {
           props.setAvatar(props.index, avatarUrl);
           setStatus("success");
