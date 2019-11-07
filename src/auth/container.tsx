@@ -142,19 +142,23 @@ export class AuthContainer extends React.Component<Props, State> {
     };
 
     return Promise.all([
-      fetch(userMeta.links.getAvatar)
-        .then(handleResponse)
-        .catch(err => {
-          console.error(err);
-          return void 0;
-        }),
+      userMeta.links.getAvatar
+        ? fetch(userMeta.links.getAvatar)
+            .then(handleResponse)
+            .catch(err => {
+              console.error(err);
+              return void 0;
+            })
+        : void 0,
       ...teams.map(team =>
-        fetch(team.links.getAvatar)
-          .then(handleResponse)
-          .catch(err => {
-            console.error(err);
-            return void 0;
-          })
+        team.links.getAvatar
+          ? fetch(team.links.getAvatar)
+              .then(handleResponse)
+              .catch(err => {
+                console.error(err);
+                return void 0;
+              })
+          : void 0
       )
     ]).then(([userAvatarImage, ...teamAvatarImages]) => {
       this.props.setUserAvatar(userAvatarImage);
