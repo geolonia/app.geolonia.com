@@ -10,7 +10,7 @@ import { __ } from "@wordpress/i18n";
 import addMember from "../../../api/members/add";
 
 // Types
-import { AppState, Session, Team, Member } from "../../../types";
+import { AppState, Session, Team, Member, errorCodes } from "../../../types";
 
 // redux
 import Redux from "redux";
@@ -30,18 +30,28 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 export const Invite = (props: Props) => {
+  const [message, setMessage] = React.useState("");
+
   const inviteHandler = (email: string) => {
     const { session, team, addMemberState, members } = props;
     if (team) {
-      return addMember(session, team.teamId, email).then(newMember => {
-        if (members.find(member => member.userSub === newMember.userSub)) {
-          console.warn("Already joined");
-          // TODO: Raise error and show message inside Add New component.
-          // Related issue: https://github.com/geolonia/app.geolonia.com/issues/106
-        } else {
-          addMemberState(team.teamId, newMember);
-        }
-      });
+      return addMember(session, team.teamId, email)
+        .then(result => {
+          if (result.error) {
+            if (result.errorCode === errorCodes.UnAuthorized) {
+              setMessage(__("You are not authorized to do this operation."));
+              throw new Error(errorCodes.UnAuthorized);
+            }
+          } else {
+            const newMember = result.member;
+            if (members.find(member => member.userSub === newMember.userSub)) {
+              console.warn("Already joined");
+            } else {
+              addMemberState(team.teamId, newMember);
+            }
+          }
+        })
+        .catch();
     } else {
       return Promise.reject("Unknown Error");
     }
@@ -58,10 +68,8 @@ export const Invite = (props: Props) => {
       fieldName="email"
       fieldLabel={__("Email")}
       fieldType="email"
+      errorMessage={message}
       onClick={inviteHandler}
-      onError={() => {
-        /*TODO: show messages*/
-      }}
     />
   );
 };

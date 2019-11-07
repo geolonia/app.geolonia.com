@@ -18,6 +18,13 @@ export type AppState = {
   teamMember: TeamMemberState;
 };
 
+export type ErrorCodes = "UnAuthorized" | "Unknown";
+
+export const errorCodes = {
+  UnAuthorized: "UnAuthorized" as "UnAuthorized",
+  Unkown: "Unknown" as "Unknown"
+};
+
 export type Session = AuthSupportState["session"];
 export type User = UserMetaState;
 export type Key = _Key;
