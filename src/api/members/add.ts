@@ -1,4 +1,4 @@
-import { Session, Member, errorCodes, ErrorCodes } from "../../types";
+import { Session, Member } from "../../types";
 import fetch from "../custom-fetch";
 
 const addMember = (session: Session, teamId: string, email: string) => {

@@ -10,7 +10,7 @@ import { __ } from "@wordpress/i18n";
 import addMember from "../../../api/members/add";
 
 // Types
-import { AppState, Session, Team, Member, errorCodes } from "../../../types";
+import { AppState, Session, Team, Member } from "../../../types";
 
 // redux
 import Redux from "redux";

@@ -15,7 +15,7 @@ import { __, sprintf } from "@wordpress/i18n";
 import deleteMember from "../../../api/members/delete";
 
 // Types
-import { AppState, Session, Member, errorCodes } from "../../../types";
+import { AppState, Session, Member } from "../../../types";
 
 // Redux
 import { connect } from "react-redux";

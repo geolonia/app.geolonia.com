@@ -15,7 +15,7 @@ import Help from "../custom/Help";
 import Title from "../custom/Title";
 
 // types
-import { AppState, Session, Key, errorCodes } from "../../types";
+import { AppState, Session, Key } from "../../types";
 
 // api
 import updateKey from "../../api/keys/update";

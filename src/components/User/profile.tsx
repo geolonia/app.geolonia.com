@@ -17,7 +17,7 @@ import momentTimeZone from "moment-timezone";
 import reduxify, { ReduxifyProps } from "../../redux/reduxify";
 
 // types
-import { User, errorCodes } from "../../types";
+import { User } from "../../types";
 
 type OwnProps = {};
 

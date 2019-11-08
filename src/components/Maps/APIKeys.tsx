@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import createKey from "../../api/keys/create";
 
 // types
-import { AppState, Key, Session, errorCodes } from "../../types";
+import { AppState, Key, Session } from "../../types";
 
 // redux
 import Redux from "redux";
