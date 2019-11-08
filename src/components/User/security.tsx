@@ -5,10 +5,12 @@ import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import TextField from "@material-ui/core/TextField";
 import { __ } from "@wordpress/i18n";
-import delay from "../../lib/promise-delay";
 import { changePassword } from "../../auth";
 import { CircularProgress } from "@material-ui/core";
 import Alert from "../custom/Alert";
+
+// constant
+import { messageDisplayDuration } from "../../constants";
 
 type State = {
   oldPassword: string;
@@ -41,12 +43,26 @@ export class Security extends React.Component<Props, State> {
     this.setState({ status: null, newPassword: e.currentTarget.value });
   setNewPasswordAgain = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ status: null, newPasswordAgain: e.currentTarget.value });
+
+  reset = () =>
+    this.setState({
+      oldPassword: "",
+      newPassword: "",
+      newPasswordAgain: ""
+    });
+
   onUpdatePasswordClick = () => {
     const { oldPassword, newPassword } = this.state;
     this.setState({ status: "requesting" });
-    delay(changePassword(oldPassword, newPassword), 500)
+
+    changePassword(oldPassword, newPassword)
       .then(() => {
         this.setState({ status: "success" });
+        this.reset();
+        setTimeout(
+          () => this.setState({ status: null }),
+          messageDisplayDuration
+        );
       })
       .catch(err => {
         console.error(err);
@@ -66,7 +82,7 @@ export class Security extends React.Component<Props, State> {
     return (
       <>
         <Typography component="h2" className="module-title">
-          {__('Security')}
+          {__("Security")}
         </Typography>
         <TextField
           id="old-password"
@@ -102,17 +118,15 @@ export class Security extends React.Component<Props, State> {
             onClick={this.onUpdatePasswordClick}
             disabled={!isButtonEnabled}
           >
+            {status === "requesting" && (
+              <CircularProgress size={16} style={{ marginRight: 8 }} />
+            )}
             {__("Update password")}
           </Button>
           <Link style={linkStyle} href="/#/forgot-password">
             {__("I forgot my password")}
           </Link>
         </Typography>
-        {status === "requesting" && (
-          <p>
-            <CircularProgress size={20}></CircularProgress>
-          </p>
-        )}
         {status === "success" && (
           <Alert type="success">{__("Password changed successfuly.")}</Alert>
         )}

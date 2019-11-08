@@ -54,20 +54,21 @@ const Content = (props: Props) => {
       const { session } = props;
       setStatus("requesting");
       deleteTeam(session, team.teamId)
-        .then(() => {
-          setConfirmation("");
-          setStatus("success");
-          setTimeout(() => {
-            window.location.href = "/";
-          }, 2000);
+        .then(result => {
+          console.log(result);
+          if (result.error) {
+            throw new Error(result.code);
+          } else {
+            setConfirmation("");
+            setStatus("success");
+            setTimeout(() => {
+              window.location.href = "/";
+            }, 2000);
+          }
         })
         .catch(() => {
           setConfirmation("");
           setStatus("failure");
-          setTimeout(() => {
-            setStatus(false);
-            setOpen(false);
-          }, 3000);
         });
     }
   };
@@ -125,6 +126,7 @@ const Content = (props: Props) => {
               fullWidth
               placeholder="delete"
             />
+            {status === "failure" && <DialogContentText>{}</DialogContentText>}
           </DialogContent>
           <DialogActions>
             <Button

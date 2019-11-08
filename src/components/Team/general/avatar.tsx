@@ -5,9 +5,10 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import defaultTeamIcon from "../../custom/team.svg";
 import { CircularProgress } from "@material-ui/core";
+import Alert from "../../custom/Alert";
 
 // utils
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 
 // API
 import putAvatar from "../../../api/teams/put-avatar";
@@ -19,6 +20,9 @@ import { AppState, Team, Session, Roles } from "../../../types";
 import Redux from "redux";
 import { createActions as createTeamActions } from "../../../redux/actions/team";
 import { connect } from "react-redux";
+
+// constants
+import { avatarLimitSize } from "../../../constants";
 
 type OwnProps = {};
 type StateProps = {
@@ -43,6 +47,7 @@ const Content = (props: Props) => {
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
+  const [message, setMessage] = React.useState("");
 
   // props
   const { team } = props;
@@ -53,23 +58,40 @@ const Content = (props: Props) => {
   const onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
+
+      if (file.size > avatarLimitSize * 1024 * 1024) {
+        setStatus("failure");
+        setMessage(
+          sprintf(
+            __(
+              "Upload failed. The avatar image size cannot be larger than %d MB."
+            ),
+            avatarLimitSize
+          )
+        );
+        return;
+      }
+
       const avatarUrl = URL.createObjectURL(file);
       const prevAvatarUrl = team.avatarImage;
       setStatus("requesting");
 
-      putAvatar(props.session, team.teamId, file)
-        .then(() => {
-          props.setAvatar(props.index, avatarUrl);
-          setStatus("success");
-        })
-        .catch(err => {
+      putAvatar(props.session, team.teamId, file).then(result => {
+        if (result.error) {
           props.setAvatar(props.index, prevAvatarUrl); // roleback
           setStatus("failure");
-        });
+          setMessage(result.message);
+        } else {
+          props.setAvatar(props.index, avatarUrl);
+          setStatus("success");
+        }
+      });
     }
   };
 
   const onUploadClick = () => {
+    setMessage("");
+    setStatus(false);
     if (refContainer.current) {
       refContainer.current.click();
     }
@@ -111,6 +133,9 @@ const Content = (props: Props) => {
           type="file"
           onChange={onFileSelected}
         />
+        {status === "failure" && message && (
+          <Alert type="danger">{message}</Alert>
+        )}
       </Typography>
     </>
   );

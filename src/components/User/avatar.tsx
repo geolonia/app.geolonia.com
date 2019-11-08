@@ -6,6 +6,7 @@ import Button from "@material-ui/core/Button";
 import PersonIcon from "@material-ui/icons/Person";
 import Avatar from "@material-ui/core/Avatar";
 import { CircularProgress } from "@material-ui/core";
+import Alert from "../custom/Alert";
 
 // redux
 import { connect } from "react-redux";
@@ -13,13 +14,16 @@ import Redux from "redux";
 import { createActions as createUserMetaActions } from "../../redux/actions/user-meta";
 
 // utils
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 
 // API
 import putAvatar from "../../api/users/put-avatar";
 
 // types
 import { AppState, Session, User } from "../../types";
+
+// constants
+import { avatarLimitSize } from "../../constants";
 
 type OwnProps = {};
 type StateProps = {
@@ -33,6 +37,7 @@ type Props = OwnProps & StateProps & DispatchProps;
 type State = {
   status: false | "requesting" | "success" | "failure";
   isFileAPISupported: boolean;
+  errorMessage: string;
 };
 
 const ProfileImageStyle: React.CSSProperties = {
@@ -51,11 +56,13 @@ export class AvatarSection extends React.Component<Props, State> {
     this.inputFileRef = null;
     this.state = {
       status: false,
-      isFileAPISupported: true // TODO: check it
+      isFileAPISupported: true, // TODO: check it
+      errorMessage: ""
     };
   }
 
   onUploadClick = () => {
+    this.setState({ status: false, errorMessage: "" });
     if (this.inputFileRef) {
       this.inputFileRef.click();
     }
@@ -63,25 +70,40 @@ export class AvatarSection extends React.Component<Props, State> {
 
   onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
-      // TODO: check file type and size
       const file = e.target.files[0];
+
+      if (file.size > avatarLimitSize * 1024 * 1024) {
+        this.setState({
+          status: "failure",
+          errorMessage: sprintf(
+            __(
+              "Upload failed. The avatar image size cannot be larger than %d MB."
+            ),
+            avatarLimitSize
+          )
+        });
+        return;
+      }
+
       const avatarUrl = URL.createObjectURL(file);
       const prevAvatarUrl = this.props.userMeta.avatarImage;
       this.setState({ status: "requesting" });
 
-      putAvatar(this.props.session, file)
-        .then(() => {
+      putAvatar(this.props.session, file).then(result => {
+        console.log(result);
+        if (result.error) {
+          this.props.setAvatar(prevAvatarUrl); // roleback
+          this.setState({ status: "failure", errorMessage: result.message });
+        } else {
           this.props.setAvatar(avatarUrl);
           this.setState({ status: "success" });
-        })
-        .catch(err => {
-          this.props.setAvatar(prevAvatarUrl); // roleback
-          this.setState({ status: "failure" });
-        });
+        }
+      });
     }
   };
 
   render() {
+    const { errorMessage, status } = this.state;
     const {
       userMeta: { avatarImage }
     } = this.props;
@@ -118,6 +140,10 @@ export class AvatarSection extends React.Component<Props, State> {
           type="file"
           onChange={this.onFileSelected}
         />
+        <br />
+        {status === "failure" && errorMessage && (
+          <Alert type="danger">{errorMessage}</Alert>
+        )}
       </Typography>
     );
   }

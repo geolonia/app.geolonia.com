@@ -30,16 +30,23 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 export const Invite = (props: Props) => {
+  const [message, setMessage] = React.useState("");
+
   const inviteHandler = (email: string) => {
     const { session, team, addMemberState, members } = props;
     if (team) {
-      return addMember(session, team.teamId, email).then(newMember => {
-        if (members.find(member => member.userSub === newMember.userSub)) {
-          console.warn("Already joined");
-          // TODO: Raise error and show message inside Add New component.
-          // Related issue: https://github.com/geolonia/app.geolonia.com/issues/106
+      return addMember(session, team.teamId, email).then(result => {
+        console.log(result);
+        if (result.error) {
+          setMessage(result.message);
+          throw new Error(result.code);
         } else {
-          addMemberState(team.teamId, newMember);
+          const newMember = result.data;
+          if (members.find(member => member.userSub === newMember.userSub)) {
+            console.warn("Already joined");
+          } else {
+            addMemberState(team.teamId, newMember);
+          }
         }
       });
     } else {
@@ -58,10 +65,8 @@ export const Invite = (props: Props) => {
       fieldName="email"
       fieldLabel={__("Email")}
       fieldType="email"
+      errorMessage={message}
       onClick={inviteHandler}
-      onError={() => {
-        /*TODO: show messages*/
-      }}
     />
   );
 };

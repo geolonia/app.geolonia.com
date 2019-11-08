@@ -143,13 +143,13 @@ const Content = (props: Props) => {
             </Button>
           </p>
           {status === "requesting" ? (
-            <p>
+            <div style={{ marginTop: ".75em" }}>
               <CircularProgress size={20} />
-            </p>
+            </div>
           ) : status === "success" ? (
-            <p>
+            <div style={{ marginTop: ".75em" }}>
               <CheckIcon fontSize={"default"} color={"primary"} />
-            </p>
+            </div>
           ) : null}
         </div>
 

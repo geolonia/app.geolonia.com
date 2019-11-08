@@ -61,8 +61,6 @@ export const signin = (username: string, password: string) =>
     cognitoUser.authenticateUser(authenticationDetails, {
       onSuccess: result => {
         const accessToken = result.getIdToken().getJwtToken();
-        // console.log(accessToken);
-        // TODO: handle access token here
         cognitoUser.getSession(
           (err: any, session: CognitoIdentity.CognitoUserSession) => {
             if (err) {
@@ -73,8 +71,9 @@ export const signin = (username: string, password: string) =>
           }
         );
       },
-
-      onFailure: reject
+      onFailure: err => {
+        reject(err);
+      }
     });
   });
 
@@ -148,17 +147,20 @@ export const changePassword = (oldPassword: string, newPassword: string) =>
   new Promise((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser) {
-      signin(cognitoUser.getUsername(), oldPassword).then(({ cognitoUser }) => {
-        cognitoUser.changePassword(oldPassword, newPassword, (err, result) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve();
-          }
-        });
-      });
+      const username = cognitoUser.getUsername();
+      return signin(username, oldPassword)
+        .then(({ cognitoUser }) => {
+          cognitoUser.changePassword(oldPassword, newPassword, err => {
+            if (err) {
+              reject(err);
+            } else {
+              resolve();
+            }
+          });
+        })
+        .catch(err => reject(err));
     } else {
-      reject();
+      reject(new Error("No user found."));
     }
   });
 

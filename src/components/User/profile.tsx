@@ -5,11 +5,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Save from "../custom/Save";
-import { User } from "../../types";
-import updateUserMeta from "../../api/users/update";
+
+// API
+import updateUser from "../../api/users/update";
+
+// utils
 import { __ } from "@wordpress/i18n";
 import momentTimeZone from "moment-timezone";
+
+// Redux
 import reduxify, { ReduxifyProps } from "../../redux/reduxify";
+
+// types
+import { User } from "../../types";
 
 type OwnProps = {};
 
@@ -60,10 +68,14 @@ export class Profile extends React.Component<Props, State> {
 
   onSaveClick = (e: any) => {
     const { session, user } = this.props;
-    const nextUserMeta = { ...user, ...this.state.user };
+    const nextUser = { ...user, ...this.state.user };
 
-    return updateUserMeta(session, nextUserMeta).then(() => {
-      this.props.updateUser(nextUserMeta);
+    // Error Handling
+    return updateUser(session, nextUser).then(result => {
+      if (result.error) {
+        throw new Error(result.code);
+      }
+      this.props.updateUser(nextUser);
       // wait to show success effect
       setTimeout(() => {
         window.location.reload();

@@ -84,7 +84,10 @@ export const AddNew = (props: Props) => {
               label={props.fieldLabel}
               type={props.fieldType}
               value={text}
-              onChange={e => setText(e.target.value)}
+              onChange={e => {
+                setStatus(false);
+                setText(e.target.value);
+              }}
               fullWidth
             />
             {status === "failure" && (

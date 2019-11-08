@@ -16,6 +16,7 @@ import { __ } from "@wordpress/i18n";
 type Props = {
   text1: string;
   text2: string;
+  errorMessage: string;
   onClick: () => Promise<any>;
   onFailure: () => void;
   enable: (inputValue: string) => boolean;
@@ -53,10 +54,6 @@ const Delete = (props: Props) => {
         .catch(() => {
           setStatus("failure");
           props.onFailure();
-        })
-        .finally(() => {
-          setConfirmation("");
-          setTimeout(() => setStatus(false), 1000);
         });
     }
   };
@@ -97,6 +94,9 @@ const Delete = (props: Props) => {
               onChange={e => setConfirmation(e.target.value)}
               fullWidth
             />
+            {status === "failure" && (
+              <DialogContentText>{props.errorMessage}</DialogContentText>
+            )}
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="inherit">

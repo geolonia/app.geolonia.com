@@ -45,10 +45,13 @@ const Content = (props: Props) => {
   const onSaveClick = () => {
     // update server side
     return updateTeam(session, teamId, draft).then(result => {
-      console.log({ result });
-      // update client side state
-      updateTeamState(selectedIndex, draft);
-      setDraft({});
+      if (result.error) {
+        throw new Error(result.code);
+      } else {
+        // update client side state
+        updateTeamState(selectedIndex, draft);
+        setDraft({});
+      }
     });
   };
 
