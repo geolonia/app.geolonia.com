@@ -36,7 +36,7 @@ describe("DOM testing", () => {
     // Mock Fetch
     // @ts-ignore
     global.fetch = jest.fn(() =>
-      Promise.resolve({ ok: true, json: () => ({}) })
+      Promise.resolve({ ok: true, json: () => Promise.resolve({}) })
     );
 
     const setHandler = jest.fn(noop);
