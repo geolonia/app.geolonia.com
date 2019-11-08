@@ -19,7 +19,7 @@ import { __, sprintf } from "@wordpress/i18n";
 import updateMember from "../../../api/members/update";
 
 // Types
-import { AppState, Session, Member } from "../../../types";
+import { AppState, Session, Member, Roles } from "../../../types";
 import { connect } from "react-redux";
 
 // Redux
@@ -80,6 +80,9 @@ const ChangeRole = (props: Props) => {
     }
   };
 
+const isRole = role === Roles.Member || role === Roles.Owner
+
+
   return (
     <div>
       <form>
@@ -124,7 +127,7 @@ const ChangeRole = (props: Props) => {
             <Button onClick={() => toggle(false)} color="primary">
               {__("Cancel")}
             </Button>
-            <Button color="primary" type="submit" onClick={onSaveClick}>
+            <Button color="primary" type="submit" onClick={onSaveClick} disabled={isRole}>
               {status === "requesting" && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
               )}
