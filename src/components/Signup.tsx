@@ -131,8 +131,6 @@ const Content = (props: Props) => {
   );
 };
 
-Content.defaultProps = {};
-
 const mapStateToProps = (): StateProps => ({});
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   setCurrentUser: (user: string) => dispatch(createActions.setCurrentUser(user))

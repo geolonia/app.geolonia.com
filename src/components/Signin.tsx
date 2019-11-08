@@ -168,8 +168,6 @@ const Content = (props: Props) => {
   );
 };
 
-Content.defaultProps = {};
-
 const mapStateToProps = (state: AppState): StateProps => ({
   serverTrouble: state.authSupport.hasTrouble,
   signupUser: state.authSupport.currentUser

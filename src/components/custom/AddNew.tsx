@@ -10,12 +10,13 @@ import AddIcon from "@material-ui/icons/Add";
 import { CircularProgress } from "@material-ui/core";
 import { __ } from "@wordpress/i18n";
 
-type Props = {
-  // required
+type RequiredProps = {
   label: string;
   description: string;
   default: string;
-  // optionals
+};
+
+type OptionalProps = {
   buttonLabel: string;
   fieldName: string;
   fieldLabel: string;
@@ -24,6 +25,10 @@ type Props = {
   onClick: (value: string) => Promise<any>;
   onError: (error: any) => void;
 };
+
+type Props = RequiredProps & Partial<OptionalProps>;
+
+const noop = (x: any) => x;
 
 export const AddNew = (props: Props) => {
   const [text, setText] = React.useState(props.default);
@@ -111,9 +116,7 @@ export const AddNew = (props: Props) => {
   );
 };
 
-const noop = (x: any) => x;
-
-AddNew.defaultProps = {
+AddNew.getDrfaultProps = () => ({
   buttonLabel: __("New"),
   fieldName: __("name"),
   fieldLabel: __("Name"),
@@ -121,6 +124,6 @@ AddNew.defaultProps = {
   errorMessage: __("Some error."),
   onClick: noop,
   onError: noop
-};
+});
 
 export default AddNew;

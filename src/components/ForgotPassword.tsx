@@ -83,8 +83,6 @@ const Content = (props: Props) => {
   );
 };
 
-Content.defaultProps = {};
-
 const mapDispatchToProps = (dispatch: any) => ({
   setCurrentUser: (currentUser: string) =>
     dispatch(createActions.setCurrentUser(currentUser))
