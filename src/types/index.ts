@@ -18,12 +18,17 @@ export type AppState = {
   teamMember: TeamMemberState;
 };
 
-export type ErrorCodes = "UnAuthorized" | "Unknown";
+export type ErrorCodes = "UnAuthorized" | "Network" | "Unknown";
 
 export const errorCodes = {
   UnAuthorized: "UnAuthorized" as "UnAuthorized",
-  Unkown: "Unknown" as "Unknown"
+  Unknown: "Unknown" as "Unknown",
+  Network: "Network" as "Network"
 };
+
+export type APIResult<T> =
+  | { data: T; error: false }
+  | { error: true; code: ErrorCodes; message: string };
 
 export type Session = AuthSupportState["session"];
 export type User = UserMetaState;

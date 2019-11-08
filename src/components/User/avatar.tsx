@@ -89,15 +89,16 @@ export class AvatarSection extends React.Component<Props, State> {
       const prevAvatarUrl = this.props.userMeta.avatarImage;
       this.setState({ status: "requesting" });
 
-      putAvatar(this.props.session, file)
-        .then(() => {
+      putAvatar(this.props.session, file).then(result => {
+        console.log(result);
+        if (result.error) {
+          this.props.setAvatar(prevAvatarUrl); // roleback
+          this.setState({ status: "failure", errorMessage: result.message });
+        } else {
           this.props.setAvatar(avatarUrl);
           this.setState({ status: "success" });
-        })
-        .catch(err => {
-          this.props.setAvatar(prevAvatarUrl); // roleback
-          this.setState({ status: "failure", errorMessage: __("Some error.") });
-        });
+        }
+      });
     }
   };
 

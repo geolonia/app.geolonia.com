@@ -59,7 +59,7 @@ const Content = (props: Props) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
-      if (file.size > 1024) {
+      if (file.size > avatarLimitSize * 1024 * 1024) {
         setStatus("failure");
         setMessage(
           sprintf(
@@ -76,16 +76,16 @@ const Content = (props: Props) => {
       const prevAvatarUrl = team.avatarImage;
       setStatus("requesting");
 
-      putAvatar(props.session, team.teamId, file)
-        .then(() => {
-          props.setAvatar(props.index, avatarUrl);
-          setStatus("success");
-        })
-        .catch(err => {
+      putAvatar(props.session, team.teamId, file).then(result => {
+        if (result.error) {
           props.setAvatar(props.index, prevAvatarUrl); // roleback
           setStatus("failure");
-          setMessage(__("Some error."));
-        });
+          setMessage(result.message);
+        } else {
+          props.setAvatar(props.index, avatarUrl);
+          setStatus("success");
+        }
+      });
     }
   };
 

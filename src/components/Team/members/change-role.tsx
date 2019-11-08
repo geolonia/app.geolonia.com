@@ -53,6 +53,7 @@ const ChangeRole = (props: Props) => {
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
+  const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
     setRole(currentMember.role);
@@ -61,16 +62,21 @@ const ChangeRole = (props: Props) => {
   const onSaveClick = () => {
     if (role) {
       setStatus("requesting");
-      updateMember(props.session, props.teamId, currentMember.userSub, role)
-        .then(() => {
+      updateMember(
+        props.session,
+        props.teamId,
+        currentMember.userSub,
+        role
+      ).then(result => {
+        if (result.error) {
+          setStatus("failure");
+          setMessage(result.message);
+        } else {
           setStatus("success");
           updateMemberRoleState(props.teamId, currentMember.userSub, role);
           toggle(false);
-        })
-        .catch(() => {
-          // TODO: show error
-          setStatus("failure");
-        });
+        }
+      });
     }
   };
 
@@ -125,6 +131,14 @@ const ChangeRole = (props: Props) => {
               {__("Save")}
             </Button>
           </DialogActions>
+
+          {status === "failure" && (
+            <DialogContent>
+              <DialogContentText color={"secondary"}>
+                {message}
+              </DialogContentText>
+            </DialogContent>
+          )}
         </Dialog>
       </form>
     </div>

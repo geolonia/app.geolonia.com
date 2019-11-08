@@ -15,7 +15,7 @@ import Help from "../custom/Help";
 import Title from "../custom/Title";
 
 // types
-import { AppState, Session, Key } from "../../types";
+import { AppState, Session, Key, errorCodes } from "../../types";
 
 // api
 import updateKey from "../../api/keys/update";
@@ -25,6 +25,9 @@ import deleteKey from "../../api/keys/delete";
 import Redux from "redux";
 import { connect } from "react-redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
+
+// constants
+import { messageDisplayDuration } from "../../constants";
 
 type OwnProps = {
   match: { params: { id: string } };
@@ -49,6 +52,7 @@ const Content = (props: Props) => {
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
+  const [message, setMessage] = React.useState("");
   const [prevIndex] = React.useState(props.selectedTeamIndex);
 
   // move on team change
@@ -114,9 +118,7 @@ const Content = (props: Props) => {
     marginBottom: "2em"
   };
 
-  const saveHandler = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const onUpdateClick = () => {
     setStatus("requesting");
     const normalizedAllowedOrigins = allowedOrigins
       .split("\n")
@@ -127,22 +129,36 @@ const Content = (props: Props) => {
       allowedOrigins: normalizedAllowedOrigins
     };
 
-    return updateKey(props.session, props.teamId, apiKey, nextKey).then(() => {
-      props.updateKey(props.teamId, apiKey, nextKey);
-      setStatus("success");
-    });
+    return updateKey(props.session, props.teamId, apiKey, nextKey).then(
+      result => {
+        if (result.error) {
+          setStatus("failure");
+          setMessage(result.message);
+          throw new Error(result.code);
+        } else {
+          setStatus("success");
+          props.updateKey(props.teamId, apiKey, nextKey);
+        }
+      }
+    );
   };
 
   const onRequestError = () => setStatus("failure");
 
-  const onClick = () => {
+  const onDeleteClick = () => {
     setStatus("requesting");
-    return deleteKey(props.session, props.teamId, apiKey).then(() => {
-      setStatus("success");
-      setTimeout(() => {
-        props.history.push("/maps/api-keys");
-        props.deleteKey(props.teamId, apiKey);
-      }, 2000);
+    return deleteKey(props.session, props.teamId, apiKey).then(result => {
+      if (result.error) {
+        setStatus("failure");
+        setMessage(result.message);
+        throw new Error(result.code);
+      } else {
+        setStatus("success");
+        setTimeout(() => {
+          props.history.push("/maps/api-keys");
+          props.deleteKey(props.teamId, apiKey);
+        }, messageDisplayDuration);
+      }
     });
   };
 
@@ -187,7 +203,7 @@ const Content = (props: Props) => {
             ></Interweave>
           </Help>
 
-          <Save onClick={saveHandler} onError={onRequestError} />
+          <Save onClick={onUpdateClick} onError={onRequestError} />
 
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">
@@ -201,7 +217,8 @@ const Content = (props: Props) => {
             <Delete
               text1={"Are you sure you want to delete this API key?"}
               text2={"Please type in the name of the API key to confirm."}
-              onClick={onClick}
+              errorMessage={message}
+              onClick={onDeleteClick}
               onFailure={onRequestError}
               enable={input => input === name}
             />

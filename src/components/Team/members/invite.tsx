@@ -35,23 +35,20 @@ export const Invite = (props: Props) => {
   const inviteHandler = (email: string) => {
     const { session, team, addMemberState, members } = props;
     if (team) {
-      return addMember(session, team.teamId, email)
-        .then(result => {
-          if (result.error) {
-            if (result.errorCode === errorCodes.UnAuthorized) {
-              setMessage(__("You are not authorized to do this operation."));
-              throw new Error(errorCodes.UnAuthorized);
-            }
+      return addMember(session, team.teamId, email).then(result => {
+        console.log(result);
+        if (result.error) {
+          setMessage(result.message);
+          throw new Error(result.code);
+        } else {
+          const newMember = result.data;
+          if (members.find(member => member.userSub === newMember.userSub)) {
+            console.warn("Already joined");
           } else {
-            const newMember = result.member;
-            if (members.find(member => member.userSub === newMember.userSub)) {
-              console.warn("Already joined");
-            } else {
-              addMemberState(team.teamId, newMember);
-            }
+            addMemberState(team.teamId, newMember);
           }
-        })
-        .catch();
+        }
+      });
     } else {
       return Promise.reject("Unknown Error");
     }

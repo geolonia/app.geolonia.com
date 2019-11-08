@@ -186,8 +186,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
   const saveHandler = () => {
     const { session } = props;
-    return createTeam(session, newTeamName, billingEmail).then(team => {
-      addTeam(team);
+    return createTeam(session, newTeamName, billingEmail).then(result => {
+      if (result.error) {
+        throw new Error(result.code);
+      } else {
+        addTeam(result.data);
+      }
       handleClose();
       const nextTeamIndex = props.teams.length;
       props.selectTeam(nextTeamIndex);
@@ -314,7 +318,10 @@ const Navigator: React.FC<Props> = (props: Props) => {
           </DialogContent>
           <DialogActions>
             <Cancel handler={handleClose}></Cancel>
-            <Save onClick={saveHandler}></Save>
+            <Save
+              onClick={saveHandler}
+              disabled={!newTeamName || !billingEmail}
+            ></Save>
           </DialogActions>
         </Dialog>
       </form>

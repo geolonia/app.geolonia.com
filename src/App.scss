@@ -23,8 +23,7 @@
   color: #61dafb;
 }
 
-.module-title
-{
+.module-title {
   margin-top: 1em;
   padding: 0 0 8px 0;
   font-weight: bolder !important;
@@ -33,15 +32,13 @@
   color: #555555;
   font-size: 1.5em !important;
 
-  .MuiSvgIcon-root
-  {
+  .MuiSvgIcon-root {
     position: relative;
     top: 6px;
   }
 }
 
-.private-or-public
-{
+.private-or-public {
   font-size: 10px;
   margin: 0 1em;
   padding: 3px;
@@ -49,32 +46,31 @@
   border-radius: 3px;
 }
 
-p.description
-{
+p.description {
   margin: 1em 0;
   color: #555555;
 }
 
-.snackbar-saved .MuiSnackbarContent-root
-{
+.snackbar-saved.success .MuiSnackbarContent-root {
   background-color: #009be5;
 }
 
-.MuiPaper-rounded
-{
+.snackbar-saved.failure .MuiSnackbarContent-root {
+  background-color: hsl(19, 100%, 45%);
+}
+
+.MuiPaper-rounded {
   border-radius: 3px !important;
   box-shadow: none !important;
   border: 1px solid #dedede !important;
   box-shadow: 0 0 5px #eeeeee !important;
 }
 
-.MuiDialog-paper.MuiPaper-rounded
-{
+.MuiDialog-paper.MuiPaper-rounded {
   box-shadow: none !important;
 }
 
-p.mute
-{
+p.mute {
   font-size: 12px;
   color: #777777;
   margin-top: 8px;

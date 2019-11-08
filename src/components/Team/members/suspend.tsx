@@ -47,6 +47,7 @@ const Suspend = (props: Props) => {
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
+  const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
     setRole(currentMember.role);
@@ -60,8 +61,11 @@ const Suspend = (props: Props) => {
         props.teamId,
         currentMember.userSub,
         Roles.Suspended
-      )
-        .then(() => {
+      ).then(result => {
+        if (result.error) {
+          setStatus("failure");
+          setMessage(result.message);
+        } else {
           setStatus("success");
           updateMemberRoleState(
             props.teamId,
@@ -69,11 +73,8 @@ const Suspend = (props: Props) => {
             Roles.Suspended
           );
           toggle(false);
-        })
-        .catch(() => {
-          // TODO: show error
-          setStatus("failure");
-        });
+        }
+      });
     }
   };
 
@@ -113,6 +114,14 @@ const Suspend = (props: Props) => {
               {__("Save")}
             </Button>
           </DialogActions>
+
+          {status === "failure" && (
+            <DialogContent>
+              <DialogContentText color={"secondary"}>
+                {message}
+              </DialogContentText>
+            </DialogContent>
+          )}
         </Dialog>
       </form>
     </div>

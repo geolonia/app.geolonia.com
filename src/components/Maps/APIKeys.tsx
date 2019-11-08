@@ -11,7 +11,7 @@ import { connect } from "react-redux";
 import createKey from "../../api/keys/create";
 
 // types
-import { AppState, Key, Session } from "../../types";
+import { AppState, Key, Session, errorCodes } from "../../types";
 
 // redux
 import Redux from "redux";
@@ -30,6 +30,8 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 function Content(props: Props) {
+  const [message, setMessage] = React.useState("");
+
   const breadcrumbItems = [
     {
       title: "Home",
@@ -46,8 +48,13 @@ function Content(props: Props) {
   ];
 
   const handler = (name: string) => {
-    return createKey(props.session, props.teamId, name).then(mapKey => {
-      props.addKey(props.teamId, mapKey);
+    return createKey(props.session, props.teamId, name).then(result => {
+      if (result.error) {
+        setMessage(result.message);
+        throw new Error(result.code);
+      } else {
+        props.addKey(props.teamId, result.data);
+      }
     });
   };
 
@@ -71,9 +78,7 @@ function Content(props: Props) {
         description={__("Please enter the name of new API key.")}
         default={__("My API")}
         onClick={handler}
-        onError={() => {
-          /*TODO: show messages*/
-        }}
+        errorMessage={message}
       />
 
       <Table rows={rows} rowsPerPage={10} permalink="/maps/api-keys/%s" />
@@ -84,7 +89,7 @@ function Content(props: Props) {
 const mapStateToProps = (state: AppState): StateProps => {
   const session = state.authSupport.session;
   const { data: teams, selectedIndex } = state.team;
-  const teamId = teams[selectedIndex].teamId;
+  const teamId = teams[selectedIndex] && teams[selectedIndex].teamId;
   const { data: mapKeys = [], error = false } = state.mapKey[teamId] || {};
 
   return { session, mapKeys, error, teamId };

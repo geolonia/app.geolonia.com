@@ -6,7 +6,7 @@ import { setLocaleData } from "@wordpress/i18n";
 
 // API
 import { getSession } from "./";
-import getUserMeta from "../api/users/get";
+import getUser from "../api/users/get";
 import listTeams from "../api/teams/list";
 import listKeys from "../api/keys/list";
 import listTeamMembers from "../api/members/list";
@@ -58,9 +58,9 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 type State = {};
 
-type APIResult = {
+type FundamentalAPIResult = {
   teams: Team[];
-  userMeta: User;
+  user: User;
 };
 
 const fundamentalAPILoads = (session: Session) => {
@@ -68,13 +68,19 @@ const fundamentalAPILoads = (session: Session) => {
     return Promise.reject("nosession");
   }
   return Promise.all([
-    getUserMeta(session),
+    getUser(session),
     listTeams(session)
     /*more API loads here*/
-  ]).then(([userMeta, teams]) => ({
-    userMeta,
-    teams
-  }));
+  ]).then(([userResult, teamsResult]) => {
+    const user = userResult.error
+      ? void 0
+      : { ...userResult.data.item, links: userResult.data.links };
+    const teams = teamsResult.error ? void 0 : teamsResult.data;
+    return {
+      user,
+      teams
+    };
+  });
 };
 
 const getTeamIdToSelect = async (teams: Team[]) => {
@@ -96,17 +102,15 @@ export class AuthContainer extends React.Component<Props, State> {
     }
 
     try {
-      const { userMeta, teams } = (await delay(
+      const { user, teams } = (await delay(
         fundamentalAPILoads(session),
         500
-      )) as APIResult;
-
-      if (!isUserMeta(userMeta)) {
+      )) as FundamentalAPIResult;
+      if (!isUserMeta(user)) {
         throw new Error("invalid user meta response");
       }
 
       if (teams.some(team => !isTeam(team))) {
-        console.log(teams);
         throw new Error("invalid team response");
       }
 
@@ -114,9 +118,9 @@ export class AuthContainer extends React.Component<Props, State> {
         team => !team.isDeleted
       );
       this.props.setSession(session);
-      this.props.setUserMeta(userMeta);
+      this.props.setUserMeta(user);
       this.props.setTeams(teamsWithoutDeleted);
-      const { language } = userMeta;
+      const { language } = user;
       const localeData = loadLocale(language);
       if (localeData) {
         setLocaleData(localeData);
@@ -125,7 +129,8 @@ export class AuthContainer extends React.Component<Props, State> {
       const teamIds = teamsWithoutDeleted.map(team => team.teamId);
 
       // do not await then.
-      this.loadAvatars(userMeta, teamsWithoutDeleted);
+      // TODO: catch them
+      this.loadAvatars(user, teamsWithoutDeleted);
       this.loadMapKeys(session, teamIds);
       this.loadTeamMembers(session, teamIds);
       getTeamIdToSelect(teamsWithoutDeleted).then(this.props.selectTeam);
@@ -176,8 +181,12 @@ export class AuthContainer extends React.Component<Props, State> {
   loadMapKeys = (session: Session, teamIds: string[]) => {
     const handleListKeys = (teamId: string) => {
       return listKeys(session, teamId)
-        .then(keys => {
-          this.props.setMapKeys(teamId, keys);
+        .then(result => {
+          if (result.error) {
+            throw result.error;
+          } else {
+            this.props.setMapKeys(teamId, result.data);
+          }
         })
         .catch(err => {
           console.error(err);
@@ -190,9 +199,14 @@ export class AuthContainer extends React.Component<Props, State> {
 
   loadTeamMembers = (session: Session, teamIds: string[]) => {
     const handleListTeamMembers = (teamId: string) => {
-      return listTeamMembers(session, teamId).then((members: Member[]) => {
-        this.props.setTeamMembers(teamId, members);
-        return members;
+      return listTeamMembers(session, teamId).then(result => {
+        if (result.error) {
+          throw new Error(result.code);
+        } else {
+          const members = result.data;
+          this.props.setTeamMembers(teamId, members);
+          return members;
+        }
       });
     };
 
@@ -212,7 +226,7 @@ export class AuthContainer extends React.Component<Props, State> {
             )
           ).then(teamMemberAvatarImages => {
             teamMemberAvatarImages.map((avatarImage, index) => {
-              this.props.setTeamMemberAvatar(
+              return this.props.setTeamMemberAvatar(
                 teamId,
                 members[index].userSub,
                 avatarImage

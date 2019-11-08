@@ -15,7 +15,7 @@ import { __, sprintf } from "@wordpress/i18n";
 import deleteMember from "../../../api/members/delete";
 
 // Types
-import { AppState, Session, Member } from "../../../types";
+import { AppState, Session, Member, errorCodes } from "../../../types";
 
 // Redux
 import { connect } from "react-redux";
@@ -42,19 +42,23 @@ const RemoveMember = (props: Props) => {
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
+  const [message, setMessage] = React.useState("");
 
   const onRemoveClick = () => {
     setStatus("requesting");
-    deleteMember(props.session, props.teamId, currentMember.userSub)
-      .then(() => {
-        setStatus("success");
-        deleteMemberState(props.teamId, currentMember.userSub);
-        toggle(false);
-      })
-      .catch(() => {
-        // TODO: show error
-        setStatus("failure");
-      });
+    deleteMember(props.session, props.teamId, currentMember.userSub).then(
+      result => {
+        console.log(result);
+        if (result.error) {
+          setStatus("failure");
+          setMessage(result.message);
+        } else {
+          setStatus("success");
+          deleteMemberState(props.teamId, currentMember.userSub);
+          toggle(false);
+        }
+      }
+    );
   };
 
   return (
@@ -81,6 +85,8 @@ const RemoveMember = (props: Props) => {
                 <br />@{currentMember.username}
               </p>
             </Box>
+
+            <DialogContentText>{message}</DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => toggle(false)} color="primary">

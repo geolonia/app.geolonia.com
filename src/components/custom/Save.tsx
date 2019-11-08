@@ -76,7 +76,7 @@ const Save = (props: Props) => {
         </Button>
       </Typography>
       <Snackbar
-        className="snackbar-saved"
+        className={`snackbar-saved ${status}`}
         anchorOrigin={{
           vertical: "bottom",
           horizontal: "left"
