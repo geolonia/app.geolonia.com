@@ -60,6 +60,8 @@ export const AddNew = (props: Props) => {
       });
   };
 
+  const isActive = status === "working";
+
   return (
     <div>
       <p style={buttonStyle}>
@@ -98,7 +100,7 @@ export const AddNew = (props: Props) => {
             <Button onClick={handleClose} color="primary">
               {__("Cancel")}
             </Button>
-            <Button onClick={onSaveClick} color="primary" type="submit">
+            <Button onClick={onSaveClick} disabled={isActive}     color="primary" type="submit">
               {status === "working" && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
               )}
