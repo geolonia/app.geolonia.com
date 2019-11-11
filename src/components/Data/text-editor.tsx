@@ -35,8 +35,7 @@ export const TextEditor: React.FC<Props> = props => {
         setDraft(e.target.value);
       }}
       onKeyDown={e => {
-        if (e.keyCode === 13 && !e.altKey) {
-          e.preventDefault();
+        if (e.keyCode === 13 && e.altKey) {
           e.currentTarget.blur();
         }
       }}

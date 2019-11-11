@@ -56,6 +56,10 @@ const Content = (props: Props) => {
     setGeoJSON(props.featureCollection);
   }, [props.featureCollection]);
 
+  const [prevGeoJSON, setPrevGeoJSON] = React.useState<
+    undefined | GeoJSON.FeatureCollection
+  >(undefined);
+
   const breadcrumbItems = [
     {
       title: "Home",
@@ -204,7 +208,12 @@ const Content = (props: Props) => {
           </TabPanel>
 
           <TabPanel value={value} index={2}>
-            <Upload geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
+            <Upload
+              geoJSON={geoJSON}
+              setGeoJSON={setGeoJSON}
+              prevGeoJSON={prevGeoJSON}
+              setPrevGeoJSON={setPrevGeoJSON}
+            />
           </TabPanel>
 
           <TextField
