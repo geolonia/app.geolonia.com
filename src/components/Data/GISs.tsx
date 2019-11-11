@@ -5,14 +5,42 @@ import { __ } from "@wordpress/i18n";
 import Table from "../custom/Table";
 import AddNew from "../custom/AddNew";
 import Title from "../custom/Title";
+import { AppState } from "../../types";
+import { connect } from "react-redux";
 
-const rows = [
-  { id: 1111, name: "My Map", updated: "2019-08-28", isPublic: true },
-  { id: 1112, name: "exmaple.com", updated: "2019-08-28", isPublic: false },
-  { id: 1113, name: "exmaple.jp", updated: "2019-08-28", isPublic: true }
-];
+type Row = {
+  id: number | string;
+  name: string;
+  updated: string;
+  isPublic: boolean;
+};
 
-function Content() {
+type OwnProps = {};
+type StateProps = {
+  featureCollections: {
+    [id: string]: {
+      data: GeoJSON.FeatureCollection;
+      createAt: Date;
+      updateAt: Date;
+      isPublic: boolean;
+    };
+  };
+};
+
+type Props = OwnProps & StateProps;
+
+function Content(props: Props) {
+  // console.log(props.featureCollections);
+
+  const rows: Row[] = Object.keys(props.featureCollections).map(
+    (id, index) => ({
+      id,
+      name: `フィーチャーコレクション ${index}`,
+      updated: props.featureCollections[id].updateAt.toISOString(),
+      isPublic: props.featureCollections[id].isPublic
+    })
+  );
+
   const breadcrumbItems = [
     {
       title: "Home",
@@ -56,4 +84,17 @@ function Content() {
   );
 }
 
-export default Content;
+export const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  if (team) {
+    return {
+      featureCollections: state.geosearch[team.teamId]
+        ? state.geosearch[team.teamId].featureCollections
+        : {}
+    };
+  } else {
+    return { featureCollections: {} };
+  }
+};
+
+export default connect(mapStateToProps)(Content);

@@ -8,8 +8,8 @@ import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Button from "@material-ui/core/Button";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
+import TextEditor from "./text-editor";
+import Upload from "./upload";
 
 import { __, _x, sprintf } from "@wordpress/i18n";
 import Interweave from "interweave";
@@ -27,14 +27,34 @@ import "./GIS.scss";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
+// types
+import { AppState } from "../../types";
+import { connect } from "react-redux";
+
 interface TabPanelProps {
   children?: React.ReactNode;
   index: any;
   value: any;
 }
 
-const Content = () => {
+type OwnProps = {};
+type StateProps = {
+  featureCollection?: GeoJSON.FeatureCollection;
+};
+type RouterProps = { match: { params: { id: string } } };
+
+type Props = OwnProps & StateProps;
+
+const Content = (props: Props) => {
   const [value, setValue] = React.useState(0);
+
+  // GeoJSON props to state
+  const [geoJSON, setGeoJSON] = React.useState<
+    GeoJSON.FeatureCollection | undefined
+  >(void 0);
+  React.useEffect(() => {
+    setGeoJSON(props.featureCollection);
+  }, [props.featureCollection]);
 
   const breadcrumbItems = [
     {
@@ -112,11 +132,6 @@ const Content = () => {
 
   const StyleSaveButton: React.CSSProperties = {};
 
-  const styleTextarea: React.CSSProperties = {
-    width: "100%",
-    height: "100%"
-  };
-
   const saveHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
@@ -178,24 +193,18 @@ const Content = () => {
                 fullscreenControl={"on"}
                 geolocateControl={"on"}
                 onAfterLoad={handleOnAfterLoad}
+                geoJSON={geoJSON}
+                setGeoJSON={setGeoJSON}
               />
             </div>
           </TabPanel>
 
           <TabPanel value={value} index={1}>
-            <textarea style={styleTextarea}></textarea>
+            <TextEditor geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
           </TabPanel>
 
           <TabPanel value={value} index={2}>
-            <Button className="file-upload" component="label">
-              <div>
-                GeoJSON ファイルを選択してください。
-                <br />
-                <CloudUploadIcon />
-                <br />
-                <input type="file" className="inputFileBtnHide" />
-              </div>
-            </Button>
+            <Upload geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
           </TabPanel>
 
           <TextField
@@ -284,4 +293,26 @@ const Content = () => {
   );
 };
 
-export default Content;
+export const mapStateToProps = (
+  state: AppState,
+  ownProps: OwnProps & RouterProps
+): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  if (team) {
+    const featureCollectionId = ownProps.match.params.id;
+    const featureCollections = state.geosearch[team.teamId]
+      ? state.geosearch[team.teamId].featureCollections
+      : {};
+
+    const featureCollection = featureCollections[featureCollectionId]
+      ? featureCollections[featureCollectionId].data
+      : void 0;
+    return {
+      featureCollection
+    };
+  } else {
+    return { featureCollection: void 0 };
+  }
+};
+
+export default connect(mapStateToProps)(Content);

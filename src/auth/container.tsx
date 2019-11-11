@@ -10,6 +10,7 @@ import getUser from "../api/users/get";
 import listTeams from "../api/teams/list";
 import listKeys from "../api/keys/list";
 import listTeamMembers from "../api/members/list";
+import listFeatureCollections from "../api/geosearch/list";
 
 // Utils
 import delay from "../lib/promise-delay";
@@ -27,6 +28,7 @@ import {
 } from "../redux/actions/team";
 import { createActions as createMapKeyActions } from "../redux/actions/map-key";
 import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
+import { createActions as createGeosearchActions } from "../redux/actions/geosearch";
 
 // Types
 import { AppState, User, Session, Team, Key, Member } from "../types";
@@ -52,6 +54,14 @@ type DispatchProps = {
   ) => void;
   setMapKeys: (teamId: string, keys: Key[]) => void;
   setTeamMembers: (teamId: string, members: Member[]) => void;
+  setFeatureCollection: (
+    teamId: string,
+    featureCollectionId: string,
+    featureCollection: GeoJSON.FeatureCollection,
+    createAt: Date,
+    updateAt: Date,
+    isPublic: boolean
+  ) => void;
   markMapKeyError: (teamId: string) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
@@ -133,6 +143,7 @@ export class AuthContainer extends React.Component<Props, State> {
       this.loadAvatars(user, teamsWithoutDeleted);
       this.loadMapKeys(session, teamIds);
       this.loadTeamMembers(session, teamIds);
+      this.loadFeatureCollections(session, teamIds);
       getTeamIdToSelect(teamsWithoutDeleted).then(this.props.selectTeam);
     } catch (error) {
       console.error(error);
@@ -198,7 +209,7 @@ export class AuthContainer extends React.Component<Props, State> {
   };
 
   loadTeamMembers = (session: Session, teamIds: string[]) => {
-    const handleListTeamMembers = (teamId: string) => {
+    const handleListTeamMembersRequest = (teamId: string) => {
       return listTeamMembers(session, teamId).then(result => {
         if (result.error) {
           throw new Error(result.code);
@@ -212,7 +223,7 @@ export class AuthContainer extends React.Component<Props, State> {
 
     return Promise.all(
       teamIds.map(teamId =>
-        handleListTeamMembers(teamId).then(members => {
+        handleListTeamMembersRequest(teamId).then(members => {
           return Promise.all(
             members.map(member =>
               member.links.getAvatar
@@ -238,6 +249,32 @@ export class AuthContainer extends React.Component<Props, State> {
     ).catch(err => {
       console.error(err);
     });
+  };
+
+  loadFeatureCollections = (session: Session, teamIds: string[]) => {
+    const handleRequest = (teamId: string) => {
+      return listFeatureCollections(session, teamId).then(result => {
+        if (result.error) {
+          throw new Error(result.code);
+        } else {
+          const featureCollections = result.data;
+          featureCollections.forEach(
+            ({ id, data, createAt, updateAt, isPublic }) => {
+              this.props.setFeatureCollection(
+                teamId,
+                id,
+                data,
+                createAt,
+                updateAt,
+                isPublic
+              );
+            }
+          );
+        }
+      });
+    };
+
+    return Promise.all(teamIds.map(handleRequest));
   };
 
   render() {
@@ -269,6 +306,24 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   setMapKeys: (teamId, keys) => dispatch(createMapKeyActions.set(teamId, keys)),
   setTeamMembers: (teamId, members) =>
     dispatch(createTeamMemberActions.set(teamId, members)),
+  setFeatureCollection: (
+    teamId,
+    featureCollectionId,
+    featureCollection,
+    createAt,
+    updateAt,
+    isPublic
+  ) =>
+    dispatch(
+      createGeosearchActions.setFeatureCollections(
+        teamId,
+        featureCollectionId,
+        featureCollection,
+        createAt,
+        updateAt,
+        isPublic
+      )
+    ),
   markMapKeyError: teamId => dispatch(createMapKeyActions.markError(teamId))
 });
 

@@ -1,6 +1,6 @@
 import { errorCodes, APIResult, Session } from "../types";
 import { getErrorMessage } from "../constants";
-const { REACT_APP_API_BASE } = process.env;
+const { REACT_APP_API_BASE, REACT_APP_GEOSEARCH_API_BASE } = process.env;
 
 export const customFetch = <T>(
   session: Session,
@@ -9,8 +9,14 @@ export const customFetch = <T>(
   {
     absPath,
     noAuth,
-    decode
-  }: { absPath?: boolean; noAuth?: boolean; decode?: "text" | "json" } = {}
+    decode,
+    type
+  }: {
+    absPath?: boolean;
+    noAuth?: boolean;
+    decode?: "text" | "json";
+    type?: "dashboard" | "geosearch";
+  } = {}
 ): Promise<APIResult<T>> => {
   if (!session) {
     // session should be exists when call those API
@@ -37,7 +43,13 @@ export const customFetch = <T>(
     };
   }
 
-  return fetch(absPath ? url : `${REACT_APP_API_BASE}${url}`, fetchOptions)
+  const requestUrl = absPath
+    ? url
+    : `${
+        type === "geosearch" ? REACT_APP_GEOSEARCH_API_BASE : REACT_APP_API_BASE
+      }${url}`;
+
+  return fetch(requestUrl, fetchOptions)
     .then<APIResult<T>>(res => {
       if (res.ok) {
         if (decode === "text") {
