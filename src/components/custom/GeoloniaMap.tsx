@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-type Toggle = 'on' | 'off'
+type Toggle = "on" | "off";
 
 type Props = {
   width: string;
@@ -14,38 +14,38 @@ type Props = {
   geolocateControl: Toggle;
   style: string;
   onAfterLoad: (map: mapboxgl.Map) => void;
-}
+};
 
 class Map extends React.Component<Props> {
-  style: React.CSSProperties = {}
-  container = React.createRef<HTMLDivElement>()
+  style: React.CSSProperties = {};
+  container = React.createRef<HTMLDivElement>();
 
   constructor(props: Props) {
-    super(props)
+    super(props);
 
-    this.style.width = props.width
-    this.style.height = props.height
+    this.style.width = props.width;
+    this.style.height = props.height;
   }
 
   static defaultProps = {
-    width: '100%',
-    height: '200px',
-    gestureHandling: 'on',
+    width: "100%",
+    height: "200px",
+    gestureHandling: "on",
     lat: 0,
     lng: 0,
-    marker: 'on',
+    marker: "on",
     zoom: 0,
-    fullscreenControl: 'off',
-    geolocateControl: 'off',
+    fullscreenControl: "off",
+    geolocateControl: "off",
     style: null,
     onAfterLoad: () => {}
-  }
+  };
 
   componentDidMount() {
     // @ts-ignore
-    const { tilecloud } = window
+    const { tilecloud } = window;
     const map = new tilecloud.Map(this.container.current);
-    this.props.onAfterLoad(map)
+    this.props.onAfterLoad(map);
   }
 
   render() {
