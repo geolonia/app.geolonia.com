@@ -20,7 +20,7 @@ const mapStyle: React.CSSProperties = {
   margin: "0 0 1em 0"
 };
 
-export const MapContainer: React.FC<Props> = props => {
+export const MapContainer = (props: Props) => {
   const { geoJSON, setGeoJSON } = props;
 
   // mapbox map and draw binding

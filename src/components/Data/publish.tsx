@@ -7,7 +7,7 @@ import Interweave from "interweave";
 import Save from "../custom/Save";
 import Code from "../custom/Code";
 
-import { __, _x, sprintf } from "@wordpress/i18n";
+import { __ } from "@wordpress/i18n";
 
 const styleHelpText: React.CSSProperties = {
   fontSize: "0.9rem"

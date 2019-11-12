@@ -17,7 +17,7 @@ const TextArea = styled.textarea<StyledProps>`
   ${props => (props.error ? "border: 1px solid red" : "")}
 `;
 
-export const TextEditor: React.FC<Props> = props => {
+export const TextEditor = (props: Props) => {
   const { geoJSON, setGeoJSON } = props;
   const [draft, setDraft] = React.useState("");
   const [error, setError] = React.useState(false);

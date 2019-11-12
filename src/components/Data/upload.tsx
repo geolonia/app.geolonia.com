@@ -12,7 +12,7 @@ type Props = {
   setPrevGeoJSON: (prev: Props["prevGeoJSON"]) => void;
 };
 
-export const Upload: React.FC<Props> = props => {
+export const Upload = (props: Props) => {
   const [error, setError] = React.useState(false);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(false);
