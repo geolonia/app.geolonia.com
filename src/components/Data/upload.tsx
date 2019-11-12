@@ -14,7 +14,6 @@ type Props = {
 
 export const Upload: React.FC<Props> = props => {
   const [error, setError] = React.useState(false);
-  console.log(props.prevGeoJSON);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(false);
     if (e.target.files && e.target.files.length > 0) {

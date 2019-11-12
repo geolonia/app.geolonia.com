@@ -14,8 +14,6 @@ type Props = {
   geolocateControl: Toggle;
   style: string;
   onAfterLoad: (map: mapboxgl.Map) => void;
-  geoJSON: GeoJSON.FeatureCollection | undefined;
-  setGeoJSON: (geoJSON: GeoJSON.FeatureCollection) => void;
 };
 
 class Map extends React.Component<Props> {
@@ -49,8 +47,6 @@ class Map extends React.Component<Props> {
     const map = new tilecloud.Map(this.container.current);
     this.props.onAfterLoad(map);
   }
-
-  UNSAFE_componentWillReceiveProps() {}
 
   render() {
     return (

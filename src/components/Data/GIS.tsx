@@ -6,8 +6,8 @@ import Checkbox from "@material-ui/core/Checkbox";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import MapContainer from "./map-container";
 import TextEditor from "./text-editor";
 import Upload from "./upload";
 
@@ -17,15 +17,9 @@ import Interweave from "interweave";
 import Save from "../custom/Save";
 import Delete from "../custom/Delete";
 import Code from "../custom/Code";
-import GeoloniaMap from "../custom/GeoloniaMap";
 import Title from "../custom/Title";
 
-import jsonStyle from "../custom/drawStyle";
-import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
-
 import "./GIS.scss";
-// @ts-ignore
-import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
 // types
 import { AppState } from "../../types";
@@ -79,12 +73,6 @@ const Content = (props: Props) => {
     }
   ];
 
-  const mapStyle: React.CSSProperties = {
-    width: "100%",
-    border: "1px solid #dedede",
-    margin: "0 0 1em 0"
-  };
-
   const styleDangerZone: React.CSSProperties = {
     border: "1px solid #ff0000",
     marginTop: "10em",
@@ -110,29 +98,29 @@ const Content = (props: Props) => {
     };
   };
 
-  const TabPanel = (props: TabPanelProps) => {
-    const { children, value, index, ...other } = props;
+  // const TabPanel = (props: TabPanelProps) => {
+  //   const { children, value, index, ...other } = props;
 
-    const style: React.CSSProperties = {
-      width: "100%",
-      height: "400px"
-    };
+  //   const style: React.CSSProperties = {
+  //     width: "100%",
+  //     height: "400px"
+  //   };
 
-    return (
-      <Typography
-        className="tab-panel"
-        style={style}
-        component="div"
-        role="tabpanel"
-        hidden={value !== index}
-        id={sprintf("tabpanel-", index)}
-        aria-labelledby={sprintf("tab-", index)}
-        {...other}
-      >
-        {children}
-      </Typography>
-    );
-  };
+  //   return (
+  //     <Typography
+  //       className="tab-panel"
+  //       style={style}
+  //       component="div"
+  //       role="tabpanel"
+  //       hidden={value !== index}
+  //       id={sprintf("tabpanel-", index)}
+  //       aria-labelledby={sprintf("tab-", index)}
+  //       {...other}
+  //     >
+  //       {children}
+  //     </Typography>
+  //   );
+  // };
 
   const StyleSaveButton: React.CSSProperties = {};
 
@@ -144,24 +132,6 @@ const Content = (props: Props) => {
 
   const deleteHandler = () => Promise.resolve();
 
-  const handleOnAfterLoad = (map: mapboxgl.Map) => {
-    const draw = new MapboxDraw({
-      boxSelect: false,
-      controls: {
-        point: true,
-        line_string: true,
-        polygon: true,
-        trash: true,
-        combine_features: false,
-        uncombine_features: false
-      },
-      styles: jsonStyle,
-      userProperties: true
-    });
-
-    map.addControl(draw, "top-right");
-  };
-
   return (
     <div className="gis-panel">
       <Title breadcrumb={breadcrumbItems} title={__("Dataset settings")}>
@@ -172,7 +142,38 @@ const Content = (props: Props) => {
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <Tabs
+          <Tabs>
+            <TabList>
+              <Tab label="Map" {...a11yProps(0)}>
+                Map
+              </Tab>
+              <Tab label="GeoJSON" {...a11yProps(1)}>
+                GeoJSON
+              </Tab>
+              <Tab label="Upload" {...a11yProps(2)}>
+                Upload
+              </Tab>
+            </TabList>
+
+            <TabPanel value={value} index={0}>
+              <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
+            </TabPanel>
+
+            <TabPanel value={value} index={1}>
+              <TextEditor geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
+            </TabPanel>
+
+            <TabPanel value={value} index={2}>
+              <Upload
+                geoJSON={geoJSON}
+                setGeoJSON={setGeoJSON}
+                prevGeoJSON={prevGeoJSON}
+                setPrevGeoJSON={setPrevGeoJSON}
+              />
+            </TabPanel>
+          </Tabs>
+
+          {/* <Tabs
             className="gis-editor-tab"
             textColor="primary"
             value={value}
@@ -182,25 +183,10 @@ const Content = (props: Props) => {
             <Tab label="Map" {...a11yProps(0)} />
             <Tab label="GeoJSON" {...a11yProps(1)} />
             <Tab label="Upload" {...a11yProps(2)} />
-          </Tabs>
+          </Tabs> */}
 
-          <TabPanel value={value} index={0}>
-            <div style={mapStyle}>
-              <GeoloniaMap
-                width="100%"
-                height="400px"
-                gestureHandling="off"
-                lat={parseFloat(_x("0", "Default value of latitude for map"))}
-                lng={parseFloat(_x("0", "Default value of longitude for map"))}
-                marker={"off"}
-                zoom={parseFloat(_x("0", "Default value of zoom level of map"))}
-                fullscreenControl={"on"}
-                geolocateControl={"on"}
-                onAfterLoad={handleOnAfterLoad}
-                geoJSON={geoJSON}
-                setGeoJSON={setGeoJSON}
-              />
-            </div>
+          {/* <TabPanel value={value} index={0}>
+            <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
           </TabPanel>
 
           <TabPanel value={value} index={1}>
@@ -214,7 +200,7 @@ const Content = (props: Props) => {
               prevGeoJSON={prevGeoJSON}
               setPrevGeoJSON={setPrevGeoJSON}
             />
-          </TabPanel>
+          </TabPanel> */}
 
           <TextField
             id="standard-name"
