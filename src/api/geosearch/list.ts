@@ -2,6 +2,7 @@ import { Session, FeatureCollections, ErrorCodes } from "../../types";
 import fetch from "../custom-fetch";
 import generate from "./mock";
 
+// eslint-disable-next-line
 const listFeatureCollections = (session: Session, teamId: string) => {
   return fetch<FeatureCollections>(
     session,

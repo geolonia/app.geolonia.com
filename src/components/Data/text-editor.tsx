@@ -18,13 +18,13 @@ const TextArea = styled.textarea<StyledProps>`
 `;
 
 export const TextEditor: React.FC<Props> = props => {
+  const { geoJSON, setGeoJSON } = props;
   const [draft, setDraft] = React.useState("");
   const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
     setDraft(JSON.stringify(geoJSON, null, 2));
-  }, [props.geoJSON]);
-  const { geoJSON, setGeoJSON } = props;
+  }, [geoJSON]);
 
   return (
     <TextArea

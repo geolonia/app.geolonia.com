@@ -83,6 +83,7 @@ export const reducer = (
           [featureCollectionId]: {
             ...prevFeatureCollection,
             data: featureCollection,
+            createAt,
             updateAt,
             isPublic
           }

@@ -21,25 +21,30 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapContainer: React.FC<Props> = props => {
-  // mapbox draw
+  const { geoJSON, setGeoJSON } = props;
+
+  // mapbox map and draw binding
+  const [map, setMap] = React.useState<mapboxgl.Map | null>(null);
   const [draw, setDraw] = React.useState<any>(null);
 
-  // import geojson
+  // import geoJSON
   React.useEffect(() => {
-    if (draw && props.geoJSON) {
-      draw.deleteAll().set(props.geoJSON);
+    if (map && draw && geoJSON) {
+      draw.deleteAll().set(geoJSON);
     }
-    return () => {
-      console.log("map unmount");
-      if (draw) {
-        try {
-          props.setGeoJSON(draw.getAll());
-        } catch (err) {
-          console.log(err);
-        }
-      }
-    };
-  }, [draw, props.geoJSON]);
+  }, [map, draw, geoJSON]);
+
+  // export geoJSON
+  React.useEffect(() => {
+    if (map && draw) {
+      ["draw.create", "draw.update", "draw.delete"].forEach(eventType => {
+        map.on(eventType, () => {
+          const nextGeoJSON = draw.getAll();
+          setGeoJSON(nextGeoJSON);
+        });
+      });
+    }
+  }, [map, draw, setGeoJSON]);
 
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw = new MapboxDraw({
@@ -58,6 +63,7 @@ export const MapContainer: React.FC<Props> = props => {
 
     map.addControl(draw, "top-right");
     setDraw(draw);
+    setMap(map);
   };
 
   return (
