@@ -97,6 +97,8 @@ export class Profile extends React.Component<Props, State> {
       username
     } = this.state;
 
+    const saveDisabled = name === "";
+
     return (
       <>
         <TextField
@@ -158,8 +160,7 @@ export class Profile extends React.Component<Props, State> {
             ))}
           </Select>
         </FormControl>
-
-        <Save onClick={this.onSaveClick} />
+        <Save onClick={this.onSaveClick} disabled={saveDisabled} />
       </>
     );
   }
