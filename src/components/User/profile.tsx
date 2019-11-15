@@ -60,6 +60,11 @@ export class Profile extends React.Component<Props, State> {
     this._setUserMeta("name", e.currentTarget.value);
   };
 
+  onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const name = e.currentTarget.value;
+    this._setUserMeta("name", name.trim());
+  };
+
   onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ email: e.target.value });
 
@@ -122,6 +127,7 @@ export class Profile extends React.Component<Props, State> {
           value={name}
           onChange={this.onNameChange}
           fullWidth={true}
+          onBlur={this.onNameBlur}
         />
 
         <FormControl fullWidth={true} style={selectStyle}>
