@@ -30,6 +30,11 @@ type DispatchProps = {
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
+onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const name = e.currentTarget.value;
+  this._setUserMeta("name", name.trim());
+};
+
 const Content = (props: Props) => {
   // props
   const { session, team, selectedIndex, updateTeamState } = props;
@@ -70,6 +75,7 @@ const Content = (props: Props) => {
         value={(draft.name === void 0 ? name : draft.name) || ""}
         onChange={e => setDraft({ ...draft, name: e.target.value })}
         disabled={isOwner !== true}
+        onBlur={this.onNameBlur}
       />
       <TextField
         id="team-description"
