@@ -162,6 +162,8 @@ const Content = (props: Props) => {
     });
   };
 
+  const saveDisabled = name === "";
+
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title={__("API key settings")}>
@@ -203,7 +205,7 @@ const Content = (props: Props) => {
             ></Interweave>
           </Help>
 
-          <Save onClick={onUpdateClick} onError={onRequestError} />
+          <Save onClick={onUpdateClick} onError={onRequestError} disabled={saveDisabled} />
 
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">
