@@ -77,6 +77,11 @@ const Content = (props: Props) => {
     return null;
   }
 
+  onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      const name = e.currentTarget.value;
+      this._setUserMeta("name", name.trim());
+  };
+
   const apiKey = props.mapKey.userKey;
   const embedHtml =
     '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n></div>';
@@ -182,6 +187,7 @@ const Content = (props: Props) => {
             value={name}
             onChange={e => setName(e.target.value)}
             disabled={status === "requesting"}
+            onBlur={this.onNameBlur}
           />
 
           <TextField
