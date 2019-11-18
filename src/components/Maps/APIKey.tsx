@@ -77,9 +77,9 @@ const Content = (props: Props) => {
     return null;
   }
 
-  onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
       const name = e.currentTarget.value;
-      this._setUserMeta("name", name.trim());
+      setName(name.trim());
   };
 
   const apiKey = props.mapKey.userKey;
@@ -187,7 +187,7 @@ const Content = (props: Props) => {
             value={name}
             onChange={e => setName(e.target.value)}
             disabled={status === "requesting"}
-            onBlur={this.onNameBlur}
+            onBlur={onNameBlur}
           />
 
           <TextField
