@@ -64,6 +64,8 @@ export const Fields = () => {
         </p>
         <Delete
           onClick={deleteHandler}
+          onFailure={() => void 0}
+          errorMessage={"some error"}
           text1={__("Are you sure you want to delete this dataset?")}
           text2={__("Please type in the name of the dataset to confirm.")}
         />
