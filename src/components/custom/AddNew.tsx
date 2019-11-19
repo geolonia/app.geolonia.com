@@ -1,4 +1,6 @@
 import React from "react";
+
+// Components
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -8,25 +10,44 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import AddIcon from "@material-ui/icons/Add";
 import { CircularProgress } from "@material-ui/core";
+
+// Utils
 import { __ } from "@wordpress/i18n";
 
 type Props = {
   // required
   label: string;
   description: string;
-  default: string;
-  // optionals
-  buttonLabel: string;
-  fieldName: string;
-  fieldLabel: string;
-  fieldType: string;
-  errorMessage: string;
+  defaultValue: string;
   onClick: (value: string) => Promise<any>;
   onError: (error: any) => void;
+  // optionals
+  buttonLabel?: string;
+  fieldName?: string;
+  fieldLabel?: string;
+  fieldType?: string;
+  errorMessage?: string;
 };
 
+const getTexts = (props: Props) => ({
+  buttonLabel: props.buttonLabel || __("New"),
+  fieldName: props.fieldName || __("name"),
+  fieldLabel: props.fieldLabel || __("Name"),
+  fieldType: props.fieldType || __("text"),
+  errorMessage: props.errorMessage || __("Some error.")
+});
+
 export const AddNew = (props: Props) => {
-  const [text, setText] = React.useState(props.default);
+  const { defaultValue, label, description } = props;
+  const {
+    buttonLabel,
+    fieldName,
+    fieldLabel,
+    fieldType,
+    errorMessage
+  } = getTexts(props);
+
+  const [text, setText] = React.useState(defaultValue);
   const [open, setOpen] = React.useState(false);
   const [status, setStatus] = React.useState<
     false | "working" | "success" | "failure"
@@ -60,13 +81,13 @@ export const AddNew = (props: Props) => {
       });
   };
 
-  const isActive = status === "working";
+  const isButtonsDisabled = status === "working" || status === "success";
 
   return (
     <div>
       <p style={buttonStyle}>
         <Button variant="contained" color="primary" onClick={handleClickOpen}>
-          <AddIcon /> {props.buttonLabel}
+          <AddIcon /> {buttonLabel}
         </Button>
       </p>
       <form>
@@ -74,17 +95,18 @@ export const AddNew = (props: Props) => {
           open={open}
           onClose={handleClose}
           fullWidth={true}
+          disableBackdropClick={isButtonsDisabled}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">{props.label}</DialogTitle>
+          <DialogTitle id="form-dialog-title">{label}</DialogTitle>
           <DialogContent>
-            <DialogContentText>{props.description}</DialogContentText>
+            <DialogContentText>{description}</DialogContentText>
             <TextField
               autoFocus
               margin="dense"
-              name={props.fieldName}
-              label={props.fieldLabel}
-              type={props.fieldType}
+              name={fieldName}
+              label={fieldLabel}
+              type={fieldType}
               value={text}
               onChange={e => {
                 setStatus(false);
@@ -93,14 +115,23 @@ export const AddNew = (props: Props) => {
               fullWidth
             />
             {status === "failure" && (
-              <DialogContentText>{props.errorMessage}</DialogContentText>
+              <DialogContentText>{errorMessage}</DialogContentText>
             )}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="primary">
+            <Button
+              onClick={handleClose}
+              color="primary"
+              disabled={isButtonsDisabled}
+            >
               {__("Cancel")}
             </Button>
-            <Button onClick={onSaveClick} disabled={isActive}     color="primary" type="submit">
+            <Button
+              onClick={onSaveClick}
+              disabled={isButtonsDisabled}
+              color="primary"
+              type="submit"
+            >
               {status === "working" && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
               )}
@@ -111,18 +142,6 @@ export const AddNew = (props: Props) => {
       </form>
     </div>
   );
-};
-
-const noop = (x: any) => x;
-
-AddNew.defaultProps = {
-  buttonLabel: __("New"),
-  fieldName: __("name"),
-  fieldLabel: __("Name"),
-  fieldType: __("text"),
-  errorMessage: __("Some error."),
-  onClick: noop,
-  onError: noop
 };
 
 export default AddNew;

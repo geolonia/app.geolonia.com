@@ -76,8 +76,9 @@ function Content(props: Props) {
       <AddNew
         label={__("Create a new API key")}
         description={__("Please enter the name of new API key.")}
-        default={__("My API")}
+        defaultValue={__("My API")}
         onClick={handler}
+        onError={() => void 0}
         errorMessage={message}
       />
 

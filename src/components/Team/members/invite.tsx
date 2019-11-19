@@ -61,12 +61,13 @@ export const Invite = (props: Props) => {
       description={__(
         "We automatically update your billing as you add and remove team members."
       )}
-      default=""
+      defaultValue=""
       fieldName="email"
       fieldLabel={__("Email")}
       fieldType="email"
       errorMessage={message}
       onClick={inviteHandler}
+      onError={() => {}}
     />
   );
 };
