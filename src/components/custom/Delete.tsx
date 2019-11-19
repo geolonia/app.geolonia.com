@@ -1,5 +1,6 @@
 import React from "react";
 
+// Components
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,23 +12,43 @@ import TextField from "@material-ui/core/TextField";
 import { CircularProgress } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 
+// Utils
 import { __ } from "@wordpress/i18n";
 
+type Status = false | "working" | "success" | "failure";
+
 type Props = {
-  text1: string;
-  text2: string;
+  text1?: string;
+  text2?: string;
   errorMessage: string;
   onClick: () => Promise<any>;
   onFailure: () => void;
-  enable: (inputValue: string) => boolean;
+  disableCancel?: boolean | ((status?: Status) => boolean);
+  disableDelete?: boolean | ((inputValue: string, status?: Status) => boolean);
 };
 
-const Delete = (props: Props) => {
+const getTexts = (props: Props) => ({
+  text1: props.text1 || __("Are you sure you want to delete this item?"),
+  text2: props.text2 || __("Please type as <code>delete</code> to confirm.")
+});
+
+export const Delete = (props: Props) => {
+  const { disableCancel, disableDelete } = props;
+  const { text1, text2 } = getTexts(props);
+
   const [open, setOpen] = React.useState(false);
   const [confirmation, setConfirmation] = React.useState("");
-  const [status, setStatus] = React.useState<
-    false | "working" | "success" | "failure"
-  >(false);
+  const [status, setStatus] = React.useState<Status>(false);
+
+  const isCancelDisabled =
+    typeof disableCancel === "function"
+      ? disableCancel(status)
+      : !!disableCancel;
+
+  const isDeleteDisabled =
+    typeof disableDelete === "function"
+      ? disableDelete(confirmation, status)
+      : !!disableDelete;
 
   const style = {
     marginTop: "1em",
@@ -43,8 +64,14 @@ const Delete = (props: Props) => {
     setOpen(false);
   }
 
+  const onCancelClick = () => {
+    if (!isCancelDisabled) {
+      handleClose();
+    }
+  };
+
   const onButtonClick = () => {
-    if (props.enable(confirmation)) {
+    if (!isDeleteDisabled) {
       setStatus("working");
       props
         .onClick()
@@ -73,15 +100,16 @@ const Delete = (props: Props) => {
         <Dialog
           open={open}
           onClose={handleClose}
+          disableBackdropClick={isCancelDisabled || status === "working"}
           fullWidth={true}
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">{__("Delete")}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {props.text1}
+              {text1}
               <br />
-              {props.text2}
+              {text2}
             </DialogContentText>
             <TextField
               autoFocus
@@ -99,14 +127,18 @@ const Delete = (props: Props) => {
             )}
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="inherit">
+            <Button
+              color="inherit"
+              onClick={onCancelClick}
+              disabled={isCancelDisabled || status === "working"}
+            >
               {__("Cancel")}
             </Button>
             <Button
               color="secondary"
               onClick={onButtonClick}
               type="submit"
-              disabled={!props.enable(confirmation)}
+              disabled={isDeleteDisabled || status === "working"}
             >
               {status === "working" ? (
                 <CircularProgress
@@ -125,17 +157,5 @@ const Delete = (props: Props) => {
     </div>
   );
 };
-
-Delete.defaultProps = {
-  text1: __("Are you sure you want to delete this item?"),
-  text2: __("Please type as <code>delete</code> to confirm."),
-  onClick: (event: React.MouseEvent) => {
-    console.log(event);
-  },
-  onFailure: () => {},
-  enable: (text: string) => {
-    return text === "delete";
-  }
-} as Partial<Props>;
 
 export default Delete;
