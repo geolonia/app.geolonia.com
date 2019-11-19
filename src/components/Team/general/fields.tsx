@@ -64,7 +64,12 @@ const Content = (props: Props) => {
   const draftExists = Object.keys(draft).length !== 0;
   const isOwner = team.role === Roles.Owner;
 
-  const saveDisabled = !draftExists && !isOwner || name === "";
+  let saveDisabled = !draftExists || !isOwner;
+  if (typeof draft.name === "string") {
+    if (draft.name.trim() === "") {
+      saveDisabled = true;
+    }
+  }
 
   return (
     <>
