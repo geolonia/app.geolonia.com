@@ -30,10 +30,6 @@ type DispatchProps = {
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
-onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-  const name = e.currentTarget.value;
-  this._setUserMeta("name", name.trim());
-};
 
 const Content = (props: Props) => {
   // props
@@ -42,6 +38,11 @@ const Content = (props: Props) => {
 
   // state
   const [draft, setDraft] = React.useState<Partial<Team>>({});
+
+  const onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const name = e.currentTarget.value;
+    setDraft({ ...draft, name: name.trim() });
+  };
 
   // effects
   //// clear draft on Team change
@@ -75,7 +76,7 @@ const Content = (props: Props) => {
         value={(draft.name === void 0 ? name : draft.name) || ""}
         onChange={e => setDraft({ ...draft, name: e.target.value })}
         disabled={isOwner !== true}
-        onBlur={this.onNameBlur}
+        onBlur={onNameBlur}
       />
       <TextField
         id="team-description"
