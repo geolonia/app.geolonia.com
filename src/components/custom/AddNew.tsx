@@ -63,8 +63,12 @@ export const AddNew = (props: Props) => {
   }
 
   function handleClose() {
-    setStatus(false);
     setOpen(false);
+    // hide state change on hiding animation
+    setTimeout(() => {
+      setStatus(false);
+      setText(defaultValue);
+    }, 200);
   }
 
   const onSaveClick = () => {
