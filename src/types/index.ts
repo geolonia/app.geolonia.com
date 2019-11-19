@@ -8,6 +8,7 @@ import {
   Role as _Role,
   Roles as _Roles
 } from "../redux/actions/team-member";
+import { State as GeosearchState } from "../redux/actions/geosearch";
 
 // app type
 export type AppState = {
@@ -16,6 +17,7 @@ export type AppState = {
   team: TeamState;
   mapKey: MapKeyState;
   teamMember: TeamMemberState;
+  geosearch: GeosearchState;
 };
 
 export type ErrorCodes = "UnAuthorized" | "Network" | "Unknown";
@@ -37,3 +39,12 @@ export type Team = _Team;
 export type Member = _Member;
 export type Role = _Role;
 export const Roles = _Roles;
+export type FeatureCollections = {
+  id: string;
+  data: GeoJSON.FeatureCollection<
+    GeoJSON.Point | GeoJSON.LineString | GeoJSON.Polygon
+  >;
+  createAt: Date;
+  updateAt: Date;
+  isPublic: boolean;
+}[];

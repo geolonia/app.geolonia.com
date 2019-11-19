@@ -77,6 +77,11 @@ const Content = (props: Props) => {
     return null;
   }
 
+  const onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+      const name = e.currentTarget.value;
+      setName(name.trim());
+  };
+
   const apiKey = props.mapKey.userKey;
   const embedHtml =
     '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n></div>';
@@ -162,6 +167,8 @@ const Content = (props: Props) => {
     });
   };
 
+  const saveDisabled = name === "";
+
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title={__("API key settings")}>
@@ -180,6 +187,7 @@ const Content = (props: Props) => {
             value={name}
             onChange={e => setName(e.target.value)}
             disabled={status === "requesting"}
+            onBlur={onNameBlur}
           />
 
           <TextField
@@ -203,7 +211,7 @@ const Content = (props: Props) => {
             ></Interweave>
           </Help>
 
-          <Save onClick={onUpdateClick} onError={onRequestError} />
+          <Save onClick={onUpdateClick} onError={onRequestError} disabled={saveDisabled} />
 
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">

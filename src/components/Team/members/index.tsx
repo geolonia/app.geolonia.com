@@ -197,7 +197,7 @@ const Content = (props: Props) => {
               </TableCell>
               <TableCell align="right">
                 {(() => {
-                  if (2 > numOwners && "Owner" === row.role) {
+                  if ((2 > numOwners && "Owner" === row.role) || isOwner === false) {
                     // There is only one owner and the row is owner, so nothing to return.
                   } else {
                     return (
