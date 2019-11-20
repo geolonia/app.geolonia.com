@@ -72,7 +72,7 @@ function Content(props: Props) {
       <AddNew
         label={__("Create a new dataset")}
         description={__("Please enter the name of the new dataset.")}
-        default={__("My dataset")}
+        defaultValue={__("My dataset")}
         onClick={handler}
         onError={() => {
           /*TODO: show messages*/

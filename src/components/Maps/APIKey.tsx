@@ -78,8 +78,8 @@ const Content = (props: Props) => {
   }
 
   const onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-      const name = e.currentTarget.value;
-      setName(name.trim());
+    const name = e.currentTarget.value;
+    setName(name.trim());
   };
 
   const apiKey = props.mapKey.userKey;
@@ -211,7 +211,11 @@ const Content = (props: Props) => {
             ></Interweave>
           </Help>
 
-          <Save onClick={onUpdateClick} onError={onRequestError} disabled={saveDisabled} />
+          <Save
+            onClick={onUpdateClick}
+            onError={onRequestError}
+            disabled={saveDisabled}
+          />
 
           <div style={styleDangerZone}>
             <Typography component="h3" color="secondary">
@@ -223,12 +227,16 @@ const Content = (props: Props) => {
               )}
             </p>
             <Delete
-              text1={"Are you sure you want to delete this API key?"}
-              text2={"Please type in the name of the API key to confirm."}
+              text1={__("Are you sure you want to delete this API key?")}
+              text2={__("Please type in the name of the API key to confirm.")}
               errorMessage={message}
               onClick={onDeleteClick}
               onFailure={onRequestError}
-              enable={input => input === name}
+              // disable buttons before page move on success
+              disableCancel={status => status === "success"}
+              disableDelete={(input, status) =>
+                input !== name || status === "success"
+              }
             />
           </div>
         </Grid>
