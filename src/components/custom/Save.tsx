@@ -11,32 +11,46 @@ import { CircularProgress } from "@material-ui/core";
 import { __ } from "@wordpress/i18n";
 
 type Props = {
-  label: string;
-  style: React.CSSProperties;
-  onClick: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<any>;
-  onError: (err: Error) => any;
+  label?: string;
+  style?: React.CSSProperties;
+  onClick?: (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => Promise<any>;
+  onError?: (err: Error) => any;
   disabled?: boolean;
 };
 
+const getDefaultProps = (props: Props) => ({
+  label: props.label || __("Save"),
+  style: props.style || {},
+  onClick:
+    props.onClick ||
+    ((event: React.MouseEvent) => Promise.resolve(console.log(event))),
+  onError: props.onError || ((err: Error) => console.error(err)),
+  disabled: !!props.disabled
+});
+
 const Save = (props: Props) => {
+  const { label, style, onClick, onError, disabled } = getDefaultProps(props);
+
   const [open, setOpen] = React.useState(false);
   const [status, setStatus] = React.useState<
     false | "working" | "success" | "failure"
   >(false);
 
-  const style: React.CSSProperties = {
+  const typographyStyle: React.CSSProperties = {
     marginTop: "1em",
     marginBottom: 0,
     width: "100%",
-    ...props.style
+    ...style
   };
 
   const handleSave = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     setStatus("working");
-    props
-      .onClick(event)
+
+    onClick(event)
       .then(() => {
         setStatus("success");
         setOpen(true);
@@ -44,7 +58,7 @@ const Save = (props: Props) => {
       .catch(err => {
         setStatus("failure");
         setOpen(true);
-        props.onError(err);
+        onError(err);
       });
   };
 
@@ -62,17 +76,22 @@ const Save = (props: Props) => {
 
   return (
     <div>
-      <Typography style={style} component="p" paragraph={true} align="right">
+      <Typography
+        style={typographyStyle}
+        component="p"
+        paragraph={true}
+        align="right"
+      >
         <Button
           variant="contained"
           color="primary"
           onClick={handleSave}
-          disabled={props.disabled || status !== false}
+          disabled={disabled || status !== false}
         >
           {status === "working" && (
             <CircularProgress size={16} style={{ marginRight: 8 }} />
           )}
-          {props.label}
+          {label}
         </Button>
       </Typography>
       <Snackbar
@@ -105,17 +124,6 @@ const Save = (props: Props) => {
       />
     </div>
   );
-};
-
-Save.defaultProps = {
-  label: __("Save"),
-  style: {},
-  onClick: (event: React.MouseEvent) => {
-    console.log(event);
-  },
-  onError: (err: Error) => {
-    console.error(err);
-  }
 };
 
 export default Save;
