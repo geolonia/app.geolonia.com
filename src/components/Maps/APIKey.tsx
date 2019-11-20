@@ -123,8 +123,17 @@ const Content = (props: Props) => {
     marginBottom: "2em"
   };
 
+  const saveDisabled =
+    name.trim() === "" ||
+    (name === propName && allowedOrigins === propOrigins.join("\n"));
+
   const onUpdateClick = () => {
+    if (saveDisabled) {
+      return Promise.resolve();
+    }
+
     setStatus("requesting");
+
     const normalizedAllowedOrigins = allowedOrigins
       .split("\n")
       .filter(url => !!url);
@@ -166,8 +175,6 @@ const Content = (props: Props) => {
       }
     });
   };
-
-  const saveDisabled = name === "";
 
   return (
     <div>
