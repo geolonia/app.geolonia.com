@@ -253,7 +253,7 @@ msgid "GIS Services"
 msgstr ""
 
 #: src/components/Navigator.tsx:144
-msgid "Gcloud"
+msgid "Geosearch"
 msgstr ""
 
 #: src/components/Navigator.tsx:153
