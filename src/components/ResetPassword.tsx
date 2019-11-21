@@ -129,8 +129,6 @@ const Content = (props: Props) => {
   );
 };
 
-Content.defaultProps = {};
-
 const mapStateToProps = (state: AppState) => ({
   currentUser: state.authSupport.currentUser || ""
 });

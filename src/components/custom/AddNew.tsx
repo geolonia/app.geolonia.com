@@ -15,7 +15,6 @@ import { CircularProgress } from "@material-ui/core";
 import { __ } from "@wordpress/i18n";
 
 type Props = {
-  // required
   label: string;
   description: string;
   defaultValue: string;

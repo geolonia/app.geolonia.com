@@ -27,6 +27,4 @@ const Content = (props: Props) => {
   );
 };
 
-Content.defaultProps = {};
-
 export default Content;

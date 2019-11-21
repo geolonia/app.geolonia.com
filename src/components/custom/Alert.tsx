@@ -4,19 +4,17 @@ import "./Alert.scss";
 
 type Props = {
   children: string;
-  type: "success" | "danger" | "warning";
+  type?: "success" | "danger" | "warning";
 };
 
 const Alert = (props: Props) => {
+  const { type = "success", children } = props;
+
   return (
     <div className="alert">
-      <div className={props.type}>{props.children}</div>
+      <div className={type}>{children}</div>
     </div>
   );
-};
-
-Alert.defaultProps = {
-  type: "success"
 };
 
 export default Alert;

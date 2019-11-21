@@ -7,41 +7,44 @@ import Button from "@material-ui/core/Button";
 import { __ } from "@wordpress/i18n";
 
 type Props = {
-  label: string;
-  style: React.CSSProperties;
-  handler: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  label?: string;
+  style?: React.CSSProperties;
+  handler?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   disabled?: boolean;
 };
 
+const getDefaultProps = (props: Props) => ({
+  ...props,
+  label: props.label || __("Cancel"),
+  style: props.style || {},
+  handler: props.handler || ((event: React.MouseEvent) => console.log(event)),
+  disabled: !!props.disabled
+});
+
 const Cancel = (props: Props) => {
-  const style: React.CSSProperties = {
+  const { label, style, handler, disabled } = getDefaultProps(props);
+
+  const typographyStyle: React.CSSProperties = {
     marginTop: "1em",
     marginBottom: 0,
     width: "100%",
-    ...props.style
+    ...style
   };
 
   return (
     <div>
-      <Typography style={style} component="p" paragraph={true} align="right">
-        <Button
-          color="primary"
-          onClick={props.handler}
-          disabled={props.disabled}
-        >
-          {props.label}
+      <Typography
+        style={typographyStyle}
+        component="p"
+        paragraph={true}
+        align="right"
+      >
+        <Button color="primary" onClick={handler} disabled={disabled}>
+          {label}
         </Button>
       </Typography>
     </div>
   );
-};
-
-Cancel.defaultProps = {
-  label: __("Cancel"),
-  style: {},
-  handler: (event: React.MouseEvent) => {
-    console.log(event);
-  }
 };
 
 export default Cancel;
