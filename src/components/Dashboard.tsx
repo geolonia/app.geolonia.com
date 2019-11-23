@@ -143,7 +143,9 @@ const Dashboard = (props: Props) => {
             <div className="chart-container">
               <Line data={mapChartData} options={chartOptions} />
             </div>
-            <div className="grayout"></div>
+            <div className="grayout">
+              <span>準備中</span>
+            </div>
           </Paper>
         </Grid>
 
@@ -155,7 +157,9 @@ const Dashboard = (props: Props) => {
             <div className="chart-container">
               <Line data={geoAPIChartData} options={chartOptions} />
             </div>
-            <div className="grayout"></div>
+            <div className="grayout">
+              <span>準備中</span>
+            </div>
           </Paper>
         </Grid>
       </Grid>
