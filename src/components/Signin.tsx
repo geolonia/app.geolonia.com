@@ -80,7 +80,6 @@ const Content = (props: Props) => {
         setTimeout(() => (window.location.href = "/"), 250);
       })
       .catch(() => {
-        // TODO: show messages
         setStatus("warning");
       });
   };
