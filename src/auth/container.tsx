@@ -200,7 +200,6 @@ export class AuthContainer extends React.Component<Props, State> {
           }
         })
         .catch(err => {
-          console.error(err);
           this.props.markMapKeyError(teamId);
         });
     };
@@ -327,7 +326,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   markMapKeyError: teamId => dispatch(createMapKeyActions.markError(teamId))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AuthContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer);

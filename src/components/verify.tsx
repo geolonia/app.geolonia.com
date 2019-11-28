@@ -66,7 +66,6 @@ const Content = (props: Props) => {
       })
       .catch(err => {
         setStatus("warning");
-        console.error(err);
       });
   };
 
