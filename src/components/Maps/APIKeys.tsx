@@ -63,7 +63,7 @@ function Content(props: Props) {
     return {
       id: key.userKey,
       name: key.name,
-      updated: key.updateAt
+      updated: key.createAt
     };
   });
 
@@ -103,7 +103,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

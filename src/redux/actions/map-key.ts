@@ -96,11 +96,15 @@ const isDeleteAction = (action: MapKeyAction): action is DeleteAction =>
 
 export const reducer = (state: State = initialState, action: MapKeyAction) => {
   if (isSetAction(action)) {
+    const keys = [...action.payload.keys];
+    keys.sort(
+      (a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime()
+    );
     return {
       ...state,
       [action.payload.teamId]: {
         ...state[action.payload.teamId],
-        data: action.payload.keys
+        data: keys
       }
     };
   } else if (isMarkErrorAction(action)) {
@@ -114,11 +118,15 @@ export const reducer = (state: State = initialState, action: MapKeyAction) => {
   } else if (isAddAction(action)) {
     const { teamId, key } = action.payload;
     const mapKeyObject = state[teamId] || { data: [] };
+    const keys = [...mapKeyObject.data, key];
+    keys.sort(
+      (a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime()
+    );
     return {
       ...state,
       [teamId]: {
         ...mapKeyObject,
-        data: [...mapKeyObject.data, key]
+        data: keys
       }
     };
   } else if (isUpdateAction(action)) {

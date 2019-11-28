@@ -36,7 +36,7 @@ function Content(props: Props) {
     (id, index) => ({
       id,
       name: `フィーチャーコレクション ${index}`,
-      updated: props.featureCollections[id].updateAt.toISOString(),
+      updated: props.featureCollections[id].createAt.toISOString(),
       isPublic: props.featureCollections[id].isPublic
     })
   );
