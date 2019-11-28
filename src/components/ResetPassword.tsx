@@ -57,9 +57,9 @@ const Content = (props: Props) => {
         setStatus("success");
         props.history.push("/signin");
       })
-      .catch(err => {
+      .catch(() => {
+        // TODO: show messages
         setStatus("warning");
-        console.error(err);
       });
   };
 
@@ -115,9 +115,9 @@ const Content = (props: Props) => {
             </Button>
           </p>
           {status === "requesting" && (
-            <p>
+            <div style={{ marginTop: ".75em" }}>
               <CircularProgress size={20} />
-            </p>
+            </div>
           )}
         </div>
 

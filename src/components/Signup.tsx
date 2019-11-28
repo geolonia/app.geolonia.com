@@ -61,11 +61,13 @@ const Content = (props: Props) => {
         props.setCurrentUser(result.user.getUsername());
         props.history.push("/verify");
       })
-      .catch(err => {
+      .catch(() => {
+        // TODO: if error, we should display appropriate messages
         setStatus("warning");
-        console.error(err);
       });
   };
+
+  const buttonDisabled = username === "" || password === "" || email === "";
 
   return (
     <div className="signup">
@@ -102,14 +104,19 @@ const Content = (props: Props) => {
           </p>
 
           <p>
-            <Button variant="contained" color="primary" onClick={handleSignup}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSignup}
+              disabled={buttonDisabled}
+            >
               {__("Sign up")}
             </Button>
           </p>
           {status === "requesting" && (
-            <p>
-              <CircularProgress size={20}></CircularProgress>
-            </p>
+            <div style={{ marginTop: ".75em" }}>
+              <CircularProgress size={20} />
+            </div>
           )}
           <p className="message">
             <Interweave

@@ -69,6 +69,8 @@ const Content = (props: Props) => {
     setPassword(e.currentTarget.value);
   };
 
+  const buttonDisabled = username === "" || password === "";
+
   const handleSignin = () => {
     setStatus("requesting");
     delay(signin(username, password), 250)
@@ -76,13 +78,10 @@ const Content = (props: Props) => {
         setStatus("success");
         // Force reloadading and use componentDidMount of AuthContainer to get session
         setTimeout(() => (window.location.href = "/"), 250);
-        // console.log(session);
-        // props.setAccessToken(accessToken);
-        // props.history.push("/");
       })
-      .catch(err => {
+      .catch(() => {
+        // TODO: show messages
         setStatus("warning");
-        console.error(err);
       });
   };
 
@@ -105,7 +104,6 @@ const Content = (props: Props) => {
             {__("Oops, the server seems not to be responding correctly.")}
           </Alert>
         )}
-        {/* <Alert type="success">{__('Your password has been successfully updated.')}</Alert> */}
         <div className="form">
           <label className="username">
             <h2>{__("Username or email address")}</h2>
@@ -138,6 +136,7 @@ const Content = (props: Props) => {
               color="primary"
               onClick={handleSignin}
               tabIndex={300}
+              disabled={buttonDisabled}
             >
               {__("Sign in")}
             </Button>
@@ -176,9 +175,6 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setAccessToken: (accessToken: string) =>
     dispatch(createActions.setAccessToken(accessToken))
 });
-const ConnectedContent = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+const ConnectedContent = connect(mapStateToProps, mapDispatchToProps)(Content);
 
 export default ConnectedContent;
