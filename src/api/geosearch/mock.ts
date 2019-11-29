@@ -1,6 +1,5 @@
 import { FeatureCollection, DateStringify } from "../../types";
 import uuid from "uuid/v4";
-import moment from "moment";
 
 export const generate = (): DateStringify<FeatureCollection>[] => {
   const featuresCount = Math.floor(Math.random() * 5) + 3;

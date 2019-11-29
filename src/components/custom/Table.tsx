@@ -13,7 +13,6 @@ import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
 
 // utils
-import moment from "moment";
 import { __ } from "@wordpress/i18n";
 import styled from "styled-components";
 

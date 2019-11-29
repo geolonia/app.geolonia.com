@@ -11,7 +11,6 @@ import { connect } from "react-redux";
 
 // types
 import { AppState, FeatureCollection } from "../../types";
-import { Feature } from "geojson";
 
 type Row = {
   id: number | string;
