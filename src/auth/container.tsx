@@ -14,6 +14,7 @@ import listFeatureCollections from "../api/geosearch/list";
 
 // Utils
 import delay from "../lib/promise-delay";
+import dateParse from "../lib/date-parse";
 
 // redux
 import { connect } from "react-redux";
@@ -34,6 +35,8 @@ import { createActions as createGeosearchActions } from "../redux/actions/geosea
 import { AppState, User, Session, Team, Key, Member } from "../types";
 import Redux from "redux";
 import { SELECTED_TEAM_ID } from "../redux/middlewares/local-storage";
+import Moment from "moment";
+import moment from "moment";
 
 type OwnProps = {};
 type StateProps = { session: Session };
@@ -58,8 +61,8 @@ type DispatchProps = {
     teamId: string,
     featureCollectionId: string,
     featureCollection: GeoJSON.FeatureCollection,
-    createAt: Date,
-    updateAt: Date,
+    createAt: Moment.Moment | void,
+    updateAt: Moment.Moment | void,
     isPublic: boolean
   ) => void;
   markMapKeyError: (teamId: string) => void;
@@ -130,11 +133,14 @@ export class AuthContainer extends React.Component<Props, State> {
       this.props.setSession(session);
       this.props.setUserMeta(user);
       this.props.setTeams(teamsWithoutDeleted);
-      const { language } = user;
+
+      const { language, timezone } = user;
       const localeData = loadLocale(language);
       if (localeData) {
         setLocaleData(localeData);
       }
+      moment.lang(language);
+      moment.tz.setDefault(timezone);
 
       const teamIds = teamsWithoutDeleted.map(team => team.teamId);
 
@@ -196,7 +202,9 @@ export class AuthContainer extends React.Component<Props, State> {
           if (result.error) {
             throw result.error;
           } else {
-            this.props.setMapKeys(teamId, result.data);
+            console.log(result.data[0].createAt);
+            const data = result.data.map(x => dateParse(x));
+            this.props.setMapKeys(teamId, data);
           }
         })
         .catch(err => {
@@ -257,18 +265,19 @@ export class AuthContainer extends React.Component<Props, State> {
           throw new Error(result.code);
         } else {
           const featureCollections = result.data;
-          featureCollections.forEach(
-            ({ id, data, createAt, updateAt, isPublic }) => {
-              this.props.setFeatureCollection(
-                teamId,
-                id,
-                data,
-                createAt,
-                updateAt,
-                isPublic
-              );
-            }
-          );
+          featureCollections.forEach(feature => {
+            const { id, data, createAt, updateAt, isPublic } = dateParse(
+              feature
+            );
+            this.props.setFeatureCollection(
+              teamId,
+              id,
+              data,
+              createAt,
+              updateAt,
+              isPublic
+            );
+          });
         }
       });
     };

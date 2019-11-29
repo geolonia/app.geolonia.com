@@ -1,3 +1,6 @@
+import Moment from "moment";
+import byCreateAt from "../../lib/by-create-at";
+
 const SET = "MAP_KEY/SET";
 const MARK_ERROR = "MAP_KEY/MARK_ERROR";
 const ADD = "MAP_KEY/ADD";
@@ -11,8 +14,8 @@ export type Key = {
   enabled: boolean;
   forceDisabled: boolean;
   allowedOrigins: string[];
-  updateAt: string;
-  createAt: string;
+  createAt: Moment.Moment | void;
+  updateAt?: Moment.Moment | void;
 };
 
 export type State = {
@@ -97,9 +100,7 @@ const isDeleteAction = (action: MapKeyAction): action is DeleteAction =>
 export const reducer = (state: State = initialState, action: MapKeyAction) => {
   if (isSetAction(action)) {
     const keys = [...action.payload.keys];
-    keys.sort(
-      (a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime()
-    );
+    keys.sort(byCreateAt);
     return {
       ...state,
       [action.payload.teamId]: {
@@ -119,9 +120,7 @@ export const reducer = (state: State = initialState, action: MapKeyAction) => {
     const { teamId, key } = action.payload;
     const mapKeyObject = state[teamId] || { data: [] };
     const keys = [...mapKeyObject.data, key];
-    keys.sort(
-      (a, b) => new Date(b.createAt).getTime() - new Date(a.createAt).getTime()
-    );
+    keys.sort(byCreateAt);
     return {
       ...state,
       [teamId]: {

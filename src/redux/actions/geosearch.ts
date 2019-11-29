@@ -1,10 +1,12 @@
+import Moment from "moment";
+
 export type State = {
   [teamId: string]: {
     featureCollections: {
       [id: string]: {
         data: GeoJSON.FeatureCollection;
-        createAt: Date;
-        updateAt: Date;
+        createAt: Moment.Moment | void;
+        updateAt: Moment.Moment | void;
         isPublic: boolean;
       };
     };
@@ -21,8 +23,8 @@ type PutFeatureCollectionAction = {
     teamId: string;
     featureCollectionId: string;
     featureCollection: GeoJSON.FeatureCollection;
-    createAt: Date;
-    updateAt: Date;
+    createAt: Moment.Moment | void;
+    updateAt: Moment.Moment | void;
     isPublic: boolean;
   };
 };
@@ -34,8 +36,8 @@ export const createActions = {
     teamId: string,
     featureCollectionId: string,
     featureCollection: GeoJSON.FeatureCollection,
-    createAt: Date,
-    updateAt: Date,
+    createAt: Moment.Moment | void,
+    updateAt: Moment.Moment | void,
     isPublic: boolean
   ): PutFeatureCollectionAction => ({
     type: PUT_FEATURE_COLLECTION,

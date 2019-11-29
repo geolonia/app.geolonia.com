@@ -16,6 +16,7 @@ import { AppState, Key, Session } from "../../types";
 // redux
 import Redux from "redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
+import dateParse from "../../lib/date-parse";
 
 type OwnProps = {};
 type StateProps = {
@@ -53,7 +54,8 @@ function Content(props: Props) {
         setMessage(result.message);
         throw new Error(result.code);
       } else {
-        props.addKey(props.teamId, result.data);
+        const data = dateParse(result.data);
+        props.addKey(props.teamId, data);
       }
     });
   };
@@ -64,6 +66,8 @@ function Content(props: Props) {
       id: key.userKey,
       name: key.name,
       updated: key.createAt
+        ? key.createAt.format("YYYY/MM/DD hh:mm:ss")
+        : __("(No date)")
     };
   });
 
