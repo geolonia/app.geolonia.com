@@ -65,7 +65,6 @@ export class Security extends React.Component<Props, State> {
         );
       })
       .catch(err => {
-        console.error(err);
         this.setState({ status: "failure" });
       });
   };

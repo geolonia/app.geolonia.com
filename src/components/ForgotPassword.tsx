@@ -38,8 +38,8 @@ const Content = (props: Props) => {
       .then(() => {
         setStatus("success");
       })
-      .catch(err => {
-        console.error(err);
+      .catch(() => {
+        // TODO: show messages
         setStatus("failure");
       })
       .finally(() => props.history.push("/reset-password"));
@@ -69,9 +69,9 @@ const Content = (props: Props) => {
             </Button>
           </p>
           {status === "requesting" && (
-            <p>
+            <div style={{ marginTop: ".75em" }}>
               <CircularProgress size={20} />
-            </p>
+            </div>
           )}
         </div>
 
@@ -88,7 +88,4 @@ const mapDispatchToProps = (dispatch: any) => ({
     dispatch(createActions.setCurrentUser(currentUser))
 });
 
-export default connect(
-  void 0,
-  mapDispatchToProps
-)(Content);
+export default connect(void 0, mapDispatchToProps)(Content);

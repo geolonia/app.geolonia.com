@@ -27,18 +27,29 @@ type DispatchProps = {
 
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
-const messages = {
-  success: __("Signup successed."),
-  warning: __("Signup failed.")
+const isPasswordStrongEnough = (password: string) => {
+  if (password.length > 14) {
+    return true;
+  } else if (
+    password.length > 7 &&
+    password.split("").some(char => /^[0-9]$/.test(char)) &&
+    password.split("").some(char => /^[a-z]$/.test(char)) &&
+    password.split("").some(char => /^[A-Z]$/.test(char))
+  ) {
+    return true;
+  } else {
+    return false;
+  }
 };
+
+type Status = null | "requesting" | "success" | "warning";
 
 const Content = (props: Props) => {
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-  const [status, setStatus] = React.useState<
-    null | "requesting" | "success" | "warning"
-  >(null);
+  const [status, setStatus] = React.useState<Status>(null);
+  const [message, setMessage] = React.useState("");
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -57,15 +68,29 @@ const Content = (props: Props) => {
     setStatus("requesting");
     delay(signUp(username, email, password), 500)
       .then(result => {
+        setMessage(__("Signup successed."));
         setStatus("success");
         props.setCurrentUser(result.user.getUsername());
         props.history.push("/verify");
       })
       .catch(err => {
+        // Cognito specific
+        if (
+          err.code === "UsernameExistsException" ||
+          err.code === "UserLambdaValidationException"
+        ) {
+          setMessage(__("Signup failed. You cannot use the username."));
+        } else if (err.code === "InvalidParameterException") {
+          setMessage(__("Invalid username or email address."));
+        } else {
+          setMessage(__("Signup failed."));
+        }
         setStatus("warning");
-        console.error(err);
       });
   };
+
+  const buttonDisabled =
+    username === "" || email === "" || !isPasswordStrongEnough(password);
 
   return (
     <div className="signup">
@@ -102,14 +127,19 @@ const Content = (props: Props) => {
           </p>
 
           <p>
-            <Button variant="contained" color="primary" onClick={handleSignup}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSignup}
+              disabled={buttonDisabled}
+            >
               {__("Sign up")}
             </Button>
           </p>
           {status === "requesting" && (
-            <p>
-              <CircularProgress size={20}></CircularProgress>
-            </p>
+            <div style={{ marginTop: ".75em" }}>
+              <CircularProgress size={20} />
+            </div>
           )}
           <p className="message">
             <Interweave
@@ -125,7 +155,7 @@ const Content = (props: Props) => {
         </div>
       </div>
       {status && status !== "requesting" && (
-        <Alert type={status}>{messages[status]}</Alert>
+        <Alert type={status}>{message}</Alert>
       )}
     </div>
   );

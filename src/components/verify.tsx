@@ -45,6 +45,9 @@ const Content = (props: Props) => {
     }
   }, [signupUser, username]);
 
+  // TODO: we can enhance code validation with regex
+  const buttonDisabled = username === "" || code === "";
+
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
     setUsername(e.currentTarget.value);
@@ -63,7 +66,6 @@ const Content = (props: Props) => {
       })
       .catch(err => {
         setStatus("warning");
-        console.error(err);
       });
   };
 
@@ -85,15 +87,20 @@ const Content = (props: Props) => {
           </label>
 
           <p>
-            <Button variant="contained" color="primary" onClick={handleVerify}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleVerify}
+              disabled={buttonDisabled}
+            >
               {__("Verify")}
             </Button>
           </p>
 
           {status === "requesting" && (
-            <p>
-              <CircularProgress size={20}></CircularProgress>
-            </p>
+            <div style={{ marginTop: ".75em" }}>
+              <CircularProgress size={20} />
+            </div>
           )}
         </div>
 

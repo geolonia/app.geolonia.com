@@ -33,7 +33,6 @@ export const Upload = (props: Props) => {
           props.setPrevGeoJSON(prevGeoJSON);
           props.setGeoJSON(nextGeoJSON);
         } catch (err) {
-          console.error(err);
           setError(true);
         }
       });
