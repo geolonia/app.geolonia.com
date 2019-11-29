@@ -51,7 +51,7 @@ function Content(props: Props) {
       href: "#/data"
     },
     {
-      title: "Gcloud",
+      title: "Geosearch",
       href: null
     }
   ];
@@ -63,7 +63,7 @@ function Content(props: Props) {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title="Gcloud">
+      <Title breadcrumb={breadcrumbItems} title="Geosearch">
         {__(
           "Geolonia GIS is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have."
         )}

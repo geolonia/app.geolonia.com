@@ -18,6 +18,7 @@
       ],
       "Map loads for this month": ["今月の地図のロード回数"],
       "API loads for this month": ["今月の API のロード回数"],
+      "Coming soon": ["準備中"],
       "GIS services": ["GIS サービス"],
       "Dataset settings": ["データセットの設定"],
       "You can manage and set the dataset, and get the the access point URL of dataset API.": [
@@ -94,7 +95,7 @@
       "My API": [""],
       "My team": [""],
       "GIS Services": ["GIS サービス"],
-      "Gcloud": [""],
+      "Geosearch": [""],
       "Team Settings": ["チーム設定"],
       "General": ["一般"],
       "Members": ["メンバー"],
