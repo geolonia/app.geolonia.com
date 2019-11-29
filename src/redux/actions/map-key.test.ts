@@ -1,11 +1,11 @@
 import { reducer, State, createActions, Key } from "./map-key";
+import moment from "moment";
 
 const TEAM_ID = "test-team-id";
 
 const commonKeyProps = {
   description: "",
   name: "",
-  updateAt: "",
   enabled: true,
   forceDisabled: false,
   allowedOrigins: []
@@ -20,17 +20,17 @@ it("should sort api keys by creatAt when set", () => {
   const keys: Key[] = [
     {
       userKey: "0",
-      createAt: "2019-11-19T04:00:00.000Z",
+      createAt: moment("2019-11-19T04:00:00.000Z"),
       ...commonKeyProps
     },
     {
       userKey: "1",
-      createAt: "2019-11-19T03:00:00.000Z",
+      createAt: moment("2019-11-19T03:00:00.000Z"),
       ...commonKeyProps
     },
     {
       userKey: "2",
-      createAt: "2019-11-19T05:00:00.000Z",
+      createAt: moment("2019-11-19T05:00:00.000Z"),
       ...commonKeyProps
     }
   ];
@@ -48,17 +48,17 @@ it("should sort api keys by creatAt when add", () => {
       data: [
         {
           userKey: "0",
-          createAt: "2019-11-19T04:00:00.000Z",
+          createAt: moment("2019-11-19T04:00:00.000Z"),
           ...commonKeyProps
         },
         {
           userKey: "1",
-          createAt: "2019-11-19T03:00:00.000Z",
+          createAt: moment("2019-11-19T03:00:00.000Z"),
           ...commonKeyProps
         },
         {
           userKey: "2",
-          createAt: "2019-11-19T05:00:00.000Z",
+          createAt: moment("2019-11-19T05:00:00.000Z"),
           ...commonKeyProps
         }
       ]
@@ -67,7 +67,7 @@ it("should sort api keys by creatAt when add", () => {
 
   const key: Key = {
     userKey: "3",
-    createAt: "2019-11-20T00:00:00.000Z",
+    createAt: moment("2019-11-20T00:00:00.000Z"),
     ...commonKeyProps
   };
 

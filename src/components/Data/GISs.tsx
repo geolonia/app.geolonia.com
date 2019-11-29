@@ -1,12 +1,17 @@
 import React from "react";
 
-import { __ } from "@wordpress/i18n";
-
+// components
 import Table from "../custom/Table";
 import AddNew from "../custom/AddNew";
 import Title from "../custom/Title";
-import { AppState } from "../../types";
+
+// utils
+import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
+
+// types
+import { AppState, FeatureCollection } from "../../types";
+import { Feature } from "geojson";
 
 type Row = {
   id: number | string;
@@ -18,28 +23,23 @@ type Row = {
 type OwnProps = {};
 type StateProps = {
   featureCollections: {
-    [id: string]: {
-      data: GeoJSON.FeatureCollection;
-      createAt: Date;
-      updateAt: Date;
-      isPublic: boolean;
-    };
+    [id: string]: Omit<FeatureCollection, "id">;
   };
 };
-
 type Props = OwnProps & StateProps;
 
 function Content(props: Props) {
   // console.log(props.featureCollections);
 
-  const rows: Row[] = Object.keys(props.featureCollections).map(
-    (id, index) => ({
+  const rows: Row[] = Object.keys(props.featureCollections).map((id, index) => {
+    const { createAt, isPublic } = props.featureCollections[id];
+    return {
       id,
-      name: `フィーチャーコレクション ${index}`,
-      updated: props.featureCollections[id].createAt.toISOString(),
-      isPublic: props.featureCollections[id].isPublic
-    })
-  );
+      name: `フィーチャーコレクション ${index}`, // TODO: this is mock value
+      updated: createAt ? createAt.toISOString() : __("(No date)"),
+      isPublic
+    };
+  });
 
   const breadcrumbItems = [
     {
