@@ -9,6 +9,7 @@ import { CircularProgress } from "@material-ui/core";
 
 // utils
 import { __ } from "@wordpress/i18n";
+import { messageDisplayDuration } from "../../constants";
 
 type Props = {
   label?: string;
@@ -54,11 +55,13 @@ const Save = (props: Props) => {
       .then(() => {
         setStatus("success");
         setOpen(true);
+        setTimeout(() => setOpen(false), messageDisplayDuration);
       })
       .catch(err => {
         setStatus("failure");
         setOpen(true);
         onError(err);
+        setTimeout(() => setOpen(false), messageDisplayDuration);
       });
   };
 
@@ -86,7 +89,7 @@ const Save = (props: Props) => {
           variant="contained"
           color="primary"
           onClick={handleSave}
-          disabled={disabled || status !== false}
+          disabled={disabled}
         >
           {status === "working" && (
             <CircularProgress size={16} style={{ marginRight: 8 }} />
