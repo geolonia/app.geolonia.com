@@ -141,7 +141,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
       id: __("GIS Services"),
       children: [
         {
-          id: __("Gcloud"),
+          id: __("Geosearch"),
           icon: <RoomIcon />,
           href: "#/data/gis",
           active: false

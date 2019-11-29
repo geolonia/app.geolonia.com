@@ -45,7 +45,7 @@ const Content = (props: Props) => {
       href: "#/data"
     },
     {
-      title: "Gcloud",
+      title: "Geosearch",
       href: "#/data/gis"
     },
     {
