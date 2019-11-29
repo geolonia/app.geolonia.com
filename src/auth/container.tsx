@@ -36,6 +36,7 @@ import { AppState, User, Session, Team, Key, Member } from "../types";
 import Redux from "redux";
 import { SELECTED_TEAM_ID } from "../redux/middlewares/local-storage";
 import Moment from "moment";
+import moment from "moment";
 
 type OwnProps = {};
 type StateProps = { session: Session };
@@ -132,11 +133,14 @@ export class AuthContainer extends React.Component<Props, State> {
       this.props.setSession(session);
       this.props.setUserMeta(user);
       this.props.setTeams(teamsWithoutDeleted);
-      const { language } = user;
+
+      const { language, timezone } = user;
       const localeData = loadLocale(language);
       if (localeData) {
         setLocaleData(localeData);
       }
+      moment.lang(language);
+      moment.tz.setDefault(timezone);
 
       const teamIds = teamsWithoutDeleted.map(team => team.teamId);
 

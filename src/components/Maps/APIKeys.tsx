@@ -65,7 +65,9 @@ function Content(props: Props) {
     return {
       id: key.userKey,
       name: key.name,
-      updated: key.createAt ? key.createAt.toString() : __("(No date)")
+      updated: key.createAt
+        ? key.createAt.format("YYYY/MM/DD hh:mm:ss")
+        : __("(No date)")
     };
   });
 

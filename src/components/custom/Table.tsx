@@ -122,11 +122,7 @@ export const CustomTable = (props: Props) => {
                 <span className="private-or-public">{__("Public")}</span>
               )}
             </TableCell>
-            <TableCell align="right">
-              {row.updated
-                ? moment(row.updated).format("YYYY-MM-DD")
-                : __("(No date)")}
-            </TableCell>
+            <TableCell align="right">{row.updated}</TableCell>
           </TableRow>
         ))}
       </TableBody>

@@ -36,7 +36,9 @@ function Content(props: Props) {
     return {
       id,
       name: `フィーチャーコレクション ${index}`, // TODO: this is mock value
-      updated: createAt ? createAt.toISOString() : __("(No date)"),
+      updated: createAt
+        ? createAt.format("YYYY/MM/DD hh:mm:ss")
+        : __("(No date)"),
       isPublic
     };
   });
