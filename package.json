@@ -32,7 +32,7 @@
     "eject": "react-scripts eject",
     "makepot": "node_modules/@babel/cli/bin/babel.js ./src -x '.tsx' --config-file ./.babelrc.i18n",
     "msgmerge": "msgmerge -U src/lang/ja.po src/lang/lang.pot --lang=ja",
-    "po2json": "po2json src/lang/ja.po src/lang/ja.json -f jed",
+    "po2json": "po2json src/lang/ja.po src/lang/ja.json -f jed && prettier ./src/lang/ja.json --write",
     "i18n": "npm run makepot && npm run msgmerge",
     "format": "prettier './src/**/*.ts' './src/**/*.tsx' --write"
   },
