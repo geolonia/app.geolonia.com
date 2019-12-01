@@ -79,7 +79,9 @@ const Content = (props: Props) => {
           err.code === "UsernameExistsException" ||
           err.code === "UserLambdaValidationException"
         ) {
-          setMessage(__("Signup failed. You cannot use the username."));
+          setMessage(
+            __("Signup failed. You cannot use the username or email.")
+          );
         } else if (err.code === "InvalidParameterException") {
           setMessage(__("Invalid username or email address."));
         } else {
