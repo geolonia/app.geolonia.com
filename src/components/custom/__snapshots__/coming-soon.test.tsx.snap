@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`it should render label 1`] = `
+<div
+  className="sc-bdVaJa EXKLM"
+>
+  <div
+    style={
+      Object {
+        "height": 100,
+        "width": 100,
+      }
+    }
+  >
+    <span>
+      hello
+    </span>
+  </div>
+  <div
+    className="sc-bwzfXH cpMATu"
+  >
+    <span>
+      Coming soon
+    </span>
+  </div>
+</div>
+`;
