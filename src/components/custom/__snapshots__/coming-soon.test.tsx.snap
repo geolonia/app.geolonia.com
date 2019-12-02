@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`it should render label 1`] = `
+exports[`it should render without crash 1`] = `
 <div
   className="sc-bdVaJa EXKLM"
 >
