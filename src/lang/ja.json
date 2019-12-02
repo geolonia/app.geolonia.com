@@ -12,7 +12,7 @@
       "Get API key then create your map!": [
         "API キーを取得して新しい地図を作成しましょう。"
       ],
-      "Geolonia GIS": [""],
+      "Geosearch": [""],
       "Display your points, lines, polygons on your map application.": [
         "あなたの地図アプリに、ポイントや線、ポリゴンを表示しましょう。"
       ],
@@ -24,8 +24,8 @@
       "You can manage and set the dataset, and get the the access point URL of dataset API.": [
         "データセットの管理や設定を行ったり、データセット API のアクセスポイントの URL を取得することができます。"
       ],
-      "Geolonia GIS is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
-        "Geolonia GIS は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
+      "Geosearch is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
+        "Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
       ],
       "Create a new dataset": ["データセットを作成"],
       "Please enter the name of the new dataset.": [
