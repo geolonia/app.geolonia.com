@@ -3,6 +3,7 @@ const SET_AVATAR_ACTION = "USER_META/SET_AVATAR";
 
 export type State = {
   name: string;
+  email: string;
   username: string;
   language: string;
   timezone: string;
@@ -27,6 +28,7 @@ export const isUserMeta = (user: any): user is State => {
 
 export const initialState: State = {
   name: "",
+  email: "",
   username: "",
   language: "ja",
   timezone: "",

@@ -13,29 +13,35 @@ import { createActions as createTeamActions } from "../../../redux/actions/team"
 import updateTeam from "../../../api/teams/update";
 
 // types
-import { AppState, Session, Team } from "../../../types";
+import { AppState, Session, Team, Member } from "../../../types";
 
 // utils
 import { __ } from "@wordpress/i18n";
 import { Roles } from "../../../redux/actions/team-member";
+import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 type OwnProps = {};
 type StateProps = {
   session: Session;
   selectedIndex: number;
   team: Team;
+  members: Member[];
 };
 type DispatchProps = {
   updateTeamState: (index: number, team: Partial<Team>) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
+const selectStyle: React.CSSProperties = {
+  marginTop: "16px",
+  marginBottom: "8px"
+};
 
 const Content = (props: Props) => {
   // props
-  const { session, team, selectedIndex, updateTeamState } = props;
+  const { session, team, members, selectedIndex, updateTeamState } = props;
   const { teamId, name, description, url, billingEmail } = team;
-
+  console.log({ billingEmail });
   // state
   const [draft, setDraft] = React.useState<Partial<Team>>({});
 
@@ -71,6 +77,10 @@ const Content = (props: Props) => {
     }
   }
 
+  const ownersEmail = members
+    .filter(member => member.role === Roles.Owner)
+    .map(member => member.email);
+
   return (
     <>
       <TextField
@@ -105,18 +115,29 @@ const Content = (props: Props) => {
         onChange={e => setDraft({ ...draft, url: e.target.value })}
         disabled={isOwner !== true}
       />
-      <TextField
-        id="team-billing-email"
-        label={__("Billing email")}
-        margin="normal"
-        fullWidth={true}
-        value={
-          (draft.billingEmail === void 0 ? billingEmail : draft.billingEmail) ||
-          ""
-        }
-        onChange={e => setDraft({ ...draft, billingEmail: e.target.value })}
-        disabled={isOwner !== true}
-      />
+
+      <FormControl fullWidth={true} style={selectStyle}>
+        <InputLabel htmlFor="select-language">{__("Billing email")}</InputLabel>
+        <Select
+          id="select-language"
+          fullWidth={true}
+          value={
+            (draft.billingEmail === void 0
+              ? billingEmail
+              : draft.billingEmail) || ""
+          }
+          onChange={(e: any) =>
+            setDraft({ ...draft, billingEmail: e.target.value })
+          }
+        >
+          {ownersEmail.map(email => (
+            <MenuItem value={email} key={email}>
+              {email}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
       <p className="mute">We’ll send receipts to this inbox.</p>
 
       <Save onClick={onSaveClick} disabled={saveDisabled} />
@@ -125,10 +146,14 @@ const Content = (props: Props) => {
 };
 
 const mapStateToProps = (state: AppState) => {
+  const selectedIndex = state.team.selectedIndex;
+  const team = state.team.data[selectedIndex];
+  const members = (state.teamMember[team.teamId] || { data: [] }).data;
   return {
     session: state.authSupport.session,
-    selectedIndex: state.team.selectedIndex,
-    team: state.team.data[state.team.selectedIndex]
+    selectedIndex,
+    team,
+    members
   };
 };
 
@@ -139,7 +164,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(Content);
