@@ -62,15 +62,15 @@ const Content = () => {
 
   const breadcrumbItems = [
     {
-      title: "Home",
+      title: __("Home"),
       href: "#/"
     },
     {
-      title: "Team settings",
-      href: "#/team"
+      title: __("Team settings"),
+      href: "#/team/general"
     },
     {
-      title: "General",
+      title: __("billing"),
       href: null
     }
   ];

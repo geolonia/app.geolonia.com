@@ -37,15 +37,15 @@ const Content = (props: Props) => {
 
   const breadcrumbItems = [
     {
-      title: "Home",
+      title: __("Home"),
       href: "#/"
     },
     {
       title: __("GIS services"),
-      href: "#/data"
+      href: null
     },
     {
-      title: "Geosearch",
+      title: __("Geosearch"),
       href: "#/data/gis"
     },
     {

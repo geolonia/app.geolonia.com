@@ -35,12 +35,12 @@ function Content(props: Props) {
 
   const breadcrumbItems = [
     {
-      title: "Home",
+      title: __("Home"),
       href: "#/"
     },
     {
       title: __("Maps"),
-      href: "#/maps"
+      href: null
     },
     {
       title: __("API keys"),
