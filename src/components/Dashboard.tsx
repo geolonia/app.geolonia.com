@@ -8,6 +8,7 @@ import { withStyles, Theme } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import Hidden from "@material-ui/core/Hidden";
 import { sprintf, __ } from "@wordpress/i18n";
+import ComingSoon from "./custom/coming-soon";
 
 import { Line } from "react-chartjs-2";
 import moment from "moment";
@@ -136,31 +137,29 @@ const Dashboard = (props: Props) => {
 
       <Grid container className={classes.root} spacing={2}>
         <Grid item xs={12} md={6}>
-          <Paper className="container-map-loads">
-            <Typography component="h2" className="module-title">
-              {__("Map loads for this month")}
-            </Typography>
-            <div className="chart-container">
-              <Line data={mapChartData} options={chartOptions} />
-            </div>
-            <div className="grayout">
-              <span>{__("Coming soon")}</span>
-            </div>
-          </Paper>
+          <ComingSoon>
+            <Paper className="container-map-loads">
+              <Typography component="h2" className="module-title">
+                {__("Map loads for this month")}
+              </Typography>
+              <div className="chart-container">
+                <Line data={mapChartData} options={chartOptions} />
+              </div>
+            </Paper>
+          </ComingSoon>
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Paper className="container-geo-api-loads">
-            <Typography component="h2" className="module-title">
-              {__("API loads for this month")}
-            </Typography>
-            <div className="chart-container">
-              <Line data={geoAPIChartData} options={chartOptions} />
-            </div>
-            <div className="grayout">
-              <span>{__("Coming soon")}</span>
-            </div>
-          </Paper>
+          <ComingSoon>
+            <Paper className="container-geo-api-loads">
+              <Typography component="h2" className="module-title">
+                {__("API loads for this month")}
+              </Typography>
+              <div className="chart-container">
+                <Line data={geoAPIChartData} options={chartOptions} />
+              </div>
+            </Paper>
+          </ComingSoon>
         </Grid>
       </Grid>
     </div>

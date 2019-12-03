@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 
 // types
 import { AppState, FeatureCollection } from "../../types";
+import ComingSoon from "../custom/coming-soon";
 
 type Row = {
   id: number | string;
@@ -70,17 +71,19 @@ function Content(props: Props) {
         )}
       </Title>
 
-      <AddNew
-        label={__("Create a new dataset")}
-        description={__("Please enter the name of the new dataset.")}
-        defaultValue={__("My dataset")}
-        onClick={handler}
-        onError={() => {
-          /*TODO: show messages*/
-        }}
-      />
+      <ComingSoon style={{ padding: "1em" }}>
+        <AddNew
+          label={__("Create a new dataset")}
+          description={__("Please enter the name of the new dataset.")}
+          defaultValue={__("My dataset")}
+          onClick={handler}
+          onError={() => {
+            /*TODO: show messages*/
+          }}
+        />
 
-      <Table rows={rows} rowsPerPage={10} permalink="/data/gis/%s" />
+        <Table rows={rows} rowsPerPage={10} permalink="/data/gis/%s" />
+      </ComingSoon>
     </div>
   );
 }
