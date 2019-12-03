@@ -108,11 +108,6 @@ type DispatchProps = {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const selectStyle: React.CSSProperties = {
-  marginTop: "16px",
-  marginBottom: "8px"
-};
-
 const Navigator: React.FC<Props> = (props: Props) => {
   const initialValueForNewTeamName = __("My team");
 
