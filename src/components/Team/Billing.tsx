@@ -11,6 +11,7 @@ import { __ } from "@wordpress/i18n";
 import Save from "../custom/Save";
 import Title from "../custom/Title";
 import "./Billing.scss";
+import ComingSoon from "../custom/coming-soon";
 
 const Content = () => {
   const chartStyle: React.CSSProperties = {
@@ -81,100 +82,102 @@ const Content = () => {
         {__("You can see subscriptions for this team in this month.")}
       </Title>
 
-      <Typography component="h2" className="module-title">
-        {__("Payment history")}
-      </Typography>
-      <div style={chartStyle}>
-        <Line data={chartData} options={chartOptions} />
-      </div>
+      <ComingSoon style={{ padding: "1em" }}>
+        <Typography component="h2" className="module-title">
+          {__("Payment history")}
+        </Typography>
+        <div style={chartStyle}>
+          <Line data={chartData} options={chartOptions} />
+        </div>
 
-      <Typography component="h2" className="module-title">
-        {__("Your subscriptions")}
-      </Typography>
+        <Typography component="h2" className="module-title">
+          {__("Your subscriptions")}
+        </Typography>
 
-      <div className="billing-container">
-        <div className="item">
-          <h3 className="title">{__("Cost per 1,000 map loads/month")}</h3>
-          <p className="value">$3.0</p>
-          <p className="billed-on">{__("Free for up to 50,000/month")}</p>
+        <div className="billing-container">
+          <div className="item">
+            <h3 className="title">{__("Cost per 1,000 map loads/month")}</h3>
+            <p className="value">$3.0</p>
+            <p className="billed-on">{__("Free for up to 50,000/month")}</p>
+          </div>
+          <div className="item">
+            <h3 className="title">{__("Loads")}</h3>
+            <p className="value">85,000</p>
+          </div>
+          <div className="item subtotal">
+            <p className="value">$105.0</p>
+          </div>
         </div>
-        <div className="item">
-          <h3 className="title">{__("Loads")}</h3>
-          <p className="value">85,000</p>
-        </div>
-        <div className="item subtotal">
-          <p className="value">$105.0</p>
-        </div>
-      </div>
 
-      <div className="billing-container">
-        <div className="item">
-          <h3 className="title">{__("Cost per 1,000 API loads/month")}</h3>
-          <p className="value">$1.0</p>
-          <p className="billed-on">{__("Free for up to 50,000/month")}</p>
+        <div className="billing-container">
+          <div className="item">
+            <h3 className="title">{__("Cost per 1,000 API loads/month")}</h3>
+            <p className="value">$1.0</p>
+            <p className="billed-on">{__("Free for up to 50,000/month")}</p>
+          </div>
+          <div className="item">
+            <h3 className="title">{__("Loads")}</h3>
+            <p className="value">85,000</p>
+          </div>
+          <div className="item subtotal">
+            <p className="value">$35.0</p>
+          </div>
         </div>
-        <div className="item">
-          <h3 className="title">{__("Loads")}</h3>
-          <p className="value">85,000</p>
-        </div>
-        <div className="item subtotal">
-          <p className="value">$35.0</p>
-        </div>
-      </div>
 
-      <div className="billing-container">
-        <div className="item">
-          <h3 className="title">{__("Cost per user/month")}</h3>
-          <p className="value">$6.0</p>
+        <div className="billing-container">
+          <div className="item">
+            <h3 className="title">{__("Cost per user/month")}</h3>
+            <p className="value">$6.0</p>
+          </div>
+          <div className="item">
+            <h3 className="title">{__("Users")}</h3>
+            <p className="value">11</p>
+          </div>
+          <div className="item subtotal">
+            <p className="value">$66.0</p>
+          </div>
         </div>
-        <div className="item">
-          <h3 className="title">{__("Users")}</h3>
-          <p className="value">11</p>
-        </div>
-        <div className="item subtotal">
-          <p className="value">$66.0</p>
-        </div>
-      </div>
 
-      <div className="billing-container no-border">
-        <div className="item empty"></div>
-        <div className="item empty"></div>
-        <div className="item subtotal">
-          <h3 className="title">{__("Amount")}</h3>
-          <p className="value amount">$206.0</p>
-          <p className="billed-on">
-            {__("Billed monthly on")}
-            <br />
-            Oct 1st, 2019
-          </p>
+        <div className="billing-container no-border">
+          <div className="item empty"></div>
+          <div className="item empty"></div>
+          <div className="item subtotal">
+            <h3 className="title">{__("Amount")}</h3>
+            <p className="value amount">$206.0</p>
+            <p className="billed-on">
+              {__("Billed monthly on")}
+              <br />
+              Oct 1st, 2019
+            </p>
+          </div>
         </div>
-      </div>
 
-      <Typography component="h2" className="module-title">
-        {__("Payment information")}
-      </Typography>
-      <Table className="payment-info">
-        <TableBody>
-          <TableRow>
-            <TableCell component="th" scope="row">
-              {__("Payment method:")}
-            </TableCell>
-            <TableCell>Visa ending in 1111</TableCell>
-            <TableCell align="right">
-              <Save label={__("Change payment method")} />
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell component="th" scope="row">
-              {__("Coupon:")}
-            </TableCell>
-            <TableCell>$200.0</TableCell>
-            <TableCell align="right">
-              <Save label={__("Redeem a coupon")} />
-            </TableCell>
-          </TableRow>
-        </TableBody>
-      </Table>
+        <Typography component="h2" className="module-title">
+          {__("Payment information")}
+        </Typography>
+        <Table className="payment-info">
+          <TableBody>
+            <TableRow>
+              <TableCell component="th" scope="row">
+                {__("Payment method:")}
+              </TableCell>
+              <TableCell>Visa ending in 1111</TableCell>
+              <TableCell align="right">
+                <Save label={__("Change payment method")} />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+                {__("Coupon:")}
+              </TableCell>
+              <TableCell>$200.0</TableCell>
+              <TableCell align="right">
+                <Save label={__("Redeem a coupon")} />
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </ComingSoon>
     </div>
   );
 };
