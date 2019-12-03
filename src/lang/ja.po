@@ -26,7 +26,7 @@ msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
 #: src/components/Dashboard.tsx:126
-msgid "Geolonia GIS"
+msgid "Geosearch"
 msgstr ""
 
 #: src/components/Dashboard.tsx:129
@@ -67,11 +67,11 @@ msgstr ""
 
 #: src/components/Data/GISs.tsx:68
 msgid ""
-"Geolonia GIS is an API service specialized for location data. Register "
+"Geosearch is an API service specialized for location data. Register "
 "various location information data such as stores and real estate "
 "informations that you have."
 msgstr ""
-"Geolonia GIS は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗"
+"Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗"
 "情報や不動産情報などのデータを登録しましょう。"
 
 #: src/components/Data/GISs.tsx:74

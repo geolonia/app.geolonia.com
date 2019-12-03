@@ -124,7 +124,7 @@ const Dashboard = (props: Props) => {
             </li>
             <li>
               <Link href="#/data/gis" color="inherit" underline="always">
-                {__("Geolonia GIS")}
+                {__("Geosearch")}
               </Link>{" "}
               -{" "}
               {__(
