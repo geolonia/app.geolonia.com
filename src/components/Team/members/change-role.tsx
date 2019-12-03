@@ -80,8 +80,7 @@ const ChangeRole = (props: Props) => {
     }
   };
 
-const isRole = role === Roles.Member || role === Roles.Owner
-
+  const isRole = role === Roles.Member || role === Roles.Owner;
 
   return (
     <div>
@@ -95,19 +94,19 @@ const isRole = role === Roles.Member || role === Roles.Owner
           <DialogTitle id="form-dialog-title">{__("Change role")}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {sprintf("Select a new role of %s.", currentMember.username)}
+              {sprintf(__("Select a new role of %s."), currentMember.username)}
             </DialogContentText>
 
             <RadioGroup
               aria-label="role"
               name="role"
               value={role}
-              onChange={e => setRole(e.target.value as (Member["role"]))}
+              onChange={e => setRole(e.target.value as Member["role"])}
             >
               <FormControlLabel
                 value="Owner"
                 control={<Radio />}
-                label="Owner"
+                label={__("Owner")}
               />
               <DialogContentText>
                 {__("Has full administrative access to the entire team.")}
@@ -116,7 +115,7 @@ const isRole = role === Roles.Member || role === Roles.Owner
               <FormControlLabel
                 value="Member"
                 control={<Radio />}
-                label="Member"
+                label={__("Member")}
               />
               <DialogContentText>
                 {__("Can access all resource in the team.")}
@@ -127,7 +126,12 @@ const isRole = role === Roles.Member || role === Roles.Owner
             <Button onClick={() => toggle(false)} color="primary">
               {__("Cancel")}
             </Button>
-            <Button color="primary" type="submit" onClick={onSaveClick} disabled={isRole}>
+            <Button
+              color="primary"
+              type="submit"
+              onClick={onSaveClick}
+              disabled={isRole}
+            >
               {status === "requesting" && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
               )}
@@ -162,7 +166,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
     dispatch(createTeamMemberActions.update(teamId, userSub, { role }))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ChangeRole);
+export default connect(mapStateToProps, mapDispatchToProps)(ChangeRole);

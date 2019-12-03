@@ -24,6 +24,7 @@
       "You can manage and set the dataset, and get the the access point URL of dataset API.": [
         "データセットの管理や設定を行ったり、データセット API のアクセスポイントの URL を取得することができます。"
       ],
+      "(No date)": [""],
       "Geolonia GIS is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
         "Geolonia GIS は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
       ],
@@ -136,18 +137,19 @@
       "Your account has been successfully verified. Please enter your password again and sign in to your account.": [
         "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてください。"
       ],
-      "Sign up": ["サインアップ"],
-      "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
-        "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
-      ],
-      "Signup successed.": ["サインアップ成功"],
-      "Signup failed.": ["サインアップ失敗"],
-      "Welcome to Geolonia": ["Geolonia へようこそ"],
       "Create your account": ["アカウントを作成"],
       "Username cannot be modified later.": [
         "ユーザー名は後から変更できません。"
       ],
       "Email address": ["Email アドレス"],
+      "Sign up": ["サインアップ"],
+      "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
+        "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
+      ],
+      "Signup successed.": ["サインアップ成功"],
+      "Signup failed. You cannot use the username.": [""],
+      "Signup failed.": ["サインアップ失敗"],
+      "Welcome to Geolonia": ["Geolonia へようこそ"],
       "Cost per 1,000 API loads/month": ["API 1,000ロードあたりのコスト"],
       "Free for up to 50,000/month": ["50,000/月 までは無料"],
       "Loads": ["ロード回数"],
@@ -184,6 +186,7 @@
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [
         "すべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザー名と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバーの左上にあるプルダウンで行うことができます。"
       ],
+      "Owner": ["オーナー"],
       "Has full administrative access to the entire team.": [
         "チームに関する全ての管理者権限があります。"
       ],
@@ -192,10 +195,10 @@
       ],
       "Save": ["保存"],
       "Change role": ["権限を変更"],
+      "Select a new role of %s.": ["%s の権限を選択して下さい。"],
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。"
       ],
-      "Owner": ["オーナー"],
       "Suspend": ["一時停止"],
       "Remove from team": ["チームから削除"],
       "Invite": ["招待"],
@@ -226,13 +229,16 @@
       "Old password": ["古いパスワード"],
       "New password": ["新しいパスワード"],
       "New": [""],
-      "text": [""],
+      "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],
       "Saved.": ["保存しました。"],
       "Terms": ["利用規約"],
       "Privacy": ["プライバシー"],
       "Contact Geolonia": ["お問い合わせ"],
-      "(No date)": [""],
+      "first page": ["最初のページ"],
+      "previous page": ["前のページ"],
+      "next page": ["次のページ"],
+      "last page": ["最後のページ"],
       "Please check your email and enter the verification code like 123456.": [
         "Eメールを確認して 123456 のような検証コードを入力してください。"
       ],
