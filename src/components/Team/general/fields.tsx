@@ -41,7 +41,6 @@ const Content = (props: Props) => {
   // props
   const { session, team, members, selectedIndex, updateTeamState } = props;
   const { teamId, name, description, url, billingEmail } = team;
-  console.log({ billingEmail });
   // state
   const [draft, setDraft] = React.useState<Partial<Team>>({});
 
@@ -122,7 +121,7 @@ const Content = (props: Props) => {
           id="select-language"
           fullWidth={true}
           value={
-            (draft.billingEmail === void 0
+            (draft.billingEmail === void 0 && ownersEmail.includes(billingEmail)
               ? billingEmail
               : draft.billingEmail) || ""
           }
