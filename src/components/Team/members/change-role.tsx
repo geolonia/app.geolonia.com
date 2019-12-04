@@ -19,12 +19,16 @@ import { __, sprintf } from "@wordpress/i18n";
 import updateMember from "../../../api/members/update";
 
 // Types
-import { AppState, Session, Member } from "../../../types";
+import { AppState, Session, Member, Team } from "../../../types";
 import { connect } from "react-redux";
 
 // Redux
-import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
+import {
+  createActions as createTeamMemberActions,
+  Roles
+} from "../../../redux/actions/team-member";
 import Redux from "redux";
+import Interweave from "interweave";
 
 type OwnProps = {
   currentMember: Member;
@@ -33,9 +37,9 @@ type OwnProps = {
 };
 type StateProps = {
   session: Session;
-  teamId: string;
-  teamName: string;
+  team: Team;
 };
+
 type DispatchProps = {
   updateMemberRoleState: (
     teamId: string,
@@ -64,7 +68,7 @@ const ChangeRole = (props: Props) => {
       setStatus("requesting");
       updateMember(
         props.session,
-        props.teamId,
+        props.team.teamId,
         currentMember.userSub,
         role
       ).then(result => {
@@ -73,7 +77,7 @@ const ChangeRole = (props: Props) => {
           setMessage(result.message);
         } else {
           setStatus("success");
-          updateMemberRoleState(props.teamId, currentMember.userSub, role);
+          updateMemberRoleState(props.team.teamId, currentMember.userSub, role);
           toggle(false);
         }
       });
@@ -81,6 +85,9 @@ const ChangeRole = (props: Props) => {
   };
 
   const isRoleChanged = role === currentMember.role;
+  const isBillingMember =
+    currentMember.role === Roles.Owner &&
+    currentMember.email === props.team.billingEmail;
 
   return (
     <div>
@@ -94,7 +101,18 @@ const ChangeRole = (props: Props) => {
           <DialogTitle id="form-dialog-title">{__("Change role")}</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {sprintf(__("Select a new role of %s."), currentMember.username)}
+              {isBillingMember ? (
+                <Interweave
+                  content={sprintf(
+                    __(
+                      'The billing member %s cannot be degraded. Please modify the billing email at first on <a href="#/team/general">general team setting</a>.'
+                    ),
+                    currentMember.username
+                  )}
+                ></Interweave>
+              ) : (
+                sprintf(__("Select a new role of %s."), currentMember.username)
+              )}
             </DialogContentText>
 
             <RadioGroup
@@ -105,7 +123,7 @@ const ChangeRole = (props: Props) => {
             >
               <FormControlLabel
                 value="Owner"
-                control={<Radio />}
+                control={<Radio disabled={isBillingMember} />}
                 label={__("Owner")}
               />
               <DialogContentText>
@@ -114,7 +132,7 @@ const ChangeRole = (props: Props) => {
 
               <FormControlLabel
                 value="Member"
-                control={<Radio />}
+                control={<Radio disabled={isBillingMember} />}
                 label={__("Member")}
               />
               <DialogContentText>
@@ -130,7 +148,7 @@ const ChangeRole = (props: Props) => {
               color="primary"
               type="submit"
               onClick={onSaveClick}
-              disabled={isRoleChanged}
+              disabled={isRoleChanged || isBillingMember}
             >
               {status === "requesting" && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
@@ -156,8 +174,7 @@ const mapStateToProps = (state: AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   return {
     session: state.authSupport.session,
-    teamId: team.teamId,
-    teamName: team.name
+    team
   };
 };
 

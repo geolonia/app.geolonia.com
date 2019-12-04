@@ -531,7 +531,7 @@ msgid "Confirm"
 msgstr ""
 
 #: src/components/Team/general/delete.tsx:140
-#: src/components/Team/members/change-role.tsx:127
+#: src/components/Team/members/change-role.tsx:145
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
 #: src/components/custom/AddNew.tsx:130
@@ -560,37 +560,43 @@ msgid ""
 "You can switch teams in the pull-down menu at the top left of the sidebar."
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:109
-#: src/components/Team/members/index.tsx:191
-msgid "Owner"
-msgstr ""
-
-#: src/components/Team/members/change-role.tsx:112
-msgid "Has full administrative access to the entire team."
-msgstr ""
-
-#: src/components/Team/members/change-role.tsx:118
-msgid "Member"
-msgstr ""
-
-#: src/components/Team/members/change-role.tsx:121
-msgid "Can access all resource in the team."
-msgstr ""
-
-#: src/components/Team/members/change-role.tsx:138
-#: src/components/Team/members/suspend.tsx:114
-#: src/components/custom/AddNew.tsx:141
-#: src/components/custom/Save.tsx:25
-msgid "Save"
-msgstr ""
-
-#: src/components/Team/members/change-role.tsx:94
+#: src/components/Team/members/change-role.tsx:101
 #: src/components/Team/members/index.tsx:269
 msgid "Change role"
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:97
+#: src/components/Team/members/change-role.tsx:107
+msgid ""
+"The billing member %s cannot be degraded. Please modify the billing email "
+"at first on <a href=\"#/team/general\">general team setting</a>."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:114
 msgid "Select a new role of %s."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:127
+#: src/components/Team/members/index.tsx:191
+msgid "Owner"
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:130
+msgid "Has full administrative access to the entire team."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:136
+msgid "Member"
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:139
+msgid "Can access all resource in the team."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:156
+#: src/components/Team/members/suspend.tsx:114
+#: src/components/custom/AddNew.tsx:141
+#: src/components/custom/Save.tsx:25
+msgid "Save"
 msgstr ""
 
 #: src/components/Team/members/index.tsx:144
