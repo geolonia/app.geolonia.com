@@ -91,7 +91,7 @@ msgstr "データセット"
 
 #: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:191
 #: src/components/Navigator.tsx:304 src/components/Team/general/fields.tsx:87
-#: src/components/User/profile.tsx:126 src/components/custom/AddNew.tsx:34
+#: src/components/User/profile.tsx:125 src/components/custom/AddNew.tsx:34
 #: src/components/custom/Delete.tsx:119
 msgid "Name"
 msgstr "名前"
@@ -167,7 +167,7 @@ msgid "Reset your password"
 msgstr "パスワードのリセット"
 
 #: src/components/ForgotPassword.tsx:56 src/components/Signup.tsx:106
-#: src/components/User/profile.tsx:105 src/components/verify.tsx:81
+#: src/components/User/profile.tsx:104 src/components/verify.tsx:81
 msgid "Username"
 msgstr "ユーザー名"
 
@@ -584,7 +584,10 @@ msgstr "権限を変更"
 msgid ""
 "The billing member %s cannot be degraded. Please modify the billing email at "
 "first on <a href=\"#/team/general\">general team setting</a>."
-msgstr "%s の権限を変更できません。先にチームのメールアドレスを変更して下さい。チームのメールアドレスは、<a href=\"#/team/general\">一般</a>のページから変更できます。"
+msgstr ""
+"%s の権限を変更できません。先にチームのメールアドレスを変更して下さい。チーム"
+"のメールアドレスは、<a href=\"#/team/general\">一般</a>のページから変更できま"
+"す。"
 
 #: src/components/Team/members/change-role.tsx:114
 msgid "Select a new role of %s."
@@ -645,7 +648,7 @@ msgid ""
 msgstr "チームメンバーの追加や削除に伴う料金変更は自動的に行われます。"
 
 #: src/components/Team/members/invite.tsx:66
-#: src/components/User/profile.tsx:114
+#: src/components/User/profile.tsx:113
 msgid "Email"
 msgstr "メールアドレス"
 
@@ -674,11 +677,11 @@ msgstr "プロフィール"
 msgid "You can update your profile and security."
 msgstr "プロフィールとセキュリティを設定できます。"
 
-#: src/components/User/profile.tsx:135
+#: src/components/User/profile.tsx:134
 msgid "Language"
 msgstr "言語"
 
-#: src/components/User/profile.tsx:148
+#: src/components/User/profile.tsx:147
 msgid "Time zone"
 msgstr "タイムゾーン"
 
