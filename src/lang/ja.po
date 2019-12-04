@@ -13,39 +13,42 @@ msgstr ""
 "lang: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: src/components/Dashboard.tsx:116
+#: src/components/Dashboard.tsx:117
 msgid "Welcome, %s"
 msgstr "ようこそ %s さん"
 
-#: src/components/Dashboard.tsx:120
+#: src/components/Dashboard.tsx:121
 msgid "Get API key"
 msgstr "API キーを取得"
 
-#: src/components/Dashboard.tsx:122
+#: src/components/Dashboard.tsx:123
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:126
+#: src/components/Dashboard.tsx:127 src/components/Data/GIS.tsx:48
+#: src/components/Data/GISs.tsx:56 src/components/Navigator.tsx:145
 msgid "Geosearch"
 msgstr ""
 
-#: src/components/Dashboard.tsx:129
+#: src/components/Dashboard.tsx:130
 msgid "Display your points, lines, polygons on your map application."
 msgstr "あなたの地図アプリに、ポイントや線、ポリゴンを表示しましょう。"
 
-#: src/components/Dashboard.tsx:141
+#: src/components/Dashboard.tsx:143
 msgid "Map loads for this month"
 msgstr "今月の地図のロード回数"
 
-#: src/components/Dashboard.tsx:155
+#: src/components/Dashboard.tsx:156
 msgid "API loads for this month"
 msgstr "今月の API のロード回数"
 
-#: src/components/Dashboard.tsx:161
-msgid "Coming soon"
-msgstr "準備中"
+#: src/components/Data/GIS.tsx:40 src/components/Data/GISs.tsx:48
+#: src/components/Maps/APIKey.tsx:95 src/components/Maps/APIKeys.tsx:38
+#: src/components/Team/Billing.tsx:66
+msgid "Home"
+msgstr ""
 
-#: src/components/Data/GIS.tsx:44 src/components/Data/GISs.tsx:51
+#: src/components/Data/GIS.tsx:44 src/components/Data/GISs.tsx:52
 msgid "GIS services"
 msgstr "GIS サービス"
 
@@ -61,39 +64,39 @@ msgstr ""
 "データセットの管理や設定を行ったり、データセット API のアクセスポイントの "
 "URL を取得することができます。"
 
-#: src/components/Data/GISs.tsx:40 src/components/Maps/APIKeys.tsx:70
+#: src/components/Data/GISs.tsx:41 src/components/Maps/APIKeys.tsx:70
 msgid "(No date)"
-msgstr ""
+msgstr "(データなし)"
 
-#: src/components/Data/GISs.tsx:68
+#: src/components/Data/GISs.tsx:69
 msgid ""
-"Geosearch is an API service specialized for location data. Register "
-"various location information data such as stores and real estate "
-"informations that you have."
+"Geosearch is an API service specialized for location data. Register various "
+"location information data such as stores and real estate informations that "
+"you have."
 msgstr ""
-"Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗"
-"情報や不動産情報などのデータを登録しましょう。"
+"Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情"
+"報や不動産情報などのデータを登録しましょう。"
 
-#: src/components/Data/GISs.tsx:74
+#: src/components/Data/GISs.tsx:76
 msgid "Create a new dataset"
 msgstr "データセットを作成"
 
-#: src/components/Data/GISs.tsx:75
+#: src/components/Data/GISs.tsx:77
 msgid "Please enter the name of the new dataset."
 msgstr "新しいデータセットの名前を入力してください。"
 
-#: src/components/Data/GISs.tsx:76
+#: src/components/Data/GISs.tsx:78
 msgid "My dataset"
 msgstr "データセット"
 
 #: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:191
-#: src/components/Navigator.tsx:304 src/components/Team/general/fields.tsx:88
-#: src/components/User/profile.tsx:127 src/components/custom/AddNew.tsx:34
+#: src/components/Navigator.tsx:304 src/components/Team/general/fields.tsx:87
+#: src/components/User/profile.tsx:126 src/components/custom/AddNew.tsx:34
 #: src/components/custom/Delete.tsx:119
 msgid "Name"
 msgstr "名前"
 
-#: src/components/Data/fields.tsx:32 src/components/Team/general/fields.tsx:98
+#: src/components/Data/fields.tsx:32 src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr "説明"
 
@@ -163,8 +166,8 @@ msgstr[0] "%s 個の地物が追加されました。"
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:56 src/components/Signup.tsx:104
-#: src/components/User/profile.tsx:106 src/components/verify.tsx:81
+#: src/components/ForgotPassword.tsx:56 src/components/Signup.tsx:106
+#: src/components/User/profile.tsx:105 src/components/verify.tsx:81
 msgid "Username"
 msgstr "ユーザー名"
 
@@ -272,10 +275,6 @@ msgstr ""
 msgid "GIS Services"
 msgstr "GIS サービス"
 
-#: src/components/Navigator.tsx:145
-msgid "Geosearch"
-msgstr ""
-
 #: src/components/Navigator.tsx:154
 msgid "Team Settings"
 msgstr "チーム設定"
@@ -304,7 +303,7 @@ msgstr "新しいチームを作成"
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Navigator.tsx:312 src/components/Team/general/fields.tsx:120
+#: src/components/Navigator.tsx:312 src/components/Team/general/fields.tsx:119
 #, fuzzy
 msgid "Billing email"
 msgstr "支払い"
@@ -334,7 +333,7 @@ msgid "Verification Code"
 msgstr "検証コード"
 
 #: src/components/ResetPassword.tsx:81 src/components/Signin.tsx:118
-#: src/components/Signup.tsx:115
+#: src/components/Signup.tsx:117
 msgid "Password"
 msgstr "パスワード"
 
@@ -342,7 +341,7 @@ msgstr "パスワード"
 msgid "Confirm password"
 msgstr "パスワードを確認"
 
-#: src/components/ResetPassword.tsx:99 src/components/Signup.tsx:124
+#: src/components/ResetPassword.tsx:99 src/components/Signup.tsx:126
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
@@ -393,23 +392,27 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signup.tsx:100
+#: src/components/Signup.tsx:101 src/components/verify.tsx:76
+msgid "Welcome to Geolonia"
+msgstr "Geolonia へようこそ"
+
+#: src/components/Signup.tsx:102
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:107
+#: src/components/Signup.tsx:109
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:111
+#: src/components/Signup.tsx:113
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:136
+#: src/components/Signup.tsx:138
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:146
+#: src/components/Signup.tsx:148
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -425,84 +428,90 @@ msgstr ""
 msgid "Signup successed."
 msgstr "サインアップ成功"
 
-#: src/components/Signup.tsx:82
-msgid "Signup failed. You cannot use the username."
-msgstr ""
+#: src/components/Signup.tsx:83
+msgid "Signup failed. You cannot use the username or email."
+msgstr "サインアップに失敗しました。このユーザー名またはメールアドレスは使用できません。"
 
-#: src/components/Signup.tsx:84
+#: src/components/Signup.tsx:86
 #, fuzzy
 msgid "Invalid username or email address."
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signup.tsx:86
+#: src/components/Signup.tsx:88
 msgid "Signup failed."
 msgstr "サインアップ失敗"
 
-#: src/components/Signup.tsx:99 src/components/verify.tsx:76
-msgid "Welcome to Geolonia"
-msgstr "Geolonia へようこそ"
-
-#: src/components/Team/Billing.tsx:112
+#: src/components/Team/Billing.tsx:114
 msgid "Cost per 1,000 API loads/month"
 msgstr "API 1,000ロードあたりのコスト"
 
-#: src/components/Team/Billing.tsx:114
+#: src/components/Team/Billing.tsx:116
 msgid "Free for up to 50,000/month"
 msgstr "50,000/月 までは無料"
 
-#: src/components/Team/Billing.tsx:117
+#: src/components/Team/Billing.tsx:119
 msgid "Loads"
 msgstr "ロード回数"
 
-#: src/components/Team/Billing.tsx:127
+#: src/components/Team/Billing.tsx:129
 msgid "Cost per user/month"
 msgstr "ユーザーあたりの月額コスト"
 
-#: src/components/Team/Billing.tsx:131
+#: src/components/Team/Billing.tsx:133
 msgid "Users"
 msgstr "ユーザー数"
 
-#: src/components/Team/Billing.tsx:143
+#: src/components/Team/Billing.tsx:145
 msgid "Amount"
 msgstr "合計"
 
-#: src/components/Team/Billing.tsx:146
+#: src/components/Team/Billing.tsx:148
 msgid "Billed monthly on"
 msgstr "請求日"
 
-#: src/components/Team/Billing.tsx:154
+#: src/components/Team/Billing.tsx:156
 msgid "Payment information"
 msgstr "支払情報"
 
-#: src/components/Team/Billing.tsx:160
+#: src/components/Team/Billing.tsx:162
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:164
+#: src/components/Team/Billing.tsx:166
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:169
+#: src/components/Team/Billing.tsx:171
 msgid "Coupon:"
 msgstr "クーポン:"
 
-#: src/components/Team/Billing.tsx:173
+#: src/components/Team/Billing.tsx:175
 msgid "Redeem a coupon"
 msgstr "クーポンを適用"
 
-#: src/components/Team/Billing.tsx:81
+#: src/components/Team/Billing.tsx:70 src/components/Team/general/index.tsx:31
+#: src/components/Team/members/index.tsx:126
+msgid "Team settings"
+msgstr "チーム設定"
+
+#: src/components/Team/Billing.tsx:74
+#, fuzzy
+msgid "billing"
+msgstr "支払い"
+
+#: src/components/Team/Billing.tsx:82
 msgid "You can see subscriptions for this team in this month."
 msgstr "このチームの今月のサブスクリプションを確認することができます。"
 
-#: src/components/Team/Billing.tsx:85
+#: src/components/Team/Billing.tsx:87
 msgid "Payment history"
 msgstr "支払履歴"
 
-#: src/components/Team/Billing.tsx:92
+#: src/components/Team/Billing.tsx:94
 msgid "Your subscriptions"
 msgstr "あなたのサブスクリプション"
 
-#: src/components/Team/Billing.tsx:97
+#: src/components/Team/Billing.tsx:99
 msgid "Cost per 1,000 map loads/month"
 msgstr "地図 1,000ロードあたりのコスト"
 
@@ -550,14 +559,9 @@ msgstr "削除"
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr "一度チームを削除するともとに戻すことはできません。"
 
-#: src/components/Team/general/fields.tsx:111
+#: src/components/Team/general/fields.tsx:110
 msgid "URL"
 msgstr ""
-
-#: src/components/Team/general/index.tsx:31
-#: src/components/Team/members/index.tsx:126
-msgid "Team settings"
-msgstr "チーム設定"
 
 #: src/components/Team/general/index.tsx:45
 msgid ""
@@ -570,7 +574,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:109
-#: src/components/Team/members/index.tsx:193
+#: src/components/Team/members/index.tsx:191
 msgid "Owner"
 msgstr "オーナー"
 
@@ -594,7 +598,7 @@ msgid "Save"
 msgstr "保存"
 
 #: src/components/Team/members/change-role.tsx:94
-#: src/components/Team/members/index.tsx:268
+#: src/components/Team/members/index.tsx:269
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -606,16 +610,16 @@ msgstr "%s の権限を選択して下さい。"
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
 
-#: src/components/Team/members/index.tsx:195
+#: src/components/Team/members/index.tsx:193
 #, fuzzy
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:272
+#: src/components/Team/members/index.tsx:273
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:276
+#: src/components/Team/members/index.tsx:277
 msgid "Remove from team"
 msgstr "チームから削除"
 
@@ -633,7 +637,7 @@ msgid ""
 msgstr "チームメンバーの追加や削除に伴う料金変更は自動的に行われます。"
 
 #: src/components/Team/members/invite.tsx:66
-#: src/components/User/profile.tsx:115
+#: src/components/User/profile.tsx:114
 msgid "Email"
 msgstr "メールアドレス"
 
@@ -662,11 +666,11 @@ msgstr "プロフィール"
 msgid "You can update your profile and security."
 msgstr "プロフィールとセキュリティを設定できます。"
 
-#: src/components/User/profile.tsx:136
+#: src/components/User/profile.tsx:135
 msgid "Language"
 msgstr "言語"
 
-#: src/components/User/profile.tsx:149
+#: src/components/User/profile.tsx:148
 msgid "Time zone"
 msgstr "タイムゾーン"
 
@@ -765,6 +769,10 @@ msgstr "次のページ"
 #: src/components/custom/Table.tsx:78
 msgid "last page"
 msgstr "最後のページ"
+
+#: src/components/custom/coming-soon.tsx:30
+msgid "Coming soon"
+msgstr "準備中"
 
 #: src/components/verify.tsx:113
 msgid "Please check your email and enter the verification code like 123456."
