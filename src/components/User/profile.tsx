@@ -37,16 +37,14 @@ const selectStyle: React.CSSProperties = {
 export class Profile extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const { session } = this.props;
-    const payload = session ? session.getIdToken().payload : {};
     this.state = {
       user: {
         name: props.user.name,
         language: props.user.language,
         timezone: props.user.timezone || momentTimeZone.tz.guess()
       },
-      username: payload["cognito:username"] || "",
-      email: payload.email || ""
+      username: props.user.username,
+      email: props.user.email
     };
   }
 

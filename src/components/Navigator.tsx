@@ -98,6 +98,7 @@ type StateProps = {
   session: Session;
   teams: Team[];
   selectedTeamIndex: number;
+  ownerEmail: string;
 };
 
 type DispatchProps = {
@@ -107,22 +108,22 @@ type DispatchProps = {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
-const initialValueForNewTeamName = __("My team");
-
 const Navigator: React.FC<Props> = (props: Props) => {
+  const initialValueForNewTeamName = __("My team");
+
   const {
     classes,
     teams,
     selectedTeamIndex,
     selectTeam,
     addTeam,
+    ownerEmail,
     ...other
   } = props;
   const [open, setOpen] = React.useState(false);
   const [newTeamName, setNewTeamName] = React.useState(
     initialValueForNewTeamName
   );
-  const [billingEmail, setBillingEmail] = React.useState("");
 
   const categories = [
     {
@@ -181,12 +182,11 @@ const Navigator: React.FC<Props> = (props: Props) => {
   const handleClose = () => {
     setOpen(false);
     setNewTeamName(initialValueForNewTeamName);
-    setBillingEmail("");
   };
 
   const saveHandler = () => {
     const { session } = props;
-    return createTeam(session, newTeamName, billingEmail).then(result => {
+    return createTeam(session, newTeamName, ownerEmail).then(result => {
       if (result.error) {
         throw new Error(result.code);
       } else {
@@ -306,22 +306,21 @@ const Navigator: React.FC<Props> = (props: Props) => {
               onChange={e => setNewTeamName(e.target.value)}
               fullWidth
             />
+
             <TextField
               id="team-billing-email"
               label={__("Billing email")}
               margin="normal"
               fullWidth={true}
-              value={billingEmail}
-              onChange={e => setBillingEmail(e.target.value)}
+              value={ownerEmail}
+              disabled={true}
             />
+
             <p className="mute">{__("We’ll send receipts to this inbox.")}</p>
           </DialogContent>
           <DialogActions>
             <Cancel handler={handleClose}></Cancel>
-            <Save
-              onClick={saveHandler}
-              disabled={!newTeamName || !billingEmail}
-            ></Save>
+            <Save onClick={saveHandler} disabled={!newTeamName}></Save>
           </DialogActions>
         </Dialog>
       </form>
@@ -332,7 +331,8 @@ const Navigator: React.FC<Props> = (props: Props) => {
 const mapStateToProps = (state: AppState): StateProps => ({
   teams: state.team.data,
   selectedTeamIndex: state.team.selectedIndex,
-  session: state.authSupport.session
+  session: state.authSupport.session,
+  ownerEmail: state.userMeta.email
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({

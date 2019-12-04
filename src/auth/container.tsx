@@ -139,7 +139,7 @@ export class AuthContainer extends React.Component<Props, State> {
       if (localeData) {
         setLocaleData(localeData);
       }
-      moment.lang(language);
+      moment.locale(language);
       moment.tz.setDefault(timezone);
 
       const teamIds = teamsWithoutDeleted.map(team => team.teamId);
@@ -202,7 +202,6 @@ export class AuthContainer extends React.Component<Props, State> {
           if (result.error) {
             throw result.error;
           } else {
-            console.log(result.data[0].createAt);
             const data = result.data.map(x => dateParse(x));
             this.props.setMapKeys(teamId, data);
           }

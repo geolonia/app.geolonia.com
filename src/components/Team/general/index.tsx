@@ -29,7 +29,7 @@ const Content = (props: Props) => {
     },
     {
       title: __("Team settings"),
-      href: "#/team"
+      href: null
     },
     {
       title: __("General"),
@@ -56,11 +56,11 @@ const Content = (props: Props) => {
           <Avatar />
         </Grid>
 
-      {isOwner &&
-        <Grid item xs={12} md={12}>
-          <Delete />
-        </Grid>
-      }
+        {isOwner && (
+          <Grid item xs={12} md={12}>
+            <Delete />
+          </Grid>
+        )}
       </Grid>
     </div>
   );

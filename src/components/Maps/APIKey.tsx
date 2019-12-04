@@ -92,12 +92,12 @@ const Content = (props: Props) => {
 
   const breadcrumbItems = [
     {
-      title: "Home",
+      title: __("Home"),
       href: "#/"
     },
     {
       title: __("Maps"),
-      href: "#/maps"
+      href: null
     },
     {
       title: __("API keys"),
@@ -314,7 +314,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
     dispatch(createMapKeyActions.delete(teamId, userKey))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

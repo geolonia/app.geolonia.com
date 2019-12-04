@@ -124,7 +124,7 @@ const Content = (props: Props) => {
     },
     {
       title: __("Team settings"),
-      href: "#/team"
+      href: "#/team/general"
     },
     {
       title: __("Members"),
@@ -143,9 +143,7 @@ const Content = (props: Props) => {
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
       </Title>
-      {isOwner &&
-        <Invite />
-      }
+      {isOwner && <Invite />}
 
       {/* each member management */}
       {currentMember && (
@@ -197,7 +195,10 @@ const Content = (props: Props) => {
               </TableCell>
               <TableCell align="right">
                 {(() => {
-                  if ((2 > numOwners && "Owner" === row.role) || isOwner === false) {
+                  if (
+                    (2 > numOwners && "Owner" === row.role) ||
+                    isOwner === false
+                  ) {
                     // There is only one owner and the row is owner, so nothing to return.
                   } else {
                     return (

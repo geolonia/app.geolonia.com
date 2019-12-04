@@ -10,8 +10,8 @@ export const generate = (): DateStringify<FeatureCollection>[] => {
     .map(() => {
       return {
         id: uuid(),
-        createAt: Date(),
-        updateAt: Date(),
+        createAt: new Date().toISOString(),
+        updateAt: new Date().toISOString(),
         isPublic: Math.random() > 0.5,
         data: {
           type: "FeatureCollection",
