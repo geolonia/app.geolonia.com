@@ -34,8 +34,7 @@
     "msgmerge": "msgmerge -U src/lang/ja.po src/lang/lang.pot --lang=ja",
     "po2json": "po2json src/lang/ja.po src/lang/ja.json -f jed && prettier ./src/lang/ja.json --write",
     "i18n": "npm run makepot && npm run msgmerge",
-    "format": "prettier './src/**/*.ts' './src/**/*.tsx' --write",
-    "deploy:gh-pages": "gh-pages -d build"
+    "format": "prettier './src/**/*.ts' './src/**/*.tsx' --write"
   },
   "eslintConfig": {
     "extends": "react-app"
