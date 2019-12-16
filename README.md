@@ -1,5 +1,7 @@
 # app.geolonia.com
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/82532c8e-8d86-4215-a8f7-9fca30cfb132/deploy-status)](https://app.netlify.com/sites/geolonia-app/deploys)
+
 ## development
 
 ```shell
@@ -18,7 +20,7 @@ $ npm start
 ```tsx
 // hello.tsx
 import React from "react";
-import './hello.scss'
+import "./hello.scss";
 
 type Props = {
   name: string;
@@ -26,13 +28,13 @@ type Props = {
 
 export class HelloComponent extends React.Component<Props> {
   render() {
-    const name = this.props.name
-    const text = 'Hello, ' + name + '!'
+    const name = this.props.name;
+    const text = "Hello, " + name + "!";
     return <h1 className="hello">{text}</h1>;
   }
 }
 
-export default HelloComponent
+export default HelloComponent;
 ```
 
 ```tsx
@@ -45,7 +47,7 @@ it("renders text", () => {
   const div = document.createElement("div");
   // @ts-ignore
   ReactDOM.render(<MySample name="Geolonia" />, div);
-  expect(div.innerHTML).toEqual('<h1 class="hello">Hello, Geolonia!</h1>')
+  expect(div.innerHTML).toEqual('<h1 class="hello">Hello, Geolonia!</h1>');
 
   ReactDOM.unmountComponentAtNode(div);
 });
