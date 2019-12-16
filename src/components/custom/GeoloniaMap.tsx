@@ -43,8 +43,8 @@ class Map extends React.Component<Props> {
 
   componentDidMount() {
     // @ts-ignore
-    const { tilecloud } = window;
-    const map = new tilecloud.Map(this.container.current);
+    const { geolonia } = window;
+    const map = new geolonia.Map(this.container.current);
     this.props.onAfterLoad(map);
   }
 

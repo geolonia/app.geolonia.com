@@ -24,9 +24,9 @@
   },
   "scripts": {
     "start": ". ./.env.development && react-scripts start",
-    "build": ". ./.env.development && react-scripts build",
-    "build:ci": "react-scripts build && npm run netlify:header",
-    "netlify:header": "echo \"/*\n  Basic-Auth: $BASIC_AUTH_ID:$BASIC_AUTH_PASS\" > build/_headers",
+    "start:prod": ". ./.env.production && react-scripts start",
+    "build": ". ./.env.production && react-scripts build",
+    "build:netlify": "react-scripts build && bin/netlify.sh",
     "test": "react-scripts test",
     "lint": "eslint --ext .tsx --ext .ts --ext .jsx --ext .js .",
     "eject": "react-scripts eject",
@@ -34,7 +34,8 @@
     "msgmerge": "msgmerge -U src/lang/ja.po src/lang/lang.pot --lang=ja",
     "po2json": "po2json src/lang/ja.po src/lang/ja.json -f jed && prettier ./src/lang/ja.json --write",
     "i18n": "npm run makepot && npm run msgmerge",
-    "format": "prettier './src/**/*.ts' './src/**/*.tsx' --write"
+    "format": "prettier './src/**/*.ts' './src/**/*.tsx' --write",
+    "deploy:gh-pages": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -75,6 +76,7 @@
     "eslint-config-prettier": "^6.7.0",
     "eslint-config-react": "^1.1.7",
     "eslint-plugin-prettier": "^3.1.1",
+    "gh-pages": "^2.1.1",
     "node-sass": "^4.13.0",
     "po2json": "^1.0.0-alpha",
     "prettier": "^1.19.1",
