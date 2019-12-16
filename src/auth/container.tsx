@@ -1,7 +1,7 @@
 import React from "react";
 
 // i18n
-import { loadLocale } from "../lib/loadLocale";
+import { loadLocale } from "../lib/load-locale";
 import { setLocaleData } from "@wordpress/i18n";
 
 // API
@@ -111,6 +111,9 @@ export class AuthContainer extends React.Component<Props, State> {
     const session = await getSession();
 
     if (session === null) {
+      setLocaleData(
+        loadLocale(navigator.language.slice(0, 2) === "ja" ? "ja" : "en")
+      );
       return this.props.ready();
     }
 
