@@ -1,6 +1,10 @@
 import { errorCodes, APIResult, Session } from "../types";
 import { getErrorMessage } from "../constants";
-const { REACT_APP_API_BASE, REACT_APP_GEOSEARCH_API_BASE } = process.env;
+const {
+  REACT_APP_APP_API_BASE,
+  REACT_APP_GEOSEARCH_API_BASE,
+  REACT_APP_STAGE
+} = process.env;
 
 export const customFetch = <T>(
   session: Session,
@@ -45,9 +49,9 @@ export const customFetch = <T>(
 
   const requestUrl = absPath
     ? url
-    : `${
-        type === "geosearch" ? REACT_APP_GEOSEARCH_API_BASE : REACT_APP_API_BASE
-      }${url}`;
+    : type === "geosearch"
+    ? `${REACT_APP_GEOSEARCH_API_BASE}/${REACT_APP_STAGE}${url}`
+    : `${REACT_APP_APP_API_BASE}/${REACT_APP_STAGE}${url}`;
 
   return fetch(requestUrl, fetchOptions)
     .then<APIResult<T>>(res => {

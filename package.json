@@ -24,9 +24,9 @@
   },
   "scripts": {
     "start": ". ./.env.development && react-scripts start",
-    "build": ". ./.env.development && react-scripts build",
-    "build:ci": "react-scripts build && npm run netlify:header",
-    "netlify:header": "echo \"/*\n  Basic-Auth: $BASIC_AUTH_ID:$BASIC_AUTH_PASS\" > build/_headers",
+    "start:prod": ". ./.env.production && react-scripts start",
+    "build": ". ./.env.production && react-scripts build",
+    "build:ci": "react-scripts build && bin/postbuild.sh",
     "test": "react-scripts test",
     "lint": "eslint --ext .tsx --ext .ts --ext .jsx --ext .js .",
     "eject": "react-scripts eject",

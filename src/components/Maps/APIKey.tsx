@@ -86,7 +86,9 @@ const Content = (props: Props) => {
   const embedHtml =
     '<div\n  class="geolonia"\n  data-lat="35.65810422222222"\n  data-lng="139.74135747222223"\n  data-zoom="9"\n  data-gesture-handling="off"\n  data-geolocate-control="on"\n></div>';
   const embedCode = sprintf(
-    '<script type="text/javascript" src="https://api.tilecloud.io/v1/embed?tilecloud-api-key=%s"></script>',
+    '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
+    process.env.REACT_APP_API_BASE,
+    process.env.REACT_APP_STAGE,
     apiKey
   );
 
