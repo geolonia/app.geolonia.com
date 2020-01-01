@@ -79,11 +79,21 @@ const Content = (props: Props) => {
         <div className="form">
           <label className="username">
             <h3>{__("Username")}</h3>
-            <input type="text" value={username} onChange={onUsernameChange} />
+            <input
+              id={"username"}
+              type={"text"}
+              value={username}
+              onChange={onUsernameChange}
+            />
           </label>
           <label className="text">
             <h3>{__("Verification code")}</h3>
-            <input type="text" value={code} onChange={onCodeChange} />
+            <input
+              id={"code"}
+              type={"text"}
+              value={code}
+              onChange={onCodeChange}
+            />
           </label>
 
           <p>

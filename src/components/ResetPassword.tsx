@@ -75,12 +75,18 @@ const Content = (props: Props) => {
         <div className="form">
           <label className="code">
             <h3>{__("Verification Code")}</h3>
-            <input type="text" value={code} onChange={onCodeChange} />
+            <input
+              id={"code"}
+              type={"text"}
+              value={code}
+              onChange={onCodeChange}
+            />
           </label>
           <label className="password">
             <h3>{__("Password")}</h3>
             <input
-              type="password"
+              id={"password"}
+              type={"password"}
               value={password}
               onChange={onPasswordChange}
               autoComplete={"new-password"}
@@ -89,7 +95,8 @@ const Content = (props: Props) => {
           <label className="confirm-password">
             <h3>{__("Confirm password")}</h3>
             <input
-              type="password"
+              id={"confirm-password"}
+              type={"password"}
               value={passwordAgain}
               onChange={onPasswordAgainChange}
               autoComplete={"new-password"}
