@@ -723,7 +723,6 @@ msgid "New"
 msgstr ""
 
 #: src/components/custom/AddNew.tsx:33
-#, fuzzy
 msgid "name"
 msgstr "ユーザー名"
 
@@ -736,12 +735,10 @@ msgid "Some error."
 msgstr "何かのエラーです。"
 
 #: src/components/custom/Delete.tsx:31
-#, fuzzy
 msgid "Are you sure you want to delete this item?"
 msgstr "本当にこのデータセットを削除しますか？"
 
 #: src/components/custom/Delete.tsx:32
-#, fuzzy
 msgid "Please type as <code>delete</code> to confirm."
 msgstr "確認のためにデータセット名を入力してください。"
 
@@ -750,7 +747,6 @@ msgid "Saved."
 msgstr "保存しました。"
 
 #: src/components/custom/Save.tsx:114
-#, fuzzy
 msgid "Failed to save."
 msgstr "パスワードの変更を失敗しました。"
 
@@ -817,11 +813,9 @@ msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
 
-#, fuzzy
 #~ msgid "The billing member cannot be degraded."
 #~ msgstr "このメンバーの権限は変更できません。チーム設定で"
 
-#, fuzzy
 #~ msgid "Deactivated"
 #~ msgstr "無効化"
 
