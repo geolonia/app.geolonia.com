@@ -159,6 +159,7 @@
       "Signup failed. You cannot use the username or email.": [
         "サインアップに失敗しました。このユーザー名またはメールアドレスは使用できません。"
       ],
+      "Invalid username or email address.": ["ユーザー名または Email アドレス"],
       "Signup failed.": ["サインアップ失敗"],
       "Cost per 1,000 API loads/month": ["API 1,000ロードあたりのコスト"],
       "Free for up to 50,000/month": ["50,000/月 までは無料"],
@@ -188,6 +189,7 @@
       "Please enter <code>delete</code> if you really want to delete the team <strong>%1$s</strong>.": [
         "<strong>%1$s</strong> のチームを削除する場合は <code>delete</code> と入力してください。"
       ],
+      "Confirm": ["パスワードを確認"],
       "Cancel": ["キャンセル"],
       "Delete": ["削除"],
       "Once you delete a team, there is no going back. Please be certain. ": [
@@ -246,9 +248,17 @@
       "Old password": ["古いパスワード"],
       "New password": ["新しいパスワード"],
       "New": [""],
+      "name": ["ユーザー名"],
       "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],
+      "Are you sure you want to delete this item?": [
+        "本当にこのデータセットを削除しますか？"
+      ],
+      "Please type as <code>delete</code> to confirm.": [
+        "確認のためにデータセット名を入力してください。"
+      ],
       "Saved.": ["保存しました。"],
+      "Failed to save.": ["パスワードの変更を失敗しました。"],
       "Terms": ["利用規約"],
       "Privacy": ["プライバシー"],
       "Contact Geolonia": ["お問い合わせ"],

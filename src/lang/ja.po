@@ -90,7 +90,7 @@ msgid "My dataset"
 msgstr "データセット"
 
 #: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:197
-#: src/components/Navigator.tsx:304 src/components/Team/general/fields.tsx:87
+#: src/components/Navigator.tsx:307 src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125 src/components/custom/AddNew.tsx:34
 #: src/components/custom/Delete.tsx:119
 msgid "Name"
@@ -297,23 +297,23 @@ msgstr "メンバー"
 msgid "Billing"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:249
+#: src/components/Navigator.tsx:252
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-#: src/components/Navigator.tsx:294
+#: src/components/Navigator.tsx:297
 msgid "Create a new team"
 msgstr "新しいチームを作成"
 
-#: src/components/Navigator.tsx:298
+#: src/components/Navigator.tsx:301
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Navigator.tsx:312 src/components/Team/general/fields.tsx:119
+#: src/components/Navigator.tsx:315 src/components/Team/general/fields.tsx:119
 msgid "Billing email"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:319
+#: src/components/Navigator.tsx:322
 msgid "We’ll send receipts to this inbox."
 msgstr "指定したメールに請求情報を送信します。"
 
@@ -440,7 +440,6 @@ msgstr ""
 "ん。"
 
 #: src/components/Signup.tsx:86
-#, fuzzy
 msgid "Invalid username or email address."
 msgstr "ユーザー名または Email アドレス"
 
@@ -543,7 +542,6 @@ msgstr ""
 "ください。"
 
 #: src/components/Team/general/delete.tsx:122
-#, fuzzy
 msgid "Confirm"
 msgstr "パスワードを確認"
 
@@ -723,7 +721,6 @@ msgid "New"
 msgstr ""
 
 #: src/components/custom/AddNew.tsx:33
-#, fuzzy
 msgid "name"
 msgstr "ユーザー名"
 
@@ -736,12 +733,10 @@ msgid "Some error."
 msgstr "何かのエラーです。"
 
 #: src/components/custom/Delete.tsx:31
-#, fuzzy
 msgid "Are you sure you want to delete this item?"
 msgstr "本当にこのデータセットを削除しますか？"
 
 #: src/components/custom/Delete.tsx:32
-#, fuzzy
 msgid "Please type as <code>delete</code> to confirm."
 msgstr "確認のためにデータセット名を入力してください。"
 
@@ -750,7 +745,6 @@ msgid "Saved."
 msgstr "保存しました。"
 
 #: src/components/custom/Save.tsx:114
-#, fuzzy
 msgid "Failed to save."
 msgstr "パスワードの変更を失敗しました。"
 
@@ -817,11 +811,9 @@ msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
 
-#, fuzzy
 #~ msgid "The billing member cannot be degraded."
 #~ msgstr "このメンバーの権限は変更できません。チーム設定で"
 
-#, fuzzy
 #~ msgid "Deactivated"
 #~ msgstr "無効化"
 
