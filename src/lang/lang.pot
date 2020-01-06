@@ -36,7 +36,7 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:40
 #: src/components/Data/GISs.tsx:48
-#: src/components/Maps/APIKey.tsx:95
+#: src/components/Maps/APIKey.tsx:101
 #: src/components/Maps/APIKeys.tsx:38
 #: src/components/Team/Billing.tsx:66
 msgid "Home"
@@ -82,7 +82,7 @@ msgid "My dataset"
 msgstr ""
 
 #: src/components/Data/fields.tsx:26
-#: src/components/Maps/APIKey.tsx:191
+#: src/components/Maps/APIKey.tsx:197
 #: src/components/Navigator.tsx:304
 #: src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125
@@ -97,12 +97,12 @@ msgid "Description"
 msgstr ""
 
 #: src/components/Data/fields.tsx:40
-#: src/components/Maps/APIKey.tsx:202
+#: src/components/Maps/APIKey.tsx:208
 msgid "URLs"
 msgstr ""
 
 #: src/components/Data/fields.tsx:50
-#: src/components/Maps/APIKey.tsx:215
+#: src/components/Maps/APIKey.tsx:221
 msgid ""
 "Each URLs will be used as a value of "
 "<code>Access-Control-Allow-Origin</code> header for CORS. Please enter a "
@@ -110,7 +110,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Data/fields.tsx:58
-#: src/components/Maps/APIKey.tsx:229
+#: src/components/Maps/APIKey.tsx:235
 #: src/components/Team/general/delete.tsx:79
 msgid "Danger Zone"
 msgstr ""
@@ -184,79 +184,87 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:103
-#: src/components/Maps/APIKeys.tsx:76
-#: src/components/Navigator.tsx:133
-msgid "API keys"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:181
-msgid "API key settings"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:182
-msgid ""
-"Configure access control for your API key and Get the HTML code for your "
-"map."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:232
-msgid "Once you delete an API, there is no going back. Please be certain."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:237
-msgid "Are you sure you want to delete this API key?"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:238
-msgid "Please type in the name of the API key to confirm."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:254
-msgid "Your API Key"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:260
-msgid "Add the map to your site"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:263
-msgid "Step 1"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:267
-msgid ""
-"Include the following code before closing tag of the <code>&lt;body "
-"/&gt;</code> in your HTML file."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:274
-msgid "Step 2"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:277
-msgid "Add the following code where you want to place the map."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:99
+#: src/components/Maps/APIKey.tsx:105
 #: src/components/Maps/APIKeys.tsx:42
 #: src/components/Navigator.tsx:130
 msgid "Maps"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:77
+#: src/components/Maps/APIKey.tsx:109
+#: src/components/Maps/APIKeys.tsx:76
+#: src/components/Navigator.tsx:133
+msgid "API keys"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:187
+msgid "API key settings"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:188
+msgid ""
+"Configure access control for your API key and Get the HTML code for your "
+"map."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:238
+msgid "Once you delete an API, there is no going back. Please be certain."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:243
+msgid "Are you sure you want to delete this API key?"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:244
+msgid "Please type in the name of the API key to confirm."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:260
+msgid "Your API Key"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:266
+msgid "Add the map to your site"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:269
+msgid "Step 1"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:273
+msgid ""
+"Include the following code before closing tag of the <code>&lt;body "
+"/&gt;</code> in your HTML file."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:280
+msgid "Step 2"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:283
+msgid "Add the following code where you want to place the map."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:287
+msgid "Step 3"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:289
+msgid "Adjust the element size."
+msgstr ""
+
+#: src/components/Maps/APIKeys.tsx:78
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:81
+#: src/components/Maps/APIKeys.tsx:82
 msgid "Create a new API key"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:82
+#: src/components/Maps/APIKeys.tsx:83
 msgid "Please enter the name of new API key."
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:83
+#: src/components/Maps/APIKeys.tsx:84
 msgid "My API"
 msgstr ""
 
@@ -311,7 +319,14 @@ msgstr ""
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
-#: src/components/ResetPassword.tsx:114
+#: src/components/ResetPassword.tsx:106
+#: src/components/Signup.tsx:137
+msgid ""
+"Make sure it's at least 15 characters OR at least 8 characters including a "
+"number and a lowercase letter."
+msgstr ""
+
+#: src/components/ResetPassword.tsx:121
 msgid "Change password"
 msgstr ""
 
@@ -327,21 +342,14 @@ msgstr ""
 msgid "Verification Code"
 msgstr ""
 
-#: src/components/ResetPassword.tsx:81
-#: src/components/Signin.tsx:118
-#: src/components/Signup.tsx:117
+#: src/components/ResetPassword.tsx:86
+#: src/components/Signin.tsx:119
+#: src/components/Signup.tsx:127
 msgid "Password"
 msgstr ""
 
-#: src/components/ResetPassword.tsx:90
+#: src/components/ResetPassword.tsx:96
 msgid "Confirm password"
-msgstr ""
-
-#: src/components/ResetPassword.tsx:99
-#: src/components/Signup.tsx:126
-msgid ""
-"Make sure it's at least 15 characters OR at least 8 characters including a "
-"number and a lowercase letter."
 msgstr ""
 
 #: src/components/Signin.tsx:103
@@ -352,19 +360,19 @@ msgstr ""
 msgid "Username or email address"
 msgstr ""
 
-#: src/components/Signin.tsx:129
+#: src/components/Signin.tsx:131
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:140
+#: src/components/Signin.tsx:143
 msgid "Sign in"
 msgstr ""
 
-#: src/components/Signin.tsx:155
+#: src/components/Signin.tsx:158
 msgid "New to Geolonia?"
 msgstr ""
 
-#: src/components/Signin.tsx:157
+#: src/components/Signin.tsx:160
 msgid "Create an account."
 msgstr ""
 
@@ -395,19 +403,19 @@ msgstr ""
 msgid "Create your account"
 msgstr ""
 
-#: src/components/Signup.tsx:109
+#: src/components/Signup.tsx:114
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:113
+#: src/components/Signup.tsx:118
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:138
+#: src/components/Signup.tsx:149
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:148
+#: src/components/Signup.tsx:159
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" "
@@ -760,7 +768,11 @@ msgstr ""
 msgid "Coming soon"
 msgstr ""
 
-#: src/components/verify.tsx:113
+#: src/components/verify.tsx:106
+msgid "Verify"
+msgstr ""
+
+#: src/components/verify.tsx:123
 msgid "Please check your email and enter the verification code like 123456."
 msgstr ""
 
@@ -768,12 +780,8 @@ msgstr ""
 msgid "Verify your account"
 msgstr ""
 
-#: src/components/verify.tsx:85
+#: src/components/verify.tsx:90
 msgid "Verification code"
-msgstr ""
-
-#: src/components/verify.tsx:96
-msgid "Verify"
 msgstr ""
 
 #: src/components/Data/map-container.tsx:75

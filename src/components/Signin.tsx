@@ -107,7 +107,8 @@ const Content = (props: Props) => {
           <label className="username">
             <h2>{__("Username or email address")}</h2>
             <input
-              type="text"
+              id={"username"}
+              type={"text"}
               value={username}
               onChange={onUsernameChange}
               tabIndex={100}
@@ -117,6 +118,7 @@ const Content = (props: Props) => {
           <label className="password">
             <h2>{__("Password")}</h2>
             <input
+              id={"password"}
               type={"password"}
               value={password}
               onChange={onPasswordChange}
@@ -131,6 +133,7 @@ const Content = (props: Props) => {
           </p>
           <p>
             <Button
+              id={"signin"}
               variant="contained"
               color="primary"
               onClick={handleSignin}
