@@ -190,7 +190,10 @@ const Navigator: React.FC<Props> = (props: Props) => {
       if (result.error) {
         throw new Error(result.code);
       } else {
+        const currentTeamCount = teams.length;
         addTeam(result.data);
+        selectTeam(currentTeamCount);
+        window.location.reload();
       }
       handleClose();
       const nextTeamIndex = props.teams.length;

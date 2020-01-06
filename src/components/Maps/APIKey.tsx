@@ -91,6 +91,10 @@ const Content = (props: Props) => {
     process.env.REACT_APP_STAGE,
     apiKey
   );
+  const embedCSS = `.geolonia {
+  width: 500px;
+  height: 400px;
+}`;
 
   const breadcrumbItems = [
     {
@@ -279,6 +283,11 @@ const Content = (props: Props) => {
               {__("Add the following code where you want to place the map.")}
             </p>
             <Code>{embedHtml}</Code>
+            <Typography component="h3" style={styleH3}>
+              {__("Step 3")}
+            </Typography>
+            <p>{__("Adjust the element size.")}</p>
+            <Code>{embedCSS}</Code>
           </Paper>
         </Grid>
       </Grid>

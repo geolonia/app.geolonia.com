@@ -74,7 +74,8 @@ function Content(props: Props) {
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title={__("API keys")}>
-        {__("You need an API key to display map. Get an API key.")}
+        {mapKeys.length === 0 &&
+          __("You need an API key to display map. Get an API key.")}
       </Title>
 
       <AddNew
@@ -92,7 +93,7 @@ function Content(props: Props) {
 }
 
 const mapStateToProps = (state: AppState): StateProps => {
-  const session = state.authSupport.session;
+  const { session } = state.authSupport;
   const { data: teams, selectedIndex } = state.team;
   const teamId = teams[selectedIndex] && teams[selectedIndex].teamId;
   const { data: mapKeys = [], error = false } = state.mapKey[teamId] || {};

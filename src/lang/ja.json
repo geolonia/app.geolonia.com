@@ -65,6 +65,7 @@
       "Send password reset email": ["メールを送信"],
       "Profile": ["プロフィール"],
       "Logout": ["ログアウト"],
+      "Maps": ["地図"],
       "API keys": ["API キー"],
       "API key settings": ["API キーの設定"],
       "Configure access control for your API key and Get the HTML code for your map.": [
@@ -89,7 +90,10 @@
       "Add the following code where you want to place the map.": [
         "以下のコードを地図を表示したい場所に挿入してください。"
       ],
-      "Maps": ["地図"],
+      "Step 3": ["ステップ 3"],
+      "Adjust the element size.": [
+        "地図を表示する要素のサイズを調整して下さい。"
+      ],
       "You need an API key to display map. Get an API key.": [
         "地図を表示するには API キーが必要です。 API キーを取得してください。"
       ],
@@ -116,6 +120,9 @@
       "You are suspended. Please contact the team owner.": [
         "このユーザーは停止中です。チームの所有者にお問い合わせください。"
       ],
+      "Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.": [
+        "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
+      ],
       "Change password": ["パスワードを変更"],
       "We have sent verification code via email.": [
         "検証コードを電子メールで送信しました。"
@@ -124,9 +131,6 @@
       "Verification Code": ["検証コード"],
       "Password": ["パスワード"],
       "Confirm password": ["パスワードを確認"],
-      "Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.": [
-        "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
-      ],
       "Oops, the server seems not to be responding correctly.": [
         "おっと、サーバーが正しく応答していないようです。"
       ],
@@ -253,12 +257,12 @@
       "next page": ["次のページ"],
       "last page": ["最後のページ"],
       "Coming soon": ["準備中"],
+      "Verify": ["検証する"],
       "Please check your email and enter the verification code like 123456.": [
         "Eメールを確認して 123456 のような検証コードを入力してください。"
       ],
       "Verify your account": ["アカウントの確認"],
       "Verification code": ["検証コード"],
-      "Verify": ["検証する"],
       "Default value of latitude for map\u00040": ["35.65810422222222"],
       "Default value of longitude for map\u00040": ["139.74135747222223"],
       "Default value of zoom level of map\u00040": ["6"]

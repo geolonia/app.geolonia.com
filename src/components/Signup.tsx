@@ -104,19 +104,30 @@ const Content = (props: Props) => {
         <div className="form">
           <label className="username">
             <h3>{__("Username")}</h3>
-            <input type="text" value={username} onChange={onUsernameChange} />
+            <input
+              id={"username"}
+              type={"text"}
+              value={username}
+              onChange={onUsernameChange}
+            />
             <p className="message">
               {__("Username cannot be modified later.")}
             </p>
           </label>
           <label className="email">
             <h3>{__("Email address")}</h3>
-            <input type="text" value={email} onChange={onEmailChange} />
+            <input
+              id={"email"}
+              type={"text"}
+              value={email}
+              onChange={onEmailChange}
+            />
           </label>
           <label className="password">
             <h3>{__("Password")}</h3>
             <input
-              type="password"
+              id={"password"}
+              type={"password"}
               value={password}
               onChange={onPasswordChange}
               autoComplete={"new-password"}
