@@ -262,12 +262,10 @@ msgid "You need an API key to display map. Get an API key."
 msgstr "地図を表示するには API キーが必要です。 API キーを取得してください。"
 
 #: src/components/Maps/APIKeys.tsx:82
-#, fuzzy
 msgid "Create a new API key"
 msgstr "新しいチームを作成"
 
 #: src/components/Maps/APIKeys.tsx:83
-#, fuzzy
 msgid "Please enter the name of new API key."
 msgstr "新しいチームの名前を入力してください。"
 
@@ -312,7 +310,6 @@ msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
 #: src/components/Navigator.tsx:312 src/components/Team/general/fields.tsx:119
-#, fuzzy
 msgid "Billing email"
 msgstr "支払い"
 
@@ -505,7 +502,6 @@ msgid "Team settings"
 msgstr "チーム設定"
 
 #: src/components/Team/Billing.tsx:74
-#, fuzzy
 msgid "billing"
 msgstr "支払い"
 
@@ -611,7 +607,6 @@ msgid "Has full administrative access to the entire team."
 msgstr "チームに関する全ての管理者権限があります。"
 
 #: src/components/Team/members/change-role.tsx:136
-#, fuzzy
 msgid "Member"
 msgstr "メンバー"
 
@@ -630,7 +625,6 @@ msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
 
 #: src/components/Team/members/index.tsx:193
-#, fuzzy
 msgid "Suspended"
 msgstr "一時停止"
 
@@ -669,13 +663,12 @@ msgid "Remove"
 msgstr "削除"
 
 #: src/components/Team/members/suspend.tsx:91
-#, fuzzy
 msgid "Suspend team members"
-msgstr "メンバーを招待"
+msgstr "メンバーの一時停止"
 
 #: src/components/Team/members/suspend.tsx:95
 msgid "The following members will be suspended:"
-msgstr "以下のメンバーが一時停止されます。"
+msgstr "以下のメンバーによる操作が一時停止されます。"
 
 #: src/components/User/User.tsx:24
 msgid "Your profile"

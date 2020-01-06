@@ -97,6 +97,10 @@
       "You need an API key to display map. Get an API key.": [
         "地図を表示するには API キーが必要です。 API キーを取得してください。"
       ],
+      "Create a new API key": ["新しいチームを作成"],
+      "Please enter the name of new API key.": [
+        "新しいチームの名前を入力してください。"
+      ],
       "My API": [""],
       "My team": [""],
       "GIS Services": ["GIS サービス"],
@@ -109,6 +113,7 @@
       "Please enter the name of new team.": [
         "新しいチームの名前を入力してください。"
       ],
+      "Billing email": ["支払い"],
       "We’ll send receipts to this inbox.": [
         "指定したメールに請求情報を送信します。"
       ],
@@ -168,6 +173,7 @@
       "Coupon:": ["クーポン:"],
       "Redeem a coupon": ["クーポンを適用"],
       "Team settings": ["チーム設定"],
+      "billing": ["支払い"],
       "You can see subscriptions for this team in this month.": [
         "このチームの今月のサブスクリプションを確認することができます。"
       ],
@@ -200,6 +206,7 @@
       "Has full administrative access to the entire team.": [
         "チームに関する全ての管理者権限があります。"
       ],
+      "Member": ["メンバー"],
       "Can access all resource in the team.": [
         "このチームの全てのリソースにアクセスできます。"
       ],
@@ -207,6 +214,7 @@
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。"
       ],
+      "Suspended": ["一時停止"],
       "Suspend": ["一時停止"],
       "Remove from team": ["チームから削除"],
       "Invite": ["招待"],
@@ -219,8 +227,9 @@
         "以下のメンバーがチームから削除されます。"
       ],
       "Remove": ["削除"],
+      "Suspend team members": ["メンバーの一時停止"],
       "The following members will be suspended:": [
-        "以下のメンバーが一時停止されます。"
+        "以下のメンバーによる操作が一時停止されます。"
       ],
       "Your profile": ["プロフィール"],
       "You can update your profile and security.": [
