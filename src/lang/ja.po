@@ -90,7 +90,7 @@ msgid "My dataset"
 msgstr "データセット"
 
 #: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:197
-#: src/components/Navigator.tsx:304 src/components/Team/general/fields.tsx:87
+#: src/components/Navigator.tsx:307 src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125 src/components/custom/AddNew.tsx:34
 #: src/components/custom/Delete.tsx:119
 msgid "Name"
@@ -297,23 +297,23 @@ msgstr "メンバー"
 msgid "Billing"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:249
+#: src/components/Navigator.tsx:252
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-#: src/components/Navigator.tsx:294
+#: src/components/Navigator.tsx:297
 msgid "Create a new team"
 msgstr "新しいチームを作成"
 
-#: src/components/Navigator.tsx:298
+#: src/components/Navigator.tsx:301
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Navigator.tsx:312 src/components/Team/general/fields.tsx:119
+#: src/components/Navigator.tsx:315 src/components/Team/general/fields.tsx:119
 msgid "Billing email"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:319
+#: src/components/Navigator.tsx:322
 msgid "We’ll send receipts to this inbox."
 msgstr "指定したメールに請求情報を送信します。"
 
