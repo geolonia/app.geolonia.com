@@ -246,9 +246,17 @@
       "Old password": ["古いパスワード"],
       "New password": ["新しいパスワード"],
       "New": [""],
+      "name": ["ユーザー名"],
       "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],
+      "Are you sure you want to delete this item?": [
+        "本当にこのデータセットを削除しますか？"
+      ],
+      "Please type as <code>delete</code> to confirm.": [
+        "確認のためにデータセット名を入力してください。"
+      ],
       "Saved.": ["保存しました。"],
+      "Failed to save.": ["パスワードの変更を失敗しました。"],
       "Terms": ["利用規約"],
       "Privacy": ["プライバシー"],
       "Contact Geolonia": ["お問い合わせ"],

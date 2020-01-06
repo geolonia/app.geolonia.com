@@ -440,7 +440,6 @@ msgstr ""
 "ん。"
 
 #: src/components/Signup.tsx:86
-#, fuzzy
 msgid "Invalid username or email address."
 msgstr "ユーザー名または Email アドレス"
 
@@ -543,7 +542,6 @@ msgstr ""
 "ください。"
 
 #: src/components/Team/general/delete.tsx:122
-#, fuzzy
 msgid "Confirm"
 msgstr "パスワードを確認"
 
