@@ -8,11 +8,12 @@ const UPDATE = "MAP_KEY/UPDATE";
 const DELETE = "MAP_KEY/DELETE";
 
 export type Key = {
+  keyId: string;
   userKey: string;
   name: string;
   description: string;
   enabled: boolean;
-  forceDisabled: boolean;
+  forceDisabled?: boolean;
   allowedOrigins: string[];
   createAt: Moment.Moment | void;
   updateAt?: Moment.Moment | void;
@@ -41,11 +42,11 @@ type AddAction = {
 };
 type UpdateAction = {
   type: typeof UPDATE;
-  payload: { teamId: string; mapKey: string; key: Partial<Key> };
+  payload: { teamId: string; keyId: string; key: Partial<Key> };
 };
 type DeleteAction = {
   type: typeof DELETE;
-  payload: { teamId: string; mapKey: string };
+  payload: { teamId: string; keyId: string };
 };
 
 type MapKeyAction =
@@ -68,17 +69,13 @@ export const createActions = {
     type: ADD,
     payload: { teamId, key }
   }),
-  update: (
-    teamId: string,
-    mapKey: string,
-    key: Partial<Key>
-  ): UpdateAction => ({
+  update: (teamId: string, keyId: string, key: Partial<Key>): UpdateAction => ({
     type: UPDATE,
-    payload: { teamId, mapKey, key }
+    payload: { teamId, keyId, key }
   }),
-  delete: (teamId: string, mapKey: string): DeleteAction => ({
+  delete: (teamId: string, keyId: string): DeleteAction => ({
     type: DELETE,
-    payload: { teamId, mapKey }
+    payload: { teamId, keyId }
   })
 };
 
@@ -129,11 +126,9 @@ export const reducer = (state: State = initialState, action: MapKeyAction) => {
       }
     };
   } else if (isUpdateAction(action)) {
-    const { teamId, mapKey } = action.payload;
+    const { teamId, keyId } = action.payload;
     const mapKeyObject = state[teamId] || { data: [] };
-    const nextKeyIndex = mapKeyObject.data
-      .map(key => key.userKey)
-      .indexOf(mapKey);
+    const nextKeyIndex = mapKeyObject.data.map(key => key.keyId).indexOf(keyId);
     const nextKeys = [...mapKeyObject.data];
     nextKeys[nextKeyIndex] = {
       ...nextKeys[nextKeyIndex],
@@ -148,11 +143,9 @@ export const reducer = (state: State = initialState, action: MapKeyAction) => {
       }
     };
   } else if (isDeleteAction(action)) {
-    const { teamId, mapKey } = action.payload;
+    const { teamId, keyId } = action.payload;
     const mapKeyObject = state[teamId] || { data: [] };
-    const nextKeyIndex = mapKeyObject.data
-      .map(key => key.userKey)
-      .indexOf(mapKey);
+    const nextKeyIndex = mapKeyObject.data.map(key => key.keyId).indexOf(keyId);
     const nextKeys = [...mapKeyObject.data];
     nextKeys.splice(nextKeyIndex, 1);
 
