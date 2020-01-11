@@ -19,16 +19,19 @@ it("should sort api keys by creatAt when set", () => {
   };
   const keys: Key[] = [
     {
+      keyId: "0",
       userKey: "0",
       createAt: moment("2019-11-19T04:00:00.000Z"),
       ...commonKeyProps
     },
     {
+      keyId: "1",
       userKey: "1",
       createAt: moment("2019-11-19T03:00:00.000Z"),
       ...commonKeyProps
     },
     {
+      keyId: "2",
       userKey: "2",
       createAt: moment("2019-11-19T05:00:00.000Z"),
       ...commonKeyProps
@@ -47,16 +50,19 @@ it("should sort api keys by creatAt when add", () => {
     [TEAM_ID]: {
       data: [
         {
+          keyId: "0",
           userKey: "0",
           createAt: moment("2019-11-19T04:00:00.000Z"),
           ...commonKeyProps
         },
         {
+          keyId: "1",
           userKey: "1",
           createAt: moment("2019-11-19T03:00:00.000Z"),
           ...commonKeyProps
         },
         {
+          keyId: "2",
           userKey: "2",
           createAt: moment("2019-11-19T05:00:00.000Z"),
           ...commonKeyProps
@@ -66,6 +72,7 @@ it("should sort api keys by creatAt when add", () => {
   };
 
   const key: Key = {
+    keyId: "3",
     userKey: "3",
     createAt: moment("2019-11-20T00:00:00.000Z"),
     ...commonKeyProps

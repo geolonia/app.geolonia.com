@@ -40,8 +40,8 @@ type StateProps = {
   selectedTeamIndex: number;
 };
 type DispatchProps = {
-  updateKey: (teamId: string, userKey: string, key: Partial<Key>) => void;
-  deleteKey: (teamId: string, userKey: string) => void;
+  updateKey: (teamId: string, keyId: string, key: Partial<Key>) => void;
+  deleteKey: (teamId: string, keyId: string) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
@@ -96,6 +96,8 @@ const Content = (props: Props) => {
   height: 400px;
 }`;
 
+  const { keyId } = props.mapKey;
+
   const breadcrumbItems = [
     {
       title: __("Home"),
@@ -149,7 +151,7 @@ const Content = (props: Props) => {
       allowedOrigins: normalizedAllowedOrigins
     };
 
-    return updateKey(props.session, props.teamId, apiKey, nextKey).then(
+    return updateKey(props.session, props.teamId, keyId, nextKey).then(
       result => {
         if (result.error) {
           setStatus("failure");
@@ -308,7 +310,7 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
   const mapKeyObject = state.mapKey[teamId] || { data: [] };
   const mapKeys = mapKeyObject.data;
   const mapKey = mapKeys.find(
-    mapKey => mapKey.userKey === ownProps.match.params.id
+    mapKey => mapKey.keyId === ownProps.match.params.id
   );
   return {
     session,
@@ -319,10 +321,10 @@ const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
-  updateKey: (teamId: string, userKey: string, key: Partial<Key>) =>
-    dispatch(createMapKeyActions.update(teamId, userKey, key)),
-  deleteKey: (teamId: string, userKey: string) =>
-    dispatch(createMapKeyActions.delete(teamId, userKey))
+  updateKey: (teamId: string, keyId: string, key: Partial<Key>) =>
+    dispatch(createMapKeyActions.update(teamId, keyId, key)),
+  deleteKey: (teamId: string, keyId: string) =>
+    dispatch(createMapKeyActions.delete(teamId, keyId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content);

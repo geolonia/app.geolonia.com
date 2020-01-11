@@ -63,7 +63,7 @@ function Content(props: Props) {
   const { mapKeys } = props;
   const rows = mapKeys.map(key => {
     return {
-      id: key.userKey,
+      id: key.keyId,
       name: key.name,
       updated: key.createAt
         ? key.createAt.format("YYYY/MM/DD hh:mm:ss")

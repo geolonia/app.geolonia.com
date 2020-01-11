@@ -6,7 +6,10 @@ const updateTeam = (
   teamId: string,
   mapKey: string,
   key: Partial<
-    Omit<Key, "teamId" | "userKey" | "updateAt" | "createAt" | "forceDisabled">
+    Omit<
+      Key,
+      "teamId" | "keyId" | "userKey" | "updateAt" | "createAt" | "forceDisabled"
+    >
   >
 ) => {
   return fetch(session, `/teams/${teamId}/keys/${mapKey}`, {
