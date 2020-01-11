@@ -147,13 +147,14 @@ export class AuthContainer extends React.Component<Props, State> {
 
       const teamIds = teamsWithoutDeleted.map(team => team.teamId);
 
+      await getTeamIdToSelect(teamsWithoutDeleted).then(this.props.selectTeam);
+
       // do not await then.
       // TODO: catch them
       this.loadAvatars(user, teamsWithoutDeleted);
       this.loadMapKeys(session, teamIds);
       this.loadTeamMembers(session, teamIds);
       this.loadFeatureCollections(session, teamIds);
-      getTeamIdToSelect(teamsWithoutDeleted).then(this.props.selectTeam);
     } catch (error) {
       console.error(error);
       this.props.serverTrouble();
