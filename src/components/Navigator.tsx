@@ -190,15 +190,13 @@ const Navigator: React.FC<Props> = (props: Props) => {
       if (result.error) {
         throw new Error(result.code);
       } else {
-        const currentTeamCount = teams.length;
+        handleClose();
         addTeam(result.data);
-        selectTeam(currentTeamCount);
-        window.location.reload();
+        const nextTeamIndex = teams.length;
+        selectTeam(nextTeamIndex);
+        window.location.hash = "#/team/general";
+        window.location.reload()
       }
-      handleClose();
-      const nextTeamIndex = props.teams.length;
-      props.selectTeam(nextTeamIndex);
-      window.location.hash = "#/team/general";
     });
   };
 

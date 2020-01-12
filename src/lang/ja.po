@@ -263,7 +263,7 @@ msgstr "地図を表示するには API キーが必要です。 API キーを�
 
 #: src/components/Maps/APIKeys.tsx:82
 msgid "Create a new API key"
-msgstr "新しいチームを作成"
+msgstr "新しい API キーを作成"
 
 #: src/components/Maps/APIKeys.tsx:83
 msgid "Please enter the name of new API key."

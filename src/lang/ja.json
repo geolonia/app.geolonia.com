@@ -97,7 +97,7 @@
       "You need an API key to display map. Get an API key.": [
         "地図を表示するには API キーが必要です。 API キーを取得してください。"
       ],
-      "Create a new API key": ["新しいチームを作成"],
+      "Create a new API key": ["新しい API キーを作成"],
       "Please enter the name of new API key.": [
         "新しいチームの名前を入力してください。"
       ],
