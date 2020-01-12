@@ -746,7 +746,7 @@ msgstr "保存しました。"
 
 #: src/components/custom/Save.tsx:114
 msgid "Failed to save."
-msgstr "パスワードの変更を失敗しました。"
+msgstr "保存できませんでした。"
 
 #: src/components/custom/Support.tsx:15
 msgid "Terms"
