@@ -36,7 +36,7 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:40
 #: src/components/Data/GISs.tsx:48
-#: src/components/Maps/APIKey.tsx:101
+#: src/components/Maps/APIKey.tsx:103
 #: src/components/Maps/APIKeys.tsx:38
 #: src/components/Team/Billing.tsx:66
 msgid "Home"
@@ -82,8 +82,8 @@ msgid "My dataset"
 msgstr ""
 
 #: src/components/Data/fields.tsx:26
-#: src/components/Maps/APIKey.tsx:197
-#: src/components/Navigator.tsx:307
+#: src/components/Maps/APIKey.tsx:199
+#: src/components/Navigator.tsx:305
 #: src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125
 #: src/components/custom/AddNew.tsx:34
@@ -97,12 +97,12 @@ msgid "Description"
 msgstr ""
 
 #: src/components/Data/fields.tsx:40
-#: src/components/Maps/APIKey.tsx:208
+#: src/components/Maps/APIKey.tsx:210
 msgid "URLs"
 msgstr ""
 
 #: src/components/Data/fields.tsx:50
-#: src/components/Maps/APIKey.tsx:221
+#: src/components/Maps/APIKey.tsx:223
 msgid ""
 "Each URLs will be used as a value of "
 "<code>Access-Control-Allow-Origin</code> header for CORS. Please enter a "
@@ -110,7 +110,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Data/fields.tsx:58
-#: src/components/Maps/APIKey.tsx:235
+#: src/components/Maps/APIKey.tsx:237
 #: src/components/Team/general/delete.tsx:79
 msgid "Danger Zone"
 msgstr ""
@@ -184,71 +184,71 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:105
+#: src/components/Maps/APIKey.tsx:107
 #: src/components/Maps/APIKeys.tsx:42
 #: src/components/Navigator.tsx:130
 msgid "Maps"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:109
+#: src/components/Maps/APIKey.tsx:111
 #: src/components/Maps/APIKeys.tsx:76
 #: src/components/Navigator.tsx:133
 msgid "API keys"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:187
+#: src/components/Maps/APIKey.tsx:189
 msgid "API key settings"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:188
+#: src/components/Maps/APIKey.tsx:190
 msgid ""
 "Configure access control for your API key and Get the HTML code for your "
 "map."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:238
+#: src/components/Maps/APIKey.tsx:240
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:243
+#: src/components/Maps/APIKey.tsx:245
 msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:244
+#: src/components/Maps/APIKey.tsx:246
 msgid "Please type in the name of the API key to confirm."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:260
+#: src/components/Maps/APIKey.tsx:262
 msgid "Your API Key"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:266
+#: src/components/Maps/APIKey.tsx:268
 msgid "Add the map to your site"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:269
+#: src/components/Maps/APIKey.tsx:271
 msgid "Step 1"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:273
+#: src/components/Maps/APIKey.tsx:275
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body "
 "/&gt;</code> in your HTML file."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:280
+#: src/components/Maps/APIKey.tsx:282
 msgid "Step 2"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:283
+#: src/components/Maps/APIKey.tsx:285
 msgid "Add the following code where you want to place the map."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:287
+#: src/components/Maps/APIKey.tsx:289
 msgid "Step 3"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:289
+#: src/components/Maps/APIKey.tsx:291
 msgid "Adjust the element size."
 msgstr ""
 
@@ -294,24 +294,24 @@ msgstr ""
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:252
+#: src/components/Navigator.tsx:250
 msgid "Dashboard"
 msgstr ""
 
-#: src/components/Navigator.tsx:297
+#: src/components/Navigator.tsx:295
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:301
+#: src/components/Navigator.tsx:299
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:315
+#: src/components/Navigator.tsx:313
 #: src/components/Team/general/fields.tsx:119
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:322
+#: src/components/Navigator.tsx:320
 msgid "We’ll send receipts to this inbox."
 msgstr ""
 
@@ -782,6 +782,18 @@ msgstr ""
 
 #: src/components/verify.tsx:90
 msgid "Verification code"
+msgstr ""
+
+#: src/constants.ts:10
+msgid "You are not authorized to do this operation."
+msgstr ""
+
+#: src/constants.ts:12
+msgid "Network error."
+msgstr ""
+
+#: src/constants.ts:16
+msgid "Unknown error."
 msgstr ""
 
 #: src/components/Data/map-container.tsx:75

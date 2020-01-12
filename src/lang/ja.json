@@ -273,6 +273,11 @@
       ],
       "Verify your account": ["アカウントの確認"],
       "Verification code": ["検証コード"],
+      "You are not authorized to do this operation.": [
+        "この操作を行う権限がありません。"
+      ],
+      "Network error.": ["通信エラー。"],
+      "Unknown error.": ["不明なエラー。"],
       "Default value of latitude for map\u00040": ["35.65810422222222"],
       "Default value of longitude for map\u00040": ["139.74135747222223"],
       "Default value of zoom level of map\u00040": ["6"]
