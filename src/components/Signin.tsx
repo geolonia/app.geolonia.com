@@ -83,6 +83,10 @@ const Content = (props: Props) => {
         setStatus("warning");
       });
   };
+  const onPasswordKeyDown = (e: React.KeyboardEvent) => {
+    // enter
+    e.keyCode === 13 && !buttonDisabled && handleSignin()
+  }
 
   return (
     <div className="signin">
@@ -122,6 +126,7 @@ const Content = (props: Props) => {
               type={"password"}
               value={password}
               onChange={onPasswordChange}
+              onKeyDown={onPasswordKeyDown}
               tabIndex={200}
               autoComplete={"current-password"}
             />

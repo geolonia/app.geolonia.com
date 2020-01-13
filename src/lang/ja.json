@@ -161,7 +161,7 @@
       "Signup failed. You cannot use the username or email.": [
         "サインアップに失敗しました。このユーザー名またはメールアドレスは使用できません。"
       ],
-      "Invalid username or email address.": ["ユーザー名または Email アドレス"],
+      "Invalid username or email address.": ["ユーザー名または Email アドレスが正しくありません。"],
       "Signup failed.": ["サインアップ失敗"],
       "Cost per 1,000 API loads/month": ["API 1,000ロードあたりのコスト"],
       "Free for up to 50,000/month": ["50,000/月 までは無料"],

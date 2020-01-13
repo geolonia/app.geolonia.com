@@ -92,7 +92,12 @@ const Content = (props: Props) => {
   };
 
   const buttonDisabled =
-    username === "" || email === "" || !isPasswordStrongEnough(password);
+  username === "" || email === "" || !isPasswordStrongEnough(password);
+
+  const onPasswordKeyDown = (e: React.KeyboardEvent) => {
+    // enter
+    e.keyCode === 13 && !buttonDisabled && handleSignup()
+  }
 
   return (
     <div className="signup">
@@ -130,6 +135,7 @@ const Content = (props: Props) => {
               type={"password"}
               value={password}
               onChange={onPasswordChange}
+              onKeyDown={onPasswordKeyDown}
               autoComplete={"new-password"}
             />
           </label>

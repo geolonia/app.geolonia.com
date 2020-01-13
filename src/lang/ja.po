@@ -449,7 +449,7 @@ msgstr ""
 
 #: src/components/Signup.tsx:86
 msgid "Invalid username or email address."
-msgstr "ユーザー名または Email アドレス"
+msgstr "ユーザー名または Email アドレスが正しくありません。"
 
 #: src/components/Signup.tsx:88
 msgid "Signup failed."
