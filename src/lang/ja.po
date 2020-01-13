@@ -26,7 +26,7 @@ msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
 #: src/components/Dashboard.tsx:127 src/components/Data/GIS.tsx:48
-#: src/components/Data/GISs.tsx:56 src/components/Navigator.tsx:145
+#: src/components/Data/GISs.tsx:56 src/components/Navigator.tsx:146
 msgid "Geosearch"
 msgstr ""
 
@@ -90,7 +90,7 @@ msgid "My dataset"
 msgstr "データセット"
 
 #: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:199
-#: src/components/Navigator.tsx:305 src/components/Team/general/fields.tsx:87
+#: src/components/Navigator.tsx:317 src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125 src/components/custom/AddNew.tsx:34
 #: src/components/custom/Delete.tsx:119
 msgid "Name"
@@ -188,12 +188,12 @@ msgid "Logout"
 msgstr "ログアウト"
 
 #: src/components/Maps/APIKey.tsx:107 src/components/Maps/APIKeys.tsx:42
-#: src/components/Navigator.tsx:130
+#: src/components/Navigator.tsx:131
 msgid "Maps"
 msgstr "地図"
 
 #: src/components/Maps/APIKey.tsx:111 src/components/Maps/APIKeys.tsx:76
-#: src/components/Navigator.tsx:133
+#: src/components/Navigator.tsx:134
 msgid "API keys"
 msgstr "API キー"
 
@@ -273,47 +273,55 @@ msgstr "新しいチームの名前を入力してください。"
 msgid "My API"
 msgstr ""
 
-#: src/components/Navigator.tsx:112
+#: src/components/Navigator.tsx:113
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:142
+#: src/components/Navigator.tsx:143
 msgid "GIS Services"
 msgstr "GIS サービス"
 
-#: src/components/Navigator.tsx:154
+#: src/components/Navigator.tsx:155
 msgid "Team Settings"
 msgstr "チーム設定"
 
-#: src/components/Navigator.tsx:157 src/components/Team/general/index.tsx:44
+#: src/components/Navigator.tsx:158 src/components/Team/general/index.tsx:44
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:163 src/components/Team/members/index.tsx:130
+#: src/components/Navigator.tsx:164 src/components/Team/members/index.tsx:130
 msgid "Members"
 msgstr "メンバー"
 
-#: src/components/Navigator.tsx:169
+#: src/components/Navigator.tsx:170
 msgid "Billing"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:250
+#: src/components/Navigator.tsx:178
+msgid "Documentation"
+msgstr "ドキュメント"
+
+#: src/components/Navigator.tsx:181
+msgid "Official Documents"
+msgstr "公式ドキュメント"
+
+#: src/components/Navigator.tsx:262
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-#: src/components/Navigator.tsx:295
+#: src/components/Navigator.tsx:307
 msgid "Create a new team"
 msgstr "新しいチームを作成"
 
-#: src/components/Navigator.tsx:299
+#: src/components/Navigator.tsx:311
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Navigator.tsx:313 src/components/Team/general/fields.tsx:119
+#: src/components/Navigator.tsx:325 src/components/Team/general/fields.tsx:119
 msgid "Billing email"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:320
+#: src/components/Navigator.tsx:332
 msgid "We’ll send receipts to this inbox."
 msgstr "指定したメールに請求情報を送信します。"
 

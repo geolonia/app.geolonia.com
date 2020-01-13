@@ -108,6 +108,8 @@
       "General": ["一般"],
       "Members": ["メンバー"],
       "Billing": ["支払い"],
+      "Documentation": ["ドキュメント"],
+      "Official Documents": ["公式ドキュメント"],
       "Dashboard": ["ダッシュボード"],
       "Create a new team": ["新しいチームを作成"],
       "Please enter the name of new team.": [
@@ -217,6 +219,7 @@
         "チームメンバーの管理ができます。"
       ],
       "Suspended": ["一時停止"],
+      "rows per page": ["表示する個数"],
       "Suspend": ["一時停止"],
       "Remove from team": ["チームから削除"],
       "Invite": ["招待"],

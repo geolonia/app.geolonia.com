@@ -12,6 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import CodeIcon from "@material-ui/icons/Code";
 import ViewListIcon from "@material-ui/icons/ViewList";
+import DescriptionIcon from "@material-ui/icons/Description"
 import RoomIcon from "@material-ui/icons/Room";
 import GroupIcon from "@material-ui/icons/Group";
 import PaymentIcon from "@material-ui/icons/Payment";
@@ -169,6 +170,17 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __("Billing"),
           icon: <PaymentIcon />,
           href: "#/team/billing",
+          active: false
+        }
+      ]
+    },
+    {
+      id: __("Documentation"),
+      children: [
+        {
+          id: __("Official Documents"),
+          icon: <DescriptionIcon />,
+          href: "https://docs.geolonia.com/",
           active: false
         }
       ]
