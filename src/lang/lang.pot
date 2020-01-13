@@ -615,6 +615,11 @@ msgstr ""
 msgid "Suspended"
 msgstr ""
 
+#: src/components/Team/members/index.tsx:231
+#: src/components/custom/Table.tsx:138
+msgid "rows per page"
+msgstr ""
+
 #: src/components/Team/members/index.tsx:273
 msgid "Suspend"
 msgstr ""

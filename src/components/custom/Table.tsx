@@ -135,7 +135,7 @@ export const CustomTable = (props: Props) => {
               rowsPerPage={rowsPerPage}
               page={page}
               SelectProps={{
-                inputProps: { "aria-label": "rows per page" },
+                inputProps: { "aria-label": __("rows per page") },
                 native: true
               }}
               onChangePage={(e, newPage) => setOffset(rowsPerPage * newPage)}

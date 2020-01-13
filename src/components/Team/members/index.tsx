@@ -228,7 +228,7 @@ const Content = (props: Props) => {
               rowsPerPage={20}
               page={0}
               SelectProps={{
-                inputProps: { "aria-label": "rows per page" },
+                inputProps: { "aria-label": __("rows per page") },
                 native: true
               }}
               onChangePage={handleChangePage}

@@ -626,6 +626,11 @@ msgstr "チームメンバーの管理ができます。"
 msgid "Suspended"
 msgstr "一時停止"
 
+#: src/components/Team/members/index.tsx:231
+#: src/components/custom/Table.tsx:138
+msgid "rows per page"
+msgstr "表示する個数"
+
 #: src/components/Team/members/index.tsx:273
 msgid "Suspend"
 msgstr "一時停止"
