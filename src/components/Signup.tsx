@@ -85,7 +85,7 @@ const Content = (props: Props) => {
         } else if (err.code === "InvalidParameterException") {
           setMessage(__("Invalid username or email address."));
         } else {
-          setMessage(__("Signup failed."));
+          __("Signup failed. You cannot use the username or email.")
         }
         setStatus("warning");
       });
