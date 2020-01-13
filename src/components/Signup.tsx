@@ -85,22 +85,25 @@ const Content = (props: Props) => {
         } else if (err.code === "InvalidParameterException") {
           setMessage(__("Invalid username or email address."));
         } else {
-          __("Signup failed. You cannot use the username or email.")
+          __("Signup failed. You cannot use the username or email.");
         }
         setStatus("warning");
       });
   };
 
   const buttonDisabled =
-  username === "" || email === "" || !isPasswordStrongEnough(password);
+    username === "" || email === "" || !isPasswordStrongEnough(password);
 
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {
     // enter
-    e.keyCode === 13 && !buttonDisabled && handleSignup()
-  }
+    e.keyCode === 13 && !buttonDisabled && handleSignup();
+  };
 
   return (
     <div className="signup">
+      {status && status !== "requesting" && (
+        <Alert type={status}>{message}</Alert>
+      )}
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Welcome to Geolonia")}</h1>
@@ -173,9 +176,6 @@ const Content = (props: Props) => {
           <Support />
         </div>
       </div>
-      {status && status !== "requesting" && (
-        <Alert type={status}>{message}</Alert>
-      )}
     </div>
   );
 };
