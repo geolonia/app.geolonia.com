@@ -166,7 +166,7 @@ msgstr[0] "%s 個の地物が追加されました。"
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:56 src/components/Signup.tsx:106
+#: src/components/ForgotPassword.tsx:56 src/components/Signup.tsx:114
 #: src/components/User/profile.tsx:104 src/components/verify.tsx:81
 msgid "Username"
 msgstr "ユーザー名"
@@ -329,7 +329,7 @@ msgstr "指定したメールに請求情報を送信します。"
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
-#: src/components/ResetPassword.tsx:106 src/components/Signup.tsx:137
+#: src/components/ResetPassword.tsx:106 src/components/Signup.tsx:146
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
@@ -352,8 +352,8 @@ msgstr "パスワードを変更"
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/ResetPassword.tsx:86 src/components/Signin.tsx:119
-#: src/components/Signup.tsx:127
+#: src/components/ResetPassword.tsx:86 src/components/Signin.tsx:123
+#: src/components/Signup.tsx:135
 msgid "Password"
 msgstr "パスワード"
 
@@ -361,27 +361,27 @@ msgstr "パスワード"
 msgid "Confirm password"
 msgstr "パスワードを確認"
 
-#: src/components/Signin.tsx:103
+#: src/components/Signin.tsx:107
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
-#: src/components/Signin.tsx:108
+#: src/components/Signin.tsx:112
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:131
+#: src/components/Signin.tsx:136
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:143
+#: src/components/Signin.tsx:148
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:158
+#: src/components/Signin.tsx:163
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:160
+#: src/components/Signin.tsx:165
 msgid "Create an account."
 msgstr "アカウントを作成"
 
@@ -393,11 +393,11 @@ msgstr "サインイン成功"
 msgid "Signin failed."
 msgstr "サインイン失敗"
 
-#: src/components/Signin.tsx:91
+#: src/components/Signin.tsx:95
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:94
+#: src/components/Signin.tsx:98
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -405,27 +405,31 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signup.tsx:101 src/components/verify.tsx:76
+#: src/components/Signup.tsx:109 src/components/verify.tsx:76
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:102
+#: src/components/Signup.tsx:110
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:114
+#: src/components/Signup.tsx:111
+msgid "We are currently private beta. Sign Up is restricted to invited users."
+msgstr "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
+
+#: src/components/Signup.tsx:122
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:118
+#: src/components/Signup.tsx:126
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:149
+#: src/components/Signup.tsx:158
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:159
+#: src/components/Signup.tsx:168
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -441,19 +445,15 @@ msgstr ""
 msgid "Signup successed."
 msgstr "サインアップ成功"
 
-#: src/components/Signup.tsx:83
-msgid "Signup failed. You cannot use the username or email."
-msgstr ""
-"サインアップに失敗しました。このユーザー名またはメールアドレスは使用できませ"
-"ん。"
-
 #: src/components/Signup.tsx:86
 msgid "Invalid username or email address."
 msgstr "ユーザー名または Email アドレスが正しくありません。"
 
 #: src/components/Signup.tsx:88
-msgid "Signup failed."
-msgstr "サインアップ失敗"
+msgid "Signup failed. You cannot use the username or email."
+msgstr ""
+"サインアップに失敗しました。このユーザー名またはメールアドレスは使用できませ"
+"ん。"
 
 #: src/components/Team/Billing.tsx:114
 msgid "Cost per 1,000 API loads/month"
@@ -835,6 +835,9 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Signup failed."
+#~ msgstr "サインアップ失敗"
 
 #~ msgid "The billing member cannot be degraded."
 #~ msgstr "このメンバーの権限は変更できません。チーム設定で"
