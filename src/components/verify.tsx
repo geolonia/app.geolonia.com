@@ -71,6 +71,9 @@ const Content = (props: Props) => {
 
   return (
     <div className="signup">
+      {status && status !== "requesting" && (
+        <Alert type={status}>{messages[status]}</Alert>
+      )}
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Welcome to Geolonia")}</h1>
@@ -124,9 +127,6 @@ const Content = (props: Props) => {
             "Please check your email and enter the verification code like 123456."
           )}
         </Alert>
-      )}
-      {status && status !== "requesting" && (
-        <Alert type={status}>{messages[status]}</Alert>
       )}
     </div>
   );
