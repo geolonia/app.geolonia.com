@@ -26,6 +26,9 @@ import Redux from "redux";
 import { connect } from "react-redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
 
+// libs
+import normalizeOrigin from "../../lib/normalize-origin";
+
 // constants
 import { messageDisplayDuration } from "../../constants";
 
@@ -144,7 +147,8 @@ const Content = (props: Props) => {
 
     const normalizedAllowedOrigins = allowedOrigins
       .split("\n")
-      .filter(url => !!url);
+      .filter(url => !!url)
+      .map(origin => normalizeOrigin(origin));
 
     const nextKey = {
       name,
