@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: build
+      run: |
+        npm ci
+        npm test
+        npm run build
+      env:
+        REACT_APP_COGNITO_USERPOOL_ID: ${{ secrets.REACT_APP_COGNITO_USERPOOL_ID }}
+        REACT_APP_COGNITO_APP_CLIENT_ID: ${{ secrets.REACT_APP_COGNITO_APP_CLIENT_ID }}
+        REACT_APP_API_BASE: https://api.geolonia.com
+        REACT_APP_APP_API_BASE: https://api.app.geolonia.com
+        REACT_APP_GEOSEARCH_API_BASE: https://gesearch.example.geolonia.com
+        REACT_APP_STAGE: dev
