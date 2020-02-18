@@ -7,11 +7,11 @@ on:
 
 jobs:
   build:
-
+    timeout-minutes: 5
+    
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
     - name: build
       run: |
         npm ci
