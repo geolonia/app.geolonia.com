@@ -322,6 +322,7 @@ msgid "Billing email"
 msgstr "支払い"
 
 #: src/components/Navigator.tsx:332
+#: src/components/Team/general/fields.tsx:140
 msgid "We’ll send receipts to this inbox."
 msgstr "指定したメールに請求情報を送信します。"
 

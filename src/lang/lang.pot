@@ -320,6 +320,7 @@ msgid "Billing email"
 msgstr ""
 
 #: src/components/Navigator.tsx:332
+#: src/components/Team/general/fields.tsx:140
 msgid "We’ll send receipts to this inbox."
 msgstr ""
 
