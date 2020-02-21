@@ -731,7 +731,7 @@ msgstr "新しいパスワード"
 
 #: src/components/custom/AddNew.tsx:32
 msgid "New"
-msgstr ""
+msgstr "新規作成"
 
 #: src/components/custom/AddNew.tsx:33
 msgid "name"
