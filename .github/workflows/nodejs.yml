@@ -32,8 +32,8 @@ jobs:
           REACT_APP_GEOSEARCH_API_BASE: https://gesearch.example.geolonia.com
           REACT_APP_STAGE: dev
 
-      - name: GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v1.3.0
-        with:
-          # Build directory to deploy
-          build_dir: build
+      - name: GitHub Pages Deploy
+        uses: maxheld83/ghpages@v0.2.1
+        env:
+          BUILD_DIR: build
+        
