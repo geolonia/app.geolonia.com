@@ -116,7 +116,7 @@
         "新しいチームの名前を入力してください。"
       ],
       "Billing email": ["支払い"],
-      "We’ll send receipts to this inbox.": [
+      "We'll send you an email receipt.": [
         "指定したメールに請求情報を送信します。"
       ],
       "You are suspended. Please contact the team owner.": [

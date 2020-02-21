@@ -137,7 +137,7 @@ const Content = (props: Props) => {
         </Select>
       </FormControl>
 
-      <p className="mute">{__("We’ll send receipts to this inbox.")}</p>
+      <p className="mute">{__("We'll send you an email receipt.")}</p>
 
       <Save onClick={onSaveClick} disabled={saveDisabled} />
     </>

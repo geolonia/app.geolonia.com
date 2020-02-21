@@ -321,7 +321,7 @@ msgstr ""
 
 #: src/components/Navigator.tsx:332
 #: src/components/Team/general/fields.tsx:140
-msgid "We’ll send receipts to this inbox."
+msgid "We'll send you an email receipt."
 msgstr ""
 
 #: src/components/Paperbase.tsx:148

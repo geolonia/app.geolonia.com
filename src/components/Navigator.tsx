@@ -329,7 +329,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
               disabled={true}
             />
 
-            <p className="mute">{__("We’ll send receipts to this inbox.")}</p>
+            <p className="mute">{__("We'll send you an email receipt.")}</p>
           </DialogContent>
           <DialogActions>
             <Cancel handler={handleClose}></Cancel>
