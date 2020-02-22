@@ -550,10 +550,6 @@ msgstr ""
 "<strong>%1$s</strong> のチームを削除する場合は <code>delete</code> と入力して"
 "ください。"
 
-#: src/components/Team/general/delete.tsx:122
-msgid "Confirm"
-msgstr "パスワードを確認"
-
 #: src/components/Team/general/delete.tsx:140
 #: src/components/Team/members/change-role.tsx:145
 #: src/components/Team/members/remove-member.tsx:93
