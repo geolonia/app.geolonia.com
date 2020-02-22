@@ -322,7 +322,8 @@ msgid "Billing email"
 msgstr "支払い"
 
 #: src/components/Navigator.tsx:332
-msgid "We’ll send receipts to this inbox."
+#: src/components/Team/general/fields.tsx:140
+msgid "We'll send you an email receipt."
 msgstr "指定したメールに請求情報を送信します。"
 
 #: src/components/Paperbase.tsx:148
@@ -731,7 +732,7 @@ msgstr "新しいパスワード"
 
 #: src/components/custom/AddNew.tsx:32
 msgid "New"
-msgstr ""
+msgstr "新規作成"
 
 #: src/components/custom/AddNew.tsx:33
 msgid "name"
