@@ -119,7 +119,6 @@ const Content = (props: Props) => {
               error
               margin="normal"
               name="team-deletion-confirm"
-              label={__("Confirm")}
               value={confirmation}
               onChange={e => setConfirmation(e.target.value)}
               disabled={status !== false}
