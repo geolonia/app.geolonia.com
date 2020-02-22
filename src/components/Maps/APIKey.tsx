@@ -131,7 +131,8 @@ const Content = (props: Props) => {
   };
 
   const sidebarStyle: React.CSSProperties = {
-    marginBottom: "2em"
+    marginBottom: "2em",
+    overflowWrap: "break-word"
   };
 
   const saveDisabled =
