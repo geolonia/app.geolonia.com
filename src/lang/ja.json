@@ -116,7 +116,7 @@
         "新しいチームの名前を入力してください。"
       ],
       "Billing email": ["支払い"],
-      "We’ll send receipts to this inbox.": [
+      "We'll send you an email receipt.": [
         "指定したメールに請求情報を送信します。"
       ],
       "You are suspended. Please contact the team owner.": [
@@ -195,7 +195,6 @@
       "Please enter <code>delete</code> if you really want to delete the team <strong>%1$s</strong>.": [
         "<strong>%1$s</strong> のチームを削除する場合は <code>delete</code> と入力してください。"
       ],
-      "Confirm": ["パスワードを確認"],
       "Cancel": ["キャンセル"],
       "Delete": ["削除"],
       "Once you delete a team, there is no going back. Please be certain. ": [
@@ -254,7 +253,7 @@
       "Security": ["セキュリティ"],
       "Old password": ["古いパスワード"],
       "New password": ["新しいパスワード"],
-      "New": [""],
+      "New": ["新規作成"],
       "name": ["ユーザー名"],
       "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],

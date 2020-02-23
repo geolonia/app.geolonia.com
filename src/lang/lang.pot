@@ -320,7 +320,8 @@ msgid "Billing email"
 msgstr ""
 
 #: src/components/Navigator.tsx:332
-msgid "We’ll send receipts to this inbox."
+#: src/components/Team/general/fields.tsx:140
+msgid "We'll send you an email receipt."
 msgstr ""
 
 #: src/components/Paperbase.tsx:148
@@ -540,10 +541,6 @@ msgstr ""
 msgid ""
 "Please enter <code>delete</code> if you really want to delete the team "
 "<strong>%1$s</strong>."
-msgstr ""
-
-#: src/components/Team/general/delete.tsx:122
-msgid "Confirm"
 msgstr ""
 
 #: src/components/Team/general/delete.tsx:140
