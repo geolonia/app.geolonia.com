@@ -31,6 +31,9 @@ jobs:
           REACT_APP_APP_API_BASE: https://api.app.geolonia.com
           REACT_APP_GEOSEARCH_API_BASE: https://gesearch.example.geolonia.com
           REACT_APP_STAGE: dev
+      - run: npm run cname
+        env:
+          CNAME: dev.app.geolonia.com
 
       - name: GitHub Pages Deploy
         uses: maxheld83/ghpages@v0.2.1

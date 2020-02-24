@@ -27,6 +27,7 @@
     "start:prod": ". ./.env.production && react-scripts start",
     "build": ". ./.env.production && react-scripts build",
     "build:ci": "react-scripts build && bin/postbuild.sh",
+    "cname": "echo $CNAME > ./build/CNAME",
     "test": "react-scripts test",
     "lint": "eslint --ext .tsx --ext .ts --ext .jsx --ext .js .",
     "eject": "react-scripts eject",

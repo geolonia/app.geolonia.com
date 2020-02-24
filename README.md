@@ -1,6 +1,6 @@
 # app.geolonia.com
 
-| `master`-v1 (app.geolonia.com)                                                                                                                                    | `feature-dev` (dev.app.geolonia.com)                                                                       |
+| `master`-v1 (app.geolonia.com)                                                                                                                                    | `feature`-dev (dev.app.geolonia.com)                                                                       |
 | :---------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
 | [![Netlify Status](https://api.netlify.com/api/v1/badges/82532c8e-8d86-4215-a8f7-9fca30cfb132/deploy-status)](https://app.netlify.com/sites/geolonia-app/deploys) | ![Node.js CI](https://github.com/geolonia/app.geolonia.com/workflows/Node.js%20CI/badge.svg?branch=master) |
 
