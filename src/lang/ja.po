@@ -166,7 +166,7 @@ msgstr[0] "%s 個の地物が追加されました。"
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:56 src/components/Signup.tsx:114
+#: src/components/Signup.tsx:114
 #: src/components/User/profile.tsx:104 src/components/verify.tsx:81
 msgid "Username"
 msgstr "ユーザー名"
@@ -365,6 +365,7 @@ msgstr "パスワードを確認"
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
+#: src/components/ForgotPassword.tsx:56
 #: src/components/Signin.tsx:112
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
