@@ -138,6 +138,7 @@ export const CustomTable = (props: Props) => {
                 inputProps: { "aria-label": __("rows per page") },
                 native: true
               }}
+              labelRowsPerPage={ __("rows per page") }
               onChangePage={(e, newPage) => setOffset(rowsPerPage * newPage)}
               onChangeRowsPerPage={e =>
                 setRowsPerPage(parseInt(e.target.value, 10))
