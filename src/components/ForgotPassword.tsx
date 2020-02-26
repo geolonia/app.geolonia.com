@@ -53,7 +53,7 @@ const Content = (props: Props) => {
 
         <div className="form">
           <label className="email">
-            <h3>{__("Username")}</h3>
+            <h3>{__("Username or email address")}</h3>
             <input
               type="text"
               value={username}
