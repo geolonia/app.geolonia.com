@@ -543,7 +543,7 @@ msgid ""
 "<strong>%1$s</strong>."
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:140
+#: src/components/Team/general/delete.tsx:139
 #: src/components/Team/members/change-role.tsx:145
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
@@ -553,7 +553,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:159
+#: src/components/Team/general/delete.tsx:158
 #: src/components/custom/Delete.tsx:152
 msgid "Delete"
 msgstr ""
@@ -621,7 +621,7 @@ msgid "Suspended"
 msgstr ""
 
 #: src/components/Team/members/index.tsx:231
-#: src/components/custom/Table.tsx:138
+#: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr ""
 
@@ -633,19 +633,23 @@ msgstr ""
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:59
+#: src/components/Team/members/invite.tsx:39
+msgid "They are already a member of the team."
+msgstr ""
+
+#: src/components/Team/members/invite.tsx:64
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:60
+#: src/components/Team/members/invite.tsx:65
 msgid "Invite a member"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:61
+#: src/components/Team/members/invite.tsx:66
 msgid "We automatically update your billing as you add and remove team members."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:66
+#: src/components/Team/members/invite.tsx:71
 #: src/components/User/profile.tsx:113
 msgid "Email"
 msgstr ""
