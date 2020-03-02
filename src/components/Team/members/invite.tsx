@@ -34,9 +34,14 @@ export const Invite = (props: Props) => {
 
   const inviteHandler = (email: string) => {
     const { session, team, addMemberState, members } = props;
+
+    if (members.find(member => member.email === email)) {
+      setMessage(__("They are already a member of the team."));
+      return Promise.reject("They are already a member of the team.");
+    }
+
     if (team) {
       return addMember(session, team.teamId, email).then(result => {
-        console.log(result);
         if (result.error) {
           setMessage(result.message);
           throw new Error(result.code);
@@ -91,7 +96,4 @@ export const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
     dispatch(createTeamMemberActions.add(teamId, member))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Invite);
+export default connect(mapStateToProps, mapDispatchToProps)(Invite);

@@ -58,7 +58,7 @@
       "Invalid JSON.": [""],
       "%s feature has been added.": ["%s 個の地物が追加されました。"],
       "Reset your password": ["パスワードのリセット"],
-      "Username": ["ユーザー名"],
+      "Username or email address": ["ユーザー名または Email アドレス"],
       "We will send you a verification code to reset your password.": [
         "パスワードをリセットするための検証コードを送付します。"
       ],
@@ -136,7 +136,6 @@
       "Oops, the server seems not to be responding correctly.": [
         "おっと、サーバーが正しく応答していないようです。"
       ],
-      "Username or email address": ["ユーザー名または Email アドレス"],
       "Forgot password?": ["パスワードをお忘れですか？"],
       "Sign in": ["サインイン"],
       "New to Geolonia?": ["アカウントをお持ちですか？"],
@@ -152,6 +151,7 @@
       "We are currently private beta. Sign Up is restricted to invited users.": [
         "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
       ],
+      "Username": ["ユーザー名"],
       "Username cannot be modified later.": [
         "ユーザー名は後から変更できません。"
       ],
@@ -225,6 +225,7 @@
       "rows per page": ["表示する個数"],
       "Suspend": ["一時停止"],
       "Remove from team": ["チームから削除"],
+      "They are already a member of the team.": ["招待済みのメンバーです。"],
       "Invite": ["招待"],
       "Invite a member": ["メンバーを招待"],
       "We automatically update your billing as you add and remove team members.": [
