@@ -64,7 +64,12 @@ const Content = (props: Props) => {
             {__("We will send you a verification code to reset your password.")}
           </p>
           <p>
-            <Button variant="contained" color="primary" onClick={handleSignup}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSignup}
+              disabled={username.trim() === ""}
+            >
               {__("Send password reset email")}
             </Button>
           </p>
