@@ -1,6 +1,6 @@
 import Moment from "moment";
 
-export type GeoJSONData = {
+export type GeoSearch = {
   geojsonId: string;
   data: GeoJSON.FeatureCollection;
   createAt: Moment.Moment | void;
@@ -11,7 +11,7 @@ export type GeoJSONData = {
 export type State = {
   [teamId: string]: {
     featureCollections: {
-      [id: string]: Omit<GeoJSONData, "geojsonId">;
+      [id: string]: Omit<GeoSearch, "geojsonId">;
     };
   };
 };

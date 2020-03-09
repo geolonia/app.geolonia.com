@@ -1,4 +1,4 @@
-import React, { Dispatch } from "react";
+import React from "react";
 
 // components
 import Table from "../custom/Table";
@@ -25,7 +25,7 @@ import createGeosearch from "../../api/geosearch/create";
 // redux
 import {
   createActions as createGeosearchActions,
-  GeoJSONData
+  GeoSearch
 } from "../../redux/actions/geosearch";
 
 type Row = {
@@ -44,7 +44,7 @@ type StateProps = {
   };
 };
 type DispatchProps = {
-  addGeoJSON: (teamId: string, data: GeoJSONData) => void;
+  addGeoJSON: (teamId: string, data: GeoSearch) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
@@ -89,7 +89,7 @@ function Content(props: Props) {
         setMessage(result.message);
         throw new Error(result.code);
       } else {
-        const data = dateParse<DateStringify<GeoJSONData>>(result.data);
+        const data = dateParse<DateStringify<GeoSearch>>(result.data);
         props.addGeoJSON(teamId, data);
       }
     });
@@ -138,7 +138,7 @@ export const mapStateToProps = (state: AppState): StateProps => {
 export const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => {
   return {
     // TODO: fix any
-    addGeoJSON: (teamId: string, _data: any) => {
+    addGeoJSON: (teamId: string, _data: GeoSearch) => {
       const { geojsonId, createAt, updateAt, data, isPublic } = _data;
       dispatch(
         createGeosearchActions.setGeoJSON(

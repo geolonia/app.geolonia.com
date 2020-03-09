@@ -10,7 +10,7 @@ import {
 } from "../redux/actions/team-member";
 import {
   State as GeosearchState,
-  GeoJSONData as _GeoJSONData
+  GeoSearch as _GeoSearch
 } from "../redux/actions/geosearch";
 import Moment from "moment";
 
@@ -56,4 +56,4 @@ export type DateStringify<T> = Omit<T, "createAt" | "updateAt"> & {
   updateAt?: string;
 };
 
-export type GeoJSONData = _GeoJSONData;
+export type GeoSearch = _GeoSearch;
