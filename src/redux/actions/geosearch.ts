@@ -1,14 +1,17 @@
 import Moment from "moment";
 
+export type GeoJSONData = {
+  geojsonId: string;
+  data: GeoJSON.FeatureCollection;
+  createAt: Moment.Moment | void;
+  updateAt: Moment.Moment | void;
+  isPublic: boolean;
+};
+
 export type State = {
   [teamId: string]: {
     featureCollections: {
-      [id: string]: {
-        data: GeoJSON.FeatureCollection;
-        createAt: Moment.Moment | void;
-        updateAt: Moment.Moment | void;
-        isPublic: boolean;
-      };
+      [id: string]: Omit<GeoJSONData, "geojsonId">;
     };
   };
 };
@@ -21,7 +24,7 @@ type PutFeatureCollectionAction = {
   type: typeof PUT_FEATURE_COLLECTION;
   payload: {
     teamId: string;
-    featureCollectionId: string;
+    geojsonId: string;
     featureCollection: GeoJSON.FeatureCollection;
     createAt: Moment.Moment | void;
     updateAt: Moment.Moment | void;
@@ -32,9 +35,9 @@ type PutFeatureCollectionAction = {
 export type GeosearchActions = PutFeatureCollectionAction;
 
 export const createActions = {
-  setFeatureCollections: (
+  setGeoJSON: (
     teamId: string,
-    featureCollectionId: string,
+    geojsonId: string,
     featureCollection: GeoJSON.FeatureCollection,
     createAt: Moment.Moment | void,
     updateAt: Moment.Moment | void,
@@ -43,7 +46,7 @@ export const createActions = {
     type: PUT_FEATURE_COLLECTION,
     payload: {
       teamId,
-      featureCollectionId,
+      geojsonId,
       featureCollection,
       createAt,
       updateAt,
@@ -64,7 +67,7 @@ export const reducer = (
   if (isPutFeatureCollectionAction(action)) {
     const {
       teamId,
-      featureCollectionId,
+      geojsonId,
       featureCollection,
       createAt,
       updateAt,
@@ -73,8 +76,7 @@ export const reducer = (
     const prevFeatureCollections = state[teamId]
       ? state[teamId].featureCollections
       : {};
-    const prevFeatureCollection =
-      prevFeatureCollections[featureCollectionId] || {};
+    const prevFeatureCollection = prevFeatureCollections[geojsonId] || {};
 
     return {
       ...state,
@@ -82,7 +84,7 @@ export const reducer = (
         ...state[teamId],
         featureCollections: {
           ...prevFeatureCollections,
-          [featureCollectionId]: {
+          [geojsonId]: {
             ...prevFeatureCollection,
             data: featureCollection,
             createAt,

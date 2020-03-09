@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch } from "react";
 
 // components
 import Table from "../custom/Table";
@@ -8,9 +8,25 @@ import Title from "../custom/Title";
 // utils
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
+import dateParse from "../../lib/date-parse";
 
 // types
-import { AppState, FeatureCollection } from "../../types";
+import {
+  AppState,
+  FeatureCollection,
+  Session,
+  DateStringify
+} from "../../types";
+import Redux from "redux";
+
+// api
+import createGeosearch from "../../api/geosearch/create";
+
+// redux
+import {
+  createActions as createGeosearchActions,
+  GeoJSONData
+} from "../../redux/actions/geosearch";
 
 type Row = {
   id: number | string;
@@ -21,14 +37,19 @@ type Row = {
 
 type OwnProps = {};
 type StateProps = {
+  session: Session;
+  teamId?: string;
   featureCollections: {
     [id: string]: Omit<FeatureCollection, "id">;
   };
 };
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  addGeoJSON: (teamId: string, data: GeoJSONData) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 function Content(props: Props) {
-  // console.log(props.featureCollections);
+  const [message, setMessage] = React.useState("");
 
   const rows: Row[] = Object.keys(props.featureCollections).map((id, index) => {
     const { createAt, isPublic } = props.featureCollections[id];
@@ -58,8 +79,20 @@ function Content(props: Props) {
   ];
 
   const handler = (name: string) => {
-    console.log(name);
-    return Promise.resolve();
+    const { teamId } = props;
+    if (!teamId) {
+      return Promise.resolve();
+    }
+
+    return createGeosearch(props.session, teamId, name).then(result => {
+      if (result.error) {
+        setMessage(result.message);
+        throw new Error(result.code);
+      } else {
+        const data = dateParse<DateStringify<GeoJSONData>>(result.data);
+        props.addGeoJSON(teamId, data);
+      }
+    });
   };
 
   return (
@@ -78,6 +111,7 @@ function Content(props: Props) {
         onError={() => {
           /*TODO: show messages*/
         }}
+        errorMessage={message}
       />
 
       <Table rows={rows} rowsPerPage={10} permalink="/data/gis/%s" />
@@ -87,15 +121,37 @@ function Content(props: Props) {
 
 export const mapStateToProps = (state: AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
+  const { session } = state.authSupport;
   if (team) {
     return {
+      session,
+      teamId: team.teamId,
       featureCollections: state.geosearch[team.teamId]
         ? state.geosearch[team.teamId].featureCollections
         : {}
     };
   } else {
-    return { featureCollections: {} };
+    return { session, featureCollections: {} };
   }
 };
 
-export default connect(mapStateToProps)(Content);
+export const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => {
+  return {
+    // TODO: fix any
+    addGeoJSON: (teamId: string, _data: any) => {
+      const { geojsonId, createAt, updateAt, data, isPublic } = _data;
+      dispatch(
+        createGeosearchActions.setGeoJSON(
+          teamId,
+          geojsonId,
+          data,
+          createAt,
+          updateAt,
+          isPublic
+        )
+      );
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

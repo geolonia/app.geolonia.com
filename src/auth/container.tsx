@@ -59,7 +59,7 @@ type DispatchProps = {
   setTeamMembers: (teamId: string, members: Member[]) => void;
   setFeatureCollection: (
     teamId: string,
-    featureCollectionId: string,
+    geojsonId: string,
     featureCollection: GeoJSON.FeatureCollection,
     createAt: Moment.Moment | void,
     updateAt: Moment.Moment | void,
@@ -319,16 +319,16 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
     dispatch(createTeamMemberActions.set(teamId, members)),
   setFeatureCollection: (
     teamId,
-    featureCollectionId,
+    geojsonId,
     featureCollection,
     createAt,
     updateAt,
     isPublic
   ) =>
     dispatch(
-      createGeosearchActions.setFeatureCollections(
+      createGeosearchActions.setGeoJSON(
         teamId,
-        featureCollectionId,
+        geojsonId,
         featureCollection,
         createAt,
         updateAt,

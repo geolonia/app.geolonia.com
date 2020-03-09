@@ -8,7 +8,10 @@ import {
   Role as _Role,
   Roles as _Roles
 } from "../redux/actions/team-member";
-import { State as GeosearchState } from "../redux/actions/geosearch";
+import {
+  State as GeosearchState,
+  GeoJSONData as _GeoJSONData
+} from "../redux/actions/geosearch";
 import Moment from "moment";
 
 // app type
@@ -52,3 +55,5 @@ export type DateStringify<T> = Omit<T, "createAt" | "updateAt"> & {
   createAt?: string;
   updateAt?: string;
 };
+
+export type GeoJSONData = _GeoJSONData;

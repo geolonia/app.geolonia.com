@@ -80,13 +80,13 @@ export const mapStateToProps = (
 ): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   if (team) {
-    const featureCollectionId = ownProps.match.params.id;
+    const geojsonId = ownProps.match.params.id;
     const featureCollections = state.geosearch[team.teamId]
       ? state.geosearch[team.teamId].featureCollections
       : {};
 
-    const featureCollection = featureCollections[featureCollectionId]
-      ? featureCollections[featureCollectionId].data
+    const featureCollection = featureCollections[geojsonId]
+      ? featureCollections[geojsonId].data
       : void 0;
     return {
       featureCollection
