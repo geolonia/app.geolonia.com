@@ -1,96 +1,94 @@
 import Moment from "moment";
+import { HashBy } from "../../types/";
 
-export type GeoSearch = {
+export type Geosearch = {
   geojsonId: string;
   data: GeoJSON.FeatureCollection;
   createAt: Moment.Moment | void;
   updateAt: Moment.Moment | void;
   isPublic: boolean;
+  name: string;
 };
 
 export type State = {
-  [teamId: string]: {
-    featureCollections: {
-      [id: string]: Omit<GeoSearch, "geojsonId">;
-    };
-  };
+  [teamId: string]: HashBy<Geosearch, "geojsonId">;
 };
 
 const initialState: State = {};
 
-const PUT_FEATURE_COLLECTION = "SET_FEATURE_COLLECTION";
+const PUT_GEOSEARCH_ACTION = "PUT_GEOSEARCH_ACTION";
 
-type PutFeatureCollectionAction = {
-  type: typeof PUT_FEATURE_COLLECTION;
+type PutGeosearchAction = {
+  type: typeof PUT_GEOSEARCH_ACTION;
   payload: {
     teamId: string;
     geojsonId: string;
-    featureCollection: GeoJSON.FeatureCollection;
+    name: string;
     createAt: Moment.Moment | void;
     updateAt: Moment.Moment | void;
     isPublic: boolean;
+    geojson: GeoJSON.FeatureCollection;
   };
 };
 
-export type GeosearchActions = PutFeatureCollectionAction;
+export type GeosearchActions = PutGeosearchAction;
 
 export const createActions = {
-  setGeoJSON: (
+  set: (
     teamId: string,
     geojsonId: string,
-    featureCollection: GeoJSON.FeatureCollection,
+    name: string,
     createAt: Moment.Moment | void,
     updateAt: Moment.Moment | void,
-    isPublic: boolean
-  ): PutFeatureCollectionAction => ({
-    type: PUT_FEATURE_COLLECTION,
+    isPublic: boolean,
+    geojson: GeoJSON.FeatureCollection
+  ): PutGeosearchAction => ({
+    type: PUT_GEOSEARCH_ACTION,
     payload: {
-      teamId,
       geojsonId,
-      featureCollection,
+      teamId,
+      name,
       createAt,
       updateAt,
-      isPublic
+      isPublic,
+      geojson
     }
   })
 };
 
-const isPutFeatureCollectionAction = (
+const isPutGeosearchAction = (
   action: GeosearchActions
-): action is PutFeatureCollectionAction =>
-  action.type === PUT_FEATURE_COLLECTION;
+): action is PutGeosearchAction => action.type === PUT_GEOSEARCH_ACTION;
 
 export const reducer = (
   state: State = initialState,
   action: GeosearchActions
 ): State => {
-  if (isPutFeatureCollectionAction(action)) {
+  if (isPutGeosearchAction(action)) {
     const {
       teamId,
       geojsonId,
-      featureCollection,
+      name,
       createAt,
       updateAt,
-      isPublic
+      isPublic,
+      geojson
     } = action.payload;
-    const prevFeatureCollections = state[teamId]
-      ? state[teamId].featureCollections
-      : {};
-    const prevFeatureCollection = prevFeatureCollections[geojsonId] || {};
+    const prevGeojsonMap = state[teamId] ? state[teamId] : {};
+    const prevGeojson = prevGeojsonMap[geojsonId] || {};
 
     return {
       ...state,
       [teamId]: {
         ...state[teamId],
-        featureCollections: {
-          ...prevFeatureCollections,
-          [geojsonId]: {
-            ...prevFeatureCollection,
-            data: featureCollection,
-            createAt,
-            updateAt,
-            isPublic
-          }
+        ...prevGeojsonMap,
+        [geojsonId]: {
+          ...prevGeojson,
+          data: geojson,
+          name,
+          createAt,
+          updateAt,
+          isPublic
         }
       }
     };

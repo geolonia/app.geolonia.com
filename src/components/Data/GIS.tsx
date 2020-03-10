@@ -19,7 +19,7 @@ import { connect } from "react-redux";
 
 type OwnProps = {};
 type StateProps = {
-  featureCollection?: GeoJSON.FeatureCollection;
+  geojson?: GeoJSON.FeatureCollection;
 };
 type RouterProps = { match: { params: { id: string } } };
 
@@ -32,8 +32,8 @@ const Content = (props: Props) => {
   >(void 0);
 
   React.useEffect(() => {
-    setGeoJSON(props.featureCollection);
-  }, [props.featureCollection]);
+    setGeoJSON(props.geojson);
+  }, [props.geojson]);
 
   const breadcrumbItems = [
     {
@@ -81,18 +81,11 @@ export const mapStateToProps = (
   const team = state.team.data[state.team.selectedIndex];
   if (team) {
     const geojsonId = ownProps.match.params.id;
-    const featureCollections = state.geosearch[team.teamId]
-      ? state.geosearch[team.teamId].featureCollections
-      : {};
-
-    const featureCollection = featureCollections[geojsonId]
-      ? featureCollections[geojsonId].data
-      : void 0;
-    return {
-      featureCollection
-    };
+    const geosearchMap = state.geosearch[team.teamId] || {};
+    const geosearch = geosearchMap[geojsonId];
+    return { geojson: geosearch ? geosearch.data : void 0 };
   } else {
-    return { featureCollection: void 0 };
+    return { geojson: void 0 };
   }
 };
 

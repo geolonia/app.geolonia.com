@@ -10,9 +10,8 @@ import {
 } from "../redux/actions/team-member";
 import {
   State as GeosearchState,
-  GeoSearch as _GeoSearch
+  Geosearch as _Geosearch
 } from "../redux/actions/geosearch";
-import Moment from "moment";
 
 // app type
 export type AppState = {
@@ -43,17 +42,14 @@ export type Team = _Team;
 export type Member = _Member;
 export type Role = _Role;
 export const Roles = _Roles;
-export type FeatureCollection = {
-  id: string;
-  data: GeoJSON.FeatureCollection;
-  createAt: Moment.Moment | void;
-  updateAt: Moment.Moment | void;
-  isPublic: boolean;
-};
 
 export type DateStringify<T> = Omit<T, "createAt" | "updateAt"> & {
   createAt?: string;
   updateAt?: string;
 };
 
-export type GeoSearch = _GeoSearch;
+export type Geosearch = _Geosearch;
+
+export type HashBy<T, K extends string | number> = {
+  [id: string]: Omit<T, K>;
+};

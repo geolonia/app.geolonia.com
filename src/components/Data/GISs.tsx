@@ -13,9 +13,10 @@ import dateParse from "../../lib/date-parse";
 // types
 import {
   AppState,
-  FeatureCollection,
+  Geosearch,
   Session,
-  DateStringify
+  DateStringify,
+  HashBy
 } from "../../types";
 import Redux from "redux";
 
@@ -23,10 +24,7 @@ import Redux from "redux";
 import createGeosearch from "../../api/geosearch/create";
 
 // redux
-import {
-  createActions as createGeosearchActions,
-  GeoSearch
-} from "../../redux/actions/geosearch";
+import { createActions as createGeosearchActions } from "../../redux/actions/geosearch";
 
 type Row = {
   id: number | string;
@@ -39,23 +37,20 @@ type OwnProps = {};
 type StateProps = {
   session: Session;
   teamId?: string;
-  featureCollections: {
-    [id: string]: Omit<FeatureCollection, "id">;
-  };
+  geosearchMap: HashBy<Geosearch, "geojsonId">;
 };
 type DispatchProps = {
-  addGeoJSON: (teamId: string, data: GeoSearch) => void;
+  setGeosearch: (teamId: string, data: Geosearch) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
 function Content(props: Props) {
   const [message, setMessage] = React.useState("");
-
-  const rows: Row[] = Object.keys(props.featureCollections).map((id, index) => {
-    const { createAt, isPublic } = props.featureCollections[id];
+  const rows: Row[] = Object.keys(props.geosearchMap).map(id => {
+    const { createAt, isPublic, name } = props.geosearchMap[id];
     return {
       id,
-      name: `フィーチャーコレクション ${index}`, // TODO: this is mock value
+      name,
       updated: createAt
         ? createAt.format("YYYY/MM/DD hh:mm:ss")
         : __("(No date)"),
@@ -89,8 +84,8 @@ function Content(props: Props) {
         setMessage(result.message);
         throw new Error(result.code);
       } else {
-        const data = dateParse<DateStringify<GeoSearch>>(result.data);
-        props.addGeoJSON(teamId, data);
+        const data = dateParse<DateStringify<Geosearch>>(result.data);
+        props.setGeosearch(teamId, data);
       }
     });
   };
@@ -123,31 +118,30 @@ export const mapStateToProps = (state: AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   const { session } = state.authSupport;
   if (team) {
+    const { teamId } = team;
     return {
       session,
-      teamId: team.teamId,
-      featureCollections: state.geosearch[team.teamId]
-        ? state.geosearch[team.teamId].featureCollections
-        : {}
+      teamId,
+      geosearchMap: state.geosearch[teamId] || {}
     };
   } else {
-    return { session, featureCollections: {} };
+    return { session, geosearchMap: {} };
   }
 };
 
 export const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => {
   return {
-    // TODO: fix any
-    addGeoJSON: (teamId: string, _data: GeoSearch) => {
-      const { geojsonId, createAt, updateAt, data, isPublic } = _data;
+    setGeosearch: (teamId: string, _data: Geosearch) => {
+      const { geojsonId, createAt, updateAt, isPublic, name, data } = _data;
       dispatch(
-        createGeosearchActions.setGeoJSON(
+        createGeosearchActions.set(
           teamId,
           geojsonId,
-          data,
+          name,
           createAt,
           updateAt,
-          isPublic
+          isPublic,
+          data
         )
       );
     }
