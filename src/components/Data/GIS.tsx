@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import MapContainer from "./map-container";
 import TextEditor from "./text-editor";
 import Save from "../custom/Save";
+import Delete from "../custom/Delete";
+import DangerZone from "../custom/danger-zone";
 // import Upload from "./upload";
 // import Fields from "./fields";
 // import Publish from "./publish";
@@ -15,31 +17,44 @@ import Title from "../custom/Title";
 import "./GIS.scss";
 
 // types
-import { AppState, Session, Geosearch } from "../../types";
+import {
+  AppState,
+  Session,
+  ReadableGeosearch,
+  WritableGeosearch
+} from "../../types";
 import { connect } from "react-redux";
 
 // api
 import updateGeosearch from "../../api/geosearch/update";
+import deleteGeosearch from "../../api/geosearch/delete";
+
+// constants
+import { messageDisplayDuration } from "../../constants";
+
+// redux
+import Redux from "redux";
+import { createActions as createGeosearchActions } from "../../redux/actions/geosearch";
 
 type OwnProps = {};
 type StateProps = {
   session: Session;
   geojsonId?: string;
   teamId?: string;
-  geosearch?: Omit<Geosearch, "geojsonId">;
+  geosearch?: ReadableGeosearch;
 };
 type DispatchProps = {
   updateGeosearch: (
     teamId: string,
     geojsonId: string,
-    geosearch: {
-      name?: string;
-      isPublic?: boolean;
-      data?: GeoJSON.FeatureCollection;
-    }
+    geosearch: WritableGeosearch
   ) => void;
+  deleteGeosearch: (teamId: string, geojsonId: string) => void;
 };
-type RouterProps = { match: { params: { id: string } } };
+type RouterProps = {
+  match: { params: { id: string } };
+  history: { push: (path: string) => void };
+};
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
@@ -101,6 +116,29 @@ const Content = (props: Props) => {
       }
     });
   };
+
+  const onDeleteClick = () => {
+    const { session, teamId, geojsonId, geosearch } = props;
+    if (!teamId || !geojsonId || !geosearch) {
+      return Promise.resolve();
+    }
+    setStatus("requesting");
+
+    return deleteGeosearch(session, teamId, geojsonId).then(result => {
+      if (result.error) {
+        setStatus("failure");
+        setMessage(result.message);
+        throw new Error(result.code);
+      } else {
+        setStatus("success");
+        setTimeout(() => {
+          props.history.push("/data/gis");
+          props.deleteGeosearch(teamId, geojsonId);
+        }, messageDisplayDuration);
+      }
+    });
+  };
+
   const onRequestError = () => setStatus("failure");
 
   return (
@@ -125,6 +163,20 @@ const Content = (props: Props) => {
         onError={onRequestError}
         disabled={status === "requesting"}
       />
+
+      <DangerZone
+        whyDanger={__(
+          "Once you delete an Dataset, there is no going back. Please be certain."
+        )}
+      >
+        <Delete
+          text1={__("Are you sure you want to delete this Dataset?")}
+          text2={__("Please type in the name of the Dataset to confirm.")}
+          errorMessage={message}
+          onClick={onDeleteClick}
+          onFailure={onRequestError}
+        />
+      </DangerZone>
     </div>
   );
 };
@@ -151,4 +203,16 @@ export const mapStateToProps = (
   }
 };
 
-export default connect(mapStateToProps)(Content);
+export const mapDispatchToProps = (
+  dispatch: Redux.Dispatch
+): DispatchProps => ({
+  updateGeosearch: (
+    teamId: string,
+    geojsonId: string,
+    geosearch: WritableGeosearch
+  ) => dispatch(createGeosearchActions.update(teamId, geojsonId, geosearch)),
+  deleteGeosearch: (teamId: string, geojsonId: string) =>
+    dispatch(createGeosearchActions.delete(teamId, geojsonId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

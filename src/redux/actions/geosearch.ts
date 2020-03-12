@@ -9,6 +9,10 @@ export type Geosearch = {
   isPublic: boolean;
   name: string;
 };
+export type ReadableGeosearch = Omit<Geosearch, "geojsonId">;
+export type WritableGeosearch = Partial<
+  Omit<Geosearch, "geojsonId" | "createAt" | "updateAt">
+>;
 
 export type State = {
   [teamId: string]: HashBy<Geosearch, "geojsonId">;
@@ -16,10 +20,12 @@ export type State = {
 
 const initialState: State = {};
 
-const PUT_GEOSEARCH_ACTION = "PUT_GEOSEARCH_ACTION";
+const SET_GEOSEARCH_ACTION = "SET_GEOSEARCH_ACTION";
+const UPDATE_GEOSEARCH_ACTION = "UPDATE_GEOSEARCH_ACTION";
+const DELETE_GEOSEARCH_ACTION = "DELETE_GEOSEARCH_ACTION";
 
-type PutGeosearchAction = {
-  type: typeof PUT_GEOSEARCH_ACTION;
+type SetGeosearchAction = {
+  type: typeof SET_GEOSEARCH_ACTION;
   payload: {
     teamId: string;
     geojsonId: string;
@@ -31,7 +37,27 @@ type PutGeosearchAction = {
   };
 };
 
-export type GeosearchActions = PutGeosearchAction;
+type UpdateGeosearchAction = {
+  type: typeof UPDATE_GEOSEARCH_ACTION;
+  payload: {
+    teamId: string;
+    geojsonId: string;
+    geosearch: WritableGeosearch;
+  };
+};
+
+type DeleteGeosearchAction = {
+  type: typeof DELETE_GEOSEARCH_ACTION;
+  payload: {
+    teamId: string;
+    geojsonId: string;
+  };
+};
+
+export type GeosearchActions =
+  | SetGeosearchAction
+  | UpdateGeosearchAction
+  | DeleteGeosearchAction;
 
 export const createActions = {
   set: (
@@ -42,8 +68,8 @@ export const createActions = {
     updateAt: Moment.Moment | void,
     isPublic: boolean,
     geojson: GeoJSON.FeatureCollection
-  ): PutGeosearchAction => ({
-    type: PUT_GEOSEARCH_ACTION,
+  ): SetGeosearchAction => ({
+    type: SET_GEOSEARCH_ACTION,
     payload: {
       geojsonId,
       teamId,
@@ -53,18 +79,42 @@ export const createActions = {
       isPublic,
       geojson
     }
+  }),
+  update: (
+    teamId: string,
+    geojsonId: string,
+    geosearch: WritableGeosearch
+  ) => ({
+    type: UPDATE_GEOSEARCH_ACTION,
+    payload: {
+      teamId,
+      geojsonId,
+      geosearch
+    }
+  }),
+  delete: (teamId: string, geojsonId: string) => ({
+    type: DELETE_GEOSEARCH_ACTION,
+    payload: { teamId, geojsonId }
   })
 };
 
-const isPutGeosearchAction = (
+const isSetGeosearchAction = (
   action: GeosearchActions
-): action is PutGeosearchAction => action.type === PUT_GEOSEARCH_ACTION;
+): action is SetGeosearchAction => action.type === SET_GEOSEARCH_ACTION;
+
+const isUpdateGeosearchAction = (
+  action: GeosearchActions
+): action is UpdateGeosearchAction => action.type === UPDATE_GEOSEARCH_ACTION;
+
+const isDeleteGeosearchAction = (
+  action: GeosearchActions
+): action is DeleteGeosearchAction => action.type === DELETE_GEOSEARCH_ACTION;
 
 export const reducer = (
   state: State = initialState,
   action: GeosearchActions
 ): State => {
-  if (isPutGeosearchAction(action)) {
+  if (isSetGeosearchAction(action)) {
     const {
       teamId,
       geojsonId,
@@ -92,6 +142,31 @@ export const reducer = (
         }
       }
     };
+  } else if (isUpdateGeosearchAction(action)) {
+    const { teamId, geojsonId, geosearch } = action.payload;
+    const prevGeojsonMap = state[teamId] ? state[teamId] : {};
+    const prevGeojson = prevGeojsonMap[geojsonId] || {};
+    return {
+      ...state,
+      [teamId]: {
+        ...state[teamId],
+        ...prevGeojsonMap,
+        [geojsonId]: {
+          ...prevGeojson,
+          ...geosearch
+        }
+      }
+    };
+  } else if (isDeleteGeosearchAction(action)) {
+    const { teamId, geojsonId } = action.payload;
+    const prevGeojsonMap = state[teamId] ? state[teamId] : {};
+    const nextGeojsonMap = { ...prevGeojsonMap };
+    delete nextGeojsonMap[geojsonId];
+    const nextState = {
+      ...state,
+      [teamId]: nextGeojsonMap
+    };
+    return nextState;
   } else {
     return state;
   }

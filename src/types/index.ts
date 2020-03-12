@@ -10,7 +10,9 @@ import {
 } from "../redux/actions/team-member";
 import {
   State as GeosearchState,
-  Geosearch as _Geosearch
+  Geosearch as _Geosearch,
+  ReadableGeosearch as _ReadableGeosearch,
+  WritableGeosearch as _WritableGeosearch
 } from "../redux/actions/geosearch";
 
 // app type
@@ -49,6 +51,8 @@ export type DateStringify<T> = Omit<T, "createAt" | "updateAt"> & {
 };
 
 export type Geosearch = _Geosearch;
+export type ReadableGeosearch = _ReadableGeosearch;
+export type WritableGeosearch = _WritableGeosearch;
 
 export type HashBy<T, K extends string | number> = {
   [id: string]: Omit<T, K>;
