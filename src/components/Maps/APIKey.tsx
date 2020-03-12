@@ -32,10 +32,7 @@ import normalizeOrigin from "../../lib/normalize-origin";
 // constants
 import { messageDisplayDuration } from "../../constants";
 
-type OwnProps = {
-  match: { params: { id: string } };
-  history: { push: (path: string) => void };
-};
+type OwnProps = {};
 type StateProps = {
   mapKey?: Key;
   teamId: string;
@@ -46,7 +43,11 @@ type DispatchProps = {
   updateKey: (teamId: string, keyId: string, key: Partial<Key>) => void;
   deleteKey: (teamId: string, keyId: string) => void;
 };
-type Props = OwnProps & StateProps & DispatchProps;
+type RouterProps = {
+  match: { params: { id: string } };
+  history: { push: (path: string) => void };
+};
+type Props = OwnProps & StateProps & DispatchProps & RouterProps;
 
 const Content = (props: Props) => {
   // state
@@ -302,7 +303,10 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
+const mapStateToProps = (
+  state: AppState,
+  ownProps: OwnProps & RouterProps
+): StateProps => {
   const session = state.authSupport.session;
   const selectedTeamIndex = state.team.selectedIndex;
   // TODO: typing enhancement
