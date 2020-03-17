@@ -219,11 +219,13 @@ const Content = (props: Props) => {
           />
 
           <Help>
-            <Interweave
-              content={__(
-                "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS. Please enter a URL on a new line."
-              )}
-            ></Interweave>
+            <Typography component="p">{__("URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.")}</Typography>
+            <ul>
+              <li>{__("A specific URL with an exact path:")} <strong>https://www.example.com</strong></li>
+              <li>{__("Any subdomain:")} <strong>https://*.example.com</strong></li>
+              <li>{__("A URL with a non-standard port:")} <strong>https://example.com:*</strong></li>
+            </ul>
+            <p>{__("Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".")}</p>
           </Help>
 
           <Save
