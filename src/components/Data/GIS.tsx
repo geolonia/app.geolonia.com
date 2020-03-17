@@ -113,7 +113,7 @@ const Content = (props: Props) => {
       } else {
         setStatus("success");
         // @ts-ignore
-        props.updateGeosearch(teamId, geojsonId, result.data.data);
+        props.updateGeosearch(teamId, geojsonId, result.data);
       }
     });
   };
