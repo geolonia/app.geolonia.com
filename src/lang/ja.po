@@ -213,18 +213,20 @@ msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use an "
 "API key."
 msgstr ""
+"URL のリストは、API キーが意図しない URL から使用されないように制限するために"
+"使用されます。"
 
 #: src/components/Maps/APIKey.tsx:224
-msgid "A specific URL with an exact path:"
-msgstr ""
+msgid "Any page in a specific URL:"
+msgstr "指定された URL 以下のすべてのページ:"
 
 #: src/components/Maps/APIKey.tsx:225
 msgid "Any subdomain:"
-msgstr ""
+msgstr "すべてのサブドメイン:"
 
 #: src/components/Maps/APIKey.tsx:226
 msgid "A URL with a non-standard port:"
-msgstr ""
+msgstr "一般的ではないポート:"
 
 #: src/components/Maps/APIKey.tsx:228
 msgid "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\"."

@@ -71,6 +71,15 @@
       "Configure access control for your API key and Get the HTML code for your map.": [
         "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを取得しましょう。"
       ],
+      "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
+        "URL のリストは、API キーが意図しない URL から使用されないように制限するために使用されます。"
+      ],
+      "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
+      "Any subdomain:": ["すべてのサブドメイン:"],
+      "A URL with a non-standard port:": ["一般的ではないポート:"],
+      "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
+        ""
+      ],
       "Once you delete an API, there is no going back. Please be certain.": [
         "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してください。"
       ],

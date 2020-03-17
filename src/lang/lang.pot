@@ -212,7 +212,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:224
-msgid "A specific URL with an exact path:"
+msgid "Any page in a specific URL:"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:225

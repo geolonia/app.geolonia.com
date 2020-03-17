@@ -221,7 +221,7 @@ const Content = (props: Props) => {
           <Help>
             <Typography component="p">{__("URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.")}</Typography>
             <ul>
-              <li>{__("A specific URL with an exact path:")} <strong>https://www.example.com</strong></li>
+              <li>{__("Any page in a specific URL:")} <strong>https://www.example.com</strong></li>
               <li>{__("Any subdomain:")} <strong>https://*.example.com</strong></li>
               <li>{__("A URL with a non-standard port:")} <strong>https://example.com:*</strong></li>
             </ul>
