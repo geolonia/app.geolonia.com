@@ -36,11 +36,7 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:40
 #: src/components/Data/GISs.tsx:48
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:103
-=======
 #: src/components/Maps/APIKey.tsx:106
->>>>>>> master
 #: src/components/Maps/APIKeys.tsx:38
 #: src/components/Team/Billing.tsx:66
 msgid "Home"
@@ -86,13 +82,8 @@ msgid "My dataset"
 msgstr ""
 
 #: src/components/Data/fields.tsx:26
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:199
-#: src/components/Navigator.tsx:307
-=======
 #: src/components/Maps/APIKey.tsx:204
 #: src/components/Navigator.tsx:317
->>>>>>> master
 #: src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125
 #: src/components/custom/AddNew.tsx:34
@@ -106,31 +97,19 @@ msgid "Description"
 msgstr ""
 
 #: src/components/Data/fields.tsx:40
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:210
-=======
 #: src/components/Maps/APIKey.tsx:215
->>>>>>> master
 msgid "URLs"
 msgstr ""
 
 #: src/components/Data/fields.tsx:50
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:222
-=======
-#: src/components/Maps/APIKey.tsx:228
->>>>>>> master
+#: src/components/Maps/APIKey.tsx:227
 msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use an "
 "API key."
 msgstr ""
 
 #: src/components/Data/fields.tsx:58
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:239
-=======
-#: src/components/Maps/APIKey.tsx:242
->>>>>>> master
+#: src/components/Maps/APIKey.tsx:244
 #: src/components/Team/general/delete.tsx:79
 msgid "Danger Zone"
 msgstr ""
@@ -190,7 +169,7 @@ msgstr ""
 msgid "We will send you a verification code to reset your password."
 msgstr ""
 
-#: src/components/ForgotPassword.tsx:68
+#: src/components/ForgotPassword.tsx:73
 msgid "Send password reset email"
 msgstr ""
 
@@ -202,147 +181,87 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:107
-=======
 #: src/components/Maps/APIKey.tsx:110
->>>>>>> master
 #: src/components/Maps/APIKeys.tsx:42
 #: src/components/Navigator.tsx:131
 msgid "Maps"
 msgstr ""
 
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:111
-=======
 #: src/components/Maps/APIKey.tsx:114
->>>>>>> master
 #: src/components/Maps/APIKeys.tsx:76
 #: src/components/Navigator.tsx:134
 msgid "API keys"
 msgstr ""
 
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:189
-msgid "API key settings"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:190
-=======
 #: src/components/Maps/APIKey.tsx:194
 msgid "API key settings"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:195
->>>>>>> master
 msgid ""
 "Configure access control for your API key and Get the HTML code for your "
 "map."
 msgstr ""
 
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:224
+#: src/components/Maps/APIKey.tsx:229
 msgid "Any page in a specific URL:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:225
+#: src/components/Maps/APIKey.tsx:230
 msgid "Any subdomain:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:226
+#: src/components/Maps/APIKey.tsx:231
 msgid "A URL with a non-standard port:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:228
+#: src/components/Maps/APIKey.tsx:233
 msgid "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\"."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:242
-msgid "Once you delete an API, there is no going back. Please be certain."
-msgstr ""
-
 #: src/components/Maps/APIKey.tsx:247
-msgid "Are you sure you want to delete this API key?"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:248
-msgid "Please type in the name of the API key to confirm."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:264
-msgid "Your API Key"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:270
-msgid "Add the map to your site"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:273
-msgid "Step 1"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:277
-=======
-#: src/components/Maps/APIKey.tsx:245
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:250
+#: src/components/Maps/APIKey.tsx:252
 msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:251
+#: src/components/Maps/APIKey.tsx:253
 msgid "Please type in the name of the API key to confirm."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:267
+#: src/components/Maps/APIKey.tsx:269
 msgid "Your API Key"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:273
+#: src/components/Maps/APIKey.tsx:275
 msgid "Add the map to your site"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:276
+#: src/components/Maps/APIKey.tsx:278
 msgid "Step 1"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:280
->>>>>>> master
+#: src/components/Maps/APIKey.tsx:282
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body "
 "/&gt;</code> in your HTML file."
 msgstr ""
 
-<<<<<<< HEAD
-#: src/components/Maps/APIKey.tsx:284
+#: src/components/Maps/APIKey.tsx:289
 msgid "Step 2"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:287
+#: src/components/Maps/APIKey.tsx:292
 msgid "Add the following code where you want to place the map."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:291
-msgid "Step 3"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:293
-=======
-#: src/components/Maps/APIKey.tsx:287
-msgid "Step 2"
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:290
-msgid "Add the following code where you want to place the map."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:294
-msgid "Step 3"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:296
->>>>>>> master
+msgid "Step 3"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:298
 msgid "Adjust the element size."
 msgstr ""
 
