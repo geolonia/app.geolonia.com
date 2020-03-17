@@ -75,7 +75,7 @@
       "Any subdomain:": ["すべてのサブドメイン:"],
       "A URL with a non-standard port:": ["一般的ではないポート:"],
       "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
-        ""
+        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
       ],
       "Once you delete an API, there is no going back. Please be certain.": [
         "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してください。"

@@ -222,7 +222,7 @@ msgstr "一般的ではないポート:"
 
 #: src/components/Maps/APIKey.tsx:228
 msgid "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\"."
-msgstr ""
+msgstr "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
 
 #: src/components/Maps/APIKey.tsx:242
 msgid "Once you delete an API, there is no going back. Please be certain."
