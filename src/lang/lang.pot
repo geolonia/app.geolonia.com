@@ -102,10 +102,10 @@ msgid "URLs"
 msgstr ""
 
 #: src/components/Data/fields.tsx:50
+#: src/components/Maps/APIKey.tsx:222
 msgid ""
-"Each URLs will be used as a value of "
-"<code>Access-Control-Allow-Origin</code> header for CORS. Please enter a "
-"URL on a new line."
+"URLs will be used for an HTTP referrer to restrict the URLs that can use an "
+"API key."
 msgstr ""
 
 #: src/components/Data/fields.tsx:58
@@ -203,12 +203,6 @@ msgstr ""
 msgid ""
 "Configure access control for your API key and Get the HTML code for your "
 "map."
-msgstr ""
-
-#: src/components/Maps/APIKey.tsx:222
-msgid ""
-"URLs will be used for an HTTP referrer to restrict the URLs that can use an "
-"API key."
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:224

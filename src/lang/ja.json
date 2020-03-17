@@ -36,8 +36,8 @@
       "Name": ["名前"],
       "Description": ["説明"],
       "URLs": ["URL のリスト"],
-      "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS. Please enter a URL on a new line.": [
-        "それぞれの URL は、CORS のための <code>Access-Control-Allow-Origin</code> ヘッダーに使用されます。 URL は1行にひとつずつ入力してください。"
+      "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
+        "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
       "Danger Zone": ["危険"],
       "Once you delete a API key, there is no going back. Please be certain.": [
@@ -70,9 +70,6 @@
       "API key settings": ["API キーの設定"],
       "Configure access control for your API key and Get the HTML code for your map.": [
         "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを取得しましょう。"
-      ],
-      "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
-        "URL のリストは、API キーが意図しない URL から使用されないように制限するために使用されます。"
       ],
       "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
       "Any subdomain:": ["すべてのサブドメイン:"],

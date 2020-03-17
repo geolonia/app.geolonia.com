@@ -104,13 +104,13 @@ msgstr "説明"
 msgid "URLs"
 msgstr "URL のリスト"
 
-#: src/components/Data/fields.tsx:50
+#: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:222
 msgid ""
-"Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
-"code> header for CORS. Please enter a URL on a new line."
+"URLs will be used for an HTTP referrer to restrict the URLs that can use an "
+"API key."
 msgstr ""
-"それぞれの URL は、CORS のための <code>Access-Control-Allow-Origin</code> "
-"ヘッダーに使用されます。 URL は1行にひとつずつ入力してください。"
+"URL のリストは、API キーが意図しない URL から使用されないように制限するため"
+"に、HTTP リファラーに対して使用されます。"
 
 #: src/components/Data/fields.tsx:58 src/components/Maps/APIKey.tsx:239
 #: src/components/Team/general/delete.tsx:79
@@ -207,14 +207,6 @@ msgid ""
 msgstr ""
 "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを"
 "取得しましょう。"
-
-#: src/components/Maps/APIKey.tsx:222
-msgid ""
-"URLs will be used for an HTTP referrer to restrict the URLs that can use an "
-"API key."
-msgstr ""
-"URL のリストは、API キーが意図しない URL から使用されないように制限するために"
-"使用されます。"
 
 #: src/components/Maps/APIKey.tsx:224
 msgid "Any page in a specific URL:"
@@ -834,6 +826,13 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid ""
+#~ "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
+#~ "code> header for CORS. Please enter a URL on a new line."
+#~ msgstr ""
+#~ "それぞれの URL は、CORS のための <code>Access-Control-Allow-Origin</code> "
+#~ "ヘッダーに使用されます。 URL は1行にひとつずつ入力してください。"
 
 #~ msgid "The billing member cannot be degraded."
 #~ msgstr "このメンバーの権限は変更できません。チーム設定で"
