@@ -12,6 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import CodeIcon from "@material-ui/icons/Code";
 import ViewListIcon from "@material-ui/icons/ViewList";
+import DescriptionIcon from "@material-ui/icons/Description"
 import RoomIcon from "@material-ui/icons/Room";
 import GroupIcon from "@material-ui/icons/Group";
 import PaymentIcon from "@material-ui/icons/Payment";
@@ -172,6 +173,17 @@ const Navigator: React.FC<Props> = (props: Props) => {
           active: false
         }
       ]
+    },
+    {
+      id: __("Documentation"),
+      children: [
+        {
+          id: __("Official Documents"),
+          icon: <DescriptionIcon />,
+          href: "https://docs.geolonia.com/",
+          active: false
+        }
+      ]
     }
   ];
 
@@ -190,15 +202,13 @@ const Navigator: React.FC<Props> = (props: Props) => {
       if (result.error) {
         throw new Error(result.code);
       } else {
-        const currentTeamCount = teams.length;
+        handleClose();
         addTeam(result.data);
-        selectTeam(currentTeamCount);
-        window.location.reload();
+        const nextTeamIndex = teams.length;
+        selectTeam(nextTeamIndex);
+        window.location.hash = "#/team/general";
+        window.location.reload()
       }
-      handleClose();
-      const nextTeamIndex = props.teams.length;
-      props.selectTeam(nextTeamIndex);
-      window.location.hash = "#/team/general";
     });
   };
 
@@ -319,7 +329,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
               disabled={true}
             />
 
-            <p className="mute">{__("We’ll send receipts to this inbox.")}</p>
+            <p className="mute">{__("We'll send you an email receipt.")}</p>
           </DialogContent>
           <DialogActions>
             <Cancel handler={handleClose}></Cancel>

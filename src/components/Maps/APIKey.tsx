@@ -26,6 +26,9 @@ import Redux from "redux";
 import { connect } from "react-redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
 
+// libs
+import normalizeOrigin from "../../lib/normalize-origin";
+
 // constants
 import { messageDisplayDuration } from "../../constants";
 
@@ -128,7 +131,8 @@ const Content = (props: Props) => {
   };
 
   const sidebarStyle: React.CSSProperties = {
-    marginBottom: "2em"
+    marginBottom: "2em",
+    overflowWrap: "break-word"
   };
 
   const saveDisabled =
@@ -144,7 +148,8 @@ const Content = (props: Props) => {
 
     const normalizedAllowedOrigins = allowedOrigins
       .split("\n")
-      .filter(url => !!url);
+      .filter(url => !!url)
+      .map(origin => normalizeOrigin(origin));
 
     const nextKey = {
       name,
@@ -159,7 +164,7 @@ const Content = (props: Props) => {
           throw new Error(result.code);
         } else {
           setStatus("success");
-          props.updateKey(props.teamId, apiKey, nextKey);
+          props.updateKey(props.teamId, keyId, nextKey);
         }
       }
     );
@@ -169,7 +174,7 @@ const Content = (props: Props) => {
 
   const onDeleteClick = () => {
     setStatus("requesting");
-    return deleteKey(props.session, props.teamId, apiKey).then(result => {
+    return deleteKey(props.session, props.teamId, keyId).then(result => {
       if (result.error) {
         setStatus("failure");
         setMessage(result.message);
@@ -178,7 +183,7 @@ const Content = (props: Props) => {
         setStatus("success");
         setTimeout(() => {
           props.history.push("/maps/api-keys");
-          props.deleteKey(props.teamId, apiKey);
+          props.deleteKey(props.teamId, keyId);
         }, messageDisplayDuration);
       }
     });

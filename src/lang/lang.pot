@@ -18,7 +18,7 @@ msgstr ""
 #: src/components/Dashboard.tsx:127
 #: src/components/Data/GIS.tsx:48
 #: src/components/Data/GISs.tsx:56
-#: src/components/Navigator.tsx:145
+#: src/components/Navigator.tsx:146
 msgid "Geosearch"
 msgstr ""
 
@@ -36,7 +36,11 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:40
 #: src/components/Data/GISs.tsx:48
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:103
+=======
+#: src/components/Maps/APIKey.tsx:106
+>>>>>>> master
 #: src/components/Maps/APIKeys.tsx:38
 #: src/components/Team/Billing.tsx:66
 msgid "Home"
@@ -82,8 +86,13 @@ msgid "My dataset"
 msgstr ""
 
 #: src/components/Data/fields.tsx:26
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:199
 #: src/components/Navigator.tsx:307
+=======
+#: src/components/Maps/APIKey.tsx:204
+#: src/components/Navigator.tsx:317
+>>>>>>> master
 #: src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125
 #: src/components/custom/AddNew.tsx:34
@@ -97,19 +106,31 @@ msgid "Description"
 msgstr ""
 
 #: src/components/Data/fields.tsx:40
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:210
+=======
+#: src/components/Maps/APIKey.tsx:215
+>>>>>>> master
 msgid "URLs"
 msgstr ""
 
 #: src/components/Data/fields.tsx:50
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:222
+=======
+#: src/components/Maps/APIKey.tsx:228
+>>>>>>> master
 msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use an "
 "API key."
 msgstr ""
 
 #: src/components/Data/fields.tsx:58
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:239
+=======
+#: src/components/Maps/APIKey.tsx:242
+>>>>>>> master
 #: src/components/Team/general/delete.tsx:79
 msgid "Danger Zone"
 msgstr ""
@@ -161,10 +182,8 @@ msgid "Reset your password"
 msgstr ""
 
 #: src/components/ForgotPassword.tsx:56
-#: src/components/Signup.tsx:106
-#: src/components/User/profile.tsx:104
-#: src/components/verify.tsx:81
-msgid "Username"
+#: src/components/Signin.tsx:112
+msgid "Username or email address"
 msgstr ""
 
 #: src/components/ForgotPassword.tsx:64
@@ -183,28 +202,45 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:107
+=======
+#: src/components/Maps/APIKey.tsx:110
+>>>>>>> master
 #: src/components/Maps/APIKeys.tsx:42
-#: src/components/Navigator.tsx:130
+#: src/components/Navigator.tsx:131
 msgid "Maps"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:111
+=======
+#: src/components/Maps/APIKey.tsx:114
+>>>>>>> master
 #: src/components/Maps/APIKeys.tsx:76
-#: src/components/Navigator.tsx:133
+#: src/components/Navigator.tsx:134
 msgid "API keys"
 msgstr ""
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:189
 msgid "API key settings"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:190
+=======
+#: src/components/Maps/APIKey.tsx:194
+msgid "API key settings"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:195
+>>>>>>> master
 msgid ""
 "Configure access control for your API key and Get the HTML code for your "
 "map."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:224
 msgid "Any page in a specific URL:"
 msgstr ""
@@ -246,11 +282,39 @@ msgid "Step 1"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:277
+=======
+#: src/components/Maps/APIKey.tsx:245
+msgid "Once you delete an API, there is no going back. Please be certain."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:250
+msgid "Are you sure you want to delete this API key?"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:251
+msgid "Please type in the name of the API key to confirm."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:267
+msgid "Your API Key"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:273
+msgid "Add the map to your site"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:276
+msgid "Step 1"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:280
+>>>>>>> master
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body "
 "/&gt;</code> in your HTML file."
 msgstr ""
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:284
 msgid "Step 2"
 msgstr ""
@@ -264,6 +328,21 @@ msgid "Step 3"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:293
+=======
+#: src/components/Maps/APIKey.tsx:287
+msgid "Step 2"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:290
+msgid "Add the following code where you want to place the map."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:294
+msgid "Step 3"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:296
+>>>>>>> master
 msgid "Adjust the element size."
 msgstr ""
 
@@ -283,51 +362,60 @@ msgstr ""
 msgid "My API"
 msgstr ""
 
-#: src/components/Navigator.tsx:112
+#: src/components/Navigator.tsx:113
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:142
+#: src/components/Navigator.tsx:143
 msgid "GIS Services"
 msgstr ""
 
-#: src/components/Navigator.tsx:154
+#: src/components/Navigator.tsx:155
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:157
+#: src/components/Navigator.tsx:158
 #: src/components/Team/general/index.tsx:44
 msgid "General"
 msgstr ""
 
-#: src/components/Navigator.tsx:163
+#: src/components/Navigator.tsx:164
 #: src/components/Team/members/index.tsx:130
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:169
+#: src/components/Navigator.tsx:170
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:252
+#: src/components/Navigator.tsx:178
+msgid "Documentation"
+msgstr ""
+
+#: src/components/Navigator.tsx:181
+msgid "Official Documents"
+msgstr ""
+
+#: src/components/Navigator.tsx:262
 msgid "Dashboard"
 msgstr ""
 
-#: src/components/Navigator.tsx:297
+#: src/components/Navigator.tsx:307
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:301
+#: src/components/Navigator.tsx:311
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:315
+#: src/components/Navigator.tsx:325
 #: src/components/Team/general/fields.tsx:119
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:322
-msgid "We’ll send receipts to this inbox."
+#: src/components/Navigator.tsx:332
+#: src/components/Team/general/fields.tsx:140
+msgid "We'll send you an email receipt."
 msgstr ""
 
 #: src/components/Paperbase.tsx:148
@@ -335,7 +423,7 @@ msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
 #: src/components/ResetPassword.tsx:106
-#: src/components/Signup.tsx:137
+#: src/components/Signup.tsx:146
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
@@ -358,8 +446,8 @@ msgid "Verification Code"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:86
-#: src/components/Signin.tsx:119
-#: src/components/Signup.tsx:127
+#: src/components/Signin.tsx:123
+#: src/components/Signup.tsx:135
 msgid "Password"
 msgstr ""
 
@@ -367,27 +455,23 @@ msgstr ""
 msgid "Confirm password"
 msgstr ""
 
-#: src/components/Signin.tsx:103
+#: src/components/Signin.tsx:107
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
-#: src/components/Signin.tsx:108
-msgid "Username or email address"
-msgstr ""
-
-#: src/components/Signin.tsx:131
+#: src/components/Signin.tsx:136
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:143
+#: src/components/Signin.tsx:148
 msgid "Sign in"
 msgstr ""
 
-#: src/components/Signin.tsx:158
+#: src/components/Signin.tsx:163
 msgid "New to Geolonia?"
 msgstr ""
 
-#: src/components/Signin.tsx:160
+#: src/components/Signin.tsx:165
 msgid "Create an account."
 msgstr ""
 
@@ -399,38 +483,48 @@ msgstr ""
 msgid "Signin failed."
 msgstr ""
 
-#: src/components/Signin.tsx:91
+#: src/components/Signin.tsx:95
 msgid "Sign in to Geolonia"
 msgstr ""
 
-#: src/components/Signin.tsx:94
+#: src/components/Signin.tsx:98
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
 msgstr ""
 
-#: src/components/Signup.tsx:101
-#: src/components/verify.tsx:76
+#: src/components/Signup.tsx:109
+#: src/components/verify.tsx:79
 msgid "Welcome to Geolonia"
 msgstr ""
 
-#: src/components/Signup.tsx:102
+#: src/components/Signup.tsx:110
 msgid "Create your account"
 msgstr ""
 
+#: src/components/Signup.tsx:111
+msgid "We are currently private beta. Sign Up is restricted to invited users."
+msgstr ""
+
 #: src/components/Signup.tsx:114
+#: src/components/User/profile.tsx:104
+#: src/components/verify.tsx:84
+msgid "Username"
+msgstr ""
+
+#: src/components/Signup.tsx:122
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:118
+#: src/components/Signup.tsx:126
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:149
+#: src/components/Signup.tsx:158
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:159
+#: src/components/Signup.tsx:168
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" "
@@ -443,16 +537,12 @@ msgstr ""
 msgid "Signup successed."
 msgstr ""
 
-#: src/components/Signup.tsx:83
-msgid "Signup failed. You cannot use the username or email."
-msgstr ""
-
 #: src/components/Signup.tsx:86
 msgid "Invalid username or email address."
 msgstr ""
 
 #: src/components/Signup.tsx:88
-msgid "Signup failed."
+msgid "Signup failed. You cannot use the username or email."
 msgstr ""
 
 #: src/components/Team/Billing.tsx:114
@@ -549,11 +639,7 @@ msgid ""
 "<strong>%1$s</strong>."
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:122
-msgid "Confirm"
-msgstr ""
-
-#: src/components/Team/general/delete.tsx:140
+#: src/components/Team/general/delete.tsx:139
 #: src/components/Team/members/change-role.tsx:145
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
@@ -563,7 +649,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:159
+#: src/components/Team/general/delete.tsx:158
 #: src/components/custom/Delete.tsx:152
 msgid "Delete"
 msgstr ""
@@ -630,6 +716,11 @@ msgstr ""
 msgid "Suspended"
 msgstr ""
 
+#: src/components/Team/members/index.tsx:231
+#: src/components/custom/Table.tsx:141
+msgid "rows per page"
+msgstr ""
+
 #: src/components/Team/members/index.tsx:273
 msgid "Suspend"
 msgstr ""
@@ -638,19 +729,23 @@ msgstr ""
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:59
+#: src/components/Team/members/invite.tsx:39
+msgid "They are already a member of the team."
+msgstr ""
+
+#: src/components/Team/members/invite.tsx:64
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:60
+#: src/components/Team/members/invite.tsx:65
 msgid "Invite a member"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:61
+#: src/components/Team/members/invite.tsx:66
 msgid "We automatically update your billing as you add and remove team members."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:66
+#: src/components/Team/members/invite.tsx:71
 #: src/components/User/profile.tsx:113
 msgid "Email"
 msgstr ""
@@ -783,20 +878,32 @@ msgstr ""
 msgid "Coming soon"
 msgstr ""
 
-#: src/components/verify.tsx:106
+#: src/components/verify.tsx:109
 msgid "Verify"
 msgstr ""
 
-#: src/components/verify.tsx:123
+#: src/components/verify.tsx:126
 msgid "Please check your email and enter the verification code like 123456."
 msgstr ""
 
-#: src/components/verify.tsx:77
+#: src/components/verify.tsx:80
 msgid "Verify your account"
 msgstr ""
 
-#: src/components/verify.tsx:90
+#: src/components/verify.tsx:93
 msgid "Verification code"
+msgstr ""
+
+#: src/constants.ts:10
+msgid "You are not authorized to do this operation."
+msgstr ""
+
+#: src/constants.ts:12
+msgid "Network error."
+msgstr ""
+
+#: src/constants.ts:16
+msgid "Unknown error."
 msgstr ""
 
 #: src/components/Data/map-container.tsx:75

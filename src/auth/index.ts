@@ -15,8 +15,14 @@ const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 
 export const signUp = (username: string, email: string, password: string) =>
   new Promise<CognitoIdentity.ISignUpResult>((resolve, reject) => {
+    // TODO: if we have more language option, let's extend
+    const language = navigator.language.slice(0, 2) === "ja" ? "ja" : "en";
     const attributeList = [
-      new CognitoIdentity.CognitoUserAttribute({ Name: "email", Value: email })
+      new CognitoIdentity.CognitoUserAttribute({ Name: "email", Value: email }),
+      new CognitoIdentity.CognitoUserAttribute({
+        Name: "locale",
+        Value: language
+      })
     ];
 
     userPool.signUp(username, password, attributeList, [], (err, result) => {

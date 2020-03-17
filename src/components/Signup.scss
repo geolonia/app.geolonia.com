@@ -1,92 +1,78 @@
-.signup
-{
+.signup {
   width: 100%;
   text-align: center;
   color: #555555;
 
-  .container
-  {
-    position: absolute;
+  .container {
     width: 320px;
-    max-width: 95%;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
+    margin: 32px auto 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 
-    .main
-    {
+    .main {
       text-align: left;
     }
 
-    .form
-    {
+    .form {
       background-color: #ffffff;
       border: 1px solid #dedede;
       border-radius: 5px;
       padding: 24px 32px;
 
-      label
-      {
+      label {
         padding: 0;
         display: block;
       }
 
-      button
-      {
+      button {
         margin-top: 1em;
       }
     }
 
-    .logo
-    {
+    .logo {
       width: 48px;
     }
 
-    h1
-    {
+    h1 {
       font-weight: normal;
       font-size: 24px;
       margin: 0.5em 0 0 0;
     }
 
-    h2
-    {
+    h2 {
       margin: 0 0 1em 0;
       font-weight: normal;
       font-size: 16px;
     }
 
-    h3
-    {
+    h3 {
       font-weight: normal;
       font-size: 14px;
       margin: 0.5em;
     }
 
-    input, button
-    {
+    input,
+    button {
       width: 100%;
     }
 
-    input
-    {
+    input {
       padding: 8px;
       font-size: 14px;
     }
 
-    .message
-    {
+    .message {
       font-size: 12px;
       margin: 0.5em;
     }
 
-    p
-    {
+    p {
       margin-bottom: 0;
     }
 
-    .support-container
-    {
+    .support-container {
       margin-top: 2em;
     }
   }

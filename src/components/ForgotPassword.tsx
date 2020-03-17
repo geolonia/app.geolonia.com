@@ -53,7 +53,7 @@ const Content = (props: Props) => {
 
         <div className="form">
           <label className="email">
-            <h3>{__("Username")}</h3>
+            <h3>{__("Username or email address")}</h3>
             <input
               type="text"
               value={username}
@@ -64,7 +64,12 @@ const Content = (props: Props) => {
             {__("We will send you a verification code to reset your password.")}
           </p>
           <p>
-            <Button variant="contained" color="primary" onClick={handleSignup}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSignup}
+              disabled={username.trim() === ""}
+            >
               {__("Send password reset email")}
             </Button>
           </p>
