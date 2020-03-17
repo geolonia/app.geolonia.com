@@ -39,7 +39,14 @@ export const MapContainer = (props: Props) => {
     if (map && draw) {
       ["draw.create", "draw.update", "draw.delete"].forEach(eventType => {
         map.on(eventType, () => {
-          const nextGeoJSON = draw.getAll();
+          const geojson = draw.getAll();
+          const nextGeoJSON = {
+            ...geojson,
+            features: geojson.features.map((feature: any) => {
+              delete feature.id;
+              return feature;
+            })
+          };
           setGeoJSON(nextGeoJSON);
         });
       });

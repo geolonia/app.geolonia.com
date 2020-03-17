@@ -90,7 +90,8 @@ const Content = (props: Props) => {
     }
   ];
   const onUpdateClick = () => {
-    if (!props.teamId || !props.geojsonId || !props.geosearch) {
+    const { teamId, geojsonId, geosearch } = props;
+    if (!teamId || !geojsonId || !geosearch) {
       return Promise.resolve();
     }
     setStatus("requesting");
@@ -101,8 +102,8 @@ const Content = (props: Props) => {
 
     return updateGeosearch(
       props.session,
-      props.teamId,
-      props.geojsonId,
+      teamId,
+      geojsonId,
       nextGeosearch
     ).then(result => {
       if (result.error) {
@@ -111,8 +112,8 @@ const Content = (props: Props) => {
         throw new Error(result.code);
       } else {
         setStatus("success");
-        // TODO: dispatch update geosearch action
-        // props.updateGeosearch(props.teamId, geojsonId, nextGeosearch);
+        // @ts-ignore
+        props.updateGeosearch(teamId, geojsonId, result.data.data);
       }
     });
   };
