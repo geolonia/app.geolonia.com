@@ -10,7 +10,7 @@ import getUser from "../api/users/get";
 import listTeams from "../api/teams/list";
 import listKeys from "../api/keys/list";
 import listTeamMembers from "../api/members/list";
-import listFeatureCollections from "../api/geosearch/list";
+import listGeosearch from "../api/geosearch/list";
 
 // Utils
 import delay from "../lib/promise-delay";
@@ -32,11 +32,19 @@ import { createActions as createTeamMemberActions } from "../redux/actions/team-
 import { createActions as createGeosearchActions } from "../redux/actions/geosearch";
 
 // Types
-import { AppState, User, Session, Team, Key, Member } from "../types";
+import {
+  AppState,
+  User,
+  Session,
+  Team,
+  Key,
+  Member,
+  DateStringify,
+  Geosearch
+} from "../types";
 import Redux from "redux";
 import { SELECTED_TEAM_ID } from "../redux/middlewares/local-storage";
 import Moment from "moment";
-import moment from "moment";
 
 type OwnProps = {};
 type StateProps = { session: Session };
@@ -57,13 +65,14 @@ type DispatchProps = {
   ) => void;
   setMapKeys: (teamId: string, keys: Key[]) => void;
   setTeamMembers: (teamId: string, members: Member[]) => void;
-  setFeatureCollection: (
+  setGeosearch: (
     teamId: string,
-    featureCollectionId: string,
-    featureCollection: GeoJSON.FeatureCollection,
+    geojsonId: string,
+    name: string,
     createAt: Moment.Moment | void,
     updateAt: Moment.Moment | void,
-    isPublic: boolean
+    isPublic: boolean,
+    data: GeoJSON.FeatureCollection
   ) => void;
   markMapKeyError: (teamId: string) => void;
 };
@@ -142,8 +151,8 @@ export class AuthContainer extends React.Component<Props, State> {
       if (localeData) {
         setLocaleData(localeData);
       }
-      moment.locale(language);
-      moment.tz.setDefault(timezone);
+      Moment.locale(language);
+      Moment.tz.setDefault(timezone);
 
       const teamIds = teamsWithoutDeleted.map(team => team.teamId);
 
@@ -154,7 +163,7 @@ export class AuthContainer extends React.Component<Props, State> {
       this.loadAvatars(user, teamsWithoutDeleted);
       this.loadMapKeys(session, teamIds);
       this.loadTeamMembers(session, teamIds);
-      this.loadFeatureCollections(session, teamIds);
+      this.loadAllGeosearch(session, teamIds);
     } catch (error) {
       console.error(error);
       this.props.serverTrouble();
@@ -261,24 +270,30 @@ export class AuthContainer extends React.Component<Props, State> {
     });
   };
 
-  loadFeatureCollections = (session: Session, teamIds: string[]) => {
+  loadAllGeosearch = (session: Session, teamIds: string[]) => {
     const handleRequest = (teamId: string) => {
-      return listFeatureCollections(session, teamId).then(result => {
+      return listGeosearch(session, teamId).then(result => {
         if (result.error) {
           throw new Error(result.code);
         } else {
-          const featureCollections = result.data;
-          featureCollections.forEach(feature => {
-            const { id, data, createAt, updateAt, isPublic } = dateParse(
-              feature
-            );
-            this.props.setFeatureCollection(
-              teamId,
-              id,
-              data,
+          const geosearchList = result.data;
+          geosearchList.forEach(geosearch => {
+            const {
+              geojsonId,
+              name,
               createAt,
               updateAt,
-              isPublic
+              isPublic,
+              data
+            } = dateParse<DateStringify<Geosearch>>(geosearch);
+            this.props.setGeosearch(
+              teamId,
+              geojsonId,
+              name,
+              createAt,
+              updateAt,
+              isPublic,
+              data
             );
           });
         }
@@ -317,22 +332,16 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   setMapKeys: (teamId, keys) => dispatch(createMapKeyActions.set(teamId, keys)),
   setTeamMembers: (teamId, members) =>
     dispatch(createTeamMemberActions.set(teamId, members)),
-  setFeatureCollection: (
-    teamId,
-    featureCollectionId,
-    featureCollection,
-    createAt,
-    updateAt,
-    isPublic
-  ) =>
+  setGeosearch: (teamId, geojsonId, name, createAt, updateAt, isPublic, data) =>
     dispatch(
-      createGeosearchActions.setFeatureCollections(
+      createGeosearchActions.set(
         teamId,
-        featureCollectionId,
-        featureCollection,
+        geojsonId,
+        name,
         createAt,
         updateAt,
-        isPublic
+        isPublic,
+        data
       )
     ),
   markMapKeyError: teamId => dispatch(createMapKeyActions.markError(teamId))

@@ -13,6 +13,7 @@ import Save from "../custom/Save";
 import Delete from "../custom/Delete";
 import Help from "../custom/Help";
 import Title from "../custom/Title";
+import DangerZone from "../custom/danger-zone";
 
 // types
 import { AppState, Session, Key } from "../../types";
@@ -32,10 +33,7 @@ import normalizeOrigin from "../../lib/normalize-origin";
 // constants
 import { messageDisplayDuration } from "../../constants";
 
-type OwnProps = {
-  match: { params: { id: string } };
-  history: { push: (path: string) => void };
-};
+type OwnProps = {};
 type StateProps = {
   mapKey?: Key;
   teamId: string;
@@ -46,7 +44,11 @@ type DispatchProps = {
   updateKey: (teamId: string, keyId: string, key: Partial<Key>) => void;
   deleteKey: (teamId: string, keyId: string) => void;
 };
-type Props = OwnProps & StateProps & DispatchProps;
+type RouterProps = {
+  match: { params: { id: string } };
+  history: { push: (path: string) => void };
+};
+type Props = OwnProps & StateProps & DispatchProps & RouterProps;
 
 const Content = (props: Props) => {
   // state
@@ -119,12 +121,6 @@ const Content = (props: Props) => {
       href: null
     }
   ];
-
-  const styleDangerZone: React.CSSProperties = {
-    border: "1px solid #ff0000",
-    marginTop: "10em",
-    padding: "16px 24px"
-  };
 
   const styleH3: React.CSSProperties = {
     marginTop: "1em"
@@ -237,15 +233,11 @@ const Content = (props: Props) => {
             disabled={saveDisabled}
           />
 
-          <div style={styleDangerZone}>
-            <Typography component="h3" color="secondary">
-              {__("Danger Zone")}
-            </Typography>
-            <p>
-              {__(
-                "Once you delete an API, there is no going back. Please be certain."
-              )}
-            </p>
+          <DangerZone
+            whyDanger={__(
+              "Once you delete an API, there is no going back. Please be certain."
+            )}
+          >
             <Delete
               text1={__("Are you sure you want to delete this API key?")}
               text2={__("Please type in the name of the API key to confirm.")}
@@ -258,7 +250,7 @@ const Content = (props: Props) => {
                 input !== name || status === "success"
               }
             />
-          </div>
+          </DangerZone>
         </Grid>
 
         <Grid item xs={12} md={4}>
@@ -302,7 +294,10 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
+const mapStateToProps = (
+  state: AppState,
+  ownProps: OwnProps & RouterProps
+): StateProps => {
   const session = state.authSupport.session;
   const selectedTeamIndex = state.team.selectedIndex;
   // TODO: typing enhancement

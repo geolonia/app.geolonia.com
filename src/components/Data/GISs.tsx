@@ -8,10 +8,23 @@ import Title from "../custom/Title";
 // utils
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
+import dateParse from "../../lib/date-parse";
 
 // types
-import { AppState, FeatureCollection } from "../../types";
-import ComingSoon from "../custom/coming-soon";
+import {
+  AppState,
+  Geosearch,
+  Session,
+  DateStringify,
+  HashBy
+} from "../../types";
+import Redux from "redux";
+
+// api
+import createGeosearch from "../../api/geosearch/create";
+
+// redux
+import { createActions as createGeosearchActions } from "../../redux/actions/geosearch";
 
 type Row = {
   id: number | string;
@@ -22,20 +35,22 @@ type Row = {
 
 type OwnProps = {};
 type StateProps = {
-  featureCollections: {
-    [id: string]: Omit<FeatureCollection, "id">;
-  };
+  session: Session;
+  teamId?: string;
+  geosearchMap: HashBy<Geosearch, "geojsonId">;
 };
-type Props = OwnProps & StateProps;
+type DispatchProps = {
+  setGeosearch: (teamId: string, data: Geosearch) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 function Content(props: Props) {
-  // console.log(props.featureCollections);
-
-  const rows: Row[] = Object.keys(props.featureCollections).map((id, index) => {
-    const { createAt, isPublic } = props.featureCollections[id];
+  const [message, setMessage] = React.useState("");
+  const rows: Row[] = Object.keys(props.geosearchMap).map(id => {
+    const { createAt, isPublic, name } = props.geosearchMap[id];
     return {
       id,
-      name: `フィーチャーコレクション ${index}`, // TODO: this is mock value
+      name,
       updated: createAt
         ? createAt.format("YYYY/MM/DD hh:mm:ss")
         : __("(No date)"),
@@ -59,8 +74,20 @@ function Content(props: Props) {
   ];
 
   const handler = (name: string) => {
-    console.log(name);
-    return Promise.resolve();
+    const { teamId } = props;
+    if (!teamId) {
+      return Promise.resolve();
+    }
+
+    return createGeosearch(props.session, teamId, name).then(result => {
+      if (result.error) {
+        setMessage(result.message);
+        throw new Error(result.code);
+      } else {
+        const data = dateParse<DateStringify<Geosearch>>(result.data);
+        props.setGeosearch(teamId, data);
+      }
+    });
   };
 
   return (
@@ -71,34 +98,54 @@ function Content(props: Props) {
         )}
       </Title>
 
-      <ComingSoon style={{ padding: "1em" }}>
-        <AddNew
-          label={__("Create a new dataset")}
-          description={__("Please enter the name of the new dataset.")}
-          defaultValue={__("My dataset")}
-          onClick={handler}
-          onError={() => {
-            /*TODO: show messages*/
-          }}
-        />
+      <AddNew
+        label={__("Create a new dataset")}
+        description={__("Please enter the name of the new dataset.")}
+        defaultValue={__("My dataset")}
+        onClick={handler}
+        onError={() => {
+          /*TODO: show messages*/
+        }}
+        errorMessage={message}
+      />
 
-        <Table rows={rows} rowsPerPage={10} permalink="/data/gis/%s" />
-      </ComingSoon>
+      <Table rows={rows} rowsPerPage={10} permalink="/data/gis/%s" />
     </div>
   );
 }
 
 export const mapStateToProps = (state: AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
+  const { session } = state.authSupport;
   if (team) {
+    const { teamId } = team;
     return {
-      featureCollections: state.geosearch[team.teamId]
-        ? state.geosearch[team.teamId].featureCollections
-        : {}
+      session,
+      teamId,
+      geosearchMap: state.geosearch[teamId] || {}
     };
   } else {
-    return { featureCollections: {} };
+    return { session, geosearchMap: {} };
   }
 };
 
-export default connect(mapStateToProps)(Content);
+export const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => {
+  return {
+    setGeosearch: (teamId: string, _data: Geosearch) => {
+      const { geojsonId, createAt, updateAt, isPublic, name, data } = _data;
+      dispatch(
+        createGeosearchActions.set(
+          teamId,
+          geojsonId,
+          name,
+          createAt,
+          updateAt,
+          isPublic,
+          data
+        )
+      );
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Content);
