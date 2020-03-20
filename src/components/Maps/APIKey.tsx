@@ -296,7 +296,7 @@ const Content = (props: Props) => {
             <p>
               {__("Click following button and get HTML code where you want to place the map.")}
             </p>
-            <p><Button id="get-geolonia" variant="contained" color="primary" size="large" style={{width: "100%"}}>Get HTML</Button></p>
+                <p><Button id="get-geolonia" variant="contained" color="primary" size="large" style={{width: "100%"}}>{__("Get HTML")}</Button></p>
             <Typography component="h3" style={styleH3}>
               {__("Step 3")}
             </Typography>
