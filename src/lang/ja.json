@@ -93,9 +93,10 @@
         "<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
       ],
       "Step 2": ["ステップ 2"],
-      "Add the following code where you want to place the map.": [
-        "以下のコードを地図を表示したい場所に挿入してください。"
+      "Click following button and get HTML code where you want to place the map.": [
+        "以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
       ],
+      "Get HTML": ["HTML を取得"],
       "Step 3": ["ステップ 3"],
       "Adjust the element size.": [
         "地図を表示する要素のサイズを調整して下さい。"

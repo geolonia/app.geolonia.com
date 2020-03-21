@@ -4,6 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 
 import { sprintf, __ } from "@wordpress/i18n";
 import Interweave from "interweave";
@@ -73,6 +74,10 @@ const Content = (props: Props) => {
   React.useEffect(() => {
     setName(propName);
     setAllowedOrigins(propOrigins.join("\n"));
+
+    const script = document.createElement("script");
+    script.src = 'https://geolonia.github.io/get-geolonia/app.js'
+    document.body.appendChild(script)
   }, [propName, propOrigins]);
 
   if (!props.mapKey) {
@@ -95,7 +100,7 @@ const Content = (props: Props) => {
     apiKey
   );
   const embedCSS = `.geolonia {
-  width: 500px;
+  width: 100%;
   height: 400px;
 }`;
 
@@ -289,9 +294,9 @@ const Content = (props: Props) => {
               {__("Step 2")}
             </Typography>
             <p>
-              {__("Add the following code where you want to place the map.")}
+              {__("Click following button and get HTML code where you want to place the map.")}
             </p>
-            <Code>{embedHtml}</Code>
+                <p><Button id="get-geolonia" variant="contained" color="primary" size="large" style={{width: "100%"}}>{__("Get HTML")}</Button></p>
             <Typography component="h3" style={styleH3}>
               {__("Step 3")}
             </Typography>
