@@ -51,8 +51,8 @@ export const MapContainer = (props: Props) => {
       boxSelect: false,
       controls: {
         point: true,
-        line_string: true,
-        polygon: true,
+        line_string: false,
+        polygon: false,
         trash: true,
         combine_features: false,
         uncombine_features: false
@@ -77,7 +77,7 @@ export const MapContainer = (props: Props) => {
         marker={"off"}
         zoom={parseFloat(_x("0", "Default value of zoom level of map"))}
         fullscreenControl={"on"}
-        geolocateControl={"on"}
+        geolocateControl={"off"}
         onAfterLoad={handleOnAfterLoad}
       />
     </div>
