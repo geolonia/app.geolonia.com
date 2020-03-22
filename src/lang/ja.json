@@ -101,6 +101,7 @@
       "Adjust the element size.": [
         "地図を表示する要素のサイズを調整して下さい。"
       ],
+      "Copy to Clipboard": ["クリップボードにコピー"],
       "You need an API key to display map. Get an API key.": [
         "地図を表示するには API キーが必要です。 API キーを取得してください。"
       ],

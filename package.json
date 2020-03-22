@@ -9,6 +9,7 @@
     "@wordpress/i18n": "^3.7.0",
     "amazon-cognito-identity-js": "^3.2.0",
     "chart.js": "^2.9.3",
+    "clipboard-polyfill": "^2.8.6",
     "interweave": "^11.2.0",
     "isomorphic-fetch": "^2.2.1",
     "moment": "^2.24.0",
