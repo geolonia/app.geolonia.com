@@ -563,7 +563,7 @@ msgstr ""
 "ください。"
 
 #: src/components/Team/general/delete.tsx:139
-#: src/components/Team/members/change-role.tsx:145
+#: src/components/Team/members/change-role.tsx:162
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
 #: src/components/custom/AddNew.tsx:130 src/components/custom/Cancel.tsx:18
@@ -594,12 +594,12 @@ msgstr ""
 "と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバー"
 "の左上にあるプルダウンで行うことができます。"
 
-#: src/components/Team/members/change-role.tsx:101
+#: src/components/Team/members/change-role.tsx:103
 #: src/components/Team/members/index.tsx:269
 msgid "Change role"
 msgstr "権限を変更"
 
-#: src/components/Team/members/change-role.tsx:107
+#: src/components/Team/members/change-role.tsx:109
 msgid ""
 "The billing member %s cannot be degraded. Please modify the billing email at "
 "first on <a href=\"#/team/general\">general team setting</a>."
@@ -608,28 +608,36 @@ msgstr ""
 "のメールアドレスは、<a href=\"#/team/general\">一般</a>のページから変更できま"
 "す。"
 
-#: src/components/Team/members/change-role.tsx:114
+#: src/components/Team/members/change-role.tsx:116
 msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
-#: src/components/Team/members/change-role.tsx:127
+#: src/components/Team/members/change-role.tsx:129
 #: src/components/Team/members/index.tsx:191
 msgid "Owner"
 msgstr "オーナー"
 
-#: src/components/Team/members/change-role.tsx:130
-msgid "Has full administrative access to the entire team."
-msgstr "チームに関する全ての管理者権限があります。"
+#: src/components/Team/members/change-role.tsx:133
+msgid "can invite another team member."
+msgstr "新しいメンバーをチームに招待できます。"
 
-#: src/components/Team/members/change-role.tsx:136
+#: src/components/Team/members/change-role.tsx:134
+msgid "can designate another owner."
+msgstr "新しいチームオーナーを指定できます。"
+
+#: src/components/Team/members/change-role.tsx:135
+msgid "can suspend another member."
+msgstr "メンバーの権限を一時停止できます。"
+
+#: src/components/Team/members/change-role.tsx:147
 msgid "Member"
 msgstr "メンバー"
 
-#: src/components/Team/members/change-role.tsx:139
-msgid "Can access all resource in the team."
-msgstr "このチームの全てのリソースにアクセスできます。"
+#: src/components/Team/members/change-role.tsx:152
+msgid "Can manage all resources in the team, including API Keys."
+msgstr "APIキーを含むチームの全てのリソースを管理できます。"
 
-#: src/components/Team/members/change-role.tsx:156
+#: src/components/Team/members/change-role.tsx:173
 #: src/components/Team/members/suspend.tsx:114
 #: src/components/custom/AddNew.tsx:141 src/components/custom/Save.tsx:25
 msgid "Save"
@@ -848,6 +856,9 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Has full administrative access to the entire team."
+#~ msgstr "チームに関する全ての管理者権限があります。"
 
 #~ msgid "Signup failed."
 #~ msgstr "サインアップ失敗"

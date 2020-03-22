@@ -11,6 +11,8 @@ import {
   FormControlLabel,
   Radio
 } from "@material-ui/core";
+import ListItem from "@material-ui/core/ListItem";
+import List from "@material-ui/core/List";
 
 // libs
 import { __, sprintf } from "@wordpress/i18n";
@@ -127,7 +129,16 @@ const ChangeRole = (props: Props) => {
                 label={__("Owner")}
               />
               <DialogContentText>
-                {__("Has full administrative access to the entire team.")}
+                <List>
+                  <ListItem>{__("can invite another team member.")}</ListItem>
+                  <ListItem>{__("can designate another owner.")}</ListItem>
+                  <ListItem>{__("can suspend another member.")}</ListItem>
+                  <ListItem>
+                    {__(
+                      "Can manage all resources in the team, including API Keys."
+                    )}
+                  </ListItem>
+                </List>
               </DialogContentText>
 
               <FormControlLabel
@@ -136,7 +147,13 @@ const ChangeRole = (props: Props) => {
                 label={__("Member")}
               />
               <DialogContentText>
-                {__("Can access all resource in the team.")}
+                <List>
+                  <ListItem>
+                    {__(
+                      "Can manage all resources in the team, including API Keys."
+                    )}
+                  </ListItem>
+                </List>
               </DialogContentText>
             </RadioGroup>
           </DialogContent>
