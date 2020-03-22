@@ -18,21 +18,30 @@
       ],
       "Map loads for this month": ["今月の地図のロード回数"],
       "API loads for this month": ["今月の API のロード回数"],
-      "Home": [""],
-      "GIS services": ["GIS サービス"],
       "Dataset settings": ["データセットの設定"],
       "You can manage and set the dataset, and get the the access point URL of dataset API.": [
         "データセットの管理や設定を行ったり、データセット API のアクセスポイントの URL を取得することができます。"
       ],
-      "(No date)": ["(データなし)"],
-      "Geosearch is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
-        "Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
+      "Once you delete an Dataset, there is no going back. Please be certain.": [
+        "一度データセットを削除するともとに戻すことはできません。"
       ],
+      "Are you sure you want to delete this Dataset?": [
+        "本当にこのデータセットを削除しますか？"
+      ],
+      "Please type in the name of the Dataset to confirm.": [
+        "確認のためにデータセット名を入力してください。"
+      ],
+      "Home": [""],
+      "GIS services": ["GIS サービス"],
       "Create a new dataset": ["データセットを作成"],
       "Please enter the name of the new dataset.": [
         "新しいデータセットの名前を入力してください。"
       ],
       "My dataset": ["データセット"],
+      "(No date)": ["(データなし)"],
+      "Geosearch is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
+        "Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
+      ],
       "Name": ["名前"],
       "Description": ["説明"],
       "URLs": ["URL のリスト"],

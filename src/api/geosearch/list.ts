@@ -1,27 +1,12 @@
-import {
-  Session,
-  FeatureCollection,
-  ErrorCodes,
-  DateStringify
-} from "../../types";
+import { Session, Geosearch, DateStringify } from "../../types";
 import fetch from "../custom-fetch";
-import generate from "./mock";
 
-// eslint-disable-next-line
-const listFeatureCollections = (session: Session, teamId: string) => {
-  return fetch<DateStringify<FeatureCollection>[]>(
+const listGeosearch = (session: Session, teamId: string) => {
+  return fetch<DateStringify<Geosearch>[]>(
     session,
-    `/teams/${teamId}/features`,
-    { method: "GET" },
-    { type: "geosearch" }
+    `/teams/${teamId}/geosearch`,
+    { method: "GET" }
   );
 };
 
-const mockListFeatureCollections = (session: Session, teamId: string) => {
-  return Promise.resolve<
-    | { error: true; code: ErrorCodes; message: "dammy" }
-    | { error: false; data: DateStringify<FeatureCollection>[] }
-  >({ error: false, data: generate() });
-};
-
-export default mockListFeatureCollections;
+export default listGeosearch;

@@ -1,97 +1,172 @@
 import Moment from "moment";
+import { HashBy } from "../../types/";
+
+export type Geosearch = {
+  geojsonId: string;
+  data: GeoJSON.FeatureCollection;
+  createAt: Moment.Moment | void;
+  updateAt: Moment.Moment | void;
+  isPublic: boolean;
+  name: string;
+};
+export type ReadableGeosearch = Omit<Geosearch, "geojsonId">;
+export type WritableGeosearch = Partial<
+  Omit<Geosearch, "geojsonId" | "createAt" | "updateAt">
+>;
 
 export type State = {
-  [teamId: string]: {
-    featureCollections: {
-      [id: string]: {
-        data: GeoJSON.FeatureCollection;
-        createAt: Moment.Moment | void;
-        updateAt: Moment.Moment | void;
-        isPublic: boolean;
-      };
-    };
-  };
+  [teamId: string]: HashBy<Geosearch, "geojsonId">;
 };
 
 const initialState: State = {};
 
-const PUT_FEATURE_COLLECTION = "SET_FEATURE_COLLECTION";
+const SET_GEOSEARCH_ACTION = "SET_GEOSEARCH_ACTION";
+const UPDATE_GEOSEARCH_ACTION = "UPDATE_GEOSEARCH_ACTION";
+const DELETE_GEOSEARCH_ACTION = "DELETE_GEOSEARCH_ACTION";
 
-type PutFeatureCollectionAction = {
-  type: typeof PUT_FEATURE_COLLECTION;
+type SetGeosearchAction = {
+  type: typeof SET_GEOSEARCH_ACTION;
   payload: {
     teamId: string;
-    featureCollectionId: string;
-    featureCollection: GeoJSON.FeatureCollection;
+    geojsonId: string;
+    name: string;
     createAt: Moment.Moment | void;
     updateAt: Moment.Moment | void;
     isPublic: boolean;
+    geojson: GeoJSON.FeatureCollection;
   };
 };
 
-export type GeosearchActions = PutFeatureCollectionAction;
+type UpdateGeosearchAction = {
+  type: typeof UPDATE_GEOSEARCH_ACTION;
+  payload: {
+    teamId: string;
+    geojsonId: string;
+    geosearch: WritableGeosearch;
+  };
+};
+
+type DeleteGeosearchAction = {
+  type: typeof DELETE_GEOSEARCH_ACTION;
+  payload: {
+    teamId: string;
+    geojsonId: string;
+  };
+};
+
+export type GeosearchActions =
+  | SetGeosearchAction
+  | UpdateGeosearchAction
+  | DeleteGeosearchAction;
 
 export const createActions = {
-  setFeatureCollections: (
+  set: (
     teamId: string,
-    featureCollectionId: string,
-    featureCollection: GeoJSON.FeatureCollection,
+    geojsonId: string,
+    name: string,
     createAt: Moment.Moment | void,
     updateAt: Moment.Moment | void,
-    isPublic: boolean
-  ): PutFeatureCollectionAction => ({
-    type: PUT_FEATURE_COLLECTION,
+    isPublic: boolean,
+    geojson: GeoJSON.FeatureCollection
+  ): SetGeosearchAction => ({
+    type: SET_GEOSEARCH_ACTION,
     payload: {
+      geojsonId,
       teamId,
-      featureCollectionId,
-      featureCollection,
+      name,
       createAt,
       updateAt,
-      isPublic
+      isPublic,
+      geojson
     }
+  }),
+  update: (
+    teamId: string,
+    geojsonId: string,
+    geosearch: WritableGeosearch
+  ) => ({
+    type: UPDATE_GEOSEARCH_ACTION,
+    payload: {
+      teamId,
+      geojsonId,
+      geosearch
+    }
+  }),
+  delete: (teamId: string, geojsonId: string) => ({
+    type: DELETE_GEOSEARCH_ACTION,
+    payload: { teamId, geojsonId }
   })
 };
 
-const isPutFeatureCollectionAction = (
+const isSetGeosearchAction = (
   action: GeosearchActions
-): action is PutFeatureCollectionAction =>
-  action.type === PUT_FEATURE_COLLECTION;
+): action is SetGeosearchAction => action.type === SET_GEOSEARCH_ACTION;
+
+const isUpdateGeosearchAction = (
+  action: GeosearchActions
+): action is UpdateGeosearchAction => action.type === UPDATE_GEOSEARCH_ACTION;
+
+const isDeleteGeosearchAction = (
+  action: GeosearchActions
+): action is DeleteGeosearchAction => action.type === DELETE_GEOSEARCH_ACTION;
 
 export const reducer = (
   state: State = initialState,
   action: GeosearchActions
 ): State => {
-  if (isPutFeatureCollectionAction(action)) {
+  if (isSetGeosearchAction(action)) {
     const {
       teamId,
-      featureCollectionId,
-      featureCollection,
+      geojsonId,
+      name,
       createAt,
       updateAt,
-      isPublic
+      isPublic,
+      geojson
     } = action.payload;
-    const prevFeatureCollections = state[teamId]
-      ? state[teamId].featureCollections
-      : {};
-    const prevFeatureCollection =
-      prevFeatureCollections[featureCollectionId] || {};
+    const prevGeojsonMap = state[teamId] ? state[teamId] : {};
+    const prevGeojson = prevGeojsonMap[geojsonId] || {};
 
     return {
       ...state,
       [teamId]: {
         ...state[teamId],
-        featureCollections: {
-          ...prevFeatureCollections,
-          [featureCollectionId]: {
-            ...prevFeatureCollection,
-            data: featureCollection,
-            createAt,
-            updateAt,
-            isPublic
-          }
+        ...prevGeojsonMap,
+        [geojsonId]: {
+          ...prevGeojson,
+          data: geojson,
+          name,
+          createAt,
+          updateAt,
+          isPublic
         }
       }
     };
+  } else if (isUpdateGeosearchAction(action)) {
+    const { teamId, geojsonId, geosearch } = action.payload;
+    const prevGeojsonMap = state[teamId] ? state[teamId] : {};
+    const prevGeojson = prevGeojsonMap[geojsonId] || {};
+    return {
+      ...state,
+      [teamId]: {
+        ...state[teamId],
+        ...prevGeojsonMap,
+        [geojsonId]: {
+          ...prevGeojson,
+          ...geosearch
+        }
+      }
+    };
+  } else if (isDeleteGeosearchAction(action)) {
+    const { teamId, geojsonId } = action.payload;
+    const prevGeojsonMap = state[teamId] ? state[teamId] : {};
+    const nextGeojsonMap = { ...prevGeojsonMap };
+    delete nextGeojsonMap[geojsonId];
+    const nextState = {
+      ...state,
+      [teamId]: nextGeojsonMap
+    };
+    return nextState;
   } else {
     return state;
   }
