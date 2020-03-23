@@ -35,26 +35,29 @@ export const PropsTable = (props: Props) => {
 
     return (
       <div className="props">
-        <h3>{__('Title')}</h3>
-        <input type="text" id="geojson-title" />
-        <h3>{__('Description')}</h3>
-        <textarea id="geojson-description"></textarea>
-        <h3>{__('Style')}</h3>
-        <table className="prop-table">
-          <tbody>
-            {rows}
-          </tbody>
-        </table>
-
-        <Save
-          onClick={onClickHandler}
-          onError={onRequestError}
-          disabled={status === "requesting"}
-        />
+        <div className="props-button">
+          <Save
+            onClick={onClickHandler}
+            onError={onRequestError}
+            disabled={status === "requesting"}
+          />
+        </div>
+        <div className="props-inner">
+          <h3>{__('Title')}</h3>
+          <input type="text" name="geojson-title" />
+          <h3>{__('Description')}</h3>
+          <input type="text" name="geojson-title" />
+          <h3>{__('Style')}</h3>
+          <table className="prop-table">
+            <tbody>
+              {rows}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   } else {
-  return <p>{__('Click a feature to edit properties.')}</p>
+    return <p>{__('Click a feature to edit properties.')}</p>
   }
 }
 

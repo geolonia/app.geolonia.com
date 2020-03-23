@@ -21,24 +21,13 @@ const SimpleStyle: SimpleStyle = {
         "large"
       ]
     },
-    "marker-symbol": {
-      "label": "Symbol"
-    },
     "marker-color": {
       "label": "Color",
       "type": "color"
     },
-    "fill-opacity": {
-      "label": "Opacity",
-      "type": "number"
-    },
     "stroke": {
       "label": "Stroke",
       "type": "color"
-    },
-    "stroke-opacity": {
-      "label": "Stroke Opacity",
-      "type": "number"
     },
     "stroke-width": {
       "label": "Stroke Width",
@@ -50,12 +39,8 @@ const SimpleStyle: SimpleStyle = {
       "label": "Stroke",
       "type": "color"
     },
-    "stroke-opacity": {
-      "label": "Stroke Opacity",
-      "type": "number"
-    },
     "stroke-width": {
-      "label": "Strke Width",
+      "label": "Stroke Width",
       "type": "number"
     }
   },
@@ -63,10 +48,6 @@ const SimpleStyle: SimpleStyle = {
     "fill-color": {
       "label": "Color",
       "type": "color"
-    },
-    "fill-opacity": {
-      "label": "Opacity",
-      "type": "number"
     },
     "stroke": {
       "label": "Stroke",

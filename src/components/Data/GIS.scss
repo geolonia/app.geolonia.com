@@ -45,7 +45,11 @@
     overflow: scroll;
     padding: 0;
 
-    textarea,
+    .props-button
+    {
+
+    }
+
     input
     {
       width: 100%;
@@ -53,12 +57,6 @@
       padding: 4px;
       border: none;
       border-bottom: 1px solid #cccccc;
-    }
-
-    textarea
-    {
-      height: 4em;
-      resize: none;
     }
 
     th, td
