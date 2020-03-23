@@ -8,6 +8,7 @@ import {
   Role as _Role,
   Roles as _Roles
 } from "../redux/actions/team-member";
+
 import {
   State as GeosearchState,
   Geosearch as _Geosearch,
@@ -57,3 +58,15 @@ export type WritableGeosearch = _WritableGeosearch;
 export type HashBy<T, K extends string | number> = {
   [id: string]: Omit<T, K>;
 };
+
+export type Geometry = {
+  coordinates: [];
+  type: string;
+}
+
+export type Feature = {
+  geometry: Geometry;
+  id: string;
+  properties: object;
+  type: string;
+}
