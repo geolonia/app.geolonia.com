@@ -1,5 +1,9 @@
+import { __ } from "@wordpress/i18n";
+
 interface Spec {
-  [key: string]: string | string[]
+  label: string;
+  type: string;
+  values?: string[]
 }
 
 interface StyleSpec {
@@ -13,7 +17,7 @@ interface SimpleStyle {
 const SimpleStyle: SimpleStyle = {
   "Point": {
     "marker-size": {
-      "label": "Size",
+      "label": __("Size"),
       "type": "option",
       "values": [
         "small",
@@ -22,35 +26,35 @@ const SimpleStyle: SimpleStyle = {
       ]
     },
     "marker-color": {
-      "label": "Color",
+      "label": __("Color"),
       "type": "color"
     },
     "stroke": {
-      "label": "Stroke",
+      "label": __("Stroke"),
       "type": "color"
     },
     "stroke-width": {
-      "label": "Stroke Width",
+      "label": __("Stroke Width"),
       "type": "number"
     }
   },
   "LineString": {
     "stroke": {
-      "label": "Stroke",
+      "label": __("Stroke"),
       "type": "color"
     },
     "stroke-width": {
-      "label": "Stroke Width",
+      "label": __("Stroke Width"),
       "type": "number"
     }
   },
   "Polygon": {
     "fill-color": {
-      "label": "Color",
+      "label": __("Color"),
       "type": "color"
     },
     "stroke": {
-      "label": "Stroke",
+      "label": __("Stroke"),
       "type": "color"
     }
   }

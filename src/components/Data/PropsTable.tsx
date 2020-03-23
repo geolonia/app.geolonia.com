@@ -40,13 +40,14 @@ export const PropsTable = (props: Props) => {
             onClick={onClickHandler}
             onError={onRequestError}
             disabled={status === "requesting"}
+            label={__("Save Properties")}
           />
         </div>
         <div className="props-inner">
           <h3>{__('Title')}</h3>
           <input type="text" name="geojson-title" />
           <h3>{__('Description')}</h3>
-          <input type="text" name="geojson-title" />
+          <input type="text" name="geojson-description" />
           <h3>{__('Style')}</h3>
           <table className="prop-table">
             <tbody>

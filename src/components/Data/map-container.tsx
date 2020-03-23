@@ -93,7 +93,6 @@ export const MapContainer = (props: Props) => {
         lng={parseFloat(_x("0", "Default value of longitude for map"))}
         marker={"off"}
         zoom={parseFloat(_x("0", "Default value of zoom level of map"))}
-        fullscreenControl={"on"}
         geolocateControl={"off"}
         onAfterLoad={handleOnAfterLoad}
       />
