@@ -1,10 +1,12 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
 import Save from "../custom/Save";
-import SimpleStyle from './SimpleStyle.json'
+import SimpleStyle from './SimpleStyle'
+
+import { Feature } from "../../types";
 
 type Props = {
-  currentFeature: object | undefined;
+  currentFeature: Feature | undefined;
   updateFeatureProps: Function;
 };
 
@@ -23,6 +25,14 @@ export const PropsTable = (props: Props) => {
   }
 
   if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
+    const type = currentFeature.geometry.type
+    const styleSpec = SimpleStyle[type]
+
+    const rows = []
+    for (const key in styleSpec) {
+      rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td><input /></td></tr>)
+    }
+
     return (
       <div className="props">
         <h3>{__('Title')}</h3>
@@ -32,8 +42,7 @@ export const PropsTable = (props: Props) => {
         <h3>{__('Style')}</h3>
         <table className="prop-table">
           <tbody>
-            <tr><th>Size:</th><td><input /></td></tr>
-            <tr><th>Symbol:</th><td></td></tr>
+            {rows}
           </tbody>
         </table>
 
@@ -45,7 +54,7 @@ export const PropsTable = (props: Props) => {
       </div>
     );
   } else {
-    return <></>
+  return <p>{__('Click a feature to edit properties.')}</p>
   }
 }
 

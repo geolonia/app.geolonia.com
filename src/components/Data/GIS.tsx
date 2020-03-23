@@ -22,8 +22,10 @@ import {
   AppState,
   Session,
   ReadableGeosearch,
-  WritableGeosearch
+  WritableGeosearch,
+  Feature
 } from "../../types";
+
 import { connect } from "react-redux";
 
 // api
@@ -38,12 +40,14 @@ import Redux from "redux";
 import { createActions as createGeosearchActions } from "../../redux/actions/geosearch";
 
 type OwnProps = {};
+
 type StateProps = {
   session: Session;
   geojsonId?: string;
   teamId?: string;
   geosearch?: ReadableGeosearch;
 };
+
 type DispatchProps = {
   updateGeosearch: (
     teamId: string,
@@ -52,11 +56,13 @@ type DispatchProps = {
   ) => void;
   deleteGeosearch: (teamId: string, geojsonId: string) => void;
 };
+
 type RouterProps = {
   match: { params: { id: string } };
   history: { push: (path: string) => void };
   currentFeature: object;
 };
+
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
@@ -67,7 +73,7 @@ const Content = (props: Props) => {
     false | "requesting" | "success" | "failure"
   >(false);
   const [message, setMessage] = React.useState("");
-  const [currentFeature, setCurrentFeature] = React.useState<object | undefined>({});
+  const [currentFeature, setCurrentFeature] = React.useState<Feature | undefined>();
 
   React.useEffect(() => {
     props.geosearch && setGeoJSON(props.geosearch.data);

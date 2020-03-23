@@ -1,4 +1,16 @@
-{
+interface Spec {
+  [key: string]: string | string[]
+}
+
+interface StyleSpec {
+  [key: string]: Spec;
+}
+
+interface SimpleStyle {
+  [key: string]: StyleSpec;
+}
+
+const SimpleStyle: SimpleStyle = {
   "Point": {
     "marker-size": {
       "label": "Size",
@@ -62,3 +74,5 @@
     }
   }
 }
+
+export default SimpleStyle;
