@@ -12,6 +12,7 @@ import { _x } from "@wordpress/i18n";
 type Props = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
   setGeoJSON: (geojson: Props["geoJSON"]) => void;
+  mapHeight: any;
 };
 
 const mapStyle: React.CSSProperties = {
@@ -21,7 +22,7 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapContainer = (props: Props) => {
-  const { geoJSON, setGeoJSON } = props;
+  const { geoJSON, setGeoJSON, mapHeight } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | null>(null);
@@ -77,7 +78,7 @@ export const MapContainer = (props: Props) => {
     <div style={mapStyle}>
       <GeoloniaMap
         width="100%"
-        height="400px"
+        height={mapHeight}
         gestureHandling="off"
         lat={parseFloat(_x("0", "Default value of latitude for map"))}
         lng={parseFloat(_x("0", "Default value of longitude for map"))}

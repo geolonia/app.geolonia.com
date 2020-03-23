@@ -151,8 +151,24 @@ const Content = (props: Props) => {
       </Title>
 
       <Grid container spacing={4}>
-        <Grid item xs={12}>
-          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
+        <Grid item xs={8}>
+          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" />
+        </Grid>
+        <Grid item xs={4}>
+          <div className="props">
+            <h3>{__('Title')}</h3>
+            <input type="text" id="geojson-title" />
+            <h3>{__('Description')}</h3>
+            <textarea id="geojson-description"></textarea>
+
+            <h3>{__('Style')}</h3>
+            <table className="prop-table">
+              <tbody>
+                <tr><th>{__('Size')}</th><td><input /></td></tr>
+                <tr><th>{__('Symbol')}</th><td></td></tr>
+              </tbody>
+            </table>
+          </div>
         </Grid>
         <Grid item xs={12}>
           <TextEditor geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
