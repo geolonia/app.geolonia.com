@@ -1,5 +1,7 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
+import { SketchPicker } from 'react-color';
+
 import Save from "../custom/Save";
 import SimpleStyle from './SimpleStyle'
 
