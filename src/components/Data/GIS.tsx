@@ -13,6 +13,7 @@ import DangerZone from "../custom/danger-zone";
 
 import { __ } from "@wordpress/i18n";
 import Title from "../custom/Title";
+import PropsTable from './PropsTable'
 
 import "./GIS.scss";
 
@@ -54,11 +55,11 @@ type DispatchProps = {
 type RouterProps = {
   match: { params: { id: string } };
   history: { push: (path: string) => void };
+  currentFeature: object;
 };
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
-  // GeoJSON props to state
   const [geoJSON, setGeoJSON] = React.useState<
     GeoJSON.FeatureCollection | undefined
   >(void 0);
@@ -66,6 +67,7 @@ const Content = (props: Props) => {
     false | "requesting" | "success" | "failure"
   >(false);
   const [message, setMessage] = React.useState("");
+  const [currentFeature, setCurrentFeature] = React.useState<object | undefined>({});
 
   React.useEffect(() => {
     props.geosearch && setGeoJSON(props.geosearch.data);
@@ -89,34 +91,6 @@ const Content = (props: Props) => {
       href: null
     }
   ];
-  const onUpdateClick = () => {
-    const { teamId, geojsonId, geosearch } = props;
-    if (!teamId || !geojsonId || !geosearch) {
-      return Promise.resolve();
-    }
-    setStatus("requesting");
-
-    const nextGeosearch = {
-      data: geoJSON
-    };
-
-    return updateGeosearch(
-      props.session,
-      teamId,
-      geojsonId,
-      nextGeosearch
-    ).then(result => {
-      if (result.error) {
-        setStatus("failure");
-        setMessage(result.message);
-        throw new Error(result.code);
-      } else {
-        setStatus("success");
-        // @ts-ignore
-        props.updateGeosearch(teamId, geojsonId, result.data);
-      }
-    });
-  };
 
   const onDeleteClick = () => {
     const { session, teamId, geojsonId, geosearch } = props;
@@ -140,6 +114,14 @@ const Content = (props: Props) => {
     });
   };
 
+  const updateFeatureProps = () => {
+    console.log(currentFeature )
+  }
+
+  const onClickFeature = (feature: any) => {
+    setCurrentFeature(feature)
+  }
+
   const onRequestError = () => setStatus("failure");
 
   return (
@@ -152,34 +134,15 @@ const Content = (props: Props) => {
 
       <Grid container spacing={4}>
         <Grid item xs={8}>
-          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" />
+          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onClickFeature={onClickFeature} />
         </Grid>
         <Grid item xs={4}>
-          <div className="props">
-            <h3>{__('Title')}</h3>
-            <input type="text" id="geojson-title" />
-            <h3>{__('Description')}</h3>
-            <textarea id="geojson-description"></textarea>
-
-            <h3>{__('Style')}</h3>
-            <table className="prop-table">
-              <tbody>
-                <tr><th>{__('Size')}</th><td><input /></td></tr>
-                <tr><th>{__('Symbol')}</th><td></td></tr>
-              </tbody>
-            </table>
-          </div>
+            <PropsTable currentFeature={currentFeature} updateFeatureProps={updateFeatureProps} />
         </Grid>
         <Grid item xs={12}>
           <TextEditor geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
         </Grid>
       </Grid>
-
-      <Save
-        onClick={onUpdateClick}
-        onError={onRequestError}
-        disabled={status === "requesting"}
-      />
 
       <DangerZone
         whyDanger={__(

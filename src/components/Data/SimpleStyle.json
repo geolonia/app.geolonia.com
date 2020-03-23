@@ -1,0 +1,64 @@
+{
+  "Point": {
+    "marker-size": {
+      "label": "Size",
+      "type": "option",
+      "values": [
+        "small",
+        "medium",
+        "large"
+      ]
+    },
+    "marker-symbol": {
+      "label": "Symbol"
+    },
+    "marker-color": {
+      "label": "Color",
+      "type": "color"
+    },
+    "fill-opacity": {
+      "label": "Opacity",
+      "type": "number"
+    },
+    "stroke": {
+      "label": "Stroke",
+      "type": "color"
+    },
+    "stroke-opacity": {
+      "label": "Stroke Opacity",
+      "type": "number"
+    },
+    "stroke-width": {
+      "label": "Stroke Width",
+      "type": "number"
+    }
+  },
+  "LineString": {
+    "stroke": {
+      "label": "Stroke",
+      "type": "color"
+    },
+    "stroke-opacity": {
+      "label": "Stroke Opacity",
+      "type": "number"
+    },
+    "stroke-width": {
+      "label": "Strke Width",
+      "type": "number"
+    }
+  },
+  "Polygon": {
+    "fill-color": {
+      "label": "Color",
+      "type": "color"
+    },
+    "fill-opacity": {
+      "label": "Opacity",
+      "type": "number"
+    },
+    "stroke": {
+      "label": "Stroke",
+      "type": "color"
+    }
+  }
+}
