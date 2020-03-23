@@ -10,6 +10,14 @@ type Props = {
   updateFeatureProps: Function;
 };
 
+const style: React.CSSProperties = {
+  backgroundColor: "#EEEEEE",
+  padding: "16px",
+  textAlign: "center",
+  color: "#555555",
+  fontWeight: "bold",
+}
+
 export const PropsTable = (props: Props) => {
   const { currentFeature, updateFeatureProps } = props;
   const [status, setStatus] = React.useState<
@@ -30,7 +38,7 @@ export const PropsTable = (props: Props) => {
 
     const rows = []
     for (const key in styleSpec) {
-      rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td><input /></td></tr>)
+      rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td><input className={styleSpec[key].type} type="text" name={key} /></td></tr>)
     }
 
     return (
@@ -45,9 +53,9 @@ export const PropsTable = (props: Props) => {
         </div>
         <div className="props-inner">
           <h3>{__('Title')}</h3>
-          <input type="text" name="geojson-title" />
+          <input type="text" name="title" />
           <h3>{__('Description')}</h3>
-          <input type="text" name="geojson-description" />
+          <input type="text" name="description" />
           <h3>{__('Style')}</h3>
           <table className="prop-table">
             <tbody>
@@ -58,7 +66,11 @@ export const PropsTable = (props: Props) => {
       </div>
     );
   } else {
-    return <p>{__('Click a feature to edit properties.')}</p>
+    return (
+      <div style={style}>
+        {__('Click a feature to edit properties.')}
+      </div>
+    );
   }
 }
 

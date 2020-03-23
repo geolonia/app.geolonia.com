@@ -3,8 +3,6 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 
 import MapContainer from "./map-container";
-import TextEditor from "./text-editor";
-import Save from "../custom/Save";
 import Delete from "../custom/Delete";
 import DangerZone from "../custom/danger-zone";
 // import Upload from "./upload";
@@ -124,7 +122,7 @@ const Content = (props: Props) => {
     console.log(currentFeature )
   }
 
-  const onClickFeature = (feature: any) => {
+  const onClickFeatureHandler = (feature: any) => {
     setCurrentFeature(feature)
   }
 
@@ -140,13 +138,10 @@ const Content = (props: Props) => {
 
       <Grid container spacing={4}>
         <Grid item xs={8}>
-          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onClickFeature={onClickFeature} />
+          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} />
         </Grid>
         <Grid item xs={4}>
-            <PropsTable currentFeature={currentFeature} updateFeatureProps={updateFeatureProps} />
-        </Grid>
-        <Grid item xs={12}>
-          <TextEditor geoJSON={geoJSON} setGeoJSON={setGeoJSON} />
+          <PropsTable currentFeature={currentFeature} updateFeatureProps={updateFeatureProps} />
         </Grid>
       </Grid>
 
