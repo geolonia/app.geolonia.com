@@ -123,6 +123,7 @@ const Content = (props: Props) => {
     if (currentFeature) {
       Object.assign(currentFeature.properties, props)
       setCurrentFeature(currentFeature)
+      console.log(currentFeature)
     }
   }
 
