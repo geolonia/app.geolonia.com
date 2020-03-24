@@ -28,7 +28,7 @@ import {
 import { connect } from "react-redux";
 
 // api
-import updateGeosearch from "../../api/geosearch/update";
+// import updateGeosearch from "../../api/geosearch/update";
 import deleteGeosearch from "../../api/geosearch/delete";
 
 // constants
@@ -72,7 +72,7 @@ const Content = (props: Props) => {
     false | "requesting" | "success" | "failure"
   >(false);
   const [message, setMessage] = React.useState("");
-  const [currentFeature, setCurrentFeature] = React.useState<Feature | undefined>();
+  const [currentFeature, setCurrentFeature] = React.useState<Feature>();
 
   React.useEffect(() => {
     props.geosearch && setGeoJSON(props.geosearch.data);
@@ -120,8 +120,10 @@ const Content = (props: Props) => {
   };
 
   const updateFeatureProps = (props: FeatureProperties) => {
-    console.log(props)
-    // Then it should return promise?
+    if (currentFeature) {
+      Object.assign(currentFeature.properties, props)
+      setCurrentFeature(currentFeature)
+    }
   }
 
   const onClickFeatureHandler = (feature: any) => {

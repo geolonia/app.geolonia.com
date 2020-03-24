@@ -1,6 +1,5 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
-import Save from "../custom/Save";
 import SimpleStyle from './SimpleStyle'
 import { Feature, FeatureProperties } from "../../types";
 
@@ -22,7 +21,6 @@ export const PropsTable = (props: Props) => {
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
-  const [FeatureProperties, setFeatureProperties] = React.useState<FeatureProperties>({});
 
   const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
     const prop = event.currentTarget.name
