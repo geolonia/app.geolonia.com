@@ -19,6 +19,8 @@ type Props = {
 
 const InputColor = (props: Props) => {
   const { color, className, name, onChange, onFocus } = props;
+  const [backgroundColor, setBackgroundColor] = React.useState<string>('#7e7e7e')
+  const [textColor, setTextColor] = React.useState<string>('#FFFFFF')
 
   const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
     onChange(event)

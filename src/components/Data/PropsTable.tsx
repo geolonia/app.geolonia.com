@@ -49,7 +49,7 @@ export const PropsTable = (props: Props) => {
   const [stateColorPicker, setStateColorPicker] = React.useState<boolean>(false)
   const [styleColorPickerContainer, setStyleColorPickerContainer] = React.useState<React.CSSProperties>({})
   const [pickerTarget, setPickerTarget] = React.useState<HTMLInputElement>()
-  const [pickerColor, setPickerColor] = React.useState<string>('#000000')
+  const [pickerColor, setPickerColor] = React.useState<string>('')
 
   const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
     const prop = event.currentTarget.name
@@ -115,8 +115,11 @@ export const PropsTable = (props: Props) => {
         const num = currentFeature.properties[key] || 1
         input = <input className={styleSpec[key].type} type="number" name={key} defaultValue={num} onChange={updatePropHandler} />
       } else if ('color' === styleSpec[key].type) {
-        const color = (currentFeature.properties[key] || '#000000').toString()
-        //input = <input className={styleSpec[key].type} type="text" name={key} defaultValue={color} onChange={updatePropHandler} onFocus={colorOnFocusHandler} />
+        console.log(key)
+        let color = (currentFeature.properties[key] || '#7e7e7e').toString()
+        if ('stroke' === key) {
+          color = (currentFeature.properties[key] || '#555555').toString()
+        }
         input = <InputColor className={styleSpec[key].type} color={color} name={key} onChange={updatePropHandler} onFocus={colorOnFocusHandler} />
       } else if ('option' === styleSpec[key].type) {
         const size = currentFeature.properties[key] || 'medium'
