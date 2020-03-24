@@ -127,6 +127,10 @@ const Content = (props: Props) => {
     }
   }
 
+  const addFeatureHandler = (feature: Feature) => {
+    console.log(feature)
+  }
+
   const onClickFeatureHandler = (feature: any) => {
     setCurrentFeature(feature)
   }
@@ -143,7 +147,7 @@ const Content = (props: Props) => {
 
       <Grid container spacing={4}>
         <Grid item xs={8}>
-          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} />
+          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onAddFeature={addFeatureHandler} onClickFeature={onClickFeatureHandler} />
         </Grid>
         <Grid item xs={4}>
           <PropsTable currentFeature={currentFeature} updateFeatureProps={updateFeatureProps} />

@@ -14,6 +14,7 @@ type Props = {
   setGeoJSON: (geojson: Props["geoJSON"]) => void;
   mapHeight: any;
   onClickFeature: Function;
+  onAddFeature: Function;
 };
 
 const mapStyle: React.CSSProperties = {
@@ -23,7 +24,7 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapContainer = (props: Props) => {
-  const { geoJSON, setGeoJSON, mapHeight, onClickFeature } = props;
+  const { geoJSON, setGeoJSON, mapHeight, onAddFeature, onClickFeature } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | null>(null);
@@ -59,6 +60,10 @@ export const MapContainer = (props: Props) => {
     if (map && draw) {
       map.on('draw.selectionchange', (event: any) => {
         onClickFeature(event.features[0])
+      })
+
+      map.on('draw.create', (event: any) => {
+        onAddFeature(event.features[0])
       })
     }
   }, [map, draw, onClickFeature])
