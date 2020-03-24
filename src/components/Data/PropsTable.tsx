@@ -58,7 +58,7 @@ export const PropsTable = (props: Props) => {
         input = <input className={styleSpec[key].type} type="text" name={key} defaultValue={color} onChange={updatePropHandler} />
       } else if ('option' === styleSpec[key].type) {
         const size = currentFeature.properties[key] || 'medium'
-        input = <Select className="select-menu" name={key} value={size} onChange={updatePropSelectHandler}><MenuItem value="small">Small</MenuItem><MenuItem value="medium">Medium</MenuItem><MenuItem value="large">Large</MenuItem></Select>
+        input = <Select className="select-menu" name={key} value={size} onChange={updatePropSelectHandler}><MenuItem value="small">{__("Small")}</MenuItem><MenuItem value="medium">{__("Medium")}</MenuItem><MenuItem value="large">{__("Large")}</MenuItem></Select>
       }
       rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td>{input}</td></tr>)
     }
