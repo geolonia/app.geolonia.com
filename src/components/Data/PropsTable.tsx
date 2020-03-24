@@ -122,7 +122,7 @@ export const PropsTable = (props: Props) => {
         const size = currentFeature.properties[key] || 'medium'
         input = <Select className="select-menu" name={key} value={size} onChange={updatePropSelectHandler}><MenuItem value="small">{__("Small")}</MenuItem><MenuItem value="medium">{__("Medium")}</MenuItem><MenuItem value="large">{__("Large")}</MenuItem></Select>
       }
-      rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td>{input}</td></tr>)
+      rows.push(<tr key={key}><th>{styleSpec[key].label}</th><td>{input}</td></tr>)
     }
 
     return (
