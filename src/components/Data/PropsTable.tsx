@@ -52,7 +52,7 @@ export const PropsTable = (props: Props) => {
   const [pickerColor, setPickerColor] = React.useState<string>('')
 
   const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    const prop = event.currentTarget.name
+    const prop = event.currentTarget.name.split(/--/)[1]
     const value = ('stroke-width' === prop) ? Number(event.currentTarget.value) : event.currentTarget.value
     const properties = {} as FeatureProperties
     properties[prop] = value
@@ -105,22 +105,24 @@ export const PropsTable = (props: Props) => {
   }
 
   if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
+    const id = currentFeature.id
     const type = currentFeature.geometry.type
     const styleSpec = SimpleStyle[type]
 
     const rows = []
     for (const key in styleSpec) {
-      let input = <input className={styleSpec[key].type} type="text" name={key} />
+      const name = `${id}--${key}`
+      let input = <input className={styleSpec[key].type} type="text" name={name} />
       if ('number' === styleSpec[key].type) {
         const num = currentFeature.properties[key] || 1
-        input = <input className={styleSpec[key].type} type="number" name={key} defaultValue={num} onChange={updatePropHandler} />
+        input = <input className={styleSpec[key].type} type="number" name={name} defaultValue={num} onChange={updatePropHandler} />
       } else if ('color' === styleSpec[key].type) {
         console.log(key)
         let color = (currentFeature.properties[key] || '#7e7e7e').toString()
         if ('stroke' === key) {
           color = (currentFeature.properties[key] || '#555555').toString()
         }
-        input = <InputColor className={styleSpec[key].type} color={color} name={key} onChange={updatePropHandler} onFocus={colorOnFocusHandler} />
+        input = <InputColor className={styleSpec[key].type} color={color} name={name} onChange={updatePropHandler} onFocus={colorOnFocusHandler} />
       } else if ('option' === styleSpec[key].type) {
         const size = currentFeature.properties[key] || 'medium'
         input = <Select className="select-menu" name={key} value={size} onChange={updatePropSelectHandler}><MenuItem value="small">{__("Small")}</MenuItem><MenuItem value="medium">{__("Medium")}</MenuItem><MenuItem value="large">{__("Large")}</MenuItem></Select>
@@ -132,9 +134,9 @@ export const PropsTable = (props: Props) => {
       <div className="props">
         <div className="props-inner">
           <h3>{__('Title')}</h3>
-          <input type="text" name="title" defaultValue={currentFeature.properties.title} onChange={updatePropHandler} />
+          <input type="text" name={`${id}--title`} defaultValue={currentFeature.properties.title} onChange={updatePropHandler} />
           <h3>{__('Description')}</h3>
-          <input type="text" name="description" defaultValue={currentFeature.properties.description} onChange={updatePropHandler} />
+          <input type="text" name={`${id}--description`} defaultValue={currentFeature.properties.description} onChange={updatePropHandler} />
           <h3>{__('Style')}</h3>
           <table className="prop-table">
             <tbody>
