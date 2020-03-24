@@ -6,6 +6,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import SimpleStyle from './SimpleStyle'
 import { Feature, FeatureProperties } from "../../types";
 
+import { ChromePicker as ColorPicker } from 'react-color';
+
 type Props = {
   currentFeature: Feature | undefined;
   updateFeatureProps: Function;
@@ -65,6 +67,7 @@ export const PropsTable = (props: Props) => {
 
     return (
       <div className="props">
+        <div><ColorPicker /></div>
         <div className="props-inner">
           <h3>{__('Title')}</h3>
           <input type="text" name="title" defaultValue={currentFeature.properties.title} onChange={updatePropHandler} />
