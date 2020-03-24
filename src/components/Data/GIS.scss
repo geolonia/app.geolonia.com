@@ -73,5 +73,12 @@
     {
       text-align: left;;
     }
+
+    .color-picker-container
+    {
+      position: absolute;
+      z-index: 2;
+      display: none;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
-import { SketchPicker } from 'react-color';
+import { ChromePicker as Picker } from 'react-color';
 
 import Save from "../custom/Save";
 import SimpleStyle from './SimpleStyle'
@@ -25,6 +25,7 @@ export const PropsTable = (props: Props) => {
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
+  const [pickerContainerStyle, setPickerContainerStyle] = React.useState<React.CSSProperties>({});
 
   const onClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     return updateFeatureProps()
@@ -34,13 +35,31 @@ export const PropsTable = (props: Props) => {
 
   }
 
+  const clickColorHandler = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+    const target = event.currentTarget
+    const {top: y, left: x} = target.getBoundingClientRect()
+    const top = y + window.pageYOffset
+    const left = x + window.pageXOffset
+    setPickerContainerStyle({
+      top: top,
+      left: left,
+      display: "block",
+    })
+  }
+
   if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
     const type = currentFeature.geometry.type
     const styleSpec = SimpleStyle[type]
 
     const rows = []
     for (const key in styleSpec) {
-      rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td><input className={styleSpec[key].type} type="text" name={key} /></td></tr>)
+      let input = <input className={styleSpec[key].type} type="text" name={key} />
+      if ('number' === styleSpec[key].type) {
+        input = <input className={styleSpec[key].type} type="number" name={key} value="0" />
+      } else if ('color' === styleSpec[key].type) {
+        input = <input className={styleSpec[key].type} type="text" name={key} onClick={clickColorHandler} />
+      }
+      rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td>{input}</td></tr>)
     }
 
     return (
@@ -65,11 +84,13 @@ export const PropsTable = (props: Props) => {
             </tbody>
           </table>
         </div>
+
+        <div className="color-picker-container" style={pickerContainerStyle}><Picker /></div>
       </div>
     );
   } else {
     return (
-      <div style={style}>
+      <div className="color-picker-container" style={style}>
         {__('Click a feature to edit properties.')}
       </div>
     );

@@ -61,7 +61,7 @@ export const MapContainer = (props: Props) => {
         onClickFeature(event.features[0])
       })
     }
-  }, [draw, setGeoJSON])
+  }, [map, draw, onClickFeature])
 
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw = new MapboxDraw({
