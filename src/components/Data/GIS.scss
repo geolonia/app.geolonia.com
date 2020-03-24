@@ -85,5 +85,12 @@
     {
       width: 100%;
     }
+
+    .color-picker-container
+    {
+      position: absolute;
+      display: none;
+      z-index: 9999;
+    }
   }
 }
