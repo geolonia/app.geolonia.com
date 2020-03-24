@@ -56,18 +56,6 @@ export const MapContainer = (props: Props) => {
     }
   }, [map, draw, setGeoJSON]);
 
-  React.useEffect(() => {
-    if (map && draw) {
-      map.on('draw.selectionchange', (event: any) => {
-        onClickFeature(event.features[0])
-      })
-
-      map.on('draw.create', (event: any) => {
-        onAddFeature(event.features[0])
-      })
-    }
-  }, [map, draw, onClickFeature])
-
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw = new MapboxDraw({
       boxSelect: false,
@@ -86,6 +74,14 @@ export const MapContainer = (props: Props) => {
     map.addControl(draw, "top-right");
     setDraw(draw);
     setMap(map);
+
+    map.on('draw.create', (event: any) => {
+      onAddFeature(event.features[0])
+    })
+
+    map.on('draw.selectionchange', (event: any) => {
+      onClickFeature(event.features[0])
+    })
   };
 
   return (
