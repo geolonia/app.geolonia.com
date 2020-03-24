@@ -21,7 +21,8 @@ import {
   Session,
   ReadableGeosearch,
   WritableGeosearch,
-  Feature
+  Feature,
+  FeatureProperties
 } from "../../types";
 
 import { connect } from "react-redux";
@@ -118,8 +119,9 @@ const Content = (props: Props) => {
     });
   };
 
-  const updateFeatureProps = () => {
-    console.log(currentFeature )
+  const updateFeatureProps = (props: FeatureProperties) => {
+    console.log(props)
+    // Then it should return promise?
   }
 
   const onClickFeatureHandler = (feature: any) => {

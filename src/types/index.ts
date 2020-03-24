@@ -64,9 +64,13 @@ export type Geometry = {
   type: string;
 }
 
+export type FeatureProperties = {
+  [key: string]: string | number;
+}
+
 export type Feature = {
   geometry: Geometry;
   id: string;
-  properties: object;
+  properties: FeatureProperties;
   type: string;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { __ } from "@wordpress/i18n";
 import Save from "../custom/Save";
 import SimpleStyle from './SimpleStyle'
-import { Feature } from "../../types";
+import { Feature, FeatureProperties } from "../../types";
 
 type Props = {
   currentFeature: Feature | undefined;
@@ -22,14 +22,14 @@ export const PropsTable = (props: Props) => {
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
-  const [pickerContainerStyle, setPickerContainerStyle] = React.useState<React.CSSProperties>({});
+  const [FeatureProperties, setFeatureProperties] = React.useState<FeatureProperties>({});
 
-  const onClickHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    return updateFeatureProps()
-  }
-
-  const onRequestError = () => {
-
+  const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    const prop = event.currentTarget.name
+    const value = event.currentTarget.value
+    const props = {} as FeatureProperties
+    props[prop] = value
+    return updateFeatureProps(props)
   }
 
   if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
@@ -40,28 +40,22 @@ export const PropsTable = (props: Props) => {
     for (const key in styleSpec) {
       let input = <input className={styleSpec[key].type} type="text" name={key} />
       if ('number' === styleSpec[key].type) {
-        input = <input className={styleSpec[key].type} type="number" name={key} value="0" />
+        const num = currentFeature.properties[key] || 0
+        input = <input className={styleSpec[key].type} type="number" name={key} defaultValue={num} onChange={updatePropHandler} />
       } else if ('color' === styleSpec[key].type) {
-        input = <input className={styleSpec[key].type} type="text" name={key} />
+        const color = currentFeature.properties[key] || '#000000'
+        input = <input className={styleSpec[key].type} type="text" name={key} defaultValue={color} onChange={updatePropHandler} />
       }
       rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td>{input}</td></tr>)
     }
 
     return (
       <div className="props">
-        <div className="props-button">
-          <Save
-            onClick={onClickHandler}
-            onError={onRequestError}
-            disabled={status === "requesting"}
-            label={__("Save Properties")}
-          />
-        </div>
         <div className="props-inner">
           <h3>{__('Title')}</h3>
-          <input type="text" name="title" />
+          <input type="text" name="title" defaultValue={currentFeature.properties.title} onChange={updatePropHandler} />
           <h3>{__('Description')}</h3>
-          <input type="text" name="description" />
+          <input type="text" name="description" defaultValue={currentFeature.properties.description} onChange={updatePropHandler} />
           <h3>{__('Style')}</h3>
           <table className="prop-table">
             <tbody>
