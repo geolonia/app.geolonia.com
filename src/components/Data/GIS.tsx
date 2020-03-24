@@ -126,15 +126,16 @@ const Content = (props: Props) => {
 
   const updateFeatureProps = (props: FeatureProperties) => {
     if (currentFeature) {
+      console.log(props)
       Object.assign(currentFeature.properties, props)
       setCurrentFeature(currentFeature)
 
-      console.log(Object.keys(props)[0])
-      console.log(props[Object.keys(props)[0]])
+      // console.log(Object.keys(props)[0])
+      // console.log(props[Object.keys(props)[0]])
       drawObject.setFeatureProperty(currentFeature.id, Object.keys(props)[0], props[Object.keys(props)[0]])
-      console.log(drawObject.getAll())
-      console.log(currentFeature)
-      console.log(geoJSON)
+      // console.log(drawObject.getAll())
+      // console.log(currentFeature)
+      // console.log(geoJSON)
     }
   }
 

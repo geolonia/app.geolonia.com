@@ -61,7 +61,7 @@ export const PropsTable = (props: Props) => {
 
   const updatePropSelectHandler = (event: any) => {
     if (event.target.name) {
-      const prop = event.target.name
+      const prop = event.target.name.split(/--/)[1]
       const value = ('stroke-width' === prop) ? Number(event.target.value) : event.target.value
       const properties = {} as FeatureProperties
       properties[prop] = value
@@ -117,12 +117,11 @@ export const PropsTable = (props: Props) => {
         const num = currentFeature.properties[key] || 1
         input = <input className={styleSpec[key].type} type="number" name={name} defaultValue={num} onChange={updatePropHandler} />
       } else if ('color' === styleSpec[key].type) {
-        console.log(key)
         let color = (currentFeature.properties[key] || '#7e7e7e').toString()
         if ('stroke' === key) {
           color = (currentFeature.properties[key] || '#555555').toString()
         }
-        input = <InputColor className={styleSpec[key].type} color={color} name={name} onChange={updatePropHandler} onFocus={colorOnFocusHandler} />
+        input = <InputColor className={styleSpec[key].type} color={color} name={name} onFocus={colorOnFocusHandler} />
       } else if ('option' === styleSpec[key].type) {
         const size = currentFeature.properties[key] || 'medium'
         input = <Select className="select-menu" name={key} value={size} onChange={updatePropSelectHandler}><MenuItem value="small">{__("Small")}</MenuItem><MenuItem value="medium">{__("Medium")}</MenuItem><MenuItem value="large">{__("Large")}</MenuItem></Select>

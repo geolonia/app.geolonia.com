@@ -13,18 +13,13 @@ type Props = {
   color: string;
   className: string;
   name: string;
-  onChange: Function;
   onFocus: Function;
 };
 
 const InputColor = (props: Props) => {
-  const { color, className, name, onChange, onFocus } = props;
+  const { color, className, name, onFocus } = props;
   const [backgroundColor, setBackgroundColor] = React.useState<string>('#7e7e7e')
   const [textColor, setTextColor] = React.useState<string>('#FFFFFF')
-
-  const onChangeHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    onChange(event)
-  }
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     onFocus(event)
@@ -32,7 +27,7 @@ const InputColor = (props: Props) => {
 
   return (
     <>
-      <input className={className} type="text" defaultValue={color} name={name} onChange={onChangeHandler} onFocus={onFocusHandler} />
+      <input className={className} type="text" defaultValue={color} name={name} onFocus={onFocusHandler} />
     </>
   );
 };
