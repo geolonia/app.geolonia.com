@@ -9,12 +9,22 @@ import MapboxDraw from "@mapbox/mapbox-gl-draw";
 // utils
 import { _x } from "@wordpress/i18n";
 
+import {
+  Feature,
+} from "../../types";
+
 type Props = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
   setGeoJSON: (geojson: Props["geoJSON"]) => void;
   mapHeight: any;
   onClickFeature: Function;
   onAddFeature: Function;
+  currentFeature: Feature | undefined;
+};
+
+type State = {
+  draw: MapboxDraw;
+  map: mapboxgl.Map;
 };
 
 const mapStyle: React.CSSProperties = {
@@ -23,40 +33,12 @@ const mapStyle: React.CSSProperties = {
   margin: "0 0 1em 0"
 };
 
-export const MapContainer = (props: Props) => {
-  const { geoJSON, setGeoJSON, mapHeight, onAddFeature, onClickFeature } = props;
+export default class MapContainer extends React.Component<Props, State> {
+  constructor(props: Props) {
+    super(props)
+  }
 
-  // mapbox map and draw binding
-  const [map, setMap] = React.useState<mapboxgl.Map | null>(null);
-  const [draw, setDraw] = React.useState<any>(null);
-
-  // import geoJSON
-  React.useEffect(() => {
-    if (map && draw && geoJSON) {
-      draw.deleteAll().set(geoJSON);
-    }
-  }, [map, draw, geoJSON]);
-
-  // export geoJSON
-  React.useEffect(() => {
-    if (map && draw) {
-      ["draw.create", "draw.update", "draw.delete"].forEach(eventType => {
-        map.on(eventType, () => {
-          const geojson = draw.getAll();
-          const nextGeoJSON = {
-            ...geojson,
-            features: geojson.features.map((feature: any) => {
-              delete feature.id;
-              return feature;
-            })
-          };
-          setGeoJSON(nextGeoJSON);
-        });
-      });
-    }
-  }, [map, draw, setGeoJSON]);
-
-  const handleOnAfterLoad = (map: mapboxgl.Map) => {
+  handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw = new MapboxDraw({
       boxSelect: false,
       controls: {
@@ -72,33 +54,56 @@ export const MapContainer = (props: Props) => {
     });
 
     map.addControl(draw, "top-right");
-    setDraw(draw);
-    setMap(map);
 
     map.on('draw.create', (event: any) => {
-      onAddFeature(event.features[0])
+      this.props.onAddFeature(event.features[0])
     })
 
     map.on('draw.selectionchange', (event: any) => {
-      onClickFeature(event.features[0])
+      this.props.onClickFeature(event.features[0])
     })
-  };
 
-  return (
-    <div style={mapStyle}>
-      <GeoloniaMap
-        width="100%"
-        height={mapHeight}
-        gestureHandling="off"
-        lat={parseFloat(_x("0", "Default value of latitude for map"))}
-        lng={parseFloat(_x("0", "Default value of longitude for map"))}
-        marker={"off"}
-        zoom={parseFloat(_x("0", "Default value of zoom level of map"))}
-        geolocateControl={"off"}
-        onAfterLoad={handleOnAfterLoad}
-      />
-    </div>
-  );
-};
+    this.setState({map: map})
+    this.setState({draw: draw})
+  }
 
-export default MapContainer;
+  componentDidUpdate() {
+    if (this.props.geoJSON) {
+      this.state.draw.deleteAll().set(this.props.geoJSON);
+    }
+
+    if (this.state.map && this.state.draw) {
+      ["draw.create", "draw.update", "draw.delete"].forEach(eventType => {
+        this.state.map.on(eventType, () => {
+          const geojson = this.state.draw.getAll();
+          const nextGeoJSON = {
+            ...geojson,
+            features: geojson.features.map((feature: any) => {
+              delete feature.id;
+              return feature;
+            })
+          };
+          this.props.setGeoJSON(nextGeoJSON);
+        });
+      });
+    }
+  }
+
+  render() {
+    return (
+      <div style={mapStyle}>
+        <GeoloniaMap
+          width="100%"
+          height={this.props.mapHeight}
+          gestureHandling="off"
+          lat={parseFloat(_x("0", "Default value of latitude for map"))}
+          lng={parseFloat(_x("0", "Default value of longitude for map"))}
+          marker={"off"}
+          zoom={parseFloat(_x("0", "Default value of zoom level of map"))}
+          geolocateControl={"off"}
+          onAfterLoad={this.handleOnAfterLoad}
+        />
+      </div>
+    )
+  }
+}

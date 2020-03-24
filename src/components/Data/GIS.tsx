@@ -37,6 +37,7 @@ import { messageDisplayDuration } from "../../constants";
 // redux
 import Redux from "redux";
 import { createActions as createGeosearchActions } from "../../redux/actions/geosearch";
+import { CookieStorage } from "amazon-cognito-identity-js";
 
 type OwnProps = {};
 
@@ -147,7 +148,7 @@ const Content = (props: Props) => {
 
       <Grid container spacing={4}>
         <Grid item xs={8}>
-          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onAddFeature={addFeatureHandler} onClickFeature={onClickFeatureHandler} />
+          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} currentFeature={currentFeature} mapHeight="500px" onAddFeature={addFeatureHandler} onClickFeature={onClickFeatureHandler} />
         </Grid>
         <Grid item xs={4}>
           <PropsTable currentFeature={currentFeature} updateFeatureProps={updateFeatureProps} />
