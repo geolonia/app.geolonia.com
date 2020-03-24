@@ -150,33 +150,27 @@ export const PropsTable = (props: Props) => {
     }
   }, [currentFeature, __updatePropHandler, __updatePropSelectHandler, __colorOnFocusHandler]);
 
-  if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
-    return (
-      <div className="props">
-        <div className="props-inner">
-          <h3>{__('Title')}</h3>
-          <input type="text" name={`${featureId}--title`} defaultValue={featureMeta.title} onChange={updatePropHandler} />
-          <h3>{__('Description')}</h3>
-          <input type="text" name={`${featureId}--description`} defaultValue={featureMeta.description} onChange={updatePropHandler} />
-          <h3>{__('Style')}</h3>
-          <table className="prop-table">
-            <tbody>
-              {tableRows}
-            </tbody>
-          </table>
-        </div>
-        { stateColorPicker? <div><div style={coverStyle} onClick={closePicker}></div>
-            <div className="color-picker-container" style={styleColorPickerContainer}>
-              <ColorPicker color={pickerColor} onChangeComplete={changeColorCompleteHanlder} /></div></div>: null}
+  return (currentFeature?
+    <div className="props">
+      <div className="props-inner">
+        <h3>{__('Title')}</h3>
+        <input type="text" name={`${featureId}--title`} defaultValue={featureMeta.title} onChange={updatePropHandler} />
+        <h3>{__('Description')}</h3>
+        <input type="text" name={`${featureId}--description`} defaultValue={featureMeta.description} onChange={updatePropHandler} />
+        <h3>{__('Style')}</h3>
+        <table className="prop-table">
+          <tbody>
+            {tableRows}
+          </tbody>
+        </table>
       </div>
-    );
-  } else {
-    return (
-      <div className="color-picker-container" style={style}>
-        {__('Click a feature to edit properties.')}
-      </div>
-    );
-  }
+      { stateColorPicker? <div><div style={coverStyle} onClick={closePicker}></div>
+          <div className="color-picker-container" style={styleColorPickerContainer}>
+            <ColorPicker color={pickerColor} onChangeComplete={changeColorCompleteHanlder} /></div></div>: null}
+      </div>: <div className="color-picker-container" style={style}>
+      {__('Click a feature to edit properties.')}
+    </div>
+  );
 }
 
 export default PropsTable
