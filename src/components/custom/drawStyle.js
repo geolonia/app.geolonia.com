@@ -15,7 +15,7 @@ export default [
       'fill-color': ['string', ['get', 'user_fill'], '#7e7e7e'],
       'fill-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.2,
+        ['==', ['get', 'active'], 'true'], 0.4,
         ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
       'fill-outline-color': [
@@ -41,7 +41,7 @@ export default [
       ],
       'line-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.2,
+        ['==', ['get', 'active'], 'true'], 0.4,
         ['number', ['get', 'user_stroke-opacity'], 1.0],
       ],
     },
@@ -67,8 +67,8 @@ export default [
       'circle-color': ['string', ['get', 'user_marker-color'], '#7e7e7e'],
       'circle-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.2,
-        ['number', ['get', 'user_fill-opacity'], 0.6],
+        ['==', ['get', 'active'], 'true'], 0.4,
+        ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
       'circle-stroke-width': ['number', ['get', 'user_stroke-width'], 2],
       'circle-stroke-color': [
@@ -89,7 +89,7 @@ export default [
     paint: {
       'text-color': '#000000',
       'text-halo-color': 'rgba(255, 255, 255, 1)',
-      'text-halo-width': 2,
+      'text-halo-width': 1,
     },
     layout: {
       'symbol-placement': 'line',
@@ -115,7 +115,7 @@ export default [
     paint: {
       'text-color': '#000000',
       'text-halo-color': 'rgba(255, 255, 255, 1)',
-      'text-halo-width': 2,
+      'text-halo-width': 1,
     },
     layout: {
       'text-field': [
@@ -140,7 +140,7 @@ export default [
     paint: {
       'text-color': '#333333',
       'text-halo-color': 'rgba(255, 255, 255, 1)',
-      'text-halo-width': 2,
+      'text-halo-width': 1,
     },
     layout: {
       'icon-image': [
