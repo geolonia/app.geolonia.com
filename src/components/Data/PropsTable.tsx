@@ -4,6 +4,7 @@ import { __ } from "@wordpress/i18n";
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import SimpleStyle from './SimpleStyle'
+import InputColor from '../custom/InputColor'
 import { Feature, FeatureProperties } from "../../types";
 
 import { ChromePicker as ColorPicker } from 'react-color';
@@ -41,14 +42,6 @@ const coverStyle: React.CSSProperties = {
   bottom: '0px',
   left: '0px',
   zIndex: 9999,
-}
-
-const blackOrWhite = (hexcolor: string) => {
-	var r = parseInt(hexcolor.substr( 1, 2 ), 16)
-	var g = parseInt(hexcolor.substr( 3, 2 ), 16)
-	var b = parseInt(hexcolor.substr( 5, 2 ), 16)
-
-	return ( ( ( (r * 299) + (g * 587) + (b * 114) ) / 1000 ) < 128 ) ? "#FFFFFF" : "#000000" ;
 }
 
 export const PropsTable = (props: Props) => {
@@ -122,8 +115,9 @@ export const PropsTable = (props: Props) => {
         const num = currentFeature.properties[key] || 1
         input = <input className={styleSpec[key].type} type="number" name={key} defaultValue={num} onChange={updatePropHandler} />
       } else if ('color' === styleSpec[key].type) {
-        const color = currentFeature.properties[key] || '#000000'
-        input = <input className={styleSpec[key].type} type="text" name={key} defaultValue={color} onChange={updatePropHandler} onFocus={colorOnFocusHandler} />
+        const color = (currentFeature.properties[key] || '#000000').toString()
+        //input = <input className={styleSpec[key].type} type="text" name={key} defaultValue={color} onChange={updatePropHandler} onFocus={colorOnFocusHandler} />
+        input = <InputColor className={styleSpec[key].type} color={color} name={key} onChange={updatePropHandler} onFocus={colorOnFocusHandler} />
       } else if ('option' === styleSpec[key].type) {
         const size = currentFeature.properties[key] || 'medium'
         input = <Select className="select-menu" name={key} value={size} onChange={updatePropSelectHandler}><MenuItem value="small">{__("Small")}</MenuItem><MenuItem value="medium">{__("Medium")}</MenuItem><MenuItem value="large">{__("Large")}</MenuItem></Select>
