@@ -95,6 +95,7 @@ export const PropsTable = (props: Props) => {
 
     if (pickerTarget) {
       pickerTarget.value = color
+      updatePropSelectHandler({target: pickerTarget}) // Fires the event `onChange`.
     }
   }
 
