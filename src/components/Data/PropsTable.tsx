@@ -27,6 +27,11 @@ type Props = {
   updateFeatureProps: Function;
 };
 
+type FeatureMeta = {
+  title: string;
+  description: string;
+}
+
 const style: React.CSSProperties = {
   backgroundColor: "#EEEEEE",
   padding: "16px",
@@ -50,24 +55,9 @@ export const PropsTable = (props: Props) => {
   const [styleColorPickerContainer, setStyleColorPickerContainer] = React.useState<React.CSSProperties>({})
   const [pickerTarget, setPickerTarget] = React.useState<HTMLInputElement>()
   const [pickerColor, setPickerColor] = React.useState<string>('')
-
-  const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    const prop = event.currentTarget.name.split(/--/)[1]
-    const value = ('stroke-width' === prop) ? Number(event.currentTarget.value) : event.currentTarget.value
-    const properties = {} as FeatureProperties
-    properties[prop] = value
-    return updateFeatureProps(properties)
-  }
-
-  const updatePropSelectHandler = (event: any) => {
-    if (event.target.name) {
-      const prop = event.target.name.split(/--/)[1]
-      const value = ('stroke-width' === prop) ? Number(event.target.value) : event.target.value
-      const properties = {} as FeatureProperties
-      properties[prop] = value
-      return updateFeatureProps(properties)
-    }
-  }
+  const [tableRows, setTableRows] = React.useState<JSX.Element[]>()
+  const [featureId, setFeatureId] = React.useState<string>()
+  const [featureMeta, setFeatureMeta] = React.useState<FeatureMeta>({title: '', description: ''})
 
   const colorOnFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     const target = event.currentTarget
@@ -104,42 +94,74 @@ export const PropsTable = (props: Props) => {
     setStateColorPicker(false)
   }
 
-  if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
-    const id = currentFeature.id
-    const type = currentFeature.geometry.type
-    const styleSpec = SimpleStyle[type]
+  const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    const prop = event.currentTarget.name.split(/--/)[1]
+    const value = ('stroke-width' === prop) ? Number(event.currentTarget.value) : event.currentTarget.value
+    const properties = {} as FeatureProperties
+    properties[prop] = value
+    return updateFeatureProps(properties)
+  }
 
-    const rows = []
-    for (const key in styleSpec) {
-      const name = `${id}--${key}`
-      let input = <input className={styleSpec[key].type} type="text" name={name} />
-      if ('number' === styleSpec[key].type) {
-        const num = currentFeature.properties[key] || 1
-        input = <input className={styleSpec[key].type} type="number" name={name} defaultValue={num} onChange={updatePropHandler} />
-      } else if ('color' === styleSpec[key].type) {
-        let color = (currentFeature.properties[key] || '#7e7e7e').toString()
-        if ('stroke' === key) {
-          color = (currentFeature.properties[key] || '#555555').toString()
-        }
-        input = <InputColor className={styleSpec[key].type} color={color} name={name} onFocus={colorOnFocusHandler} />
-      } else if ('option' === styleSpec[key].type) {
-        const size = currentFeature.properties[key] || 'medium'
-        input = <Select className="select-menu" name={key} value={size} onChange={updatePropSelectHandler}><MenuItem value="small">{__("Small")}</MenuItem><MenuItem value="medium">{__("Medium")}</MenuItem><MenuItem value="large">{__("Large")}</MenuItem></Select>
-      }
-      rows.push(<tr key={key}><th>{styleSpec[key].label}</th><td>{input}</td></tr>)
+  const updatePropSelectHandler = (event: any) => {
+    if (event.target.name) {
+      const prop = event.target.name.split(/--/)[1]
+      const value = ('stroke-width' === prop) ? Number(event.target.value) : event.target.value
+      const properties = {} as FeatureProperties
+      properties[prop] = value
+      return updateFeatureProps(properties)
     }
+  }
 
+  const __updatePropHandler = React.useCallback(updatePropHandler, [updateFeatureProps])
+  const __updatePropSelectHandler = React.useCallback(updatePropSelectHandler, [updateFeatureProps])
+  const __colorOnFocusHandler = React.useCallback(colorOnFocusHandler, [])
+
+  React.useEffect(() => {
+    if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
+      const id = currentFeature.id
+      const type = currentFeature.geometry.type
+      const styleSpec = SimpleStyle[type]
+
+      const rows = []
+      for (const key in styleSpec) {
+        const name = `${id}--${key}`
+        let input = <input className={styleSpec[key].type} type="text" name={name} />
+        if ('number' === styleSpec[key].type) {
+          const num = currentFeature.properties[key] || 1
+          input = <input className={styleSpec[key].type} type="number" name={name} defaultValue={num} onChange={__updatePropHandler} />
+        } else if ('color' === styleSpec[key].type) {
+          let color = (currentFeature.properties[key] || '#7e7e7e').toString()
+          if ('stroke' === key) {
+            color = (currentFeature.properties[key] || '#555555').toString()
+          }
+          input = <InputColor className={styleSpec[key].type} color={color} name={name} onFocus={__colorOnFocusHandler} />
+        } else if ('option' === styleSpec[key].type) {
+          const size = currentFeature.properties[key] || 'medium'
+          input = <Select className="select-menu" name={key} value={size} onChange={__updatePropSelectHandler}><MenuItem value="small">{__("Small")}</MenuItem><MenuItem value="medium">{__("Medium")}</MenuItem><MenuItem value="large">{__("Large")}</MenuItem></Select>
+        }
+        rows.push(<tr key={key}><th>{styleSpec[key].label}</th><td>{input}</td></tr>)
+      }
+      setTableRows(rows)
+      setFeatureId(id)
+      setFeatureMeta({
+        title: (currentFeature.properties.title || '').toString(),
+        description: (currentFeature.properties.description || '').toString(),
+      })
+    }
+  }, [currentFeature, __updatePropHandler, __updatePropSelectHandler, __colorOnFocusHandler]);
+
+  if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
     return (
       <div className="props">
         <div className="props-inner">
           <h3>{__('Title')}</h3>
-          <input type="text" name={`${id}--title`} defaultValue={currentFeature.properties.title} onChange={updatePropHandler} />
+          <input type="text" name={`${featureId}--title`} defaultValue={featureMeta.title} onChange={updatePropHandler} />
           <h3>{__('Description')}</h3>
-          <input type="text" name={`${id}--description`} defaultValue={currentFeature.properties.description} onChange={updatePropHandler} />
+          <input type="text" name={`${featureId}--description`} defaultValue={featureMeta.description} onChange={updatePropHandler} />
           <h3>{__('Style')}</h3>
           <table className="prop-table">
             <tbody>
-              {rows}
+              {tableRows}
             </tbody>
           </table>
         </div>
