@@ -25,6 +25,10 @@ const SimpleStyle: SimpleStyle = {
         "large"
       ]
     },
+    "marker-symbol": {
+      "label": __("Symbol"),
+      "type": "symbol"
+    },
     "marker-color": {
       "label": __("Color"),
       "type": "color"

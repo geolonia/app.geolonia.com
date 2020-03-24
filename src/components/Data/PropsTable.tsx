@@ -1,5 +1,8 @@
 import React from "react";
+
 import { __ } from "@wordpress/i18n";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import SimpleStyle from './SimpleStyle'
 import { Feature, FeatureProperties } from "../../types";
 
@@ -30,6 +33,16 @@ export const PropsTable = (props: Props) => {
     return updateFeatureProps(props)
   }
 
+  const updatePropSelectHandler = (event: any) => {
+    if (event.target.name) {
+      const prop = event.target.name
+      const value = event.target.value
+      const props = {} as FeatureProperties
+      props[prop] = value
+      return updateFeatureProps(props)
+    }
+  }
+
   if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
     const type = currentFeature.geometry.type
     const styleSpec = SimpleStyle[type]
@@ -38,11 +51,14 @@ export const PropsTable = (props: Props) => {
     for (const key in styleSpec) {
       let input = <input className={styleSpec[key].type} type="text" name={key} />
       if ('number' === styleSpec[key].type) {
-        const num = currentFeature.properties[key] || 0
+        const num = currentFeature.properties[key] || 1
         input = <input className={styleSpec[key].type} type="number" name={key} defaultValue={num} onChange={updatePropHandler} />
       } else if ('color' === styleSpec[key].type) {
         const color = currentFeature.properties[key] || '#000000'
         input = <input className={styleSpec[key].type} type="text" name={key} defaultValue={color} onChange={updatePropHandler} />
+      } else if ('option' === styleSpec[key].type) {
+        const size = currentFeature.properties[key] || 'medium'
+        input = <Select className="select-menu" name={key} value={size} onChange={updatePropSelectHandler}><MenuItem value="small">Small</MenuItem><MenuItem value="medium">Medium</MenuItem><MenuItem value="large">Large</MenuItem></Select>
       }
       rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td>{input}</td></tr>)
     }
