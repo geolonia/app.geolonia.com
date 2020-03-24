@@ -1,10 +1,7 @@
 import React from "react";
 import { __ } from "@wordpress/i18n";
-import { ChromePicker as Picker } from 'react-color';
-
 import Save from "../custom/Save";
 import SimpleStyle from './SimpleStyle'
-
 import { Feature } from "../../types";
 
 type Props = {
@@ -35,18 +32,6 @@ export const PropsTable = (props: Props) => {
 
   }
 
-  const clickColorHandler = (event: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    const target = event.currentTarget
-    const {top: y, left: x} = target.getBoundingClientRect()
-    const top = y + window.pageYOffset
-    const left = x + window.pageXOffset
-    setPickerContainerStyle({
-      top: top,
-      left: left,
-      display: "block",
-    })
-  }
-
   if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
     const type = currentFeature.geometry.type
     const styleSpec = SimpleStyle[type]
@@ -57,7 +42,7 @@ export const PropsTable = (props: Props) => {
       if ('number' === styleSpec[key].type) {
         input = <input className={styleSpec[key].type} type="number" name={key} value="0" />
       } else if ('color' === styleSpec[key].type) {
-        input = <input className={styleSpec[key].type} type="text" name={key} onClick={clickColorHandler} />
+        input = <input className={styleSpec[key].type} type="text" name={key} />
       }
       rows.push(<tr key={key}><th>{styleSpec[key].label}:</th><td>{input}</td></tr>)
     }
@@ -84,8 +69,6 @@ export const PropsTable = (props: Props) => {
             </tbody>
           </table>
         </div>
-
-        <div className="color-picker-container" style={pickerContainerStyle}><Picker /></div>
       </div>
     );
   } else {
