@@ -52,19 +52,19 @@ export const PropsTable = (props: Props) => {
 
   const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
     const prop = event.currentTarget.name
-    const value = event.currentTarget.value
-    const props = {} as FeatureProperties
-    props[prop] = value
-    return updateFeatureProps(props)
+    const value = ('stroke-width' === prop) ? Number(event.currentTarget.value) : event.currentTarget.value
+    const properties = {} as FeatureProperties
+    properties[prop] = value
+    return updateFeatureProps(properties)
   }
 
   const updatePropSelectHandler = (event: any) => {
     if (event.target.name) {
       const prop = event.target.name
-      const value = event.target.value
-      const props = {} as FeatureProperties
-      props[prop] = value
-      return updateFeatureProps(props)
+      const value = ('stroke-width' === prop) ? Number(event.target.value) : event.target.value
+      const properties = {} as FeatureProperties
+      properties[prop] = value
+      return updateFeatureProps(properties)
     }
   }
 

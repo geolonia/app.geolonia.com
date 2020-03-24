@@ -33,7 +33,7 @@ export default [
       ['==', 'meta', 'feature']
     ],
     paint: {
-      'line-width': ['number', ['get', 'user_stroke-width'], 2],
+      'line-width': ['number', ['get', 'user_stroke-width'], 1],
       'line-color': [
         'case',
         ['==', ['get', 'active'], 'true'], '#ff6600',
