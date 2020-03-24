@@ -5,6 +5,10 @@ import Grid from "@material-ui/core/Grid";
 import MapContainer from "./map-container";
 import Delete from "../custom/Delete";
 import DangerZone from "../custom/danger-zone";
+
+// @ts-ignore
+import MapboxDraw from "@mapbox/mapbox-gl-draw";
+
 // import Upload from "./upload";
 // import Fields from "./fields";
 // import Publish from "./publish";
@@ -73,6 +77,7 @@ const Content = (props: Props) => {
   >(false);
   const [message, setMessage] = React.useState("");
   const [currentFeature, setCurrentFeature] = React.useState<Feature>();
+  const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
 
   React.useEffect(() => {
     props.geosearch && setGeoJSON(props.geosearch.data);
@@ -123,7 +128,13 @@ const Content = (props: Props) => {
     if (currentFeature) {
       Object.assign(currentFeature.properties, props)
       setCurrentFeature(currentFeature)
+
+      console.log(Object.keys(props)[0])
+      console.log(props[Object.keys(props)[0]])
+      drawObject.setFeatureProperty(currentFeature.id, Object.keys(props)[0], props[Object.keys(props)[0]])
+      console.log(drawObject.getAll())
       console.log(currentFeature)
+      console.log(geoJSON)
     }
   }
 
@@ -133,6 +144,10 @@ const Content = (props: Props) => {
 
   const onClickFeatureHandler = (feature: any) => {
     setCurrentFeature(feature)
+  }
+
+  const drawCallback = (drawObject: MapboxDraw) => {
+    setDrawObject(drawObject)
   }
 
   const onRequestError = () => setStatus("failure");
@@ -147,7 +162,7 @@ const Content = (props: Props) => {
 
       <Grid container spacing={4}>
         <Grid item xs={8}>
-          <MapContainer geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onAddFeature={addFeatureHandler} onClickFeature={onClickFeatureHandler} />
+          <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onAddFeature={addFeatureHandler} onClickFeature={onClickFeatureHandler} />
         </Grid>
         <Grid item xs={4}>
           <PropsTable currentFeature={currentFeature} updateFeatureProps={updateFeatureProps} />
