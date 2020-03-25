@@ -13,10 +13,6 @@ type Props = {
 export const PropsTable = (props: Props) => {
   const { currentFeature, updateFeatureProperties } = props;
 
-  const updateProps = (key: keyof FeatureProperties, value: string | number) => {
-    updateFeatureProperties(key, value)
-  }
-
   const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
     const property = event.currentTarget.name
     const value = ('stroke-width' === property) ? Number(event.currentTarget.value) : event.currentTarget.value

@@ -119,23 +119,21 @@ const Content = (props: Props) => {
     const type = feature.geometry.type
     const styleSpec = SimpleStyle[type]
 
-    const _feature = {...feature} as Feature
-
     for (const key in styleSpec) {
-      if ("undefined" === typeof _feature.properties[key]) {
-        _feature.properties[key] = styleSpec[key].default
+      if ("undefined" === typeof feature.properties[key]) {
+        feature.properties[key] = styleSpec[key].default
       }
     }
 
-    if ("undefined" === typeof _feature.properties.title) {
-      _feature.properties.title = ''
+    if ("undefined" === typeof feature.properties.title) {
+      feature.properties.title = ''
     }
 
-    if ("undefined" === typeof _feature.properties.description) {
-      _feature.properties.description = ''
+    if ("undefined" === typeof feature.properties.description) {
+      feature.properties.description = ''
     }
 
-    return _feature
+    return feature
   }
 
   const onDeleteClick = () => {
@@ -169,18 +167,9 @@ const Content = (props: Props) => {
     }
   }
 
-  const addFeatureHandler = (feature: Feature) => {
-    console.log(feature)
-  }
-
   const onClickFeatureHandler = (feature: Feature | undefined) => {
     setCurrentFeature(mergeDefaultProperties(feature))
   }
-
-  React.useEffect(() => {
-    console.log('currentfeature changed')
-    console.log(currentFeature)
-  }, [currentFeature])
 
   const drawCallback = (drawObject: MapboxDraw) => {
     setDrawObject(drawObject)
@@ -198,7 +187,7 @@ const Content = (props: Props) => {
 
       <Grid container spacing={4}>
         <Grid item xs={8}>
-          <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onAddFeature={addFeatureHandler} onClickFeature={onClickFeatureHandler} />
+          <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} />
         </Grid>
         <Grid item xs={4}>
           {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:
