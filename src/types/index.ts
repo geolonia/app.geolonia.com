@@ -65,7 +65,7 @@ export type Geometry = {
 }
 
 export type FeatureProperties = {
-  [key: string]: string | number;
+  [key: string]: string | number
 }
 
 export type Feature = {

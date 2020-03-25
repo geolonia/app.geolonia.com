@@ -3,7 +3,8 @@ import { __ } from "@wordpress/i18n";
 interface Spec {
   label: string;
   type: string;
-  values?: string[]
+  values?: string[];
+  default: string | number;
 }
 
 interface StyleSpec {
@@ -23,43 +24,52 @@ const SimpleStyle: SimpleStyle = {
         "small",
         "medium",
         "large"
-      ]
+      ],
+      "default": 'medium'
     },
     "marker-symbol": {
       "label": __("Symbol"),
-      "type": "symbol"
+      "type": "symbol",
+      "default": ""
     },
     "marker-color": {
       "label": __("Background Color"),
-      "type": "color"
+      "type": "color",
+      "default": "#7e7e7e"
     },
     "stroke": {
       "label": __("Stroke Color"),
-      "type": "color"
+      "type": "color",
+      "default": "#555555"
     },
     "stroke-width": {
       "label": __("Stroke Width"),
-      "type": "number"
+      "type": "number",
+      "default": 1
     }
   },
   "LineString": {
     "stroke": {
       "label": __("Stroke Color"),
-      "type": "color"
+      "type": "color",
+      "default": "#7e7e7e"
     },
     "stroke-width": {
       "label": __("Stroke Width"),
-      "type": "number"
+      "type": "number",
+      "default": 1
     }
   },
   "Polygon": {
     "fill": {
       "label": __("Background Color"),
-      "type": "color"
+      "type": "color",
+      "default": "#555555"
     },
     "stroke": {
       "label": __("Stroke Color"),
-      "type": "color"
+      "type": "color",
+      "default": "#7e7e7e"
     }
   }
 }

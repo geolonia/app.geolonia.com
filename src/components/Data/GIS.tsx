@@ -76,7 +76,7 @@ const Content = (props: Props) => {
     false | "requesting" | "success" | "failure"
   >(false);
   const [message, setMessage] = React.useState("");
-  const [currentFeature, setCurrentFeature] = React.useState<Feature>();
+  const [currentFeature, setCurrentFeature] = React.useState<Feature | undefined>();
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
 
   React.useEffect(() => {
@@ -124,18 +124,15 @@ const Content = (props: Props) => {
     });
   };
 
-  const updateFeatureProps = (props: FeatureProperties) => {
+  const updateFeatureProps = (properties: FeatureProperties) => {
     if (currentFeature) {
-      console.log(props)
-      Object.assign(currentFeature.properties, props)
-      setCurrentFeature(currentFeature)
-
-      // console.log(Object.keys(props)[0])
-      // console.log(props[Object.keys(props)[0]])
-      drawObject.setFeatureProperty(currentFeature.id, Object.keys(props)[0], props[Object.keys(props)[0]])
-      // console.log(drawObject.getAll())
-      // console.log(currentFeature)
-      // console.log(geoJSON)
+      const feature = {...currentFeature}
+      feature.properties = {...feature.properties, ...properties}
+      setCurrentFeature(feature)
+      const key = Object.keys(properties)[0]
+      const value = properties[Object.keys(properties)[0]]
+      drawObject.setFeatureProperty(currentFeature.id, key, value)
+      console.log(currentFeature)
     }
   }
 
@@ -143,7 +140,7 @@ const Content = (props: Props) => {
     console.log(feature)
   }
 
-  const onClickFeatureHandler = (feature: any) => {
+  const onClickFeatureHandler = (feature: Feature | undefined) => {
     setCurrentFeature(feature)
   }
 
@@ -166,7 +163,7 @@ const Content = (props: Props) => {
           <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onAddFeature={addFeatureHandler} onClickFeature={onClickFeatureHandler} />
         </Grid>
         <Grid item xs={4}>
-          <PropsTable currentFeature={currentFeature} updateFeatureProps={updateFeatureProps} />
+          <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />
         </Grid>
       </Grid>
 
