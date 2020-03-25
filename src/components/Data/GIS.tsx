@@ -132,8 +132,6 @@ const Content = (props: Props) => {
     if ("undefined" === typeof feature.properties.description) {
       feature.properties.description = ''
     }
-
-    return feature
   }
 
   const onDeleteClick = () => {
@@ -168,7 +166,8 @@ const Content = (props: Props) => {
   }
 
   const onClickFeatureHandler = (feature: Feature | undefined) => {
-    setCurrentFeature(mergeDefaultProperties(feature))
+    mergeDefaultProperties(feature)
+    setCurrentFeature(feature)
   }
 
   const drawCallback = (drawObject: MapboxDraw) => {
