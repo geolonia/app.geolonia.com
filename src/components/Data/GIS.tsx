@@ -156,25 +156,26 @@ const Content = (props: Props) => {
     });
   };
 
+  const onClickFeatureHandler = (feature: Feature | undefined) => {
+    mergeDefaultProperties(feature)
+    setCurrentFeature(feature)
+  }
+
   const updateFeatureProps = (key: keyof FeatureProperties, value: string | number) => {
     if (currentFeature) {
       const feature = {...currentFeature} as Feature
       feature.properties[key] = value
       setCurrentFeature(feature)
       drawObject.setFeatureProperty(currentFeature.id, key, value)
+      console.log(feature)
     }
-  }
-
-  const onClickFeatureHandler = (feature: Feature | undefined) => {
-    mergeDefaultProperties(feature)
-    setCurrentFeature(feature)
   }
 
   const drawCallback = (drawObject: MapboxDraw) => {
     setDrawObject(drawObject)
   }
 
-  const deleteFeatureCallback = (feature: Feature) => {
+  const saveFeatureCallback = (feature: Feature) => {
     setCurrentFeature(undefined)
   }
 
@@ -189,7 +190,7 @@ const Content = (props: Props) => {
       </Title>
 
       <div className="editor">
-        <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} deleteCallback={deleteFeatureCallback} />
+        <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} />
           {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
       </div>
 

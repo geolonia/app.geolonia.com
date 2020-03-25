@@ -15,7 +15,7 @@ type Props = {
   mapHeight: any;
   onClickFeature: Function;
   drawCallback: Function;
-  deleteCallback: Function;
+  saveCallback: Function;
 };
 
 const mapStyle: React.CSSProperties = {
@@ -25,7 +25,7 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapContainer = (props: Props) => {
-  const { geoJSON, mapHeight, onClickFeature, drawCallback, deleteCallback } = props;
+  const { geoJSON, mapHeight, onClickFeature, drawCallback, saveCallback } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | null>(null);
@@ -72,8 +72,16 @@ export const MapContainer = (props: Props) => {
       onClickFeature(event.features[0])
     })
 
+    map.on('draw.create', (event: any) => {
+      saveCallback(event.features[0])
+    })
+
+    map.on('draw.update', (event: any) => {
+      saveCallback(event.features[0])
+    })
+
     map.on('draw.delete', (event: any) => {
-      deleteCallback(event.features[0])
+      saveCallback(event.features[0])
     })
   };
 
