@@ -34,7 +34,13 @@ export const MapContainer = (props: Props) => {
     if (map && draw && geoJSON) {
       draw.set(geoJSON);
     }
+
+    drawCallback(draw)
   }, [map, draw, geoJSON]);
+
+  React.useEffect(() => {
+    drawCallback(draw)
+  }, [draw, drawCallback]);
 
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw: MapboxDraw = new MapboxDraw({
@@ -69,8 +75,6 @@ export const MapContainer = (props: Props) => {
       console.log('selection changed')
       onClickFeature(event.features[0])
     })
-
-    drawCallback(draw)
   };
 
   return (
