@@ -111,6 +111,11 @@ const Content = (props: Props) => {
     }
   ];
 
+  /**
+   * Merge default properties to the feature to prevent undefined error.
+   *
+   * @param feature
+   */
   const mergeDefaultProperties = (feature: Feature | undefined) => {
     if (! feature) {
       return feature
@@ -156,11 +161,36 @@ const Content = (props: Props) => {
     });
   };
 
-  const onClickFeatureHandler = (feature: Feature | undefined) => {
-    mergeDefaultProperties(feature)
-    setCurrentFeature(feature)
+  /**
+   * Update the `currentFeature` and set default properties.
+   *
+   * @param feature
+   */
+  const onClickFeatureHandler = (event: any) => {
+    if (1 < event.features.length || 0 === event.features.length) {
+      setCurrentFeature(undefined) // We don't support multiple selection to edit property.
+      return
+    }
+
+    mergeDefaultProperties(event.features[0]) // Nothing to do if undefined.
+    setCurrentFeature(event.features[0])
   }
 
+  /**
+   * Set the Mapbox GL Draw object into state.
+   *
+   * @param drawObject
+   */
+  const drawCallback = (drawObject: MapboxDraw) => {
+    setDrawObject(drawObject)
+  }
+
+  /**
+   * Fires when user will do something change property.
+   *
+   * @param key
+   * @param value
+   */
   const updateFeatureProps = (key: keyof FeatureProperties, value: string | number) => {
     if (currentFeature) {
       const feature = {...currentFeature} as Feature
@@ -171,12 +201,17 @@ const Content = (props: Props) => {
     }
   }
 
-  const drawCallback = (drawObject: MapboxDraw) => {
-    setDrawObject(drawObject)
-  }
+  /**
+   * Fires when a feature will be created, updated, deleted.
+   *
+   * @param event
+   */
+  const saveFeatureCallback = (event: any) => {
+    if ('draw.delete' === event.type) {
+      setCurrentFeature(undefined) // Set undefined to currentFeature
+    }
 
-  const saveFeatureCallback = (feature: Feature) => {
-    setCurrentFeature(undefined)
+    console.log(event)
   }
 
   const onRequestError = () => setStatus("failure");

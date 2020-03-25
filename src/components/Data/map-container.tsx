@@ -69,19 +69,19 @@ export const MapContainer = (props: Props) => {
         map.setCenter(center.geometry.coordinates)
       }
 
-      onClickFeature(event.features[0])
+      onClickFeature(event)
     })
 
     map.on('draw.create', (event: any) => {
-      saveCallback(event.features[0])
+      saveCallback(event)
     })
 
     map.on('draw.update', (event: any) => {
-      saveCallback(event.features[0])
+      saveCallback(event)
     })
 
     map.on('draw.delete', (event: any) => {
-      saveCallback(event.features[0])
+      saveCallback(event)
     })
   };
 
