@@ -16,6 +16,7 @@ import MapboxDraw from "@mapbox/mapbox-gl-draw";
 import { __ } from "@wordpress/i18n";
 import Title from "../custom/Title";
 import PropsTable from './PropsTable'
+import SimpleStyle from './SimpleStyle'
 
 import "./GIS.scss";
 
@@ -110,6 +111,24 @@ const Content = (props: Props) => {
     }
   ];
 
+  const mergeDefaultProperties = (feature: Feature | undefined) => {
+    if (! feature) {
+      return feature
+    }
+
+    const type = feature.geometry.type
+    const styleSpec = SimpleStyle[type]
+
+    const _feature = {...feature} as Feature
+
+    for (const key in styleSpec) {
+      _feature.properties[key] = styleSpec[key].default
+    }
+    _feature.properties = {..._feature.properties, ...feature.properties}
+
+    return _feature
+  }
+
   const onDeleteClick = () => {
     const { session, teamId, geojsonId, geosearch } = props;
     if (!teamId || !geojsonId || !geosearch) {
@@ -132,15 +151,14 @@ const Content = (props: Props) => {
     });
   };
 
-  const updateFeatureProps = (properties: FeatureProperties) => {
+  const updateFeatureProps = (key: keyof FeatureProperties, value: string | number) => {
+    console.log(key)
     if (currentFeature) {
-      const feature = {...currentFeature}
-      feature.properties = {...feature.properties, ...properties}
+      const feature = {...currentFeature} as Feature
+      feature.properties[key] = value
+      console.log(feature)
       setCurrentFeature(feature)
-      const key = Object.keys(properties)[0]
-      const value = properties[Object.keys(properties)[0]]
       drawObject.setFeatureProperty(currentFeature.id, key, value)
-      console.log(currentFeature)
     }
   }
 
@@ -149,6 +167,7 @@ const Content = (props: Props) => {
   }
 
   const onClickFeatureHandler = (feature: Feature | undefined) => {
+    feature = mergeDefaultProperties(feature)
     setCurrentFeature(feature)
   }
 
@@ -172,7 +191,7 @@ const Content = (props: Props) => {
         </Grid>
         <Grid item xs={4}>
           {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:
-            <div className="color-picker-container" style={style}>{__('Click a feature to edit properties.')}</div>}
+            <div style={style}>{__('Click a feature to edit properties.')}</div>}
         </Grid>
       </Grid>
 
