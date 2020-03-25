@@ -33,7 +33,7 @@ export const MapContainer = (props: Props) => {
   // import geoJSON
   React.useEffect(() => {
     if (map && draw && geoJSON) {
-      draw.deleteAll().set(geoJSON);
+      draw.set(geoJSON);
     }
   }, [map, draw, geoJSON]);
 
@@ -42,15 +42,15 @@ export const MapContainer = (props: Props) => {
     if (map && draw) {
       ["draw.create", "draw.update", "draw.delete"].forEach(eventType => {
         map.on(eventType, () => {
-          const geojson = draw.getAll();
-          const nextGeoJSON = {
-            ...geojson,
-            features: geojson.features.map((feature: any) => {
-              delete feature.id;
-              return feature;
-            })
-          };
-          setGeoJSON(nextGeoJSON);
+          // const geojson = draw.getAll();
+          // const nextGeoJSON = {
+          //   ...geojson,
+          //   features: geojson.features.map((feature: any) => {
+          //     delete feature.id;
+          //     return feature;
+          //   })
+          // };
+          // setGeoJSON(nextGeoJSON);
         });
       });
     }
@@ -75,11 +75,18 @@ export const MapContainer = (props: Props) => {
     setDraw(draw);
     setMap(map);
 
-    // map.on('draw.create', (event: any) => {
+    map.on('draw.modechange', (event: any) => {
+      console.log('mode changed')
+      console.log(event)
+    })
 
-    // })
+    map.on('draw.create', (event: any) => {
+      console.log('created')
+      console.log(event)
+    })
 
     map.on('draw.selectionchange', (event: any) => {
+      console.log('selection changed')
       onClickFeature(event.features[0])
     })
 
