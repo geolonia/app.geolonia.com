@@ -23,11 +23,9 @@ export const PropsTable = (props: Props) => {
     updateFeatureProperties(property, value)
   }
 
-  const updatePropSelectHandler = (event: any) => {
+  const updatePropSelectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (event.target.name) {
-      const prop = event.target.name.split(/--/)[1]
-      const value = ('stroke-width' === prop) ? Number(event.target.value) : event.target.value
-      updateProps(prop, value)
+      updateFeatureProperties(event.target.name, event.target.value)
     }
   }
 
