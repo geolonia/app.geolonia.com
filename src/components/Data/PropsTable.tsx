@@ -34,7 +34,7 @@ export const PropsTable = (props: Props) => {
     const value = currentFeature.properties[key]
     let input = <input className={styleSpec[key].type} type="text" name={name} />
     if ('number' === styleSpec[key].type) {
-      input = <input className={styleSpec[key].type} type="number" name={name} value={value} onChange={updatePropHandler} />
+      input = <input className={styleSpec[key].type} type="number" name={name} value={value} onChange={updatePropHandler} min="0" />
     } else if ('color' === styleSpec[key].type) {
       input = <InputColor className={styleSpec[key].type} color={value.toString()} updateFeatureProperties={updateFeatureProperties} name={name} />
     } else if ('option' === styleSpec[key].type) {
@@ -47,7 +47,7 @@ export const PropsTable = (props: Props) => {
   return (
     <div className="props">
       <div className="props-inner">
-        <h3>{__('Title')} debug:{currentFeature.properties.title}</h3>
+        <h3>{__('Title')}</h3>
         <input type="text" name="title" value={currentFeature.properties.title} onChange={updatePropHandler} />
         <h3>{__('Description')}</h3>
         <input type="text" name="description" value={currentFeature.properties.description} onChange={updatePropHandler} />

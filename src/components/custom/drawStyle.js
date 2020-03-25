@@ -15,14 +15,10 @@ export default [
       'fill-color': ['string', ['get', 'user_fill'], '#7e7e7e'],
       'fill-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.4,
+        ['==', ['get', 'active'], 'true'], 0.8,
         ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
-      'fill-outline-color': [
-        'case',
-        ['==', ['get', 'active'], 'true'], '#ff6600',
-        ['string', ['get', 'user_stroke'], '#555555'],
-      ],
+      'fill-outline-color': ['string', ['get', 'user_stroke'], '#555555'],
     },
   },
   {
@@ -34,14 +30,10 @@ export default [
     ],
     paint: {
       'line-width': ['number', ['get', 'user_stroke-width'], 1],
-      'line-color': [
-        'case',
-        ['==', ['get', 'active'], 'true'], '#ff6600',
-        ['string', ['get', 'user_stroke'], '#555555'],
-      ],
+      'line-color': ['string', ['get', 'user_stroke'], '#555555'],
       'line-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.4,
+        ['==', ['get', 'active'], 'true'], 0.8,
         ['number', ['get', 'user_stroke-opacity'], 1.0],
       ],
     },
@@ -67,15 +59,11 @@ export default [
       'circle-color': ['string', ['get', 'user_marker-color'], '#7e7e7e'],
       'circle-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.4,
+        ['==', ['get', 'active'], 'true'], 0.8,
         ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
       'circle-stroke-width': ['number', ['get', 'user_stroke-width'], 2],
-      'circle-stroke-color': [
-        'case',
-        ['==', ['get', 'active'], 'true'], '#ff6600',
-        ['string', ['get', 'user_stroke'], '#555555'],
-      ],
+      'circle-stroke-color': ['string', ['get', 'user_stroke'], '#555555'],
       'circle-stroke-opacity': ['number', ['get', 'user_stroke-opacity'], 1.0],
     },
   },
