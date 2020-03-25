@@ -1,5 +1,18 @@
 import React from "react";
-import { ClassNameMap } from "@material-ui/core/styles/withStyles";
+import { ChromePicker as ColorPicker } from 'react-color';
+
+interface rgbObject {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+}
+
+interface ColorObject {
+  hex: string;
+  rgb: rgbObject;
+  [key: string]: number | string | object;
+}
 
 const blackOrWhite = (hexcolor: string) => {
 	var r = parseInt(hexcolor.substr( 1, 2 ), 16)
@@ -9,25 +22,75 @@ const blackOrWhite = (hexcolor: string) => {
 	return ( ( ( (r * 299) + (g * 587) + (b * 114) ) / 1000 ) < 128 ) ? "#FFFFFF" : "#000000" ;
 }
 
+const coverStyle: React.CSSProperties = {
+  position: 'fixed',
+  top: '0px',
+  right: '0px',
+  bottom: '0px',
+  left: '0px',
+  zIndex: 9999,
+}
+
 type Props = {
   color: string;
   className: string;
   name: string;
-  onFocus: Function;
 };
 
 const InputColor = (props: Props) => {
-  const { color, className, name, onFocus } = props;
+  const { color, className, name } = props;
+  const [stateColorPicker, setStateColorPicker] = React.useState<boolean>(false)
+  const [styleColorPickerContainer, setStyleColorPickerContainer] = React.useState<React.CSSProperties>({})
+  const [pickerTarget, setPickerTarget] = React.useState<HTMLInputElement>()
+  const [pickerColor, setPickerColor] = React.useState<string>('')
   const [backgroundColor, setBackgroundColor] = React.useState<string>('#7e7e7e')
   const [textColor, setTextColor] = React.useState<string>('#FFFFFF')
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
-    onFocus(event)
+    // onFocus(event)
+  }
+
+  const colorOnFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+    const target = event.currentTarget
+    const { top: y, left: x } = target.getBoundingClientRect()
+    const top = y + window.pageYOffset - 255 // 255 is the height of color picker
+    const left = x + window.pageXOffset
+    setStyleColorPickerContainer({
+      top: top,
+      left: left,
+      display: 'block',
+    })
+
+    setStateColorPicker(true)
+    setPickerColor(target.value)
+    setPickerTarget(target)
+  }
+
+  const changeColorCompleteHanlder = (object: object) => {
+    const colorObject = object as ColorObject
+    let color
+    if (1 > colorObject.rgb.a) {
+      color = `rgba(${colorObject.rgb.r}, ${colorObject.rgb.g}, ${colorObject.rgb.b}, ${colorObject.rgb.a})`
+    } else {
+      color = colorObject.hex
+    }
+
+    if (pickerTarget) {
+      pickerTarget.value = color
+      // updatePropSelectHandler({target: pickerTarget}) // Fires the event `onChange`.
+    }
+  }
+
+  const closePicker = () => {
+    setStateColorPicker(false)
   }
 
   return (
     <>
       <input className={className} type="text" defaultValue={color} name={name} onFocus={onFocusHandler} />
+      { stateColorPicker? <div><div style={coverStyle} onClick={closePicker}></div>
+          <div className="color-picker-container" style={styleColorPickerContainer}>
+            <ColorPicker color={pickerColor} onChangeComplete={changeColorCompleteHanlder} /></div></div>: null}
     </>
   );
 };
