@@ -38,12 +38,21 @@ type Props = {
   updateFeatureProperties: Function;
 };
 
+const defaultStyle: React.CSSProperties = {
+  backgroundColor: '#7e7e7e',
+  fontSize: "80%",
+  padding: "4px",
+  textAlign: "center",
+  color: "#ffffff",
+  border: "none",
+}
+
 const InputColor = (props: Props) => {
   const { color, className, name, updateFeatureProperties } = props;
   const [stateColorPicker, setStateColorPicker] = React.useState<boolean>(false)
   const [styleColorPickerContainer, setStyleColorPickerContainer] = React.useState<React.CSSProperties>({})
   const [pickerColor, setPickerColor] = React.useState<string>('')
-  const [backgroundColor, setBackgroundColor] = React.useState<string>('#7e7e7e')
+  const [styleInput, setStyleInput] = React.useState<React.CSSProperties>(defaultStyle)
   const [textColor, setTextColor] = React.useState<string>('#FFFFFF')
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -54,6 +63,7 @@ const InputColor = (props: Props) => {
     })
 
     setStateColorPicker(true)
+    setPickerColor(color)
   }
 
   const changeColorCompleteHanlder = (object: object) => {
@@ -77,9 +87,27 @@ const InputColor = (props: Props) => {
     // Nothing to do. It is needed to prevent warning.
   }
 
+  React.useEffect(() => {
+    if (color) {
+      const style = {...defaultStyle}
+      style.backgroundColor = color
+      style.color = blackOrWhite(color)
+      setStyleInput(style)
+    }
+  }, [color])
+
+  React.useEffect(() => {
+    if (pickerColor) {
+      const style = {...defaultStyle}
+      style.backgroundColor = pickerColor
+      style.color = blackOrWhite(pickerColor)
+      setStyleInput(style)
+    }
+  }, [pickerColor])
+
   return (
     <>
-      <input className={className} type="text" value={color} name={name} onFocus={onFocusHandler} onChange={onChangeHandler} />
+      <input className={className} type="text" value={color} name={name} onFocus={onFocusHandler} onChange={onChangeHandler} style={styleInput} />
       { stateColorPicker? <div><div style={coverStyle} onClick={closePicker}></div>
           <div className="color-picker-container" style={styleColorPickerContainer}>
             <ColorPicker color={pickerColor} onChangeComplete={changeColorCompleteHanlder} /></div></div>: null}
