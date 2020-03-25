@@ -174,6 +174,10 @@ const Content = (props: Props) => {
     setDrawObject(drawObject)
   }
 
+  const deleteFeatureCallback = (feature: Feature) => {
+    setCurrentFeature(undefined)
+  }
+
   const onRequestError = () => setStatus("failure");
 
   return (
@@ -185,7 +189,7 @@ const Content = (props: Props) => {
       </Title>
 
       <div className="editor">
-        <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} />
+        <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} deleteCallback={deleteFeatureCallback} />
           {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
       </div>
 
