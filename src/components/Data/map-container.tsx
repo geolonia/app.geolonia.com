@@ -11,7 +11,6 @@ import { _x } from "@wordpress/i18n";
 
 type Props = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
-  setGeoJSON: (geojson: Props["geoJSON"]) => void;
   mapHeight: any;
   onClickFeature: Function;
   drawCallback: Function;
@@ -24,7 +23,7 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapContainer = (props: Props) => {
-  const { geoJSON, setGeoJSON, mapHeight, onClickFeature, drawCallback } = props;
+  const { geoJSON, mapHeight, onClickFeature, drawCallback } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | null>(null);
@@ -36,25 +35,6 @@ export const MapContainer = (props: Props) => {
       draw.set(geoJSON);
     }
   }, [map, draw, geoJSON]);
-
-  // export geoJSON
-  React.useEffect(() => {
-    if (map && draw) {
-      ["draw.create", "draw.update", "draw.delete"].forEach(eventType => {
-        map.on(eventType, () => {
-          // const geojson = draw.getAll();
-          // const nextGeoJSON = {
-          //   ...geojson,
-          //   features: geojson.features.map((feature: any) => {
-          //     delete feature.id;
-          //     return feature;
-          //   })
-          // };
-          // setGeoJSON(nextGeoJSON);
-        });
-      });
-    }
-  }, [map, draw, setGeoJSON]);
 
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw: MapboxDraw = new MapboxDraw({
