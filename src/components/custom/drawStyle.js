@@ -15,7 +15,7 @@ export default [
       'fill-color': ['string', ['get', 'user_fill'], '#7e7e7e'],
       'fill-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.8,
+        ['==', ['get', 'active'], 'true'], 0.4,
         ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
       'fill-outline-color': ['string', ['get', 'user_stroke'], '#555555'],
@@ -33,7 +33,7 @@ export default [
       'line-color': ['string', ['get', 'user_stroke'], '#555555'],
       'line-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.8,
+        ['==', ['get', 'active'], 'true'], 0.4,
         ['number', ['get', 'user_stroke-opacity'], 1.0],
       ],
     },
@@ -59,7 +59,7 @@ export default [
       'circle-color': ['string', ['get', 'user_marker-color'], '#7e7e7e'],
       'circle-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.8,
+        ['==', ['get', 'active'], 'true'], 0.4,
         ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
       'circle-stroke-width': ['number', ['get', 'user_stroke-width'], 2],
