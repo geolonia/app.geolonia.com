@@ -3,11 +3,12 @@ import GeoloniaMap from "../custom/GeoloniaMap";
 
 import jsonStyle from "../custom/drawStyle";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+import { _x } from "@wordpress/i18n";
+
+// @ts-ignore
+import centroid from "@turf/centroid"
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
-
-// utils
-import { _x } from "@wordpress/i18n";
 
 type Props = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
@@ -61,18 +62,12 @@ export const MapContainer = (props: Props) => {
     setDraw(draw);
     setMap(map);
 
-    map.on('draw.modechange', (event: any) => {
-      console.log('mode changed')
-      console.log(event)
-    })
-
-    map.on('draw.create', (event: any) => {
-      console.log('created')
-      console.log(event)
-    })
-
     map.on('draw.selectionchange', (event: any) => {
-      console.log('selection changed')
+      if (event.features.length) {
+        const center = centroid(event.features[0]);
+        map.setCenter(center.geometry.coordinates)
+      }
+
       onClickFeature(event.features[0])
     })
   };
