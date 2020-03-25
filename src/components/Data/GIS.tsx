@@ -122,11 +122,18 @@ const Content = (props: Props) => {
     const _feature = {...feature} as Feature
 
     for (const key in styleSpec) {
-      _feature.properties[key] = styleSpec[key].default
+      if ("undefined" === typeof _feature.properties[key]) {
+        _feature.properties[key] = styleSpec[key].default
+      }
     }
-    _feature.properties = {..._feature.properties, ...feature.properties}
-    _feature.properties.title = ''
-    _feature.properties.description = ''
+
+    if ("undefined" === typeof _feature.properties.title) {
+      _feature.properties.title = ''
+    }
+
+    if ("undefined" === typeof _feature.properties.description) {
+      _feature.properties.description = ''
+    }
 
     return _feature
   }
@@ -167,8 +174,7 @@ const Content = (props: Props) => {
   }
 
   const onClickFeatureHandler = (feature: Feature | undefined) => {
-    feature = mergeDefaultProperties(feature)
-    setCurrentFeature(feature)
+    setCurrentFeature(mergeDefaultProperties(feature))
   }
 
   React.useEffect(() => {
