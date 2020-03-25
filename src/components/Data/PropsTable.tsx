@@ -42,7 +42,7 @@ export const PropsTable = (props: Props) => {
     if ('number' === styleSpec[key].type) {
       input = <input className={styleSpec[key].type} type="number" name={name} value={value} onChange={updatePropHandler} />
     } else if ('color' === styleSpec[key].type) {
-      // input = <InputColor className={styleSpec[key].type} color={value.toString()} name={name} />
+      input = <InputColor className={styleSpec[key].type} color={value.toString()} updateFeatureProperties={updateFeatureProperties} name={name} />
     } else if ('option' === styleSpec[key].type) {
       input = <select className="select-menu" name={name} value={value.toString()} onChange={updatePropSelectHandler}><option value="small">{__("Small")}</option>
           <option value="medium">{__("Medium")}</option><option value="large">{__("Large")}</option></select>

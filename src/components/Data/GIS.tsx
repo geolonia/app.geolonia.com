@@ -125,6 +125,8 @@ const Content = (props: Props) => {
       _feature.properties[key] = styleSpec[key].default
     }
     _feature.properties = {..._feature.properties, ...feature.properties}
+    _feature.properties.title = ''
+    _feature.properties.description = ''
 
     return _feature
   }
@@ -152,11 +154,9 @@ const Content = (props: Props) => {
   };
 
   const updateFeatureProps = (key: keyof FeatureProperties, value: string | number) => {
-    console.log(key)
     if (currentFeature) {
       const feature = {...currentFeature} as Feature
       feature.properties[key] = value
-      console.log(feature)
       setCurrentFeature(feature)
       drawObject.setFeatureProperty(currentFeature.id, key, value)
     }
@@ -170,6 +170,11 @@ const Content = (props: Props) => {
     feature = mergeDefaultProperties(feature)
     setCurrentFeature(feature)
   }
+
+  React.useEffect(() => {
+    console.log('currentfeature changed')
+    console.log(currentFeature)
+  }, [currentFeature])
 
   const drawCallback = (drawObject: MapboxDraw) => {
     setDrawObject(drawObject)
