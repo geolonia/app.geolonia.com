@@ -123,7 +123,8 @@ export default [
     type: 'symbol',
     filter: ['all',
       ['==', '$type', 'Point'],
-      ['==', 'meta', 'feature']
+      ['==', 'meta', 'feature'],
+      ['any', ['has', 'user_title'], ['has', 'user_marker-symbol']]
     ],
     paint: {
       'text-color': '#333333',
@@ -131,16 +132,8 @@ export default [
       'text-halo-width': 1,
     },
     layout: {
-      'icon-image': [
-        'case',
-        ['==', ['get', 'active'], 'false'], ['concat', ['get', 'user_marker-symbol'], '-11'],
-        ''
-      ],
-      'text-field': [
-        'case',
-        ['==', ['get', 'active'], 'false'], ['get', 'user_title'],
-        ''
-      ],
+      'icon-image': ['image', ['concat', ['get', 'user_marker-symbol'], '-11']],
+      'text-field': ['get', 'user_title'],
       'text-font': ['Noto Sans Regular'],
       'text-size': 12,
       'text-anchor': 'top',

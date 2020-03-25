@@ -32,7 +32,7 @@ export const PropsTable = (props: Props) => {
   for (const key in styleSpec) {
     const name = key
     const value = currentFeature.properties[key]
-    let input = <input className={styleSpec[key].type} type="text" name={name} />
+    let input = <input className={styleSpec[key].type} type="text" name={name} value={value} onChange={updatePropHandler} />
     if ('number' === styleSpec[key].type) {
       input = <input className={styleSpec[key].type} type="number" name={name} value={value} onChange={updatePropHandler} min="0" />
     } else if ('color' === styleSpec[key].type) {
