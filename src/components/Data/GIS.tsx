@@ -184,15 +184,10 @@ const Content = (props: Props) => {
         )}
       </Title>
 
-      <Grid container spacing={4}>
-        <Grid item xs={8}>
-          <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} />
-        </Grid>
-        <Grid item xs={4}>
-          {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:
-            <div style={style}>{__('Click a feature to edit properties.')}</div>}
-        </Grid>
-      </Grid>
+      <div className="editor">
+        <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} />
+          {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
+      </div>
 
       <DangerZone
         whyDanger={__(

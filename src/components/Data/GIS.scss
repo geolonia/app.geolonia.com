@@ -1,53 +1,25 @@
 .gis-panel
 {
-  .gis-editor-tab
+  .editor
   {
-    margin: 0 0 8px 0;
-    padding: 0;
-
-    .MuiTabs-indicator
-    {
-      background-color: #009be5;
-    }
-  }
-
-  .tab-panel
-  {
-    textarea
-    {
-      resize: none;
-    }
-  }
-
-  .file-upload
-  {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-
-    div
-    {
-      text-align: center;
-
-      .MuiSvgIcon-root
-      {
-        font-size: 10em;
-        color: #555555;
-      }
-    }
+    position: relative;
   }
 
   .props
   {
-    height: 500px;
-    overflow: scroll;
-    padding: 0;
+    position: absolute;
+    top: 8px;
+    right: 9px;
+    max-height: 500px;
+    padding: 16px;
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #cccccc;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2);
 
-    .props-button
+    h3
     {
-
+      margin: 16px 0 0 0;
     }
 
     input
@@ -74,13 +46,6 @@
       text-align: left;;
     }
 
-    .color-picker-container
-    {
-      position: absolute;
-      z-index: 2;
-      display: none;
-    }
-
     .select-menu
     {
       width: 100%;
@@ -89,8 +54,10 @@
     .color-picker-container
     {
       position: absolute;
+      top: 0;
+      right: 0;
       display: none;
-      z-index: 9999;
+      z-index: 999999;
     }
   }
 }

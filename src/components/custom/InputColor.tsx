@@ -42,19 +42,14 @@ const InputColor = (props: Props) => {
   const { color, className, name, updateFeatureProperties } = props;
   const [stateColorPicker, setStateColorPicker] = React.useState<boolean>(false)
   const [styleColorPickerContainer, setStyleColorPickerContainer] = React.useState<React.CSSProperties>({})
-  const [pickerTarget, setPickerTarget] = React.useState<HTMLInputElement>()
   const [pickerColor, setPickerColor] = React.useState<string>('')
   const [backgroundColor, setBackgroundColor] = React.useState<string>('#7e7e7e')
   const [textColor, setTextColor] = React.useState<string>('#FFFFFF')
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
-    const target = event.currentTarget
-    const { top: y, left: x } = target.getBoundingClientRect()
-    const top = y + window.pageYOffset - 255 // 255 is the height of color picker
-    const left = x + window.pageXOffset
     setStyleColorPickerContainer({
-      top: top,
-      left: left,
+      top: -64,
+      right: -16,
       display: 'block',
     })
 
