@@ -21,17 +21,9 @@ interface ColorObject {
 }
 
 type Props = {
-  currentFeature: Feature | undefined;
+  currentFeature: Feature;
   updateFeatureProperties: Function;
 };
-
-const style: React.CSSProperties = {
-  backgroundColor: "#EEEEEE",
-  padding: "16px",
-  textAlign: "center",
-  color: "#555555",
-  fontWeight: "bold",
-}
 
 const coverStyle: React.CSSProperties = {
   position: 'fixed',
@@ -42,6 +34,19 @@ const coverStyle: React.CSSProperties = {
   zIndex: 9999,
 }
 
+const getDefaultProperties = (currentFeature: Feature) => {
+  const type = currentFeature.geometry.type
+  const styleSpec = SimpleStyle[type]
+
+  const feature = {...currentFeature} as Feature
+  for (const key in styleSpec) {
+    feature.properties[key] = styleSpec[key].default
+  }
+  feature.properties = {...feature.properties, ...currentFeature.properties}
+
+  return feature.properties
+}
+
 export const PropsTable = (props: Props) => {
   const { currentFeature, updateFeatureProperties } = props;
   const [stateColorPicker, setStateColorPicker] = React.useState<boolean>(false)
@@ -49,8 +54,8 @@ export const PropsTable = (props: Props) => {
   const [pickerTarget, setPickerTarget] = React.useState<HTMLInputElement>()
   const [pickerColor, setPickerColor] = React.useState<string>('')
   const [tableRows, setTableRows] = React.useState<JSX.Element[]>()
-  const [featureId, setFeatureId] = React.useState<string>()
-  const [featureProperties, setFeatureProperties] = React.useState<FeatureProperties>({})
+  const [featureId, setFeatureId] = React.useState<string>(currentFeature.id)
+  const [featureProperties, setFeatureProperties] = React.useState<FeatureProperties>(getDefaultProperties(currentFeature))
 
   const colorOnFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     const target = event.currentTarget
@@ -113,55 +118,38 @@ export const PropsTable = (props: Props) => {
   const __colorOnFocusHandler = React.useCallback(colorOnFocusHandler, [])
 
   React.useEffect(() => {
-    if (currentFeature) {
-      const id = currentFeature.id
-      const type = currentFeature.geometry.type
-      const styleSpec = SimpleStyle[type]
-      setFeatureId(id)
-
-      const feature = {...currentFeature} as Feature
-      for (const key in styleSpec) {
-        feature.properties[key] = styleSpec[key].default
-      }
-      feature.properties = {...feature.properties, ...currentFeature.properties}
-      setFeatureProperties(feature.properties)
-    }
+    setFeatureId(currentFeature.id)
+    setFeatureProperties(getDefaultProperties(currentFeature))
   }, [currentFeature])
 
   React.useEffect(() => {
-    if ('undefined' !== typeof currentFeature && Object.keys(currentFeature).length) {
-      const id = currentFeature.id
-      const type = currentFeature.geometry.type
-      const styleSpec = SimpleStyle[type]
+    const id = currentFeature.id
+    const type = currentFeature.geometry.type
+    const styleSpec = SimpleStyle[type]
+    const properties = getDefaultProperties(currentFeature)
 
-      const rows = []
-      for (const key in styleSpec) {
-        const name = `${id}--${key}`
-        let input = <input className={styleSpec[key].type} type="text" name={name} />
-        if ('number' === styleSpec[key].type) {
-          const num = currentFeature.properties[key] || 1
-          input = <input className={styleSpec[key].type} type="number" name={name} defaultValue={num} onChange={__updatePropHandler} />
-        } else if ('color' === styleSpec[key].type) {
-          let color = (currentFeature.properties[key] || '#7e7e7e').toString()
-          if ('stroke' === key) {
-            color = (currentFeature.properties[key] || '#555555').toString()
-          }
-          input = <InputColor className={styleSpec[key].type} color={color} name={name} onFocus={__colorOnFocusHandler} />
-        } else if ('option' === styleSpec[key].type) {
-          const size = currentFeature.properties[key] || 'medium'
-          input = <select className="select-menu" name={name} value={featureProperties[key]} onChange={__updatePropSelectHandler}><option value="small">{__("Small")}</option>
-              <option value="medium">{__("Medium")}</option><option value="large">{__("Large")}</option></select>
-        }
-        rows.push(<tr key={key}><th>{styleSpec[key].label}</th><td>{input}</td></tr>)
+    const tableRows = []
+    for (const key in styleSpec) {
+      const name = `${id}--${key}`
+      let input = <input className={styleSpec[key].type} type="text" name={name} />
+      if ('number' === styleSpec[key].type) {
+        input = <input className={styleSpec[key].type} type="number" name={name} value={properties[key]} onChange={__updatePropHandler} />
+      } else if ('color' === styleSpec[key].type) {
+        input = <InputColor className={styleSpec[key].type} color={properties[key].toString()} name={name} onFocus={__colorOnFocusHandler} />
+      } else if ('option' === styleSpec[key].type) {
+        const size = currentFeature.properties[key] || 'medium'
+        input = <select className="select-menu" name={name} value={properties[key]} onChange={__updatePropSelectHandler}><option value="small">{__("Small")}</option>
+            <option value="medium">{__("Medium")}</option><option value="large">{__("Large")}</option></select>
       }
-      setTableRows(rows)
+      rows.push(<tr key={key}><th>{styleSpec[key].label}</th><td>{input}</td></tr>)
     }
+    setTableRows(rows)
   }, [currentFeature, __updatePropHandler, __updatePropSelectHandler, __colorOnFocusHandler]);
 
-  return (currentFeature?
+  return (
     <div className="props">
       <div className="props-inner">
-        <h3>{__('Title')}{featureProperties.title}</h3>
+        <h3>{__('Title')} debug:{featureProperties.title}</h3>
         <input type="text" name={`${featureId}--title`} value={featureProperties.title} onChange={updatePropHandler} />
         <h3>{__('Description')}</h3>
         <input type="text" name={`${featureId}--description`} value={featureProperties.description} onChange={updatePropHandler} />
@@ -175,8 +163,6 @@ export const PropsTable = (props: Props) => {
       { stateColorPicker? <div><div style={coverStyle} onClick={closePicker}></div>
           <div className="color-picker-container" style={styleColorPickerContainer}>
             <ColorPicker color={pickerColor} onChangeComplete={changeColorCompleteHanlder} /></div></div>: null}
-      </div>: <div className="color-picker-container" style={style}>
-      {__('Click a feature to edit properties.')}
     </div>
   );
 }

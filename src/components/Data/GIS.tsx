@@ -66,6 +66,14 @@ type RouterProps = {
   currentFeature: object;
 };
 
+const style: React.CSSProperties = {
+  backgroundColor: "#EEEEEE",
+  padding: "16px",
+  textAlign: "center",
+  color: "#555555",
+  fontWeight: "bold",
+}
+
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
@@ -163,7 +171,8 @@ const Content = (props: Props) => {
           <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} setGeoJSON={setGeoJSON} mapHeight="500px" onAddFeature={addFeatureHandler} onClickFeature={onClickFeatureHandler} />
         </Grid>
         <Grid item xs={4}>
-          <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />
+          {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:
+            <div className="color-picker-container" style={style}>{__('Click a feature to edit properties.')}</div>}
         </Grid>
       </Grid>
 

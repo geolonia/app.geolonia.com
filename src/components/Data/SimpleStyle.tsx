@@ -52,7 +52,7 @@ const SimpleStyle: SimpleStyle = {
     "stroke": {
       "label": __("Stroke Color"),
       "type": "color",
-      "default": "#7e7e7e"
+      "default": "#555555"
     },
     "stroke-width": {
       "label": __("Stroke Width"),
@@ -64,12 +64,12 @@ const SimpleStyle: SimpleStyle = {
     "fill": {
       "label": __("Background Color"),
       "type": "color",
-      "default": "#555555"
+      "default": "#7e7e7e"
     },
     "stroke": {
       "label": __("Stroke Color"),
       "type": "color",
-      "default": "#7e7e7e"
+      "default": "#555555"
     }
   }
 }
