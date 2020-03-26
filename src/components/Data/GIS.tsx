@@ -232,7 +232,7 @@ const Content = (props: Props) => {
     const element = document.createElement('a')
     const file = new Blob([geojson], {type: 'text/plain'});
     element.href = URL.createObjectURL(file);
-    element.download = "myFile.geojson";
+    element.download = `${props.geojsonId}.geojson`;
     document.body.appendChild(element); // Required for this to work in FireFox
     element.click()
   }
