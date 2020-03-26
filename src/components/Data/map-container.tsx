@@ -39,9 +39,14 @@ export const MapContainer = (props: Props) => {
   React.useEffect(() => {
     if (map && draw && geoJSON) {
       draw.set(geoJSON);
+    }
+  }, [map, draw, geoJSON]);
+
+  React.useEffect(() => {
+    if (draw && geoJSON) {
       getNumberFeatures(draw.getAll().features.length)
     }
-  }, [map, draw, geoJSON, getNumberFeatures]);
+  }, [geoJSON, getNumberFeatures, draw]);
 
   React.useEffect(() => {
     if (geoJSON) {

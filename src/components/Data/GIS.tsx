@@ -193,9 +193,10 @@ const Content = (props: Props) => {
   const updateFeatureProps = (key: keyof FeatureProperties, value: string | number) => {
     if (currentFeature) {
       const feature = {...currentFeature} as Feature
+      console.log(feature)
       feature.properties[key] = value
       setCurrentFeature(feature)
-      drawObject.setFeatureProperty(currentFeature.id, key, value)
+      drawObject.setFeatureProperty(feature.id, key, value)
       console.log(feature)
     }
   }
