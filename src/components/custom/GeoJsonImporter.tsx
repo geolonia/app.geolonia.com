@@ -2,6 +2,7 @@ import React from "react";
 
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import './GeoJsonImporter.scss'
+import { __ } from "@wordpress/i18n";
 
 type Props = {
   state: boolean;
@@ -26,7 +27,7 @@ const styleOuterDefault: React.CSSProperties = {
 const Importer = (props: Props) => {
   const {state, onClose, GeoJsonImporter} = props;
   const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
-
+  const [error, setError] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     const style = {...styleOuterDefault}
@@ -47,6 +48,7 @@ const Importer = (props: Props) => {
   }
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setError(false)
     const files = event.currentTarget.files
     if (files) {
       const filereader = new FileReader()
@@ -58,8 +60,12 @@ const Importer = (props: Props) => {
   const handleFileRead = (event: Event) => {
     const target = event.target as FileReader
     if (target && target.result) {
-      const geojson = JSON.parse(target.result as string)
-      GeoJsonImporter(geojson)
+      try {
+        const geojson = JSON.parse(target.result as string) as GeoJSON.GeoJSON
+        GeoJsonImporter(geojson)
+      } catch (e) {
+        setError(true)
+      }
     }
   }
 
@@ -69,6 +75,7 @@ const Importer = (props: Props) => {
         <h2><CloudUploadIcon fontSize="large" /> Import GeoJSON</h2>
         <p>Import GeoJSON from your computer.</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
+        {error? <div className="error">{__("Error: It doesn't seem to be GeoJSON format.")}</div> : <></>}
       </div>
     </div>
   );
