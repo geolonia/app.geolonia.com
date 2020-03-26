@@ -6,6 +6,8 @@ import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { _x } from "@wordpress/i18n";
 
 // @ts-ignore
+import geojsonExtent from '@mapbox/geojson-extent'
+// @ts-ignore
 import centroid from "@turf/centroid"
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
@@ -30,6 +32,7 @@ export const MapContainer = (props: Props) => {
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | null>(null);
   const [draw, setDraw] = React.useState<any>(null);
+  const [bounds, setBounds] = React.useState<mapboxgl.LngLatBoundsLike | undefined>();
 
   // import geoJSON
   React.useEffect(() => {
@@ -39,6 +42,12 @@ export const MapContainer = (props: Props) => {
 
     drawCallback(draw)
   }, [map, draw, geoJSON]);
+
+  React.useEffect(() => {
+    if (geoJSON) {
+      setBounds(geojsonExtent(geoJSON))
+    }
+  }, [geoJSON])
 
   React.useEffect(() => {
     drawCallback(draw)
@@ -97,6 +106,7 @@ export const MapContainer = (props: Props) => {
         zoom={parseFloat(_x("0", "Default value of zoom level of map"))}
         geolocateControl={"off"}
         onAfterLoad={handleOnAfterLoad}
+        bounds={bounds}
       />
     </div>
   );

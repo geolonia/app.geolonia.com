@@ -1,4 +1,5 @@
 import React from "react";
+import { LngLatBounds } from "mapbox-gl";
 
 type Toggle = "on" | "off";
 
@@ -13,10 +14,15 @@ type Props = {
   fullscreenControl: Toggle;
   geolocateControl: Toggle;
   style: string;
+  bounds: mapboxgl.LngLatBoundsLike | undefined;
   onAfterLoad: (map: mapboxgl.Map) => void;
 };
 
-class Map extends React.Component<Props> {
+type State = {
+  map: mapboxgl.Map
+}
+
+class Map extends React.Component<Props, State> {
   style: React.CSSProperties = {};
   container = React.createRef<HTMLDivElement>();
 
@@ -46,6 +52,17 @@ class Map extends React.Component<Props> {
     const { geolonia } = window;
     const map = new geolonia.Map(this.container.current);
     this.props.onAfterLoad(map);
+
+    this.setState({map: map})
+  }
+
+  componentDidUpdate() {
+    if (this.props.bounds) {
+      this.state.map.fitBounds(this.props.bounds, {
+        padding: 20,
+        maxZoom: 16,
+      })
+    }
   }
 
   render() {
