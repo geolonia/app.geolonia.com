@@ -213,7 +213,7 @@ const Content = (props: Props) => {
     console.log(event)
   }
 
-  const GeoJsonImporter = (geojson: GeoJSON.GeoJSON) => {
+  const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
     drawObject.add(geojson)
     setStateImporter(false)
     setGeoJSON(drawObject.getAll())
@@ -230,7 +230,6 @@ const Content = (props: Props) => {
   }
 
   const getNumberFeatures = (number: number) => {
-    console.log(number)
     setNumberFeatures(number)
   }
 

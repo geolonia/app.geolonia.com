@@ -61,7 +61,13 @@ const Importer = (props: Props) => {
     const target = event.target as FileReader
     if (target && target.result) {
       try {
-        const geojson = JSON.parse(target.result as string) as GeoJSON.GeoJSON
+        const geojson = JSON.parse(target.result as string) as GeoJSON.FeatureCollection
+        // Mapbox GL Draw needs `properties`, so it should be added.
+        for (let i = 0; i < geojson.features.length; i++ ) {
+          if ('undefined' === typeof geojson.features[i].properties) {
+            geojson.features[i].properties = {}
+          }
+        }
         GeoJsonImporter(geojson)
       } catch (e) {
         setError(true)
