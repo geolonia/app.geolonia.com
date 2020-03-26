@@ -13,7 +13,7 @@ import MapboxDraw from "@mapbox/mapbox-gl-draw";
 // import Fields from "./fields";
 // import Publish from "./publish";
 
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 import Title from "../custom/Title";
 import PropsTable from './PropsTable'
 import SimpleStyle from './SimpleStyle'
@@ -89,6 +89,7 @@ const Content = (props: Props) => {
   const [currentFeature, setCurrentFeature] = React.useState<Feature | undefined>();
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [stateImporter, setStateImporter] = React.useState<boolean>(false)
+  const [numberFeatures, setNumberFeatures] = React.useState<number>(0)
 
   React.useEffect(() => {
     props.geosearch && setGeoJSON(props.geosearch.data);
@@ -223,6 +224,7 @@ const Content = (props: Props) => {
   const GeoJsonImporter = (geojson: GeoJSON.GeoJSON) => {
     drawObject.add(geojson)
     setStateImporter(false)
+    setGeoJSON(drawObject.getAll())
   }
 
   const downloadGeoJson = () => {
@@ -233,6 +235,11 @@ const Content = (props: Props) => {
     element.download = "myFile.geojson";
     document.body.appendChild(element); // Required for this to work in FireFox
     element.click()
+  }
+
+  const getNumberFeatures = (number: number) => {
+    console.log(number)
+    setNumberFeatures(number)
   }
 
   const onRequestError = () => setStatus("failure");
@@ -251,9 +258,11 @@ const Content = (props: Props) => {
         </div>
 
       <div className="editor">
-        <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} />
+        <MapContainer drawCallback={drawCallback} getNumberFeatures={getNumberFeatures} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} />
           {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
       </div>
+
+      <div className="number-features">{sprintf(__('Number of features: %d'), numberFeatures)}</div>
 
       <DangerZone
         whyDanger={__(
