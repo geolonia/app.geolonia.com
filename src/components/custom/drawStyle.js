@@ -3,6 +3,9 @@
  * See https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/API.md
  */
 
+const backgroundColor = 'rgba(255, 0, 0, 0.4)'
+const strokeColor = '#FFFFFF'
+
 export default [
   {
     id: 'draw-polygon',
@@ -12,13 +15,13 @@ export default [
       ['==', 'meta', 'feature']
     ],
     paint: {
-      'fill-color': ['string', ['get', 'user_fill'], '#7e7e7e'],
+      'fill-color': ['string', ['get', 'user_fill'], backgroundColor],
       'fill-opacity': [
         'case',
         ['==', ['get', 'active'], 'true'], 1.0,
         ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
-      'fill-outline-color': ['string', ['get', 'user_stroke'], '#555555'],
+      'fill-outline-color': ['string', ['get', 'user_stroke'], strokeColor],
     },
   },
   {
@@ -29,13 +32,9 @@ export default [
       ['==', 'meta', 'feature']
     ],
     paint: {
-      'line-width': ['number', ['get', 'user_stroke-width'], 1],
-      'line-color': ['string', ['get', 'user_stroke'], '#555555'],
-      'line-opacity': [
-        'case',
-        ['==', ['get', 'active'], 'true'], 1.0,
-        ['number', ['get', 'user_stroke-opacity'], 1.0],
-      ],
+      'line-width': ['number', ['get', 'user_stroke-width'], 2],
+      'line-color': ['string', ['get', 'user_stroke'], backgroundColor],
+      'line-opacity': 1.0,
     },
     layout: {
       'line-cap': 'round',
@@ -56,14 +55,14 @@ export default [
         ['==', 'large', ['get', 'user_marker-size']], 13,
         9,
       ],
-      'circle-color': ['string', ['get', 'user_marker-color'], '#7e7e7e'],
+      'circle-color': ['string', ['get', 'user_marker-color'], backgroundColor],
       'circle-opacity': [
         'case',
         ['==', ['get', 'active'], 'true'], 1.0,
         ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
       'circle-stroke-width': ['number', ['get', 'user_stroke-width'], 2],
-      'circle-stroke-color': ['string', ['get', 'user_stroke'], '#555555'],
+      'circle-stroke-color': ['string', ['get', 'user_stroke'], strokeColor],
       'circle-stroke-opacity': ['number', ['get', 'user_stroke-opacity'], 1.0],
     },
   },

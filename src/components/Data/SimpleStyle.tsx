@@ -15,6 +15,9 @@ interface SimpleStyle {
   [key: string]: StyleSpec;
 }
 
+const backgroundColor = 'rgba(255, 0, 0, 0.4)'
+const strokeColor = '#FFFFFF'
+
 const SimpleStyle: SimpleStyle = {
   "Point": {
     "marker-size": {
@@ -35,12 +38,12 @@ const SimpleStyle: SimpleStyle = {
     "marker-color": {
       "label": __("Background Color"),
       "type": "color",
-      "default": "#7e7e7e"
+      "default": backgroundColor
     },
     "stroke": {
       "label": __("Stroke Color"),
       "type": "color",
-      "default": "#555555"
+      "default": strokeColor
     },
     "stroke-width": {
       "label": __("Stroke Width"),
@@ -52,24 +55,24 @@ const SimpleStyle: SimpleStyle = {
     "stroke": {
       "label": __("Stroke Color"),
       "type": "color",
-      "default": "#555555"
+      "default": backgroundColor
     },
     "stroke-width": {
       "label": __("Stroke Width"),
       "type": "number",
-      "default": 1
+      "default": 2
     }
   },
   "Polygon": {
     "fill": {
       "label": __("Background Color"),
       "type": "color",
-      "default": "#7e7e7e"
+      "default": backgroundColor
     },
     "stroke": {
       "label": __("Stroke Color"),
       "type": "color",
-      "default": "#555555"
+      "default": strokeColor
     }
   }
 }
