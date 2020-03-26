@@ -74,6 +74,7 @@ export const MapContainer = (props: Props) => {
 
     map.on('draw.selectionchange', (event: any) => {
       if (event.features.length) {
+        setBounds(undefined)
         const center = centroid(event.features[0]);
         map.setCenter(center.geometry.coordinates)
       }

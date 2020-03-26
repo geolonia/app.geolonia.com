@@ -219,6 +219,11 @@ const Content = (props: Props) => {
     console.log(event)
   }
 
+  const GeoJsonImporter = (geojson: GeoJSON.GeoJSON) => {
+    drawObject.add(geojson)
+    setStateImporter(false)
+  }
+
   const onRequestError = () => setStatus("failure");
 
   return (
@@ -250,7 +255,7 @@ const Content = (props: Props) => {
         />
       </DangerZone>
 
-      {stateImporter? <Importer state={stateImporter} onClose={closeImporter} />: <></>}
+      {stateImporter? <Importer state={stateImporter} onClose={closeImporter} GeoJsonImporter={GeoJsonImporter} />: <></>}
     </div>
   );
 };

@@ -6,6 +6,7 @@ import './GeoJsonImporter.scss'
 type Props = {
   state: boolean;
   onClose: Function;
+  GeoJsonImporter: Function;
 };
 
 const styleOuterDefault: React.CSSProperties = {
@@ -23,7 +24,7 @@ const styleOuterDefault: React.CSSProperties = {
 }
 
 const Importer = (props: Props) => {
-  const {state, onClose} = props;
+  const {state, onClose, GeoJsonImporter} = props;
   const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
 
 
@@ -45,12 +46,29 @@ const Importer = (props: Props) => {
     event.stopPropagation()
   }
 
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const files = event.currentTarget.files
+    if (files) {
+      const filereader = new FileReader()
+      filereader.onloadend = handleFileRead
+      filereader.readAsText(files[0])
+    }
+  }
+
+  const handleFileRead = (event: Event) => {
+    const target = event.target as FileReader
+    if (target && target.result) {
+      const geojson = JSON.parse(target.result as string)
+      GeoJsonImporter(geojson)
+    }
+  }
+
   return (
     <div className="geojson-importer" style={styleOuter} onClick={close}>
       <div className="inner" onClick={preventClose}>
         <h2><CloudUploadIcon fontSize="large" /> Import GeoJSON</h2>
-        <h3>Import GeoJSON from your computer.</h3>
-        <p><input type="file" /></p>
+        <p>Import GeoJSON from your computer.</p>
+        <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
       </div>
     </div>
   );
