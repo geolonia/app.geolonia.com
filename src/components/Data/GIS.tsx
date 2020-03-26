@@ -4,6 +4,7 @@ import MapContainer from "./map-container";
 import Delete from "../custom/Delete";
 import DangerZone from "../custom/danger-zone";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
@@ -224,6 +225,16 @@ const Content = (props: Props) => {
     setStateImporter(false)
   }
 
+  const downloadGeoJson = () => {
+    const geojson = JSON.stringify(drawObject.getAll())
+    const element = document.createElement('a')
+    const file = new Blob([geojson], {type: 'text/plain'});
+    element.href = URL.createObjectURL(file);
+    element.download = "myFile.geojson";
+    document.body.appendChild(element); // Required for this to work in FireFox
+    element.click()
+  }
+
   const onRequestError = () => setStatus("failure");
 
   return (
@@ -234,7 +245,10 @@ const Content = (props: Props) => {
         )}
       </Title>
 
-        <div className="nav"><button className="btn" onClick={() => setStateImporter(true)}><CloudUploadIcon fontSize="large" /><span className="label">{__("Import GeoJSON")}</span></button></div>
+        <div className="nav">
+          <button className="btn" onClick={downloadGeoJson}><CloudDownloadIcon fontSize="small" /><span className="label">{__("Download GeoJSON")}</span></button>
+          <button className="btn" onClick={() => setStateImporter(true)}><CloudUploadIcon fontSize="small" /><span className="label">{__("Import GeoJSON")}</span></button>
+        </div>
 
       <div className="editor">
         <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} />
