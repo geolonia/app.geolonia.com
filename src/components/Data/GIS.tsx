@@ -254,7 +254,7 @@ const Content = (props: Props) => {
           {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
       </div>
 
-      <div className="number-features">{sprintf(__('Number of features: %d'), numberFeatures)}</div>
+      <div className="number-features">{sprintf(__('Total Count of Features: %s'), new Intl.NumberFormat().format(numberFeatures))}</div>
 
       <DangerZone
         whyDanger={__(
