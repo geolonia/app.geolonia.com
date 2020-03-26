@@ -1,10 +1,9 @@
 import React from "react";
 
-import Grid from "@material-ui/core/Grid";
-
 import MapContainer from "./map-container";
 import Delete from "../custom/Delete";
 import DangerZone from "../custom/danger-zone";
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
@@ -17,6 +16,7 @@ import { __ } from "@wordpress/i18n";
 import Title from "../custom/Title";
 import PropsTable from './PropsTable'
 import SimpleStyle from './SimpleStyle'
+import Importer from '../custom/GeoJsonImporter'
 
 import "./GIS.scss";
 
@@ -87,6 +87,7 @@ const Content = (props: Props) => {
   const [message, setMessage] = React.useState("");
   const [currentFeature, setCurrentFeature] = React.useState<Feature | undefined>();
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
+  const [stateImporter, setStateImporter] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     props.geosearch && setGeoJSON(props.geosearch.data);
@@ -161,6 +162,10 @@ const Content = (props: Props) => {
     });
   };
 
+  const closeImporter = () => {
+    setStateImporter(false)
+  }
+
   /**
    * Update the `currentFeature` and set default properties.
    *
@@ -224,6 +229,8 @@ const Content = (props: Props) => {
         )}
       </Title>
 
+        <div className="nav"><button className="btn" onClick={() => setStateImporter(true)}><CloudUploadIcon fontSize="large" /><span className="label">{__("Import GeoJSON")}</span></button></div>
+
       <div className="editor">
         <MapContainer drawCallback={drawCallback} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} />
           {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
@@ -242,6 +249,8 @@ const Content = (props: Props) => {
           onFailure={onRequestError}
         />
       </DangerZone>
+
+      {stateImporter? <Importer state={stateImporter} onClose={closeImporter} />: <></>}
     </div>
   );
 };
