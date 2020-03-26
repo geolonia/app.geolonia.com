@@ -68,14 +68,6 @@ type RouterProps = {
   currentFeature: object;
 };
 
-const style: React.CSSProperties = {
-  backgroundColor: "#EEEEEE",
-  padding: "16px",
-  textAlign: "center",
-  color: "#555555",
-  fontWeight: "bold",
-}
-
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {

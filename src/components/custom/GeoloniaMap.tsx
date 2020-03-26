@@ -1,5 +1,4 @@
 import React from "react";
-import { LngLatBounds } from "mapbox-gl";
 
 type Toggle = "on" | "off";
 

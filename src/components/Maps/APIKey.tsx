@@ -26,7 +26,7 @@ import deleteKey from "../../api/keys/delete";
 
 // redux
 import Redux from "redux";
-import { connect, Selector } from "react-redux";
+import { connect } from "react-redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
 
 // libs

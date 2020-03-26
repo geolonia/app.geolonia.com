@@ -57,7 +57,6 @@ const InputColor = (props: Props) => {
   const [styleColorPickerContainer, setStyleColorPickerContainer] = React.useState<React.CSSProperties>({})
   const [pickerColor, setPickerColor] = React.useState<string>('')
   const [styleInput, setStyleInput] = React.useState<React.CSSProperties>(defaultStyle)
-  const [textColor, setTextColor] = React.useState<string>('#FFFFFF')
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
     setStyleColorPickerContainer({
