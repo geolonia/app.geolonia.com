@@ -77,4 +77,8 @@ const SimpleStyle: SimpleStyle = {
   }
 }
 
+SimpleStyle.MultiPoint = SimpleStyle.Point
+SimpleStyle.MultiLineString = SimpleStyle.LineString
+SimpleStyle.MultiPolygon = SimpleStyle.Polygon
+
 export default SimpleStyle;
