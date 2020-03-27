@@ -3,7 +3,6 @@ import React from "react";
 import MapContainer from "./map-container";
 import Delete from "../custom/Delete";
 import DangerZone from "../custom/danger-zone";
-import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
@@ -21,6 +20,7 @@ import Title from "../custom/Title";
 import PropsTable from './PropsTable'
 import SimpleStyle from './SimpleStyle'
 import ImportButton from './ImportButton'
+import ExportButton from './ExportButton'
 
 import "./GIS.scss";
 
@@ -226,17 +226,6 @@ const Content = (props: Props) => {
     setBounds(geojsonExtent(added))
   }
 
-  const downloadGeoJson = () => {
-    const geojson = JSON.stringify(drawObject.getAll())
-    const element = document.createElement('a')
-    const file = new Blob([geojson], {type: 'text/plain'});
-    element.href = URL.createObjectURL(file);
-    element.download = `${props.geojsonId}.geojson`;
-    document.body.appendChild(element); // Required for this to work in FireFox
-    element.click()
-    document.body.removeChild(element);
-  }
-
   const getNumberFeatures = () => {
     if (drawObject) {
       const number = drawObject.getAll().features.length
@@ -255,7 +244,7 @@ const Content = (props: Props) => {
       </Title>
 
       <div className="nav">
-        <button className="btn" onClick={downloadGeoJson}><CloudDownloadIcon fontSize="small" /><span className="label">{__("Download GeoJSON")}</span></button>
+        <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} />
         <ImportButton GeoJsonImporter={GeoJsonImporter} />
       </div>
 
