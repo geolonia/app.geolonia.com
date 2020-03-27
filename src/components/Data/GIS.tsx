@@ -261,10 +261,10 @@ const Content = (props: Props) => {
         )}
       </Title>
 
-        <div className="nav">
-          <button className="btn" onClick={downloadGeoJson}><CloudDownloadIcon fontSize="small" /><span className="label">{__("Download GeoJSON")}</span></button>
-          <button className="btn" onClick={() => setStateImporter(true)}><CloudUploadIcon fontSize="small" /><span className="label">{__("Import GeoJSON")}</span></button>
-        </div>
+      <div className="nav">
+        <button className="btn" onClick={downloadGeoJson}><CloudDownloadIcon fontSize="small" /><span className="label">{__("Download GeoJSON")}</span></button>
+        <button className="btn" onClick={() => setStateImporter(true)}><CloudUploadIcon fontSize="small" /><span className="label">{__("Import GeoJSON")}</span></button>
+      </div>
 
       <div className="editor">
         <MapContainer drawCallback={drawCallback} getNumberFeatures={getNumberFeatures} geoJSON={geoJSON}
