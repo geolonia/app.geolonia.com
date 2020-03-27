@@ -30,7 +30,7 @@ export const MapContainer = (props: Props) => {
   const { geoJSON, mapHeight, onClickFeature, drawCallback, saveCallback, getNumberFeatures, bounds } = props;
 
   // mapbox map and draw binding
-  const [draw, setDraw] = React.useState<any>(null);
+  const [draw, setDraw] = React.useState<MapboxDraw | undefined>(undefined);
 
   // import geoJSON
   React.useEffect(() => {
