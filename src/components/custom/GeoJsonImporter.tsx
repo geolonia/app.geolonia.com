@@ -81,6 +81,7 @@ const Importer = (props: Props) => {
         <h2><CloudUploadIcon fontSize="large" /> Import GeoJSON</h2>
         <p>Import GeoJSON from your computer.</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
+        <p>{__("Note: If you add a feature with an id that is already in use, the existing feature will be updated and no new feature will be added.")}</p>
         {error? <div className="error">{__("Error: It doesn't seem to be GeoJSON format.")}</div> : <></>}
       </div>
     </div>

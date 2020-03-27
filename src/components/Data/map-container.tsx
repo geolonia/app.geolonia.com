@@ -6,8 +6,6 @@ import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { _x } from "@wordpress/i18n";
 
 // @ts-ignore
-import geojsonExtent from '@mapbox/geojson-extent'
-// @ts-ignore
 import centroid from "@turf/centroid"
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
@@ -19,6 +17,7 @@ type Props = {
   drawCallback: Function;
   saveCallback: Function;
   getNumberFeatures: Function;
+  bounds:mapboxgl.LngLatBoundsLike | undefined;
 };
 
 const mapStyle: React.CSSProperties = {
@@ -28,11 +27,10 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapContainer = (props: Props) => {
-  const { geoJSON, mapHeight, onClickFeature, drawCallback, saveCallback, getNumberFeatures } = props;
+  const { geoJSON, mapHeight, onClickFeature, drawCallback, saveCallback, getNumberFeatures, bounds } = props;
 
   // mapbox map and draw binding
   const [draw, setDraw] = React.useState<any>(null);
-  const [bounds, setBounds] = React.useState<mapboxgl.LngLatBoundsLike | undefined>();
 
   // import geoJSON
   React.useEffect(() => {
@@ -46,12 +44,6 @@ export const MapContainer = (props: Props) => {
       getNumberFeatures()
     }
   }, [geoJSON, getNumberFeatures]);
-
-  React.useEffect(() => {
-    if (geoJSON) {
-      setBounds(geojsonExtent(geoJSON))
-    }
-  }, [geoJSON])
 
   React.useEffect(() => {
     if (draw) {
@@ -79,7 +71,6 @@ export const MapContainer = (props: Props) => {
 
     map.on('draw.selectionchange', (event: any) => {
       if (event.features.length) {
-        setBounds(undefined)
         const center = centroid(event.features[0]);
         map.setCenter(center.geometry.coordinates)
       }

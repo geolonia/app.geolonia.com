@@ -8,6 +8,10 @@ import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
+// @ts-ignore
+import geojsonMerge from '@mapbox/geojson-merge';
+// @ts-ignore
+import geojsonExtent from '@mapbox/geojson-extent'
 
 // import Upload from "./upload";
 // import Fields from "./fields";
@@ -82,9 +86,13 @@ const Content = (props: Props) => {
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [stateImporter, setStateImporter] = React.useState<boolean>(false)
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0)
+  const [bounds, setBounds] = React.useState<mapboxgl.LngLatBoundsLike | undefined>(undefined)
 
   React.useEffect(() => {
-    props.geosearch && setGeoJSON(props.geosearch.data);
+    if (props.geosearch) {
+      setGeoJSON(props.geosearch.data);
+      setBounds(geojsonExtent(props.geosearch.data))
+    }
   }, [props.geosearch]);
 
   const breadcrumbItems = [
@@ -166,6 +174,8 @@ const Content = (props: Props) => {
    * @param feature
    */
   const onClickFeatureHandler = (event: any) => {
+    setBounds(undefined)
+
     if (1 < event.features.length || 0 === event.features.length) {
       setCurrentFeature(undefined) // We don't support multiple selection to edit property.
       return
@@ -193,10 +203,12 @@ const Content = (props: Props) => {
   const updateFeatureProps = (key: keyof FeatureProperties, value: string | number) => {
     if (currentFeature) {
       const feature = {...currentFeature} as Feature
-      console.log(feature)
       feature.properties[key] = value
-      setCurrentFeature(feature)
       drawObject.setFeatureProperty(feature.id, key, value)
+
+      setCurrentFeature(feature)
+      setGeoJSON(drawObject.getAll())
+
       console.log(feature)
     }
   }
@@ -215,9 +227,10 @@ const Content = (props: Props) => {
   }
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
-    drawObject.add(geojson)
+    const added = geojsonMerge.merge([drawObject.getAll(), geojson]);
+    setGeoJSON(added)
+    setBounds(geojsonExtent(added))
     setStateImporter(false)
-    setGeoJSON(drawObject.getAll())
   }
 
   const downloadGeoJson = () => {
@@ -253,7 +266,8 @@ const Content = (props: Props) => {
         </div>
 
       <div className="editor">
-        <MapContainer drawCallback={drawCallback} getNumberFeatures={getNumberFeatures} geoJSON={geoJSON} mapHeight="500px" onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} />
+        <MapContainer drawCallback={drawCallback} getNumberFeatures={getNumberFeatures} geoJSON={geoJSON}
+            mapHeight="500px" onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} bounds={bounds} />
           {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
       </div>
 
