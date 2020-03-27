@@ -83,10 +83,6 @@ export const MapContainer = (props: Props) => {
       saveCallback(event)
     })
 
-    map.on('draw.update', (event: any) => {
-      saveCallback(event)
-    })
-
     map.on('draw.delete', (event: any) => {
       getNumberFeatures()
       saveCallback(event)
@@ -104,6 +100,7 @@ export const MapContainer = (props: Props) => {
         marker={"off"}
         zoom={parseFloat(_x("0", "Default value of zoom level of map"))}
         geolocateControl={"off"}
+        fullscreenControl={"off"}
         onAfterLoad={handleOnAfterLoad}
         bounds={bounds}
       />

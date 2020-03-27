@@ -241,6 +241,7 @@ const Content = (props: Props) => {
     element.download = `${props.geojsonId}.geojson`;
     document.body.appendChild(element); // Required for this to work in FireFox
     element.click()
+    document.body.removeChild(element);
   }
 
   const getNumberFeatures = () => {
