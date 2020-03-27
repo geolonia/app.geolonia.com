@@ -31,22 +31,21 @@ export const MapContainer = (props: Props) => {
   const { geoJSON, mapHeight, onClickFeature, drawCallback, saveCallback, getNumberFeatures } = props;
 
   // mapbox map and draw binding
-  const [map, setMap] = React.useState<mapboxgl.Map | null>(null);
   const [draw, setDraw] = React.useState<any>(null);
   const [bounds, setBounds] = React.useState<mapboxgl.LngLatBoundsLike | undefined>();
 
   // import geoJSON
   React.useEffect(() => {
-    if (map && draw && geoJSON) {
+    if (draw && geoJSON) {
       draw.set(geoJSON);
     }
-  }, [map, draw, geoJSON]);
+  }, [draw, geoJSON]);
 
   React.useEffect(() => {
-    if (draw && geoJSON) {
-      getNumberFeatures(draw.getAll().features.length)
+    if (geoJSON) {
+      getNumberFeatures()
     }
-  }, [geoJSON, getNumberFeatures, draw]);
+  }, [geoJSON, getNumberFeatures]);
 
   React.useEffect(() => {
     if (geoJSON) {
@@ -55,8 +54,10 @@ export const MapContainer = (props: Props) => {
   }, [geoJSON])
 
   React.useEffect(() => {
-    drawCallback(draw)
-  }, [draw, drawCallback]);
+    if (draw) {
+      drawCallback(draw)
+    }
+  }, [draw])
 
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw: MapboxDraw = new MapboxDraw({
@@ -75,7 +76,6 @@ export const MapContainer = (props: Props) => {
 
     map.addControl(draw, "top-right");
     setDraw(draw);
-    setMap(map);
 
     map.on('draw.selectionchange', (event: any) => {
       if (event.features.length) {
@@ -88,7 +88,7 @@ export const MapContainer = (props: Props) => {
     })
 
     map.on('draw.create', (event: any) => {
-      getNumberFeatures(draw.getAll().features.length)
+      getNumberFeatures()
       saveCallback(event)
     })
 
@@ -97,7 +97,7 @@ export const MapContainer = (props: Props) => {
     })
 
     map.on('draw.delete', (event: any) => {
-      getNumberFeatures(draw.getAll().features.length)
+      getNumberFeatures()
       saveCallback(event)
     })
   };

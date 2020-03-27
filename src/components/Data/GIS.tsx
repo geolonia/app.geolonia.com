@@ -230,8 +230,11 @@ const Content = (props: Props) => {
     element.click()
   }
 
-  const getNumberFeatures = (number: number) => {
-    setNumberFeatures(number)
+  const getNumberFeatures = () => {
+    if (drawObject) {
+      const number = drawObject.getAll().features.length
+      setNumberFeatures(number)
+    }
   }
 
   const onRequestError = () => setStatus("failure");
