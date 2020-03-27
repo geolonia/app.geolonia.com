@@ -56,7 +56,7 @@ export const PropsEditor = (props: Props) => {
   return (
     <div className="props">
     {mode?
-      <div>
+      <>
         <div className="goto-info"><button onClick={() => {setMode(false)}}><InfoIcon fontSize="small" /></button></div>
         <h3>{__('Title')}</h3>
         <input type="text" name="title" value={currentFeature.properties.title} onChange={updatePropHandler} />
@@ -68,12 +68,12 @@ export const PropsEditor = (props: Props) => {
             {tableRows}
           </tbody>
         </table>
-      </div>
+      </>
       :
-      <div>
+      <>
         <div className="backto"><button onClick={() => {setMode(true)}}><KeyboardBackspaceIcon fontSize="small" /></button></div>
         <PropsTable currentFeature={currentFeature} />
-      </div>
+      </>
     }
     </div>
   );

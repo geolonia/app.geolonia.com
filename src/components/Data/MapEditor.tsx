@@ -12,7 +12,6 @@ import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
 type Props = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
-  mapHeight: any;
   onClickFeature: Function;
   drawCallback: Function;
   saveCallback: Function;
@@ -22,12 +21,13 @@ type Props = {
 
 const mapStyle: React.CSSProperties = {
   width: "100%",
+  height: "100%",
   border: "1px solid #dedede",
   margin: "0 0 1em 0"
 };
 
 export const MapContainer = (props: Props) => {
-  const { geoJSON, mapHeight, onClickFeature, drawCallback, saveCallback, getNumberFeatures, bounds } = props;
+  const { geoJSON, onClickFeature, drawCallback, saveCallback, getNumberFeatures, bounds } = props;
 
   // mapbox map and draw binding
   const [draw, setDraw] = React.useState<MapboxDraw | undefined>(undefined);
@@ -93,7 +93,7 @@ export const MapContainer = (props: Props) => {
     <div style={mapStyle}>
       <GeoloniaMap
         width="100%"
-        height={mapHeight}
+        height="100%"
         gestureHandling="off"
         lat={parseFloat(_x("0", "Default value of latitude for map"))}
         lng={parseFloat(_x("0", "Default value of longitude for map"))}

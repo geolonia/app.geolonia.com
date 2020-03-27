@@ -250,7 +250,7 @@ const Content = (props: Props) => {
 
       <div className="editor">
         <MapContainer drawCallback={drawCallback} getNumberFeatures={getNumberFeatures} geoJSON={geoJSON}
-            mapHeight="500px" onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} bounds={bounds} />
+            onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} bounds={bounds} />
           {currentFeature? <PropsEditor currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
       </div>
 

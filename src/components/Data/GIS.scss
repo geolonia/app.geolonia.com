@@ -4,6 +4,7 @@
   {
     position: relative;
     margin: 0;
+    height: 500px;
   }
 
   .number-features
@@ -39,7 +40,7 @@
     top: 8px;
     left: 9px;
     width: 300px;
-    max-height: 450px;
+    height: 450px;
     padding: 16px;
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.9);
@@ -111,8 +112,8 @@
 
       button
       {
-        padding: none;
-        margin: none;
+        padding: 0;
+        margin: 0;
         background-color: transparent;
         border: none;
         cursor: pointer;
@@ -122,10 +123,14 @@
     .backto
     {
       text-align: left;
+      margin-bottom: 16px;
     }
 
     .props-table
     {
+      max-height: calc(100% - 40px);
+      overflow: scroll;
+
       table
       {
         border-collapse: collapse;
