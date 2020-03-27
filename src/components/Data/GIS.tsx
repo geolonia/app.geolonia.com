@@ -17,7 +17,7 @@ import geojsonExtent from '@mapbox/geojson-extent'
 
 import { __, sprintf } from "@wordpress/i18n";
 import Title from "../custom/Title";
-import PropsTable from './PropsTable'
+import PropsEditor from './PropsEditor'
 import SimpleStyle from './SimpleStyle'
 import ImportButton from './ImportButton'
 import ExportButton from './ExportButton'
@@ -251,7 +251,7 @@ const Content = (props: Props) => {
       <div className="editor">
         <MapContainer drawCallback={drawCallback} getNumberFeatures={getNumberFeatures} geoJSON={geoJSON}
             mapHeight="500px" onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} bounds={bounds} />
-          {currentFeature? <PropsTable currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
+          {currentFeature? <PropsEditor currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
       </div>
 
       <div className="number-features">{sprintf(__('Total Count of Features: %s'), new Intl.NumberFormat().format(numberFeatures))}</div>

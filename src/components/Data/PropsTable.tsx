@@ -1,65 +1,49 @@
-import React from "react";
+import React, { useEffect } from "react";
 
+import { Feature, FeatureProperties } from '../../types';
+import SimpleStyle from './SimpleStyle';
 import { __ } from "@wordpress/i18n";
-import SimpleStyle from './SimpleStyle'
-import InputColor from './InputColor'
-import { Feature } from "../../types";
+
+type exclude = [
+  "__featureId",
+  ""
+]
 
 type Props = {
   currentFeature: Feature;
-  updateFeatureProperties: Function;
 };
 
-export const PropsTable = (props: Props) => {
-  const { currentFeature, updateFeatureProperties } = props;
+const Content = (props: Props) => {
+  const [properties, setProperties] = React.useState<FeatureProperties>({})
 
-  const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
-    const property = event.currentTarget.name
-    const value = ('stroke-width' === property) ? Number(event.currentTarget.value) : event.currentTarget.value
-    updateFeatureProperties(property, value)
-  }
-
-  const updatePropSelectHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    if (event.target.name) {
-      updateFeatureProperties(event.target.name, event.target.value)
+  useEffect(() => {
+    const spec = SimpleStyle[props.currentFeature.geometry.type]
+    const properties = {...props.currentFeature.properties}
+    const exclude = ['__featureId', '__geojsonId', 'title', 'description', ...Object.keys(spec)]
+    for (const key in properties) {
+      if (exclude.includes(key)) {
+        delete properties[key]
+      }
     }
-  }
-
-  const type = currentFeature.geometry.type
-  const styleSpec = SimpleStyle[type]
+    setProperties(properties)
+  }, [props.currentFeature])
 
   const tableRows = []
-  for (const key in styleSpec) {
-    const name = key
-    const value = currentFeature.properties[key]
-    let input = <input className={styleSpec[key].type} type="text" name={name} value={value} onChange={updatePropHandler} />
-    if ('number' === styleSpec[key].type) {
-      input = <input className={styleSpec[key].type} type="number" name={name} value={value} onChange={updatePropHandler} min="0" />
-    } else if ('color' === styleSpec[key].type) {
-      input = <InputColor className={styleSpec[key].type} color={value.toString()} updateFeatureProperties={updateFeatureProperties} name={name} />
-    } else if ('option' === styleSpec[key].type) {
-      input = <select className="select-menu" name={name} value={value.toString()} onChange={updatePropSelectHandler}><option value="small">{__("Small")}</option>
-          <option value="medium">{__("Medium")}</option><option value="large">{__("Large")}</option></select>
-    }
-    tableRows.push(<tr key={key}><th>{styleSpec[key].label}</th><td>{input}</td></tr>)
+  for (const key in properties) {
+    tableRows.push(<tr key={key}><th>{key}</th><td>{properties[key]}</td></tr>)
   }
 
   return (
-    <div className="props">
-      <div className="props-inner">
-        <h3>{__('Title')}</h3>
-        <input type="text" name="title" value={currentFeature.properties.title} onChange={updatePropHandler} />
-        <h3>{__('Description')}</h3>
-        <input type="text" name="description" value={currentFeature.properties.description} onChange={updatePropHandler} />
-        <h3>{__('Style')}</h3>
-        <table className="prop-table">
-          <tbody>
-            {tableRows}
-          </tbody>
-        </table>
-      </div>
+    <div className="props-table">
+    {tableRows.length?
+      <table>
+        <tbody>{tableRows}</tbody>
+      </table>
+      :
+      <p>{__("Nothing found.")}</p>
+    }
     </div>
   );
-}
+};
 
-export default PropsTable
+export default Content;

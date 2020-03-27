@@ -59,14 +59,21 @@ const InputColor = (props: Props) => {
   const [styleInput, setStyleInput] = React.useState<React.CSSProperties>(defaultStyle)
 
   const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
-    setStyleColorPickerContainer({
-      top: -64,
-      right: -16,
-      display: 'block',
-    })
+    // Note: Size of color picker is 225x247.75.
+    const outer = document.querySelector('.gis-panel .props')
+    if (outer) {
+      const {top, left} = event.currentTarget.getBoundingClientRect()
+      const {top: _top, left: _left} = outer.getBoundingClientRect()
 
-    setStateColorPicker(true)
-    setPickerColor(color)
+      setStyleColorPickerContainer({
+        top: top - _top- 260,
+        left: left - _left,
+        display: 'block',
+      })
+
+      setStateColorPicker(true)
+      setPickerColor(color)
+    }
   }
 
   const changeColorCompleteHanlder = (object: object) => {
