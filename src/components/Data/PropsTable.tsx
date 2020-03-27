@@ -2,7 +2,7 @@ import React from "react";
 
 import { __ } from "@wordpress/i18n";
 import SimpleStyle from './SimpleStyle'
-import InputColor from '../custom/InputColor'
+import InputColor from './InputColor'
 import { Feature } from "../../types";
 
 type Props = {

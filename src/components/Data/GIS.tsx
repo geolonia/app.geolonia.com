@@ -3,7 +3,6 @@ import React from "react";
 import MapContainer from "./map-container";
 import Delete from "../custom/Delete";
 import DangerZone from "../custom/danger-zone";
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import CloudDownloadIcon from '@material-ui/icons/CloudDownload';
 
 // @ts-ignore
@@ -21,7 +20,7 @@ import { __, sprintf } from "@wordpress/i18n";
 import Title from "../custom/Title";
 import PropsTable from './PropsTable'
 import SimpleStyle from './SimpleStyle'
-import Importer from '../custom/GeoJsonImporter'
+import ImportButton from './ImportButton'
 
 import "./GIS.scss";
 
@@ -84,7 +83,6 @@ const Content = (props: Props) => {
   const [message, setMessage] = React.useState("");
   const [currentFeature, setCurrentFeature] = React.useState<Feature | undefined>();
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
-  const [stateImporter, setStateImporter] = React.useState<boolean>(false)
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0)
   const [bounds, setBounds] = React.useState<mapboxgl.LngLatBoundsLike | undefined>(undefined)
 
@@ -164,10 +162,6 @@ const Content = (props: Props) => {
     });
   };
 
-  const closeImporter = () => {
-    setStateImporter(false)
-  }
-
   /**
    * Update the `currentFeature` and set default properties.
    *
@@ -230,7 +224,6 @@ const Content = (props: Props) => {
     const added = geojsonMerge.merge([drawObject.getAll(), geojson]);
     setGeoJSON(added)
     setBounds(geojsonExtent(added))
-    setStateImporter(false)
   }
 
   const downloadGeoJson = () => {
@@ -263,7 +256,7 @@ const Content = (props: Props) => {
 
       <div className="nav">
         <button className="btn" onClick={downloadGeoJson}><CloudDownloadIcon fontSize="small" /><span className="label">{__("Download GeoJSON")}</span></button>
-        <button className="btn" onClick={() => setStateImporter(true)}><CloudUploadIcon fontSize="small" /><span className="label">{__("Import GeoJSON")}</span></button>
+        <ImportButton GeoJsonImporter={GeoJsonImporter} />
       </div>
 
       <div className="editor">
@@ -287,8 +280,6 @@ const Content = (props: Props) => {
           onFailure={onRequestError}
         />
       </DangerZone>
-
-      {stateImporter? <Importer state={stateImporter} onClose={closeImporter} GeoJsonImporter={GeoJsonImporter} />: <></>}
     </div>
   );
 };

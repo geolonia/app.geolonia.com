@@ -49,7 +49,7 @@ export const MapContainer = (props: Props) => {
     if (draw) {
       drawCallback(draw)
     }
-  }, [draw])
+  }, [draw, drawCallback])
 
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw: MapboxDraw = new MapboxDraw({
