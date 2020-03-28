@@ -35,6 +35,14 @@ const Content = (props: Props) => {
     const input = document.querySelector(".geolonia-geojson-api-endpoint") as HTMLInputElement
     if (input) {
       input.select()
+      clipboard.writeText(`<div class="geolonia" data-geojson="${input.value}">`)
+    }
+  }
+
+  const copyUrlToClipBoard = () => {
+    const input = document.querySelector(".geolonia-geojson-api-endpoint") as HTMLInputElement
+    if (input) {
+      input.select()
       clipboard.writeText(input.value)
     }
   }
@@ -69,7 +77,8 @@ const Content = (props: Props) => {
             <Paper>
               <h3>{__("API Endpoint")}</h3>
               <input className="geolonia-geojson-api-endpoint" value={`https://api.geolonia.com/v1/geojson/${props.GeoJsonID}`} onChange={geoJsonChangeHandler} />
-              <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} onClick={() => copyToClipBoard() }>{__("Copy to Clipboard")}</Button></p>
+              <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} onClick={() => copyToClipBoard() }>{__("Copy embed code to clipboard")}</Button></p>
+              <p style={{textAlign: "center"}}>Or<br /><a onClick={copyUrlToClipBoard} href="javascript: void(0)">{__("Copy endpoint URL to clipboard")}</a></p>
               <TextField
                 label={__("URLs")}
                 margin="normal"
