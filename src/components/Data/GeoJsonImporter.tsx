@@ -19,7 +19,7 @@ const styleOuterDefault: React.CSSProperties = {
   left: '0px',
   zIndex: 9999,
   display: 'none',
-  backgroundColor: 'rgba(255, 255, 255, 0.8)',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
@@ -85,10 +85,10 @@ const Importer = (props: Props) => {
     <div className="geojson-importer" style={styleOuter} onClick={close}>
       <div className="inner" onClick={preventClose}>
         <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
-  <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 100000)})</p>
+  <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
         <p>{__("Features that are imported will always be added and the existing features will not be updated.")}</p>
-        {error? <div className="error">{sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 100000)}</div> : <></>}
+        {error? <div className="error">{sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 1000000)}</div> : <></>}
       </div>
     </div>
   );
