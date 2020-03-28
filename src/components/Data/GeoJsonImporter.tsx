@@ -1,8 +1,9 @@
 import React from "react";
 
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { GeoJsonMaxUploadSize } from "../../constants";
 import './GeoJsonImporter.scss'
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 
 type Props = {
   state: boolean;
@@ -52,9 +53,13 @@ const Importer = (props: Props) => {
     setError(false)
     const files = event.currentTarget.files
     if (files) {
-      const filereader = new FileReader()
-      filereader.onloadend = handleFileRead
-      filereader.readAsText(files[0])
+      if (GeoJsonMaxUploadSize > files[0].size) {
+        const filereader = new FileReader()
+        filereader.onloadend = handleFileRead
+        filereader.readAsText(files[0])
+      } else {
+        setError(true)
+      }
     }
   }
 
@@ -80,10 +85,10 @@ const Importer = (props: Props) => {
     <div className="geojson-importer" style={styleOuter} onClick={close}>
       <div className="inner" onClick={preventClose}>
         <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
-        <p>{__("Import GeoJSON from your computer.")}</p>
+  <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 100000)})</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
-        <p>{__("Note: New features will always be added and the existing features will not be updated.")}</p>
-        {error? <div className="error">{__("Error: It doesn't seem to be GeoJSON format.")}</div> : <></>}
+        <p>{__("Features that are imported will always be added and the existing features will not be updated.")}</p>
+        {error? <div className="error">{sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 100000)}</div> : <></>}
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { __ } from "@wordpress/i18n";
 
 export const avatarLimitSize = 10; // Unit: MB
 export const messageDisplayDuration = 3000; // Unit: milli sec.
+export const GeoJsonMaxUploadSize = 5000000; // 5MB
 
 export const getErrorMessage = (code: ErrorCodes) => {
   switch (code) {
