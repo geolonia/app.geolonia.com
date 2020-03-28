@@ -66,8 +66,8 @@ const InputColor = (props: Props) => {
       const {top: _top, left: _left} = outer.getBoundingClientRect()
 
       setStyleColorPickerContainer({
-        top: top - _top - 40,
-        left: left - _left + 140,
+        top: top - _top + 24,
+        left: left - _left,
         display: 'block',
       })
 
