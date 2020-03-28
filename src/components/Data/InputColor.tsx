@@ -16,7 +16,7 @@ interface ColorObject {
 
 const blackOrWhite = (hexcolor: string) => {
   if (! hexcolor.startsWith('#')) {
-    return '#FFFFFF'
+    return '#000000'
   }
 
 	var r = parseInt(hexcolor.substr( 1, 2 ), 16)
