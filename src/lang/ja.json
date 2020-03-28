@@ -45,7 +45,9 @@
         "Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
       ],
       "Import GeoJSON": ["GeoJSON をインポート"],
-      "Import GeoJSON from your computer.": ["GeoJSON S"],
+      "Import GeoJSON from your computer.": [
+        "GeoJSON をコンピューターからインポートしましょう。"
+      ],
       "Note: New features will always be added and the existing features will not be updated.": [
         "備考: データは常に新規に追加され、すでにあるデータの上書きを行いません。"
       ],
