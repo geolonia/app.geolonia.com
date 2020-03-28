@@ -25,8 +25,7 @@ msgstr "API キーを取得"
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:127 src/components/Data/GIS.tsx:106
-#: src/components/Data/GISs.tsx:71 src/components/Navigator.tsx:146
+#: src/components/Dashboard.tsx:127
 msgid "Geosearch"
 msgstr ""
 
@@ -47,17 +46,24 @@ msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GIS.tsx:102 src/components/Data/GISs.tsx:67
-msgid "GIS services"
+#, fuzzy
+msgid "API services"
 msgstr "GIS サービス"
 
+#: src/components/Data/GIS.tsx:106 src/components/Data/GISs.tsx:71
+#: src/components/Navigator.tsx:146
+msgid "GeoJSON Hosting"
+msgstr ""
+
 #: src/components/Data/GIS.tsx:240
-msgid "Dataset settings"
-msgstr "データセットの設定"
+msgid "GeoJSON Editor"
+msgstr ""
 
 #: src/components/Data/GIS.tsx:241
+#, fuzzy
 msgid ""
-"You can manage and set the dataset, and get the the access point URL of "
-"dataset API."
+"You can manage and style features in your GeoJSON, and get the the access "
+"point URL of GeoJSON API."
 msgstr ""
 "データセットの管理や設定を行ったり、データセット API のアクセスポイントの "
 "URL を取得することができます。"
@@ -101,33 +107,39 @@ msgid "(No date)"
 msgstr "(データなし)"
 
 #: src/components/Data/GISs.tsx:96
+#, fuzzy
 msgid ""
-"Geosearch is an API service specialized for location data. Register various "
-"location information data such as stores and real estate informations that "
-"you have."
+"GeoJSON Hosting is an API service specialized for location data. Register "
+"various location information data such as stores and real estate "
+"informations that you have."
 msgstr ""
 "Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情"
 "報や不動産情報などのデータを登録しましょう。"
 
-#: src/components/Data/GeoJsonImporter.tsx:82
+#: src/components/Data/GeoJsonImporter.tsx:87
 #: src/components/Data/ImportButton.tsx:25
 msgid "Import GeoJSON"
 msgstr "GeoJSON をインポート"
 
-#: src/components/Data/GeoJsonImporter.tsx:83
+#: src/components/Data/GeoJsonImporter.tsx:88
 msgid "Import GeoJSON from your computer."
 msgstr "GeoJSON をコンピューターからインポートしましょう。"
 
-#: src/components/Data/GeoJsonImporter.tsx:85
-msgid ""
-"Note: New features will always be added and the existing features will not "
-"be updated."
-msgstr ""
-"備考: データは常に新規に追加され、すでにあるデータの上書きを行いません。"
+#: src/components/Data/GeoJsonImporter.tsx:88
+msgid "Maximum upload file size: %d MB"
+msgstr "最大アップロードファイルサイズ: %d MB"
 
-#: src/components/Data/GeoJsonImporter.tsx:86
-msgid "Error: It doesn't seem to be GeoJSON format."
-msgstr "エラー: GeoJSON フォーマットではないようです。"
+#: src/components/Data/GeoJsonImporter.tsx:90
+msgid ""
+"Features that are imported will always be added and the existing features "
+"will not be updated."
+msgstr ""
+"インポートされた地物は常に新規に追加され、既存のデータの上書きは行われませ"
+"ん。"
+
+#: src/components/Data/GeoJsonImporter.tsx:91
+msgid "Error: Please upload GeoJSON file less than %d MB."
+msgstr "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
 
 #: src/components/Data/PropsEditor.tsx:51
 msgid "Small"
@@ -398,7 +410,8 @@ msgid "My team"
 msgstr ""
 
 #: src/components/Navigator.tsx:143
-msgid "GIS Services"
+#, fuzzy
+msgid "API Services"
 msgstr "GIS サービス"
 
 #: src/components/Navigator.tsx:155
@@ -931,15 +944,15 @@ msgstr "アカウントの確認"
 msgid "Verification code"
 msgstr "検証コード"
 
-#: src/constants.ts:10
+#: src/constants.ts:11
 msgid "You are not authorized to do this operation."
 msgstr "この操作を行う権限がありません。"
 
-#: src/constants.ts:12
+#: src/constants.ts:13
 msgid "Network error."
 msgstr "通信エラー。"
 
-#: src/constants.ts:16
+#: src/constants.ts:17
 msgid "Unknown error."
 msgstr "不明なエラー。"
 
@@ -957,6 +970,12 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Dataset settings"
+#~ msgstr "データセットの設定"
+
+#~ msgid "Error: It doesn't seem to be GeoJSON format."
+#~ msgstr "エラー: GeoJSON フォーマットではないようです。"
 
 #~ msgid "Stroke Color"
 #~ msgstr "線の色"

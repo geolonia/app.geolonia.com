@@ -16,9 +16,6 @@ msgid "Get API key then create your map!"
 msgstr ""
 
 #: src/components/Dashboard.tsx:127
-#: src/components/Data/GIS.tsx:106
-#: src/components/Data/GISs.tsx:71
-#: src/components/Navigator.tsx:146
 msgid "Geosearch"
 msgstr ""
 
@@ -40,17 +37,23 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:102
 #: src/components/Data/GISs.tsx:67
-msgid "GIS services"
+msgid "API services"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:106
+#: src/components/Data/GISs.tsx:71
+#: src/components/Navigator.tsx:146
+msgid "GeoJSON Hosting"
 msgstr ""
 
 #: src/components/Data/GIS.tsx:240
-msgid "Dataset settings"
+msgid "GeoJSON Editor"
 msgstr ""
 
 #: src/components/Data/GIS.tsx:241
 msgid ""
-"You can manage and set the dataset, and get the the access point URL of "
-"dataset API."
+"You can manage and style features in your GeoJSON, and get the the access "
+"point URL of GeoJSON API."
 msgstr ""
 
 #: src/components/Data/GIS.tsx:257
@@ -96,28 +99,32 @@ msgstr ""
 
 #: src/components/Data/GISs.tsx:96
 msgid ""
-"Geosearch is an API service specialized for location data. Register various "
-"location information data such as stores and real estate informations that "
-"you have."
+"GeoJSON Hosting is an API service specialized for location data. Register "
+"various location information data such as stores and real estate "
+"informations that you have."
 msgstr ""
 
-#: src/components/Data/GeoJsonImporter.tsx:82
+#: src/components/Data/GeoJsonImporter.tsx:87
 #: src/components/Data/ImportButton.tsx:25
 msgid "Import GeoJSON"
 msgstr ""
 
-#: src/components/Data/GeoJsonImporter.tsx:83
+#: src/components/Data/GeoJsonImporter.tsx:88
 msgid "Import GeoJSON from your computer."
 msgstr ""
 
-#: src/components/Data/GeoJsonImporter.tsx:85
-msgid ""
-"Note: New features will always be added and the existing features will not "
-"be updated."
+#: src/components/Data/GeoJsonImporter.tsx:88
+msgid "Maximum upload file size: %d MB"
 msgstr ""
 
-#: src/components/Data/GeoJsonImporter.tsx:86
-msgid "Error: It doesn't seem to be GeoJSON format."
+#: src/components/Data/GeoJsonImporter.tsx:90
+msgid ""
+"Features that are imported will always be added and the existing features "
+"will not be updated."
+msgstr ""
+
+#: src/components/Data/GeoJsonImporter.tsx:91
+msgid "Error: Please upload GeoJSON file less than %d MB."
 msgstr ""
 
 #: src/components/Data/PropsEditor.tsx:51
@@ -386,7 +393,7 @@ msgid "My team"
 msgstr ""
 
 #: src/components/Navigator.tsx:143
-msgid "GIS Services"
+msgid "API Services"
 msgstr ""
 
 #: src/components/Navigator.tsx:155
@@ -913,15 +920,15 @@ msgstr ""
 msgid "Verification code"
 msgstr ""
 
-#: src/constants.ts:10
+#: src/constants.ts:11
 msgid "You are not authorized to do this operation."
 msgstr ""
 
-#: src/constants.ts:12
+#: src/constants.ts:13
 msgid "Network error."
 msgstr ""
 
-#: src/constants.ts:16
+#: src/constants.ts:17
 msgid "Unknown error."
 msgstr ""
 

@@ -30,8 +30,8 @@ function Content(props: Props) {
       <Route exact path="/maps/api-keys" component={APIKeys} />
       <Route exact path="/maps/api-keys/:id" component={APIKey} />
 
-      <Route exact path="/data/gis" component={GISs} />
-      <Route exact path="/data/gis/:id" component={GIS} />
+      <Route exact path="/data/geojson" component={GISs} />
+      <Route exact path="/data/geojson/:id" component={GIS} />
 
       <Route exact path="/team/general" component={General} />
       <Route exact path="/team/members" component={Members} />

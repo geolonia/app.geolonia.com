@@ -64,11 +64,11 @@ function Content(props: Props) {
       href: "#/"
     },
     {
-      title: __("GIS services"),
+      title: __("API services"),
       href: null
     },
     {
-      title: __("Geosearch"),
+      title: __("GeoJSON Hosting"),
       href: null
     }
   ];
@@ -92,9 +92,9 @@ function Content(props: Props) {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title="Geosearch">
+      <Title breadcrumb={breadcrumbItems} title="GeoJSON Hosting">
         {__(
-          "Geosearch is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have."
+          "GeoJSON Hosting is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have."
         )}
       </Title>
 
@@ -109,7 +109,7 @@ function Content(props: Props) {
         errorMessage={message}
       />
 
-      <Table rows={rows} rowsPerPage={10} permalink="/data/gis/%s" />
+      <Table rows={rows} rowsPerPage={10} permalink="/data/geojson/%s" />
     </div>
   );
 }

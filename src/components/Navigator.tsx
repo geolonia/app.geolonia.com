@@ -140,12 +140,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
       ]
     },
     {
-      id: __("GIS Services"),
+      id: __("API Services"),
       children: [
         {
-          id: __("Geosearch"),
+          id: __("GeoJSON Hosting"),
           icon: <RoomIcon />,
-          href: "#/data/gis",
+          href: "#/data/geojson",
           active: false
         }
         // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },

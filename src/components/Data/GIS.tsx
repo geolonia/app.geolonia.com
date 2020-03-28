@@ -99,15 +99,15 @@ const Content = (props: Props) => {
       href: "#/"
     },
     {
-      title: __("GIS services"),
+      title: __("API services"),
       href: null
     },
     {
-      title: __("Geosearch"),
-      href: "#/data/gis"
+      title: __("GeoJSON Hosting"),
+      href: "#/data/geojson"
     },
     {
-      title: __("Dataset settings"),
+      title: __("GeoJSON Editor"),
       href: null
     }
   ];
@@ -237,9 +237,9 @@ const Content = (props: Props) => {
 
   return (
     <div className="gis-panel">
-      <Title breadcrumb={breadcrumbItems} title={__("Dataset settings")}>
+      <Title breadcrumb={breadcrumbItems} title={__("GeoJSON Editor")}>
         {__(
-          "You can manage and set the dataset, and get the the access point URL of dataset API."
+          "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API."
         )}
       </Title>
 

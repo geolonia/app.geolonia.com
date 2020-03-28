@@ -48,11 +48,14 @@
       "Import GeoJSON from your computer.": [
         "GeoJSON をコンピューターからインポートしましょう。"
       ],
-      "Note: New features will always be added and the existing features will not be updated.": [
-        "備考: データは常に新規に追加され、すでにあるデータの上書きを行いません。"
+      "Maximum upload file size: %d MB": [
+        "最大アップロードファイルサイズ: %d MB"
       ],
-      "Error: It doesn't seem to be GeoJSON format.": [
-        "エラー: GeoJSON フォーマットではないようです。"
+      "Features that are imported will always be added and the existing features will not be updated.": [
+        "インポートされた地物は常に新規に追加され、既存のデータの上書きは行われません。"
+      ],
+      "Error: Please upload GeoJSON file less than %d MB.": [
+        "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
       "Small": ["小サイズ"],
       "Medium": ["中サイズ"],
