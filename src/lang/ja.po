@@ -25,7 +25,7 @@ msgstr "API キーを取得"
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:127 src/components/Data/GIS.tsx:84
+#: src/components/Dashboard.tsx:127 src/components/Data/GIS.tsx:106
 #: src/components/Data/GISs.tsx:71 src/components/Navigator.tsx:146
 msgid "Geosearch"
 msgstr ""
@@ -42,11 +42,19 @@ msgstr "今月の地図のロード回数"
 msgid "API loads for this month"
 msgstr "今月の API のロード回数"
 
-#: src/components/Data/GIS.tsx:147
+#: src/components/Data/ExportButton.tsx:32
+msgid "Download GeoJSON"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:102 src/components/Data/GISs.tsx:67
+msgid "GIS services"
+msgstr "GIS サービス"
+
+#: src/components/Data/GIS.tsx:240
 msgid "Dataset settings"
 msgstr "データセットの設定"
 
-#: src/components/Data/GIS.tsx:148
+#: src/components/Data/GIS.tsx:241
 msgid ""
 "You can manage and set the dataset, and get the the access point URL of "
 "dataset API."
@@ -54,27 +62,27 @@ msgstr ""
 "データセットの管理や設定を行ったり、データセット API のアクセスポイントの "
 "URL を取得することができます。"
 
-#: src/components/Data/GIS.tsx:169
+#: src/components/Data/GIS.tsx:257
+msgid "Total Count of Features: %s"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:260
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr "一度データセットを削除するともとに戻すことはできません。"
 
-#: src/components/Data/GIS.tsx:174
+#: src/components/Data/GIS.tsx:265
 msgid "Are you sure you want to delete this Dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
-#: src/components/Data/GIS.tsx:175
+#: src/components/Data/GIS.tsx:266
 msgid "Please type in the name of the Dataset to confirm."
 msgstr "確認のためにデータセット名を入力してください。"
 
-#: src/components/Data/GIS.tsx:76 src/components/Data/GISs.tsx:63
+#: src/components/Data/GIS.tsx:98 src/components/Data/GISs.tsx:63
 #: src/components/Maps/APIKey.tsx:112 src/components/Maps/APIKeys.tsx:38
 #: src/components/Team/Billing.tsx:66
 msgid "Home"
 msgstr ""
-
-#: src/components/Data/GIS.tsx:80 src/components/Data/GISs.tsx:67
-msgid "GIS services"
-msgstr "GIS サービス"
 
 #: src/components/Data/GISs.tsx:102
 msgid "Create a new dataset"
@@ -101,16 +109,75 @@ msgstr ""
 "Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情"
 "報や不動産情報などのデータを登録しましょう。"
 
+#: src/components/Data/GeoJsonImporter.tsx:85
+msgid ""
+"Note: New features will always be added and the existing features will not "
+"be updated."
+msgstr ""
+
+#: src/components/Data/GeoJsonImporter.tsx:86
+msgid "Error: It doesn't seem to be GeoJSON format."
+msgstr ""
+
+#: src/components/Data/ImportButton.tsx:25
+msgid "Import GeoJSON"
+msgstr ""
+
+#: src/components/Data/PropsEditor.tsx:50
+msgid "Small"
+msgstr ""
+
+#: src/components/Data/PropsEditor.tsx:51
+msgid "Medium"
+msgstr ""
+
+#: src/components/Data/PropsEditor.tsx:51
+msgid "Large"
+msgstr ""
+
+#: src/components/Data/PropsEditor.tsx:61
+msgid "Title"
+msgstr ""
+
+#: src/components/Data/PropsEditor.tsx:63 src/components/Data/fields.tsx:32
+#: src/components/Team/general/fields.tsx:97
+msgid "Description"
+msgstr "説明"
+
+#: src/components/Data/PropsEditor.tsx:65
+msgid "Style"
+msgstr ""
+
+#: src/components/Data/PropsTable.tsx:43
+msgid "Nothing found."
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:24
+msgid "Size"
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:34
+msgid "Symbol"
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:61
+msgid "Stroke Width"
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:68
+msgid "Background Color"
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:73
+msgid "Stroke Color"
+msgstr ""
+
 #: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:221
 #: src/components/Navigator.tsx:317 src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125 src/components/custom/AddNew.tsx:34
 #: src/components/custom/Delete.tsx:119
 msgid "Name"
 msgstr "名前"
-
-#: src/components/Data/fields.tsx:32 src/components/Team/general/fields.tsx:97
-msgid "Description"
-msgstr "説明"
 
 #: src/components/Data/fields.tsx:40 src/components/Maps/APIKey.tsx:232
 msgid "URLs"
@@ -862,17 +929,17 @@ msgstr "通信エラー。"
 msgid "Unknown error."
 msgstr "不明なエラー。"
 
-#: src/components/Data/map-container.tsx:82
+#: src/components/Data/MapEditor.tsx:98
 msgctxt "Default value of latitude for map"
 msgid "0"
 msgstr "35.65810422222222"
 
-#: src/components/Data/map-container.tsx:83
+#: src/components/Data/MapEditor.tsx:99
 msgctxt "Default value of longitude for map"
 msgid "0"
 msgstr "139.74135747222223"
 
-#: src/components/Data/map-container.tsx:85
+#: src/components/Data/MapEditor.tsx:101
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
