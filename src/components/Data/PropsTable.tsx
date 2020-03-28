@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { Feature, FeatureProperties } from '../../types';
 import SimpleStyle from './SimpleStyle';
@@ -16,7 +16,7 @@ type Props = {
 const Content = (props: Props) => {
   const [properties, setProperties] = React.useState<FeatureProperties>({})
 
-  useEffect(() => {
+  React.useEffect(() => {
     const spec = SimpleStyle[props.currentFeature.geometry.type]
     const properties = {...props.currentFeature.properties}
     const exclude = ['__featureId', '__geojsonId', 'title', 'description', ...Object.keys(spec)]
@@ -28,15 +28,26 @@ const Content = (props: Props) => {
     setProperties(properties)
   }, [props.currentFeature])
 
+  const updateHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+  }
+
   const tableRows = []
-  for (const key in properties) {
-    tableRows.push(<tr key={key}><th>{key}</th><td>{properties[key]}</td></tr>)
+  for (let i = 0; i < Object.keys(properties).length; i++) {
+    const key = Object.keys(properties)[i]
+    const value = properties[key]
+    tableRows.push(
+      <tr key={i}>
+        <th><input value={key} onChange={updateHandler} data-index={i} /></th>
+        <td><input value={value} onChange={updateHandler} data-index={i} /></td>
+      </tr>)
   }
 
   return (
     <div className="props-table">
     {tableRows.length?
       <table>
+        <thead><tr><th>{__("Key")}</th><th>{__("Value")}</th></tr></thead>
         <tbody>{tableRows}</tbody>
       </table>
       :

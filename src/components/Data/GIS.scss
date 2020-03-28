@@ -136,7 +136,7 @@
         border-collapse: collapse;
       }
 
-      tr:nth-child(odd)
+      tr:nth-child(even)
       {
         background-color: #f5f5f5;
       }
@@ -146,11 +146,39 @@
         border-bottom: 1px solid #eeeeee;
       }
 
-      th, td
+      thead
       {
-        padding: 4px 8px;
         font-size: 90%;
-        min-width: 30%;
+
+        tr
+        {
+          background-color: #dedede;
+        }
+
+        th
+        {
+          text-align: center;
+          font-weight: normal;
+        }
+      }
+
+      tbody
+      {
+        th, td
+        {
+          padding: 4px 8px;
+          min-width: 30%;
+        }
+      }
+
+      input
+      {
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        margin: 0;
+        font-size: 90%;
+        width: 100%;
       }
     }
   }
