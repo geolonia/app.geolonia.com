@@ -14,6 +14,7 @@ type Props = {
   publicGeoJson: boolean;
   setPublicGeoJson: Function;
   GeoJsonID: string | undefined;
+  isPayedUser: boolean;
 };
 
 const metaStyle = {
@@ -59,7 +60,7 @@ const Content = (props: Props) => {
             <Switch
               checked={props.publicGeoJson}
               onChange={handlePublicGeoJson}
-              disabled
+              disabled={!props.isPayedUser}
               color="primary"
             />  {props.publicGeoJson? <span className="is-public"><LockOpenIcon fontSize="small" />Public</span>
                       : <span className="is-public"><LockIcon fontSize="small" />Private</span>}
@@ -88,9 +89,9 @@ const Content = (props: Props) => {
                 fullWidth={true}
                 value={allowedOrigins}
                 onChange={e => setAllowedOrigins(e.target.value)}
-                disabled={true}
+                disabled={props.publicGeoJson}
               />
-              <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} disabled>{__("Save")}</Button></p>
+              <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} disabled={props.publicGeoJson}>{__("Save")}</Button></p>
               <p>{__("URLs will be used for an HTTP referrer to restrict the URLs that can use this GeoJSON API.")}
                   &nbsp;<a href="#/team/billing">{__("Become a Pro")}</a></p>
             </Paper>
