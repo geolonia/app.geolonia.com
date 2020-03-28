@@ -101,6 +101,15 @@ msgid ""
 "you have."
 msgstr ""
 
+#: src/components/Data/GeoJsonImporter.tsx:82
+#: src/components/Data/ImportButton.tsx:25
+msgid "Import GeoJSON"
+msgstr ""
+
+#: src/components/Data/GeoJsonImporter.tsx:83
+msgid "Import GeoJSON from your computer."
+msgstr ""
+
 #: src/components/Data/GeoJsonImporter.tsx:85
 msgid ""
 "Note: New features will always be added and the existing features will not "
@@ -109,10 +118,6 @@ msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:86
 msgid "Error: It doesn't seem to be GeoJSON format."
-msgstr ""
-
-#: src/components/Data/ImportButton.tsx:25
-msgid "Import GeoJSON"
 msgstr ""
 
 #: src/components/Data/PropsEditor.tsx:51
@@ -127,17 +132,17 @@ msgstr ""
 msgid "Large"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:62
+#: src/components/Data/PropsEditor.tsx:64
 msgid "Title"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:64
+#: src/components/Data/PropsEditor.tsx:66
 #: src/components/Data/fields.tsx:32
 #: src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:66
+#: src/components/Data/PropsEditor.tsx:68
 msgid "Style"
 msgstr ""
 

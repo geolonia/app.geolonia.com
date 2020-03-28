@@ -44,7 +44,7 @@ msgstr "今月の API のロード回数"
 
 #: src/components/Data/ExportButton.tsx:32
 msgid "Download GeoJSON"
-msgstr ""
+msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GIS.tsx:102 src/components/Data/GISs.tsx:67
 msgid "GIS services"
@@ -64,7 +64,7 @@ msgstr ""
 
 #: src/components/Data/GIS.tsx:257
 msgid "Total Count of Features: %s"
-msgstr ""
+msgstr "%s 件のデータ"
 
 #: src/components/Data/GIS.tsx:260
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
@@ -109,19 +109,25 @@ msgstr ""
 "Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情"
 "報や不動産情報などのデータを登録しましょう。"
 
+#: src/components/Data/GeoJsonImporter.tsx:82
+#: src/components/Data/ImportButton.tsx:25
+msgid "Import GeoJSON"
+msgstr "GeoJSON をインポート"
+
+#: src/components/Data/GeoJsonImporter.tsx:83
+msgid "Import GeoJSON from your computer."
+msgstr "GeoJSON をコンピューターからインポートしましょう。"
+
 #: src/components/Data/GeoJsonImporter.tsx:85
 msgid ""
 "Note: New features will always be added and the existing features will not "
 "be updated."
-msgstr "備考: データは常に新規に追加され、すでにあるデータの上書きを行いません。"
+msgstr ""
+"備考: データは常に新規に追加され、すでにあるデータの上書きを行いません。"
 
 #: src/components/Data/GeoJsonImporter.tsx:86
 msgid "Error: It doesn't seem to be GeoJSON format."
 msgstr "エラー: GeoJSON フォーマットではないようです。"
-
-#: src/components/Data/ImportButton.tsx:25
-msgid "Import GeoJSON"
-msgstr "GeoJSON をインポート"
 
 #: src/components/Data/PropsEditor.tsx:51
 msgid "Small"
@@ -135,16 +141,16 @@ msgstr "中サイズ"
 msgid "Large"
 msgstr "大サイズ"
 
-#: src/components/Data/PropsEditor.tsx:62
+#: src/components/Data/PropsEditor.tsx:64
 msgid "Title"
 msgstr "タイトル"
 
-#: src/components/Data/PropsEditor.tsx:64 src/components/Data/fields.tsx:32
+#: src/components/Data/PropsEditor.tsx:66 src/components/Data/fields.tsx:32
 #: src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr "説明"
 
-#: src/components/Data/PropsEditor.tsx:66
+#: src/components/Data/PropsEditor.tsx:68
 msgid "Style"
 msgstr "スタイル"
 
