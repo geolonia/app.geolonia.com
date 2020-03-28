@@ -21,6 +21,7 @@ import PropsEditor from './PropsEditor'
 import SimpleStyle from './SimpleStyle'
 import ImportButton from './ImportButton'
 import ExportButton from './ExportButton'
+import GeoJsonMeta from './GeoJsonMeta'
 
 import "./GIS.scss";
 
@@ -85,6 +86,7 @@ const Content = (props: Props) => {
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0)
   const [bounds, setBounds] = React.useState<mapboxgl.LngLatBoundsLike | undefined>(undefined)
+  const [publicGeoJson, setPublicGeoJson] = React.useState<boolean>(true)
 
   React.useEffect(() => {
     if (props.geosearch) {
@@ -255,6 +257,8 @@ const Content = (props: Props) => {
       </div>
 
       <div className="number-features">{sprintf(__('Total Count of Features: %s'), new Intl.NumberFormat().format(numberFeatures))}</div>
+
+      <div className="geojson-meta"><GeoJsonMeta GeoJsonID={props.geojsonId} publicGeoJson={publicGeoJson} setPublicGeoJson={setPublicGeoJson} /></div>
 
       <DangerZone
         whyDanger={__(

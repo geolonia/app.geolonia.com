@@ -47,6 +47,33 @@
     }
   }
 
+  .geojson-meta
+  {
+    .is-public
+    {
+      display: inline-flex;
+      vertical-align: middle;
+      line-height: 24px;
+      font-size: 14px;
+
+      svg
+      {
+        margin-right: 4px;;
+      }
+    }
+
+    h3
+    {
+      margin-top: 0;
+    }
+
+    .geolonia-geojson-api-endpoint
+    {
+      width: 100%;
+      padding: 4px;
+    }
+  }
+
   .props
   {
     position: absolute;
