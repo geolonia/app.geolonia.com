@@ -25,7 +25,7 @@ msgstr "API キーを取得"
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:127 src/components/Data/GIS.tsx:106
+#: src/components/Dashboard.tsx:127 src/components/Data/GIS.tsx:108
 #: src/components/Data/GISs.tsx:71 src/components/Navigator.tsx:146
 msgid "GeoJSON Hosting"
 msgstr "GeoJSON ホスティング"
@@ -46,42 +46,43 @@ msgstr "今月の API のロード回数"
 msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GIS.tsx:102 src/components/Data/GISs.tsx:67
-msgid "API services"
-msgstr "API サービス"
-
-#: src/components/Data/GIS.tsx:240
-msgid "GeoJSON Editor"
-msgstr "GeoJSON エディター"
-
-#: src/components/Data/GIS.tsx:241
-msgid ""
-"You can manage and style features in your GeoJSON, and get the the access "
-"point URL of GeoJSON API."
-msgstr ""
-"GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、GeoJSON API のアクセスポイントの URL を取得できます。"
-
-#: src/components/Data/GIS.tsx:257
-msgid "Total Count of Features: %s"
-msgstr "%s 件のデータ"
-
-#: src/components/Data/GIS.tsx:260
-msgid "Once you delete an Dataset, there is no going back. Please be certain."
-msgstr "一度データセットを削除するともとに戻すことはできません。"
-
-#: src/components/Data/GIS.tsx:265
-msgid "Are you sure you want to delete this Dataset?"
-msgstr "本当にこのデータセットを削除しますか？"
-
-#: src/components/Data/GIS.tsx:266
-msgid "Please type in the name of the Dataset to confirm."
-msgstr "確認のためにデータセット名を入力してください。"
-
-#: src/components/Data/GIS.tsx:98 src/components/Data/GISs.tsx:63
+#: src/components/Data/GIS.tsx:100 src/components/Data/GISs.tsx:63
 #: src/components/Maps/APIKey.tsx:112 src/components/Maps/APIKeys.tsx:38
 #: src/components/Team/Billing.tsx:66
 msgid "Home"
 msgstr ""
+
+#: src/components/Data/GIS.tsx:104 src/components/Data/GISs.tsx:67
+msgid "API services"
+msgstr "API サービス"
+
+#: src/components/Data/GIS.tsx:242
+msgid "GeoJSON Editor"
+msgstr "GeoJSON エディター"
+
+#: src/components/Data/GIS.tsx:243
+msgid ""
+"You can manage and style features in your GeoJSON, and get the the access "
+"point URL of GeoJSON API."
+msgstr ""
+"GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、"
+"GeoJSON API のアクセスポイントの URL を取得できます。"
+
+#: src/components/Data/GIS.tsx:259
+msgid "Total Count of Features: %s"
+msgstr "%s 件のデータ"
+
+#: src/components/Data/GIS.tsx:264
+msgid "Once you delete an Dataset, there is no going back. Please be certain."
+msgstr "一度データセットを削除するともとに戻すことはできません。"
+
+#: src/components/Data/GIS.tsx:269
+msgid "Are you sure you want to delete this Dataset?"
+msgstr "本当にこのデータセットを削除しますか？"
+
+#: src/components/Data/GIS.tsx:270
+msgid "Please type in the name of the Dataset to confirm."
+msgstr "確認のためにデータセット名を入力してください。"
 
 #: src/components/Data/GISs.tsx:102
 msgid "Create a new dataset"
@@ -105,8 +106,8 @@ msgid ""
 "various location information data such as stores and real estate "
 "informations that you have."
 msgstr ""
-"GeoJSON ホスティングは、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情"
-"報や不動産情報などのデータを登録しましょう。"
+"GeoJSON ホスティングは、位置情報に特化した API サービスです。 みなさんがお持"
+"ちの店舗情報や不動産情報などのデータを登録しましょう。"
 
 #: src/components/Data/GeoJsonImporter.tsx:87
 #: src/components/Data/ImportButton.tsx:25
@@ -133,28 +134,73 @@ msgstr ""
 msgid "Error: Please upload GeoJSON file less than %d MB."
 msgstr "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
 
-#: src/components/Data/PropsEditor.tsx:51
+#: src/components/Data/GeoJsonMeta.tsx:59
+msgid "Anyone can access this GeoJSON API."
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:60
+msgid "You can restrict the URLs that can use this GeoJSON API."
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:63
+msgid "You can change privacy of this GeoJSON API as a Pro."
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:70
+msgid "API Endpoint"
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:72 src/components/Maps/APIKey.tsx:314
+msgid "Copy to Clipboard"
+msgstr "クリップボードにコピー"
+
+#: src/components/Data/GeoJsonMeta.tsx:74 src/components/Data/fields.tsx:40
+#: src/components/Maps/APIKey.tsx:232
+msgid "URLs"
+msgstr "URL のリスト"
+
+#: src/components/Data/GeoJsonMeta.tsx:84
+#: src/components/Team/members/change-role.tsx:156
+#: src/components/Team/members/suspend.tsx:114
+#: src/components/custom/AddNew.tsx:141 src/components/custom/Save.tsx:25
+msgid "Save"
+msgstr "保存"
+
+#: src/components/Data/GeoJsonMeta.tsx:85
+#, fuzzy
+msgid ""
+"URLs will be used for an HTTP referrer to restrict the URLs that can use "
+"this GeoJSON API."
+msgstr ""
+"URL のリストは、API キーが意図しない URL から使用されないように制限するため"
+"に、HTTP リファラーに対して使用されます。"
+
+#: src/components/Data/GeoJsonMeta.tsx:86
+msgid "Become a Pro"
+msgstr ""
+
+#: src/components/Data/PropsEditor.tsx:50
 msgid "Small"
 msgstr "小サイズ"
 
-#: src/components/Data/PropsEditor.tsx:52
+#: src/components/Data/PropsEditor.tsx:51
 msgid "Medium"
 msgstr "中サイズ"
 
-#: src/components/Data/PropsEditor.tsx:52
+#: src/components/Data/PropsEditor.tsx:51
 msgid "Large"
 msgstr "大サイズ"
 
-#: src/components/Data/PropsEditor.tsx:64
+#: src/components/Data/PropsEditor.tsx:63
 msgid "Title"
 msgstr "タイトル"
 
-#: src/components/Data/PropsEditor.tsx:66 src/components/Data/fields.tsx:32
+#: src/components/Data/PropsEditor.tsx:65 src/components/Data/fields.tsx:32
 #: src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr "説明"
 
-#: src/components/Data/PropsEditor.tsx:68
+#: src/components/Data/PropsEditor.tsx:67
 msgid "Style"
 msgstr "スタイル"
 
@@ -196,10 +242,6 @@ msgstr "線の太さ"
 #: src/components/custom/Delete.tsx:119
 msgid "Name"
 msgstr "名前"
-
-#: src/components/Data/fields.tsx:40 src/components/Maps/APIKey.tsx:232
-msgid "URLs"
-msgstr "URL のリスト"
 
 #: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:244
 msgid ""
@@ -376,10 +418,6 @@ msgstr "ステップ 3"
 #: src/components/Maps/APIKey.tsx:312
 msgid "Adjust the element size."
 msgstr "地図を表示する要素のサイズを調整して下さい。"
-
-#: src/components/Maps/APIKey.tsx:314
-msgid "Copy to Clipboard"
-msgstr "クリップボードにコピー"
 
 #: src/components/Maps/APIKeys.tsx:78
 msgid "You need an API key to display map. Get an API key."
@@ -743,12 +781,6 @@ msgstr "メンバー"
 msgid "Can access all resource in the team."
 msgstr "このチームの全てのリソースにアクセスできます。"
 
-#: src/components/Team/members/change-role.tsx:156
-#: src/components/Team/members/suspend.tsx:114
-#: src/components/custom/AddNew.tsx:141 src/components/custom/Save.tsx:25
-msgid "Save"
-msgstr "保存"
-
 #: src/components/Team/members/index.tsx:144
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
@@ -948,17 +980,17 @@ msgstr "通信エラー。"
 msgid "Unknown error."
 msgstr "不明なエラー。"
 
-#: src/components/Data/MapEditor.tsx:98
+#: src/components/Data/MapEditor.tsx:102
 msgctxt "Default value of latitude for map"
 msgid "0"
 msgstr "35.65810422222222"
 
-#: src/components/Data/MapEditor.tsx:99
+#: src/components/Data/MapEditor.tsx:103
 msgctxt "Default value of longitude for map"
 msgid "0"
 msgstr "139.74135747222223"
 
-#: src/components/Data/MapEditor.tsx:101
+#: src/components/Data/MapEditor.tsx:105
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
