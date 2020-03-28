@@ -201,7 +201,7 @@ const Content = (props: Props) => {
       drawObject.setFeatureProperty(feature.id, key, value)
 
       setCurrentFeature(feature)
-      setGeoJSON(drawObject.getAll())
+      setGeoJSON(drawObject.getAll()) // It is needed to assign result of edit to the map.
 
       console.log(feature)
     }

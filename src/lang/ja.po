@@ -148,7 +148,15 @@ msgstr "説明"
 msgid "Style"
 msgstr ""
 
-#: src/components/Data/PropsTable.tsx:43
+#: src/components/Data/PropsTable.tsx:50
+msgid "Key"
+msgstr ""
+
+#: src/components/Data/PropsTable.tsx:50
+msgid "Value"
+msgstr ""
+
+#: src/components/Data/PropsTable.tsx:54
 msgid "Nothing found."
 msgstr ""
 
