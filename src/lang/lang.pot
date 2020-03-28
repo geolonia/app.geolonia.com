@@ -16,7 +16,10 @@ msgid "Get API key then create your map!"
 msgstr ""
 
 #: src/components/Dashboard.tsx:127
-msgid "Geosearch"
+#: src/components/Data/GIS.tsx:106
+#: src/components/Data/GISs.tsx:71
+#: src/components/Navigator.tsx:146
+msgid "GeoJSON Hosting"
 msgstr ""
 
 #: src/components/Dashboard.tsx:130
@@ -38,12 +41,6 @@ msgstr ""
 #: src/components/Data/GIS.tsx:102
 #: src/components/Data/GISs.tsx:67
 msgid "API services"
-msgstr ""
-
-#: src/components/Data/GIS.tsx:106
-#: src/components/Data/GISs.tsx:71
-#: src/components/Navigator.tsx:146
-msgid "GeoJSON Hosting"
 msgstr ""
 
 #: src/components/Data/GIS.tsx:240

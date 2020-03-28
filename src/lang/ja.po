@@ -25,9 +25,10 @@ msgstr "API キーを取得"
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:127
-msgid "Geosearch"
-msgstr ""
+#: src/components/Dashboard.tsx:127 src/components/Data/GIS.tsx:106
+#: src/components/Data/GISs.tsx:71 src/components/Navigator.tsx:146
+msgid "GeoJSON Hosting"
+msgstr "GeoJSON ホスティング"
 
 #: src/components/Dashboard.tsx:130
 msgid "Display your points, lines, polygons on your map application."
@@ -46,27 +47,19 @@ msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GIS.tsx:102 src/components/Data/GISs.tsx:67
-#, fuzzy
 msgid "API services"
-msgstr "GIS サービス"
-
-#: src/components/Data/GIS.tsx:106 src/components/Data/GISs.tsx:71
-#: src/components/Navigator.tsx:146
-msgid "GeoJSON Hosting"
-msgstr ""
+msgstr "API サービス"
 
 #: src/components/Data/GIS.tsx:240
 msgid "GeoJSON Editor"
-msgstr ""
+msgstr "GeoJSON エディター"
 
 #: src/components/Data/GIS.tsx:241
-#, fuzzy
 msgid ""
 "You can manage and style features in your GeoJSON, and get the the access "
 "point URL of GeoJSON API."
 msgstr ""
-"データセットの管理や設定を行ったり、データセット API のアクセスポイントの "
-"URL を取得することができます。"
+"GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、GeoJSON API のアクセスポイントの URL を取得できます。"
 
 #: src/components/Data/GIS.tsx:257
 msgid "Total Count of Features: %s"
@@ -107,13 +100,12 @@ msgid "(No date)"
 msgstr "(データなし)"
 
 #: src/components/Data/GISs.tsx:96
-#, fuzzy
 msgid ""
 "GeoJSON Hosting is an API service specialized for location data. Register "
 "various location information data such as stores and real estate "
 "informations that you have."
 msgstr ""
-"Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情"
+"GeoJSON ホスティングは、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情"
 "報や不動産情報などのデータを登録しましょう。"
 
 #: src/components/Data/GeoJsonImporter.tsx:87
