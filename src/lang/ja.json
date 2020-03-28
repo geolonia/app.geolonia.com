@@ -12,9 +12,9 @@
       "Get API key then create your map!": [
         "API キーを取得して新しい地図を作成しましょう。"
       ],
-      "GeoJSON Hosting": ["GeoJSON ホスティング"],
-      "Display your points, lines, polygons on your map application.": [
-        "あなたの地図アプリに、ポイントや線、ポリゴンを表示しましょう。"
+      "GeoJSON API": [""],
+      "Manage and style your GeoJSON.": [
+        "GeoJSON を登録してスタイルをカスタマイズしましょう。"
       ],
       "Developer's Blog": [""],
       "Download GeoJSON": ["GeoJSON をダウンロード"],

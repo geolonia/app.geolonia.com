@@ -16,11 +16,14 @@ msgid "Get API key then create your map!"
 msgstr ""
 
 #: src/components/Dashboard.tsx:73
-msgid "GeoJSON Hosting"
+#: src/components/Data/GIS.tsx:110
+#: src/components/Data/GISs.tsx:71
+#: src/components/Navigator.tsx:146
+msgid "GeoJSON API"
 msgstr ""
 
 #: src/components/Dashboard.tsx:76
-msgid "Display your points, lines, polygons on your map application."
+msgid "Manage and style your GeoJSON."
 msgstr ""
 
 #: src/components/Dashboard.tsx:84
@@ -44,12 +47,6 @@ msgstr ""
 msgid "API services"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:110
-#: src/components/Data/GISs.tsx:71
-#: src/components/Navigator.tsx:146
-msgid "GeoJSON API"
-msgstr ""
-
 #: src/components/Data/GIS.tsx:244
 msgid "GeoJSON Editor"
 msgstr ""
@@ -64,15 +61,15 @@ msgstr ""
 msgid "Total Count of Features: %s"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:266
+#: src/components/Data/GIS.tsx:267
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:271
+#: src/components/Data/GIS.tsx:272
 msgid "Are you sure you want to delete this Dataset?"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:272
+#: src/components/Data/GIS.tsx:273
 msgid "Please type in the name of the Dataset to confirm."
 msgstr ""
 

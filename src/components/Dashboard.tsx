@@ -70,11 +70,11 @@ const Dashboard = (props: Props) => {
             </li>
             <li>
               <Link href="#/data/geojson" color="inherit" underline="always">
-                {__("GeoJSON Hosting")}
+                {__("GeoJSON API")}
               </Link>{" "}
               -{" "}
               {__(
-                "Display your points, lines, polygons on your map application."
+                "Manage and style your GeoJSON."
               )}
             </li>
           </ul>
