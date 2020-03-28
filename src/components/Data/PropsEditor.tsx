@@ -36,7 +36,6 @@ export const PropsEditor = (props: Props) => {
 
   const type = currentFeature.geometry.type
   const styleSpec = SimpleStyle[type]
-  console.log(styleSpec)
 
   const tableRows = []
   for (const key in styleSpec) {
