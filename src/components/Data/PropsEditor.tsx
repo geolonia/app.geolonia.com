@@ -36,6 +36,7 @@ export const PropsEditor = (props: Props) => {
 
   const type = currentFeature.geometry.type
   const styleSpec = SimpleStyle[type]
+  console.log(styleSpec)
 
   const tableRows = []
   for (const key in styleSpec) {
@@ -50,7 +51,9 @@ export const PropsEditor = (props: Props) => {
       input = <select className="select-menu" name={name} value={value.toString()} onChange={updatePropSelectHandler}><option value="small">{__("Small")}</option>
           <option value="medium">{__("Medium")}</option><option value="large">{__("Large")}</option></select>
     }
-    tableRows.push(<tr key={key}><th>{styleSpec[key].label}</th><td>{input}</td></tr>)
+
+    // Note: @wordpress/i18n doesn't translate at the time of import, so it should be translated again.
+    tableRows.push(<tr key={key}><th>{__(styleSpec[key].label)}</th><td>{input}</td></tr>)
   }
 
   return (

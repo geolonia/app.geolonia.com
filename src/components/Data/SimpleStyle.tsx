@@ -36,12 +36,12 @@ const SimpleStyle: SimpleStyle = {
       "default": ""
     },
     "marker-color": {
-      "label": __("Background Color"),
+      "label": __("Background"),
       "type": "color",
       "default": backgroundColor
     },
     "stroke": {
-      "label": __("Stroke Color"),
+      "label": __("Stroke"),
       "type": "color",
       "default": strokeColor
     },
@@ -53,7 +53,7 @@ const SimpleStyle: SimpleStyle = {
   },
   "LineString": {
     "stroke": {
-      "label": __("Stroke Color"),
+      "label": __("Stroke"),
       "type": "color",
       "default": backgroundColor
     },
@@ -65,12 +65,12 @@ const SimpleStyle: SimpleStyle = {
   },
   "Polygon": {
     "fill": {
-      "label": __("Background Color"),
+      "label": __("Background"),
       "type": "color",
       "default": backgroundColor
     },
     "stroke": {
-      "label": __("Stroke Color"),
+      "label": __("Stroke"),
       "type": "color",
       "default": strokeColor
     }

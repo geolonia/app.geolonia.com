@@ -18,10 +18,13 @@
       ],
       "Map loads for this month": ["今月の地図のロード回数"],
       "API loads for this month": ["今月の API のロード回数"],
+      "Download GeoJSON": [""],
+      "GIS services": ["GIS サービス"],
       "Dataset settings": ["データセットの設定"],
       "You can manage and set the dataset, and get the the access point URL of dataset API.": [
         "データセットの管理や設定を行ったり、データセット API のアクセスポイントの URL を取得することができます。"
       ],
+      "Total Count of Features: %s": [""],
       "Once you delete an Dataset, there is no going back. Please be certain.": [
         "一度データセットを削除するともとに戻すことはできません。"
       ],
@@ -32,7 +35,6 @@
         "確認のためにデータセット名を入力してください。"
       ],
       "Home": [""],
-      "GIS services": ["GIS サービス"],
       "Create a new dataset": ["データセットを作成"],
       "Please enter the name of the new dataset.": [
         "新しいデータセットの名前を入力してください。"
@@ -42,8 +44,28 @@
       "Geosearch is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
         "Geosearch は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
       ],
-      "Name": ["名前"],
+      "Note: New features will always be added and the existing features will not be updated.": [
+        "備考: データは常に新規に追加され、すでにあるデータの上書きを行いません。"
+      ],
+      "Error: It doesn't seem to be GeoJSON format.": [
+        "エラー: GeoJSON フォーマットではないようです。"
+      ],
+      "Import GeoJSON": ["GeoJSON をインポート"],
+      "Small": ["小サイズ"],
+      "Medium": ["中サイズ"],
+      "Large": ["大サイズ"],
+      "Title": ["タイトル"],
       "Description": ["説明"],
+      "Style": ["スタイル"],
+      "Key": ["キー"],
+      "Value": ["値"],
+      "Nothing found.": ["なにもありません。"],
+      "Size": ["サイズ"],
+      "Symbol": ["シンボル"],
+      "Stroke Width": ["線の太さ"],
+      "Background": ["背景色"],
+      "Stroke": ["線の太さ"],
+      "Name": ["名前"],
       "URLs": ["URL のリスト"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"

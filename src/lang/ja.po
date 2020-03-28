@@ -113,72 +113,72 @@ msgstr ""
 msgid ""
 "Note: New features will always be added and the existing features will not "
 "be updated."
-msgstr ""
+msgstr "備考: データは常に新規に追加され、すでにあるデータの上書きを行いません。"
 
 #: src/components/Data/GeoJsonImporter.tsx:86
 msgid "Error: It doesn't seem to be GeoJSON format."
-msgstr ""
+msgstr "エラー: GeoJSON フォーマットではないようです。"
 
 #: src/components/Data/ImportButton.tsx:25
 msgid "Import GeoJSON"
-msgstr ""
+msgstr "GeoJSON をインポート"
 
-#: src/components/Data/PropsEditor.tsx:50
+#: src/components/Data/PropsEditor.tsx:51
 msgid "Small"
-msgstr ""
+msgstr "小サイズ"
 
-#: src/components/Data/PropsEditor.tsx:51
+#: src/components/Data/PropsEditor.tsx:52
 msgid "Medium"
-msgstr ""
+msgstr "中サイズ"
 
-#: src/components/Data/PropsEditor.tsx:51
+#: src/components/Data/PropsEditor.tsx:52
 msgid "Large"
-msgstr ""
+msgstr "大サイズ"
 
-#: src/components/Data/PropsEditor.tsx:61
+#: src/components/Data/PropsEditor.tsx:62
 msgid "Title"
-msgstr ""
+msgstr "タイトル"
 
-#: src/components/Data/PropsEditor.tsx:63 src/components/Data/fields.tsx:32
+#: src/components/Data/PropsEditor.tsx:64 src/components/Data/fields.tsx:32
 #: src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr "説明"
 
-#: src/components/Data/PropsEditor.tsx:65
+#: src/components/Data/PropsEditor.tsx:66
 msgid "Style"
-msgstr ""
+msgstr "スタイル"
 
 #: src/components/Data/PropsTable.tsx:50
 msgid "Key"
-msgstr ""
+msgstr "キー"
 
 #: src/components/Data/PropsTable.tsx:50
 msgid "Value"
-msgstr ""
+msgstr "値"
 
 #: src/components/Data/PropsTable.tsx:54
 msgid "Nothing found."
-msgstr ""
+msgstr "なにもありません。"
 
 #: src/components/Data/SimpleStyle.tsx:24
 msgid "Size"
-msgstr ""
+msgstr "サイズ"
 
 #: src/components/Data/SimpleStyle.tsx:34
 msgid "Symbol"
-msgstr ""
+msgstr "シンボル"
 
 #: src/components/Data/SimpleStyle.tsx:61
 msgid "Stroke Width"
-msgstr ""
+msgstr "線の太さ"
 
 #: src/components/Data/SimpleStyle.tsx:68
-msgid "Background Color"
-msgstr ""
+msgid "Background"
+msgstr "背景色"
 
 #: src/components/Data/SimpleStyle.tsx:73
-msgid "Stroke Color"
-msgstr ""
+msgid "Stroke"
+msgstr "線の太さ"
 
 #: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:221
 #: src/components/Navigator.tsx:317 src/components/Team/general/fields.tsx:87
@@ -951,6 +951,9 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Stroke Color"
+#~ msgstr "線の色"
 
 #~ msgid ""
 #~ "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
