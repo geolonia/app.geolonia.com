@@ -260,7 +260,7 @@ const Content = (props: Props) => {
 
       <div className="number-features">{sprintf(__('Total Count of Features: %s'), new Intl.NumberFormat().format(numberFeatures))}</div>
 
-      // TODO: `isPayedUser` is the flag that the the user is payed account.
+      {/* TODO: `isPayedUser` is the flag that the the user is payed account. */}
       <div className="geojson-meta"><GeoJsonMeta isPayedUser={false} GeoJsonID={props.geojsonId} publicGeoJson={publicGeoJson} setPublicGeoJson={setPublicGeoJson} /></div>
 
       <DangerZone
