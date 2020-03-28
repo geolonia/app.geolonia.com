@@ -123,8 +123,8 @@ const Dashboard = (props: Props) => {
               - {__("Get API key then create your map!")}
             </li>
             <li>
-              <Link href="#/data/gis" color="inherit" underline="always">
-                {__("Geosearch")}
+              <Link href="#/data/geojson" color="inherit" underline="always">
+                {__("GeoJSON Hosting")}
               </Link>{" "}
               -{" "}
               {__(
