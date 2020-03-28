@@ -4,6 +4,7 @@ import GeoloniaMap from "../custom/GeoloniaMap";
 import jsonStyle from "../custom/drawStyle";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { _x } from "@wordpress/i18n";
+import fullscreen from './fullscreenMap'
 
 // @ts-ignore
 import centroid from "@turf/centroid"
@@ -66,6 +67,9 @@ export const MapContainer = (props: Props) => {
       userProperties: true
     });
 
+    map.addControl(new fullscreen('.gis-panel .editor'), "top-right");
+    // @ts-ignore
+    map.addControl(new window.geolonia.NavigationControl());
     map.addControl(draw, "top-right");
     setDraw(draw);
 
@@ -101,6 +105,7 @@ export const MapContainer = (props: Props) => {
         zoom={parseFloat(_x("0", "Default value of zoom level of map"))}
         geolocateControl={"off"}
         fullscreenControl={"off"}
+        navigationControl={"off"}
         onAfterLoad={handleOnAfterLoad}
         bounds={bounds}
       />

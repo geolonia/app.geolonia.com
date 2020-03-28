@@ -10,6 +10,7 @@ type Props = {
   lng: number;
   marker: Toggle;
   zoom: number;
+  navigationControl: Toggle;
   fullscreenControl: Toggle;
   geolocateControl: Toggle;
   style: string;
@@ -42,6 +43,7 @@ class Map extends React.Component<Props, State> {
     zoom: 0,
     fullscreenControl: "off",
     geolocateControl: "off",
+    navigationControl: "off",
     style: null,
     onAfterLoad: () => {}
   };
@@ -74,6 +76,7 @@ class Map extends React.Component<Props, State> {
         data-lng={this.props.lng.toString()}
         data-marker={this.props.marker}
         data-zoom={this.props.zoom}
+        data-navigation-control={this.props.navigationControl}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
         data-style={this.props.style}
