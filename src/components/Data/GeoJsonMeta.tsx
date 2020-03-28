@@ -78,7 +78,7 @@ const Content = (props: Props) => {
               <h3>{__("API Endpoint")}</h3>
               <input className="geolonia-geojson-api-endpoint" value={`https://api.geolonia.com/v1/geojson/${props.GeoJsonID}`} onChange={geoJsonChangeHandler} />
               <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} onClick={() => copyToClipBoard() }>{__("Copy embed code to clipboard")}</Button></p>
-              <p style={{textAlign: "center"}}>Or<br /><a onClick={copyUrlToClipBoard} href="javascript: void(0)">{__("Copy endpoint URL to clipboard")}</a></p>
+              <p style={{textAlign: "center"}}>Or<br /><button className="copy-button" onClick={copyUrlToClipBoard}>{__("Copy endpoint URL to clipboard")}</button></p>
               <TextField
                 label={__("URLs")}
                 margin="normal"

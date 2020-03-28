@@ -105,7 +105,7 @@ const Content = (props: Props) => {
       href: null
     },
     {
-      title: __("GeoJSON Hosting"),
+      title: __("GeoJSON API"),
       href: "#/data/geojson"
     },
     {

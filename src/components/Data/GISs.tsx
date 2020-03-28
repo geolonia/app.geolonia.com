@@ -68,7 +68,7 @@ function Content(props: Props) {
       href: null
     },
     {
-      title: __("GeoJSON Hosting"),
+      title: __("GeoJSON API"),
       href: null
     }
   ];
@@ -92,9 +92,9 @@ function Content(props: Props) {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title="GeoJSON Hosting">
+      <Title breadcrumb={breadcrumbItems} title="GeoJSON API">
         {__(
-          "GeoJSON Hosting is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have."
+          "GeoJSON API is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have."
         )}
       </Title>
 

@@ -143,7 +143,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
       id: __("API Services"),
       children: [
         {
-          id: __("GeoJSON Hosting"),
+          id: __("GeoJSON API"),
           icon: <RoomIcon />,
           href: "#/data/geojson",
           active: false

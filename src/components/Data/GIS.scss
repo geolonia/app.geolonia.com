@@ -58,7 +58,7 @@
 
       svg
       {
-        margin-right: 4px;;
+        margin-right: 4px;
       }
     }
 
@@ -71,6 +71,17 @@
     {
       width: 100%;
       padding: 4px;
+    }
+
+    .copy-button
+    {
+      border: none;
+      background-color: transparent;
+      margin: 0;
+      padding: 0;
+      color: #009be5;
+      font-size: 14px;
+      cursor: pointer;
     }
   }
 
