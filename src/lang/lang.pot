@@ -3,35 +3,28 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/Dashboard.tsx:117
+#: src/components/Dashboard.tsx:63
 msgid "Welcome, %s"
 msgstr ""
 
-#: src/components/Dashboard.tsx:121
+#: src/components/Dashboard.tsx:67
 msgid "Get API key"
 msgstr ""
 
-#: src/components/Dashboard.tsx:123
+#: src/components/Dashboard.tsx:69
 msgid "Get API key then create your map!"
 msgstr ""
 
-#: src/components/Dashboard.tsx:127
-#: src/components/Data/GIS.tsx:108
-#: src/components/Data/GISs.tsx:71
-#: src/components/Navigator.tsx:146
+#: src/components/Dashboard.tsx:73
 msgid "GeoJSON Hosting"
 msgstr ""
 
-#: src/components/Dashboard.tsx:130
+#: src/components/Dashboard.tsx:76
 msgid "Display your points, lines, polygons on your map application."
 msgstr ""
 
-#: src/components/Dashboard.tsx:143
-msgid "Map loads for this month"
-msgstr ""
-
-#: src/components/Dashboard.tsx:156
-msgid "API loads for this month"
+#: src/components/Dashboard.tsx:84
+msgid "Developer's Blog"
 msgstr ""
 
 #: src/components/Data/ExportButton.tsx:32
@@ -49,6 +42,12 @@ msgstr ""
 #: src/components/Data/GIS.tsx:104
 #: src/components/Data/GISs.tsx:67
 msgid "API services"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:108
+#: src/components/Data/GISs.tsx:71
+#: src/components/Navigator.tsx:146
+msgid "GeoJSON API"
 msgstr ""
 
 #: src/components/Data/GIS.tsx:242
@@ -96,7 +95,7 @@ msgstr ""
 
 #: src/components/Data/GISs.tsx:96
 msgid ""
-"GeoJSON Hosting is an API service specialized for location data. Register "
+"GeoJSON API is an API service specialized for location data. Register "
 "various location information data such as stores and real estate "
 "informations that you have."
 msgstr ""
@@ -124,34 +123,37 @@ msgstr ""
 msgid "Error: Please upload GeoJSON file less than %d MB."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:59
+#: src/components/Data/GeoJsonMeta.tsx:67
 msgid "Anyone can access this GeoJSON API."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:60
+#: src/components/Data/GeoJsonMeta.tsx:68
 msgid "You can restrict the URLs that can use this GeoJSON API."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:63
+#: src/components/Data/GeoJsonMeta.tsx:71
 msgid "You can change privacy of this GeoJSON API as a Pro."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:70
+#: src/components/Data/GeoJsonMeta.tsx:78
 msgid "API Endpoint"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:72
-#: src/components/Maps/APIKey.tsx:314
-msgid "Copy to Clipboard"
+#: src/components/Data/GeoJsonMeta.tsx:80
+msgid "Copy embed code to clipboard"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:74
+#: src/components/Data/GeoJsonMeta.tsx:81
+msgid "Copy endpoint URL to clipboard"
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:83
 #: src/components/Data/fields.tsx:40
 #: src/components/Maps/APIKey.tsx:232
 msgid "URLs"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:84
+#: src/components/Data/GeoJsonMeta.tsx:93
 #: src/components/Team/members/change-role.tsx:156
 #: src/components/Team/members/suspend.tsx:114
 #: src/components/custom/AddNew.tsx:141
@@ -159,13 +161,13 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:85
+#: src/components/Data/GeoJsonMeta.tsx:94
 msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use "
 "this GeoJSON API."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:86
+#: src/components/Data/GeoJsonMeta.tsx:95
 msgid "Become a Pro"
 msgstr ""
 
@@ -403,6 +405,10 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:312
 msgid "Adjust the element size."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:314
+msgid "Copy to Clipboard"
 msgstr ""
 
 #: src/components/Maps/APIKeys.tsx:78

@@ -16,9 +16,9 @@
       "Display your points, lines, polygons on your map application.": [
         "あなたの地図アプリに、ポイントや線、ポリゴンを表示しましょう。"
       ],
-      "Map loads for this month": ["今月の地図のロード回数"],
-      "API loads for this month": ["今月の API のロード回数"],
+      "Developer's Blog": [""],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
+      "Home": [""],
       "API services": ["API サービス"],
       "GeoJSON Editor": ["GeoJSON エディター"],
       "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API.": [
@@ -34,15 +34,14 @@
       "Please type in the name of the Dataset to confirm.": [
         "確認のためにデータセット名を入力してください。"
       ],
-      "Home": [""],
       "Create a new dataset": ["データセットを作成"],
       "Please enter the name of the new dataset.": [
         "新しいデータセットの名前を入力してください。"
       ],
       "My dataset": ["データセット"],
       "(No date)": ["(データなし)"],
-      "GeoJSON Hosting is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
-        "GeoJSON ホスティングは、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
+      "GeoJSON API is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
+        "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
       ],
       "Import GeoJSON": ["GeoJSON をインポート"],
       "Import GeoJSON from your computer.": [
@@ -57,6 +56,28 @@
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
+      "Anyone can access this GeoJSON API.": [
+        "誰でもこの GeoJSON API にアクセスすることができます。"
+      ],
+      "You can restrict the URLs that can use this GeoJSON API.": [
+        "この GeoJSON API を利用できる URL を制限することができます。"
+      ],
+      "You can change privacy of this GeoJSON API as a Pro.": [
+        "Pro メンバーになると、この GeoJSON API のプライバシー設定を変更することができます。"
+      ],
+      "API Endpoint": ["API エンドポイント"],
+      "Copy embed code to clipboard": [
+        "埋め込み用コードをクリップボードにコピー"
+      ],
+      "Copy endpoint URL to clipboard": [
+        "エンドポイント URL をクリップボードにコピー"
+      ],
+      "URLs": ["URL のリスト"],
+      "Save": ["保存"],
+      "URLs will be used for an HTTP referrer to restrict the URLs that can use this GeoJSON API.": [
+        "URL のリストは、この GeoJSON API が意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
+      ],
+      "Become a Pro": ["Pro メンバーになる"],
       "Small": ["小サイズ"],
       "Medium": ["中サイズ"],
       "Large": ["大サイズ"],
@@ -72,7 +93,6 @@
       "Background": ["背景色"],
       "Stroke": ["線の太さ"],
       "Name": ["名前"],
-      "URLs": ["URL のリスト"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
@@ -261,7 +281,6 @@
       "Can access all resource in the team.": [
         "このチームの全てのリソースにアクセスできます。"
       ],
-      "Save": ["保存"],
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。"
       ],
