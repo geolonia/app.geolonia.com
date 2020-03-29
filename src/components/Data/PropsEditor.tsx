@@ -7,7 +7,7 @@ import { Feature } from "../../types";
 import InfoIcon from '@material-ui/icons/Info';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import PropsTable from './PropsTable'
-
+import IconSelector from './IconSelector'
 
 type Props = {
   currentFeature: Feature;
@@ -49,6 +49,8 @@ export const PropsEditor = (props: Props) => {
     } else if ('option' === styleSpec[key].type) {
       input = <select className="select-menu" name={name} value={value.toString()} onChange={updatePropSelectHandler}><option value="small">{__("Small")}</option>
           <option value="medium">{__("Medium")}</option><option value="large">{__("Large")}</option></select>
+    } else if ('symbol' === styleSpec[key].type) {
+      input = <IconSelector name={name} Icon={value.toString()} updatePropSelectHandler={updatePropSelectHandler} />
     }
 
     // Note: @wordpress/i18n doesn't translate at the time of import, so it should be translated again.
