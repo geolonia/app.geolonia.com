@@ -26,11 +26,11 @@ const Content = (props: Props) => {
         const items = {} as itemsHash
         for (let i = 0; i < Object.keys(json).length; i++) {
           const item = Object.keys(json)[i]
-          if (item.match(/-11$/)) {
-            items[item.replace(/-11$/, '')] = true
+          if (item.match(/-15$/)) {
+            items[item.replace(/-15$/, '')] = true
           }
         }
-        setIcons(Object.keys(items))
+        setIcons(Object.keys(items).sort())
       });
   }, [])
 
