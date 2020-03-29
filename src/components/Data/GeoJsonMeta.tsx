@@ -12,15 +12,32 @@ import { __ } from "@wordpress/i18n";
 
 import Save from "../custom/Save";
 
+type TypeGeoJsonMeta = {
+  createAt: Date;
+  data: GeoJSON.FeatureCollection;
+  isPublic: boolean;
+  name: string;
+  updateAt: Date;
+}
+
 type Props = {
   publicGeoJson: boolean;
   setPublicGeoJson: Function;
   GeoJsonID: string | undefined;
   isPayedUser: boolean;
+  geoJsonMeta: object | undefined;
 };
 
 const Content = (props: Props) => {
   const [allowedOrigins, setAllowedOrigins] = React.useState("");
+  const [name, setName] = React.useState<string>("");
+
+  React.useEffect(() => {
+    if (props.geoJsonMeta) {
+      const meta = props.geoJsonMeta as TypeGeoJsonMeta
+      setName(meta.name)
+    }
+  }, [props.geoJsonMeta])
 
   const handlePublicGeoJson = () => {
     if (true === props.publicGeoJson) {
@@ -50,6 +67,10 @@ const Content = (props: Props) => {
     return;
   }
 
+  const onChangeHandler = () => {
+
+  }
+
   return (
     <>
       <Grid className="geojson-meta" container spacing={2}>
@@ -73,12 +94,10 @@ const Content = (props: Props) => {
 
           <Paper className="geojson-title-description">
             <h3>{__('Name')}</h3>
-            <input type="text"/>
-            <h3>{__('Description')}</h3>
-            <textarea></textarea>
+            <input type="text" value={name} onChange={onChangeHandler} />
 
             <Save />
-            <p>{__("Name and Description of public GeoJSON will be displayed in public.")}</p>
+            <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
           </Paper>
         </Grid>
         {props.GeoJsonID?

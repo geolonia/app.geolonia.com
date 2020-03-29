@@ -87,8 +87,7 @@ const Content = (props: Props) => {
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0)
   const [bounds, setBounds] = React.useState<mapboxgl.LngLatBoundsLike | undefined>(undefined)
   const [publicGeoJson, setPublicGeoJson] = React.useState<boolean>(true)
-
-
+  const [geoJsonMeta, setGeoJsonMeta] = React.useState<object | undefined>()
 
   React.useEffect(() => {
     if (props.geosearch) {
@@ -115,6 +114,12 @@ const Content = (props: Props) => {
       href: null
     }
   ];
+
+  React.useEffect(() => {
+    if (props.geosearch) {
+      setGeoJsonMeta(props.geosearch)
+    }
+  }, [props.geosearch])
 
   /**
    * Merge default properties to the feature to prevent undefined error.
@@ -260,8 +265,7 @@ const Content = (props: Props) => {
 
       <div className="number-features">{sprintf(__('Total Count of Features: %s'), new Intl.NumberFormat().format(numberFeatures))}</div>
 
-      {/* TODO: `isPayedUser` is the flag that the the user is payed account. */}
-      <div className="geojson-meta"><GeoJsonMeta isPayedUser={false} GeoJsonID={props.geojsonId} publicGeoJson={publicGeoJson} setPublicGeoJson={setPublicGeoJson} /></div>
+      <div className="geojson-meta"><GeoJsonMeta isPayedUser={false} geoJsonMeta={geoJsonMeta} GeoJsonID={props.geojsonId} publicGeoJson={publicGeoJson} setPublicGeoJson={setPublicGeoJson} /></div>
 
       <DangerZone
         whyDanger={__(

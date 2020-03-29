@@ -103,17 +103,12 @@
         margin-top: 0;
       }
 
-      input, textarea
+      input
       {
+        font-size: 16px;;
         width: 100%;
         border: none;
         border-bottom: 1px solid #cccccc;
-      }
-
-      textarea
-      {
-        resize: none;
-        height: 4em;
       }
 
       button
