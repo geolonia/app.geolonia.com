@@ -72,7 +72,7 @@ const Content = (props: Props) => {
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Change your password")}</h1>
 
-        <form className="form">
+        <div className="form">
           <label className="code">
             <h3>{__("Verification Code")}</h3>
             <input
@@ -117,7 +117,6 @@ const Content = (props: Props) => {
                 passwordAgain === "" ||
                 password !== passwordAgain
               }
-              type={"submit"}
             >
               {__("Change password")}
             </Button>
@@ -127,7 +126,7 @@ const Content = (props: Props) => {
               <CircularProgress size={20} />
             </div>
           )}
-        </form>
+        </div>
 
         <div className="support-container">
           <Support />

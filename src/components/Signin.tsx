@@ -85,8 +85,8 @@ const Content = (props: Props) => {
   };
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {
     // enter
-    e.keyCode === 13 && !buttonDisabled && handleSignin();
-  };
+    e.keyCode === 13 && !buttonDisabled && handleSignin()
+  }
 
   return (
     <div className="signin">
@@ -107,7 +107,7 @@ const Content = (props: Props) => {
             {__("Oops, the server seems not to be responding correctly.")}
           </Alert>
         )}
-        <form className="form">
+        <div className="form">
           <label className="username">
             <h2>{__("Username or email address")}</h2>
             <input
@@ -144,7 +144,6 @@ const Content = (props: Props) => {
               onClick={handleSignin}
               tabIndex={300}
               disabled={buttonDisabled}
-              type={"submit"}
             >
               {__("Sign in")}
             </Button>
@@ -158,7 +157,7 @@ const Content = (props: Props) => {
               <CheckIcon fontSize={"default"} color={"primary"} />
             </div>
           ) : null}
-        </form>
+        </div>
 
         <p>
           {__("New to Geolonia?")}{" "}
