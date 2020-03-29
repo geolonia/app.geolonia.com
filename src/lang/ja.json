@@ -45,8 +45,8 @@
       "Name": ["名前"],
       "Description": ["説明"],
       "URLs": ["URL のリスト"],
-      "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS. Please enter a URL on a new line.": [
-        "それぞれの URL は、CORS のための <code>Access-Control-Allow-Origin</code> ヘッダーに使用されます。 URL は1行にひとつずつ入力してください。"
+      "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
+        "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
       "Danger Zone": ["危険"],
       "Once you delete a API key, there is no going back. Please be certain.": [
@@ -80,6 +80,12 @@
       "Configure access control for your API key and Get the HTML code for your map.": [
         "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを取得しましょう。"
       ],
+      "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
+      "Any subdomain:": ["すべてのサブドメイン:"],
+      "A URL with a non-standard port:": ["一般的ではないポート:"],
+      "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
+        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
+      ],
       "Once you delete an API, there is no going back. Please be certain.": [
         "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してください。"
       ],
@@ -96,13 +102,15 @@
         "<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
       ],
       "Step 2": ["ステップ 2"],
-      "Add the following code where you want to place the map.": [
-        "以下のコードを地図を表示したい場所に挿入してください。"
+      "Click following button and get HTML code where you want to place the map.": [
+        "以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
       ],
+      "Get HTML": ["HTML を取得"],
       "Step 3": ["ステップ 3"],
       "Adjust the element size.": [
         "地図を表示する要素のサイズを調整して下さい。"
       ],
+      "Copy to Clipboard": ["クリップボードにコピー"],
       "You need an API key to display map. Get an API key.": [
         "地図を表示するには API キーが必要です。 API キーを取得してください。"
       ],

@@ -116,9 +116,8 @@ msgstr ""
 #: src/components/Data/fields.tsx:50
 #: src/components/Maps/APIKey.tsx:224
 msgid ""
-"Each URLs will be used as a value of "
-"<code>Access-Control-Allow-Origin</code> header for CORS. Please enter a "
-"URL on a new line."
+"URLs will be used for an HTTP referrer to restrict the URLs that can use an "
+"API key."
 msgstr ""
 
 #: src/components/Data/fields.tsx:58
@@ -260,6 +259,10 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:288
 msgid "Adjust the element size."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:322
+msgid "Copy to Clipboard"
 msgstr ""
 
 #: src/components/Maps/APIKeys.tsx:78

@@ -42,7 +42,21 @@ msgstr "今月の地図のロード回数"
 msgid "API loads for this month"
 msgstr "今月の API のロード回数"
 
+<<<<<<< HEAD
 #: src/components/Data/GIS.tsx:147
+=======
+#: src/components/Data/GIS.tsx:40 src/components/Data/GISs.tsx:48
+#: src/components/Maps/APIKey.tsx:110 src/components/Maps/APIKeys.tsx:38
+#: src/components/Team/Billing.tsx:66
+msgid "Home"
+msgstr ""
+
+#: src/components/Data/GIS.tsx:44 src/components/Data/GISs.tsx:52
+msgid "GIS services"
+msgstr "GIS サービス"
+
+#: src/components/Data/GIS.tsx:59
+>>>>>>> master
 msgid "Dataset settings"
 msgstr "データセットの設定"
 
@@ -88,6 +102,7 @@ msgstr "新しいデータセットの名前を入力してください。"
 msgid "My dataset"
 msgstr "データセット"
 
+<<<<<<< HEAD
 #: src/components/Data/GISs.tsx:56 src/components/Maps/APIKeys.tsx:70
 msgid "(No date)"
 msgstr "(データなし)"
@@ -102,6 +117,9 @@ msgstr ""
 "報や不動産情報などのデータを登録しましょう。"
 
 #: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:200
+=======
+#: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:225
+>>>>>>> master
 #: src/components/Navigator.tsx:317 src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125 src/components/custom/AddNew.tsx:34
 #: src/components/custom/Delete.tsx:119
@@ -112,20 +130,33 @@ msgstr "名前"
 msgid "Description"
 msgstr "説明"
 
+<<<<<<< HEAD
 #: src/components/Data/fields.tsx:40 src/components/Maps/APIKey.tsx:211
 msgid "URLs"
 msgstr "URL のリスト"
 
 #: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:224
-msgid ""
-"Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
-"code> header for CORS. Please enter a URL on a new line."
-msgstr ""
-"それぞれの URL は、CORS のための <code>Access-Control-Allow-Origin</code> "
-"ヘッダーに使用されます。 URL は1行にひとつずつ入力してください。"
+=======
+#: src/components/Data/fields.tsx:40 src/components/Maps/APIKey.tsx:236
+msgid "URLs"
+msgstr "URL のリスト"
 
+#: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:248
+>>>>>>> master
+msgid ""
+"URLs will be used for an HTTP referrer to restrict the URLs that can use an "
+"API key."
+msgstr ""
+"URL のリストは、API キーが意図しない URL から使用されないように制限するため"
+"に、HTTP リファラーに対して使用されます。"
+
+<<<<<<< HEAD
 #: src/components/Data/fields.tsx:58 src/components/Team/general/delete.tsx:79
 #: src/components/custom/danger-zone.tsx:20
+=======
+#: src/components/Data/fields.tsx:58 src/components/Maps/APIKey.tsx:265
+#: src/components/Team/general/delete.tsx:79
+>>>>>>> master
 msgid "Danger Zone"
 msgstr "危険"
 
@@ -198,33 +229,72 @@ msgstr "プロフィール"
 msgid "Logout"
 msgstr "ログアウト"
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:112 src/components/Maps/APIKeys.tsx:42
+=======
+#: src/components/Maps/APIKey.tsx:114 src/components/Maps/APIKeys.tsx:42
+>>>>>>> master
 #: src/components/Navigator.tsx:131
 msgid "Maps"
 msgstr "地図"
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:116 src/components/Maps/APIKeys.tsx:76
+=======
+#: src/components/Maps/APIKey.tsx:118 src/components/Maps/APIKeys.tsx:76
+>>>>>>> master
 #: src/components/Navigator.tsx:134
 msgid "API keys"
 msgstr "API キー"
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:190
 msgid "API key settings"
 msgstr "API キーの設定"
 
 #: src/components/Maps/APIKey.tsx:191
+=======
+#: src/components/Maps/APIKey.tsx:215
+msgid "API key settings"
+msgstr "API キーの設定"
+
+#: src/components/Maps/APIKey.tsx:216
+>>>>>>> master
 msgid ""
 "Configure access control for your API key and Get the HTML code for your map."
 msgstr ""
 "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを"
 "取得しましょう。"
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:237
+=======
+#: src/components/Maps/APIKey.tsx:250
+msgid "Any page in a specific URL:"
+msgstr "指定された URL 以下のすべてのページ:"
+
+#: src/components/Maps/APIKey.tsx:251
+msgid "Any subdomain:"
+msgstr "すべてのサブドメイン:"
+
+#: src/components/Maps/APIKey.tsx:252
+msgid "A URL with a non-standard port:"
+msgstr "一般的ではないポート:"
+
+#: src/components/Maps/APIKey.tsx:254
+msgid "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\"."
+msgstr ""
+"備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致しま"
+"す。"
+
+#: src/components/Maps/APIKey.tsx:268
+>>>>>>> master
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してくだ"
 "さい。"
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:242
 msgid "Are you sure you want to delete this API key?"
 msgstr "この API キーを本当に削除しますか？"
@@ -246,12 +316,36 @@ msgid "Step 1"
 msgstr "ステップ 1"
 
 #: src/components/Maps/APIKey.tsx:272
+=======
+#: src/components/Maps/APIKey.tsx:273
+msgid "Are you sure you want to delete this API key?"
+msgstr "この API キーを本当に削除しますか？"
+
+#: src/components/Maps/APIKey.tsx:274
+msgid "Please type in the name of the API key to confirm."
+msgstr "確認のために API キーの名前を入力してください。"
+
+#: src/components/Maps/APIKey.tsx:290
+msgid "Your API Key"
+msgstr "あなたの API キー"
+
+#: src/components/Maps/APIKey.tsx:296
+msgid "Add the map to your site"
+msgstr "ウェブサイトに地図を追加しましょう"
+
+#: src/components/Maps/APIKey.tsx:299
+msgid "Step 1"
+msgstr "ステップ 1"
+
+#: src/components/Maps/APIKey.tsx:303
+>>>>>>> master
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body /&gt;</"
 "code> in your HTML file."
 msgstr ""
 "<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
 
+<<<<<<< HEAD
 #: src/components/Maps/APIKey.tsx:279
 msgid "Step 2"
 msgstr "ステップ 2"
@@ -265,8 +359,33 @@ msgid "Step 3"
 msgstr "ステップ 3"
 
 #: src/components/Maps/APIKey.tsx:288
+=======
+#: src/components/Maps/APIKey.tsx:311
+msgid "Step 2"
+msgstr "ステップ 2"
+
+#: src/components/Maps/APIKey.tsx:314
+msgid ""
+"Click following button and get HTML code where you want to place the map."
+msgstr ""
+"以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
+
+#: src/components/Maps/APIKey.tsx:316
+msgid "Get HTML"
+msgstr "HTML を取得"
+
+#: src/components/Maps/APIKey.tsx:318
+msgid "Step 3"
+msgstr "ステップ 3"
+
+#: src/components/Maps/APIKey.tsx:320
+>>>>>>> master
 msgid "Adjust the element size."
 msgstr "地図を表示する要素のサイズを調整して下さい。"
+
+#: src/components/Maps/APIKey.tsx:322
+msgid "Copy to Clipboard"
+msgstr "クリップボードにコピー"
 
 #: src/components/Maps/APIKeys.tsx:78
 msgid "You need an API key to display map. Get an API key."
@@ -849,8 +968,12 @@ msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
 
-#~ msgid "Signup failed."
-#~ msgstr "サインアップ失敗"
+#~ msgid ""
+#~ "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"
+#~ "code> header for CORS. Please enter a URL on a new line."
+#~ msgstr ""
+#~ "それぞれの URL は、CORS のための <code>Access-Control-Allow-Origin</code> "
+#~ "ヘッダーに使用されます。 URL は1行にひとつずつ入力してください。"
 
 #~ msgid "The billing member cannot be degraded."
 #~ msgstr "このメンバーの権限は変更できません。チーム設定で"

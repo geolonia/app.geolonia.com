@@ -48,7 +48,7 @@ export const Fields = () => {
       <Typography style={styleHelpText} component="p" color="textSecondary">
         <Interweave
           content={__(
-            "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</code> header for CORS. Please enter a URL on a new line."
+            "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key."
           )}
         />
       </Typography>
