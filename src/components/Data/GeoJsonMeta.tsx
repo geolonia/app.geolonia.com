@@ -10,16 +10,14 @@ import * as clipboard from 'clipboard-polyfill'
 import TextField from "@material-ui/core/TextField";
 import { __ } from "@wordpress/i18n";
 
+import Save from "../custom/Save";
+
 type Props = {
   publicGeoJson: boolean;
   setPublicGeoJson: Function;
   GeoJsonID: string | undefined;
   isPayedUser: boolean;
 };
-
-const metaStyle = {
-  marginTop: "16px",
-}
 
 const Content = (props: Props) => {
   const [allowedOrigins, setAllowedOrigins] = React.useState("");
@@ -54,7 +52,7 @@ const Content = (props: Props) => {
 
   return (
     <>
-      <Grid style={metaStyle} container spacing={2}>
+      <Grid className="geojson-meta" container spacing={2}>
         <Grid item sm={4} xs={12}>
           <Paper>
             <Switch
@@ -71,6 +69,16 @@ const Content = (props: Props) => {
 
             <p>{__("You can change privacy of this GeoJSON API as a Pro.")}</p>
             <p><a href="#/team/billing">{__("Become a Pro")}</a></p>
+          </Paper>
+
+          <Paper className="geojson-title-description">
+            <h3>{__('Name')}</h3>
+            <input type="text"/>
+            <h3>{__('Description')}</h3>
+            <textarea></textarea>
+
+            <Save />
+            <p>{__("Name and Description of public GeoJSON will be displayed in public.")}</p>
           </Paper>
         </Grid>
         {props.GeoJsonID?

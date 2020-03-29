@@ -311,7 +311,7 @@ export const mapDispatchToProps = (
     geosearch: WritableGeosearch
   ) => dispatch(createGeosearchActions.update(teamId, geojsonId, geosearch)),
   deleteGeosearch: (teamId: string, geojsonId: string) =>
-    dispatch(createGeosearchActions.delete(teamId, geojsonId))
+    dispatch(createGeosearchActions.delete(teamId, geojsonId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Content);
