@@ -51,7 +51,7 @@ const Content = (props: Props) => {
       <Grid container spacing={2}>
       {blogItems.map((post, index) => {
         return (
-          <Grid item sm={6} xs={12}>
+          <Grid item sm={6} xs={12} key={index}>
             <Card className={classes.root}>
               <CardActionArea onClick={() => window.location.href = post.url}>
                 <CardMedia
