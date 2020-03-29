@@ -25,7 +25,7 @@ msgstr "API キーを取得"
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:73 src/components/Data/GIS.tsx:110
+#: src/components/Dashboard.tsx:73 src/components/Data/GIS.tsx:109
 #: src/components/Data/GISs.tsx:71 src/components/Navigator.tsx:146
 msgid "GeoJSON API"
 msgstr ""
@@ -42,21 +42,21 @@ msgstr ""
 msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GIS.tsx:102 src/components/Data/GISs.tsx:63
+#: src/components/Data/GIS.tsx:101 src/components/Data/GISs.tsx:63
 #: src/components/Maps/APIKey.tsx:112 src/components/Maps/APIKeys.tsx:38
 #: src/components/Team/Billing.tsx:66
 msgid "Home"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:106 src/components/Data/GISs.tsx:67
+#: src/components/Data/GIS.tsx:105 src/components/Data/GISs.tsx:67
 msgid "API services"
 msgstr "API サービス"
 
-#: src/components/Data/GIS.tsx:244
+#: src/components/Data/GIS.tsx:249
 msgid "GeoJSON Editor"
 msgstr "GeoJSON エディター"
 
-#: src/components/Data/GIS.tsx:245
+#: src/components/Data/GIS.tsx:250
 msgid ""
 "You can manage and style features in your GeoJSON, and get the the access "
 "point URL of GeoJSON API."
@@ -64,19 +64,19 @@ msgstr ""
 "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、"
 "GeoJSON API のアクセスポイントの URL を取得できます。"
 
-#: src/components/Data/GIS.tsx:261
+#: src/components/Data/GIS.tsx:266
 msgid "Total Count of Features: %s"
 msgstr "%s 件のデータ"
 
-#: src/components/Data/GIS.tsx:267
+#: src/components/Data/GIS.tsx:271
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr "一度データセットを削除するともとに戻すことはできません。"
 
-#: src/components/Data/GIS.tsx:272
+#: src/components/Data/GIS.tsx:276
 msgid "Are you sure you want to delete this Dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
-#: src/components/Data/GIS.tsx:273
+#: src/components/Data/GIS.tsx:277
 msgid "Please type in the name of the Dataset to confirm."
 msgstr "確認のためにデータセット名を入力してください。"
 
@@ -130,49 +130,39 @@ msgstr ""
 msgid "Error: Please upload GeoJSON file less than %d MB."
 msgstr "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
 
-#: src/components/Data/GeoJsonMeta.tsx:68
-msgid "Anyone can access this GeoJSON API."
-msgstr "誰でもこの GeoJSON API にアクセスすることができます。"
-
-#: src/components/Data/GeoJsonMeta.tsx:69
-msgid "You can restrict the URLs that can use this GeoJSON API."
-msgstr "この GeoJSON API を利用できる URL を制限することができます。"
-
-#: src/components/Data/GeoJsonMeta.tsx:72
-msgid "You can change privacy of this GeoJSON API as a Pro."
+#: src/components/Data/GeoJsonMeta.tsx:100
+msgid "Name of public GeoJSON will be displayed in public."
 msgstr ""
-"Pro メンバーになると、この GeoJSON API のプライバシー設定を変更することができ"
-"ます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:79
+#: src/components/Data/GeoJsonMeta.tsx:106
 msgid "API Endpoint"
 msgstr "API エンドポイント"
 
-#: src/components/Data/GeoJsonMeta.tsx:81
+#: src/components/Data/GeoJsonMeta.tsx:108
 msgid "Copy embed code to clipboard"
 msgstr "埋め込み用コードをクリップボードにコピー"
 
-#: src/components/Data/GeoJsonMeta.tsx:82
+#: src/components/Data/GeoJsonMeta.tsx:109
 msgid "Or"
 msgstr "または"
 
-#: src/components/Data/GeoJsonMeta.tsx:82
+#: src/components/Data/GeoJsonMeta.tsx:109
 msgid "Copy endpoint URL to clipboard"
 msgstr "エンドポイント URL をクリップボードにコピー"
 
-#: src/components/Data/GeoJsonMeta.tsx:84 src/components/Data/fields.tsx:40
+#: src/components/Data/GeoJsonMeta.tsx:111 src/components/Data/fields.tsx:40
 #: src/components/Maps/APIKey.tsx:232
 msgid "URLs"
 msgstr "URL のリスト"
 
-#: src/components/Data/GeoJsonMeta.tsx:94
-#: src/components/Team/members/change-role.tsx:156
+#: src/components/Data/GeoJsonMeta.tsx:121
+#: src/components/Team/members/change-role.tsx:171
 #: src/components/Team/members/suspend.tsx:114
 #: src/components/custom/AddNew.tsx:141 src/components/custom/Save.tsx:25
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Data/GeoJsonMeta.tsx:95
+#: src/components/Data/GeoJsonMeta.tsx:122
 msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use "
 "this GeoJSON API."
@@ -180,9 +170,31 @@ msgstr ""
 "URL のリストは、この GeoJSON API が意図しない URL から使用されないように制限"
 "するために、HTTP リファラーに対して使用されます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:96
+#: src/components/Data/GeoJsonMeta.tsx:123
 msgid "Become a Pro"
 msgstr "Pro メンバーになる"
+
+#: src/components/Data/GeoJsonMeta.tsx:87
+msgid "Anyone can access this GeoJSON API."
+msgstr "誰でもこの GeoJSON API にアクセスすることができます。"
+
+#: src/components/Data/GeoJsonMeta.tsx:88
+msgid "You can restrict the URLs that can use this GeoJSON API."
+msgstr "この GeoJSON API を利用できる URL を制限することができます。"
+
+#: src/components/Data/GeoJsonMeta.tsx:91
+msgid "You can change privacy of this GeoJSON API as a Pro."
+msgstr ""
+"Pro メンバーになると、この GeoJSON API のプライバシー設定を変更することができ"
+"ます。"
+
+#: src/components/Data/GeoJsonMeta.tsx:96 src/components/Data/fields.tsx:26
+#: src/components/Maps/APIKey.tsx:221 src/components/Navigator.tsx:317
+#: src/components/Team/general/fields.tsx:87
+#: src/components/User/profile.tsx:125 src/components/custom/AddNew.tsx:34
+#: src/components/custom/Delete.tsx:119
+msgid "Name"
+msgstr "名前"
 
 #: src/components/Data/PropsEditor.tsx:50
 msgid "Small"
@@ -196,16 +208,16 @@ msgstr "中サイズ"
 msgid "Large"
 msgstr "大サイズ"
 
-#: src/components/Data/PropsEditor.tsx:63
+#: src/components/Data/PropsEditor.tsx:65
 msgid "Title"
 msgstr "タイトル"
 
-#: src/components/Data/PropsEditor.tsx:65 src/components/Data/fields.tsx:32
+#: src/components/Data/PropsEditor.tsx:67 src/components/Data/fields.tsx:32
 #: src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr "説明"
 
-#: src/components/Data/PropsEditor.tsx:67
+#: src/components/Data/PropsEditor.tsx:69
 msgid "Style"
 msgstr "スタイル"
 
@@ -240,13 +252,6 @@ msgstr "背景色"
 #: src/components/Data/SimpleStyle.tsx:73
 msgid "Stroke"
 msgstr "線の太さ"
-
-#: src/components/Data/fields.tsx:26 src/components/Maps/APIKey.tsx:221
-#: src/components/Navigator.tsx:317 src/components/Team/general/fields.tsx:87
-#: src/components/User/profile.tsx:125 src/components/custom/AddNew.tsx:34
-#: src/components/custom/Delete.tsx:119
-msgid "Name"
-msgstr "名前"
 
 #: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:244
 msgid ""
@@ -724,7 +729,7 @@ msgstr ""
 "ください。"
 
 #: src/components/Team/general/delete.tsx:139
-#: src/components/Team/members/change-role.tsx:145
+#: src/components/Team/members/change-role.tsx:160
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
 #: src/components/custom/AddNew.tsx:130 src/components/custom/Cancel.tsx:18
@@ -778,17 +783,25 @@ msgstr "%s の権限を選択して下さい。"
 msgid "Owner"
 msgstr "オーナー"
 
-#: src/components/Team/members/change-role.tsx:130
-msgid "Has full administrative access to the entire team."
-msgstr "チームに関する全ての管理者権限があります。"
+#: src/components/Team/members/change-role.tsx:131
+msgid "can invite another team member."
+msgstr "新しいメンバーをチームに招待できます。"
 
-#: src/components/Team/members/change-role.tsx:136
+#: src/components/Team/members/change-role.tsx:132
+msgid "can designate another owner."
+msgstr "新しいチームオーナーを指定できます。"
+
+#: src/components/Team/members/change-role.tsx:133
+msgid "can suspend another member."
+msgstr "メンバーの権限を一時停止できます。"
+
+#: src/components/Team/members/change-role.tsx:145
 msgid "Member"
 msgstr "メンバー"
 
-#: src/components/Team/members/change-role.tsx:139
-msgid "Can access all resource in the team."
-msgstr "このチームの全てのリソースにアクセスできます。"
+#: src/components/Team/members/change-role.tsx:150
+msgid "Can manage all resources in the team, including API Keys."
+msgstr "APIキーを含むチームの全てのリソースを管理できます。"
 
 #: src/components/Team/members/index.tsx:144
 msgid "You can manage members in your team."
@@ -977,15 +990,15 @@ msgstr "アカウントの確認"
 msgid "Verification code"
 msgstr "検証コード"
 
-#: src/constants.ts:11
+#: src/constants.ts:12
 msgid "You are not authorized to do this operation."
 msgstr "この操作を行う権限がありません。"
 
-#: src/constants.ts:13
+#: src/constants.ts:14
 msgid "Network error."
 msgstr "通信エラー。"
 
-#: src/constants.ts:17
+#: src/constants.ts:18
 msgid "Unknown error."
 msgstr "不明なエラー。"
 
@@ -1003,6 +1016,9 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Has full administrative access to the entire team."
+#~ msgstr "チームに関する全ての管理者権限があります。"
 
 #~ msgid "GeoJSON Hosting"
 #~ msgstr "GeoJSON ホスティング"
