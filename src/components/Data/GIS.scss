@@ -91,7 +91,7 @@
     top: 8px;
     left: 9px;
     width: 300px;
-    max-height: 450px;
+    height: 450px;
     padding: 16px;
     z-index: 2;
     background-color: rgba(255, 255, 255, 0.9);
@@ -189,6 +189,7 @@
       table
       {
         border-collapse: collapse;
+        max-height: 100%;
       }
 
       tr:nth-child(even)
