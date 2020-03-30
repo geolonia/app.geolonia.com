@@ -392,7 +392,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Signin.tsx:113
-#: src/lib/cognito/parse-error.ts:24
+#: src/lib/cognito/parse-error.ts:25
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
@@ -842,37 +842,37 @@ msgstr ""
 msgid "Network error."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:10
+#: src/lib/cognito/parse-error.ts:11
 msgid "The email exists already. You cannot use this mail address."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:13
+#: src/lib/cognito/parse-error.ts:14
 msgid "The email is not currently allowed for private beta."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:16
+#: src/lib/cognito/parse-error.ts:17
 msgid "You cannot use this username."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:17
+#: src/lib/cognito/parse-error.ts:18
 msgid ""
-"Username should include only lowercase characters(a-z), numbers(0-9), "
-"hyphen(-), underscore(_) and period(.)."
+"Username should be less than 256 characters and include only lowercase "
+"characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.)."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:20
+#: src/lib/cognito/parse-error.ts:21
 msgid "Invalid parameter specified. You cannot use this username or email."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:23
+#: src/lib/cognito/parse-error.ts:24
 msgid "Invalid email."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:6
+#: src/lib/cognito/parse-error.ts:7
 msgid "Insufficient password strength."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:7
+#: src/lib/cognito/parse-error.ts:8
 msgid "Username exists already. You cannot use this username."
 msgstr ""
 

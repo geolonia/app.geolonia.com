@@ -400,7 +400,7 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:113 src/lib/cognito/parse-error.ts:24
+#: src/components/Signin.tsx:113 src/lib/cognito/parse-error.ts:25
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
@@ -858,39 +858,41 @@ msgstr "この操作を行う権限がありません。"
 msgid "Network error."
 msgstr "通信エラー。"
 
-#: src/lib/cognito/parse-error.ts:10
+#: src/lib/cognito/parse-error.ts:11
 msgid "The email exists already. You cannot use this mail address."
 msgstr ""
 "すでに登録されたメールアドレスです。このメールアドレスは使用できません。"
 
-#: src/lib/cognito/parse-error.ts:13
+#: src/lib/cognito/parse-error.ts:14
 msgid "The email is not currently allowed for private beta."
 msgstr "プライベートベータ版のため、このメールアドレスは許可されていません。"
 
-#: src/lib/cognito/parse-error.ts:16
+#: src/lib/cognito/parse-error.ts:17
 msgid "You cannot use this username."
 msgstr "このユーザー名は使用できません。"
 
-#: src/lib/cognito/parse-error.ts:17
+#: src/lib/cognito/parse-error.ts:18
 msgid ""
-"Username should include only lowercase characters(a-z), numbers(0-9), "
-"hyphen(-), underscore(_) and period(.)."
-msgstr "ユーザー名には小文字(a-z)、数字(0-9)、ハイフン(-)、アンダースコア(_)及びピリオド(.)が使用できます。"
+"Username should be less than 256 characters and include only lowercase "
+"characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.)."
+msgstr ""
+"ユーザー名は255文字以下で、小文字(a-z)、数字(0-9)、ハイフン(-)、アンダースコア(_)及びピリ"
+"オド(.)が使用できます。"
 
-#: src/lib/cognito/parse-error.ts:20
+#: src/lib/cognito/parse-error.ts:21
 msgid "Invalid parameter specified. You cannot use this username or email."
 msgstr ""
 "不正なパラメータです。このユーザー名またはメールアドレスは使用できません。"
 
-#: src/lib/cognito/parse-error.ts:23
+#: src/lib/cognito/parse-error.ts:24
 msgid "Invalid email."
 msgstr "メールアドレスが正しくありません。"
 
-#: src/lib/cognito/parse-error.ts:6
+#: src/lib/cognito/parse-error.ts:7
 msgid "Insufficient password strength."
 msgstr "パスワードの強度が不足しています。"
 
-#: src/lib/cognito/parse-error.ts:7
+#: src/lib/cognito/parse-error.ts:8
 msgid "Username exists already. You cannot use this username."
 msgstr "すでに存在するユーザー名です。このユーザー名は使用できません。"
 

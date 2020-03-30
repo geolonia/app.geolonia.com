@@ -16,7 +16,7 @@ export default (err: { code: string; message: string }): string => {
   );
   const RESERVED_USERNAME = __("You cannot use this username.");
   const INVALID_USERNAME = __(
-    "Username should include only lowercase characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.)."
+    "Username should be less than 256 characters and include only lowercase characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.)."
   );
   const UNHANDLED_PARAMETER_ERROR = __(
     "Invalid parameter specified. You cannot use this username or email."

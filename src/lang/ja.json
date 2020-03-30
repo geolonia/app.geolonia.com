@@ -302,8 +302,8 @@
         "プライベートベータ版のため、このメールアドレスは許可されていません。"
       ],
       "You cannot use this username.": ["このユーザー名は使用できません。"],
-      "Username should include only lowercase characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.).": [
-        "ユーザー名には小文字(a-z)、数字(0-9)、ハイフン(-)、アンダースコア(_)及びピリオド(.)が使用できます。"
+      "Username should be less than 256 characters and include only lowercase characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.).": [
+        "ユーザー名は255文字以下で、小文字(a-z)、数字(0-9)、ハイフン(-)、アンダースコア(_)及びピリオド(.)が使用できます。"
       ],
       "Invalid parameter specified. You cannot use this username or email.": [
         "不正なパラメータです。このユーザー名またはメールアドレスは使用できません。"
