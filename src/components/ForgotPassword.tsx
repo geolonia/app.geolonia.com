@@ -9,8 +9,6 @@ import Logo from "./custom/logo.svg";
 import { CircularProgress } from "@material-ui/core";
 import { sendVerificationEmail } from "../auth";
 import delay from "../lib/promise-delay";
-import { connect } from "react-redux";
-import { createActions } from "../redux/actions/auth-support";
 import Alert from "./custom/Alert";
 
 type OwnProps = {};
@@ -19,9 +17,7 @@ type RouterProps = {
     push: (path: string) => void;
   };
 };
-type DispatchProps = {
-  setCurrentUser: (currentUser: string) => void;
-};
+type DispatchProps = {};
 type Props = OwnProps & RouterProps & DispatchProps;
 
 const Content = (props: Props) => {
@@ -36,9 +32,8 @@ const Content = (props: Props) => {
   ) => {
     event && event.preventDefault();
     setStatus("requesting");
-    props.setCurrentUser(email); // TODO: remove
     delay(sendVerificationEmail(email), 500)
-      .then(result => {
+      .then(() => {
         setStatus("success");
         props.history.push("/reset-password");
       })
@@ -110,9 +105,4 @@ const Content = (props: Props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: any) => ({
-  setCurrentUser: (currentUser: string) =>
-    dispatch(createActions.setCurrentUser(currentUser))
-});
-
-export default connect(void 0, mapDispatchToProps)(Content);
+export default Content;
