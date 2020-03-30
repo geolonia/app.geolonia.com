@@ -506,7 +506,7 @@ msgstr "指定したメールに請求情報を送信します。"
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
-#: src/components/ResetPassword.tsx:107 src/components/Signup.tsx:152
+#: src/components/ResetPassword.tsx:107
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
@@ -530,7 +530,7 @@ msgid "Verification Code"
 msgstr "検証コード"
 
 #: src/components/ResetPassword.tsx:87 src/components/Signin.tsx:129
-#: src/components/Signup.tsx:141
+#: src/components/Signup.tsx:117
 msgid "Password"
 msgstr "パスワード"
 
@@ -550,7 +550,7 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:113
+#: src/components/Signin.tsx:113 src/lib/cognito/parse-error.ts:25
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
@@ -578,37 +578,25 @@ msgstr "ユーザー名、 Email アドレス、またはパスワードが正�
 msgid "Unknown error."
 msgstr "不明なエラー。"
 
-#: src/components/Signup.tsx:111 src/components/verify.tsx:79
-msgid "Welcome to Geolonia"
-msgstr "Geolonia へようこそ"
-
-#: src/components/Signup.tsx:112
-msgid "Create your account"
-msgstr "アカウントを作成"
-
-#: src/components/Signup.tsx:114
-msgid "We are currently private beta. Sign Up is restricted to invited users."
-msgstr ""
-"現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
-
-#: src/components/Signup.tsx:120 src/components/User/profile.tsx:104
-#: src/components/verify.tsx:84
-msgid "Username"
-msgstr "ユーザー名"
-
-#: src/components/Signup.tsx:128
+#: src/components/Signup.tsx:104
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:132
+#: src/components/Signup.tsx:108
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:165
+#: src/components/Signup.tsx:128
+msgid ""
+"Make sure at least 8 characters including a number and a lowercase letter."
+msgstr ""
+"パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
+
+#: src/components/Signup.tsx:141
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:175
+#: src/components/Signup.tsx:151
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -620,19 +608,27 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Signup.tsx:73
+#: src/components/Signup.tsx:59
 msgid "Signup successed."
 msgstr "サインアップ成功"
 
+#: src/components/Signup.tsx:87 src/components/verify.tsx:79
+msgid "Welcome to Geolonia"
+msgstr "Geolonia へようこそ"
+
 #: src/components/Signup.tsx:88
-msgid "Invalid username or email address."
-msgstr "ユーザー名または Email アドレスが正しくありません。"
+msgid "Create your account"
+msgstr "アカウントを作成"
 
 #: src/components/Signup.tsx:90
-msgid "Signup failed. You cannot use the username or email."
+msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
-"サインアップに失敗しました。このユーザー名またはメールアドレスは使用できませ"
-"ん。"
+"現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
+
+#: src/components/Signup.tsx:96 src/components/User/profile.tsx:104
+#: src/components/verify.tsx:84
+msgid "Username"
+msgstr "ユーザー名"
 
 #: src/components/Team/Billing.tsx:114
 msgid "Cost per 1,000 API loads/month"
