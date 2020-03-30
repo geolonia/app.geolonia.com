@@ -74,7 +74,11 @@ const Content = (props: Props) => {
     setPassword(e.currentTarget.value);
   };
 
-  const buttonDisabled = username === "" || password === "";
+  const buttonDisabled =
+    username === "" ||
+    password === "" ||
+    status === "success" ||
+    status === "requesting";
 
   const handleSignin = (e: React.MouseEvent | void) => {
     e && e.preventDefault();
@@ -86,6 +90,7 @@ const Content = (props: Props) => {
         setTimeout(() => (window.location.href = "/"), pageTransitionInterval);
       })
       .catch(error => {
+        console.log(error);
         setStatus("warning");
         if (
           error &&
@@ -108,7 +113,7 @@ const Content = (props: Props) => {
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Sign in to Geolonia")}</h1>
-        {hasQueryStringUsername ? (
+        {hasQueryStringUsername && status === null && !serverTrouble && (
           <Alert type="success">
             {hasPasswordReset
               ? __(
@@ -118,9 +123,8 @@ const Content = (props: Props) => {
                   "Your account has been successfully verified. Please enter your password again and sign in to your account."
                 )}
           </Alert>
-        ) : status === "warning" ? (
-          <Alert type="warning">{message}</Alert>
-        ) : null}
+        )}
+        {status === "warning" ? <Alert type="warning">{message}</Alert> : null}
         {serverTrouble && (
           <Alert type={"warning"}>
             {__("Oops, the server seems not to be responding correctly.")}

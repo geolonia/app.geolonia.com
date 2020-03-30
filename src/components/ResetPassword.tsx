@@ -4,7 +4,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Support from "./custom/Support";
 import Logo from "./custom/logo.svg";
-import { CircularProgress, Link } from "@material-ui/core";
+import { Link } from "@material-ui/core";
 import Alert from "./custom/Alert";
 
 // API
@@ -19,6 +19,7 @@ import queryString from "query-string";
 import { AppState } from "../types";
 import { pageTransitionInterval } from "../constants";
 import estimateLanguage from "../lib/estimate-language";
+import StatusIndication from "./custom/status-indication";
 
 const Content = () => {
   const parsed = queryString.parse(window.location.search);
@@ -132,6 +133,7 @@ const Content = () => {
               onClick={handler}
               disabled={
                 password === "" ||
+                username === "" ||
                 passwordAgain === "" ||
                 password !== passwordAgain
               }
@@ -145,11 +147,7 @@ const Content = () => {
               {__("Resend verification code.")}
             </Link>
           </p>
-          {status === "requesting" && (
-            <div style={{ marginTop: ".75em" }}>
-              <CircularProgress size={20} />
-            </div>
-          )}
+          <StatusIndication status={status}></StatusIndication>
         </form>
 
         <div className="support-container">
