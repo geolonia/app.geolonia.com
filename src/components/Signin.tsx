@@ -67,7 +67,8 @@ const Content = (props: Props) => {
 
   const buttonDisabled = username === "" || password === "";
 
-  const handleSignin = () => {
+  const handleSignin = (e: React.MouseEvent | void) => {
+    e && e.preventDefault();
     setStatus("requesting");
     delay(signin(username, password), 250)
       .then(() => {

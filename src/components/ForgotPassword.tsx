@@ -32,6 +32,7 @@ const Content = (props: Props) => {
   const handleSignup = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    event && event.preventDefault();
     setStatus("requesting");
     props.setCurrentUser(username);
     delay(sendVerificationEmail(username), 500)
