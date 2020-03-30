@@ -17,14 +17,19 @@ type Props = {
 export const PropsEditor = (props: Props) => {
   const { currentFeature, updateFeatureProperties } = props;
   const [ mode, setMode ] = React.useState<boolean>(true)
+  const [title, setTitle] = React.useState<string>("")
+  const [description, setDescription] = React.useState<string>("")
 
-  // useEffect(() => {
-  //   setMode(true)
-  // }, [currentFeature])
-
-  const updatePropHandler = (event: React.FormEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
+  const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
     const property = event.currentTarget.name
     const value = ('stroke-width' === property) ? Number(event.currentTarget.value) : event.currentTarget.value
+    updateFeatureProperties(property, value)
+  }
+
+  // For title and description, so it should be fired after keyboard input.
+  const onBlurHandler = (event: React.FormEvent<HTMLInputElement> | React.FocusEvent<HTMLTextAreaElement>) => {
+    const property = event.currentTarget.name
+    const value = event.currentTarget.value
     updateFeatureProperties(property, value)
   }
 
@@ -32,6 +37,14 @@ export const PropsEditor = (props: Props) => {
     if (event.target.name) {
       updateFeatureProperties(event.target.name, event.target.value)
     }
+  }
+
+  const updateTitleHandler = (event: React.FormEvent<HTMLInputElement>) => {
+    setTitle(event.currentTarget.value)
+  }
+
+  const updateDescriptionHandler = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(event.currentTarget.value)
   }
 
   const type = currentFeature.geometry.type
@@ -63,9 +76,9 @@ export const PropsEditor = (props: Props) => {
       <>
         <div className="goto-info"><button onClick={() => {setMode(false)}}><InfoIcon fontSize="small" /></button></div>
         <h3>{__('Title')}</h3>
-        <input type="text" name="title" value={currentFeature.properties.title} onChange={updatePropHandler} />
+        <input type="text" name="title" value={title} onChange={updateTitleHandler} onBlur={onBlurHandler} />
         <h3>{__('Description')}</h3>
-        <textarea name="description" value={currentFeature.properties.description} onChange={updatePropHandler} />
+        <textarea name="description" value={description} onChange={updateDescriptionHandler} onBlur={onBlurHandler} />
         <h3>{__('Style')}</h3>
         <table className="prop-table">
           <tbody>
