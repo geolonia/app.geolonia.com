@@ -109,7 +109,7 @@ const Importer = (props: Props) => {
         <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
   <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
-        <p>{__("Features that are imported will always be added and the existing features will not be updated.")}</p>
+        <p>{__("Existing feature that has same `id` will be updated, not added as new feature.")}</p>
         {error? <div className="error">{error}</div> : <></>}
       </div>
     </div>
