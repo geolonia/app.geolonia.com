@@ -5,13 +5,14 @@ import Support from "./custom/Support";
 import "./Signup.scss";
 import Logo from "./custom/logo.svg";
 import Alert from "./custom/Alert";
-import { connect } from "react-redux";
-import { AppState } from "../types";
 import { verify } from "../auth";
-import { CircularProgress } from "@material-ui/core";
+import StatusIndication from "./custom/status-indication";
 import delay from "../lib/promise-delay";
 
 import { __ } from "@wordpress/i18n";
+import queryString from "query-string";
+import estimateLanguage from "../lib/estimate-language";
+import { pageTransitionInterval } from "../constants";
 
 type OwnProps = {};
 type RouterProps = {
@@ -19,31 +20,33 @@ type RouterProps = {
     push: (path: string) => void;
   };
 };
-type StateProps = {
-  signupUser?: string;
-};
+type StateProps = {};
 type DispatchProps = {};
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
+// TODO: Fix messages
 const messages = {
-  success: "Verification successed.",
   warning: "Verification failed."
 };
 
 const Content = (props: Props) => {
-  const { signupUser } = props;
-
   const [username, setUsername] = React.useState("");
   const [code, setCode] = React.useState("");
   const [status, setStatus] = React.useState<
     null | "requesting" | "success" | "warning"
   >(null);
 
+  const parsed = queryString.parse(window.location.search);
+  const hasQueryStringUsername =
+    !!parsed.username && typeof parsed.username === "string";
+
   React.useEffect(() => {
-    if (signupUser && username === "") {
-      setUsername(signupUser);
+    if (hasQueryStringUsername && username === "") {
+      setUsername(parsed.username as string);
+      const codeInput = document.getElementById("code");
+      codeInput && codeInput.focus();
     }
-  }, [signupUser, username]);
+  }, [hasQueryStringUsername, parsed.username, username]);
 
   // TODO: we can enhance code validation with regex
   const buttonDisabled = username === "" || code === "";
@@ -57,28 +60,38 @@ const Content = (props: Props) => {
     setCode(e.currentTarget.value);
   };
 
-  const handleVerify = () => {
+  const handleVerify = (e: React.MouseEvent<HTMLButtonElement> | void) => {
+    e && e.preventDefault();
     setStatus("requesting");
     delay(verify(username, code), 500)
       .then(() => {
         setStatus("success");
-        props.history.push("/signin");
+        setTimeout(() => {
+          window.location.href = `/?lang=${estimateLanguage()}&&username=${username}#/signin`;
+        }, pageTransitionInterval);
       })
       .catch(err => {
+        console.log(err);
         setStatus("warning");
       });
   };
 
   return (
     <div className="signup">
-      {status && status !== "requesting" && (
-        <Alert type={status}>{messages[status]}</Alert>
-      )}
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Welcome to Geolonia")}</h1>
         <h2>{__("Verify your account")}</h2>
-
+        {status === "warning" && (
+          <Alert type={status}>{messages[status]}</Alert>
+        )}
+        {username && !status && (
+          <Alert type="success">
+            {__(
+              "Please check your email and enter the verification code like 123456."
+            )}
+          </Alert>
+        )}
         <form className="form">
           <label className="username">
             <h3>{__("Username")}</h3>
@@ -87,6 +100,7 @@ const Content = (props: Props) => {
               type={"text"}
               value={username}
               onChange={onUsernameChange}
+              disabled={hasQueryStringUsername}
             />
           </label>
           <label className="text">
@@ -110,32 +124,15 @@ const Content = (props: Props) => {
               {__("Verify")}
             </Button>
           </p>
-
-          {status === "requesting" && (
-            <div style={{ marginTop: ".75em" }}>
-              <CircularProgress size={20} />
-            </div>
-          )}
+          <StatusIndication status={status}></StatusIndication>
         </form>
 
         <div className="support-container">
           <Support />
         </div>
       </div>
-      {username && !status && (
-        <Alert type="success">
-          {__(
-            "Please check your email and enter the verification code like 123456."
-          )}
-        </Alert>
-      )}
     </div>
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => ({
-  signupUser: state.authSupport.currentUser
-});
-const ConnectedContent = connect(mapStateToProps)(Content);
-
-export default ConnectedContent;
+export default Content;
