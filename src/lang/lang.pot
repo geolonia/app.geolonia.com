@@ -156,20 +156,39 @@ msgid_plural "%s features have been added."
 msgstr[0] ""
 msgstr[1] ""
 
-#: src/components/ForgotPassword.tsx:53
+#: src/components/ForgotPassword.tsx:48
+#: src/components/verify.tsx:75
+msgid "User not found. Please check entered username."
+msgstr ""
+
+#: src/components/ForgotPassword.tsx:54
+msgid "Cannot reset password for the user as there is no verified email."
+msgstr ""
+
+#: src/components/ForgotPassword.tsx:59
+msgid "Attempt limit exceeded, please try after some time."
+msgstr ""
+
+#: src/components/ForgotPassword.tsx:61
+#: src/components/Signin.tsx:96
+#: src/constants.ts:17
+msgid "Unknown error."
+msgstr ""
+
+#: src/components/ForgotPassword.tsx:73
 msgid "Reset your password"
 msgstr ""
 
-#: src/components/ForgotPassword.tsx:57
-#: src/components/Signin.tsx:126
-msgid "Username or email address"
+#: src/components/ForgotPassword.tsx:77
+#: src/components/Signup.tsx:110
+msgid "Email address"
 msgstr ""
 
-#: src/components/ForgotPassword.tsx:65
+#: src/components/ForgotPassword.tsx:85
 msgid "We will send you a verification code to reset your password."
 msgstr ""
 
-#: src/components/ForgotPassword.tsx:75
+#: src/components/ForgotPassword.tsx:95
 msgid "Send password reset email"
 msgstr ""
 
@@ -396,6 +415,10 @@ msgstr ""
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
+#: src/components/Signin.tsx:126
+msgid "Username or email address"
+msgstr ""
+
 #: src/components/Signin.tsx:150
 msgid "Forgot password?"
 msgstr ""
@@ -416,17 +439,8 @@ msgstr ""
 msgid "Incorrect username, email address or password."
 msgstr ""
 
-#: src/components/Signin.tsx:96
-#: src/constants.ts:17
-msgid "Unknown error."
-msgstr ""
-
 #: src/components/Signup.tsx:106
 msgid "Username cannot be modified later."
-msgstr ""
-
-#: src/components/Signup.tsx:110
-msgid "Email address"
 msgstr ""
 
 #: src/components/Signup.tsx:130
@@ -824,10 +838,6 @@ msgstr ""
 
 #: src/components/verify.tsx:73
 msgid "Verification code mismatch."
-msgstr ""
-
-#: src/components/verify.tsx:75
-msgid "User not found. Please check entered username."
 msgstr ""
 
 #: src/components/verify.tsx:86

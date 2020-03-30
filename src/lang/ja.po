@@ -162,19 +162,36 @@ msgid "%s feature has been added."
 msgid_plural "%s features have been added."
 msgstr[0] "%s 個の地物が追加されました。"
 
-#: src/components/ForgotPassword.tsx:53
+#: src/components/ForgotPassword.tsx:48 src/components/verify.tsx:75
+msgid "User not found. Please check entered username."
+msgstr "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
+
+#: src/components/ForgotPassword.tsx:54
+msgid "Cannot reset password for the user as there is no verified email."
+msgstr "メールアドレスが認証されていないため、このユーザーのパスワードをリセットできませんでした。"
+
+#: src/components/ForgotPassword.tsx:59
+msgid "Attempt limit exceeded, please try after some time."
+msgstr "試行回数が制限を超えました。しばらくしてからまたお試しください。"
+
+#: src/components/ForgotPassword.tsx:61 src/components/Signin.tsx:96
+#: src/constants.ts:17
+msgid "Unknown error."
+msgstr "不明なエラー。"
+
+#: src/components/ForgotPassword.tsx:73
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:57 src/components/Signin.tsx:126
-msgid "Username or email address"
-msgstr "ユーザー名または Email アドレス"
+#: src/components/ForgotPassword.tsx:77 src/components/Signup.tsx:110
+msgid "Email address"
+msgstr "Email アドレス"
 
-#: src/components/ForgotPassword.tsx:65
+#: src/components/ForgotPassword.tsx:85
 msgid "We will send you a verification code to reset your password."
 msgstr "パスワードをリセットするための検証コードを送付します。"
 
-#: src/components/ForgotPassword.tsx:75
+#: src/components/ForgotPassword.tsx:95
 msgid "Send password reset email"
 msgstr "メールを送信"
 
@@ -404,6 +421,10 @@ msgstr ""
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
+#: src/components/Signin.tsx:126
+msgid "Username or email address"
+msgstr "ユーザー名または Email アドレス"
+
 #: src/components/Signin.tsx:150
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
@@ -424,17 +445,9 @@ msgstr "アカウントを作成"
 msgid "Incorrect username, email address or password."
 msgstr "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
 
-#: src/components/Signin.tsx:96 src/constants.ts:17
-msgid "Unknown error."
-msgstr "不明なエラー。"
-
 #: src/components/Signup.tsx:106
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
-
-#: src/components/Signup.tsx:110
-msgid "Email address"
-msgstr "Email アドレス"
 
 #: src/components/Signup.tsx:130
 msgid ""
@@ -841,10 +854,6 @@ msgstr "検証する"
 #: src/components/verify.tsx:73
 msgid "Verification code mismatch."
 msgstr "検証コードが一致しません。"
-
-#: src/components/verify.tsx:75
-msgid "User not found. Please check entered username."
-msgstr "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
 
 #: src/components/verify.tsx:86
 msgid "Verify your account"

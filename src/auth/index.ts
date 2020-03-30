@@ -120,9 +120,9 @@ export const sendVerificationEmail = (email: string) =>
     });
     if (cognitoUser) {
       cognitoUser.forgotPassword({
-        onSuccess: () => resolve(),
+        onSuccess: () => resolve(true),
         onFailure: err => {
-          reject(err.message || JSON.stringify(err));
+          reject(err);
         }
       });
     }
