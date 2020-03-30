@@ -11,6 +11,7 @@ import { sendVerificationEmail } from "../auth";
 import delay from "../lib/promise-delay";
 import { connect } from "react-redux";
 import { createActions } from "../redux/actions/auth-support";
+import Alert from "./custom/Alert";
 
 type OwnProps = {};
 type RouterProps = {
@@ -24,41 +25,60 @@ type DispatchProps = {
 type Props = OwnProps & RouterProps & DispatchProps;
 
 const Content = (props: Props) => {
-  const [username, setUsername] = React.useState("");
+  const [email, setEmail] = React.useState("");
   const [status, setStatus] = React.useState<
-    null | "requesting" | "success" | "failure"
+    null | "requesting" | "success" | "warning"
   >(null);
+  const [message, setMessage] = React.useState("");
 
   const handleSignup = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     event && event.preventDefault();
     setStatus("requesting");
-    props.setCurrentUser(username);
-    delay(sendVerificationEmail(username), 500)
-      .then(() => {
+    props.setCurrentUser(email); // TODO: remove
+    delay(sendVerificationEmail(email), 500)
+      .then(result => {
         setStatus("success");
+        props.history.push("/reset-password");
       })
-      .catch(() => {
-        // TODO: show messages
-        setStatus("failure");
-      })
-      .finally(() => props.history.push("/reset-password"));
+      .catch(error => {
+        setStatus("warning");
+        if (error.code === "UserNotFoundException") {
+          setMessage(__("User not found. Please check entered username."));
+        } else if (
+          error.code === "InvalidParameterException" &&
+          error.message.indexOf("verified email") > -1
+        ) {
+          setMessage(
+            __(
+              "Cannot reset password for the user as there is no verified email."
+            )
+          );
+        } else if (error.code === "LimitExceededException") {
+          setMessage(__("Attempt limit exceeded, please try after some time."));
+        } else {
+          setMessage(__("Unknown error."));
+        }
+      });
   };
+
+  const buttonDisabled =
+    email.trim() === "" || status === "success" || status === "requesting";
 
   return (
     <div className="signup">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Reset your password")}</h1>
-
+        {status === "warning" && <Alert type={status}>{message}</Alert>}
         <form className="form">
           <label className="email">
-            <h3>{__("Username or email address")}</h3>
+            <h3>{__("Email address")}</h3>
             <input
               type="text"
-              value={username}
-              onChange={e => setUsername(e.target.value)}
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
           </label>
           <p className="message">
@@ -69,7 +89,7 @@ const Content = (props: Props) => {
               variant="contained"
               color="primary"
               onClick={handleSignup}
-              disabled={username.trim() === ""}
+              disabled={buttonDisabled}
               type={"submit"}
             >
               {__("Send password reset email")}
