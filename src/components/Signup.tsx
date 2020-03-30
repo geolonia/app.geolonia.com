@@ -109,7 +109,7 @@ const Content = (props: Props) => {
         <h1>{__("Welcome to Geolonia")}</h1>
         <h2>{__("Create your account")}</h2>
         <p>{__('We are currently private beta. Sign Up is restricted to invited users.')}</p>
-        <div className="form">
+        <form className="form">
           <label className="username">
             <h3>{__("Username")}</h3>
             <input
@@ -154,6 +154,7 @@ const Content = (props: Props) => {
               color="primary"
               onClick={handleSignup}
               disabled={buttonDisabled}
+              type={"submit"}
             >
               {__("Sign up")}
             </Button>
@@ -170,7 +171,7 @@ const Content = (props: Props) => {
               )}
             />
           </p>
-        </div>
+        </form>
 
         <div className="support-container">
           <Support />

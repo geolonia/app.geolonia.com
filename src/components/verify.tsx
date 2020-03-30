@@ -79,7 +79,7 @@ const Content = (props: Props) => {
         <h1>{__("Welcome to Geolonia")}</h1>
         <h2>{__("Verify your account")}</h2>
 
-        <div className="form">
+        <form className="form">
           <label className="username">
             <h3>{__("Username")}</h3>
             <input
@@ -105,6 +105,7 @@ const Content = (props: Props) => {
               color="primary"
               onClick={handleVerify}
               disabled={buttonDisabled}
+              type={"submit"}
             >
               {__("Verify")}
             </Button>
@@ -115,7 +116,7 @@ const Content = (props: Props) => {
               <CircularProgress size={20} />
             </div>
           )}
-        </div>
+        </form>
 
         <div className="support-container">
           <Support />

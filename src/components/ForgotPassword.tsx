@@ -51,7 +51,7 @@ const Content = (props: Props) => {
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Reset your password")}</h1>
 
-        <div className="form">
+        <form className="form">
           <label className="email">
             <h3>{__("Username or email address")}</h3>
             <input
@@ -69,6 +69,7 @@ const Content = (props: Props) => {
               color="primary"
               onClick={handleSignup}
               disabled={username.trim() === ""}
+              type={"submit"}
             >
               {__("Send password reset email")}
             </Button>
@@ -78,7 +79,7 @@ const Content = (props: Props) => {
               <CircularProgress size={20} />
             </div>
           )}
-        </div>
+        </form>
 
         <div className="support-container">
           <Support />
