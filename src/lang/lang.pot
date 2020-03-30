@@ -161,7 +161,7 @@ msgid "Reset your password"
 msgstr ""
 
 #: src/components/ForgotPassword.tsx:56
-#: src/components/Signin.tsx:112
+#: src/components/Signin.tsx:117
 msgid "Username or email address"
 msgstr ""
 
@@ -169,7 +169,7 @@ msgstr ""
 msgid "We will send you a verification code to reset your password."
 msgstr ""
 
-#: src/components/ForgotPassword.tsx:73
+#: src/components/ForgotPassword.tsx:74
 msgid "Send password reset email"
 msgstr ""
 
@@ -356,7 +356,7 @@ msgid ""
 "number and a lowercase letter."
 msgstr ""
 
-#: src/components/ResetPassword.tsx:121
+#: src/components/ResetPassword.tsx:122
 msgid "Change password"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgid "Verification Code"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:86
-#: src/components/Signin.tsx:123
+#: src/components/Signin.tsx:128
 #: src/components/Signup.tsx:135
 msgid "Password"
 msgstr ""
@@ -382,42 +382,43 @@ msgstr ""
 msgid "Confirm password"
 msgstr ""
 
-#: src/components/Signin.tsx:107
-msgid "Oops, the server seems not to be responding correctly."
-msgstr ""
-
-#: src/components/Signin.tsx:136
-msgid "Forgot password?"
-msgstr ""
-
-#: src/components/Signin.tsx:148
-msgid "Sign in"
-msgstr ""
-
-#: src/components/Signin.tsx:163
-msgid "New to Geolonia?"
-msgstr ""
-
-#: src/components/Signin.tsx:165
-msgid "Create an account."
-msgstr ""
-
-#: src/components/Signin.tsx:43
-msgid "Signin successed."
-msgstr ""
-
-#: src/components/Signin.tsx:44
-msgid "Signin failed."
-msgstr ""
-
-#: src/components/Signin.tsx:95
+#: src/components/Signin.tsx:100
 msgid "Sign in to Geolonia"
 msgstr ""
 
-#: src/components/Signin.tsx:98
+#: src/components/Signin.tsx:103
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
+msgstr ""
+
+#: src/components/Signin.tsx:112
+msgid "Oops, the server seems not to be responding correctly."
+msgstr ""
+
+#: src/components/Signin.tsx:141
+msgid "Forgot password?"
+msgstr ""
+
+#: src/components/Signin.tsx:154
+msgid "Sign in"
+msgstr ""
+
+#: src/components/Signin.tsx:169
+msgid "New to Geolonia?"
+msgstr ""
+
+#: src/components/Signin.tsx:171
+msgid "Create an account."
+msgstr ""
+
+#: src/components/Signin.tsx:85
+msgid "Incorrect username, email address or password."
+msgstr ""
+
+#: src/components/Signin.tsx:87
+#: src/constants.ts:16
+msgid "Unknown error."
 msgstr ""
 
 #: src/components/Signup.tsx:109
@@ -447,11 +448,11 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:158
+#: src/components/Signup.tsx:159
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:168
+#: src/components/Signup.tsx:169
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" "
@@ -813,11 +814,11 @@ msgstr ""
 msgid "Coming soon"
 msgstr ""
 
-#: src/components/verify.tsx:109
+#: src/components/verify.tsx:110
 msgid "Verify"
 msgstr ""
 
-#: src/components/verify.tsx:126
+#: src/components/verify.tsx:127
 msgid "Please check your email and enter the verification code like 123456."
 msgstr ""
 
@@ -835,10 +836,6 @@ msgstr ""
 
 #: src/constants.ts:12
 msgid "Network error."
-msgstr ""
-
-#: src/constants.ts:16
-msgid "Unknown error."
 msgstr ""
 
 #: src/components/Data/map-container.tsx:75
