@@ -67,10 +67,6 @@ function Content(props: Props) {
       title: __("API services"),
       href: null
     },
-    {
-      title: __("GeoJSON API"),
-      href: null
-    }
   ];
 
   const handler = (name: string) => {

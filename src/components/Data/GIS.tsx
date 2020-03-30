@@ -88,11 +88,14 @@ const Content = (props: Props) => {
   const [bounds, setBounds] = React.useState<mapboxgl.LngLatBoundsLike | undefined>(undefined)
   const [publicGeoJson, setPublicGeoJson] = React.useState<boolean>(true)
   const [geoJsonMeta, setGeoJsonMeta] = React.useState<object | undefined>()
+  const [title, setTitle] = React.useState<string>('')
 
   React.useEffect(() => {
     if (props.geosearch) {
       setGeoJSON(props.geosearch.data);
       setBounds(geojsonExtent(props.geosearch.data))
+      setGeoJsonMeta(props.geosearch)
+      setTitle(props.geosearch.name)
     }
   }, [props.geosearch]);
 
@@ -109,17 +112,7 @@ const Content = (props: Props) => {
       title: __("GeoJSON API"),
       href: "#/data/geojson"
     },
-    {
-      title: __("GeoJSON Editor"),
-      href: null
-    }
   ];
-
-  React.useEffect(() => {
-    if (props.geosearch) {
-      setGeoJsonMeta(props.geosearch)
-    }
-  }, [props.geosearch])
 
   /**
    * Merge default properties to the feature to prevent undefined error.
@@ -249,7 +242,7 @@ const Content = (props: Props) => {
 
   return (
     <div className="gis-panel">
-      <Title breadcrumb={breadcrumbItems} title={__("GeoJSON Editor")}>
+      <Title breadcrumb={breadcrumbItems} title={title}>
         {__(
           "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API."
         )}

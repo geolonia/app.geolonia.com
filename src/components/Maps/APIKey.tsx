@@ -120,10 +120,6 @@ const Content = (props: Props) => {
       title: __("API keys"),
       href: "#/maps/api-keys"
     },
-    {
-      title: __("API key settings"),
-      href: null
-    }
   ];
 
   const styleH3: React.CSSProperties = {

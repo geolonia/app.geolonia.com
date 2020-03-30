@@ -70,10 +70,6 @@ const Content = () => {
       title: __("Team settings"),
       href: "#/team/general"
     },
-    {
-      title: __("billing"),
-      href: null
-    }
   ];
 
   return (

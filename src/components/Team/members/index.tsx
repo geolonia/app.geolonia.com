@@ -126,10 +126,6 @@ const Content = (props: Props) => {
       title: __("Team settings"),
       href: "#/team/general"
     },
-    {
-      title: __("Members"),
-      href: null
-    }
   ];
 
   const { team } = props;

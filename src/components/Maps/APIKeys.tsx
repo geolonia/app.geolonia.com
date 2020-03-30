@@ -42,10 +42,6 @@ function Content(props: Props) {
       title: __("Maps"),
       href: null
     },
-    {
-      title: __("API keys"),
-      href: null
-    }
   ];
 
   const handler = (name: string) => {
