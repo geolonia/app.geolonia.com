@@ -39,11 +39,6 @@ type DispatchProps = {
 };
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
-const messages = {
-  success: __("Signin successed."),
-  warning: __("Signin failed.")
-};
-
 const Content = (props: Props) => {
   const { signupUser, serverTrouble } = props;
 
@@ -52,6 +47,7 @@ const Content = (props: Props) => {
   const [status, setStatus] = React.useState<
     null | "requesting" | "success" | "warning"
   >(null);
+  const [message, setMessage] = React.useState("");
 
   React.useEffect(() => {
     if (signupUser && username === "") {
@@ -79,14 +75,23 @@ const Content = (props: Props) => {
         // Force reloadading and use componentDidMount of AuthContainer to get session
         setTimeout(() => (window.location.href = "/"), 250);
       })
-      .catch(() => {
+      .catch(error => {
         setStatus("warning");
+        if (
+          error &&
+          (error.code === "UserNotFoundException" ||
+            error.code === "NotAuthorizedException")
+        ) {
+          setMessage(__("Incorrect username, email address or password."));
+        } else {
+          setMessage(__("Unknown error."));
+        }
       });
   };
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {
     // enter
-    e.keyCode === 13 && !buttonDisabled && handleSignin()
-  }
+    e.keyCode === 13 && !buttonDisabled && handleSignin();
+  };
 
   return (
     <div className="signin">
@@ -100,7 +105,7 @@ const Content = (props: Props) => {
             )}
           </Alert>
         ) : status === "warning" ? (
-          <Alert type="warning">{messages.warning}</Alert>
+          <Alert type="warning">{message}</Alert>
         ) : null}
         {serverTrouble && (
           <Alert type={"warning"}>

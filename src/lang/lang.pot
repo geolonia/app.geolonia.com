@@ -161,7 +161,7 @@ msgid "Reset your password"
 msgstr ""
 
 #: src/components/ForgotPassword.tsx:56
-#: src/components/Signin.tsx:112
+#: src/components/Signin.tsx:117
 msgid "Username or email address"
 msgstr ""
 
@@ -373,7 +373,7 @@ msgid "Verification Code"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:86
-#: src/components/Signin.tsx:123
+#: src/components/Signin.tsx:128
 #: src/components/Signup.tsx:135
 msgid "Password"
 msgstr ""
@@ -382,42 +382,43 @@ msgstr ""
 msgid "Confirm password"
 msgstr ""
 
-#: src/components/Signin.tsx:107
-msgid "Oops, the server seems not to be responding correctly."
-msgstr ""
-
-#: src/components/Signin.tsx:136
-msgid "Forgot password?"
-msgstr ""
-
-#: src/components/Signin.tsx:149
-msgid "Sign in"
-msgstr ""
-
-#: src/components/Signin.tsx:164
-msgid "New to Geolonia?"
-msgstr ""
-
-#: src/components/Signin.tsx:166
-msgid "Create an account."
-msgstr ""
-
-#: src/components/Signin.tsx:43
-msgid "Signin successed."
-msgstr ""
-
-#: src/components/Signin.tsx:44
-msgid "Signin failed."
-msgstr ""
-
-#: src/components/Signin.tsx:95
+#: src/components/Signin.tsx:100
 msgid "Sign in to Geolonia"
 msgstr ""
 
-#: src/components/Signin.tsx:98
+#: src/components/Signin.tsx:103
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
+msgstr ""
+
+#: src/components/Signin.tsx:112
+msgid "Oops, the server seems not to be responding correctly."
+msgstr ""
+
+#: src/components/Signin.tsx:141
+msgid "Forgot password?"
+msgstr ""
+
+#: src/components/Signin.tsx:154
+msgid "Sign in"
+msgstr ""
+
+#: src/components/Signin.tsx:169
+msgid "New to Geolonia?"
+msgstr ""
+
+#: src/components/Signin.tsx:171
+msgid "Create an account."
+msgstr ""
+
+#: src/components/Signin.tsx:85
+msgid "Incorrect username, email address or password."
+msgstr ""
+
+#: src/components/Signin.tsx:87
+#: src/constants.ts:16
+msgid "Unknown error."
 msgstr ""
 
 #: src/components/Signup.tsx:109
@@ -835,10 +836,6 @@ msgstr ""
 
 #: src/constants.ts:12
 msgid "Network error."
-msgstr ""
-
-#: src/constants.ts:16
-msgid "Unknown error."
 msgstr ""
 
 #: src/components/Data/map-container.tsx:75

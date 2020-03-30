@@ -141,6 +141,10 @@
       "Verification Code": ["検証コード"],
       "Password": ["パスワード"],
       "Confirm password": ["パスワードを確認"],
+      "Sign in to Geolonia": ["Geolonia にサインイン"],
+      "Your account has been successfully verified. Please enter your password again and sign in to your account.": [
+        "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてください。"
+      ],
       "Oops, the server seems not to be responding correctly.": [
         "おっと、サーバーが正しく応答していないようです。"
       ],
@@ -149,11 +153,10 @@
       "New to Geolonia?": ["アカウントをお持ちですか？"],
       "Create an account.": ["アカウントを作成"],
       "Signin successed.": ["サインイン成功"],
-      "Signin failed.": ["サインイン失敗"],
-      "Sign in to Geolonia": ["Geolonia にサインイン"],
-      "Your account has been successfully verified. Please enter your password again and sign in to your account.": [
-        "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてください。"
+      "Incorrect username, email address or password.": [
+        "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
       ],
+      "Unknown error.": ["不明なエラー。"],
       "Welcome to Geolonia": ["Geolonia へようこそ"],
       "Create your account": ["アカウントを作成"],
       "We are currently private beta. Sign Up is restricted to invited users.": [
@@ -294,7 +297,6 @@
         "この操作を行う権限がありません。"
       ],
       "Network error.": ["通信エラー。"],
-      "Unknown error.": ["不明なエラー。"],
       "Default value of latitude for map\u00040": ["35.65810422222222"],
       "Default value of longitude for map\u00040": ["139.74135747222223"],
       "Default value of zoom level of map\u00040": ["6"]
