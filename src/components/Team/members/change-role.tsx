@@ -127,7 +127,16 @@ const ChangeRole = (props: Props) => {
                 label={__("Owner")}
               />
               <DialogContentText>
-                {__("Has full administrative access to the entire team.")}
+                <ul>
+                  <li>{__("can invite another team member.")}</li>
+                  <li>{__("can designate another owner.")}</li>
+                  <li>{__("can suspend another member.")}</li>
+                  <li>
+                    {__(
+                      "Can manage all resources in the team, including API Keys."
+                    )}
+                  </li>
+                </ul>
               </DialogContentText>
 
               <FormControlLabel
@@ -136,7 +145,13 @@ const ChangeRole = (props: Props) => {
                 label={__("Member")}
               />
               <DialogContentText>
-                {__("Can access all resource in the team.")}
+                <ul>
+                  <li>
+                    {__(
+                      "Can manage all resources in the team, including API Keys."
+                    )}
+                  </li>
+                </ul>
               </DialogContentText>
             </RadioGroup>
           </DialogContent>
