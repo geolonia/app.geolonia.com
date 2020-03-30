@@ -14,6 +14,7 @@ import { CircularProgress } from "@material-ui/core";
 import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
 import Interweave from "interweave";
+import parseCognitoSignupError from "../lib/cognito/parse-error";
 
 type OwnProps = {};
 type RouterProps = {
@@ -27,21 +28,6 @@ type DispatchProps = {
 };
 
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
-
-const isPasswordStrongEnough = (password: string) => {
-  if (password.length > 14) {
-    return true;
-  } else if (
-    password.length > 7 &&
-    password.split("").some(char => /^[0-9]$/.test(char)) &&
-    password.split("").some(char => /^[a-z]$/.test(char)) &&
-    password.split("").some(char => /^[A-Z]$/.test(char))
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};
 
 type Status = null | "requesting" | "success" | "warning";
 
@@ -76,25 +62,15 @@ const Content = (props: Props) => {
         props.history.push("/verify");
       })
       .catch(err => {
-        // Cognito specific
-        if (
-          err.code === "UsernameExistsException" ||
-          err.code === "UserLambdaValidationException"
-        ) {
-          setMessage(
-            __("Signup failed. You cannot use the username or email.")
-          );
-        } else if (err.code === "InvalidParameterException") {
-          setMessage(__("Invalid username or email address."));
-        } else {
-          __("Signup failed. You cannot use the username or email.");
-        }
+        setMessage(parseCognitoSignupError(err || { code: "" }));
         setStatus("warning");
       });
   };
 
-  const buttonDisabled =
-    username === "" || email === "" || !isPasswordStrongEnough(password);
+  const usernameIsValid = username !== "";
+  const emailIsValid = email !== "";
+  const passwordIsValid = password !== "";
+  const buttonDisabled = !usernameIsValid || !emailIsValid || !passwordIsValid;
 
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {
     // enter
@@ -150,7 +126,7 @@ const Content = (props: Props) => {
           </label>
           <p className="message">
             {__(
-              "Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter."
+              "Make sure at least 8 characters including a number and a lowercase letter."
             )}
           </p>
 
