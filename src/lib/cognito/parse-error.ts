@@ -2,7 +2,6 @@ import { __ } from "@wordpress/i18n";
 
 export default (err: { code: string; message: string }): string => {
   const { code, message } = err;
-  console.log(code, message);
 
   const PASSWORD_STRENGTH_ERROR = __("Insufficient password strength.");
   const USERNAME_DUPLICATION_ERROR = __(
