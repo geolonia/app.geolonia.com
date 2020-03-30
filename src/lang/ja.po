@@ -105,30 +105,36 @@ msgstr ""
 "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗"
 "情報や不動産情報などのデータを登録しましょう。"
 
-#: src/components/Data/GeoJsonImporter.tsx:87
+#: src/components/Data/GeoJsonImporter.tsx:100
+msgid "Error: Please upload GeoJSON file less than %d MB."
+msgstr "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
+
+#: src/components/Data/GeoJsonImporter.tsx:109
 #: src/components/Data/ImportButton.tsx:25
 msgid "Import GeoJSON"
 msgstr "GeoJSON をインポート"
 
-#: src/components/Data/GeoJsonImporter.tsx:88
+#: src/components/Data/GeoJsonImporter.tsx:110
 msgid "Import GeoJSON from your computer."
 msgstr "GeoJSON をコンピューターからインポートしましょう。"
 
-#: src/components/Data/GeoJsonImporter.tsx:88
+#: src/components/Data/GeoJsonImporter.tsx:110
 msgid "Maximum upload file size: %d MB"
 msgstr "最大アップロードファイルサイズ: %d MB"
 
-#: src/components/Data/GeoJsonImporter.tsx:90
+#: src/components/Data/GeoJsonImporter.tsx:112
 msgid ""
-"Features that are imported will always be added and the existing features "
-"will not be updated."
+"Existing feature that has same `id` will be updated, not added as new "
+"feature."
 msgstr ""
-"インポートされた地物は常に新規に追加され、既存のデータの上書きは行われませ"
-"ん。"
 
-#: src/components/Data/GeoJsonImporter.tsx:91
-msgid "Error: Please upload GeoJSON file less than %d MB."
-msgstr "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
+#: src/components/Data/GeoJsonImporter.tsx:96
+msgid "Error: The name of identifier `id` must be lower case."
+msgstr ""
+
+#: src/components/Data/GeoJsonImporter.tsx:98
+msgid "Error: The `id` of each `fueature` must be unique in the GeoJSON."
+msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:100
 msgid "Name of public GeoJSON will be displayed in public."
@@ -550,7 +556,7 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:113 src/lib/cognito/parse-error.ts:25
+#: src/components/Signin.tsx:113 src/lib/cognito/parse-error.ts:24
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
@@ -1002,6 +1008,40 @@ msgstr "この操作を行う権限がありません。"
 msgid "Network error."
 msgstr "通信エラー。"
 
+#: src/lib/cognito/parse-error.ts:10
+msgid "The email exists already. You cannot use this mail address."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:13
+msgid "The email is not currently allowed for private beta."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:16
+msgid "You cannot use this username."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:17
+msgid ""
+"Username should be less than 256 characters and include only lowercase "
+"characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.)."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:20
+msgid "Invalid parameter specified. You cannot use this username or email."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:23
+msgid "Invalid email."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:6
+msgid "Insufficient password strength."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:7
+msgid "Username exists already. You cannot use this username."
+msgstr ""
+
 #: src/components/Data/MapEditor.tsx:102
 msgctxt "Default value of latitude for map"
 msgid "0"
@@ -1016,6 +1056,13 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid ""
+#~ "Features that are imported will always be added and the existing features "
+#~ "will not be updated."
+#~ msgstr ""
+#~ "インポートされた地物は常に新規に追加され、既存のデータの上書きは行われませ"
+#~ "ん。"
 
 #~ msgid "GeoJSON Hosting"
 #~ msgstr "GeoJSON ホスティング"

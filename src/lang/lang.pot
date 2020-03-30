@@ -97,27 +97,35 @@ msgid ""
 "informations that you have."
 msgstr ""
 
-#: src/components/Data/GeoJsonImporter.tsx:87
+#: src/components/Data/GeoJsonImporter.tsx:100
+msgid "Error: Please upload GeoJSON file less than %d MB."
+msgstr ""
+
+#: src/components/Data/GeoJsonImporter.tsx:109
 #: src/components/Data/ImportButton.tsx:25
 msgid "Import GeoJSON"
 msgstr ""
 
-#: src/components/Data/GeoJsonImporter.tsx:88
+#: src/components/Data/GeoJsonImporter.tsx:110
 msgid "Import GeoJSON from your computer."
 msgstr ""
 
-#: src/components/Data/GeoJsonImporter.tsx:88
+#: src/components/Data/GeoJsonImporter.tsx:110
 msgid "Maximum upload file size: %d MB"
 msgstr ""
 
-#: src/components/Data/GeoJsonImporter.tsx:90
+#: src/components/Data/GeoJsonImporter.tsx:112
 msgid ""
-"Features that are imported will always be added and the existing features "
-"will not be updated."
+"Existing feature that has same `id` will be updated, not added as new "
+"feature."
 msgstr ""
 
-#: src/components/Data/GeoJsonImporter.tsx:91
-msgid "Error: Please upload GeoJSON file less than %d MB."
+#: src/components/Data/GeoJsonImporter.tsx:96
+msgid "Error: The name of identifier `id` must be lower case."
+msgstr ""
+
+#: src/components/Data/GeoJsonImporter.tsx:98
+msgid "Error: The `id` of each `fueature` must be unique in the GeoJSON."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:100
@@ -536,7 +544,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Signin.tsx:113
-#: src/lib/cognito/parse-error.ts:25
+#: src/lib/cognito/parse-error.ts:24
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
@@ -977,6 +985,40 @@ msgstr ""
 
 #: src/constants.ts:14
 msgid "Network error."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:10
+msgid "The email exists already. You cannot use this mail address."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:13
+msgid "The email is not currently allowed for private beta."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:16
+msgid "You cannot use this username."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:17
+msgid ""
+"Username should be less than 256 characters and include only lowercase "
+"characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.)."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:20
+msgid "Invalid parameter specified. You cannot use this username or email."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:23
+msgid "Invalid email."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:6
+msgid "Insufficient password strength."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:7
+msgid "Username exists already. You cannot use this username."
 msgstr ""
 
 #: src/components/Data/MapEditor.tsx:102
