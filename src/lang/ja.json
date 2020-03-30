@@ -56,15 +56,7 @@
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
-      "Anyone can access this GeoJSON API.": [
-        "誰でもこの GeoJSON API にアクセスすることができます。"
-      ],
-      "You can restrict the URLs that can use this GeoJSON API.": [
-        "この GeoJSON API を利用できる URL を制限することができます。"
-      ],
-      "You can change privacy of this GeoJSON API as a Pro.": [
-        "Pro メンバーになると、この GeoJSON API のプライバシー設定を変更することができます。"
-      ],
+      "Name of public GeoJSON will be displayed in public.": [""],
       "API Endpoint": ["API エンドポイント"],
       "Copy embed code to clipboard": [
         "埋め込み用コードをクリップボードにコピー"
@@ -79,6 +71,16 @@
         "URL のリストは、この GeoJSON API が意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
       "Become a Pro": ["Pro メンバーになる"],
+      "Anyone can access this GeoJSON API.": [
+        "誰でもこの GeoJSON API にアクセスすることができます。"
+      ],
+      "You can restrict the URLs that can use this GeoJSON API.": [
+        "この GeoJSON API を利用できる URL を制限することができます。"
+      ],
+      "You can change privacy of this GeoJSON API as a Pro.": [
+        "Pro メンバーになると、この GeoJSON API のプライバシー設定を変更することができます。"
+      ],
+      "Name": ["名前"],
       "Small": ["小サイズ"],
       "Medium": ["中サイズ"],
       "Large": ["大サイズ"],
@@ -93,7 +95,6 @@
       "Stroke Width": ["線の太さ"],
       "Background": ["背景色"],
       "Stroke": ["線の太さ"],
-      "Name": ["名前"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
@@ -275,12 +276,14 @@
       ],
       "Select a new role of %s.": ["%s の権限を選択して下さい。"],
       "Owner": ["オーナー"],
-      "Has full administrative access to the entire team.": [
-        "チームに関する全ての管理者権限があります。"
+      "can invite another team member.": [
+        "新しいメンバーをチームに招待できます。"
       ],
+      "can designate another owner.": ["新しいチームオーナーを指定できます。"],
+      "can suspend another member.": ["メンバーの権限を一時停止できます。"],
       "Member": ["メンバー"],
-      "Can access all resource in the team.": [
-        "このチームの全てのリソースにアクセスできます。"
+      "Can manage all resources in the team, including API Keys.": [
+        "APIキーを含むチームの全てのリソースを管理できます。"
       ],
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。"

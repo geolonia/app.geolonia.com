@@ -16,7 +16,7 @@ msgid "Get API key then create your map!"
 msgstr ""
 
 #: src/components/Dashboard.tsx:73
-#: src/components/Data/GIS.tsx:110
+#: src/components/Data/GIS.tsx:109
 #: src/components/Data/GISs.tsx:71
 #: src/components/Navigator.tsx:146
 msgid "GeoJSON API"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "Download GeoJSON"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:102
+#: src/components/Data/GIS.tsx:101
 #: src/components/Data/GISs.tsx:63
 #: src/components/Maps/APIKey.tsx:112
 #: src/components/Maps/APIKeys.tsx:38
@@ -42,34 +42,34 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:106
+#: src/components/Data/GIS.tsx:105
 #: src/components/Data/GISs.tsx:67
 msgid "API services"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:244
+#: src/components/Data/GIS.tsx:249
 msgid "GeoJSON Editor"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:245
+#: src/components/Data/GIS.tsx:250
 msgid ""
 "You can manage and style features in your GeoJSON, and get the the access "
 "point URL of GeoJSON API."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:261
+#: src/components/Data/GIS.tsx:266
 msgid "Total Count of Features: %s"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:267
+#: src/components/Data/GIS.tsx:271
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:272
+#: src/components/Data/GIS.tsx:276
 msgid "Are you sure you want to delete this Dataset?"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:273
+#: src/components/Data/GIS.tsx:277
 msgid "Please type in the name of the Dataset to confirm."
 msgstr ""
 
@@ -120,56 +120,71 @@ msgstr ""
 msgid "Error: Please upload GeoJSON file less than %d MB."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:68
-msgid "Anyone can access this GeoJSON API."
+#: src/components/Data/GeoJsonMeta.tsx:100
+msgid "Name of public GeoJSON will be displayed in public."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:69
-msgid "You can restrict the URLs that can use this GeoJSON API."
-msgstr ""
-
-#: src/components/Data/GeoJsonMeta.tsx:72
-msgid "You can change privacy of this GeoJSON API as a Pro."
-msgstr ""
-
-#: src/components/Data/GeoJsonMeta.tsx:79
+#: src/components/Data/GeoJsonMeta.tsx:106
 msgid "API Endpoint"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:81
+#: src/components/Data/GeoJsonMeta.tsx:108
 msgid "Copy embed code to clipboard"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:82
+#: src/components/Data/GeoJsonMeta.tsx:109
 msgid "Or"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:82
+#: src/components/Data/GeoJsonMeta.tsx:109
 msgid "Copy endpoint URL to clipboard"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:84
+#: src/components/Data/GeoJsonMeta.tsx:111
 #: src/components/Data/fields.tsx:40
 #: src/components/Maps/APIKey.tsx:232
 msgid "URLs"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:94
-#: src/components/Team/members/change-role.tsx:156
+#: src/components/Data/GeoJsonMeta.tsx:121
+#: src/components/Team/members/change-role.tsx:171
 #: src/components/Team/members/suspend.tsx:114
 #: src/components/custom/AddNew.tsx:141
 #: src/components/custom/Save.tsx:25
 msgid "Save"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:95
+#: src/components/Data/GeoJsonMeta.tsx:122
 msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use "
 "this GeoJSON API."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:96
+#: src/components/Data/GeoJsonMeta.tsx:123
 msgid "Become a Pro"
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:87
+msgid "Anyone can access this GeoJSON API."
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:88
+msgid "You can restrict the URLs that can use this GeoJSON API."
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:91
+msgid "You can change privacy of this GeoJSON API as a Pro."
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:96
+#: src/components/Data/fields.tsx:26
+#: src/components/Maps/APIKey.tsx:221
+#: src/components/Navigator.tsx:317
+#: src/components/Team/general/fields.tsx:87
+#: src/components/User/profile.tsx:125
+#: src/components/custom/AddNew.tsx:34
+#: src/components/custom/Delete.tsx:119
+msgid "Name"
 msgstr ""
 
 #: src/components/Data/PropsEditor.tsx:50
@@ -184,17 +199,17 @@ msgstr ""
 msgid "Large"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:63
+#: src/components/Data/PropsEditor.tsx:65
 msgid "Title"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:65
+#: src/components/Data/PropsEditor.tsx:67
 #: src/components/Data/fields.tsx:32
 #: src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:67
+#: src/components/Data/PropsEditor.tsx:69
 msgid "Style"
 msgstr ""
 
@@ -228,16 +243,6 @@ msgstr ""
 
 #: src/components/Data/SimpleStyle.tsx:73
 msgid "Stroke"
-msgstr ""
-
-#: src/components/Data/fields.tsx:26
-#: src/components/Maps/APIKey.tsx:221
-#: src/components/Navigator.tsx:317
-#: src/components/Team/general/fields.tsx:87
-#: src/components/User/profile.tsx:125
-#: src/components/custom/AddNew.tsx:34
-#: src/components/custom/Delete.tsx:119
-msgid "Name"
 msgstr ""
 
 #: src/components/Data/fields.tsx:50
@@ -308,7 +313,7 @@ msgstr ""
 msgid "We will send you a verification code to reset your password."
 msgstr ""
 
-#: src/components/ForgotPassword.tsx:73
+#: src/components/ForgotPassword.tsx:74
 msgid "Send password reset email"
 msgstr ""
 
@@ -495,7 +500,7 @@ msgid ""
 "number and a lowercase letter."
 msgstr ""
 
-#: src/components/ResetPassword.tsx:121
+#: src/components/ResetPassword.tsx:122
 msgid "Change password"
 msgstr ""
 
@@ -529,15 +534,15 @@ msgstr ""
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:148
+#: src/components/Signin.tsx:149
 msgid "Sign in"
 msgstr ""
 
-#: src/components/Signin.tsx:163
+#: src/components/Signin.tsx:164
 msgid "New to Geolonia?"
 msgstr ""
 
-#: src/components/Signin.tsx:165
+#: src/components/Signin.tsx:166
 msgid "Create an account."
 msgstr ""
 
@@ -586,11 +591,11 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:158
+#: src/components/Signup.tsx:159
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:168
+#: src/components/Signup.tsx:169
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" "
@@ -706,7 +711,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/general/delete.tsx:139
-#: src/components/Team/members/change-role.tsx:145
+#: src/components/Team/members/change-role.tsx:160
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
 #: src/components/custom/AddNew.tsx:130
@@ -755,16 +760,24 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:130
-msgid "Has full administrative access to the entire team."
+#: src/components/Team/members/change-role.tsx:131
+msgid "can invite another team member."
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:136
+#: src/components/Team/members/change-role.tsx:132
+msgid "can designate another owner."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:133
+msgid "can suspend another member."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:145
 msgid "Member"
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:139
-msgid "Can access all resource in the team."
+#: src/components/Team/members/change-role.tsx:150
+msgid "Can manage all resources in the team, including API Keys."
 msgstr ""
 
 #: src/components/Team/members/index.tsx:144
@@ -937,11 +950,11 @@ msgstr ""
 msgid "Coming soon"
 msgstr ""
 
-#: src/components/verify.tsx:109
+#: src/components/verify.tsx:110
 msgid "Verify"
 msgstr ""
 
-#: src/components/verify.tsx:126
+#: src/components/verify.tsx:127
 msgid "Please check your email and enter the verification code like 123456."
 msgstr ""
 
@@ -953,15 +966,15 @@ msgstr ""
 msgid "Verification code"
 msgstr ""
 
-#: src/constants.ts:11
+#: src/constants.ts:12
 msgid "You are not authorized to do this operation."
 msgstr ""
 
-#: src/constants.ts:13
+#: src/constants.ts:14
 msgid "Network error."
 msgstr ""
 
-#: src/constants.ts:17
+#: src/constants.ts:18
 msgid "Unknown error."
 msgstr ""
 
