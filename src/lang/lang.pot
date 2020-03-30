@@ -47,29 +47,29 @@ msgstr ""
 msgid "API services"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:249
+#: src/components/Data/GIS.tsx:252
 msgid "GeoJSON Editor"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:250
+#: src/components/Data/GIS.tsx:253
 msgid ""
 "You can manage and style features in your GeoJSON, and get the the access "
 "point URL of GeoJSON API."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:266
+#: src/components/Data/GIS.tsx:269
 msgid "Total Count of Features: %s"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:271
+#: src/components/Data/GIS.tsx:274
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Data/GIS.tsx:276
+#: src/components/Data/GIS.tsx:279
 msgid "Are you sure you want to delete this Dataset?"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:277
+#: src/components/Data/GIS.tsx:280
 msgid "Please type in the name of the Dataset to confirm."
 msgstr ""
 
@@ -193,29 +193,29 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:50
+#: src/components/Data/PropsEditor.tsx:63
 msgid "Small"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:51
+#: src/components/Data/PropsEditor.tsx:64
 msgid "Medium"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:51
+#: src/components/Data/PropsEditor.tsx:64
 msgid "Large"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:65
+#: src/components/Data/PropsEditor.tsx:78
 msgid "Title"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:67
+#: src/components/Data/PropsEditor.tsx:80
 #: src/components/Data/fields.tsx:32
 #: src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:69
+#: src/components/Data/PropsEditor.tsx:82
 msgid "Style"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgid "Reset your password"
 msgstr ""
 
 #: src/components/ForgotPassword.tsx:57
-#: src/components/Signin.tsx:118
+#: src/components/Signin.tsx:126
 msgid "Username or email address"
 msgstr ""
 
@@ -522,8 +522,8 @@ msgid "Verification Code"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:87
-#: src/components/Signin.tsx:129
-#: src/components/Signup.tsx:117
+#: src/components/Signin.tsx:137
+#: src/components/Signup.tsx:119
 msgid "Password"
 msgstr ""
 
@@ -531,26 +531,26 @@ msgstr ""
 msgid "Confirm password"
 msgstr ""
 
-#: src/components/Signin.tsx:101
+#: src/components/Signin.tsx:109
 msgid "Sign in to Geolonia"
 msgstr ""
 
-#: src/components/Signin.tsx:104
+#: src/components/Signin.tsx:112
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
 msgstr ""
 
-#: src/components/Signin.tsx:113
+#: src/components/Signin.tsx:121
 #: src/lib/cognito/parse-error.ts:24
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
-#: src/components/Signin.tsx:142
+#: src/components/Signin.tsx:150
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:155
+#: src/components/Signin.tsx:163
 msgid "Sign in"
 msgstr ""
 
@@ -562,32 +562,32 @@ msgstr ""
 msgid "Create an account."
 msgstr ""
 
-#: src/components/Signin.tsx:86
+#: src/components/Signin.tsx:94
 msgid "Incorrect username, email address or password."
 msgstr ""
 
-#: src/components/Signin.tsx:88
-#: src/constants.ts:18
+#: src/components/Signin.tsx:96
+#: src/constants.ts:19
 msgid "Unknown error."
 msgstr ""
 
-#: src/components/Signup.tsx:104
+#: src/components/Signup.tsx:106
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:108
+#: src/components/Signup.tsx:110
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:128
+#: src/components/Signup.tsx:130
 msgid "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
 
-#: src/components/Signup.tsx:141
+#: src/components/Signup.tsx:143
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:151
+#: src/components/Signup.tsx:150
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" "
@@ -596,26 +596,22 @@ msgid ""
 "href=\"https://geolonia.com/privacy\">Privacy policy</a>."
 msgstr ""
 
-#: src/components/Signup.tsx:59
-msgid "Signup successed."
-msgstr ""
-
-#: src/components/Signup.tsx:87
-#: src/components/verify.tsx:79
+#: src/components/Signup.tsx:89
+#: src/components/verify.tsx:85
 msgid "Welcome to Geolonia"
 msgstr ""
 
-#: src/components/Signup.tsx:88
+#: src/components/Signup.tsx:90
 msgid "Create your account"
 msgstr ""
 
-#: src/components/Signup.tsx:90
+#: src/components/Signup.tsx:92
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 
-#: src/components/Signup.tsx:96
+#: src/components/Signup.tsx:98
 #: src/components/User/profile.tsx:104
-#: src/components/verify.tsx:84
+#: src/components/verify.tsx:97
 msgid "Username"
 msgstr ""
 
@@ -961,27 +957,35 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: src/components/verify.tsx:110
-msgid "Verify"
-msgstr ""
-
-#: src/components/verify.tsx:127
-msgid "Please check your email and enter the verification code like 123456."
-msgstr ""
-
-#: src/components/verify.tsx:80
-msgid "Verify your account"
-msgstr ""
-
-#: src/components/verify.tsx:93
+#: src/components/verify.tsx:107
 msgid "Verification code"
 msgstr ""
 
-#: src/constants.ts:12
+#: src/components/verify.tsx:124
+msgid "Verify"
+msgstr ""
+
+#: src/components/verify.tsx:73
+msgid "Verification code mismatch."
+msgstr ""
+
+#: src/components/verify.tsx:75
+msgid "User not found. Please check entered username."
+msgstr ""
+
+#: src/components/verify.tsx:86
+msgid "Verify your account"
+msgstr ""
+
+#: src/components/verify.tsx:90
+msgid "Please check your email and enter the verification code like 123456."
+msgstr ""
+
+#: src/constants.ts:13
 msgid "You are not authorized to do this operation."
 msgstr ""
 
-#: src/constants.ts:14
+#: src/constants.ts:15
 msgid "Network error."
 msgstr ""
 
