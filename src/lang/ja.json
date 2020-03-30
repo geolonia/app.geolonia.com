@@ -152,7 +152,6 @@
       "Sign in": ["サインイン"],
       "New to Geolonia?": ["アカウントをお持ちですか？"],
       "Create an account.": ["アカウントを作成"],
-      "Signin successed.": ["サインイン成功"],
       "Incorrect username, email address or password.": [
         "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
       ],
@@ -287,6 +286,8 @@
       "next page": ["次のページ"],
       "last page": ["最後のページ"],
       "Coming soon": ["準備中"],
+      "Japanese": ["日本語"],
+      "English": ["英語"],
       "Verify": ["検証する"],
       "Please check your email and enter the verification code like 123456.": [
         "Eメールを確認して 123456 のような検証コードを入力してください。"
