@@ -311,19 +311,19 @@ msgid "%s feature has been added."
 msgid_plural "%s features have been added."
 msgstr[0] "%s 個の地物が追加されました。"
 
-#: src/components/ForgotPassword.tsx:52
+#: src/components/ForgotPassword.tsx:53
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:56 src/components/Signin.tsx:112
+#: src/components/ForgotPassword.tsx:57 src/components/Signin.tsx:118
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/ForgotPassword.tsx:64
+#: src/components/ForgotPassword.tsx:65
 msgid "We will send you a verification code to reset your password."
 msgstr "パスワードをリセットするための検証コードを送付します。"
 
-#: src/components/ForgotPassword.tsx:74
+#: src/components/ForgotPassword.tsx:75
 msgid "Send password reset email"
 msgstr "メールを送信"
 
@@ -506,71 +506,43 @@ msgstr "指定したメールに請求情報を送信します。"
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
-#: src/components/ResetPassword.tsx:106 src/components/Signup.tsx:146
+#: src/components/ResetPassword.tsx:107 src/components/Signup.tsx:152
 msgid ""
 "Make sure it's at least 15 characters OR at least 8 characters including a "
 "number and a lowercase letter."
 msgstr ""
 "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
 
-#: src/components/ResetPassword.tsx:122
+#: src/components/ResetPassword.tsx:123
 msgid "Change password"
 msgstr "パスワードを変更"
 
-#: src/components/ResetPassword.tsx:70
+#: src/components/ResetPassword.tsx:71
 msgid "We have sent verification code via email."
 msgstr "検証コードを電子メールで送信しました。"
 
-#: src/components/ResetPassword.tsx:73
+#: src/components/ResetPassword.tsx:74
 msgid "Change your password"
 msgstr "パスワードを変更"
 
-#: src/components/ResetPassword.tsx:77
+#: src/components/ResetPassword.tsx:78
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/ResetPassword.tsx:86 src/components/Signin.tsx:123
-#: src/components/Signup.tsx:135
+#: src/components/ResetPassword.tsx:87 src/components/Signin.tsx:129
+#: src/components/Signup.tsx:141
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/ResetPassword.tsx:96
+#: src/components/ResetPassword.tsx:97
 msgid "Confirm password"
 msgstr "パスワードを確認"
 
-#: src/components/Signin.tsx:107
-msgid "Oops, the server seems not to be responding correctly."
-msgstr "おっと、サーバーが正しく応答していないようです。"
-
-#: src/components/Signin.tsx:136
-msgid "Forgot password?"
-msgstr "パスワードをお忘れですか？"
-
-#: src/components/Signin.tsx:149
-msgid "Sign in"
-msgstr "サインイン"
-
-#: src/components/Signin.tsx:164
-msgid "New to Geolonia?"
-msgstr "アカウントをお持ちですか？"
-
-#: src/components/Signin.tsx:166
-msgid "Create an account."
-msgstr "アカウントを作成"
-
-#: src/components/Signin.tsx:43
-msgid "Signin successed."
-msgstr "サインイン成功"
-
-#: src/components/Signin.tsx:44
-msgid "Signin failed."
-msgstr "サインイン失敗"
-
-#: src/components/Signin.tsx:95
+#: src/components/Signin.tsx:101
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:98
+#: src/components/Signin.tsx:104
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -578,37 +550,65 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signup.tsx:109 src/components/verify.tsx:79
+#: src/components/Signin.tsx:113
+msgid "Oops, the server seems not to be responding correctly."
+msgstr "おっと、サーバーが正しく応答していないようです。"
+
+#: src/components/Signin.tsx:142
+msgid "Forgot password?"
+msgstr "パスワードをお忘れですか？"
+
+#: src/components/Signin.tsx:155
+msgid "Sign in"
+msgstr "サインイン"
+
+#: src/components/Signin.tsx:170
+msgid "New to Geolonia?"
+msgstr "アカウントをお持ちですか？"
+
+#: src/components/Signin.tsx:172
+msgid "Create an account."
+msgstr "アカウントを作成"
+
+#: src/components/Signin.tsx:86
+msgid "Incorrect username, email address or password."
+msgstr "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
+
+#: src/components/Signin.tsx:88 src/constants.ts:18
+msgid "Unknown error."
+msgstr "不明なエラー。"
+
+#: src/components/Signup.tsx:111 src/components/verify.tsx:79
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:110
+#: src/components/Signup.tsx:112
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:111
+#: src/components/Signup.tsx:114
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
 
-#: src/components/Signup.tsx:114 src/components/User/profile.tsx:104
+#: src/components/Signup.tsx:120 src/components/User/profile.tsx:104
 #: src/components/verify.tsx:84
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/components/Signup.tsx:122
+#: src/components/Signup.tsx:128
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:126
+#: src/components/Signup.tsx:132
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:159
+#: src/components/Signup.tsx:165
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:169
+#: src/components/Signup.tsx:175
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -620,15 +620,15 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Signup.tsx:71
+#: src/components/Signup.tsx:73
 msgid "Signup successed."
 msgstr "サインアップ成功"
 
-#: src/components/Signup.tsx:86
+#: src/components/Signup.tsx:88
 msgid "Invalid username or email address."
 msgstr "ユーザー名または Email アドレスが正しくありません。"
 
-#: src/components/Signup.tsx:88
+#: src/components/Signup.tsx:90
 msgid "Signup failed. You cannot use the username or email."
 msgstr ""
 "サインアップに失敗しました。このユーザー名またはメールアドレスは使用できませ"
@@ -974,6 +974,14 @@ msgstr "最後のページ"
 msgid "Coming soon"
 msgstr "準備中"
 
+#: src/components/custom/languages.tsx:14
+msgid "Japanese"
+msgstr "日本語"
+
+#: src/components/custom/languages.tsx:15
+msgid "English"
+msgstr "英語"
+
 #: src/components/verify.tsx:110
 msgid "Verify"
 msgstr "検証する"
@@ -997,10 +1005,6 @@ msgstr "この操作を行う権限がありません。"
 #: src/constants.ts:14
 msgid "Network error."
 msgstr "通信エラー。"
-
-#: src/constants.ts:18
-msgid "Unknown error."
-msgstr "不明なエラー。"
 
 #: src/components/Data/MapEditor.tsx:102
 msgctxt "Default value of latitude for map"

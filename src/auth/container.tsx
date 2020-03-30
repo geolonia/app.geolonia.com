@@ -15,6 +15,7 @@ import listGeosearch from "../api/geosearch/list";
 // Utils
 import delay from "../lib/promise-delay";
 import dateParse from "../lib/date-parse";
+import estimateLanguage from "../lib/estimate-language";
 
 // redux
 import { connect } from "react-redux";
@@ -120,9 +121,7 @@ export class AuthContainer extends React.Component<Props, State> {
     const session = await getSession();
 
     if (session === null) {
-      setLocaleData(
-        loadLocale(navigator.language.slice(0, 2) === "ja" ? "ja" : "en")
-      );
+      setLocaleData(loadLocale(estimateLanguage()));
       return this.props.ready();
     }
 
