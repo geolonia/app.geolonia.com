@@ -169,7 +169,7 @@ msgstr ""
 msgid "We will send you a verification code to reset your password."
 msgstr ""
 
-#: src/components/ForgotPassword.tsx:73
+#: src/components/ForgotPassword.tsx:74
 msgid "Send password reset email"
 msgstr ""
 
@@ -356,7 +356,7 @@ msgid ""
 "number and a lowercase letter."
 msgstr ""
 
-#: src/components/ResetPassword.tsx:121
+#: src/components/ResetPassword.tsx:122
 msgid "Change password"
 msgstr ""
 
@@ -390,15 +390,15 @@ msgstr ""
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:148
+#: src/components/Signin.tsx:149
 msgid "Sign in"
 msgstr ""
 
-#: src/components/Signin.tsx:163
+#: src/components/Signin.tsx:164
 msgid "New to Geolonia?"
 msgstr ""
 
-#: src/components/Signin.tsx:165
+#: src/components/Signin.tsx:166
 msgid "Create an account."
 msgstr ""
 
@@ -447,11 +447,11 @@ msgstr ""
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:158
+#: src/components/Signup.tsx:159
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:168
+#: src/components/Signup.tsx:169
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" "
@@ -813,11 +813,11 @@ msgstr ""
 msgid "Coming soon"
 msgstr ""
 
-#: src/components/verify.tsx:109
+#: src/components/verify.tsx:110
 msgid "Verify"
 msgstr ""
 
-#: src/components/verify.tsx:126
+#: src/components/verify.tsx:127
 msgid "Please check your email and enter the verification code like 123456."
 msgstr ""
 

@@ -218,12 +218,14 @@
       ],
       "Select a new role of %s.": ["%s の権限を選択して下さい。"],
       "Owner": ["オーナー"],
-      "Has full administrative access to the entire team.": [
-        "チームに関する全ての管理者権限があります。"
+      "can invite another team member.": [
+        "新しいメンバーをチームに招待できます。"
       ],
+      "can designate another owner.": ["新しいチームオーナーを指定できます。"],
+      "can suspend another member.": ["メンバーの権限を一時停止できます。"],
       "Member": ["メンバー"],
-      "Can access all resource in the team.": [
-        "このチームの全てのリソースにアクセスできます。"
+      "Can manage all resources in the team, including API Keys.": [
+        "APIキーを含むチームの全てのリソースを管理できます。"
       ],
       "Save": ["保存"],
       "You can manage members in your team.": [

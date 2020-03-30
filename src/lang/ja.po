@@ -174,7 +174,7 @@ msgstr "ユーザー名または Email アドレス"
 msgid "We will send you a verification code to reset your password."
 msgstr "パスワードをリセットするための検証コードを送付します。"
 
-#: src/components/ForgotPassword.tsx:73
+#: src/components/ForgotPassword.tsx:74
 msgid "Send password reset email"
 msgstr "メールを送信"
 
@@ -363,7 +363,7 @@ msgid ""
 msgstr ""
 "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
 
-#: src/components/ResetPassword.tsx:121
+#: src/components/ResetPassword.tsx:122
 msgid "Change password"
 msgstr "パスワードを変更"
 
@@ -396,15 +396,15 @@ msgstr "おっと、サーバーが正しく応答していないようです。
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:148
+#: src/components/Signin.tsx:149
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:163
+#: src/components/Signin.tsx:164
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:165
+#: src/components/Signin.tsx:166
 msgid "Create an account."
 msgstr "アカウントを作成"
 
@@ -454,11 +454,11 @@ msgstr "ユーザー名は後から変更できません。"
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:158
+#: src/components/Signup.tsx:159
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:168
+#: src/components/Signup.tsx:169
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -830,11 +830,11 @@ msgstr "最後のページ"
 msgid "Coming soon"
 msgstr "準備中"
 
-#: src/components/verify.tsx:109
+#: src/components/verify.tsx:110
 msgid "Verify"
 msgstr "検証する"
 
-#: src/components/verify.tsx:126
+#: src/components/verify.tsx:127
 msgid "Please check your email and enter the verification code like 123456."
 msgstr "Eメールを確認して 123456 のような検証コードを入力してください。"
 
