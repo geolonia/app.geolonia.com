@@ -24,17 +24,13 @@ type StateProps = {};
 type DispatchProps = {};
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
-// TODO: Fix messages
-const messages = {
-  warning: "Verification failed."
-};
-
 const Content = (props: Props) => {
   const [username, setUsername] = React.useState("");
   const [code, setCode] = React.useState("");
   const [status, setStatus] = React.useState<
     null | "requesting" | "success" | "warning"
   >(null);
+  const [message, setMessage] = React.useState("");
 
   const parsed = queryString.parse(window.location.search);
   const hasQueryStringUsername =
@@ -48,8 +44,7 @@ const Content = (props: Props) => {
     }
   }, [hasQueryStringUsername, parsed.username, username]);
 
-  // TODO: we can enhance code validation with regex
-  const buttonDisabled = username === "" || code === "";
+  const buttonDisabled = username === "" || !/^[0-9]{6}$/g.test(code);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -57,7 +52,10 @@ const Content = (props: Props) => {
   };
   const onCodeChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
-    setCode(e.currentTarget.value);
+    const nextCode = e.currentTarget.value;
+    if (nextCode.length < 7) {
+      setCode(e.currentTarget.value);
+    }
   };
 
   const handleVerify = (e: React.MouseEvent<HTMLButtonElement> | void) => {
@@ -71,7 +69,11 @@ const Content = (props: Props) => {
         }, pageTransitionInterval);
       })
       .catch(err => {
-        console.log(err);
+        if (err.code === "CodeMismatchException") {
+          setMessage(__("Verification code mismatch."));
+        } else if (err.code === "UserNotFoundException") {
+          setMessage(__("User not found. Please check entered username."));
+        }
         setStatus("warning");
       });
   };
@@ -82,9 +84,7 @@ const Content = (props: Props) => {
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Welcome to Geolonia")}</h1>
         <h2>{__("Verify your account")}</h2>
-        {status === "warning" && (
-          <Alert type={status}>{messages[status]}</Alert>
-        )}
+        {status === "warning" && <Alert type={status}>{message}</Alert>}
         {username && !status && (
           <Alert type="success">
             {__(

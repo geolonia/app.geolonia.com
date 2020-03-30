@@ -166,7 +166,7 @@ msgstr[0] "%s 個の地物が追加されました。"
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:57 src/components/Signin.tsx:118
+#: src/components/ForgotPassword.tsx:57 src/components/Signin.tsx:126
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
@@ -379,8 +379,8 @@ msgstr "パスワードを変更"
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/ResetPassword.tsx:87 src/components/Signin.tsx:129
-#: src/components/Signup.tsx:117
+#: src/components/ResetPassword.tsx:87 src/components/Signin.tsx:137
+#: src/components/Signup.tsx:119
 msgid "Password"
 msgstr "パスワード"
 
@@ -388,11 +388,11 @@ msgstr "パスワード"
 msgid "Confirm password"
 msgstr "パスワードを確認"
 
-#: src/components/Signin.tsx:101
+#: src/components/Signin.tsx:109
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:104
+#: src/components/Signin.tsx:112
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -400,15 +400,15 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:113 src/lib/cognito/parse-error.ts:25
+#: src/components/Signin.tsx:121 src/lib/cognito/parse-error.ts:24
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
-#: src/components/Signin.tsx:142
+#: src/components/Signin.tsx:150
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:155
+#: src/components/Signin.tsx:163
 msgid "Sign in"
 msgstr "サインイン"
 
@@ -420,33 +420,33 @@ msgstr "アカウントをお持ちですか？"
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signin.tsx:86
+#: src/components/Signin.tsx:94
 msgid "Incorrect username, email address or password."
 msgstr "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
 
-#: src/components/Signin.tsx:88 src/constants.ts:16
+#: src/components/Signin.tsx:96 src/constants.ts:17
 msgid "Unknown error."
 msgstr "不明なエラー。"
 
-#: src/components/Signup.tsx:104
+#: src/components/Signup.tsx:106
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:108
+#: src/components/Signup.tsx:110
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:128
+#: src/components/Signup.tsx:130
 msgid ""
 "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
 "パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
 
-#: src/components/Signup.tsx:141
+#: src/components/Signup.tsx:143
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:151
+#: src/components/Signup.tsx:150
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -458,25 +458,21 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Signup.tsx:59
-msgid "Signup successed."
-msgstr "サインアップ成功"
-
-#: src/components/Signup.tsx:87 src/components/verify.tsx:79
+#: src/components/Signup.tsx:89 src/components/verify.tsx:85
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:88
+#: src/components/Signup.tsx:90
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:90
+#: src/components/Signup.tsx:92
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
 
-#: src/components/Signup.tsx:96 src/components/User/profile.tsx:104
-#: src/components/verify.tsx:84
+#: src/components/Signup.tsx:98 src/components/User/profile.tsx:104
+#: src/components/verify.tsx:97
 msgid "Username"
 msgstr "ユーザー名"
 
@@ -834,65 +830,73 @@ msgstr "日本語"
 msgid "English"
 msgstr "英語"
 
-#: src/components/verify.tsx:110
-msgid "Verify"
-msgstr "検証する"
-
-#: src/components/verify.tsx:127
-msgid "Please check your email and enter the verification code like 123456."
-msgstr "Eメールを確認して 123456 のような検証コードを入力してください。"
-
-#: src/components/verify.tsx:80
-msgid "Verify your account"
-msgstr "アカウントの確認"
-
-#: src/components/verify.tsx:93
+#: src/components/verify.tsx:107
 msgid "Verification code"
 msgstr "検証コード"
 
-#: src/constants.ts:10
+#: src/components/verify.tsx:124
+msgid "Verify"
+msgstr "検証する"
+
+#: src/components/verify.tsx:73
+msgid "Verification code mismatch."
+msgstr "検証コードが一致しません。"
+
+#: src/components/verify.tsx:75
+msgid "User not found. Please check entered username."
+msgstr "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
+
+#: src/components/verify.tsx:86
+msgid "Verify your account"
+msgstr "アカウントの確認"
+
+#: src/components/verify.tsx:90
+msgid "Please check your email and enter the verification code like 123456."
+msgstr "Eメールを確認して 123456 のような検証コードを入力してください。"
+
+#: src/constants.ts:11
 msgid "You are not authorized to do this operation."
 msgstr "この操作を行う権限がありません。"
 
-#: src/constants.ts:12
+#: src/constants.ts:13
 msgid "Network error."
 msgstr "通信エラー。"
 
-#: src/lib/cognito/parse-error.ts:11
+#: src/lib/cognito/parse-error.ts:10
 msgid "The email exists already. You cannot use this mail address."
 msgstr ""
 "すでに登録されたメールアドレスです。このメールアドレスは使用できません。"
 
-#: src/lib/cognito/parse-error.ts:14
+#: src/lib/cognito/parse-error.ts:13
 msgid "The email is not currently allowed for private beta."
 msgstr "プライベートベータ版のため、このメールアドレスは許可されていません。"
 
-#: src/lib/cognito/parse-error.ts:17
+#: src/lib/cognito/parse-error.ts:16
 msgid "You cannot use this username."
 msgstr "このユーザー名は使用できません。"
 
-#: src/lib/cognito/parse-error.ts:18
+#: src/lib/cognito/parse-error.ts:17
 msgid ""
 "Username should be less than 256 characters and include only lowercase "
 "characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.)."
 msgstr ""
-"ユーザー名は255文字以下で、小文字(a-z)、数字(0-9)、ハイフン(-)、アンダースコア(_)及びピリ"
-"オド(.)が使用できます。"
+"ユーザー名は255文字以下で、小文字(a-z)、数字(0-9)、ハイフン(-)、アンダースコ"
+"ア(_)及びピリオド(.)が使用できます。"
 
-#: src/lib/cognito/parse-error.ts:21
+#: src/lib/cognito/parse-error.ts:20
 msgid "Invalid parameter specified. You cannot use this username or email."
 msgstr ""
 "不正なパラメータです。このユーザー名またはメールアドレスは使用できません。"
 
-#: src/lib/cognito/parse-error.ts:24
+#: src/lib/cognito/parse-error.ts:23
 msgid "Invalid email."
 msgstr "メールアドレスが正しくありません。"
 
-#: src/lib/cognito/parse-error.ts:7
+#: src/lib/cognito/parse-error.ts:6
 msgid "Insufficient password strength."
 msgstr "パスワードの強度が不足しています。"
 
-#: src/lib/cognito/parse-error.ts:8
+#: src/lib/cognito/parse-error.ts:7
 msgid "Username exists already. You cannot use this username."
 msgstr "すでに存在するユーザー名です。このユーザー名は使用できません。"
 
