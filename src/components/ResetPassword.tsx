@@ -51,6 +51,7 @@ const Content = (props: Props) => {
   };
 
   const handler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    event && event.preventDefault();
     setStatus(null);
     resetPassword(props.currentUser, code, password)
       .then(() => {

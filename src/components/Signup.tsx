@@ -64,7 +64,8 @@ const Content = (props: Props) => {
     setPassword(e.currentTarget.value);
   };
 
-  const handleSignup = () => {
+  const handleSignup = (e: React.MouseEvent | void) => {
+    e && e.preventDefault();
     setStatus("requesting");
     delay(signUp(username, email, password), 500)
       .then(result => {
@@ -108,7 +109,11 @@ const Content = (props: Props) => {
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Welcome to Geolonia")}</h1>
         <h2>{__("Create your account")}</h2>
-        <p>{__('We are currently private beta. Sign Up is restricted to invited users.')}</p>
+        <p>
+          {__(
+            "We are currently private beta. Sign Up is restricted to invited users."
+          )}
+        </p>
         <form className="form">
           <label className="username">
             <h3>{__("Username")}</h3>
