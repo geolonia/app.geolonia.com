@@ -116,7 +116,7 @@ msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:112
 msgid ""
-"Existing feature that has same `id` will be updated, not added as new "
+"Existing feature that has same `id` will be updated, not be added as a new "
 "feature."
 msgstr ""
 
