@@ -11,6 +11,10 @@ type Props = {
   GeoJsonImporter: Function;
 };
 
+type TypeUniqueIds = {
+  [key: string]: boolean;
+}
+
 const styleOuterDefault: React.CSSProperties = {
   position: 'fixed',
   top: '0px',
@@ -29,7 +33,7 @@ const styleOuterDefault: React.CSSProperties = {
 const Importer = (props: Props) => {
   const {state, onClose, GeoJsonImporter} = props;
   const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
-  const [error, setError] = React.useState<boolean>(false)
+  const [error, setError] = React.useState<string | null>(null)
 
   React.useEffect(() => {
     const style = {...styleOuterDefault}
@@ -50,7 +54,7 @@ const Importer = (props: Props) => {
   }
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setError(false)
+    setError(null)
     const files = event.currentTarget.files
     if (files) {
       if (GeoJsonMaxUploadSize > files[0].size) {
@@ -58,7 +62,7 @@ const Importer = (props: Props) => {
         filereader.onloadend = handleFileRead
         filereader.readAsText(files[0])
       } else {
-        setError(true)
+        setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 1000000))
       }
     }
   }
@@ -68,15 +72,33 @@ const Importer = (props: Props) => {
     if (target && target.result) {
       try {
         const geojson = JSON.parse(target.result as string) as GeoJSON.FeatureCollection
+        const uniquieIds = {} as TypeUniqueIds
         // Mapbox GL Draw needs `properties`, so it should be added.
         for (let i = 0; i < geojson.features.length; i++ ) {
+          // @ts-ignore
+          if (geojson.features[i].ID || geojson.features[i].Id || geojson.features[i].iD) {
+            throw new Error('invalid-case-of-identifier')
+          }
+          if (geojson.features[i].id) {
+            if (uniquieIds[geojson.features[i].id as string]) {
+              throw new Error('invalid-identifier')
+            } else {
+              uniquieIds[geojson.features[i].id as string] = true
+            }
+          }
           if ('undefined' === typeof geojson.features[i].properties) {
             geojson.features[i].properties = {}
           }
         }
         GeoJsonImporter(geojson)
       } catch (e) {
-        setError(true)
+        if ('invalid-case-of-identifier') {
+          setError(__('Error: The name of identifier `id` must be lower case.'))
+        } else if ('invalid-identifier' === e.message) {
+          setError(__("Error: The `id` of each `fueature` must be unique in the GeoJSON."))
+        } else {
+          setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 1000000))
+        }
       }
     }
   }
@@ -88,7 +110,7 @@ const Importer = (props: Props) => {
   <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
         <p>{__("Features that are imported will always be added and the existing features will not be updated.")}</p>
-        {error? <div className="error">{sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 1000000)}</div> : <></>}
+        {error? <div className="error">{error}</div> : <></>}
       </div>
     </div>
   );
