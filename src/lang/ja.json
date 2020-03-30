@@ -156,27 +156,24 @@
         "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
       ],
       "Unknown error.": ["不明なエラー。"],
+      "Username cannot be modified later.": [
+        "ユーザー名は後から変更できません。"
+      ],
+      "Email address": ["Email アドレス"],
+      "Make sure at least 8 characters including a number and a lowercase letter.": [
+        "パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
+      ],
+      "Sign up": ["サインアップ"],
+      "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
+        "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
+      ],
+      "Signup successed.": ["サインアップ成功"],
       "Welcome to Geolonia": ["Geolonia へようこそ"],
       "Create your account": ["アカウントを作成"],
       "We are currently private beta. Sign Up is restricted to invited users.": [
         "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
       ],
       "Username": ["ユーザー名"],
-      "Username cannot be modified later.": [
-        "ユーザー名は後から変更できません。"
-      ],
-      "Email address": ["Email アドレス"],
-      "Sign up": ["サインアップ"],
-      "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
-        "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
-      ],
-      "Signup successed.": ["サインアップ成功"],
-      "Invalid username or email address.": [
-        "ユーザー名または Email アドレスが正しくありません。"
-      ],
-      "Signup failed. You cannot use the username or email.": [
-        "サインアップに失敗しました。このユーザー名またはメールアドレスは使用できません。"
-      ],
       "Cost per 1,000 API loads/month": ["API 1,000ロードあたりのコスト"],
       "Free for up to 50,000/month": ["50,000/月 までは無料"],
       "Loads": ["ロード回数"],
@@ -298,6 +295,24 @@
         "この操作を行う権限がありません。"
       ],
       "Network error.": ["通信エラー。"],
+      "The email exists already. You cannot use this mail address.": [
+        "すでに登録されたメールアドレスです。このメールアドレスは使用できません。"
+      ],
+      "The email is not currently allowed for private beta.": [
+        "プライベートベータ版のため、このメールアドレスは許可されていません。"
+      ],
+      "You cannot use this username.": ["このユーザー名は使用できません。"],
+      "Username should be less than 256 characters and include only lowercase characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.).": [
+        "ユーザー名は255文字以下で、小文字(a-z)、数字(0-9)、ハイフン(-)、アンダースコア(_)及びピリオド(.)が使用できます。"
+      ],
+      "Invalid parameter specified. You cannot use this username or email.": [
+        "不正なパラメータです。このユーザー名またはメールアドレスは使用できません。"
+      ],
+      "Invalid email.": ["メールアドレスが正しくありません。"],
+      "Insufficient password strength.": ["パスワードの強度が不足しています。"],
+      "Username exists already. You cannot use this username.": [
+        "すでに存在するユーザー名です。このユーザー名は使用できません。"
+      ],
       "Default value of latitude for map\u00040": ["35.65810422222222"],
       "Default value of longitude for map\u00040": ["139.74135747222223"],
       "Default value of zoom level of map\u00040": ["6"]
