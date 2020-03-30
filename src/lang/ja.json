@@ -140,17 +140,18 @@
       "You are suspended. Please contact the team owner.": [
         "このユーザーは停止中です。チームの所有者にお問い合わせください。"
       ],
-      "Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.": [
-        "15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
+      "Confirm password": ["パスワードを確認"],
+      "Make sure at least 8 characters including a number and a lowercase letter.": [
+        "パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
       ],
       "Change password": ["パスワードを変更"],
-      "We have sent verification code via email.": [
-        "検証コードを電子メールで送信しました。"
-      ],
+      "Resend verification code.": ["検証コードを再送する。"],
       "Change your password": ["パスワードを変更"],
+      "Please check your email and enter the verification code like 123456 with new password.": [
+        "Eメールに記載した 123456 のような検証コードと新しいパスワードを入力してください。"
+      ],
       "Verification Code": ["検証コード"],
       "Password": ["パスワード"],
-      "Confirm password": ["パスワードを確認"],
       "Sign in to Geolonia": ["Geolonia にサインイン"],
       "Your account has been successfully verified. Please enter your password again and sign in to your account.": [
         "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてください。"
@@ -168,9 +169,6 @@
       ],
       "Username cannot be modified later.": [
         "ユーザー名は後から変更できません。"
-      ],
-      "Make sure at least 8 characters including a number and a lowercase letter.": [
-        "パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
       ],
       "Sign up": ["サインアップ"],
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [

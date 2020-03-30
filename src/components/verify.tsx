@@ -14,17 +14,7 @@ import queryString from "query-string";
 import estimateLanguage from "../lib/estimate-language";
 import { pageTransitionInterval } from "../constants";
 
-type OwnProps = {};
-type RouterProps = {
-  history: {
-    push: (path: string) => void;
-  };
-};
-type StateProps = {};
-type DispatchProps = {};
-type Props = OwnProps & RouterProps & StateProps & DispatchProps;
-
-const Content = (props: Props) => {
+const Content = () => {
   const [username, setUsername] = React.useState("");
   const [code, setCode] = React.useState("");
   const [status, setStatus] = React.useState<

@@ -162,36 +162,38 @@ msgid "%s feature has been added."
 msgid_plural "%s features have been added."
 msgstr[0] "%s 個の地物が追加されました。"
 
-#: src/components/ForgotPassword.tsx:48 src/components/verify.tsx:75
+#: src/components/ForgotPassword.tsx:47 src/components/verify.tsx:65
 msgid "User not found. Please check entered username."
 msgstr "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
 
-#: src/components/ForgotPassword.tsx:54
+#: src/components/ForgotPassword.tsx:53
 msgid "Cannot reset password for the user as there is no verified email."
-msgstr "メールアドレスが認証されていないため、このユーザーのパスワードをリセットできませんでした。"
+msgstr ""
+"メールアドレスが認証されていないため、このユーザーのパスワードをリセットでき"
+"ませんでした。"
 
-#: src/components/ForgotPassword.tsx:59
+#: src/components/ForgotPassword.tsx:58
 msgid "Attempt limit exceeded, please try after some time."
 msgstr "試行回数が制限を超えました。しばらくしてからまたお試しください。"
 
-#: src/components/ForgotPassword.tsx:61 src/components/Signin.tsx:96
+#: src/components/ForgotPassword.tsx:60 src/components/Signin.tsx:97
 #: src/constants.ts:17
 msgid "Unknown error."
 msgstr "不明なエラー。"
 
-#: src/components/ForgotPassword.tsx:73
+#: src/components/ForgotPassword.tsx:72
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:77 src/components/Signup.tsx:110
+#: src/components/ForgotPassword.tsx:76 src/components/Signup.tsx:110
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/ForgotPassword.tsx:85
+#: src/components/ForgotPassword.tsx:84
 msgid "We will send you a verification code to reset your password."
 msgstr "パスワードをリセットするための検証コードを送付します。"
 
-#: src/components/ForgotPassword.tsx:95
+#: src/components/ForgotPassword.tsx:94
 msgid "Send password reset email"
 msgstr "メールを送信"
 
@@ -373,43 +375,62 @@ msgstr "指定したメールに請求情報を送信します。"
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
-#: src/components/ResetPassword.tsx:107
-msgid ""
-"Make sure it's at least 15 characters OR at least 8 characters including a "
-"number and a lowercase letter."
-msgstr ""
-"15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
-
-#: src/components/ResetPassword.tsx:123
-msgid "Change password"
-msgstr "パスワードを変更"
-
-#: src/components/ResetPassword.tsx:71
-msgid "We have sent verification code via email."
-msgstr "検証コードを電子メールで送信しました。"
-
-#: src/components/ResetPassword.tsx:74
-msgid "Change your password"
-msgstr "パスワードを変更"
-
-#: src/components/ResetPassword.tsx:78
-msgid "Verification Code"
-msgstr "検証コード"
-
-#: src/components/ResetPassword.tsx:87 src/components/Signin.tsx:137
+#: src/components/ResetPassword.tsx:104 src/components/Signin.tsx:142
 #: src/components/Signup.tsx:119
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/ResetPassword.tsx:97
+#: src/components/ResetPassword.tsx:114
 msgid "Confirm password"
 msgstr "パスワードを確認"
 
-#: src/components/Signin.tsx:109
+#: src/components/ResetPassword.tsx:124 src/components/Signup.tsx:130
+msgid ""
+"Make sure at least 8 characters including a number and a lowercase letter."
+msgstr ""
+"パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
+
+#: src/components/ResetPassword.tsx:140
+msgid "Change password"
+msgstr "パスワードを変更"
+
+#: src/components/ResetPassword.tsx:145
+msgid "Resend verification code."
+msgstr "検証コードを再送する。"
+
+#: src/components/ResetPassword.tsx:73
+msgid "Change your password"
+msgstr "パスワードを変更"
+
+#: src/components/ResetPassword.tsx:76
+msgid ""
+"Please check your email and enter the verification code like 123456 with new "
+"password."
+msgstr ""
+"Eメールに記載した 123456 のような検証コードと新しいパスワードを入力してくださ"
+"い。"
+
+#: src/components/ResetPassword.tsx:84
+msgid "Verification Code"
+msgstr "検証コード"
+
+#: src/components/ResetPassword.tsx:94 src/components/Signup.tsx:98
+#: src/components/User/profile.tsx:104 src/components/verify.tsx:87
+msgid "Username"
+msgstr "ユーザー名"
+
+#: src/components/Signin.tsx:110
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:112
+#: src/components/Signin.tsx:114
+msgid ""
+"Your password has been successfully reset. Please reenter and sign in to the "
+"account."
+msgstr ""
+"パスワードがリセットされました。再度入力してサインインしてください。"
+
+#: src/components/Signin.tsx:117
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -417,43 +438,37 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:121 src/lib/cognito/parse-error.ts:24
+#: src/components/Signin.tsx:126 src/lib/cognito/parse-error.ts:24
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
-#: src/components/Signin.tsx:126
+#: src/components/Signin.tsx:131
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:150
+#: src/components/Signin.tsx:155
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:163
+#: src/components/Signin.tsx:168
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:170
+#: src/components/Signin.tsx:175
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:172
+#: src/components/Signin.tsx:177
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signin.tsx:94
+#: src/components/Signin.tsx:95
 msgid "Incorrect username, email address or password."
 msgstr "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
 
 #: src/components/Signup.tsx:106
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
-
-#: src/components/Signup.tsx:130
-msgid ""
-"Make sure at least 8 characters including a number and a lowercase letter."
-msgstr ""
-"パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
 
 #: src/components/Signup.tsx:143
 msgid "Sign up"
@@ -471,7 +486,7 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Signup.tsx:89 src/components/verify.tsx:85
+#: src/components/Signup.tsx:89 src/components/verify.tsx:75
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
@@ -483,11 +498,6 @@ msgstr "アカウントを作成"
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
-
-#: src/components/Signup.tsx:98 src/components/User/profile.tsx:104
-#: src/components/verify.tsx:97
-msgid "Username"
-msgstr "ユーザー名"
 
 #: src/components/Team/Billing.tsx:114
 msgid "Cost per 1,000 API loads/month"
@@ -843,25 +853,25 @@ msgstr "日本語"
 msgid "English"
 msgstr "英語"
 
-#: src/components/verify.tsx:107
-msgid "Verification code"
-msgstr "検証コード"
-
-#: src/components/verify.tsx:124
+#: src/components/verify.tsx:114
 msgid "Verify"
 msgstr "検証する"
 
-#: src/components/verify.tsx:73
+#: src/components/verify.tsx:63
 msgid "Verification code mismatch."
 msgstr "検証コードが一致しません。"
 
-#: src/components/verify.tsx:86
+#: src/components/verify.tsx:76
 msgid "Verify your account"
 msgstr "アカウントの確認"
 
-#: src/components/verify.tsx:90
+#: src/components/verify.tsx:80
 msgid "Please check your email and enter the verification code like 123456."
 msgstr "Eメールを確認して 123456 のような検証コードを入力してください。"
+
+#: src/components/verify.tsx:97
+msgid "Verification code"
+msgstr "検証コード"
 
 #: src/constants.ts:11
 msgid "You are not authorized to do this operation."

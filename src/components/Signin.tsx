@@ -54,6 +54,7 @@ const Content = (props: Props) => {
   const parsed = queryString.parse(window.location.search);
   const hasQueryStringUsername =
     !!parsed.username && typeof parsed.username === "string";
+  const hasPasswordReset = parsed.reset === "true";
 
   React.useEffect(() => {
     if (hasQueryStringUsername && username === "") {
@@ -109,9 +110,13 @@ const Content = (props: Props) => {
         <h1>{__("Sign in to Geolonia")}</h1>
         {hasQueryStringUsername ? (
           <Alert type="success">
-            {__(
-              "Your account has been successfully verified. Please enter your password again and sign in to your account."
-            )}
+            {hasPasswordReset
+              ? __(
+                  "Your password has been successfully reset. Please reenter and sign in to the account."
+                )
+              : __(
+                  "Your account has been successfully verified. Please enter your password again and sign in to your account."
+                )}
           </Alert>
         ) : status === "warning" ? (
           <Alert type="warning">{message}</Alert>
