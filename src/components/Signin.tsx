@@ -6,11 +6,11 @@ import Link from "@material-ui/core/Link";
 import Logo from "./custom/logo.svg";
 import Support from "./custom/Support";
 import Alert from "./custom/Alert";
-import { CircularProgress } from "@material-ui/core";
-import CheckIcon from "@material-ui/icons/Check";
+import StatusIndication from "./custom/status-indication";
 
 // Utils
 import delay from "../lib/promise-delay";
+import queryString from "query-string";
 import { __ } from "@wordpress/i18n";
 
 // Types
@@ -24,6 +24,9 @@ import Redux from "redux";
 import { createActions } from "../redux/actions/auth-support";
 import { connect } from "react-redux";
 
+// constants
+import { pageTransitionInterval } from "../constants";
+
 type OwnProps = {};
 type RouterProps = {
   history: {
@@ -32,7 +35,6 @@ type RouterProps = {
 };
 type StateProps = {
   serverTrouble: boolean;
-  signupUser?: string;
 };
 type DispatchProps = {
   setAccessToken: (accessToken: string) => void;
@@ -40,7 +42,7 @@ type DispatchProps = {
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
-  const { signupUser, serverTrouble } = props;
+  const { serverTrouble } = props;
 
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -49,11 +51,17 @@ const Content = (props: Props) => {
   >(null);
   const [message, setMessage] = React.useState("");
 
+  const parsed = queryString.parse(window.location.search);
+  const hasQueryStringUsername =
+    !!parsed.username && typeof parsed.username === "string";
+
   React.useEffect(() => {
-    if (signupUser && username === "") {
-      setUsername(signupUser);
+    if (hasQueryStringUsername && username === "") {
+      setUsername(parsed.username as string);
+      const passwordInput = document.getElementById("password");
+      passwordInput && passwordInput.focus();
     }
-  }, [signupUser, username]);
+  }, [hasQueryStringUsername, parsed.username, username]);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -74,7 +82,7 @@ const Content = (props: Props) => {
       .then(() => {
         setStatus("success");
         // Force reloadading and use componentDidMount of AuthContainer to get session
-        setTimeout(() => (window.location.href = "/"), 250);
+        setTimeout(() => (window.location.href = "/"), pageTransitionInterval);
       })
       .catch(error => {
         setStatus("warning");
@@ -99,7 +107,7 @@ const Content = (props: Props) => {
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Sign in to Geolonia")}</h1>
-        {signupUser ? (
+        {hasQueryStringUsername ? (
           <Alert type="success">
             {__(
               "Your account has been successfully verified. Please enter your password again and sign in to your account."
@@ -155,19 +163,11 @@ const Content = (props: Props) => {
               {__("Sign in")}
             </Button>
           </p>
-          {status === "requesting" ? (
-            <div style={{ marginTop: ".75em" }}>
-              <CircularProgress size={20} />
-            </div>
-          ) : status === "success" ? (
-            <div style={{ marginTop: ".75em" }}>
-              <CheckIcon fontSize={"default"} color={"primary"} />
-            </div>
-          ) : null}
+          <StatusIndication status={status}></StatusIndication>
         </form>
 
         <p>
-          {__("New to Geolonia?")}{" "}
+          {__("New to Geolonia?")}
           <Link href="#/signup" tabIndex={500}>
             {__("Create an account.")}
           </Link>
@@ -182,8 +182,7 @@ const Content = (props: Props) => {
 };
 
 const mapStateToProps = (state: AppState): StateProps => ({
-  serverTrouble: state.authSupport.hasTrouble,
-  signupUser: state.authSupport.currentUser
+  serverTrouble: state.authSupport.hasTrouble
 });
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setAccessToken: (accessToken: string) =>
