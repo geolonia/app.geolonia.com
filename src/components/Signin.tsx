@@ -24,6 +24,9 @@ import Redux from "redux";
 import { createActions } from "../redux/actions/auth-support";
 import { connect } from "react-redux";
 
+// constants
+import { pageTransitionInterval } from "../constants";
+
 type OwnProps = {};
 type RouterProps = {
   history: {
@@ -79,7 +82,7 @@ const Content = (props: Props) => {
       .then(() => {
         setStatus("success");
         // Force reloadading and use componentDidMount of AuthContainer to get session
-        setTimeout(() => (window.location.href = "/"), 250);
+        setTimeout(() => (window.location.href = "/"), pageTransitionInterval);
       })
       .catch(error => {
         setStatus("warning");

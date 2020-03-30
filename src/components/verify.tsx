@@ -12,6 +12,7 @@ import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
 import queryString from "query-string";
 import estimateLanguage from "../lib/estimate-language";
+import { pageTransitionInterval } from "../constants";
 
 type OwnProps = {};
 type RouterProps = {
@@ -67,7 +68,7 @@ const Content = (props: Props) => {
         setStatus("success");
         setTimeout(() => {
           window.location.href = `/?lang=${estimateLanguage()}&&username=${username}#/signin`;
-        }, 500);
+        }, pageTransitionInterval);
       })
       .catch(err => {
         console.log(err);

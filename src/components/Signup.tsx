@@ -16,6 +16,7 @@ import { __ } from "@wordpress/i18n";
 import Interweave from "interweave";
 import parseCognitoSignupError from "../lib/cognito/parse-error";
 import estimateLanguage from "../lib/estimate-language";
+import { pageTransitionInterval } from "../constants";
 
 type OwnProps = {};
 type RouterProps = {
@@ -62,7 +63,7 @@ const Content = (props: Props) => {
         props.setCurrentUser(username);
         setTimeout(() => {
           window.location.href = `/?lang=${estimateLanguage()}&username=${username}#/verify`;
-        }, 500);
+        }, pageTransitionInterval);
       })
       .catch(err => {
         setMessage(parseCognitoSignupError(err || { code: "" }));
