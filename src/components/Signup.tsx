@@ -10,11 +10,12 @@ import { signUp } from "../auth";
 import Redux from "redux";
 import { connect } from "react-redux";
 import { createActions } from "../redux/actions/auth-support";
-import { CircularProgress } from "@material-ui/core";
+import StatusIndication from "./custom/status-indication";
 import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
 import Interweave from "interweave";
 import parseCognitoSignupError from "../lib/cognito/parse-error";
+import estimateLanguage from "../lib/estimate-language";
 
 type OwnProps = {};
 type RouterProps = {
@@ -56,10 +57,12 @@ const Content = (props: Props) => {
     setStatus("requesting");
     delay(signUp(username, email, password), 500)
       .then(result => {
-        setMessage(__("Signup successed."));
         setStatus("success");
-        props.setCurrentUser(result.user.getUsername());
-        props.history.push("/verify");
+        const username = result.user.getUsername();
+        props.setCurrentUser(username);
+        setTimeout(() => {
+          window.location.href = `/?lang=${estimateLanguage()}&username=${username}#/verify`;
+        }, 500);
       })
       .catch(err => {
         setMessage(parseCognitoSignupError(err || { code: "" }));
@@ -79,9 +82,7 @@ const Content = (props: Props) => {
 
   return (
     <div className="signup">
-      {status && status !== "requesting" && (
-        <Alert type={status}>{message}</Alert>
-      )}
+      {status === "warning" && <Alert type={status}>{message}</Alert>}
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Welcome to Geolonia")}</h1>
@@ -141,11 +142,8 @@ const Content = (props: Props) => {
               {__("Sign up")}
             </Button>
           </p>
-          {status === "requesting" && (
-            <div style={{ marginTop: ".75em" }}>
-              <CircularProgress size={20} />
-            </div>
-          )}
+          <StatusIndication status={status}></StatusIndication>
+
           <p className="message">
             <Interweave
               content={__(
