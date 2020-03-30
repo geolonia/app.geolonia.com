@@ -231,6 +231,9 @@ const Content = (props: Props) => {
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
     const added = geojsonMerge.merge([drawObject.getAll(), geojson]);
+    if (drawObject) {
+      drawObject.deleteAll()
+    }
     setGeoJSON(added)
     setBounds(geojsonExtent(added))
   }

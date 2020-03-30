@@ -36,7 +36,7 @@ export const MapContainer = (props: Props) => {
   // import geoJSON
   React.useEffect(() => {
     if (draw && geoJSON) {
-      draw.deleteAll().set(geoJSON);
+      draw.set(geoJSON);
     }
   }, [draw, geoJSON]);
 
