@@ -161,7 +161,7 @@ msgid "Reset your password"
 msgstr ""
 
 #: src/components/ForgotPassword.tsx:57
-#: src/components/Signin.tsx:118
+#: src/components/Signin.tsx:126
 msgid "Username or email address"
 msgstr ""
 
@@ -372,8 +372,8 @@ msgid "Verification Code"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:87
-#: src/components/Signin.tsx:129
-#: src/components/Signup.tsx:117
+#: src/components/Signin.tsx:137
+#: src/components/Signup.tsx:119
 msgid "Password"
 msgstr ""
 
@@ -381,26 +381,26 @@ msgstr ""
 msgid "Confirm password"
 msgstr ""
 
-#: src/components/Signin.tsx:101
+#: src/components/Signin.tsx:109
 msgid "Sign in to Geolonia"
 msgstr ""
 
-#: src/components/Signin.tsx:104
+#: src/components/Signin.tsx:112
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
 msgstr ""
 
-#: src/components/Signin.tsx:113
-#: src/lib/cognito/parse-error.ts:25
+#: src/components/Signin.tsx:121
+#: src/lib/cognito/parse-error.ts:24
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
-#: src/components/Signin.tsx:142
+#: src/components/Signin.tsx:150
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:155
+#: src/components/Signin.tsx:163
 msgid "Sign in"
 msgstr ""
 
@@ -412,32 +412,32 @@ msgstr ""
 msgid "Create an account."
 msgstr ""
 
-#: src/components/Signin.tsx:86
+#: src/components/Signin.tsx:94
 msgid "Incorrect username, email address or password."
 msgstr ""
 
-#: src/components/Signin.tsx:88
-#: src/constants.ts:16
+#: src/components/Signin.tsx:96
+#: src/constants.ts:17
 msgid "Unknown error."
 msgstr ""
 
-#: src/components/Signup.tsx:104
+#: src/components/Signup.tsx:106
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:108
+#: src/components/Signup.tsx:110
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:128
+#: src/components/Signup.tsx:130
 msgid "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
 
-#: src/components/Signup.tsx:141
+#: src/components/Signup.tsx:143
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:151
+#: src/components/Signup.tsx:150
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" "
@@ -446,26 +446,22 @@ msgid ""
 "href=\"https://geolonia.com/privacy\">Privacy policy</a>."
 msgstr ""
 
-#: src/components/Signup.tsx:59
-msgid "Signup successed."
-msgstr ""
-
-#: src/components/Signup.tsx:87
-#: src/components/verify.tsx:79
+#: src/components/Signup.tsx:89
+#: src/components/verify.tsx:85
 msgid "Welcome to Geolonia"
 msgstr ""
 
-#: src/components/Signup.tsx:88
+#: src/components/Signup.tsx:90
 msgid "Create your account"
 msgstr ""
 
-#: src/components/Signup.tsx:90
+#: src/components/Signup.tsx:92
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 
-#: src/components/Signup.tsx:96
+#: src/components/Signup.tsx:98
 #: src/components/User/profile.tsx:104
-#: src/components/verify.tsx:84
+#: src/components/verify.tsx:97
 msgid "Username"
 msgstr ""
 
@@ -818,61 +814,69 @@ msgstr ""
 msgid "English"
 msgstr ""
 
-#: src/components/verify.tsx:110
-msgid "Verify"
-msgstr ""
-
-#: src/components/verify.tsx:127
-msgid "Please check your email and enter the verification code like 123456."
-msgstr ""
-
-#: src/components/verify.tsx:80
-msgid "Verify your account"
-msgstr ""
-
-#: src/components/verify.tsx:93
+#: src/components/verify.tsx:107
 msgid "Verification code"
 msgstr ""
 
-#: src/constants.ts:10
+#: src/components/verify.tsx:124
+msgid "Verify"
+msgstr ""
+
+#: src/components/verify.tsx:73
+msgid "Verification code mismatch."
+msgstr ""
+
+#: src/components/verify.tsx:75
+msgid "User not found. Please check entered username."
+msgstr ""
+
+#: src/components/verify.tsx:86
+msgid "Verify your account"
+msgstr ""
+
+#: src/components/verify.tsx:90
+msgid "Please check your email and enter the verification code like 123456."
+msgstr ""
+
+#: src/constants.ts:11
 msgid "You are not authorized to do this operation."
 msgstr ""
 
-#: src/constants.ts:12
+#: src/constants.ts:13
 msgid "Network error."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:11
+#: src/lib/cognito/parse-error.ts:10
 msgid "The email exists already. You cannot use this mail address."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:14
+#: src/lib/cognito/parse-error.ts:13
 msgid "The email is not currently allowed for private beta."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:17
+#: src/lib/cognito/parse-error.ts:16
 msgid "You cannot use this username."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:18
+#: src/lib/cognito/parse-error.ts:17
 msgid ""
 "Username should be less than 256 characters and include only lowercase "
 "characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.)."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:21
+#: src/lib/cognito/parse-error.ts:20
 msgid "Invalid parameter specified. You cannot use this username or email."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:24
+#: src/lib/cognito/parse-error.ts:23
 msgid "Invalid email."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:7
+#: src/lib/cognito/parse-error.ts:6
 msgid "Insufficient password strength."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:8
+#: src/lib/cognito/parse-error.ts:7
 msgid "Username exists already. You cannot use this username."
 msgstr ""
 
