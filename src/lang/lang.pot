@@ -567,7 +567,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/general/delete.tsx:139
-#: src/components/Team/members/change-role.tsx:145
+#: src/components/Team/members/change-role.tsx:160
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
 #: src/components/custom/AddNew.tsx:130
@@ -616,19 +616,27 @@ msgstr ""
 msgid "Owner"
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:130
-msgid "Has full administrative access to the entire team."
+#: src/components/Team/members/change-role.tsx:131
+msgid "can invite another team member."
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:136
+#: src/components/Team/members/change-role.tsx:132
+msgid "can designate another owner."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:133
+msgid "can suspend another member."
+msgstr ""
+
+#: src/components/Team/members/change-role.tsx:145
 msgid "Member"
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:139
-msgid "Can access all resource in the team."
+#: src/components/Team/members/change-role.tsx:150
+msgid "Can manage all resources in the team, including API Keys."
 msgstr ""
 
-#: src/components/Team/members/change-role.tsx:156
+#: src/components/Team/members/change-role.tsx:171
 #: src/components/Team/members/suspend.tsx:114
 #: src/components/custom/AddNew.tsx:141
 #: src/components/custom/Save.tsx:25
