@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 
 import Support from "./custom/Support";
+import Languages from "./custom/languages";
 import "./Signup.scss";
 import Logo from "./custom/logo.svg";
 import Alert from "./custom/Alert";
@@ -179,6 +180,8 @@ const Content = (props: Props) => {
         </form>
 
         <div className="support-container">
+          <Languages />
+          <hr />
           <Support />
         </div>
       </div>
