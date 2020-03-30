@@ -116,8 +116,18 @@
       "Public URL": ["公開 URL"],
       "Invalid JSON.": [""],
       "%s feature has been added.": ["%s 個の地物が追加されました。"],
+      "User not found. Please check entered username.": [
+        "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
+      ],
+      "Cannot reset password for the user as there is no verified email.": [
+        "メールアドレスが認証されていないため、このユーザーのパスワードをリセットできませんでした。"
+      ],
+      "Attempt limit exceeded, please try after some time.": [
+        "試行回数が制限を超えました。しばらくしてからまたお試しください。"
+      ],
+      "Unknown error.": ["不明なエラー。"],
       "Reset your password": ["パスワードのリセット"],
-      "Username or email address": ["ユーザー名または Email アドレス"],
+      "Email address": ["Email アドレス"],
       "We will send you a verification code to reset your password.": [
         "パスワードをリセットするための検証コードを送付します。"
       ],
@@ -206,6 +216,7 @@
       "Oops, the server seems not to be responding correctly.": [
         "おっと、サーバーが正しく応答していないようです。"
       ],
+      "Username or email address": ["ユーザー名または Email アドレス"],
       "Forgot password?": ["パスワードをお忘れですか？"],
       "Sign in": ["サインイン"],
       "New to Geolonia?": ["アカウントをお持ちですか？"],
@@ -213,11 +224,9 @@
       "Incorrect username, email address or password.": [
         "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
       ],
-      "Unknown error.": ["不明なエラー。"],
       "Username cannot be modified later.": [
         "ユーザー名は後から変更できません。"
       ],
-      "Email address": ["Email アドレス"],
       "Make sure at least 8 characters including a number and a lowercase letter.": [
         "パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
       ],
@@ -344,9 +353,6 @@
       "Verification code": ["検証コード"],
       "Verify": ["検証する"],
       "Verification code mismatch.": ["検証コードが一致しません。"],
-      "User not found. Please check entered username.": [
-        "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
-      ],
       "Verify your account": ["アカウントの確認"],
       "Please check your email and enter the verification code like 123456.": [
         "Eメールを確認して 123456 のような検証コードを入力してください。"
