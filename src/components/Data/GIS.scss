@@ -29,7 +29,13 @@
   .nav
   {
     text-align: right;
+    position: relative;
 
+    select
+    {
+      position: absolute;
+      left: 0;
+    }
     .btn
     {
       background-color: transparent;

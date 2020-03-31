@@ -1,6 +1,6 @@
 import React from "react";
 
-import MapContainer from "./MapEditor";
+import MapEditor from "./MapEditor";
 import Delete from "../custom/Delete";
 import DangerZone from "../custom/danger-zone";
 
@@ -22,6 +22,7 @@ import SimpleStyle from './SimpleStyle'
 import ImportButton from './ImportButton'
 import ExportButton from './ExportButton'
 import GeoJsonMeta from './GeoJsonMeta'
+import StyleSelector from './StyleSelector'
 
 import "./GIS.scss";
 
@@ -89,6 +90,7 @@ const Content = (props: Props) => {
   const [publicGeoJson, setPublicGeoJson] = React.useState<boolean>(true)
   const [geoJsonMeta, setGeoJsonMeta] = React.useState<object | undefined>()
   const [title, setTitle] = React.useState<string>('')
+  const [style, setStyle] = React.useState<string>('geolonia/basic')
 
   React.useEffect(() => {
     if (props.geosearch) {
@@ -269,19 +271,20 @@ const Content = (props: Props) => {
       </Title>
 
       <div className="nav">
+        <StyleSelector  style={style} setStyle={setStyle}></StyleSelector>
         <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} />
         <ImportButton GeoJsonImporter={GeoJsonImporter} />
       </div>
 
       <div className="editor">
-        <MapContainer drawCallback={drawCallback} getNumberFeatures={getNumberFeatures} geoJSON={geoJSON}
+        <MapEditor style={style} drawCallback={drawCallback} getNumberFeatures={getNumberFeatures} geoJSON={geoJSON}
             onClickFeature={onClickFeatureHandler} saveCallback={saveFeatureCallback} bounds={bounds} />
           {currentFeature? <PropsEditor currentFeature={currentFeature} updateFeatureProperties={updateFeatureProps} />:<></>}
       </div>
 
       <div className="number-features">{sprintf(__('Total Count of Features: %s'), new Intl.NumberFormat().format(numberFeatures))}</div>
 
-      <div className="geojson-meta"><GeoJsonMeta isPayedUser={false} geoJsonMeta={geoJsonMeta} GeoJsonID={props.geojsonId} publicGeoJson={publicGeoJson} setPublicGeoJson={setPublicGeoJson} /></div>
+      <div className="geojson-meta"><GeoJsonMeta style={style} isPayedUser={false} geoJsonMeta={geoJsonMeta} GeoJsonID={props.geojsonId} publicGeoJson={publicGeoJson} setPublicGeoJson={setPublicGeoJson} /></div>
 
       <DangerZone
         whyDanger={__(

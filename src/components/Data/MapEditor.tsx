@@ -18,6 +18,7 @@ type Props = {
   saveCallback: Function;
   getNumberFeatures: Function;
   bounds:mapboxgl.LngLatBoundsLike | undefined;
+  style: string;
 };
 
 const mapStyle: React.CSSProperties = {
@@ -27,10 +28,11 @@ const mapStyle: React.CSSProperties = {
   margin: "0 0 1em 0"
 };
 
-export const MapContainer = (props: Props) => {
-  const { geoJSON, onClickFeature, drawCallback, saveCallback, getNumberFeatures, bounds } = props;
+export const MapEditor = (props: Props) => {
+  const { geoJSON, onClickFeature, drawCallback, saveCallback, getNumberFeatures, bounds, style } = props;
 
   // mapbox map and draw binding
+  const [map, setMap] = React.useState<mapboxgl.Map | undefined>(undefined);
   const [draw, setDraw] = React.useState<MapboxDraw | undefined>(undefined);
 
   // import geoJSON
@@ -52,6 +54,12 @@ export const MapContainer = (props: Props) => {
     }
   }, [draw, drawCallback])
 
+  React.useEffect(() => {
+    if (map && style) {
+      map.setStyle(style)
+    }
+  }, [map, style])
+
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw: MapboxDraw = new MapboxDraw({
       boxSelect: true,
@@ -71,7 +79,9 @@ export const MapContainer = (props: Props) => {
     // @ts-ignore
     map.addControl(new window.geolonia.NavigationControl());
     map.addControl(draw, "top-right");
+
     setDraw(draw);
+    setMap(map)
 
     map.on('draw.selectionchange', (event: any) => {
       if (event.features.length) {
@@ -113,4 +123,4 @@ export const MapContainer = (props: Props) => {
   );
 };
 
-export default MapContainer;
+export default MapEditor;

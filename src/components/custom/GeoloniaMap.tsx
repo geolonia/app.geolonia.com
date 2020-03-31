@@ -13,7 +13,6 @@ type Props = {
   navigationControl: Toggle;
   fullscreenControl: Toggle;
   geolocateControl: Toggle;
-  style: string;
   bounds: mapboxgl.LngLatBoundsLike | undefined;
   onAfterLoad: (map: mapboxgl.Map) => void;
 };
@@ -79,7 +78,6 @@ class Map extends React.Component<Props, State> {
         data-navigation-control={this.props.navigationControl}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
-        data-style={this.props.style}
       />
     );
   }

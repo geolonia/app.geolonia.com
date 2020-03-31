@@ -26,6 +26,7 @@ type Props = {
   GeoJsonID: string | undefined;
   isPayedUser: boolean;
   geoJsonMeta: object | undefined;
+  style: string;
 };
 
 const Content = (props: Props) => {
@@ -51,7 +52,7 @@ const Content = (props: Props) => {
     const input = document.querySelector(".geolonia-geojson-api-endpoint") as HTMLInputElement
     if (input) {
       input.select()
-      clipboard.writeText(`<div class="geolonia" data-geojson="${input.value}">`)
+      clipboard.writeText(`<div class="geolonia" data-geojson="${input.value}" style="${props.style}"></div>`)
     }
   }
 

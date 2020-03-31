@@ -7,6 +7,8 @@ export const GeoJsonMaxUploadSize = 5000000; // 5MB
 export const SpritesEndpoint = 'https://sprites.geolonia.com/basic.json'
 export const pageTransitionInterval = 500;
 
+export const MapStylesAPI = 'https://cdn.geolonia.com/style/styles.json'
+
 export const getErrorMessage = (code: ErrorCodes) => {
   switch (code) {
     case errorCodes.UnAuthorized:
