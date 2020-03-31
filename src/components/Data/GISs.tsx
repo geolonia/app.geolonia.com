@@ -22,8 +22,7 @@ import {
 // api
 import createGeosearch from "../../api/geosearch/create";
 
-
-const { REACT_APP_STAGE } = process.env
+const { REACT_APP_STAGE } = process.env;
 
 type Row = {
   id: number | string;
@@ -45,44 +44,49 @@ type typeTableRows = {
   name: string;
   updated: string;
   isPublic?: boolean | undefined;
-}
+};
 
 function Content(props: Props) {
   const [message, setMessage] = React.useState("");
-  const [geoJsons, setGeoJsons] = React.useState<typeTableRows[]>([])
-  const [added, setAdded] = React.useState<boolean>(false)
+  const [geoJsons, setGeoJsons] = React.useState<typeTableRows[]>([]);
+  const [added, setAdded] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     if (props.teamId && props.session) {
       const idToken = props.session.getIdToken().getJwtToken();
 
-      fetch(`https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${props.teamId}/geosearch`, {
-        headers: {
-          Authorization: idToken,
-        }
-      })
-      .then(res => res.json())
-      .then(json => {
-        const rows = []
-        for (let i = 0; i < json.length; i++) {
-          const item = json[i]
-          rows.push({
-            id: item.id,
-            name: item.name,
-            updated: dateParse(item.updateAt).format("YYYY/MM/DD hh:mm:ss"),
-            isPublic: item.isPublic
-          } as typeTableRows)
-        }
-        setGeoJsons(rows.sort((a: typeTableRows, b: typeTableRows) => {
-          if (a.updated > b.updated) {
-            return -1
-          } else {
-            return 1
+      fetch(
+        `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${props.teamId}/geosearch`,
+        {
+          headers: {
+            Authorization: idToken
           }
-        }))
-      });
+        }
+      )
+        .then(res => res.json())
+        .then(json => {
+          const rows = [];
+          for (let i = 0; i < json.length; i++) {
+            const item = dateParse<DateStringify<any>>(json[i]);
+            rows.push({
+              id: item.id,
+              name: item.name,
+              updated: item.updateAt,
+              isPublic: item.isPublic
+            } as typeTableRows);
+          }
+          setGeoJsons(
+            rows.sort((a: typeTableRows, b: typeTableRows) => {
+              if (a.updated > b.updated) {
+                return -1;
+              } else {
+                return 1;
+              }
+            })
+          );
+        });
     }
-  }, [props.teamId, props.session, added])
+  }, [props.teamId, props.session, added]);
 
   const breadcrumbItems = [
     {
@@ -92,7 +96,7 @@ function Content(props: Props) {
     {
       title: __("API services"),
       href: null
-    },
+    }
   ];
 
   const handler = (name: string) => {
@@ -106,7 +110,7 @@ function Content(props: Props) {
         setMessage(result.message);
         throw new Error(result.code);
       } else {
-        setAdded(true)
+        setAdded(true);
       }
     });
   };
