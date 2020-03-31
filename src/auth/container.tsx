@@ -278,7 +278,7 @@ export class AuthContainer extends React.Component<Props, State> {
           const geosearchList = result.data;
           geosearchList.forEach(geosearch => {
             const {
-              geojsonId,
+              id,
               name,
               createAt,
               updateAt,
@@ -287,7 +287,7 @@ export class AuthContainer extends React.Component<Props, State> {
             } = dateParse<DateStringify<Geosearch>>(geosearch);
             this.props.setGeosearch(
               teamId,
-              geojsonId,
+              id,
               name,
               createAt,
               updateAt,

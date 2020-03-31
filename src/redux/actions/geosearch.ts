@@ -2,7 +2,7 @@ import Moment from "moment";
 import { HashBy } from "../../types/";
 
 export type Geosearch = {
-  geojsonId: string;
+  id: string;
   data: GeoJSON.FeatureCollection;
   createAt: Moment.Moment | void;
   updateAt: Moment.Moment | void;

@@ -128,11 +128,11 @@ export const mapStateToProps = (state: AppState): StateProps => {
 export const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => {
   return {
     setGeosearch: (teamId: string, _data: Geosearch) => {
-      const { geojsonId, createAt, updateAt, isPublic, name, data } = _data;
+      const { id, createAt, updateAt, isPublic, name, data } = _data;
       dispatch(
         createGeosearchActions.set(
           teamId,
-          geojsonId,
+          id,
           name,
           createAt,
           updateAt,

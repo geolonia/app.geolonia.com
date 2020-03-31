@@ -2,7 +2,7 @@ import { Session, Geosearch, DateStringify } from "../../types";
 import fetch from "../custom-fetch";
 
 const createKey = (session: Session, teamId: string, name: string) => {
-  const body: Omit<Geosearch, "geojsonId" | "updateAt" | "createAt"> = {
+  const body: Omit<Geosearch, "id" | "updateAt" | "createAt"> = {
     name,
     isPublic: false,
     data: {
