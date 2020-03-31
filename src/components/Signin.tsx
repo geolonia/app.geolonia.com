@@ -12,6 +12,7 @@ import StatusIndication from "./custom/status-indication";
 import delay from "../lib/promise-delay";
 import queryString from "query-string";
 import { __ } from "@wordpress/i18n";
+import { parseSigninError as parseCognitoSigninError } from "../lib/cognito/parse-error";
 
 // Types
 import { AppState } from "../types";
@@ -54,6 +55,7 @@ const Content = (props: Props) => {
   const parsed = queryString.parse(window.location.search);
   const hasQueryStringUsername =
     !!parsed.username && typeof parsed.username === "string";
+  const hasPasswordReset = parsed.reset === "true";
 
   React.useEffect(() => {
     if (hasQueryStringUsername && username === "") {
@@ -73,28 +75,24 @@ const Content = (props: Props) => {
     setPassword(e.currentTarget.value);
   };
 
-  const buttonDisabled = username === "" || password === "";
+  const buttonDisabled =
+    username === "" ||
+    password === "" ||
+    status === "success" ||
+    status === "requesting";
 
   const handleSignin = (e: React.MouseEvent | void) => {
     e && e.preventDefault();
     setStatus("requesting");
-    delay(signin(username, password), 250)
+    delay(signin(username, password), 500)
       .then(() => {
         setStatus("success");
         // Force reloadading and use componentDidMount of AuthContainer to get session
         setTimeout(() => (window.location.href = "/"), pageTransitionInterval);
       })
       .catch(error => {
+        setMessage(parseCognitoSigninError(error));
         setStatus("warning");
-        if (
-          error &&
-          (error.code === "UserNotFoundException" ||
-            error.code === "NotAuthorizedException")
-        ) {
-          setMessage(__("Incorrect username, email address or password."));
-        } else {
-          setMessage(__("Unknown error."));
-        }
       });
   };
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {
@@ -107,15 +105,18 @@ const Content = (props: Props) => {
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Sign in to Geolonia")}</h1>
-        {hasQueryStringUsername ? (
+        {hasQueryStringUsername && status === null && !serverTrouble && (
           <Alert type="success">
-            {__(
-              "Your account has been successfully verified. Please enter your password again and sign in to your account."
-            )}
+            {hasPasswordReset
+              ? __(
+                  "Your password has been successfully reset. Please reenter and sign in to the account."
+                )
+              : __(
+                  "Your account has been successfully verified. Please enter your password again and sign in to your account."
+                )}
           </Alert>
-        ) : status === "warning" ? (
-          <Alert type="warning">{message}</Alert>
-        ) : null}
+        )}
+        {status === "warning" ? <Alert type="warning">{message}</Alert> : null}
         {serverTrouble && (
           <Alert type={"warning"}>
             {__("Oops, the server seems not to be responding correctly.")}

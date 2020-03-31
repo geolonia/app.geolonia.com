@@ -4,8 +4,9 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Support from "./custom/Support";
 import Logo from "./custom/logo.svg";
-import { CircularProgress } from "@material-ui/core";
+import { Link } from "@material-ui/core";
 import Alert from "./custom/Alert";
+import { parseResetPasswordError as parseCognitoResetPasswordError } from "../lib/cognito/parse-error";
 
 // API
 import { resetPassword } from "../auth";
@@ -13,33 +14,35 @@ import { resetPassword } from "../auth";
 // Utils
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
+import queryString from "query-string";
+import delay from "../lib/promise-delay";
 
 // Types
 import { AppState } from "../types";
+import { pageTransitionInterval } from "../constants";
+import estimateLanguage from "../lib/estimate-language";
+import StatusIndication from "./custom/status-indication";
 
-type OwnProps = {};
-type RouterProps = {
-  history: {
-    push: (path: string) => void;
-  };
-};
-type StateProps = {
-  currentUser: string;
-};
-type Props = OwnProps & RouterProps & StateProps;
+const Content = () => {
+  const parsed = queryString.parse(window.location.search);
+  const qsusername = parsed.username as string;
 
-const Content = (props: Props) => {
   const [code, setCode] = React.useState("");
+  const [username, setUsername] = React.useState(qsusername || "");
   const [password, setPassword] = React.useState("");
   const [passwordAgain, setPasswordAgain] = React.useState("");
-
   const [status, setStatus] = React.useState<
     null | "requesting" | "success" | "warning"
   >(null);
+  const [message, setMessage] = React.useState("");
 
   const onCodeChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
     setCode(e.currentTarget.value);
+  };
+  const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
+    setStatus(null);
+    setUsername(e.currentTarget.value);
   };
   const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -53,13 +56,17 @@ const Content = (props: Props) => {
   const handler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event && event.preventDefault();
     setStatus(null);
-    resetPassword(props.currentUser, code, password)
+    delay(resetPassword(username, code, password), 500)
       .then(() => {
         setStatus("success");
-        props.history.push("/signin");
+        setTimeout(() => {
+          window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
+            username
+          )}&reset=true#/signin`;
+        }, pageTransitionInterval);
       })
-      .catch(() => {
-        // TODO: show messages
+      .catch(error => {
+        setMessage(parseCognitoResetPasswordError(error));
         setStatus("warning");
       });
   };
@@ -67,11 +74,16 @@ const Content = (props: Props) => {
   return (
     <div className="signup">
       <div className="container">
-        <Alert type="success">
-          {__("We have sent verification code via email.")}
-        </Alert>
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Change your password")}</h1>
+        {!!qsusername && status !== "warning" && (
+          <Alert type="success">
+            {__(
+              "Please check your email and enter the verification code like 123456 with new password."
+            )}
+          </Alert>
+        )}
+        {status === "warning" && <Alert type="warning">{message}</Alert>}
 
         <form className="form">
           <label className="code">
@@ -83,8 +95,18 @@ const Content = (props: Props) => {
               onChange={onCodeChange}
             />
           </label>
+          <label className="username">
+            <h3>{__("Username or email")}</h3>
+            <input
+              id={"username"}
+              type={"text"}
+              value={username}
+              onChange={onUsernameChange}
+              disabled={!!qsusername}
+            />
+          </label>
           <label className="password">
-            <h3>{__("Password")}</h3>
+            <h3>{__("New password")}</h3>
             <input
               id={"password"}
               type={"password"}
@@ -94,7 +116,7 @@ const Content = (props: Props) => {
             />
           </label>
           <label className="confirm-password">
-            <h3>{__("Confirm password")}</h3>
+            <h3>{__("Confirm new password")}</h3>
             <input
               id={"confirm-password"}
               type={"password"}
@@ -105,7 +127,7 @@ const Content = (props: Props) => {
           </label>
           <p className="message">
             {__(
-              "Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter."
+              "Make sure at least 8 characters including a number and a lowercase letter."
             )}
           </p>
           <p>
@@ -115,19 +137,26 @@ const Content = (props: Props) => {
               onClick={handler}
               disabled={
                 password === "" ||
+                username === "" ||
                 passwordAgain === "" ||
-                password !== passwordAgain
+                password !== passwordAgain ||
+                status === "requesting" ||
+                status === "success"
               }
               type={"submit"}
             >
               {__("Change password")}
             </Button>
           </p>
-          {status === "requesting" && (
-            <div style={{ marginTop: ".75em" }}>
-              <CircularProgress size={20} />
-            </div>
-          )}
+          <p>
+            <Link
+              href={`/?lang=${estimateLanguage()}#/forgot-password`}
+              tabIndex={400}
+            >
+              {__("Resend verification code.")}
+            </Link>
+          </p>
+          <StatusIndication status={status}></StatusIndication>
         </form>
 
         <div className="support-container">

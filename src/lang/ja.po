@@ -25,8 +25,8 @@ msgstr "API キーを取得"
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:73 src/components/Data/GIS.tsx:109
-#: src/components/Data/GISs.tsx:71 src/components/Navigator.tsx:146
+#: src/components/Dashboard.tsx:73 src/components/Data/GIS.tsx:112
+#: src/components/Navigator.tsx:146
 msgid "GeoJSON API"
 msgstr ""
 
@@ -42,21 +42,17 @@ msgstr ""
 msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GIS.tsx:101 src/components/Data/GISs.tsx:63
+#: src/components/Data/GIS.tsx:104 src/components/Data/GISs.tsx:63
 #: src/components/Maps/APIKey.tsx:112 src/components/Maps/APIKeys.tsx:38
 #: src/components/Team/Billing.tsx:66
 msgid "Home"
 msgstr ""
 
-#: src/components/Data/GIS.tsx:105 src/components/Data/GISs.tsx:67
+#: src/components/Data/GIS.tsx:108 src/components/Data/GISs.tsx:67
 msgid "API services"
 msgstr "API サービス"
 
-#: src/components/Data/GIS.tsx:252
-msgid "GeoJSON Editor"
-msgstr "GeoJSON エディター"
-
-#: src/components/Data/GIS.tsx:253
+#: src/components/Data/GIS.tsx:266
 msgid ""
 "You can manage and style features in your GeoJSON, and get the the access "
 "point URL of GeoJSON API."
@@ -64,39 +60,31 @@ msgstr ""
 "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、"
 "GeoJSON API のアクセスポイントの URL を取得できます。"
 
-#: src/components/Data/GIS.tsx:269
+#: src/components/Data/GIS.tsx:282
 msgid "Total Count of Features: %s"
 msgstr "%s 件のデータ"
 
-#: src/components/Data/GIS.tsx:274
+#: src/components/Data/GIS.tsx:287
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr "一度データセットを削除するともとに戻すことはできません。"
 
-#: src/components/Data/GIS.tsx:279
+#: src/components/Data/GIS.tsx:292
 msgid "Are you sure you want to delete this Dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
-#: src/components/Data/GIS.tsx:280
+#: src/components/Data/GIS.tsx:293
 msgid "Please type in the name of the Dataset to confirm."
 msgstr "確認のためにデータセット名を入力してください。"
 
-#: src/components/Data/GISs.tsx:102
-msgid "Create a new dataset"
-msgstr "データセットを作成"
-
-#: src/components/Data/GISs.tsx:103
-msgid "Please enter the name of the new dataset."
-msgstr "新しいデータセットの名前を入力してください。"
-
-#: src/components/Data/GISs.tsx:104
+#: src/components/Data/GISs.tsx:100
 msgid "My dataset"
 msgstr "データセット"
 
-#: src/components/Data/GISs.tsx:56 src/components/Maps/APIKeys.tsx:70
+#: src/components/Data/GISs.tsx:56 src/components/Maps/APIKeys.tsx:66
 msgid "(No date)"
 msgstr "(データなし)"
 
-#: src/components/Data/GISs.tsx:96
+#: src/components/Data/GISs.tsx:92
 msgid ""
 "GeoJSON API is an API service specialized for location data. Register "
 "various location information data such as stores and real estate "
@@ -104,6 +92,14 @@ msgid ""
 msgstr ""
 "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗"
 "情報や不動産情報などのデータを登録しましょう。"
+
+#: src/components/Data/GISs.tsx:98
+msgid "Create a new dataset"
+msgstr "データセットを作成"
+
+#: src/components/Data/GISs.tsx:99
+msgid "Please enter the name of the new dataset."
+msgstr "新しいデータセットの名前を入力してください。"
 
 #: src/components/Data/GeoJsonImporter.tsx:100
 msgid "Error: Please upload GeoJSON file less than %d MB."
@@ -155,7 +151,7 @@ msgid "Copy endpoint URL to clipboard"
 msgstr "エンドポイント URL をクリップボードにコピー"
 
 #: src/components/Data/GeoJsonMeta.tsx:111 src/components/Data/fields.tsx:40
-#: src/components/Maps/APIKey.tsx:232
+#: src/components/Maps/APIKey.tsx:228
 msgid "URLs"
 msgstr "URL のリスト"
 
@@ -193,7 +189,7 @@ msgstr ""
 "ます。"
 
 #: src/components/Data/GeoJsonMeta.tsx:96 src/components/Data/fields.tsx:26
-#: src/components/Maps/APIKey.tsx:221 src/components/Navigator.tsx:317
+#: src/components/Maps/APIKey.tsx:217 src/components/Navigator.tsx:317
 #: src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:125 src/components/custom/AddNew.tsx:34
 #: src/components/custom/Delete.tsx:119
@@ -257,7 +253,7 @@ msgstr "背景色"
 msgid "Stroke"
 msgstr "線の太さ"
 
-#: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:244
+#: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:240
 msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use an "
 "API key."
@@ -315,38 +311,20 @@ msgid "%s feature has been added."
 msgid_plural "%s features have been added."
 msgstr[0] "%s 個の地物が追加されました。"
 
-#: src/components/ForgotPassword.tsx:43 src/components/verify.tsx:75
-msgid "User not found. Please check entered username."
-msgstr "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
-
-#: src/components/ForgotPassword.tsx:49
-msgid "Cannot reset password for the user as there is no verified email."
-msgstr ""
-"メールアドレスが認証されていないため、このユーザーのパスワードをリセットでき"
-"ませんでした。"
-
-#: src/components/ForgotPassword.tsx:54
-msgid "Attempt limit exceeded, please try after some time."
-msgstr "試行回数が制限を超えました。しばらくしてからまたお試しください。"
-
-#: src/components/ForgotPassword.tsx:56 src/components/Signin.tsx:96
-#: src/constants.ts:19
-msgid "Unknown error."
-msgstr "不明なエラー。"
-
-#: src/components/ForgotPassword.tsx:68
+#: src/components/ForgotPassword.tsx:60
 msgid "Reset your password"
 msgstr "パスワードのリセット"
 
-#: src/components/ForgotPassword.tsx:72 src/components/Signup.tsx:110
-msgid "Email address"
-msgstr "Email アドレス"
+#: src/components/ForgotPassword.tsx:64 src/components/ResetPassword.tsx:99
+#, fuzzy
+msgid "Username or email"
+msgstr "ユーザー名または Email アドレス"
 
-#: src/components/ForgotPassword.tsx:80
+#: src/components/ForgotPassword.tsx:72
 msgid "We will send you a verification code to reset your password."
 msgstr "パスワードをリセットするための検証コードを送付します。"
 
-#: src/components/ForgotPassword.tsx:90
+#: src/components/ForgotPassword.tsx:82
 msgid "Send password reset email"
 msgstr "メールを送信"
 
@@ -363,112 +341,112 @@ msgstr "ログアウト"
 msgid "Maps"
 msgstr "地図"
 
-#: src/components/Maps/APIKey.tsx:120 src/components/Maps/APIKeys.tsx:76
+#: src/components/Maps/APIKey.tsx:120 src/components/Maps/APIKeys.tsx:72
 #: src/components/Navigator.tsx:134
 msgid "API keys"
 msgstr "API キー"
 
-#: src/components/Maps/APIKey.tsx:211
+#: src/components/Maps/APIKey.tsx:207
 msgid "API key settings"
 msgstr "API キーの設定"
 
-#: src/components/Maps/APIKey.tsx:212
+#: src/components/Maps/APIKey.tsx:208
 msgid ""
 "Configure access control for your API key and Get the HTML code for your map."
 msgstr ""
 "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを"
 "取得しましょう。"
 
-#: src/components/Maps/APIKey.tsx:246
+#: src/components/Maps/APIKey.tsx:242
 msgid "Any page in a specific URL:"
 msgstr "指定された URL 以下のすべてのページ:"
 
-#: src/components/Maps/APIKey.tsx:247
+#: src/components/Maps/APIKey.tsx:243
 msgid "Any subdomain:"
 msgstr "すべてのサブドメイン:"
 
-#: src/components/Maps/APIKey.tsx:248
+#: src/components/Maps/APIKey.tsx:244
 msgid "A URL with a non-standard port:"
 msgstr "一般的ではないポート:"
 
-#: src/components/Maps/APIKey.tsx:250
+#: src/components/Maps/APIKey.tsx:246
 msgid "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\"."
 msgstr ""
 "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致しま"
 "す。"
 
-#: src/components/Maps/APIKey.tsx:260
+#: src/components/Maps/APIKey.tsx:256
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してくだ"
 "さい。"
 
-#: src/components/Maps/APIKey.tsx:265
+#: src/components/Maps/APIKey.tsx:261
 msgid "Are you sure you want to delete this API key?"
 msgstr "この API キーを本当に削除しますか？"
 
-#: src/components/Maps/APIKey.tsx:266
+#: src/components/Maps/APIKey.tsx:262
 msgid "Please type in the name of the API key to confirm."
 msgstr "確認のために API キーの名前を入力してください。"
 
-#: src/components/Maps/APIKey.tsx:282
+#: src/components/Maps/APIKey.tsx:278
 msgid "Your API Key"
 msgstr "あなたの API キー"
 
-#: src/components/Maps/APIKey.tsx:288
+#: src/components/Maps/APIKey.tsx:284
 msgid "Add the map to your site"
 msgstr "ウェブサイトに地図を追加しましょう"
 
-#: src/components/Maps/APIKey.tsx:291
+#: src/components/Maps/APIKey.tsx:287
 msgid "Step 1"
 msgstr "ステップ 1"
 
-#: src/components/Maps/APIKey.tsx:295
+#: src/components/Maps/APIKey.tsx:291
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body /&gt;</"
 "code> in your HTML file."
 msgstr ""
 "<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
 
-#: src/components/Maps/APIKey.tsx:303
+#: src/components/Maps/APIKey.tsx:299
 msgid "Step 2"
 msgstr "ステップ 2"
 
-#: src/components/Maps/APIKey.tsx:306
+#: src/components/Maps/APIKey.tsx:302
 msgid ""
 "Click following button and get HTML code where you want to place the map."
 msgstr ""
 "以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
 
-#: src/components/Maps/APIKey.tsx:308
+#: src/components/Maps/APIKey.tsx:304
 msgid "Get HTML"
 msgstr "HTML を取得"
 
-#: src/components/Maps/APIKey.tsx:310
+#: src/components/Maps/APIKey.tsx:306
 msgid "Step 3"
 msgstr "ステップ 3"
 
-#: src/components/Maps/APIKey.tsx:312
+#: src/components/Maps/APIKey.tsx:308
 msgid "Adjust the element size."
 msgstr "地図を表示する要素のサイズを調整して下さい。"
 
-#: src/components/Maps/APIKey.tsx:314
+#: src/components/Maps/APIKey.tsx:310
 msgid "Copy to Clipboard"
 msgstr "クリップボードにコピー"
 
-#: src/components/Maps/APIKeys.tsx:78
+#: src/components/Maps/APIKeys.tsx:74
 msgid "You need an API key to display map. Get an API key."
 msgstr "地図を表示するには API キーが必要です。 API キーを取得してください。"
 
-#: src/components/Maps/APIKeys.tsx:82
+#: src/components/Maps/APIKeys.tsx:78
 msgid "Create a new API key"
 msgstr "新しい API キーを作成"
 
-#: src/components/Maps/APIKeys.tsx:83
+#: src/components/Maps/APIKeys.tsx:79
 msgid "Please enter the name of new API key."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Maps/APIKeys.tsx:84
+#: src/components/Maps/APIKeys.tsx:80
 msgid "My API"
 msgstr ""
 
@@ -485,11 +463,11 @@ msgstr "GIS サービス"
 msgid "Team Settings"
 msgstr "チーム設定"
 
-#: src/components/Navigator.tsx:158 src/components/Team/general/index.tsx:44
+#: src/components/Navigator.tsx:158 src/components/Team/general/index.tsx:40
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:164 src/components/Team/members/index.tsx:130
+#: src/components/Navigator.tsx:164
 msgid "Members"
 msgstr "メンバー"
 
@@ -529,43 +507,55 @@ msgstr "指定したメールに請求情報を送信します。"
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
-#: src/components/ResetPassword.tsx:107
-msgid ""
-"Make sure it's at least 15 characters OR at least 8 characters including a "
-"number and a lowercase letter."
-msgstr ""
-"15文字以上または、8文字以上で数字及び大文字小文字を含めるようにしてください。"
+#: src/components/ResetPassword.tsx:109 src/components/User/security.tsx:97
+msgid "New password"
+msgstr "新しいパスワード"
 
-#: src/components/ResetPassword.tsx:123
+#: src/components/ResetPassword.tsx:119 src/components/User/security.tsx:106
+msgid "Confirm new password"
+msgstr "新しいパスワードを確認"
+
+#: src/components/ResetPassword.tsx:129 src/components/Signup.tsx:132
+msgid ""
+"Make sure at least 8 characters including a number and a lowercase letter."
+msgstr ""
+"パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
+
+#: src/components/ResetPassword.tsx:148
 msgid "Change password"
 msgstr "パスワードを変更"
 
-#: src/components/ResetPassword.tsx:71
-msgid "We have sent verification code via email."
-msgstr "検証コードを電子メールで送信しました。"
+#: src/components/ResetPassword.tsx:156
+msgid "Resend verification code."
+msgstr "検証コードを再送する。"
 
-#: src/components/ResetPassword.tsx:74
+#: src/components/ResetPassword.tsx:78
 msgid "Change your password"
 msgstr "パスワードを変更"
 
-#: src/components/ResetPassword.tsx:78
+#: src/components/ResetPassword.tsx:81
+msgid ""
+"Please check your email and enter the verification code like 123456 with new "
+"password."
+msgstr ""
+"Eメールに記載した 123456 のような検証コードと新しいパスワードを入力してくださ"
+"い。"
+
+#: src/components/ResetPassword.tsx:90
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/ResetPassword.tsx:87 src/components/Signin.tsx:137
-#: src/components/Signup.tsx:119
-msgid "Password"
-msgstr "パスワード"
-
-#: src/components/ResetPassword.tsx:97
-msgid "Confirm password"
-msgstr "パスワードを確認"
-
-#: src/components/Signin.tsx:109
+#: src/components/Signin.tsx:107
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:112
+#: src/components/Signin.tsx:111
+msgid ""
+"Your password has been successfully reset. Please reenter and sign in to the "
+"account."
+msgstr "パスワードがリセットされました。再度入力してサインインしてください。"
+
+#: src/components/Signin.tsx:114
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -573,49 +563,52 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:121 src/lib/cognito/parse-error.ts:24
+#: src/components/Signin.tsx:122 src/lib/cognito/parse-error.ts:41
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
-#: src/components/Signin.tsx:126
+#: src/components/Signin.tsx:127
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:150
+#: src/components/Signin.tsx:138 src/components/Signup.tsx:121
+msgid "Password"
+msgstr "パスワード"
+
+#: src/components/Signin.tsx:151
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:163
+#: src/components/Signin.tsx:164
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:170
+#: src/components/Signin.tsx:171
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:172
+#: src/components/Signin.tsx:173
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signin.tsx:94
-msgid "Incorrect username, email address or password."
-msgstr "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
+#: src/components/Signup.tsx:100 src/components/User/profile.tsx:104
+#: src/components/verify.tsx:87
+msgid "Username"
+msgstr "ユーザー名"
 
-#: src/components/Signup.tsx:106
+#: src/components/Signup.tsx:108
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:130
-msgid ""
-"Make sure at least 8 characters including a number and a lowercase letter."
-msgstr ""
-"パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
+#: src/components/Signup.tsx:112
+msgid "Email address"
+msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:143
+#: src/components/Signup.tsx:145
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:150
+#: src/components/Signup.tsx:152
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -627,69 +620,64 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Signup.tsx:89 src/components/verify.tsx:85
+#: src/components/Signup.tsx:91 src/components/verify.tsx:75
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:90
+#: src/components/Signup.tsx:92
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:92
+#: src/components/Signup.tsx:94
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
 
-#: src/components/Signup.tsx:98 src/components/User/profile.tsx:104
-#: src/components/verify.tsx:97
-msgid "Username"
-msgstr "ユーザー名"
-
-#: src/components/Team/Billing.tsx:114
+#: src/components/Team/Billing.tsx:110
 msgid "Cost per 1,000 API loads/month"
 msgstr "API 1,000ロードあたりのコスト"
 
-#: src/components/Team/Billing.tsx:116
+#: src/components/Team/Billing.tsx:112
 msgid "Free for up to 50,000/month"
 msgstr "50,000/月 までは無料"
 
-#: src/components/Team/Billing.tsx:119
+#: src/components/Team/Billing.tsx:115
 msgid "Loads"
 msgstr "ロード回数"
 
-#: src/components/Team/Billing.tsx:129
+#: src/components/Team/Billing.tsx:125
 msgid "Cost per user/month"
 msgstr "ユーザーあたりの月額コスト"
 
-#: src/components/Team/Billing.tsx:133
+#: src/components/Team/Billing.tsx:129
 msgid "Users"
 msgstr "ユーザー数"
 
-#: src/components/Team/Billing.tsx:145
+#: src/components/Team/Billing.tsx:141
 msgid "Amount"
 msgstr "合計"
 
-#: src/components/Team/Billing.tsx:148
+#: src/components/Team/Billing.tsx:144
 msgid "Billed monthly on"
 msgstr "請求日"
 
-#: src/components/Team/Billing.tsx:156
+#: src/components/Team/Billing.tsx:152
 msgid "Payment information"
 msgstr "支払情報"
 
-#: src/components/Team/Billing.tsx:162
+#: src/components/Team/Billing.tsx:158
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:166
+#: src/components/Team/Billing.tsx:162
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:171
+#: src/components/Team/Billing.tsx:167
 msgid "Coupon:"
 msgstr "クーポン:"
 
-#: src/components/Team/Billing.tsx:175
+#: src/components/Team/Billing.tsx:171
 msgid "Redeem a coupon"
 msgstr "クーポンを適用"
 
@@ -698,23 +686,19 @@ msgstr "クーポンを適用"
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:74
-msgid "billing"
-msgstr "支払い"
-
-#: src/components/Team/Billing.tsx:82
+#: src/components/Team/Billing.tsx:78
 msgid "You can see subscriptions for this team in this month."
 msgstr "このチームの今月のサブスクリプションを確認することができます。"
 
-#: src/components/Team/Billing.tsx:87
+#: src/components/Team/Billing.tsx:83
 msgid "Payment history"
 msgstr "支払履歴"
 
-#: src/components/Team/Billing.tsx:94
+#: src/components/Team/Billing.tsx:90
 msgid "Your subscriptions"
 msgstr "あなたのサブスクリプション"
 
-#: src/components/Team/Billing.tsx:99
+#: src/components/Team/Billing.tsx:95
 msgid "Cost per 1,000 map loads/month"
 msgstr "地図 1,000ロードあたりのコスト"
 
@@ -761,7 +745,7 @@ msgstr "一度チームを削除するともとに戻すことはできません
 msgid "URL"
 msgstr ""
 
-#: src/components/Team/general/index.tsx:45
+#: src/components/Team/general/index.tsx:41
 msgid ""
 "All users on the Geolonia service belong to one of the teams, and a team "
 "with the same name as the user is automatically generated when you sign up. "
@@ -772,7 +756,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:269
+#: src/components/Team/members/index.tsx:265
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -790,7 +774,7 @@ msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:191
+#: src/components/Team/members/index.tsx:187
 msgid "Owner"
 msgstr "オーナー"
 
@@ -814,24 +798,24 @@ msgstr "メンバー"
 msgid "Can manage all resources in the team, including API Keys."
 msgstr "APIキーを含むチームの全てのリソースを管理できます。"
 
-#: src/components/Team/members/index.tsx:144
+#: src/components/Team/members/index.tsx:140
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
 
-#: src/components/Team/members/index.tsx:193
+#: src/components/Team/members/index.tsx:189
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:231
+#: src/components/Team/members/index.tsx:227
 #: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:273
+#: src/components/Team/members/index.tsx:269
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:277
+#: src/components/Team/members/index.tsx:273
 msgid "Remove from team"
 msgstr "チームから削除"
 
@@ -889,10 +873,6 @@ msgstr "言語"
 msgid "Time zone"
 msgstr "タイムゾーン"
 
-#: src/components/User/security.tsx:106
-msgid "Confirm new password"
-msgstr "新しいパスワードを確認"
-
 #: src/components/User/security.tsx:123
 msgid "Update password"
 msgstr "パスワードを変更"
@@ -916,10 +896,6 @@ msgstr "セキュリティ"
 #: src/components/User/security.tsx:88
 msgid "Old password"
 msgstr "古いパスワード"
-
-#: src/components/User/security.tsx:97
-msgid "New password"
-msgstr "新しいパスワード"
 
 #: src/components/custom/AddNew.tsx:32
 msgid "New"
@@ -993,25 +969,22 @@ msgstr "日本語"
 msgid "English"
 msgstr "英語"
 
-#: src/components/verify.tsx:107
-msgid "Verification code"
-msgstr "検証コード"
-
-#: src/components/verify.tsx:124
+#: src/components/verify.tsx:114
 msgid "Verify"
 msgstr "検証する"
 
-#: src/components/verify.tsx:73
-msgid "Verification code mismatch."
-msgstr "検証コードが一致しません。"
-
-#: src/components/verify.tsx:86
+#: src/components/verify.tsx:76
 msgid "Verify your account"
 msgstr "アカウントの確認"
 
-#: src/components/verify.tsx:90
+#: src/components/verify.tsx:80
 msgid "Please check your email and enter the verification code like 123456."
 msgstr "Eメールを確認して 123456 のような検証コードを入力してください。"
+
+#: src/components/verify.tsx:97
+#, fuzzy
+msgid "Verification code"
+msgstr "検証コード"
 
 #: src/constants.ts:13
 msgid "You are not authorized to do this operation."
@@ -1021,39 +994,83 @@ msgstr "この操作を行う権限がありません。"
 msgid "Network error."
 msgstr "通信エラー。"
 
-#: src/lib/cognito/parse-error.ts:10
+#: src/constants.ts:19 src/lib/cognito/parse-error.ts:155
+msgid "Unknown error."
+msgstr "不明なエラー。"
+
+#: src/lib/cognito/parse-error.ts:11
+msgid "Insufficient password strength."
+msgstr "パスワードの強度が不足しています。"
+
+#: src/lib/cognito/parse-error.ts:12
+msgid "Username exists already. You cannot use this username."
+msgstr "すでに存在するユーザー名です。このユーザー名は使用できません。"
+
+#: src/lib/cognito/parse-error.ts:15
 msgid "The email exists already. You cannot use this mail address."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:13
+#: src/lib/cognito/parse-error.ts:18
 msgid "The email is not currently allowed for private beta."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:16
+#: src/lib/cognito/parse-error.ts:21
+msgid "Incorrect username, email address or password."
+msgstr "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
+
+#: src/lib/cognito/parse-error.ts:22
 msgid "You cannot use this username."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:17
+#: src/lib/cognito/parse-error.ts:23
 msgid ""
 "Username should be less than 256 characters and include only lowercase "
 "characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.)."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:20
+#: src/lib/cognito/parse-error.ts:26
 msgid "Invalid parameter specified. You cannot use this username or email."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:23
+#: src/lib/cognito/parse-error.ts:29
+msgid ""
+"Invalid parameter specified. You cannot use this username, email, or "
+"verification code."
+msgstr ""
+"不正なパラメータです。このユーザー名、メールアドレスまたは認証コードは使用で"
+"きません。"
+
+#: src/lib/cognito/parse-error.ts:32
+msgid "Cannot reset password for the user as there is no verified email."
+msgstr ""
+"メールアドレスが認証されていないため、このユーザーのパスワードをリセットでき"
+"ませんでした。"
+
+#: src/lib/cognito/parse-error.ts:35
+msgid "Attempt limit exceeded, please try after some time."
+msgstr "試行回数が制限を超えました。しばらくしてからまたお試しください。"
+
+#: src/lib/cognito/parse-error.ts:36
 msgid "Invalid email."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:6
-msgid "Insufficient password strength."
+#: src/lib/cognito/parse-error.ts:37
+#, fuzzy
+msgid "Verification code mismatch."
+msgstr "検証コード"
+
+#: src/lib/cognito/parse-error.ts:38
+msgid "Invalid code provided, please request a code again."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:7
-msgid "Username exists already. You cannot use this username."
-msgstr ""
+#: src/lib/cognito/parse-error.ts:39
+#, fuzzy
+msgid "Unknown error. Failed to send a verification code."
+msgstr "検証コードを再送する。"
+
+#: src/lib/cognito/parse-error.ts:40
+msgid "User not found. Please check entered username."
+msgstr "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
 
 #: src/components/Data/MapEditor.tsx:102
 msgctxt "Default value of latitude for map"
@@ -1069,6 +1086,12 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "GeoJSON Editor"
+#~ msgstr "GeoJSON エディター"
+
+#~ msgid "billing"
+#~ msgstr "支払い"
 
 #~ msgid ""
 #~ "Features that are imported will always be added and the existing features "

@@ -14,7 +14,7 @@ import StatusIndication from "./custom/status-indication";
 import delay from "../lib/promise-delay";
 import { __ } from "@wordpress/i18n";
 import Interweave from "interweave";
-import parseCognitoSignupError from "../lib/cognito/parse-error";
+import { parseSignupError as parseCognitoSignupError } from "../lib/cognito/parse-error";
 import estimateLanguage from "../lib/estimate-language";
 import { pageTransitionInterval } from "../constants";
 
@@ -62,7 +62,9 @@ const Content = (props: Props) => {
         const username = result.user.getUsername();
         props.setCurrentUser(username);
         setTimeout(() => {
-          window.location.href = `/?lang=${estimateLanguage()}&username=${username}#/verify`;
+          window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
+            username
+          )}#/verify`;
         }, pageTransitionInterval);
       })
       .catch(err => {
