@@ -6,10 +6,13 @@ import { __ } from "@wordpress/i18n";
 import Support from "./custom/Support";
 import "./ForgotPassword.scss";
 import Logo from "./custom/logo.svg";
-import { CircularProgress } from "@material-ui/core";
 import { sendVerificationEmail } from "../auth";
 import delay from "../lib/promise-delay";
 import Alert from "./custom/Alert";
+import estimateLanguage from "../lib/estimate-language";
+import { pageTransitionInterval } from "../constants";
+import StatusIndication from "./custom/status-indication";
+import { parseForgotPasswordError as parseCognitoForgotPasswordError } from "../lib/cognito/parse-error";
 
 type OwnProps = {};
 type RouterProps = {
@@ -35,26 +38,15 @@ const Content = (props: Props) => {
     delay(sendVerificationEmail(email), 500)
       .then(() => {
         setStatus("success");
-        props.history.push("/reset-password");
+        setTimeout(() => {
+          window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
+            email
+          )}#/reset-password`;
+        }, pageTransitionInterval);
       })
       .catch(error => {
+        setMessage(parseCognitoForgotPasswordError(error));
         setStatus("warning");
-        if (error.code === "UserNotFoundException") {
-          setMessage(__("User not found. Please check entered username."));
-        } else if (
-          error.code === "InvalidParameterException" &&
-          error.message.indexOf("verified email") > -1
-        ) {
-          setMessage(
-            __(
-              "Cannot reset password for the user as there is no verified email."
-            )
-          );
-        } else if (error.code === "LimitExceededException") {
-          setMessage(__("Attempt limit exceeded, please try after some time."));
-        } else {
-          setMessage(__("Unknown error."));
-        }
       });
   };
 
@@ -69,7 +61,7 @@ const Content = (props: Props) => {
         {status === "warning" && <Alert type={status}>{message}</Alert>}
         <form className="form">
           <label className="email">
-            <h3>{__("Email address")}</h3>
+            <h3>{__("Username or email")}</h3>
             <input
               type="text"
               value={email}
@@ -90,11 +82,7 @@ const Content = (props: Props) => {
               {__("Send password reset email")}
             </Button>
           </p>
-          {status === "requesting" && (
-            <div style={{ marginTop: ".75em" }}>
-              <CircularProgress size={20} />
-            </div>
-          )}
+          <StatusIndication status={status}></StatusIndication>
         </form>
 
         <div className="support-container">

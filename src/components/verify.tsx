@@ -13,18 +13,9 @@ import { __ } from "@wordpress/i18n";
 import queryString from "query-string";
 import estimateLanguage from "../lib/estimate-language";
 import { pageTransitionInterval } from "../constants";
+import { parseVerifyError as parseCognitoVerifyError } from "../lib/cognito/parse-error";
 
-type OwnProps = {};
-type RouterProps = {
-  history: {
-    push: (path: string) => void;
-  };
-};
-type StateProps = {};
-type DispatchProps = {};
-type Props = OwnProps & RouterProps & StateProps & DispatchProps;
-
-const Content = (props: Props) => {
+const Content = () => {
   const [username, setUsername] = React.useState("");
   const [code, setCode] = React.useState("");
   const [status, setStatus] = React.useState<
@@ -65,15 +56,14 @@ const Content = (props: Props) => {
       .then(() => {
         setStatus("success");
         setTimeout(() => {
-          window.location.href = `/?lang=${estimateLanguage()}&&username=${username}#/signin`;
+          window.location.href = `/?lang=${estimateLanguage()}&&username=${encodeURIComponent(
+            username
+          )}#/signin`;
         }, pageTransitionInterval);
       })
       .catch(err => {
-        if (err.code === "CodeMismatchException") {
-          setMessage(__("Verification code mismatch."));
-        } else if (err.code === "UserNotFoundException") {
-          setMessage(__("User not found. Please check entered username."));
-        }
+        setMessage(parseCognitoVerifyError(err));
+
         setStatus("warning");
       });
   };
