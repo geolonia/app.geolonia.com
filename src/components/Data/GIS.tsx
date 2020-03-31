@@ -219,16 +219,27 @@ const Content = (props: Props) => {
       setCurrentFeature(undefined) // Set undefined to currentFeature
     }
 
+    if ('draw.create' === event.type) {
+      // event.features[0] を追加。
+    } else if ('draw.update' === event.type) {
+      // event.features をループでアップデート
+    } else if ('draw.delete' === event.type) {
+      // event.features をループで削除
+    }
+
     console.log(event)
   }
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
-    const added = geojsonMerge.merge([drawObject.getAll(), geojson]);
+    const all = geojsonMerge.merge([drawObject.getAll(), geojson]);
     if (drawObject) {
       drawObject.deleteAll()
     }
-    setGeoJSON(added)
-    setBounds(geojsonExtent(added))
+
+    // ここで `all` (FeatutureCollection) を保存
+
+    setGeoJSON(all)
+    setBounds(geojsonExtent(all))
   }
 
   const getNumberFeatures = () => {
