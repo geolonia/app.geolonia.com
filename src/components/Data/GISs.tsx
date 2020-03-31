@@ -38,14 +38,12 @@ type StateProps = {
   teamId?: string;
   geosearchMap: HashBy<Geosearch, "geojsonId">;
 };
-type DispatchProps = {
-  setGeosearch: (teamId: string, data: Geosearch) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
+type Props = OwnProps & StateProps;
 
 function Content(props: Props) {
   const [message, setMessage] = React.useState("");
   const [geoJsons, setGeoJsons] = React.useState<any[]>([])
+  const [added, setAdded] = React.useState<boolean>(false)
 
   React.useEffect(() => {
     if (props.teamId && props.session) {
@@ -71,7 +69,7 @@ function Content(props: Props) {
         setGeoJsons(rows)
       });
     }
-  }, [props.teamId, props.session])
+  }, [props.teamId, props.session, added])
 
   const breadcrumbItems = [
     {
@@ -95,8 +93,7 @@ function Content(props: Props) {
         setMessage(result.message);
         throw new Error(result.code);
       } else {
-        const data = dateParse<DateStringify<Geosearch>>(result.data);
-        props.setGeosearch(teamId, data);
+        setAdded(true)
       }
     });
   };
