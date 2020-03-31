@@ -40,9 +40,16 @@ type StateProps = {
 };
 type Props = OwnProps & StateProps;
 
+type typeTableRows = {
+  id: string;
+  name: string;
+  updated: string;
+  isPublic?: boolean | undefined;
+}
+
 function Content(props: Props) {
   const [message, setMessage] = React.useState("");
-  const [geoJsons, setGeoJsons] = React.useState<any[]>([])
+  const [geoJsons, setGeoJsons] = React.useState<typeTableRows[]>([])
   const [added, setAdded] = React.useState<boolean>(false)
 
   React.useEffect(() => {
@@ -62,11 +69,17 @@ function Content(props: Props) {
           rows.push({
             id: item.id,
             name: item.name,
-            updated: item.updateAt,
+            updated: dateParse(item.updateAt).format("YYYY/MM/DD hh:mm:ss"),
             isPublic: item.isPublic
-          })
+          } as typeTableRows)
         }
-        setGeoJsons(rows)
+        setGeoJsons(rows.sort((a: typeTableRows, b: typeTableRows) => {
+          if (a.updated > b.updated) {
+            return -1
+          } else {
+            return 1
+          }
+        }))
       });
     }
   }, [props.teamId, props.session, added])
