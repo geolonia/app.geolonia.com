@@ -136,10 +136,10 @@
         "パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
       ],
       "Change password": ["パスワードを変更"],
-      "Resend verification code.": ["検証コードを再送する。"],
+      "Request a new verification code": ["検証コードを再送する"],
       "Change your password": ["パスワードを変更"],
-      "Please check your email and enter the verification code like 123456 with new password.": [
-        "Eメールに記載した 123456 のような検証コードと新しいパスワードを入力してください。"
+      "Please check your email and enter the verification code like <code>123456</code> with new password.": [
+        "Eメールに記載した <code>123456</code> のような検証コードと新しいパスワードを入力してください。"
       ],
       "Verification Code": ["検証コード"],
       "Sign in to Geolonia": ["Geolonia にサインイン"],
@@ -281,10 +281,12 @@
       "Coming soon": ["準備中"],
       "Japanese": ["日本語"],
       "English": ["英語"],
+      "request send": ["再送する"],
       "Verify": ["検証する"],
+      "Request a new verification code.": ["検証コードを再送する。"],
       "Verify your account": ["アカウントの確認"],
-      "Please check your email and enter the verification code like 123456.": [
-        "Eメールを確認して 123456 のような検証コードを入力してください。"
+      "Please check your email and enter the verification code like <code>123456</code>.": [
+        "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
       ],
       "Verification code": ["検証コード"],
       "You are not authorized to do this operation.": [
@@ -318,17 +320,28 @@
       "Cannot reset password for the user as there is no verified email.": [
         "メールアドレスが認証されていないため、このユーザーのパスワードをリセットできませんでした。"
       ],
+      "User is already verified. Please <a class=\"MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/signin\">signin</a>.": [
+        "ユーザーはすでに認証されています。こちらから<a class=\"MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/signin\">サインイン</a>。"
+      ],
+      "User is not verified. Please <a class=\"MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/resend\">verify</a> your account.": [
+        "ユーザーは認証されていません。こちらから <a class=\"MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/resend\">アカウントを検証</a>してください。"
+      ],
       "Attempt limit exceeded, please try after some time.": [
         "試行回数が制限を超えました。しばらくしてからまたお試しください。"
       ],
       "Invalid email.": ["メールアドレスが正しくありません。"],
       "Verification code mismatch.": ["検証コードが一致しません。"],
-      "Invalid code provided, please request a code again.": [""],
+      "Invalid code provided, please request a code again.": [
+        "検証コードが正しくありません。再度コードをリクエストしてください。"
+      ],
       "Unknown error. Failed to send a verification code.": [
         "不明なエラーです。検証コードの送信に失敗しました。"
       ],
       "User not found. Please check entered username.": [
         "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
+      ],
+      "User not found. Please check entered username or email. If you use email, perhaps the email is not verified.": [
+        "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してください。メールアドレスを指定している場合、このメールアドレスは認証されていないのかもしれません。"
       ],
       "Default value of latitude for map\u00040": ["35.65810422222222"],
       "Default value of longitude for map\u00040": ["139.74135747222223"],

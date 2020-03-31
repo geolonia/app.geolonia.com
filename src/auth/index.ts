@@ -34,6 +34,26 @@ export const signUp = (username: string, email: string, password: string) =>
     });
   });
 
+export const requestVerificationCode = (identity: string) => {
+  const userPool = new CognitoIdentity.CognitoUserPool(poolData);
+
+  return new Promise((resolve, reject) => {
+    const userData = {
+      Username: identity,
+      Pool: userPool
+    };
+
+    const cognitoUser = new CognitoIdentity.CognitoUser(userData);
+    cognitoUser.resendConfirmationCode((err, result) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(true);
+      }
+    });
+  });
+};
+
 export const verify = (username: string, code: string) =>
   new Promise((resolve, reject) => {
     const userData = {

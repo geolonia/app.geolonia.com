@@ -352,7 +352,7 @@ msgstr "支払い"
 msgid "We'll send you an email receipt."
 msgstr "指定したメールに請求情報を送信します。"
 
-#: src/components/Paperbase.tsx:148
+#: src/components/Paperbase.tsx:150
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
@@ -374,9 +374,9 @@ msgstr ""
 msgid "Change password"
 msgstr "パスワードを変更"
 
-#: src/components/ResetPassword.tsx:156
-msgid "Resend verification code."
-msgstr "検証コードを再送する。"
+#: src/components/ResetPassword.tsx:156 src/components/resend-code.tsx:52
+msgid "Request a new verification code"
+msgstr "検証コードを再送する"
 
 #: src/components/ResetPassword.tsx:78
 msgid "Change your password"
@@ -384,10 +384,10 @@ msgstr "パスワードを変更"
 
 #: src/components/ResetPassword.tsx:81
 msgid ""
-"Please check your email and enter the verification code like 123456 with new "
-"password."
+"Please check your email and enter the verification code like <code>123456</"
+"code> with new password."
 msgstr ""
-"Eメールに記載した 123456 のような検証コードと新しいパスワードを入力してくださ"
+"Eメールに記載した <code>123456</code> のような検証コードと新しいパスワードを入力してくださ"
 "い。"
 
 #: src/components/ResetPassword.tsx:90
@@ -412,7 +412,7 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:122 src/lib/cognito/parse-error.ts:41
+#: src/components/Signin.tsx:122 src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
@@ -441,7 +441,7 @@ msgid "Create an account."
 msgstr "アカウントを作成"
 
 #: src/components/Signup.tsx:100 src/components/User/profile.tsx:104
-#: src/components/verify.tsx:87
+#: src/components/resend-code.tsx:56 src/components/verify.tsx:87
 msgid "Username"
 msgstr "ユーザー名"
 
@@ -828,17 +828,27 @@ msgstr "日本語"
 msgid "English"
 msgstr "英語"
 
+#: src/components/resend-code.tsx:73
+msgid "request send"
+msgstr "再送する"
+
 #: src/components/verify.tsx:114
 msgid "Verify"
 msgstr "検証する"
+
+#: src/components/verify.tsx:119
+msgid "Request a new verification code."
+msgstr "検証コードを再送する。"
 
 #: src/components/verify.tsx:76
 msgid "Verify your account"
 msgstr "アカウントの確認"
 
 #: src/components/verify.tsx:80
-msgid "Please check your email and enter the verification code like 123456."
-msgstr "Eメールを確認して 123456 のような検証コードを入力してください。"
+msgid ""
+"Please check your email and enter the verification code like <code>123456</"
+"code>."
+msgstr "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
 
 #: src/components/verify.tsx:97
 msgid "Verification code"
@@ -852,7 +862,7 @@ msgstr "この操作を行う権限がありません。"
 msgid "Network error."
 msgstr "通信エラー。"
 
-#: src/constants.ts:17 src/lib/cognito/parse-error.ts:155
+#: src/constants.ts:17 src/lib/cognito/parse-error.ts:51
 msgid "Unknown error."
 msgstr "不明なエラー。"
 
@@ -899,7 +909,8 @@ msgid ""
 "Invalid parameter specified. You cannot use this username, email, or "
 "verification code."
 msgstr ""
-"不正なパラメータです。このユーザー名、メールアドレスまたは認証コードは使用できません。"
+"不正なパラメータです。このユーザー名、メールアドレスまたは認証コードは使用で"
+"きません。"
 
 #: src/lib/cognito/parse-error.ts:32
 msgid "Cannot reset password for the user as there is no verified email."
@@ -908,28 +919,52 @@ msgstr ""
 "ませんでした。"
 
 #: src/lib/cognito/parse-error.ts:35
+msgid ""
+"User is already verified. Please <a class=\"MuiTypography-root MuiLink-root "
+"MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/signin"
+"\">signin</a>."
+msgstr "ユーザーはすでに認証されています。こちらから<a class=\"MuiTypography-root MuiLink-root "
+"MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/signin"
+"\">サインイン</a>。"
+
+#: src/lib/cognito/parse-error.ts:38
+msgid ""
+"User is not verified. Please <a class=\"MuiTypography-root MuiLink-root "
+"MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/resend"
+"\">verify</a> your account."
+msgstr "ユーザーは認証されていません。こちらから <a class=\"MuiTypography-root MuiLink-root "
+"MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/resend"
+"\">アカウントを検証</a>してください。"
+
+#: src/lib/cognito/parse-error.ts:41
 msgid "Attempt limit exceeded, please try after some time."
 msgstr "試行回数が制限を超えました。しばらくしてからまたお試しください。"
 
-#: src/lib/cognito/parse-error.ts:36
+#: src/lib/cognito/parse-error.ts:42
 msgid "Invalid email."
 msgstr "メールアドレスが正しくありません。"
 
-#: src/lib/cognito/parse-error.ts:37
+#: src/lib/cognito/parse-error.ts:43
 msgid "Verification code mismatch."
 msgstr "検証コードが一致しません。"
 
-#: src/lib/cognito/parse-error.ts:38
+#: src/lib/cognito/parse-error.ts:44
 msgid "Invalid code provided, please request a code again."
-msgstr ""
+msgstr "検証コードが正しくありません。再度コードをリクエストしてください。"
 
-#: src/lib/cognito/parse-error.ts:39
+#: src/lib/cognito/parse-error.ts:45
 msgid "Unknown error. Failed to send a verification code."
 msgstr "不明なエラーです。検証コードの送信に失敗しました。"
 
-#: src/lib/cognito/parse-error.ts:40
+#: src/lib/cognito/parse-error.ts:46
 msgid "User not found. Please check entered username."
 msgstr "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
+
+#: src/lib/cognito/parse-error.ts:47
+msgid ""
+"User not found. Please check entered username or email. If you use email, "
+"perhaps the email is not verified."
+msgstr "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してください。メールアドレスを指定している場合、このメールアドレスは認証されていないのかもしれません。"
 
 #: src/components/Data/map-container.tsx:75
 msgctxt "Default value of latitude for map"
