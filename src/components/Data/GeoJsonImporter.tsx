@@ -92,7 +92,7 @@ const Importer = (props: Props) => {
         }
         GeoJsonImporter(geojson)
       } catch (e) {
-        if ('invalid-case-of-identifier') {
+        if ('invalid-case-of-identifier' === e.message) {
           setError(__('Error: The name of identifier `id` must be lower case.'))
         } else if ('invalid-identifier' === e.message) {
           setError(__("Error: The `id` of each `fueature` must be unique in the GeoJSON."))
