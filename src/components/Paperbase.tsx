@@ -16,6 +16,7 @@ import { theme } from "../assets/mui-theme";
 
 import Signup from "./Signup";
 import Verify from "./verify";
+import ResendCode from "./resend-code";
 import Signin from "./Signin";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
@@ -123,6 +124,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
           <Switch>
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/verify" component={Verify} />
+            <Route exact path="/resend" component={ResendCode} />
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/reset-password" component={ResetPassword} />

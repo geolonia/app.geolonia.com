@@ -79,7 +79,7 @@ const Content = () => {
         {!!qsusername && status !== "warning" && (
           <Alert type="success">
             {__(
-              "Please check your email and enter the verification code like 123456 with new password."
+              "Please check your email and enter the verification code like <code>123456</code> with new password."
             )}
           </Alert>
         )}
@@ -153,7 +153,7 @@ const Content = () => {
               href={`/?lang=${estimateLanguage()}#/forgot-password`}
               tabIndex={400}
             >
-              {__("Resend verification code.")}
+              {__("Request a new verification code")}
             </Link>
           </p>
           <StatusIndication status={status}></StatusIndication>

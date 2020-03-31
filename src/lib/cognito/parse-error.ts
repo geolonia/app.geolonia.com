@@ -32,18 +32,27 @@ export const getDescriptions = () => ({
   CANNOT_RESET_BEFORE_VERFIED: __(
     "Cannot reset password for the user as there is no verified email."
   ),
+  ALREADY_CONFIRMED: __(
+    'User is already verified. Please <a class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary" href="#/signin">signin</a>.'
+  ),
+  NOT_CONFIRMED: __(
+    'User is not verified. Please <a class="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary" href="#/resend">verify</a> your account.'
+  ),
   LIMIT_EXCEEDED: __("Attempt limit exceeded, please try after some time."),
   INVALID_EMAIL: __("Invalid email."),
   CODE_MISMATCH: __("Verification code mismatch."),
   EXPIRED_CODE: __("Invalid code provided, please request a code again."),
   FAILED_TO_SEND_CODE: __("Unknown error. Failed to send a verification code."),
   NO_SUCH_USER: __("User not found. Please check entered username."),
-  SERVER_TROUBLE: __("Oops, the server seems not to be responding correctly.")
+  NO_SUCH_USER_OR_UNVERIFIED: __(
+    "User not found. Please check entered username or email. If you use email, perhaps the email is not verified."
+  ),
+  SERVER_TROUBLE: __("Oops, the server seems not to be responding correctly."),
+  UNKNOWN: __("Unknown error.")
 });
 
 export const parseSigninError: CognitoErrorParser = err => {
   const descriptions = getDescriptions();
-
   if (!err) {
     return descriptions.UNHANDLED_PARAMETERS;
   } else if (
@@ -51,17 +60,19 @@ export const parseSigninError: CognitoErrorParser = err => {
     err.code === "NotAuthorizedException"
   ) {
     return descriptions.NO_AUTHORIZED;
+  } else if (err.code === "UserNotConfirmedException") {
+    return descriptions.NOT_CONFIRMED;
   } else {
-    return __("Unknown error.");
+    return descriptions.UNKNOWN;
   }
 };
 
 export const parseSignupError: CognitoErrorParser = err => {
+  const descriptions = getDescriptions();
   if (!err) {
-    return __("Unknown error.");
+    return descriptions.UNKNOWN;
   }
   const { code, message } = err;
-  const descriptions = getDescriptions();
 
   switch (code) {
     case "InvalidPasswordException": {
@@ -120,6 +131,12 @@ export const parseVerifyError: CognitoErrorParser = err => {
     return descriptions.EXPIRED_CODE;
   } else if (err.code === "UserNotFoundException") {
     return descriptions.NO_SUCH_USER;
+  } else if (err.code === "NotAuthorizedException") {
+    if (err.message.indexOf("Current status is CONFIRMED") > -1) {
+      return descriptions.ALREADY_CONFIRMED;
+    } else {
+      return descriptions.UNKNOWN;
+    }
   } else {
     // NOTE: Unhandled case. This message should not be shown.
     return descriptions.UNHANDLED_PARAMETERS_WITH_CODE;
@@ -134,7 +151,8 @@ export const parseForgotPasswordError: CognitoErrorParser = err => {
   }
 
   if (err.code === "UserNotFoundException") {
-    return descriptions.NO_SUCH_USER;
+    // unconfirmed の時はこれが帰ってくる
+    return descriptions.NO_SUCH_USER_OR_UNVERIFIED;
   } else if (err.code === "InvalidParameterException") {
     if (err.message.indexOf("verified email") > -1) {
       return descriptions.CANNOT_RESET_BEFORE_VERFIED;
@@ -152,7 +170,7 @@ export const parseResetPasswordError: CognitoErrorParser = err => {
   const descriptions = getDescriptions();
 
   if (!err) {
-    return __("Unknown error.");
+    return descriptions.UNKNOWN;
   }
   const { code, message } = err;
   if (code === "InvalidParameterException") {
@@ -176,5 +194,18 @@ export const parseResetPasswordError: CognitoErrorParser = err => {
     // NOTE: Unhandled case. This message should not be shown.
     // This will be a fallback with the Cognito Specification change
     return descriptions.LIMIT_EXCEEDED;
+  }
+};
+
+export const parseResendError: CognitoErrorParser = err => {
+  const descriptions = getDescriptions();
+
+  if (!err) {
+    return descriptions.UNKNOWN;
+  }
+  if (err.code === "UserNotFoundException") {
+    return descriptions.NO_SUCH_USER;
+  } else {
+    return descriptions.UNKNOWN;
   }
 };

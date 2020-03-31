@@ -345,7 +345,7 @@ msgstr ""
 msgid "We'll send you an email receipt."
 msgstr ""
 
-#: src/components/Paperbase.tsx:148
+#: src/components/Paperbase.tsx:150
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
@@ -369,7 +369,8 @@ msgid "Change password"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:156
-msgid "Resend verification code."
+#: src/components/resend-code.tsx:52
+msgid "Request a new verification code"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:78
@@ -378,8 +379,8 @@ msgstr ""
 
 #: src/components/ResetPassword.tsx:81
 msgid ""
-"Please check your email and enter the verification code like 123456 with "
-"new password."
+"Please check your email and enter the verification code like "
+"<code>123456</code> with new password."
 msgstr ""
 
 #: src/components/ResetPassword.tsx:90
@@ -403,7 +404,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Signin.tsx:122
-#: src/lib/cognito/parse-error.ts:41
+#: src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
@@ -434,6 +435,7 @@ msgstr ""
 
 #: src/components/Signup.tsx:100
 #: src/components/User/profile.tsx:104
+#: src/components/resend-code.tsx:56
 #: src/components/verify.tsx:87
 msgid "Username"
 msgstr ""
@@ -813,8 +815,16 @@ msgstr ""
 msgid "English"
 msgstr ""
 
+#: src/components/resend-code.tsx:73
+msgid "request send"
+msgstr ""
+
 #: src/components/verify.tsx:114
 msgid "Verify"
+msgstr ""
+
+#: src/components/verify.tsx:119
+msgid "Request a new verification code."
 msgstr ""
 
 #: src/components/verify.tsx:76
@@ -822,7 +832,9 @@ msgid "Verify your account"
 msgstr ""
 
 #: src/components/verify.tsx:80
-msgid "Please check your email and enter the verification code like 123456."
+msgid ""
+"Please check your email and enter the verification code like "
+"<code>123456</code>."
 msgstr ""
 
 #: src/components/verify.tsx:97
@@ -838,7 +850,7 @@ msgid "Network error."
 msgstr ""
 
 #: src/constants.ts:17
-#: src/lib/cognito/parse-error.ts:155
+#: src/lib/cognito/parse-error.ts:51
 msgid "Unknown error."
 msgstr ""
 
@@ -887,27 +899,47 @@ msgid "Cannot reset password for the user as there is no verified email."
 msgstr ""
 
 #: src/lib/cognito/parse-error.ts:35
-msgid "Attempt limit exceeded, please try after some time."
-msgstr ""
-
-#: src/lib/cognito/parse-error.ts:36
-msgid "Invalid email."
-msgstr ""
-
-#: src/lib/cognito/parse-error.ts:37
-msgid "Verification code mismatch."
+msgid ""
+"User is already verified. Please <a class=\"MuiTypography-root MuiLink-root "
+"MuiLink-underlineHover MuiTypography-colorPrimary\" "
+"href=\"#/signin\">signin</a>."
 msgstr ""
 
 #: src/lib/cognito/parse-error.ts:38
+msgid ""
+"User is not verified. Please <a class=\"MuiTypography-root MuiLink-root "
+"MuiLink-underlineHover MuiTypography-colorPrimary\" "
+"href=\"#/resend\">verify</a> your account."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:41
+msgid "Attempt limit exceeded, please try after some time."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:42
+msgid "Invalid email."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:43
+msgid "Verification code mismatch."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:44
 msgid "Invalid code provided, please request a code again."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:39
+#: src/lib/cognito/parse-error.ts:45
 msgid "Unknown error. Failed to send a verification code."
 msgstr ""
 
-#: src/lib/cognito/parse-error.ts:40
+#: src/lib/cognito/parse-error.ts:46
 msgid "User not found. Please check entered username."
+msgstr ""
+
+#: src/lib/cognito/parse-error.ts:47
+msgid ""
+"User not found. Please check entered username or email. If you use email, "
+"perhaps the email is not verified."
 msgstr ""
 
 #: src/components/Data/map-container.tsx:75
