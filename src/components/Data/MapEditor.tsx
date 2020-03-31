@@ -54,7 +54,7 @@ export const MapContainer = (props: Props) => {
 
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw: MapboxDraw = new MapboxDraw({
-      boxSelect: false,
+      boxSelect: true,
       controls: {
         point: true,
         line_string: true,
