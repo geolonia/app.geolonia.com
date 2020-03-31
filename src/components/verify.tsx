@@ -13,6 +13,7 @@ import { __ } from "@wordpress/i18n";
 import queryString from "query-string";
 import estimateLanguage from "../lib/estimate-language";
 import { pageTransitionInterval } from "../constants";
+import { parseVerifyError as parseCognitoVerifyError } from "../lib/cognito/parse-error";
 
 const Content = () => {
   const [username, setUsername] = React.useState("");
@@ -55,15 +56,14 @@ const Content = () => {
       .then(() => {
         setStatus("success");
         setTimeout(() => {
-          window.location.href = `/?lang=${estimateLanguage()}&&username=${username}#/signin`;
+          window.location.href = `/?lang=${estimateLanguage()}&&username=${encodeURIComponent(
+            username
+          )}#/signin`;
         }, pageTransitionInterval);
       })
       .catch(err => {
-        if (err.code === "CodeMismatchException") {
-          setMessage(__("Verification code mismatch."));
-        } else if (err.code === "UserNotFoundException") {
-          setMessage(__("User not found. Please check entered username."));
-        }
+        setMessage(parseCognitoVerifyError(err));
+
         setStatus("warning");
       });
   };

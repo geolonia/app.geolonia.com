@@ -6,6 +6,7 @@ import Support from "./custom/Support";
 import Logo from "./custom/logo.svg";
 import { Link } from "@material-ui/core";
 import Alert from "./custom/Alert";
+import { parseResetPasswordError as parseCognitoResetPasswordError } from "../lib/cognito/parse-error";
 
 // API
 import { resetPassword } from "../auth";
@@ -14,6 +15,7 @@ import { resetPassword } from "../auth";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import queryString from "query-string";
+import delay from "../lib/promise-delay";
 
 // Types
 import { AppState } from "../types";
@@ -32,6 +34,7 @@ const Content = () => {
   const [status, setStatus] = React.useState<
     null | "requesting" | "success" | "warning"
   >(null);
+  const [message, setMessage] = React.useState("");
 
   const onCodeChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -53,16 +56,17 @@ const Content = () => {
   const handler = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event && event.preventDefault();
     setStatus(null);
-    resetPassword(username, code, password)
+    delay(resetPassword(username, code, password), 500)
       .then(() => {
         setStatus("success");
         setTimeout(() => {
-          window.location.href = `/?lang=${estimateLanguage()}&username=${username}&reset=true#/signin`;
+          window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
+            username
+          )}&reset=true#/signin`;
         }, pageTransitionInterval);
       })
       .catch(error => {
-        console.log(error);
-        // TODO: show messages
+        setMessage(parseCognitoResetPasswordError(error));
         setStatus("warning");
       });
   };
@@ -72,13 +76,14 @@ const Content = () => {
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__("Change your password")}</h1>
-        {!!qsusername && (
+        {!!qsusername && status !== "warning" && (
           <Alert type="success">
             {__(
               "Please check your email and enter the verification code like 123456 with new password."
             )}
           </Alert>
         )}
+        {status === "warning" && <Alert type="warning">{message}</Alert>}
 
         <form className="form">
           <label className="code">
@@ -90,19 +95,18 @@ const Content = () => {
               onChange={onCodeChange}
             />
           </label>
-          {!qsusername && (
-            <label className="username">
-              <h3>{__("Username")}</h3>
-              <input
-                id={"username"}
-                type={"text"}
-                value={username}
-                onChange={onUsernameChange}
-              />
-            </label>
-          )}
+          <label className="username">
+            <h3>{__("Username or email")}</h3>
+            <input
+              id={"username"}
+              type={"text"}
+              value={username}
+              onChange={onUsernameChange}
+              disabled={!!qsusername}
+            />
+          </label>
           <label className="password">
-            <h3>{__("Password")}</h3>
+            <h3>{__("New password")}</h3>
             <input
               id={"password"}
               type={"password"}
@@ -112,7 +116,7 @@ const Content = () => {
             />
           </label>
           <label className="confirm-password">
-            <h3>{__("Confirm password")}</h3>
+            <h3>{__("Confirm new password")}</h3>
             <input
               id={"confirm-password"}
               type={"password"}
@@ -135,7 +139,9 @@ const Content = () => {
                 password === "" ||
                 username === "" ||
                 passwordAgain === "" ||
-                password !== passwordAgain
+                password !== passwordAgain ||
+                status === "requesting" ||
+                status === "success"
               }
               type={"submit"}
             >
@@ -143,7 +149,10 @@ const Content = () => {
             </Button>
           </p>
           <p>
-            <Link href="#/forgot-password" tabIndex={400}>
+            <Link
+              href={`/?lang=${estimateLanguage()}#/forgot-password`}
+              tabIndex={400}
+            >
               {__("Resend verification code.")}
             </Link>
           </p>

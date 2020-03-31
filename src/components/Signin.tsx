@@ -12,6 +12,7 @@ import StatusIndication from "./custom/status-indication";
 import delay from "../lib/promise-delay";
 import queryString from "query-string";
 import { __ } from "@wordpress/i18n";
+import { parseSigninError as parseCognitoSigninError } from "../lib/cognito/parse-error";
 
 // Types
 import { AppState } from "../types";
@@ -83,24 +84,15 @@ const Content = (props: Props) => {
   const handleSignin = (e: React.MouseEvent | void) => {
     e && e.preventDefault();
     setStatus("requesting");
-    delay(signin(username, password), 250)
+    delay(signin(username, password), 500)
       .then(() => {
         setStatus("success");
         // Force reloadading and use componentDidMount of AuthContainer to get session
         setTimeout(() => (window.location.href = "/"), pageTransitionInterval);
       })
       .catch(error => {
-        console.log(error);
+        setMessage(parseCognitoSigninError(error));
         setStatus("warning");
-        if (
-          error &&
-          (error.code === "UserNotFoundException" ||
-            error.code === "NotAuthorizedException")
-        ) {
-          setMessage(__("Incorrect username, email address or password."));
-        } else {
-          setMessage(__("Unknown error."));
-        }
       });
   };
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {

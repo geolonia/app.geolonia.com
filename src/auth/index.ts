@@ -112,10 +112,14 @@ export const signout = () =>
     resolve();
   });
 
-export const sendVerificationEmail = (email: string) =>
+/**
+ *
+ * @param identity username or email
+ */
+export const sendVerificationEmail = (identity: string) =>
   new Promise((resolve, reject) => {
     const cognitoUser = new CognitoIdentity.CognitoUser({
-      Username: email,
+      Username: identity,
       Pool: userPool
     });
     if (cognitoUser) {
@@ -128,13 +132,17 @@ export const sendVerificationEmail = (email: string) =>
     }
   });
 
+/**
+ *
+ * @param identity username or email
+ */
 export const resetPassword = (
-  username: string,
+  identity: string,
   code: string,
   password: string
 ) => {
   const cognitoUser = new CognitoIdentity.CognitoUser({
-    Username: username,
+    Username: identity,
     Pool: userPool
   });
   return new Promise((resolve, reject) => {
@@ -143,7 +151,7 @@ export const resetPassword = (
         reject(err);
       },
       onSuccess() {
-        resolve();
+        resolve(true);
       }
     });
   });
