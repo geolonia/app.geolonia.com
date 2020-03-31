@@ -177,7 +177,8 @@ const Content = (props: Props) => {
       return
     }
 
-    mergeDefaultProperties(event.features[0]) // Nothing to do if undefined.
+    // Set the default properties, title, description ..., if the feature doesn't have them.
+    mergeDefaultProperties(event.features[0])
     setCurrentFeature(event.features[0])
   }
 
