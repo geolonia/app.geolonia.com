@@ -231,15 +231,23 @@ const Content = (props: Props) => {
   }
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
-    const all = geojsonMerge.merge([drawObject.getAll(), geojson]);
-    if (drawObject) {
-      drawObject.deleteAll()
+    setCurrentFeature(undefined) // Deselect a feature, because it may be deleted.
+
+    for (let i = 0; i < geojson.features.length; i++) {
+      if (geojson.features[i].id) {
+        // Delete existing feature that has same `id`.
+        drawObject.delete(geojson.features[i].id)
+      }
     }
 
-    // ここで `all` (FeatutureCollection) を保存
+    // Get all features that contains existing and imported feature.
+    const all = geojsonMerge.merge([drawObject.getAll(), geojson]);
 
     setGeoJSON(all)
     setBounds(geojsonExtent(all))
+
+    // ここで FeatureCollection を保存
+    console.log(all)
   }
 
   const getNumberFeatures = () => {
