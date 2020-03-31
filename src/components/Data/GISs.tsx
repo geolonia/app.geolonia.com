@@ -18,13 +18,12 @@ import {
   DateStringify,
   HashBy
 } from "../../types";
-import Redux from "redux";
 
 // api
 import createGeosearch from "../../api/geosearch/create";
 
-// redux
-import { createActions as createGeosearchActions } from "../../redux/actions/geosearch";
+
+const { REACT_APP_STAGE } = process.env
 
 type Row = {
   id: number | string;
@@ -46,17 +45,33 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 function Content(props: Props) {
   const [message, setMessage] = React.useState("");
-  const rows: Row[] = Object.keys(props.geosearchMap).map(id => {
-    const { createAt, isPublic, name } = props.geosearchMap[id];
-    return {
-      id,
-      name,
-      updated: createAt
-        ? createAt.format("YYYY/MM/DD hh:mm:ss")
-        : __("(No date)"),
-      isPublic
-    };
-  });
+  const [geoJsons, setGeoJsons] = React.useState<any[]>([])
+
+  React.useEffect(() => {
+    if (props.teamId && props.session) {
+      const idToken = props.session.getIdToken().getJwtToken();
+
+      fetch(`https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${props.teamId}/geosearch`, {
+        headers: {
+          Authorization: idToken,
+        }
+      })
+      .then(res => res.json())
+      .then(json => {
+        const rows = []
+        for (let i = 0; i < json.length; i++) {
+          const item = json[i]
+          rows.push({
+            id: item.id,
+            name: item.name,
+            updated: item.updateAt,
+            isPublic: item.isPublic
+          })
+        }
+        setGeoJsons(rows)
+      });
+    }
+  }, [props.teamId, props.session])
 
   const breadcrumbItems = [
     {
@@ -105,7 +120,7 @@ function Content(props: Props) {
         errorMessage={message}
       />
 
-      <Table rows={rows} rowsPerPage={10} permalink="/data/geojson/%s" />
+      <Table rows={geoJsons} rowsPerPage={10} permalink="/data/geojson/%s" />
     </div>
   );
 }
@@ -125,23 +140,4 @@ export const mapStateToProps = (state: AppState): StateProps => {
   }
 };
 
-export const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => {
-  return {
-    setGeosearch: (teamId: string, _data: Geosearch) => {
-      const { geojsonId, createAt, updateAt, isPublic, name, data } = _data;
-      dispatch(
-        createGeosearchActions.set(
-          teamId,
-          geojsonId,
-          name,
-          createAt,
-          updateAt,
-          isPublic,
-          data
-        )
-      );
-    }
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(mapStateToProps)(Content);
