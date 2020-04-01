@@ -13,10 +13,7 @@ import dateParse from "../../lib/date-parse";
 // types
 import {
   AppState,
-  Geosearch,
   Session,
-  DateStringify,
-  HashBy
 } from "../../types";
 
 // api
@@ -35,7 +32,6 @@ type OwnProps = {};
 type StateProps = {
   session: Session;
   teamId?: string;
-  geosearchMap: HashBy<Geosearch, "geojsonId">;
 };
 type Props = OwnProps & StateProps;
 
@@ -67,7 +63,8 @@ function Content(props: Props) {
         .then(json => {
           const rows = [];
           for (let i = 0; i < json.length; i++) {
-            const item = dateParse<DateStringify<any>>(json[i]);
+            // const item = dateParse<DateStringify<any>>(json[i]);
+            const item = json[i]
             rows.push({
               id: item.id,
               name: item.name,
@@ -147,10 +144,9 @@ export const mapStateToProps = (state: AppState): StateProps => {
     return {
       session,
       teamId,
-      geosearchMap: state.geosearch[teamId] || {}
     };
   } else {
-    return { session, geosearchMap: {} };
+    return { session };
   }
 };
 
