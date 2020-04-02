@@ -325,16 +325,4 @@ export const mapStateToProps = (
   }
 };
 
-export const mapDispatchToProps = (
-  dispatch: Redux.Dispatch
-): DispatchProps => ({
-  updateGeosearch: (
-    teamId: string,
-    geojsonId: string,
-    geosearch: WritableGeosearch
-  ) => dispatch(createGeosearchActions.update(teamId, geojsonId, geosearch)),
-  deleteGeosearch: (teamId: string, geojsonId: string) =>
-    dispatch(createGeosearchActions.delete(teamId, geojsonId)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(mapStateToProps)(Content);
