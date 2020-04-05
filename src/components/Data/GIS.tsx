@@ -30,8 +30,6 @@ import "./GIS.scss";
 import {
   AppState,
   Session,
-  ReadableGeosearch,
-  WritableGeosearch,
   Feature,
   FeatureProperties
 } from "../../types";
@@ -45,9 +43,7 @@ import deleteGeosearch from "../../api/geosearch/delete";
 // constants
 import { messageDisplayDuration } from "../../constants";
 
-// redux
-import Redux from "redux";
-import { createActions as createGeosearchActions } from "../../redux/actions/geosearch";
+const { REACT_APP_STAGE } = process.env;
 
 type OwnProps = {};
 
@@ -55,14 +51,12 @@ type StateProps = {
   session: Session;
   geojsonId?: string;
   teamId?: string;
-  geosearch?: ReadableGeosearch;
 };
 
 type DispatchProps = {
   updateGeosearch: (
     teamId: string,
     geojsonId: string,
-    geosearch: WritableGeosearch
   ) => void;
   deleteGeosearch: (teamId: string, geojsonId: string) => void;
 };
@@ -93,13 +87,31 @@ const Content = (props: Props) => {
   const [style, setStyle] = React.useState<string>('geolonia/basic')
 
   React.useEffect(() => {
-    if (props.geosearch) {
-      setGeoJSON(props.geosearch.data);
-      setBounds(geojsonExtent(props.geosearch.data))
-      setGeoJsonMeta(props.geosearch)
-      setTitle(props.geosearch.name)
+    if (props.teamId && props.session && props.geojsonId) {
+      const idToken = props.session.getIdToken().getJwtToken();
+      console.log(props)
+
+      fetch(
+        `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${props.teamId}/geosearch/${props.geojsonId}`,
+        {
+          headers: {
+            Authorization: idToken
+          }
+        }
+      ).then(res => res.json()).then(json => {
+        console.log(json)
+      });
     }
-  }, [props.geosearch]);
+  }, [props.teamId, props.session, props.geojsonId]);
+
+  // React.useEffect(() => {
+  //   if (props.geosearch) {
+  //     setGeoJSON(props.geosearch.data);
+  //     setBounds(geojsonExtent(props.geosearch.data))
+  //     setGeoJsonMeta(props.geosearch)
+  //     setTitle(props.geosearch.name)
+  //   }
+  // }, [props.geosearch]);
 
   const breadcrumbItems = [
     {
@@ -145,8 +157,8 @@ const Content = (props: Props) => {
   }
 
   const onDeleteClick = () => {
-    const { session, teamId, geojsonId, geosearch } = props;
-    if (!teamId || !geojsonId || !geosearch) {
+    const { session, teamId, geojsonId } = props;
+    if (!teamId || !geojsonId) {
       return Promise.resolve();
     }
     setStatus("requesting");
@@ -316,7 +328,6 @@ export const mapStateToProps = (
     const geosearch = geosearchMap[geojsonId];
     return {
       session,
-      geosearch,
       teamId,
       geojsonId
     };

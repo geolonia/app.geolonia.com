@@ -8,7 +8,6 @@ import Title from "../custom/Title";
 // utils
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
-import dateParse from "../../lib/date-parse";
 
 // types
 import {
