@@ -11,10 +11,6 @@ import geojsonMerge from '@mapbox/geojson-merge';
 // @ts-ignore
 import geojsonExtent from '@mapbox/geojson-extent'
 
-// import Upload from "./upload";
-// import Fields from "./fields";
-// import Publish from "./publish";
-
 import { __, sprintf } from "@wordpress/i18n";
 import Title from "../custom/Title";
 import PropsEditor from './PropsEditor'
@@ -89,7 +85,6 @@ const Content = (props: Props) => {
   React.useEffect(() => {
     if (props.teamId && props.session && props.geojsonId) {
       const idToken = props.session.getIdToken().getJwtToken();
-      console.log(props)
 
       fetch(
         `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${props.teamId}/geosearch/${props.geojsonId}`,
@@ -99,19 +94,13 @@ const Content = (props: Props) => {
           }
         }
       ).then(res => res.json()).then(json => {
-        console.log(json)
+        setGeoJSON(json.data);
+        setBounds(geojsonExtent(json.data))
+        setGeoJsonMeta(json)
+        setTitle(json.name)
       });
     }
   }, [props.teamId, props.session, props.geojsonId]);
-
-  // React.useEffect(() => {
-  //   if (props.geosearch) {
-  //     setGeoJSON(props.geosearch.data);
-  //     setBounds(geojsonExtent(props.geosearch.data))
-  //     setGeoJsonMeta(props.geosearch)
-  //     setTitle(props.geosearch.name)
-  //   }
-  // }, [props.geosearch]);
 
   const breadcrumbItems = [
     {
@@ -324,8 +313,8 @@ export const mapStateToProps = (
   if (team) {
     const { teamId } = team;
     const geojsonId = ownProps.match.params.id;
-    const geosearchMap = state.geosearch[teamId] || {};
-    const geosearch = geosearchMap[geojsonId];
+    // const geosearchMap = state.geosearch[teamId] || {};
+    // const geosearch = geosearchMap[geojsonId];
     return {
       session,
       teamId,
