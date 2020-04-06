@@ -8,8 +8,8 @@ import Dashboard from "./Dashboard";
 import APIKeys from "./Maps/APIKeys";
 import APIKey from "./Maps/APIKey";
 
-import GISs from "./Data/GISs";
-import GIS from "./Data/GIS";
+import GeoJsons from "./Data/GeoJsons";
+import GeoJson from "./Data/GeoJson";
 
 import General from "./Team/general";
 import Members from "./Team/members";
@@ -30,8 +30,8 @@ function Content(props: Props) {
       <Route exact path="/maps/api-keys" component={APIKeys} />
       <Route exact path="/maps/api-keys/:id" component={APIKey} />
 
-      <Route exact path="/data/geojson" component={GISs} />
-      <Route exact path="/data/geojson/:id" component={GIS} />
+      <Route exact path="/data/geojson" component={GeoJsons} />
+      <Route exact path="/data/geojson/:id" component={GeoJson} />
 
       <Route exact path="/team/general" component={General} />
       <Route exact path="/team/members" component={Members} />

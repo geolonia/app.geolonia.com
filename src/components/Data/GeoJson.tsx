@@ -20,7 +20,7 @@ import ExportButton from './ExportButton'
 import GeoJsonMeta from './GeoJsonMeta'
 import StyleSelector from './StyleSelector'
 
-import "./GIS.scss";
+import "./GeoJson.scss";
 
 // types
 import {
