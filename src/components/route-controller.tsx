@@ -25,6 +25,7 @@ export const RouteController = (props: Props) => {
     if (
       !isLoggedIn &&
       pathname !== "/signup" &&
+      pathname !== "/resend" &&
       pathname !== "/verify" &&
       pathname !== "/forgot-password" &&
       pathname !== "/reset-password"

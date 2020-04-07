@@ -33,15 +33,6 @@
       "Please type in the name of the Dataset to confirm.": [
         "確認のためにデータセット名を入力してください。"
       ],
-      "My dataset": ["データセット"],
-      "(No date)": ["(データなし)"],
-      "GeoJSON API is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
-        "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
-      ],
-      "Create a new dataset": ["データセットを作成"],
-      "Please enter the name of the new dataset.": [
-        "新しいデータセットの名前を入力してください。"
-      ],
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
@@ -80,6 +71,14 @@
         "Pro メンバーになると、この GeoJSON API のプライバシー設定を変更することができます。"
       ],
       "Name": ["名前"],
+      "GeoJSON API is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
+        "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
+      ],
+      "Create a new dataset": ["データセットを作成"],
+      "Please enter the name of the new dataset.": [
+        "新しいデータセットの名前を入力してください。"
+      ],
+      "My dataset": ["データセット"],
       "Small": ["小サイズ"],
       "Medium": ["中サイズ"],
       "Large": ["大サイズ"],
@@ -159,6 +158,7 @@
         "地図を表示する要素のサイズを調整して下さい。"
       ],
       "Copy to Clipboard": ["クリップボードにコピー"],
+      "(No date)": ["(データなし)"],
       "You need an API key to display map. Get an API key.": [
         "地図を表示するには API キーが必要です。 API キーを取得してください。"
       ],
@@ -192,10 +192,10 @@
         "パスワードには8文字以上で数字及び大文字小文字を含めるようにしてください。"
       ],
       "Change password": ["パスワードを変更"],
-      "Resend verification code.": ["検証コードを再送する。"],
+      "Request a new verification code": ["検証コードを再送する"],
       "Change your password": ["パスワードを変更"],
-      "Please check your email and enter the verification code like 123456 with new password.": [
-        "Eメールに記載した 123456 のような検証コードと新しいパスワードを入力してください。"
+      "Please check your email and enter the verification code like <code>123456</code> with new password.": [
+        "Eメールに記載した <code>123456</code> のような検証コードと新しいパスワードを入力してください。"
       ],
       "Verification Code": ["検証コード"],
       "Sign in to Geolonia": ["Geolonia にサインイン"],
@@ -335,10 +335,12 @@
       "Coming soon": ["準備中"],
       "Japanese": ["日本語"],
       "English": ["英語"],
+      "request send": ["再送する"],
       "Verify": ["検証する"],
+      "Request a new verification code.": ["検証コードを再送する。"],
       "Verify your account": ["アカウントの確認"],
-      "Please check your email and enter the verification code like 123456.": [
-        "Eメールを確認して 123456 のような検証コードを入力してください。"
+      "Please check your email and enter the verification code like <code>123456</code>.": [
+        "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
       ],
       "You are not authorized to do this operation.": [
         "この操作を行う権限がありません。"
@@ -367,13 +369,24 @@
       "Cannot reset password for the user as there is no verified email.": [
         "メールアドレスが認証されていないため、このユーザーのパスワードをリセットできませんでした。"
       ],
+      "User is already verified. Please <a class=\"MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/signin\">signin</a>.": [
+        "ユーザーはすでに認証されています。こちらから<a class=\"MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/signin\">サインイン</a>。"
+      ],
+      "User is not verified. Please <a class=\"MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/resend\">verify</a> your account.": [
+        "ユーザーは認証されていません。こちらから <a class=\"MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/resend\">アカウントを検証</a>してください。"
+      ],
       "Attempt limit exceeded, please try after some time.": [
         "試行回数が制限を超えました。しばらくしてからまたお試しください。"
       ],
       "Invalid email.": [""],
-      "Invalid code provided, please request a code again.": [""],
+      "Invalid code provided, please request a code again.": [
+        "検証コードが正しくありません。再度コードをリクエストしてください。"
+      ],
       "User not found. Please check entered username.": [
         "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
+      ],
+      "User not found. Please check entered username or email. If you use email, perhaps the email is not verified.": [
+        ""
       ],
       "Default value of latitude for map\u00040": ["35.65810422222222"],
       "Default value of longitude for map\u00040": ["139.74135747222223"],

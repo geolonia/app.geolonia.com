@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./Alert.scss";
+import Interweave from "interweave";
 
 type Props = {
   children: string;
@@ -12,7 +13,9 @@ const Alert = (props: Props) => {
 
   return (
     <div className="alert">
-      <div className={type}>{children}</div>
+      <div className={type}>
+        <Interweave content={children}></Interweave>
+      </div>
     </div>
   );
 };
