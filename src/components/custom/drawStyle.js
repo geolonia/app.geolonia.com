@@ -51,7 +51,7 @@ export default [
     paint: {
       'circle-radius': [
         'case',
-        ['==', 'small', ['get', 'user_marker-size']], 3,
+        ['==', 'small', ['get', 'user_marker-size']], 7,
         ['==', 'large', ['get', 'user_marker-size']], 13,
         9,
       ],
