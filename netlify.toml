@@ -1,0 +1,14 @@
+[context.production.environment]
+  REACT_APP_COGNITO_USERPOOL_ID = "us-east-1_7PT2udiYP"
+  REACT_APP_COGNITO_APP_CLIENT_ID = "6qq07b80cimmd9d5033k7je42a"
+  REACT_APP_API_BASE = "https://api.geolonia.com"
+  REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
+  REACT_APP_GEOSEARCH_API_BASE = "https://gesearch.example.com"
+  REACT_APP_STAGE = "v1"
+[context.deploy-preview.environment]
+  REACT_APP_COGNITO_USERPOOL_ID = "us-east-1_0C5yMqsfC"
+  REACT_APP_COGNITO_APP_CLIENT_ID = "6ingkpu2h114sajpbdu31ikeke"
+  REACT_APP_API_BASE = "https://api.geolonia.com"
+  REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
+  REACT_APP_GEOSEARCH_API_BASE = "https://gesearch.example.com"
+  REACT_APP_STAGE = "dev"
