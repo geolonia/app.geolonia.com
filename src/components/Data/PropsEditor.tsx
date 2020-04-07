@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { __ } from "@wordpress/i18n";
 import SimpleStyle from './SimpleStyle'
@@ -17,8 +17,8 @@ type Props = {
 export const PropsEditor = (props: Props) => {
   const { currentFeature, updateFeatureProperties } = props;
   const [ mode, setMode ] = React.useState<boolean>(true)
-  const [title, setTitle] = React.useState<string>("")
-  const [description, setDescription] = React.useState<string>("")
+  const [ title, setTitle ] = React.useState<string>(currentFeature.properties.title.toString())
+  const [ description, setDescription ] = React.useState<string>(currentFeature.properties.description.toString())
 
   const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
     const property = event.currentTarget.name

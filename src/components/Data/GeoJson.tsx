@@ -272,7 +272,7 @@ const Content = (props: Props) => {
       </Title>
 
       <div className="nav">
-        <StyleSelector  style={style} setStyle={setStyle}></StyleSelector>
+        <StyleSelector style={style} setStyle={setStyle}></StyleSelector>
         <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} />
         <ImportButton GeoJsonImporter={GeoJsonImporter} />
       </div>
