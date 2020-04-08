@@ -131,7 +131,11 @@ export default [
       'text-halo-width': 1,
     },
     layout: {
-      'icon-image': ['image', ['concat', ['get', 'user_marker-symbol'], '-15']],
+      'icon-image': [
+        'case',
+        ['==', 'large', ['get', 'user_marker-size']], ['image', ['concat', ['get', 'user_marker-symbol'], '-15']],
+        ['image', ['concat', ['get', 'user_marker-symbol'], '-11']]
+      ],
       'text-field': ['get', 'user_title'],
       'text-font': ['Noto Sans Regular'],
       'text-size': 12,
