@@ -146,8 +146,8 @@ export default [
       'text-offset': [
         'case',
         ['==', 'small', ['get', 'user_marker-size']], ['literal', [0, 0.4]],
-        ['==', 'large', ['get', 'user_marker-size']], ['literal', [0, 1.2]],
-        ['literal', [0, 1]],
+        ['==', 'large', ['get', 'user_marker-size']], ['literal', [0, 1]],
+        ['literal', [0, 0.6]],
       ],
       'text-allow-overlap': false,
     },
