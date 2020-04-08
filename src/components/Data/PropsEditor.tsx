@@ -47,6 +47,10 @@ export const PropsEditor = (props: Props) => {
     setDescription(event.currentTarget.value)
   }
 
+  const updateIconHandler = (name: string, value: string) => {
+    updateFeatureProperties(name, value)
+  }
+
   const type = currentFeature.geometry.type
   const styleSpec = SimpleStyle[type]
 
@@ -63,7 +67,7 @@ export const PropsEditor = (props: Props) => {
       input = <select className="select-menu" name={name} value={value.toString()} onChange={updatePropSelectHandler}><option value="small">{__("Small")}</option>
           <option value="medium">{__("Medium")}</option><option value="large">{__("Large")}</option></select>
     } else if ('symbol' === styleSpec[key].type) {
-      input = <IconSelector name={name} Icon={value.toString()} updatePropSelectHandler={updatePropSelectHandler} />
+      input = <IconSelector name={name} Icon={value.toString()} updateIconHandler={updateIconHandler} />
     }
 
     // Note: @wordpress/i18n doesn't translate at the time of import, so it should be translated again.

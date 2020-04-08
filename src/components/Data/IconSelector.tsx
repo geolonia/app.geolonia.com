@@ -1,49 +1,97 @@
 import React from "react";
 
+import './IconSelector.scss'
 import { SpritesEndpoint } from '../../constants'
 
 type Props = {
   name: string;
   Icon: string;
-  updatePropSelectHandler: Function;
+  updateIconHandler: Function;
 };
 
-const style = {
-  width: '100%',
+type iconObject = {
+  height: number;
+  width: number;
+  pixelRatio: number;
+  x: number;
+  y: number;
 }
 
-type itemsHash = {
-  [key: string]: boolean
+type iconsObject = {
+  [key: string]: iconObject
 }
 
 const Content = (props: Props) => {
-  const [Icons, setIcons] = React.useState<string[]>([])
+  const [Icons, setIcons] = React.useState<iconsObject>({})
 
   React.useEffect(() => {
     fetch(SpritesEndpoint)
       .then(res => res.json())
       .then(json => {
-        const items = {} as itemsHash
-        for (let i = 0; i < Object.keys(json).length; i++) {
-          const item = Object.keys(json)[i]
-          if (item.match(/-15$/)) {
-            items[item.replace(/-15$/, '')] = true
+        const icons = {} as iconsObject
+        for (const key in json) {
+          if (key.match(/-15$/)) {
+            icons[key] = json[key]
           }
         }
-        setIcons(Object.keys(items).sort())
+        setIcons(icons)
       });
   }, [])
 
+  const onUpdateHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // Nothing to do.
+  }
+
+  const onFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+    const popup = document.createElement('div')
+    popup.id = 'icon-popup'
+    document.body.appendChild(popup)
+    popup.onclick = () => {
+      document.body.removeChild(popup)
+    }
+
+    const popupContainer = document.createElement('div')
+    popupContainer.className = 'popup-container'
+    for (let i = 0; i < Object.keys(Icons).length; i++) {
+      const iconName = Object.keys(Icons)[i]
+      const iconObject = Icons[iconName]
+      const iconContainer = document.createElement('div')
+      iconContainer.className = 'icon-container'
+      const img = document.createElement('img')
+      img.src = 'https://sprites.geolonia.com/basic.png'
+      img.style.objectPosition = `${0 - iconObject.x}px ${0 - iconObject.y}px`
+      iconContainer.appendChild(img)
+      iconContainer.dataset.name = img.dataset.name = iconName.replace(/-15$/, '')
+      iconContainer.addEventListener('mouseover', (event) => {
+        if (event.target) {
+          (event.target as HTMLDivElement).style.backgroundColor = '#eeeeee'
+        }
+      })
+      iconContainer.addEventListener('mouseleave', (event: MouseEvent) => {
+        if (event.target) {
+          (event.target as HTMLDivElement).style.backgroundColor = '#ffffff'
+        }
+      })
+      iconContainer.addEventListener('click', (event: MouseEvent) => {
+        props.updateIconHandler(props.name, (event.target as HTMLDivElement).dataset.name)
+      })
+      popupContainer.appendChild(iconContainer)
+    }
+
+    const button = document.createElement('button')
+    button.textContent = 'Clear'
+    button.addEventListener('click', (event: MouseEvent) => {
+      props.updateIconHandler(props.name, "")
+    })
+    popupContainer.appendChild(button)
+
+    popup.appendChild(popupContainer)
+  }
+
   return (
-    <>
-      <select name={props.name} style={style} value={props.Icon}
-          onChange={(event: React.ChangeEvent<HTMLSelectElement>) => props.updatePropSelectHandler(event)}>
-        <option value=""></option>
-        {Icons.map((icon, index) => {
-          return(<option key={index} value={icon}>{icon}</option>)
-        })}
-      </select>
-    </>
+    <div className="icon-selector">
+      <input type="text" name={props.name} value={props.Icon} onFocus={onFocusHandler} onChange={onUpdateHandler} />
+    </div>
   );
 };
 
