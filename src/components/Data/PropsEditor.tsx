@@ -68,6 +68,8 @@ export const PropsEditor = (props: Props) => {
           <option value="medium">{__("Medium")}</option><option value="large">{__("Large")}</option></select>
     } else if ('symbol' === styleSpec[key].type) {
       input = <IconSelector name={name} Icon={value.toString()} updateIconHandler={updateIconHandler} />
+    } else if ('hide' === styleSpec[key].type) {
+      continue
     }
 
     // Note: @wordpress/i18n doesn't translate at the time of import, so it should be translated again.

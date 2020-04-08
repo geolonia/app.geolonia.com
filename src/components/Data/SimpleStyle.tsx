@@ -15,11 +15,23 @@ interface SimpleStyle {
   [key: string]: StyleSpec;
 }
 
+const textColor = '#000000'
+const textHaloColor = '#FFFFFF'
 const backgroundColor = 'rgba(255, 0, 0, 0.4)'
 const strokeColor = '#FFFFFF'
 
 const SimpleStyle: SimpleStyle = {
   "Point": {
+    "text-color": {
+      "label": __("Text Color"),
+      "type": "color",
+      "default": textColor
+    },
+    "text-halo-color": {
+      "label": __("Text Halo Color"),
+      "type": "hide",
+      "default": textHaloColor
+    },
     "marker-size": {
       "label": __("Size"),
       "type": "option",
@@ -52,6 +64,16 @@ const SimpleStyle: SimpleStyle = {
     }
   },
   "LineString": {
+    "text-color": {
+      "label": __("Text Color"),
+      "type": "color",
+      "default": textColor
+    },
+    "text-halo-color": {
+      "label": __("Text Halo Color"),
+      "type": "hide",
+      "default": textHaloColor
+    },
     "stroke": {
       "label": __("Stroke"),
       "type": "color",
@@ -64,6 +86,16 @@ const SimpleStyle: SimpleStyle = {
     }
   },
   "Polygon": {
+    "text-color": {
+      "label": __("Text Color"),
+      "type": "color",
+      "default": textColor
+    },
+    "text-halo-color": {
+      "label": __("Text Halo Color"),
+      "type": "hide",
+      "default": textHaloColor
+    },
     "fill": {
       "label": __("Background"),
       "type": "color",

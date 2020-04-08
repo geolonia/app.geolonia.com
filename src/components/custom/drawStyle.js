@@ -3,6 +3,8 @@
  * See https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/API.md
  */
 
+const textColor = '#000000'
+const textHaloColor = '#FFFFFF'
 const backgroundColor = 'rgba(255, 0, 0, 0.4)'
 const strokeColor = '#FFFFFF'
 
@@ -74,8 +76,8 @@ export default [
       ['==', 'meta', 'feature']
     ],
     paint: {
-      'text-color': '#000000',
-      'text-halo-color': 'rgba(255, 255, 255, 1)',
+      'text-color': ['string', ['get', 'user_text-color'], textColor],
+      'text-halo-color': ['string', ['get', 'user_text-halo-color'], textHaloColor],
       'text-halo-width': 1,
     },
     layout: {
@@ -100,8 +102,8 @@ export default [
       ['==', 'meta', 'feature']
     ],
     paint: {
-      'text-color': '#000000',
-      'text-halo-color': 'rgba(255, 255, 255, 1)',
+      'text-color': ['string', ['get', 'user_text-color'], textColor],
+      'text-halo-color': ['string', ['get', 'user_text-halo-color'], textHaloColor],
       'text-halo-width': 1,
     },
     layout: {
@@ -126,8 +128,8 @@ export default [
       ['any', ['has', 'user_title'], ['has', 'user_marker-symbol']]
     ],
     paint: {
-      'text-color': '#333333',
-      'text-halo-color': 'rgba(255, 255, 255, 1)',
+      'text-color': ['string', ['get', 'user_text-color'], textColor],
+      'text-halo-color': ['string', ['get', 'user_text-halo-color'], textHaloColor],
       'text-halo-width': 1,
     },
     layout: {
