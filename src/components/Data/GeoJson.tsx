@@ -99,7 +99,7 @@ const Content = (props: Props) => {
       const idToken = props.session.getIdToken().getJwtToken();
 
       fetch(
-        `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${props.teamId}/geosearch/${props.geojsonId}`,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}`,
         {
           headers: {
             Authorization: idToken

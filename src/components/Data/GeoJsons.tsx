@@ -48,15 +48,15 @@ function Content(props: Props) {
   React.useEffect(() => {
     if (props.teamId && props.session) {
       // TODO: Uncomment when turn the authorizer on
-      // const idToken = props.session.getIdToken().getJwtToken();
+      const idToken = props.session.getIdToken().getJwtToken();
 
       fetch(
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}`,
-        // {
-        //   headers: {
-        //     Authorization: idToken
-        //   }
-        // }
+        {
+          headers: {
+            Authorization: idToken
+          }
+        }
       )
         .then(res => res.json())
         .then(json => {
