@@ -42,7 +42,7 @@ type typeTableRows = {
 function Content(props: Props) {
   const [message, setMessage] = React.useState("");
   const [geoJsons, setGeoJsons] = React.useState<typeTableRows[]>([]);
-  // watchDog monitors successed POST request and force refresh.
+  // watchDog monitors successful POST request and force refresh.
   const [watchdog, setWatchdog] = React.useState<number>(0);
 
   React.useEffect(() => {
