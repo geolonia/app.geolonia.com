@@ -25,7 +25,7 @@ msgstr "API キーを取得"
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:73 src/components/Data/GeoJson.tsx:115
+#: src/components/Dashboard.tsx:73 src/components/Data/GeoJson.tsx:127
 #: src/components/Navigator.tsx:146
 msgid "GeoJSON API"
 msgstr ""
@@ -42,17 +42,17 @@ msgstr ""
 msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GeoJson.tsx:107 src/components/Data/GeoJsons.tsx:89
+#: src/components/Data/GeoJson.tsx:119 src/components/Data/GeoJsons.tsx:89
 #: src/components/Maps/APIKey.tsx:112 src/components/Maps/APIKeys.tsx:38
 #: src/components/Team/Billing.tsx:66
 msgid "Home"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:111 src/components/Data/GeoJsons.tsx:93
+#: src/components/Data/GeoJson.tsx:123 src/components/Data/GeoJsons.tsx:93
 msgid "API services"
 msgstr "API サービス"
 
-#: src/components/Data/GeoJson.tsx:269
+#: src/components/Data/GeoJson.tsx:286
 msgid ""
 "You can manage and style features in your GeoJSON, and get the the access "
 "point URL of GeoJSON API."
@@ -60,19 +60,19 @@ msgstr ""
 "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、"
 "GeoJSON API のアクセスポイントの URL を取得できます。"
 
-#: src/components/Data/GeoJson.tsx:286
+#: src/components/Data/GeoJson.tsx:303
 msgid "Total Count of Features: %s"
 msgstr "%s 件のデータ"
 
-#: src/components/Data/GeoJson.tsx:291
+#: src/components/Data/GeoJson.tsx:308
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr "一度データセットを削除するともとに戻すことはできません。"
 
-#: src/components/Data/GeoJson.tsx:296
+#: src/components/Data/GeoJson.tsx:313
 msgid "Are you sure you want to delete this Dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
-#: src/components/Data/GeoJson.tsx:297
+#: src/components/Data/GeoJson.tsx:314
 msgid "Please type in the name of the Dataset to confirm."
 msgstr "確認のためにデータセット名を入力してください。"
 
@@ -192,28 +192,28 @@ msgstr "新しいデータセットの名前を入力してください。"
 msgid "My dataset"
 msgstr "データセット"
 
-#: src/components/Data/PropsEditor.tsx:63
+#: src/components/Data/PropsEditor.tsx:67
 msgid "Small"
 msgstr "小サイズ"
 
-#: src/components/Data/PropsEditor.tsx:64
+#: src/components/Data/PropsEditor.tsx:68
 msgid "Medium"
 msgstr "中サイズ"
 
-#: src/components/Data/PropsEditor.tsx:64
+#: src/components/Data/PropsEditor.tsx:68
 msgid "Large"
 msgstr "大サイズ"
 
-#: src/components/Data/PropsEditor.tsx:78
+#: src/components/Data/PropsEditor.tsx:84
 msgid "Title"
 msgstr "タイトル"
 
-#: src/components/Data/PropsEditor.tsx:80 src/components/Data/fields.tsx:32
+#: src/components/Data/PropsEditor.tsx:86 src/components/Data/fields.tsx:32
 #: src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr "説明"
 
-#: src/components/Data/PropsEditor.tsx:82
+#: src/components/Data/PropsEditor.tsx:88
 msgid "Style"
 msgstr "スタイル"
 
@@ -229,25 +229,33 @@ msgstr "値"
 msgid "Nothing found."
 msgstr "なにもありません。"
 
-#: src/components/Data/SimpleStyle.tsx:24
-msgid "Size"
-msgstr "サイズ"
-
-#: src/components/Data/SimpleStyle.tsx:34
-msgid "Symbol"
-msgstr "シンボル"
-
-#: src/components/Data/SimpleStyle.tsx:61
-msgid "Stroke Width"
-msgstr "線の太さ"
-
-#: src/components/Data/SimpleStyle.tsx:68
+#: src/components/Data/SimpleStyle.tsx:100
 msgid "Background"
 msgstr "背景色"
 
-#: src/components/Data/SimpleStyle.tsx:73
+#: src/components/Data/SimpleStyle.tsx:105
 msgid "Stroke"
+msgstr "線の色"
+
+#: src/components/Data/SimpleStyle.tsx:36
+msgid "Size"
+msgstr "サイズ"
+
+#: src/components/Data/SimpleStyle.tsx:46
+msgid "Symbol"
+msgstr "シンボル"
+
+#: src/components/Data/SimpleStyle.tsx:83
+msgid "Stroke Width"
 msgstr "線の太さ"
+
+#: src/components/Data/SimpleStyle.tsx:90
+msgid "Text Color"
+msgstr "文字色"
+
+#: src/components/Data/SimpleStyle.tsx:95
+msgid "Text Halo Color"
+msgstr "文字の輪郭色"
 
 #: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:240
 msgid ""
@@ -993,7 +1001,6 @@ msgstr ""
 "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
 
 #: src/components/verify.tsx:97
-#, fuzzy
 msgid "Verification code"
 msgstr "検証コード"
 
@@ -1083,21 +1090,19 @@ msgstr "試行回数が制限を超えました。しばらくしてからまた
 
 #: src/lib/cognito/parse-error.ts:42
 msgid "Invalid email."
-msgstr ""
+msgstr "Email アドレスが正しくありません。"
 
 #: src/lib/cognito/parse-error.ts:43
-#, fuzzy
 msgid "Verification code mismatch."
-msgstr "検証コード"
+msgstr "検証コードが正しくありません。"
 
 #: src/lib/cognito/parse-error.ts:44
 msgid "Invalid code provided, please request a code again."
 msgstr "検証コードが正しくありません。再度コードをリクエストしてください。"
 
 #: src/lib/cognito/parse-error.ts:45
-#, fuzzy
 msgid "Unknown error. Failed to send a verification code."
-msgstr "検証コードを再送する。"
+msgstr "申し訳ありませんが、意図しないエラーにより検証コードの送信に失敗しました。"
 
 #: src/lib/cognito/parse-error.ts:46
 msgid "User not found. Please check entered username."
@@ -1154,9 +1159,6 @@ msgstr "6"
 
 #~ msgid "Error: It doesn't seem to be GeoJSON format."
 #~ msgstr "エラー: GeoJSON フォーマットではないようです。"
-
-#~ msgid "Stroke Color"
-#~ msgstr "線の色"
 
 #~ msgid ""
 #~ "Each URLs will be used as a value of <code>Access-Control-Allow-Origin</"

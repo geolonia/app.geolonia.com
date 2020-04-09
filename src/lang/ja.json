@@ -88,11 +88,13 @@
       "Key": ["キー"],
       "Value": ["値"],
       "Nothing found.": ["なにもありません。"],
+      "Background": ["背景色"],
+      "Stroke": ["線の色"],
       "Size": ["サイズ"],
       "Symbol": ["シンボル"],
       "Stroke Width": ["線の太さ"],
-      "Background": ["背景色"],
-      "Stroke": ["線の太さ"],
+      "Text Color": ["文字色"],
+      "Text Halo Color": ["文字の輪郭色"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
@@ -342,6 +344,7 @@
       "Please check your email and enter the verification code like <code>123456</code>.": [
         "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
       ],
+      "Verification code": ["検証コード"],
       "You are not authorized to do this operation.": [
         "この操作を行う権限がありません。"
       ],
@@ -378,9 +381,13 @@
       "Attempt limit exceeded, please try after some time.": [
         "試行回数が制限を超えました。しばらくしてからまたお試しください。"
       ],
-      "Invalid email.": [""],
+      "Invalid email.": ["Email アドレスが正しくありません。"],
+      "Verification code mismatch.": ["検証コードが正しくありません。"],
       "Invalid code provided, please request a code again.": [
         "検証コードが正しくありません。再度コードをリクエストしてください。"
+      ],
+      "Unknown error. Failed to send a verification code.": [
+        "申し訳ありませんが、意図しないエラーにより検証コードの送信に失敗しました。"
       ],
       "User not found. Please check entered username.": [
         "ユーザーが見つかりませんでした。ユーザー名を確認してください。"

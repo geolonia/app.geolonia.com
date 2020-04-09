@@ -16,7 +16,7 @@ msgid "Get API key then create your map!"
 msgstr ""
 
 #: src/components/Dashboard.tsx:73
-#: src/components/Data/GeoJson.tsx:115
+#: src/components/Data/GeoJson.tsx:127
 #: src/components/Navigator.tsx:146
 msgid "GeoJSON API"
 msgstr ""
@@ -33,7 +33,7 @@ msgstr ""
 msgid "Download GeoJSON"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:107
+#: src/components/Data/GeoJson.tsx:119
 #: src/components/Data/GeoJsons.tsx:89
 #: src/components/Maps/APIKey.tsx:112
 #: src/components/Maps/APIKeys.tsx:38
@@ -41,30 +41,30 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:111
+#: src/components/Data/GeoJson.tsx:123
 #: src/components/Data/GeoJsons.tsx:93
 msgid "API services"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:269
+#: src/components/Data/GeoJson.tsx:286
 msgid ""
 "You can manage and style features in your GeoJSON, and get the the access "
 "point URL of GeoJSON API."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:286
+#: src/components/Data/GeoJson.tsx:303
 msgid "Total Count of Features: %s"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:291
+#: src/components/Data/GeoJson.tsx:308
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:296
+#: src/components/Data/GeoJson.tsx:313
 msgid "Are you sure you want to delete this Dataset?"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:297
+#: src/components/Data/GeoJson.tsx:314
 msgid "Please type in the name of the Dataset to confirm."
 msgstr ""
 
@@ -183,29 +183,29 @@ msgstr ""
 msgid "My dataset"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:63
+#: src/components/Data/PropsEditor.tsx:67
 msgid "Small"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:64
+#: src/components/Data/PropsEditor.tsx:68
 msgid "Medium"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:64
+#: src/components/Data/PropsEditor.tsx:68
 msgid "Large"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:78
+#: src/components/Data/PropsEditor.tsx:84
 msgid "Title"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:80
+#: src/components/Data/PropsEditor.tsx:86
 #: src/components/Data/fields.tsx:32
 #: src/components/Team/general/fields.tsx:97
 msgid "Description"
 msgstr ""
 
-#: src/components/Data/PropsEditor.tsx:82
+#: src/components/Data/PropsEditor.tsx:88
 msgid "Style"
 msgstr ""
 
@@ -221,24 +221,32 @@ msgstr ""
 msgid "Nothing found."
 msgstr ""
 
-#: src/components/Data/SimpleStyle.tsx:24
-msgid "Size"
-msgstr ""
-
-#: src/components/Data/SimpleStyle.tsx:34
-msgid "Symbol"
-msgstr ""
-
-#: src/components/Data/SimpleStyle.tsx:61
-msgid "Stroke Width"
-msgstr ""
-
-#: src/components/Data/SimpleStyle.tsx:68
+#: src/components/Data/SimpleStyle.tsx:100
 msgid "Background"
 msgstr ""
 
-#: src/components/Data/SimpleStyle.tsx:73
+#: src/components/Data/SimpleStyle.tsx:105
 msgid "Stroke"
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:36
+msgid "Size"
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:46
+msgid "Symbol"
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:83
+msgid "Stroke Width"
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:90
+msgid "Text Color"
+msgstr ""
+
+#: src/components/Data/SimpleStyle.tsx:95
+msgid "Text Halo Color"
 msgstr ""
 
 #: src/components/Data/fields.tsx:50
