@@ -42,6 +42,7 @@ type typeTableRows = {
 function Content(props: Props) {
   const [message, setMessage] = React.useState("");
   const [geoJsons, setGeoJsons] = React.useState<typeTableRows[]>([]);
+  // watchDog monitors successed POST request and force refresh.
   const [watchdog, setWatchdog] = React.useState<number>(0);
 
   React.useEffect(() => {
@@ -122,7 +123,13 @@ function Content(props: Props) {
         }
       })
       .then(() => {
-        setWatchdog(watchdog + 1)
+        // wait until the Elasticsearch completes indexing
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            setWatchdog(watchdog + 1)
+            resolve()
+          }, 1500)
+        })
       })
       .catch(() => {
         setMessage(__('Network error.'))
