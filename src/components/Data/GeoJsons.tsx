@@ -47,7 +47,7 @@ function Content(props: Props) {
 
   React.useEffect(() => {
     if (props.teamId && props.session) {
-      // TODO: API での認証追加時にコメントアウトする
+      // TODO: Uncomment when turn the authorizer on
       // const idToken = props.session.getIdToken().getJwtToken();
 
       fetch(
@@ -101,8 +101,7 @@ function Content(props: Props) {
     if (!(teamId && session)) {
       return Promise.resolve();
     }
-
-    // TODO: API での認証追加時にコメントアウトする
+    // TODO: Uncomment when turn the authorizer on
     // const idToken = props.session.getIdToken().getJwtToken();
 
     return fetch(
