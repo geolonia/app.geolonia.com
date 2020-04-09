@@ -19,13 +19,13 @@ type Props = {
   description: string;
   defaultValue: string;
   onClick: (value: string) => Promise<any>;
-  onError: (error: any) => void;
   // optionals
   buttonLabel?: string;
   fieldName?: string;
   fieldLabel?: string;
   fieldType?: string;
   errorMessage?: string;
+  onError?: (error: any) => void;
 };
 
 const getTexts = (props: Props) => ({
@@ -80,7 +80,9 @@ export const AddNew = (props: Props) => {
       })
       .catch(err => {
         setStatus("failure");
-        props.onError(err);
+        if (typeof props.onError === 'function') {
+          props.onError(err);
+        }
       });
   };
 

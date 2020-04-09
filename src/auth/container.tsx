@@ -152,6 +152,7 @@ export class AuthContainer extends React.Component<Props, State> {
       }
       Moment.locale(language);
       Moment.tz.setDefault(timezone);
+      Moment.defaultFormat = 'YYYY-MM-DD HH:mm:ss'
 
       const teamIds = teamsWithoutDeleted.map(team => team.teamId);
 

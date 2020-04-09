@@ -8,15 +8,13 @@ import Title from "../custom/Title";
 // utils
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
+import Moment from 'moment'
 
 // types
 import {
   AppState,
   Session,
 } from "../../types";
-
-// api
-import createGeosearch from "../../api/geosearch/create";
 
 const { REACT_APP_STAGE } = process.env;
 
@@ -44,31 +42,33 @@ type typeTableRows = {
 function Content(props: Props) {
   const [message, setMessage] = React.useState("");
   const [geoJsons, setGeoJsons] = React.useState<typeTableRows[]>([]);
-  const [added, setAdded] = React.useState<boolean>(false);
+  const [watchdog, setWatchdog] = React.useState<number>(0);
 
   React.useEffect(() => {
     if (props.teamId && props.session) {
-      const idToken = props.session.getIdToken().getJwtToken();
+      // TODO: API での認証追加時にコメントアウトする
+      // const idToken = props.session.getIdToken().getJwtToken();
 
       fetch(
-        `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${props.teamId}/geosearch`,
-        {
-          headers: {
-            Authorization: idToken
-          }
-        }
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}`,
+        // {
+        //   headers: {
+        //     Authorization: idToken
+        //   }
+        // }
       )
         .then(res => res.json())
         .then(json => {
+          const { geojsons } = json
           const rows = [];
-          for (let i = 0; i < json.length; i++) {
+          for (let i = 0; i < geojsons.length; i++) {
             // const item = dateParse<DateStringify<any>>(json[i]);
-            const item = json[i]
+            const geojson = geojsons[i]
             rows.push({
-              id: item.id,
-              name: item.name,
-              updated: item.updateAt,
-              isPublic: item.isPublic
+              id: geojson.id,
+              name: geojson.name,
+              updated: Moment(geojson.updateAt).format(),
+              isPublic: geojson.isPublic
             } as typeTableRows);
           }
           setGeoJsons(
@@ -82,7 +82,7 @@ function Content(props: Props) {
           );
         });
     }
-  }, [props.teamId, props.session, added]);
+  }, [props.teamId, props.session, watchdog]);
 
   const breadcrumbItems = [
     {
@@ -96,19 +96,38 @@ function Content(props: Props) {
   ];
 
   const handler = (name: string) => {
-    const { teamId } = props;
-    if (!teamId) {
+    const { teamId, session } = props;
+    if (!(teamId && session)) {
       return Promise.resolve();
     }
 
-    return createGeosearch(props.session, teamId, name).then(result => {
-      if (result.error) {
-        setMessage(result.message);
-        throw new Error(result.code);
-      } else {
-        setAdded(true);
+    // TODO: API での認証追加時にコメントアウトする
+    // const idToken = props.session.getIdToken().getJwtToken();
+
+    return fetch(
+      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${teamId}`,
+      {
+        method: 'POST',
+        // headers: {
+        //   Authorization: idToken
+        // },
+        body: JSON.stringify({ name })
       }
-    });
+    )
+      .then((res) => {
+        if(res.status < 300) {
+          return res.json()
+        } else {
+          throw new Error()
+        }
+      })
+      .then(() => {
+        setWatchdog(watchdog + 1)
+      })
+      .catch(() => {
+        setMessage(__('Network error.'))
+        throw new Error() // will be caught by <AddNew />
+      })
   };
 
   return (
@@ -124,9 +143,6 @@ function Content(props: Props) {
         description={__("Please enter the name of the new dataset.")}
         defaultValue={__("My dataset")}
         onClick={handler}
-        onError={() => {
-          /*TODO: show messages*/
-        }}
         errorMessage={message}
       />
 
