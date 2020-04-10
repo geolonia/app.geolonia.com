@@ -157,7 +157,7 @@ const Content = (props: Props & StateProps) => {
                 onChange={e => setAllowedOrigins(e.target.value)}
                 disabled={props.publicGeoJson}
               />
-              <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} disabled={props.publicGeoJson} onClick={onSaveClick}>{__("Save")}</Button></p>
+              <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} disabled={props.publicGeoJson}>{__("Save")}</Button></p>
               <p>{__("URLs will be used for an HTTP referrer to restrict the URLs that can use this GeoJSON API.")}
                   &nbsp;<a href="#/team/billing">{__("Become a Pro")}</a></p>
             </Paper>
