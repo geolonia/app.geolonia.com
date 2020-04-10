@@ -1,7 +1,7 @@
 import React from "react";
 
 // components
-import Table from "../custom/Table";
+import AsyncTable from "../custom/AsyncTable";
 import AddNew from "../custom/AddNew";
 import Title from "../custom/Title";
 
@@ -9,6 +9,7 @@ import Title from "../custom/Title";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Moment from 'moment'
+import queryString from "query-string";
 
 // types
 import {
@@ -30,7 +31,15 @@ type StateProps = {
   session: Session;
   teamId?: string;
 };
-type Props = OwnProps & StateProps;
+type RouteProps = {
+  location: {
+    search: string;
+  };
+  history: {
+    push: (href: string) => void;
+  };
+}
+type Props = OwnProps & StateProps & RouteProps;
 
 type typeTableRows = {
   id: string;
@@ -43,24 +52,39 @@ function Content(props: Props) {
   const [message, setMessage] = React.useState("");
   const [geoJsons, setGeoJsons] = React.useState<typeTableRows[]>([]);
   // watchDog monitors successful POST request and force refresh.
-  const [watchdog, setWatchdog] = React.useState<number>(0);
+  const [watchdog, setWatchdog] = React.useState(0);
+  const [perPage, setPerPage] = React.useState(10);
+  const [totalCount, setTotalCount] = React.useState(0);
 
+  const page = Number(queryString.parse(props.location.search).page) || 0
   React.useEffect(() => {
     if (props.teamId && props.session) {
       // TODO: Uncomment when turn the authorizer on
       // const idToken = props.session.getIdToken().getJwtToken();
 
       fetch(
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}`,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}&per_page=${perPage}&page=${page}`,
         // {
         //   headers: {
         //     Authorization: idToken
         //   }
         // }
       )
-        .then(res => res.json())
+        .then(res => {
+          if(res.status < 300) {
+            return res.json()
+          } else {
+            throw new Error()
+          }
+        })
         .then(json => {
-          const { geojsons } = json
+          const { totalCount, geojsons } = json
+
+          if(perPage * page > totalCount) {
+            props.history.push('?page=0');
+            return;
+          }
+
           const rows = [];
           for (let i = 0; i < geojsons.length; i++) {
             // const item = dateParse<DateStringify<any>>(json[i]);
@@ -72,6 +96,7 @@ function Content(props: Props) {
               isPublic: geojson.isPublic
             } as typeTableRows);
           }
+          setTotalCount(totalCount)
           setGeoJsons(
             rows.sort((a: typeTableRows, b: typeTableRows) => {
               if (a.updated > b.updated) {
@@ -81,9 +106,12 @@ function Content(props: Props) {
               }
             })
           );
-        });
+        }).catch(() => {
+          alert(__('Network Error.'))
+        })
     }
-  }, [props.teamId, props.session, watchdog]);
+  }, [props.teamId, props.session, watchdog, props.location.search, page, perPage, props.history]);
+
 
   const breadcrumbItems = [
     {
@@ -152,7 +180,15 @@ function Content(props: Props) {
         errorMessage={message}
       />
 
-      <Table rows={geoJsons} rowsPerPage={10} permalink="/data/geojson/%s" />
+      <AsyncTable
+        page={page}
+        rows={geoJsons}
+        rowsPerPage={perPage}
+        setPerPage={setPerPage}
+        totalCount={totalCount}
+        permalink="/data/geojson/%s"
+        onChangePage={(page) => props.history.push(`?page=${page}`)}
+      />
     </div>
   );
 }
