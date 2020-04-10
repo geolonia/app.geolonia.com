@@ -143,7 +143,7 @@ function Content(props: Props) {
       }
     )
       .then((res) => {
-        if(res.status < 300) {
+        if(res.status < 400) {
           return res.json()
         } else {
           throw new Error()
