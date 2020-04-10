@@ -105,7 +105,7 @@ const Content = (props: Props) => {
           <Grid item sm={8} xs={12}>
             <Paper>
               <h3>{__("API Endpoint")}</h3>
-              <input className="geolonia-geojson-api-endpoint" value={`https://api.geolonia.com/v1/geojson/${props.GeoJsonID}`} onChange={geoJsonChangeHandler} />
+              <input className="geolonia-geojson-api-endpoint" value={`https://api.geolonia.com/v1/geojsons/${props.GeoJsonID}`} onChange={geoJsonChangeHandler} />
               <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} onClick={() => copyToClipBoard() }>{__("Copy embed code to clipboard")}</Button></p>
               <p style={{textAlign: "center", fontSize: "90%"}}>{__("Or")}<br /><button className="copy-button" onClick={copyUrlToClipBoard}>{__("Copy endpoint URL to clipboard")}</button></p>
               <TextField
