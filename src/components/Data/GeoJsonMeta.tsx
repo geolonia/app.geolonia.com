@@ -9,8 +9,11 @@ import Button from "@material-ui/core/Button";
 import * as clipboard from 'clipboard-polyfill'
 import TextField from "@material-ui/core/TextField";
 import { __ } from "@wordpress/i18n";
-
+import { connect } from "react-redux";
 import Save from "../custom/Save";
+import { AppState, Session } from "../../types";
+
+const { REACT_APP_STAGE } = process.env;
 
 type TypeGeoJsonMeta = {
   createAt: Date;
@@ -29,7 +32,12 @@ type Props = {
   style: string;
 };
 
-const Content = (props: Props) => {
+type StateProps = {
+  session: Session;
+  teamId?: string;
+};
+
+const Content = (props: Props & StateProps) => {
   const [allowedOrigins, setAllowedOrigins] = React.useState("");
   const [name, setName] = React.useState<string>("");
 
@@ -68,8 +76,38 @@ const Content = (props: Props) => {
     return;
   }
 
-  const onChangeHandler = () => {
+  const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
+    setName(e.currentTarget.value)
+  }
 
+  const onSaveClick = () => {
+    if(!props.GeoJsonID || !props.session) {
+      return Promise.resolve()
+    }
+
+    const idToken = props.session.getIdToken().getJwtToken();
+    return fetch(
+      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: idToken
+        },
+        body: JSON.stringify({
+          id: props.GeoJsonID,
+          name,
+          isPublic: props.publicGeoJson,
+        })
+      }
+    )
+      .then(res => {
+        if(res.status < 400) {
+          return res.json()
+        } else {
+          // will be caught at <Save />
+          throw new Error()
+        }
+      })
   }
 
   return (
@@ -97,7 +135,7 @@ const Content = (props: Props) => {
             <h3>{__('Name')}</h3>
             <input type="text" value={name} onChange={onChangeHandler} />
 
-            <Save />
+            <Save onClick={onSaveClick} />
             <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
           </Paper>
         </Grid>
@@ -130,4 +168,18 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+export const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  const { session } = state.authSupport;
+  if (team) {
+    const { teamId } = team;
+    return {
+      session,
+      teamId,
+    };
+  } else {
+    return { session };
+  }
+};
+
+export default connect(mapStateToProps)(Content);
