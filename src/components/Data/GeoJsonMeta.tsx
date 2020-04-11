@@ -127,8 +127,7 @@ const Content = (props: Props & StateProps) => {
               <p>{__("You can restrict the URLs that can use this GeoJSON API.")}</p>
             }
 
-            <p>{__("You can change privacy of this GeoJSON API as a Pro.")}</p>
-            <p><a href="#/team/billing">{__("Become a Pro")}</a></p>
+            <p><a href="#/team/billing">{__("Upgrade to Geolonia Team")}</a></p>
           </Paper>
 
           <Paper className="geojson-title-description">
@@ -159,7 +158,7 @@ const Content = (props: Props & StateProps) => {
               />
               <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} disabled={props.publicGeoJson}>{__("Save")}</Button></p>
               <p>{__("URLs will be used for an HTTP referrer to restrict the URLs that can use this GeoJSON API.")}
-                  &nbsp;<a href="#/team/billing">{__("Become a Pro")}</a></p>
+                  &nbsp;<a href="#/team/billing">{__("Upgrade to Geolonia Team")}</a></p>
             </Paper>
           </Grid> : <></>
         }
