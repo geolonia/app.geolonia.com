@@ -226,6 +226,11 @@ const Content = (props: Props) => {
       setCurrentFeature(feature)
       setGeoJSON(drawObject.getAll()) // It is needed to assign result of edit to the map.
 
+      if (props.session) {
+        const idToken = props.session.getIdToken().getJwtToken();
+        console.log(idToken)
+      }
+
       console.log(feature)
     }
   }
