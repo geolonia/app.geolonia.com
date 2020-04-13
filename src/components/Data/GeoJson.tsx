@@ -257,6 +257,7 @@ const Content = (props: Props) => {
   }
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
+    drawObject.changeMode(drawObject.modes.SIMPLE_SELECT)
     setCurrentFeature(undefined) // Deselect a feature, because it may be deleted.
 
     for (let i = 0; i < geojson.features.length; i++) {
