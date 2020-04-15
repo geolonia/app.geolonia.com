@@ -12,12 +12,10 @@ export const customFetch = async <T>(
     absPath,
     noAuth,
     decode,
-    type
   }: {
     absPath?: boolean;
     noAuth?: boolean;
     decode?: "text" | "json";
-    type?: "dashboard";
   } = {}
 ): Promise<APIResult<T>> => {
   if (!session) {
