@@ -10,6 +10,7 @@ import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Moment from 'moment'
 import queryString from "query-string";
+import fetch from '../../lib/fetch'
 
 // types
 import {
@@ -59,15 +60,9 @@ function Content(props: Props) {
   const page = Number(queryString.parse(props.location.search).page) || 0
   React.useEffect(() => {
     if (props.teamId && props.session) {
-      const idToken = props.session.getIdToken().getJwtToken();
-
       fetch(
+        props.session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}&per_page=${perPage}&page=${page}`,
-        {
-          headers: {
-            Authorization: idToken
-          }
-        }
       )
         .then(res => {
           if(res.status < 300) {
@@ -129,20 +124,17 @@ function Content(props: Props) {
     if (!(teamId && session)) {
       return Promise.resolve();
     }
-    const idToken = session.getIdToken().getJwtToken();
 
     return fetch(
+      props.session,
       `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${teamId}`,
       {
         method: 'POST',
-        headers: {
-          Authorization: idToken
-        },
         body: JSON.stringify({ name })
       }
     )
       .then((res) => {
-        if(res.status < 400) {
+        if(res.status < 300) {
           return res.json()
         } else {
           throw new Error()
