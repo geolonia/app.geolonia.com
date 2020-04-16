@@ -59,7 +59,6 @@ function Content(props: Props) {
   const page = Number(queryString.parse(props.location.search).page) || 0
   React.useEffect(() => {
     if (props.teamId && props.session) {
-      // TODO: Uncomment when turn the authorizer on
       const idToken = props.session.getIdToken().getJwtToken();
 
       fetch(
@@ -106,7 +105,8 @@ function Content(props: Props) {
               }
             })
           );
-        }).catch(() => {
+        }).catch((err) => {
+          console.error(err)
           alert(__('Network Error.'))
         })
     }
@@ -129,16 +129,15 @@ function Content(props: Props) {
     if (!(teamId && session)) {
       return Promise.resolve();
     }
-    // TODO: Uncomment when turn the authorizer on
-    // const idToken = props.session.getIdToken().getJwtToken();
+    const idToken = session.getIdToken().getJwtToken();
 
     return fetch(
       `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${teamId}`,
       {
         method: 'POST',
-        // headers: {
-        //   Authorization: idToken
-        // },
+        headers: {
+          Authorization: idToken
+        },
         body: JSON.stringify({ name })
       }
     )
