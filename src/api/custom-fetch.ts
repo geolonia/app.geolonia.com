@@ -1,8 +1,10 @@
 import { errorCodes, APIResult, Session } from "../types";
 import { getErrorMessage } from "../constants";
+import { refreshSession } from "../auth";
+import { CognitoUserSession } from "amazon-cognito-identity-js";
 const { REACT_APP_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
-export const customFetch = <T>(
+export const customFetch = async <T>(
   session: Session,
   url: string,
   options: Parameters<typeof fetch>[1],
@@ -10,12 +12,10 @@ export const customFetch = <T>(
     absPath,
     noAuth,
     decode,
-    type
   }: {
     absPath?: boolean;
     noAuth?: boolean;
     decode?: "text" | "json";
-    type?: "dashboard";
   } = {}
 ): Promise<APIResult<T>> => {
   if (!session) {
@@ -27,12 +27,20 @@ export const customFetch = <T>(
     });
   }
 
+  let refreshedSession: CognitoUserSession;
+
+  try {
+    refreshedSession = await refreshSession(session);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+
   let fetchOptions;
   const headers = (options && options.headers) || {};
   if (noAuth) {
     fetchOptions = { ...options, headers };
   } else {
-    const idToken = session.getIdToken().getJwtToken();
+    const idToken = refreshedSession.getIdToken().getJwtToken();
     const headers = (options && options.headers) || {};
     fetchOptions = {
       ...options,

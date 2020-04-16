@@ -11,6 +11,7 @@ import TextField from "@material-ui/core/TextField";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
+import fetch from '../../lib/fetch'
 import { AppState, Session } from "../../types";
 
 const { REACT_APP_STAGE } = process.env;
@@ -85,14 +86,11 @@ const Content = (props: Props & StateProps) => {
       return Promise.resolve()
     }
 
-    const idToken = props.session.getIdToken().getJwtToken();
     return fetch(
+      props.session,
       `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons`,
       {
         method: 'POST',
-        headers: {
-          Authorization: idToken
-        },
         body: JSON.stringify({
           id: props.GeoJsonID,
           name,

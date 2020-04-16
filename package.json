@@ -35,7 +35,7 @@
     "build": ". ./.env.production && react-scripts build",
     "build:ci": "react-scripts build && bin/postbuild.sh",
     "cname": "echo $CNAME > ./build/CNAME",
-    "test": "react-scripts test",
+    "test": ". ./.env.development && react-scripts test",
     "lint": "eslint --ext .tsx --ext .ts --ext .jsx --ext .js .",
     "eject": "react-scripts eject",
     "makepot": "node_modules/@babel/cli/bin/babel.js ./src -x '.tsx' -x '.ts' --config-file ./.babelrc.i18n",
