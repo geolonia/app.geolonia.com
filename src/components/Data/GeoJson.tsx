@@ -96,22 +96,39 @@ const Content = (props: Props) => {
   const [title, setTitle] = React.useState<string>('')
   const [style, setStyle] = React.useState<string>('geolonia/basic')
 
+  // get GeoJSON meta
   React.useEffect(() => {
-    if (props.teamId && props.session && props.geojsonId) {
-
+    if (props.session && props.geojsonId) {
       fetch(
         props.session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}`,
       )
         .then(res => res.json())
         .then(json => {
-          setGeoJSON(json.data);
-          setBounds(geojsonExtent(json.data))
           setGeoJsonMeta(json)
           setTitle(json.name)
         });
     }
-  }, [props.teamId, props.session, props.geojsonId]);
+  }, [props.session, props.geojsonId]);
+
+  // get Features
+  React.useEffect(() => {
+    if (props.session && props.geojsonId) {
+      fetch(
+        props.session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+      )
+        .then(res => res.json())
+        .then(json => {
+          const geojson = {
+            type: "FeatureCollection",
+            features: json.features
+          } as GeoJSON.FeatureCollection
+          setGeoJSON(geojson);
+          setBounds(geojsonExtent(geojson))
+        });
+    }
+  },  [props.session, props.geojsonId])
 
   const breadcrumbItems = [
     {
@@ -225,12 +242,14 @@ const Content = (props: Props) => {
       setCurrentFeature(feature)
       setGeoJSON(drawObject.getAll()) // It is needed to assign result of edit to the map.
 
-      if (props.session) {
-        const idToken = props.session.getIdToken().getJwtToken();
-        console.log(idToken)
-      }
-
-      console.log(feature)
+      fetch(
+        props.session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(feature)
+        }
+      )
     }
   }
 
@@ -245,15 +264,36 @@ const Content = (props: Props) => {
     }
 
     if ('draw.create' === event.type) {
-      // event.features[0] を追加。
+      fetch(
+        props.session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+        {
+          method: "POST",
+          body: JSON.stringify(event.features)
+        }
+      )
     } else if ('draw.update' === event.type) {
-      // event.features をループでアップデート
+      event.features.forEach((feature: GeoJSON.Feature) => {
+        return fetch(
+          props.session,
+          `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
+          {
+            method: "PUT",
+            body: JSON.stringify(feature)
+          }
+        )
+      })
     } else if ('draw.delete' === event.type) {
-      // event.features をループで削除
+      event.features.forEach((feature: GeoJSON.Feature) => fetch(
+        props.session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ deleted: true })
+        }
+      ))
     }
-
-    console.log(event)
-  }
+   }
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
     drawObject.changeMode(drawObject.modes.SIMPLE_SELECT)
@@ -272,8 +312,14 @@ const Content = (props: Props) => {
     setGeoJSON(all)
     setBounds(geojsonExtent(all))
 
-    // ここで FeatureCollection を保存
-    console.log(all)
+    fetch(
+      props.session,
+      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+      {
+        method: "POST",
+        body: JSON.stringify(all.features)
+      }
+    ).then(res => res.json()).then(console.log)
   }
 
   const getNumberFeatures = () => {

@@ -17,7 +17,7 @@ type Props = {
   drawCallback: Function;
   saveCallback: Function;
   getNumberFeatures: Function;
-  bounds:mapboxgl.LngLatBoundsLike | undefined;
+  bounds: mapboxgl.LngLatBoundsLike | undefined;
   style: string;
 };
 
@@ -98,6 +98,11 @@ export const MapEditor = (props: Props) => {
     })
 
     map.on('draw.delete', (event: any) => {
+      getNumberFeatures()
+      saveCallback(event)
+    })
+
+    map.on('draw.update', (event: any) => {
       getNumberFeatures()
       saveCallback(event)
     })
