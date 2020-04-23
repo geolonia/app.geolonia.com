@@ -96,6 +96,7 @@ const Content = (props: Props) => {
   const [title, setTitle] = React.useState<string>('')
   const [style, setStyle] = React.useState<string>('geolonia/basic')
 
+  // get GeoJSON meta
   React.useEffect(() => {
     if (props.session && props.geojsonId) {
       fetch(
@@ -110,6 +111,7 @@ const Content = (props: Props) => {
     }
   }, [props.session, props.geojsonId]);
 
+  // get Features
   React.useEffect(() => {
     if (props.session && props.geojsonId) {
       fetch(
@@ -262,21 +264,26 @@ const Content = (props: Props) => {
     }
 
     if ('draw.create' === event.type) {
-      // event.features[0] を追加。
+      fetch(
+        props.session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+        {
+          method: "POST",
+          body: JSON.stringify(event.features)
+        }
+      )
     } else if ('draw.update' === event.type) {
-      // event.features をループでアップデート
+      event.features.forEach((feature: GeoJSON.Feature) => fetch(
+        props.session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(feature)
+        }
+      ))
     } else if ('draw.delete' === event.type) {
       // event.features をループで削除
     }
-
-    fetch(
-      props.session,
-      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
-      {
-        method: "POST",
-        body: JSON.stringify(event.features)
-      }
-    )
    }
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
