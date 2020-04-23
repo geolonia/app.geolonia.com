@@ -118,15 +118,12 @@ const Content = (props: Props) => {
       )
         .then(res => res.json())
         .then(json => {
-          console.log({
+          const geojson = {
             type: "FeatureCollection",
             features: json.features
-          })
-          setGeoJSON({
-            type: "FeatureCollection",
-            features: json.features
-          });
-          // setBounds(geojsonExtent(json.data))
+          } as GeoJSON.FeatureCollection
+          setGeoJSON(geojson);
+          setBounds(geojsonExtent(geojson))
         });
     }
   },  [props.session, props.geojsonId])
@@ -243,12 +240,14 @@ const Content = (props: Props) => {
       setCurrentFeature(feature)
       setGeoJSON(drawObject.getAll()) // It is needed to assign result of edit to the map.
 
-      if (props.session) {
-        const idToken = props.session.getIdToken().getJwtToken();
-        console.log(idToken)
-      }
-
-      console.log(feature)
+      fetch(
+        props.session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
+        {
+          method: "PUT",
+          body: JSON.stringify(feature)
+        }
+      )
     }
   }
 
@@ -270,8 +269,15 @@ const Content = (props: Props) => {
       // event.features をループで削除
     }
 
-    console.log(event)
-  }
+    fetch(
+      props.session,
+      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+      {
+        method: "POST",
+        body: JSON.stringify(event.features)
+      }
+    )
+   }
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
     drawObject.changeMode(drawObject.modes.SIMPLE_SELECT)
