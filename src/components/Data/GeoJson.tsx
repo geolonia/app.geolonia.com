@@ -273,16 +273,25 @@ const Content = (props: Props) => {
         }
       )
     } else if ('draw.update' === event.type) {
+      event.features.forEach((feature: GeoJSON.Feature) => {
+        return fetch(
+          props.session,
+          `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
+          {
+            method: "PUT",
+            body: JSON.stringify(feature)
+          }
+        )
+      })
+    } else if ('draw.delete' === event.type) {
       event.features.forEach((feature: GeoJSON.Feature) => fetch(
         props.session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
         {
           method: "PUT",
-          body: JSON.stringify(feature)
+          body: JSON.stringify({ deleted: true })
         }
       ))
-    } else if ('draw.delete' === event.type) {
-      // event.features をループで削除
     }
    }
 
