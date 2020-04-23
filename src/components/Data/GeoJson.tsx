@@ -312,8 +312,14 @@ const Content = (props: Props) => {
     setGeoJSON(all)
     setBounds(geojsonExtent(all))
 
-    // ここで FeatureCollection を保存
-    console.log(all)
+    fetch(
+      props.session,
+      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+      {
+        method: "POST",
+        body: JSON.stringify(all.features)
+      }
+    ).then(res => res.json()).then(console.log)
   }
 
   const getNumberFeatures = () => {
