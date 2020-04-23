@@ -60,6 +60,7 @@ function Content(props: Props) {
   const page = Number(queryString.parse(props.location.search).page) || 0
   React.useEffect(() => {
     if (props.teamId && props.session) {
+
       fetch(
         props.session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}&per_page=${perPage}&page=${page}`,

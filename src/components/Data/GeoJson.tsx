@@ -97,21 +97,39 @@ const Content = (props: Props) => {
   const [style, setStyle] = React.useState<string>('geolonia/basic')
 
   React.useEffect(() => {
-    if (props.teamId && props.session && props.geojsonId) {
-
+    if (props.session && props.geojsonId) {
       fetch(
         props.session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}`,
       )
         .then(res => res.json())
         .then(json => {
-          setGeoJSON(json.data);
-          setBounds(geojsonExtent(json.data))
           setGeoJsonMeta(json)
           setTitle(json.name)
         });
     }
-  }, [props.teamId, props.session, props.geojsonId]);
+  }, [props.session, props.geojsonId]);
+
+  React.useEffect(() => {
+    if (props.session && props.geojsonId) {
+      fetch(
+        props.session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+      )
+        .then(res => res.json())
+        .then(json => {
+          console.log({
+            type: "FeatureCollection",
+            features: json.features
+          })
+          setGeoJSON({
+            type: "FeatureCollection",
+            features: json.features
+          });
+          // setBounds(geojsonExtent(json.data))
+        });
+    }
+  },  [props.session, props.geojsonId])
 
   const breadcrumbItems = [
     {
