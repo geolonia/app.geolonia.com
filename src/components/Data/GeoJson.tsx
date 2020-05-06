@@ -29,12 +29,14 @@ import {
   AppState,
   Session,
   Feature,
-  FeatureProperties
+  FeatureProperties,
+  UpstreamAffiliateMessage
 } from "../../types";
 
 import { connect } from "react-redux";
 
 // api
+import { refreshSession } from "../../auth";
 // import updateGeosearch from "../../api/geosearch/update";
 import deleteGeosearch from "../../api/geosearch/delete";
 
@@ -95,6 +97,33 @@ const Content = (props: Props) => {
   const [geoJsonMeta, setGeoJsonMeta] = React.useState<object | undefined>()
   const [title, setTitle] = React.useState<string>('')
   const [style, setStyle] = React.useState<string>('geolonia/basic')
+
+  const [socket, setSocket] = React.useState<WebSocket | null>(null)
+
+  // WebSocket Connection
+  React.useEffect(() => {
+    if(props.session && props.teamId) {
+      refreshSession(props.session).then((session) => {
+        const idToken = session.getIdToken().getJwtToken()
+        const ws = new WebSocket('wss://jxi029aoze.execute-api.us-east-1.amazonaws.com/dev')
+        ws.onopen = () => {
+          const message: UpstreamAffiliateMessage = {
+            action: 'affiliate',
+            data: {
+              teamId: props.teamId as string,
+              token: idToken
+            }
+          }
+          ws.send(JSON.stringify(message))
+          setSocket(ws)
+        }
+        ws.onerror = () => {
+          // ws.close()
+          setSocket(null)
+        }
+      })
+    }
+  }, [props.session, props.teamId])
 
   // get GeoJSON meta
   React.useEffect(() => {
