@@ -74,3 +74,40 @@ export type Feature = {
   properties: FeatureProperties;
   type: string;
 }
+
+// websocket
+
+export type UpstreamAuthorizeMessage = {
+  action: "authorize";
+  data: {
+    teamId: string;
+    token: string;
+  };
+};
+export type UpstreamPublishMessage = {
+  action: "publish";
+  data: {
+    geojsonId: string;
+    featureId: string;
+  };
+};
+
+export type DownstreamAckMessage = {
+  action: "ack";
+  data: {
+    subject: string;
+    teamId: string;
+  };
+};
+
+export type DownstreamNotifyMessage = {
+  action: "notify";
+  data: {
+    subject: string;
+    geojsonId: string;
+    featureId: string;
+    sender: string;
+  };
+};
+
+

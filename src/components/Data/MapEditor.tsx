@@ -5,13 +5,16 @@ import jsonStyle from "../custom/drawStyle";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { _x } from "@wordpress/i18n";
 import fullscreen from './fullscreenMap'
+import { connect } from 'react-redux'
 
 // @ts-ignore
 import centroid from "@turf/centroid"
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
-type Props = {
+import { AppState, Session } from "../../types";
+
+type OwnProps = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
   onClickFeature: Function;
   drawCallback: Function;
@@ -21,6 +24,13 @@ type Props = {
   style: string;
 };
 
+type StateProps = {
+  session: Session;
+  teamId?: string;
+}
+
+type Props = OwnProps & StateProps
+
 const mapStyle: React.CSSProperties = {
   width: "100%",
   height: "100%",
@@ -29,7 +39,7 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapEditor = (props: Props) => {
-  const { geoJSON, onClickFeature, drawCallback, saveCallback, getNumberFeatures, bounds, style } = props;
+  const { geoJSON, onClickFeature, drawCallback, saveCallback, getNumberFeatures, bounds, style, session, teamId } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | undefined>(undefined);
@@ -128,4 +138,12 @@ export const MapEditor = (props: Props) => {
   );
 };
 
-export default MapEditor;
+const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex]
+  return {
+    session: state.authSupport.session,
+    teamId: team && team.teamId
+  };
+};
+
+export default connect(mapStateToProps)(MapEditor);

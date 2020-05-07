@@ -21,6 +21,8 @@ import ImportButton from './ImportButton'
 import ExportButton from './ExportButton'
 import GeoJsonMeta from './GeoJsonMeta'
 import StyleSelector from './StyleSelector'
+import Snackbar from '@material-ui/core/Snackbar';
+import Button from '@material-ui/core/Button';
 
 import "./GeoJson.scss";
 
@@ -29,12 +31,14 @@ import {
   AppState,
   Session,
   Feature,
-  FeatureProperties
+  FeatureProperties,
+  UpstreamAuthorizeMessage,
 } from "../../types";
 
 import { connect } from "react-redux";
 
 // api
+import { refreshSession } from "../../auth";
 // import updateGeosearch from "../../api/geosearch/update";
 import deleteGeosearch from "../../api/geosearch/delete";
 
@@ -95,6 +99,54 @@ const Content = (props: Props) => {
   const [geoJsonMeta, setGeoJsonMeta] = React.useState<object | undefined>()
   const [title, setTitle] = React.useState<string>('')
   const [style, setStyle] = React.useState<string>('geolonia/basic')
+  const [updateRequired, setUpdateRequired] = React.useState<boolean | 'never'>(false)
+
+  const [socket, setSocket] = React.useState<WebSocket | null>(null)
+
+  // WebSocket Connection
+  React.useEffect(() => {
+    if(props.session && props.teamId && !socket) {
+      refreshSession(props.session).then((session) => {
+        const idToken = session.getIdToken().getJwtToken()
+        const ws = new WebSocket(`wss://ws-api.geolonia.com/${process.env.REACT_APP_STAGE}`)
+
+        ws.onopen = () => {
+          const message: UpstreamAuthorizeMessage = {
+            action: 'authorize',
+            data: {
+              teamId: props.teamId as string,
+              token: idToken
+            }
+          }
+          ws.send(JSON.stringify(message))
+        }
+
+        ws.onmessage = (rawMessage) => {
+          try {
+            const message = JSON.parse(rawMessage.data)
+            if(message) {
+              if(message.action === 'ack') {
+                setSocket(ws)
+              } else if (
+                message.action === 'notify' &&
+                props.geojsonId === message.data.geojsonId
+              ) {
+                setUpdateRequired(true)
+              }
+            } else {
+              throw new Error()
+            }
+          } catch (error) {
+            console.error('Web socket connection failed')
+          }
+        }
+
+        ws.onerror = () => {
+          setSocket(null)
+        }
+      })
+    }
+  }, [props.geojsonId, props.session, props.teamId, socket])
 
   // get GeoJSON meta
   React.useEffect(() => {
@@ -249,7 +301,18 @@ const Content = (props: Props) => {
           method: "PUT",
           body: JSON.stringify(feature)
         }
-      )
+      ).then(() => {
+      // send websocket
+        if(socket) {
+          socket.send(JSON.stringify({
+            action: 'publish',
+            data: {
+              geojsonId: props.geojsonId,
+              featureId: feature.id
+            }
+          }))
+        }
+      })
     }
   }
 
@@ -272,6 +335,18 @@ const Content = (props: Props) => {
           body: JSON.stringify(event.features)
         }
       )
+        .then(() => {
+          //send websocket
+          if(socket) {
+            socket.send(JSON.stringify({
+              action: 'publish',
+              data: {
+                geojsonId: props.geojsonId,
+                featureId: '' // TODO: currently not used
+              }
+            }))
+          }
+        })
     } else if ('draw.update' === event.type) {
       event.features.forEach((feature: GeoJSON.Feature) => {
         return fetch(
@@ -291,7 +366,18 @@ const Content = (props: Props) => {
           method: "PUT",
           body: JSON.stringify({ deleted: true })
         }
-      ))
+      )).then(() => {
+        //send websocket
+        if(socket) {
+          socket.send(JSON.stringify({
+            action: 'publish',
+            data: {
+              geojsonId: props.geojsonId,
+              featureId: '' // TODO: currently not used
+            }
+          }))
+        }
+      })
     }
    }
 
@@ -344,6 +430,43 @@ const Content = (props: Props) => {
         <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} />
         <ImportButton GeoJsonImporter={GeoJsonImporter} />
       </div>
+
+      <Snackbar
+        className={'snackbar-update-required'}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+        open={ updateRequired === true }
+        message={__('Update required')}
+        action={
+          <>
+            <Button color="secondary" size="small" onClick={() => {
+              fetch(
+                props.session,
+                `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+              )
+                .then(res => res.json())
+                .then(json => {
+                  const geojson = {
+                    type: "FeatureCollection",
+                    features: json.features
+                  } as GeoJSON.FeatureCollection
+                  setGeoJSON(geojson);
+                  setBounds(geojsonExtent(geojson))
+                  setUpdateRequired(false)
+                });
+            }}>
+              {__('Reload')}
+            </Button>
+            <Button color="secondary" size="small" onClick={() => setUpdateRequired('never')}>
+              {__('Continue')}
+            </Button>
+          </>
+        }
+        >
+      </Snackbar>
+
 
       <div className="editor">
         <MapEditor style={style} drawCallback={drawCallback} getNumberFeatures={getNumberFeatures} geoJSON={geoJSON}
