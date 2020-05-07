@@ -77,15 +77,15 @@ export type Feature = {
 
 // websocket
 
-export type UpstreamAffiliateMessage = {
-  action: "affiliate";
+export type UpstreamAuthorizeMessage = {
+  action: "authorize";
   data: {
     teamId: string;
     token: string;
   };
 };
-export type UpstreamNotifyMessage = {
-  action: "notify";
+export type UpstreamPublishMessage = {
+  action: "publish";
   data: {
     geojsonId: string;
     featureId: string;
