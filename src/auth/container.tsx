@@ -10,7 +10,6 @@ import getUser from "../api/users/get";
 import listTeams from "../api/teams/list";
 import listKeys from "../api/keys/list";
 import listTeamMembers from "../api/members/list";
-import listGeosearch from "../api/geosearch/list";
 
 // Utils
 import delay from "../lib/promise-delay";
@@ -30,19 +29,9 @@ import {
 } from "../redux/actions/team";
 import { createActions as createMapKeyActions } from "../redux/actions/map-key";
 import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
-import { createActions as createGeosearchActions } from "../redux/actions/geosearch";
 
 // Types
-import {
-  AppState,
-  User,
-  Session,
-  Team,
-  Key,
-  Member,
-  DateStringify,
-  Geosearch
-} from "../types";
+import { AppState, User, Session, Team, Key, Member } from "../types";
 import Redux from "redux";
 import { SELECTED_TEAM_ID } from "../redux/middlewares/local-storage";
 import Moment from "moment";
@@ -66,15 +55,6 @@ type DispatchProps = {
   ) => void;
   setMapKeys: (teamId: string, keys: Key[]) => void;
   setTeamMembers: (teamId: string, members: Member[]) => void;
-  setGeosearch: (
-    teamId: string,
-    geojsonId: string,
-    name: string,
-    createAt: Moment.Moment | void,
-    updateAt: Moment.Moment | void,
-    isPublic: boolean,
-    data: GeoJSON.FeatureCollection
-  ) => void;
   markMapKeyError: (teamId: string) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
@@ -153,18 +133,16 @@ export class AuthContainer extends React.Component<Props, State> {
       Moment.locale(language);
       Moment.tz.setDefault(timezone);
       // NOTE: We can localize datetime format here
-      Moment.defaultFormat = 'YYYY-MM-DD HH:mm:ss'
+      Moment.defaultFormat = "YYYY-MM-DD HH:mm:ss";
 
       const teamIds = teamsWithoutDeleted.map(team => team.teamId);
 
       await getTeamIdToSelect(teamsWithoutDeleted).then(this.props.selectTeam);
 
       // do not await then.
-      // TODO: catch them
       this.loadAvatars(user, teamsWithoutDeleted);
       this.loadMapKeys(session, teamIds);
       this.loadTeamMembers(session, teamIds);
-      this.loadAllGeosearch(session, teamIds);
     } catch (error) {
       console.error(error);
       this.props.serverTrouble();
@@ -271,39 +249,6 @@ export class AuthContainer extends React.Component<Props, State> {
     });
   };
 
-  loadAllGeosearch = (session: Session, teamIds: string[]) => {
-    const handleRequest = (teamId: string) => {
-      return listGeosearch(session, teamId).then(result => {
-        if (result.error) {
-          throw new Error(result.code);
-        } else {
-          const geosearchList = result.data;
-          geosearchList.forEach(geosearch => {
-            const {
-              geojsonId,
-              name,
-              createAt,
-              updateAt,
-              isPublic,
-              data
-            } = dateParse<DateStringify<Geosearch>>(geosearch);
-            this.props.setGeosearch(
-              teamId,
-              geojsonId,
-              name,
-              createAt,
-              updateAt,
-              isPublic,
-              data
-            );
-          });
-        }
-      });
-    };
-
-    return Promise.all(teamIds.map(handleRequest));
-  };
-
   render() {
     const { children } = this.props;
     return <>{children}</>;
@@ -333,18 +278,6 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   setMapKeys: (teamId, keys) => dispatch(createMapKeyActions.set(teamId, keys)),
   setTeamMembers: (teamId, members) =>
     dispatch(createTeamMemberActions.set(teamId, members)),
-  setGeosearch: (teamId, geojsonId, name, createAt, updateAt, isPublic, data) =>
-    dispatch(
-      createGeosearchActions.set(
-        teamId,
-        geojsonId,
-        name,
-        createAt,
-        updateAt,
-        isPublic,
-        data
-      )
-    ),
   markMapKeyError: teamId => dispatch(createMapKeyActions.markError(teamId))
 });
 
