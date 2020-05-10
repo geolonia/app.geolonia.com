@@ -12,7 +12,6 @@ const { REACT_APP_STAGE } = process.env;
 type GeoJSONMeta = {
   name: string;
   isPublic: boolean;
-  allowedOrigins: string;
 };
 
 export default function useGeoJSON(session: Session, geojsonId: string | void) {

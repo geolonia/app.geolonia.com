@@ -7,7 +7,7 @@ export default function useWebSocket(
   session: Session,
   teamId: string | void,
   geojsonId: string | void
-): [(featureId: string) => void, boolean, () => void] {
+): [WebSocket | null, boolean, () => void] {
   const [socket, setSocket] = React.useState<WebSocket | null>(null);
   const [updateRequired, setUpdateRequired] = React.useState(false);
 
@@ -58,21 +58,5 @@ export default function useWebSocket(
     }
   }, [geojsonId, session, teamId, socket, updateRequired]);
 
-  const publush = socket
-    ? (featureId: string) => {
-        socket.send(
-          JSON.stringify({
-            action: "publish",
-            data: {
-              geojsonId: geojsonId,
-              featureId: featureId
-            }
-          })
-        );
-      }
-    : () => {
-        console.error("No socket found.");
-      };
-
-  return [publush, updateRequired, () => setUpdateRequired(false)];
+  return [socket, updateRequired, () => setUpdateRequired(false)];
 }

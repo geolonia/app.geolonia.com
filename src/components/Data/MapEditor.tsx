@@ -4,11 +4,11 @@ import GeoloniaMap from "../custom/GeoloniaMap";
 import jsonStyle from "../custom/drawStyle";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { _x } from "@wordpress/i18n";
-import fullscreen from './fullscreenMap'
-import { connect } from 'react-redux'
+import fullscreen from "./fullscreenMap";
+import { connect } from "react-redux";
 
 // @ts-ignore
-import centroid from "@turf/centroid"
+import centroid from "@turf/centroid";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
@@ -27,9 +27,9 @@ type OwnProps = {
 type StateProps = {
   session: Session;
   teamId?: string;
-}
+};
 
-type Props = OwnProps & StateProps
+type Props = OwnProps & StateProps;
 
 const mapStyle: React.CSSProperties = {
   width: "100%",
@@ -39,7 +39,17 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapEditor = (props: Props) => {
-  const { geoJSON, onClickFeature, drawCallback, saveCallback, getNumberFeatures, bounds, style, session, teamId } = props;
+  const {
+    geoJSON,
+    onClickFeature,
+    drawCallback,
+    saveCallback,
+    getNumberFeatures,
+    bounds,
+    style,
+    session,
+    teamId
+  } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | undefined>(undefined);
@@ -54,21 +64,21 @@ export const MapEditor = (props: Props) => {
 
   React.useEffect(() => {
     if (geoJSON) {
-      getNumberFeatures()
+      getNumberFeatures();
     }
   }, [geoJSON, getNumberFeatures]);
 
   React.useEffect(() => {
     if (draw) {
-      drawCallback(draw)
+      drawCallback(draw);
     }
-  }, [draw, drawCallback])
+  }, [draw, drawCallback]);
 
   React.useEffect(() => {
     if (map && style) {
-      map.setStyle(style)
+      map.setStyle(style);
     }
-  }, [map, style])
+  }, [map, style]);
 
   const handleOnAfterLoad = (map: mapboxgl.Map) => {
     const draw: MapboxDraw = new MapboxDraw({
@@ -85,37 +95,37 @@ export const MapEditor = (props: Props) => {
       userProperties: true
     });
 
-    map.addControl(new fullscreen('.gis-panel .editor'), "top-right");
+    map.addControl(new fullscreen(".gis-panel .editor"), "top-right");
     // @ts-ignore
     map.addControl(new window.geolonia.NavigationControl());
     map.addControl(draw, "top-right");
 
     setDraw(draw);
-    setMap(map)
+    setMap(map);
 
-    map.on('draw.selectionchange', (event: any) => {
+    map.on("draw.selectionchange", (event: any) => {
       if (event.features.length) {
         const center = centroid(event.features[0]);
-        map.setCenter(center.geometry.coordinates)
+        map.setCenter(center.geometry.coordinates);
       }
 
-      onClickFeature(event)
-    })
+      onClickFeature(event);
+    });
 
-    map.on('draw.create', (event: any) => {
-      getNumberFeatures()
-      saveCallback(event)
-    })
+    map.on("draw.create", (event: any) => {
+      getNumberFeatures();
+      saveCallback(event);
+    });
 
-    map.on('draw.delete', (event: any) => {
-      getNumberFeatures()
-      saveCallback(event)
-    })
+    map.on("draw.delete", (event: any) => {
+      getNumberFeatures();
+      saveCallback(event);
+    });
 
-    map.on('draw.update', (event: any) => {
-      getNumberFeatures()
-      saveCallback(event)
-    })
+    map.on("draw.update", (event: any) => {
+      getNumberFeatures();
+      saveCallback(event);
+    });
   };
 
   return (
@@ -139,7 +149,7 @@ export const MapEditor = (props: Props) => {
 };
 
 const mapStateToProps = (state: AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex]
+  const team = state.team.data[state.team.selectedIndex];
   return {
     session: state.authSupport.session,
     teamId: team && team.teamId

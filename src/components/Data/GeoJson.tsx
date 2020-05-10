@@ -37,10 +37,6 @@ import "./GeoJson.scss";
 // types
 import { AppState, Session, Feature, FeatureProperties } from "../../types";
 
-// api
-// import updateGeosearch from "../../api/geosearch/update";
-import deleteGeosearch from "../../api/geosearch/delete";
-
 // constants
 import { messageDisplayDuration } from "../../constants";
 const { REACT_APP_STAGE } = process.env;
@@ -53,18 +49,13 @@ type StateProps = {
   teamId?: string;
 };
 
-type DispatchProps = {
-  updateGeosearch: (teamId: string, geojsonId: string) => void;
-  deleteGeosearch: (teamId: string, geojsonId: string) => void;
-};
-
 type RouterProps = {
   match: { params: { id: string } };
   history: { push: (path: string) => void };
   currentFeature: object;
 };
 
-type Props = OwnProps & RouterProps & StateProps & DispatchProps;
+type Props = OwnProps & RouterProps & StateProps;
 
 const Content = (props: Props) => {
   const [message, setMessage] = React.useState("");
@@ -87,11 +78,28 @@ const Content = (props: Props) => {
     setBounds
   } = useGeoJSON(props.session, props.geojsonId);
 
-  const [publish, updateRequired, resetUpdateRequired] = useWebSocket(
+  const [socket, updateRequired, resetUpdateRequired] = useWebSocket(
     props.session,
     props.teamId,
     props.geojsonId
   );
+
+  // send web socket message to notify team members
+  const publish = (featureId: string) => {
+    if (socket) {
+      socket.send(
+        JSON.stringify({
+          action: "publish",
+          data: {
+            geojsonId: props.geojsonId,
+            featureId: featureId
+          }
+        })
+      );
+    } else {
+      console.error("No socket found.");
+    }
+  };
 
   const breadcrumbItems = [
     {
@@ -142,17 +150,28 @@ const Content = (props: Props) => {
       return Promise.resolve();
     }
 
-    return deleteGeosearch(session, teamId, geojsonId).then(result => {
-      if (result.error) {
-        setMessage(result.message);
-        throw new Error(result.code);
-      } else {
-        setTimeout(() => {
-          props.history.push("/data/gis");
-          props.deleteGeosearch(teamId, geojsonId);
-        }, messageDisplayDuration);
+    return fetch(
+      session,
+      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({ deleted: true })
       }
-    });
+    )
+      .then(res => {
+        if (res.status < 400) {
+          return res.json();
+        } else {
+          // will be caught at <Save />
+          throw new Error();
+        }
+      })
+      .then(() => {
+        setTimeout(
+          () => props.history.push("/data/geojson"),
+          messageDisplayDuration
+        );
+      });
   };
 
   /**
@@ -222,7 +241,7 @@ const Content = (props: Props) => {
 
   /**
    * Fires when a feature will be created, updated, deleted.
-   *
+   * TODO: render されていないので public が古い参照を
    * @param event
    */
   const saveFeatureCallback = (event: any) => {
@@ -395,7 +414,6 @@ const Content = (props: Props) => {
             geojsonId={props.geojsonId}
             name={geoJsonMeta.name}
             isPublic={geoJsonMeta.isPublic}
-            allowedOrigins={geoJsonMeta.allowedOrigins}
             setGeoJsonMeta={setGeoJsonMeta}
             style={style}
             isPayedUser={false}
@@ -413,6 +431,7 @@ const Content = (props: Props) => {
         <Delete
           text1={__("Are you sure you want to delete this Dataset?")}
           text2={__("Please type in the name of the Dataset to confirm.")}
+          answer={geoJsonMeta ? geoJsonMeta.name : void 0}
           errorMessage={message}
           onClick={onDeleteClick}
           onFailure={() => {}}
@@ -431,8 +450,6 @@ export const mapStateToProps = (
   if (team) {
     const { teamId } = team;
     const geojsonId = ownProps.match.params.id;
-    // const geosearchMap = state.geosearch[teamId] || {};
-    // const geosearch = geosearchMap[geojsonId];
     return {
       session,
       teamId,

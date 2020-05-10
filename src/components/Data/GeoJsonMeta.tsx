@@ -7,7 +7,6 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import LockIcon from "@material-ui/icons/Lock";
 import Button from "@material-ui/core/Button";
 import * as clipboard from "clipboard-polyfill";
-import TextField from "@material-ui/core/TextField";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
@@ -19,22 +18,18 @@ const { REACT_APP_STAGE } = process.env;
 type Meta = {
   name: string;
   isPublic: boolean;
-  allowedOrigins: string;
 };
 
 type Props = {
   geojsonId: string;
   name: string;
   isPublic: boolean;
-  allowedOrigins: string;
   setGeoJsonMeta: ({
     name,
-    isPublic,
-    allowedOrigins
+    isPublic
   }: {
     name: string;
     isPublic: boolean;
-    allowedOrigins: string;
   }) => void;
 
   isPayedUser: boolean;
@@ -47,20 +42,10 @@ type StateProps = {
 };
 
 const Content = (props: Props & StateProps) => {
-  const {
-    session,
-    geojsonId,
-    name,
-    isPublic,
-    allowedOrigins,
-    setGeoJsonMeta
-  } = props;
+  const { session, geojsonId, name, isPublic, setGeoJsonMeta } = props;
 
   const [draftName, setDraftName] = React.useState(name);
   const [draftIsPublic, setDraftIsPublic] = React.useState(isPublic);
-  const [draftAllowedOrigins, setDraftAllowedOrigins] = React.useState(
-    allowedOrigins
-  );
 
   const copyToClipBoard = () => {
     const input = document.querySelector(
@@ -89,7 +74,7 @@ const Content = (props: Props & StateProps) => {
   };
 
   const saveHandler = (draft: Partial<Meta>) => {
-    if (!props.session) {
+    if (!session) {
       return Promise.resolve();
     }
 
@@ -166,7 +151,7 @@ const Content = (props: Props & StateProps) => {
             <>
               <input
                 className="geolonia-geojson-api-endpoint"
-                value={`https://api.geolonia.com/v1/geojsons/${geojsonId}`}
+                value={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`}
                 onChange={geoJsonChangeHandler}
               />
               <p>
@@ -188,32 +173,6 @@ const Content = (props: Props & StateProps) => {
                 </button>
               </p>
             </>
-            <TextField
-              label={__("URLs")}
-              margin="normal"
-              multiline={true}
-              rows={5}
-              placeholder="https://example.com"
-              fullWidth={true}
-              value={draftAllowedOrigins}
-              onChange={e => setDraftAllowedOrigins(e.target.value)}
-              disabled={isPublic}
-            />
-            <Save
-              buttonStyle={{ width: "100%" }}
-              disabled={isPublic}
-              onClick={() =>
-                saveHandler({ allowedOrigins: draftAllowedOrigins })
-              }
-            />
-
-            <p>
-              {__(
-                "URLs will be used for an HTTP referrer to restrict the URLs that can use this GeoJSON API."
-              )}
-              &nbsp;
-              <a href="#/team/billing">{__("Upgrade to Geolonia Team")}</a>
-            </p>
           </Paper>
         </Grid>
       </Grid>
