@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import Switch from "@material-ui/core/Switch";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import LockIcon from "@material-ui/icons/Lock";
+import EditIcon from "@material-ui/icons/Edit";
+import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
 import * as clipboard from "clipboard-polyfill";
 import { __ } from "@wordpress/i18n";
@@ -18,28 +20,29 @@ const { REACT_APP_STAGE } = process.env;
 type Meta = {
   name: string;
   isPublic: boolean;
+  status: string;
 };
 
 type Props = {
   geojsonId: string;
   name: string;
   isPublic: boolean;
+  status: string;
   setGeoJsonMeta: ({
     name,
-    isPublic
+    isPublic,
+    status
   }: {
     name: string;
     isPublic: boolean;
+    status: string;
   }) => void;
 
   isPayedUser: boolean;
   style: string;
 };
 
-type StateProps = {
-  session: Session;
-  teamId?: string;
-};
+type StateProps = { session: Session };
 
 const copyToClipBoard = (style: string) => {
   const input = document.querySelector(
@@ -63,11 +66,11 @@ const copyUrlToClipBoard = () => {
   }
 };
 
-const Content = (props: Props & StateProps) => {
-  const { session, geojsonId, name, isPublic, setGeoJsonMeta } = props;
-
-  const [draftName, setDraftName] = React.useState(name);
-  const [draftIsPublic, setDraftIsPublic] = React.useState(isPublic);
+const usePublic = (
+  props: Props & StateProps
+): [boolean, (nextIsPublic: boolean) => void] => {
+  const { session, geojsonId, isPublic, name, status, setGeoJsonMeta } = props;
+  const [draftIsPublic, setDraftIsPublic] = React.useState(props.isPublic);
 
   React.useEffect(() => {
     if (isPublic !== draftIsPublic) {
@@ -76,7 +79,7 @@ const Content = (props: Props & StateProps) => {
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic: draftIsPublic, name })
+          body: JSON.stringify({ isPublic: draftIsPublic, name: name })
         }
       )
         .then(res => {
@@ -87,15 +90,62 @@ const Content = (props: Props & StateProps) => {
           }
         })
         .then(() => {
-          setGeoJsonMeta({ isPublic: draftIsPublic, name });
+          setGeoJsonMeta({ isPublic: draftIsPublic, name, status });
         })
         .catch(() => {});
     }
-  }, [draftIsPublic, geojsonId, isPublic, name, session, setGeoJsonMeta]);
+  }, [
+    draftIsPublic,
+    geojsonId,
+    isPublic,
+    name,
+    session,
+    setGeoJsonMeta,
+    status
+  ]);
 
-  const geoJsonChangeHandler = () => {
-    return;
-  };
+  return [draftIsPublic, setDraftIsPublic];
+};
+
+const useStatus = (
+  props: Props & StateProps
+): [string, (nextStatus: string) => void] => {
+  const { session, geojsonId, isPublic, name, status, setGeoJsonMeta } = props;
+  const [draftStatus, setDraftStatus] = React.useState(props.status);
+
+  React.useEffect(() => {
+    if (status !== draftStatus) {
+      fetch(
+        session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ isPublic, name, status: draftStatus })
+        }
+      )
+        .then(res => {
+          if (res.status < 400) {
+            return res.json();
+          } else {
+            throw new Error();
+          }
+        })
+        .then(() => {
+          setGeoJsonMeta({ isPublic, name, status: draftStatus });
+        })
+        .catch(() => {});
+    }
+  }, [draftStatus, geojsonId, isPublic, name, session, setGeoJsonMeta, status]);
+  return [draftStatus, setDraftStatus];
+};
+
+const Content = (props: Props & StateProps) => {
+  const { session, geojsonId, name, isPublic, status, setGeoJsonMeta } = props;
+
+  const [draftIsPublic, setDraftIsPublic] = usePublic(props);
+  const [draftStatus, setDraftStatus] = useStatus(props);
+
+  const [draftName, setDraftName] = React.useState(name);
 
   const saveHandler = (draftName: string) => {
     if (!session) {
@@ -122,7 +172,7 @@ const Content = (props: Props & StateProps) => {
         }
       })
       .then(() => {
-        setGeoJsonMeta({ isPublic, name: draftName });
+        setGeoJsonMeta({ isPublic, name: draftName, status });
       });
   };
 
@@ -130,36 +180,68 @@ const Content = (props: Props & StateProps) => {
     <Grid className="geojson-meta" container spacing={2}>
       <Grid item sm={4} xs={12}>
         <Paper className="geojson-title-description">
-          <Switch
-            checked={draftIsPublic}
-            onChange={e => {
-              setDraftIsPublic(e.target.checked);
-            }}
-            disabled={!props.isPayedUser}
-            inputProps={{ "aria-label": "primary checkbox" }}
-            color="primary"
-          />
-          {isPublic ? (
-            <span className="is-public">
-              <LockOpenIcon fontSize="small" />
-              Public
-            </span>
-          ) : (
-            <span className="is-public">
-              <LockIcon fontSize="small" />
-              Private
-            </span>
-          )}
-          {isPublic ? (
-            <p>{__("Anyone can access this GeoJSON API.")}</p>
-          ) : (
+          <div>
+            <Switch
+              checked={draftIsPublic}
+              onChange={e => {
+                setDraftIsPublic(e.target.checked);
+              }}
+              disabled={!props.isPayedUser}
+              inputProps={{ "aria-label": "primary checkbox" }}
+              color="primary"
+            />
+            {isPublic ? (
+              <span className="is-public">
+                <LockOpenIcon fontSize="small" />
+                Public
+              </span>
+            ) : (
+              <span className="is-public">
+                <LockIcon fontSize="small" />
+                Private
+              </span>
+            )}
+          </div>
+          <div>
+            {isPublic ? (
+              <p>{__("Anyone can access this GeoJSON API.")}</p>
+            ) : (
+              <p>
+                {__("You can restrict the URLs that can use this GeoJSON API.")}
+              </p>
+            )}
+
+            <Switch
+              checked={draftStatus === "published"}
+              onChange={() => {
+                setDraftStatus(
+                  draftStatus === "published" ? "draft" : "published"
+                );
+              }}
+              inputProps={{ "aria-label": "primary checkbox" }}
+              color="primary"
+            />
+            {draftStatus === "published" ? (
+              <span className="is-public">
+                <DoneIcon fontSize="small" />
+                Published
+              </span>
+            ) : (
+              <span className="is-public">
+                <EditIcon fontSize="small" />
+                Draft
+              </span>
+            )}
+
+            {status === "published" ? (
+              <p>{__("Datasets are published now.")}</p>
+            ) : (
+              <p>{__("Datasets status are draft now.")}</p>
+            )}
             <p>
-              {__("You can restrict the URLs that can use this GeoJSON API.")}
+              <a href="#/team/billing">{__("Upgrade to Geolonia Team")}</a>
             </p>
-          )}
-          <p>
-            <a href="#/team/billing">{__("Upgrade to Geolonia Team")}</a>
-          </p>
+          </div>
         </Paper>
 
         <Paper className="geojson-title-description">
@@ -200,7 +282,6 @@ const Content = (props: Props & StateProps) => {
               disabled={isPublic}
               className="geolonia-geojson-api-endpoint"
               value={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/private/${geojsonId}`}
-              onChange={geoJsonChangeHandler}
             />
             <p>
               <Button
@@ -232,17 +313,8 @@ const Content = (props: Props & StateProps) => {
 };
 
 export const mapStateToProps = (state: AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
   const { session } = state.authSupport;
-  if (team) {
-    const { teamId } = team;
-    return {
-      session,
-      teamId
-    };
-  } else {
-    return { session };
-  }
+  return { session };
 };
 
 export default connect(mapStateToProps)(Content);
