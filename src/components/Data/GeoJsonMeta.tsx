@@ -269,6 +269,7 @@ const Content = (props: Props & StateProps) => {
               size="large"
               style={{ width: "100%" }}
               href={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`}
+              disabled={status === "draft"}
             >
               {__("Download")}
             </Button>
