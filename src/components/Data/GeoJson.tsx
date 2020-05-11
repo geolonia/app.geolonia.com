@@ -241,11 +241,11 @@ const Content = (props: Props) => {
 
   /**
    * Fires when a feature will be created, updated, deleted.
-   * TODO: render されていないので public が古い参照を
+   * TODO: WebSocket でメッセージを送信できない。これは GeoJSON をクライアント側で更新しても子コンポーネントが render されず、古い public の古い参照を保持し続けているため。
+   * リファクタリングしてReact のライフサイクルに合わせる必要がある。
    * @param event
    */
   const saveFeatureCallback = (event: any) => {
-    console.error(event.type);
     if ("draw.delete" === event.type) {
       setCurrentFeature(undefined); // Set undefined to currentFeature
     }

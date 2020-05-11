@@ -95,10 +95,12 @@
   {
     margin-top: 16px;
 
+    .geojson-title-description:not(:first-child) {
+      margin-top: 16px;
+    }
+
     .geojson-title-description
     {
-      margin-top: 16px;
-
       h3
       {
         margin: 16px 0;

@@ -39,7 +39,7 @@ function Content(props: Props) {
       href: "#/"
     },
     {
-      title: __("Maps"),
+      title: __("API keys"),
       href: null
     }
   ];

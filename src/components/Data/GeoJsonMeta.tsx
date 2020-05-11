@@ -103,7 +103,7 @@ const Content = (props: Props & StateProps) => {
     <>
       <Grid className="geojson-meta" container spacing={2}>
         <Grid item sm={4} xs={12}>
-          <Paper>
+          <Paper className="geojson-title-description">
             <Switch
               checked={draftIsPublic}
               onChange={e => setDraftIsPublic(e.target.checked)}
@@ -145,9 +145,10 @@ const Content = (props: Props & StateProps) => {
             <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
           </Paper>
         </Grid>
+
         <Grid item sm={8} xs={12}>
-          <Paper>
-            <h3>{__("API Endpoint")}</h3>
+          <Paper className="geojson-title-description">
+            <h3>{__("Public Endpoint")}</h3>
             <>
               <input
                 className="geolonia-geojson-api-endpoint"
@@ -172,6 +173,40 @@ const Content = (props: Props & StateProps) => {
                   {__("Copy endpoint URL to clipboard")}
                 </button>
               </p>
+            </>
+          </Paper>
+
+          <Paper className="geojson-title-description">
+            <h3>{__("Private Endpoint")}</h3>
+            <>
+              <input
+                disabled={isPublic}
+                className="geolonia-geojson-api-endpoint"
+                value={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/private/${geojsonId}`}
+                onChange={geoJsonChangeHandler}
+              />
+              <p>
+                <Button
+                  disabled={isPublic}
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  style={{ width: "100%" }}
+                  onClick={() => copyToClipBoard()}
+                >
+                  {__("Copy embed code to clipboard")}
+                </Button>
+              </p>
+              {!isPublic ? (
+                <p style={{ textAlign: "center", fontSize: "90%" }}>
+                  {__("Or")}
+                  <br />
+
+                  <button className="copy-button" onClick={copyUrlToClipBoard}>
+                    {__("Copy endpoint URL to clipboard")}
+                  </button>
+                </p>
+              ) : null}
             </>
           </Paper>
         </Grid>
