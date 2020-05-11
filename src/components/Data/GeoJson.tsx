@@ -15,7 +15,7 @@ import Title from "../custom/Title";
 import PropsEditor from "./PropsEditor";
 import SimpleStyle from "./SimpleStyle";
 import ImportButton from "./ImportButton";
-import ExportButton from "./ExportButton";
+// import ExportButton from "./ExportButton";
 import GeoJsonMeta from "./GeoJsonMeta";
 import StyleSelector from "./StyleSelector";
 import Snackbar from "@material-ui/core/Snackbar";
@@ -70,7 +70,6 @@ const Content = (props: Props) => {
   // custom hooks
   const {
     geoJsonMeta,
-    title,
     bounds,
     geoJSON,
     setGeoJSON,
@@ -324,7 +323,7 @@ const Content = (props: Props) => {
 
   return (
     <div className="gis-panel">
-      <Title breadcrumb={breadcrumbItems} title={title}>
+      <Title breadcrumb={breadcrumbItems} title={geoJsonMeta ? geoJsonMeta.name : ""}>
         {__(
           "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API."
         )}
@@ -332,7 +331,7 @@ const Content = (props: Props) => {
 
       <div className="nav">
         <StyleSelector style={style} setStyle={setStyle}></StyleSelector>
-        <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} />
+        {/* <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} /> */}
         <ImportButton GeoJsonImporter={GeoJsonImporter} />
       </div>
 

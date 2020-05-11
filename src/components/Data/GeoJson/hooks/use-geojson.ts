@@ -18,7 +18,6 @@ export default function useGeoJSON(session: Session, geojsonId: string | void) {
   const [geoJsonMeta, setGeoJsonMeta] = React.useState<GeoJSONMeta | null>(
     null
   );
-  const [title, setTitle] = React.useState<string>("");
   const [geoJSON, setGeoJSON] = React.useState<
     GeoJSON.FeatureCollection | undefined
   >(void 0);
@@ -38,7 +37,6 @@ export default function useGeoJSON(session: Session, geojsonId: string | void) {
           const allowedOrigins =
             typeof json.allowedOrigins === "string" ? json.allowedOrigins : "";
           setGeoJsonMeta({ ...json, allowedOrigins });
-          setTitle(json.name);
         });
 
       // get Features
@@ -60,11 +58,10 @@ export default function useGeoJSON(session: Session, geojsonId: string | void) {
 
   return {
     geoJsonMeta,
-    title,
     bounds,
     geoJSON,
     setGeoJSON,
     setBounds,
-    setGeoJsonMeta: (meta: GeoJSONMeta) => setGeoJsonMeta(meta)
+    setGeoJsonMeta
   };
 }
