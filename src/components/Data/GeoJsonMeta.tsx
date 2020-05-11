@@ -1,182 +1,320 @@
 import React from "react";
 
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import Switch from '@material-ui/core/Switch';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import LockIcon from '@material-ui/icons/Lock';
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
+import Switch from "@material-ui/core/Switch";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import LockIcon from "@material-ui/icons/Lock";
+import EditIcon from "@material-ui/icons/Edit";
+import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
-import * as clipboard from 'clipboard-polyfill'
-import TextField from "@material-ui/core/TextField";
+import * as clipboard from "clipboard-polyfill";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
-import fetch from '../../lib/fetch'
+import fetch from "../../lib/fetch";
 import { AppState, Session } from "../../types";
 
 const { REACT_APP_STAGE } = process.env;
 
-type TypeGeoJsonMeta = {
-  createAt: Date;
-  data: GeoJSON.FeatureCollection;
-  isPublic: boolean;
+type Meta = {
   name: string;
-  updateAt: Date;
-}
+  isPublic: boolean;
+  status: string;
+};
 
 type Props = {
-  publicGeoJson: boolean;
-  setPublicGeoJson: Function;
-  GeoJsonID: string | undefined;
+  geojsonId: string;
+  name: string;
+  isPublic: boolean;
+  status: string;
+  setGeoJsonMeta: ({
+    name,
+    isPublic,
+    status
+  }: {
+    name: string;
+    isPublic: boolean;
+    status: string;
+  }) => void;
+
   isPayedUser: boolean;
-  geoJsonMeta: object | undefined;
   style: string;
 };
 
-type StateProps = {
-  session: Session;
-  teamId?: string;
+type StateProps = { session: Session };
+
+const copyToClipBoard = (style: string) => {
+  const input = document.querySelector(
+    ".geolonia-geojson-api-endpoint"
+  ) as HTMLInputElement;
+  if (input) {
+    input.select();
+    clipboard.writeText(
+      `<div class="geolonia" data-geojson="${input.value}" style="${style}"></div>`
+    );
+  }
+};
+
+const copyUrlToClipBoard = () => {
+  const input = document.querySelector(
+    ".geolonia-geojson-api-endpoint"
+  ) as HTMLInputElement;
+  if (input) {
+    input.select();
+    clipboard.writeText(input.value);
+  }
+};
+
+const usePublic = (
+  props: Props & StateProps
+): [boolean, (nextIsPublic: boolean) => void] => {
+  const { session, geojsonId, isPublic, name, status, setGeoJsonMeta } = props;
+  const [draftIsPublic, setDraftIsPublic] = React.useState(props.isPublic);
+
+  React.useEffect(() => {
+    if (isPublic !== draftIsPublic) {
+      fetch(
+        session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ isPublic: draftIsPublic, name: name })
+        }
+      )
+        .then(res => {
+          if (res.status < 400) {
+            return res.json();
+          } else {
+            throw new Error();
+          }
+        })
+        .then(() => {
+          setGeoJsonMeta({ isPublic: draftIsPublic, name, status });
+        })
+        .catch(() => {});
+    }
+  }, [
+    draftIsPublic,
+    geojsonId,
+    isPublic,
+    name,
+    session,
+    setGeoJsonMeta,
+    status
+  ]);
+
+  return [draftIsPublic, setDraftIsPublic];
+};
+
+const useStatus = (
+  props: Props & StateProps
+): [string, (nextStatus: string) => void] => {
+  const { session, geojsonId, isPublic, name, status, setGeoJsonMeta } = props;
+  const [draftStatus, setDraftStatus] = React.useState(props.status);
+
+  React.useEffect(() => {
+    if (status !== draftStatus) {
+      fetch(
+        session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({ isPublic, name, status: draftStatus })
+        }
+      )
+        .then(res => {
+          if (res.status < 400) {
+            return res.json();
+          } else {
+            throw new Error();
+          }
+        })
+        .then(() => {
+          setGeoJsonMeta({ isPublic, name, status: draftStatus });
+        })
+        .catch(() => {});
+    }
+  }, [draftStatus, geojsonId, isPublic, name, session, setGeoJsonMeta, status]);
+  return [draftStatus, setDraftStatus];
 };
 
 const Content = (props: Props & StateProps) => {
-  const [allowedOrigins, setAllowedOrigins] = React.useState("");
-  const [name, setName] = React.useState<string>("");
+  const { session, geojsonId, name, isPublic, status, setGeoJsonMeta } = props;
 
-  React.useEffect(() => {
-    if (props.geoJsonMeta) {
-      const meta = props.geoJsonMeta as TypeGeoJsonMeta
-      setName(meta.name)
-    }
-  }, [props.geoJsonMeta])
+  const [draftIsPublic, setDraftIsPublic] = usePublic(props);
+  const [draftStatus, setDraftStatus] = useStatus(props);
 
-  const handlePublicGeoJson = () => {
-    if (true === props.publicGeoJson) {
-      props.setPublicGeoJson(false)
-    } else {
-      props.setPublicGeoJson(true)
-    }
-  }
+  const [draftName, setDraftName] = React.useState(name);
 
-  const copyToClipBoard = () => {
-    const input = document.querySelector(".geolonia-geojson-api-endpoint") as HTMLInputElement
-    if (input) {
-      input.select()
-      clipboard.writeText(`<div class="geolonia" data-geojson="${input.value}" style="${props.style}"></div>`)
-    }
-  }
-
-  const copyUrlToClipBoard = () => {
-    const input = document.querySelector(".geolonia-geojson-api-endpoint") as HTMLInputElement
-    if (input) {
-      input.select()
-      clipboard.writeText(input.value)
-    }
-  }
-
-  const geoJsonChangeHandler = () => {
-    return;
-  }
-
-  const onChangeHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    setName(e.currentTarget.value)
-  }
-
-  const onSaveClick = () => {
-    if(!props.GeoJsonID || !props.session) {
-      return Promise.resolve()
+  const saveHandler = (draftName: string) => {
+    if (!session) {
+      return Promise.resolve();
     }
 
     return fetch(
-      props.session,
-      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons`,
+      session,
+      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
       {
-        method: 'POST',
+        method: "PUT",
         body: JSON.stringify({
-          id: props.GeoJsonID,
-          name,
-          isPublic: props.publicGeoJson,
+          name: draftName,
+          isPublic: isPublic
         })
       }
     )
       .then(res => {
-        if(res.status < 400) {
-          return res.json()
+        if (res.status < 400) {
+          return res.json();
         } else {
           // will be caught at <Save />
-          throw new Error()
+          throw new Error();
         }
       })
-  }
+      .then(() => {
+        setGeoJsonMeta({ isPublic, name: draftName, status });
+      });
+  };
 
   return (
-    <>
-      <Grid className="geojson-meta" container spacing={2}>
-        <Grid item sm={4} xs={12}>
-          <Paper>
+    <Grid className="geojson-meta" container spacing={2}>
+      <Grid item sm={4} xs={12}>
+        <Paper className="geojson-title-description">
+          <div>
             <Switch
-              checked={props.publicGeoJson}
-              onChange={handlePublicGeoJson}
+              checked={draftIsPublic}
+              onChange={e => {
+                setDraftIsPublic(e.target.checked);
+              }}
               disabled={!props.isPayedUser}
+              inputProps={{ "aria-label": "primary checkbox" }}
               color="primary"
-            />  {props.publicGeoJson? <span className="is-public"><LockOpenIcon fontSize="small" />Public</span>
-                      : <span className="is-public"><LockIcon fontSize="small" />Private</span>}
-            {props.publicGeoJson?
-              <p>{__("Anyone can access this GeoJSON API.")}</p>:
-              <p>{__("You can restrict the URLs that can use this GeoJSON API.")}</p>
-            }
+            />
+            {isPublic ? (
+              <span className="is-public">
+                <LockOpenIcon fontSize="small" />
+                Public
+              </span>
+            ) : (
+              <span className="is-public">
+                <LockIcon fontSize="small" />
+                Private
+              </span>
+            )}
+          </div>
+          <div>
+            {isPublic ? (
+              <p>{__("Anyone can access this GeoJSON API.")}</p>
+            ) : (
+              <p>
+                {__("You can restrict the URLs that can use this GeoJSON API.")}
+              </p>
+            )}
 
-            <p><a href="#/team/billing">{__("Upgrade to Geolonia Team")}</a></p>
-          </Paper>
+            <Switch
+              checked={draftStatus === "published"}
+              onChange={() => {
+                setDraftStatus(
+                  draftStatus === "published" ? "draft" : "published"
+                );
+              }}
+              inputProps={{ "aria-label": "primary checkbox" }}
+              color="primary"
+            />
+            {draftStatus === "published" ? (
+              <span className="is-public">
+                <DoneIcon fontSize="small" />
+                Published
+              </span>
+            ) : (
+              <span className="is-public">
+                <EditIcon fontSize="small" />
+                Draft
+              </span>
+            )}
 
-          <Paper className="geojson-title-description">
-            <h3>{__('Name')}</h3>
-            <input type="text" value={name} onChange={onChangeHandler} />
+            {status === "published" ? (
+              <p>{__("Datasets are published now.")}</p>
+            ) : (
+              <p>{__("Datasets status are draft now.")}</p>
+            )}
+            <p>
+              <a href="#/team/billing">{__("Upgrade to Geolonia Team")}</a>
+            </p>
+          </div>
+        </Paper>
 
-            <Save onClick={onSaveClick} />
-            <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
-          </Paper>
-        </Grid>
-        {props.GeoJsonID?
-          <Grid item sm={8} xs={12}>
-            <Paper>
-              <h3>{__("API Endpoint")}</h3>
-              <input className="geolonia-geojson-api-endpoint" value={`https://api.geolonia.com/v1/geojsons/${props.GeoJsonID}`} onChange={geoJsonChangeHandler} />
-              <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} onClick={() => copyToClipBoard() }>{__("Copy embed code to clipboard")}</Button></p>
-              <p style={{textAlign: "center", fontSize: "90%"}}>{__("Or")}<br /><button className="copy-button" onClick={copyUrlToClipBoard}>{__("Copy endpoint URL to clipboard")}</button></p>
-              <TextField
-                label={__("URLs")}
-                margin="normal"
-                multiline={true}
-                rows={5}
-                placeholder="https://example.com"
-                fullWidth={true}
-                value={allowedOrigins}
-                onChange={e => setAllowedOrigins(e.target.value)}
-                disabled={props.publicGeoJson}
-              />
-              <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} disabled={props.publicGeoJson}>{__("Save")}</Button></p>
-              <p>{__("URLs will be used for an HTTP referrer to restrict the URLs that can use this GeoJSON API.")}
-                  &nbsp;<a href="#/team/billing">{__("Upgrade to Geolonia Team")}</a></p>
-            </Paper>
-          </Grid> : <></>
-        }
+        <Paper className="geojson-title-description">
+          <h3>{__("Name")}</h3>
+          <input
+            type="text"
+            value={draftName}
+            onChange={e => setDraftName(e.currentTarget.value)}
+          />
+
+          <Save
+            onClick={() => saveHandler(draftName)}
+            disabled={draftName === name}
+          />
+          <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
+        </Paper>
       </Grid>
-    </>
+      <Grid item sm={8} xs={12}>
+        <Paper className="geojson-title-description">
+          <h3>{__("Download GeoJSON")}</h3>
+          <p>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              style={{ width: "100%" }}
+              href={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`}
+            >
+              {__("Download")}
+            </Button>
+          </p>
+        </Paper>
+
+        <Paper className="geojson-title-description">
+          <h3>{__("Private Endpoint")}</h3>
+          <>
+            <input
+              disabled={isPublic}
+              className="geolonia-geojson-api-endpoint"
+              value={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/private/${geojsonId}`}
+            />
+            <p>
+              <Button
+                disabled={isPublic}
+                variant="contained"
+                color="primary"
+                size="large"
+                style={{ width: "100%" }}
+                onClick={() => copyToClipBoard(props.style)}
+              >
+                {__("Copy embed code to clipboard")}
+              </Button>
+            </p>
+            {!isPublic ? (
+              <p style={{ textAlign: "center", fontSize: "90%" }}>
+                {__("Or")}
+                <br />
+
+                <button className="copy-button" onClick={copyUrlToClipBoard}>
+                  {__("Copy endpoint URL to clipboard")}
+                </button>
+              </p>
+            ) : null}
+          </>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 
 export const mapStateToProps = (state: AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
   const { session } = state.authSupport;
-  if (team) {
-    const { teamId } = team;
-    return {
-      session,
-      teamId,
-    };
-  } else {
-    return { session };
-  }
+  return { session };
 };
 
 export default connect(mapStateToProps)(Content);

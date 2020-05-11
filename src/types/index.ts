@@ -9,13 +9,6 @@ import {
   Roles as _Roles
 } from "../redux/actions/team-member";
 
-import {
-  State as GeosearchState,
-  Geosearch as _Geosearch,
-  ReadableGeosearch as _ReadableGeosearch,
-  WritableGeosearch as _WritableGeosearch
-} from "../redux/actions/geosearch";
-
 // app type
 export type AppState = {
   authSupport: AuthSupportState;
@@ -23,7 +16,6 @@ export type AppState = {
   team: TeamState;
   mapKey: MapKeyState;
   teamMember: TeamMemberState;
-  geosearch: GeosearchState;
 };
 
 export type ErrorCodes = "UnAuthorized" | "Network" | "Unknown";
@@ -51,10 +43,6 @@ export type DateStringify<T> = Omit<T, "createAt" | "updateAt"> & {
   updateAt?: string;
 };
 
-export type Geosearch = _Geosearch;
-export type ReadableGeosearch = _ReadableGeosearch;
-export type WritableGeosearch = _WritableGeosearch;
-
 export type HashBy<T, K extends string | number> = {
   [id: string]: Omit<T, K>;
 };
@@ -62,18 +50,18 @@ export type HashBy<T, K extends string | number> = {
 export type Geometry = {
   coordinates: [];
   type: string;
-}
+};
 
 export type FeatureProperties = {
   [key: string]: string | number;
-}
+};
 
 export type Feature = {
   geometry: Geometry;
   id: string;
   properties: FeatureProperties;
   type: string;
-}
+};
 
 // websocket
 
@@ -109,5 +97,3 @@ export type DownstreamNotifyMessage = {
     sender: string;
   };
 };
-
-

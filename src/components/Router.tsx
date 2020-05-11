@@ -27,8 +27,8 @@ function Content(props: Props) {
   return (
     <HashRouter>
       <Route exact path="/" component={Dashboard} />
-      <Route exact path="/maps/api-keys" component={APIKeys} />
-      <Route exact path="/maps/api-keys/:id" component={APIKey} />
+      <Route exact path="/api-keys" component={APIKeys} />
+      <Route exact path="/api-keys/:id" component={APIKey} />
 
       <Route exact path="/data/geojson" component={GeoJsons} />
       <Route exact path="/data/geojson/:id" component={GeoJson} />

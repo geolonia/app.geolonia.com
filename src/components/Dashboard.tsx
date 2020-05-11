@@ -13,7 +13,7 @@ import "./Dashboard.scss";
 import { connect } from "react-redux";
 import { AppState, Session, User } from "../types";
 
-import DeveloperBlog from "./DeveloperBlog"
+import DeveloperBlog from "./DeveloperBlog";
 
 const styles = (theme: Theme) => ({});
 
@@ -63,7 +63,7 @@ const Dashboard = (props: Props) => {
           <h2>{sprintf(__("Welcome, %s"), displayName)}</h2>
           <ul>
             <li>
-              <Link href="#/maps/api-keys" color="inherit" underline="always">
+              <Link href="#/api-keys" color="inherit" underline="always">
                 {__("Get API key")}
               </Link>{" "}
               - {__("Get API key then create your map!")}
@@ -72,16 +72,13 @@ const Dashboard = (props: Props) => {
               <Link href="#/data/geojson" color="inherit" underline="always">
                 {__("GeoJSON API")}
               </Link>{" "}
-              -{" "}
-              {__(
-                "Manage and style your GeoJSON."
-              )}
+              - {__("Manage and style your GeoJSON.")}
             </li>
           </ul>
         </div>
       </Paper>
 
-      <h2 style={{marginTop: "32px"}}>{__("Developer's Blog")}</h2>
+      <h2 style={{ marginTop: "32px" }}>{__("Developer's Blog")}</h2>
 
       <DeveloperBlog />
     </div>
