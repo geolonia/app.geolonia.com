@@ -1,5 +1,5 @@
 import React from "react";
-import * as clipboard from 'clipboard-polyfill'
+import * as clipboard from "clipboard-polyfill";
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -65,7 +65,7 @@ const Content = (props: Props) => {
   // move on team change
   React.useEffect(() => {
     if (prevIndex !== props.selectedTeamIndex) {
-      props.history.push("/maps/api-keys");
+      props.history.push("/api-keys");
     }
   }, [prevIndex, props.history, props.selectedTeamIndex]);
 
@@ -79,8 +79,8 @@ const Content = (props: Props) => {
     setAllowedOrigins(propOrigins.join("\n"));
 
     const script = document.createElement("script");
-    script.src = 'https://geolonia.github.io/get-geolonia/app.js'
-    document.body.appendChild(script)
+    script.src = "https://geolonia.github.io/get-geolonia/app.js";
+    document.body.appendChild(script);
   }, [propName, propOrigins]);
 
   if (!props.mapKey) {
@@ -113,13 +113,9 @@ const Content = (props: Props) => {
       href: "#/"
     },
     {
-      title: __("Maps"),
-      href: null
-    },
-    {
       title: __("API keys"),
-      href: "#/maps/api-keys"
-    },
+      href: "#/api-keys"
+    }
   ];
 
   const styleH3: React.CSSProperties = {
@@ -137,7 +133,7 @@ const Content = (props: Props) => {
     fontFamily: "monospace",
     resize: "none",
     height: "5rem",
-    padding: "8px",
+    padding: "8px"
   };
 
   const saveDisabled =
@@ -187,7 +183,7 @@ const Content = (props: Props) => {
       } else {
         setStatus("success");
         setTimeout(() => {
-          props.history.push("/maps/api-keys");
+          props.history.push("/api-keys");
           props.deleteKey(props.teamId, keyId);
         }, messageDisplayDuration);
       }
@@ -195,12 +191,12 @@ const Content = (props: Props) => {
   };
 
   const copyToClipBoard = (cssSelector: string) => {
-    const input = document.querySelector(cssSelector) as HTMLInputElement
+    const input = document.querySelector(cssSelector) as HTMLInputElement;
     if (input) {
-      input.select()
-      clipboard.writeText(input.value)
+      input.select();
+      clipboard.writeText(input.value);
     }
-  }
+  };
 
   return (
     <div>
@@ -237,13 +233,29 @@ const Content = (props: Props) => {
           />
 
           <Help>
-            <Typography component="p">{__("URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.")}</Typography>
+            <Typography component="p">
+              {__(
+                "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key."
+              )}
+            </Typography>
             <ul>
-              <li>{__("Any page in a specific URL:")} <strong>https://www.example.com</strong></li>
-              <li>{__("Any subdomain:")} <strong>https://*.example.com</strong></li>
-              <li>{__("A URL with a non-standard port:")} <strong>https://example.com:*</strong></li>
+              <li>
+                {__("Any page in a specific URL:")}{" "}
+                <strong>https://www.example.com</strong>
+              </li>
+              <li>
+                {__("Any subdomain:")} <strong>https://*.example.com</strong>
+              </li>
+              <li>
+                {__("A URL with a non-standard port:")}{" "}
+                <strong>https://example.com:*</strong>
+              </li>
             </ul>
-            <p>{__("Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".")}</p>
+            <p>
+              {__(
+                'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
+              )}
+            </p>
           </Help>
 
           <Save
@@ -293,21 +305,63 @@ const Content = (props: Props) => {
                 )}
               />
             </p>
-            <textarea className="api-key-embed-code" style={styleTextarea} value={embedCode} readOnly={true}></textarea>
-            <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} onClick={() => copyToClipBoard(".api-key-embed-code") }>{__("Copy to Clipboard")}</Button></p>
+            <textarea
+              className="api-key-embed-code"
+              style={styleTextarea}
+              value={embedCode}
+              readOnly={true}
+            ></textarea>
+            <p>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                style={{ width: "100%" }}
+                onClick={() => copyToClipBoard(".api-key-embed-code")}
+              >
+                {__("Copy to Clipboard")}
+              </Button>
+            </p>
             <Typography component="h3" style={styleH3}>
               {__("Step 2")}
             </Typography>
             <p>
-              {__("Click following button and get HTML code where you want to place the map.")}
+              {__(
+                "Click following button and get HTML code where you want to place the map."
+              )}
             </p>
-            <p><Button className="launch-get-geolonia" variant="contained" color="primary" size="large" style={{width: "100%"}}>{__("Get HTML")}</Button></p>
+            <p>
+              <Button
+                className="launch-get-geolonia"
+                variant="contained"
+                color="primary"
+                size="large"
+                style={{ width: "100%" }}
+              >
+                {__("Get HTML")}
+              </Button>
+            </p>
             <Typography component="h3" style={styleH3}>
               {__("Step 3")}
             </Typography>
             <p>{__("Adjust the element size.")}</p>
-            <textarea className="api-key-embed-css" style={styleTextarea} value={embedCSS} readOnly={true}></textarea>
-            <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} onClick={() => copyToClipBoard(".api-key-embed-css") }>{__("Copy to Clipboard")}</Button></p>
+            <textarea
+              className="api-key-embed-css"
+              style={styleTextarea}
+              value={embedCSS}
+              readOnly={true}
+            ></textarea>
+            <p>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                style={{ width: "100%" }}
+                onClick={() => copyToClipBoard(".api-key-embed-css")}
+              >
+                {__("Copy to Clipboard")}
+              </Button>
+            </p>
           </Paper>
         </Grid>
       </Grid>
