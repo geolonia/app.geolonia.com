@@ -5,61 +5,77 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import Button from "@material-ui/core/Button";
 import { Line } from "react-chartjs-2";
 import { __ } from "@wordpress/i18n";
 
 import Save from "../custom/Save";
 import Title from "../custom/Title";
+import PaymentMethodModal from "./payment-method-modal";
 import "./Billing.scss";
-import ComingSoon from "../custom/coming-soon";
 
-const Content = () => {
-  const chartStyle: React.CSSProperties = {
-    width: "100%",
-    height: "250px",
-    margin: "2em 0"
-  };
+// stripe integration
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
-  const chartData = {
-    labels: [
-      "Oct",
-      "Nov",
-      "Dec",
-      "Jan, 2019",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep"
-    ],
-    datasets: [
+const stripePromise = loadStripe(
+  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
+);
+
+// connect with Stripe
+const StripeContainer = (props: { children: React.ReactNode }) => {
+  return <Elements stripe={stripePromise}>{props.children}</Elements>;
+};
+
+const chartStyle: React.CSSProperties = {
+  width: "100%",
+  height: "250px",
+  margin: "2em 0"
+};
+
+const chartData = {
+  labels: [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan, 2019",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
+  datasets: [
+    {
+      borderColor: "rgba(0, 149, 221, 1)",
+      backgroundColor: "rgba(0, 149, 221, 0.2)",
+      data: [400, 500, 300, 456, 500, 700, 720, 710, 800, 910, 1000, 110]
+    }
+  ]
+};
+
+const chartOptions = {
+  legend: {
+    display: false
+  },
+  maintainAspectRatio: false,
+  responsive: true,
+  scales: {
+    yAxes: [
       {
-        borderColor: "rgba(0, 149, 221, 1)",
-        backgroundColor: "rgba(0, 149, 221, 0.2)",
-        data: [400, 500, 300, 456, 500, 700, 720, 710, 800, 910, 1000, 110]
+        ticks: {
+          min: 0
+        }
       }
     ]
-  };
+  }
+};
 
-  const chartOptions = {
-    legend: {
-      display: false
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            min: 0
-          }
-        }
-      ]
-    }
-  };
+const Billing = () => {
+  const [open, setOpen] = React.useState(false);
 
   const breadcrumbItems = [
     {
@@ -77,12 +93,12 @@ const Content = () => {
   ];
 
   return (
-    <div className="billing">
-      <Title title="Billing" breadcrumb={breadcrumbItems}>
-        {__("You can see subscriptions for this team in this month.")}
-      </Title>
+    <StripeContainer>
+      <div className="billing">
+        <Title title="Billing" breadcrumb={breadcrumbItems}>
+          {__("You can see subscriptions for this team in this month.")}
+        </Title>
 
-      <ComingSoon style={{ padding: "1em" }}>
         <Typography component="h2" className="module-title">
           {__("Payment history")}
         </Typography>
@@ -163,7 +179,18 @@ const Content = () => {
               </TableCell>
               <TableCell>Visa ending in 1111</TableCell>
               <TableCell align="right">
-                <Save label={__("Change payment method")} />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setOpen(true)}
+                  type={"button"}
+                >
+                  {__("Change payment method")}
+                </Button>
+                <PaymentMethodModal
+                  open={open}
+                  handleClose={() => setOpen(false)}
+                />
               </TableCell>
             </TableRow>
             <TableRow>
@@ -177,9 +204,9 @@ const Content = () => {
             </TableRow>
           </TableBody>
         </Table>
-      </ComingSoon>
-    </div>
+      </div>
+    </StripeContainer>
   );
 };
 
-export default Content;
+export default Billing;
