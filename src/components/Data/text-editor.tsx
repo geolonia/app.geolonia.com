@@ -28,6 +28,7 @@ export const TextEditor = (props: Props) => {
 
   return (
     <TextArea
+      rows={10}
       value={draft}
       error={error}
       onFocus={() => setError(false)}

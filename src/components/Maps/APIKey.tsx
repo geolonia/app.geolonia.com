@@ -1,5 +1,5 @@
 import React from "react";
-import * as clipboard from 'clipboard-polyfill'
+import * as clipboard from "clipboard-polyfill";
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -15,6 +15,7 @@ import Save from "../custom/Save";
 import Delete from "../custom/Delete";
 import Help from "../custom/Help";
 import Title from "../custom/Title";
+import DangerZone from "../custom/danger-zone";
 
 // types
 import { AppState, Session, Key } from "../../types";
@@ -25,7 +26,7 @@ import deleteKey from "../../api/keys/delete";
 
 // redux
 import Redux from "redux";
-import { connect, Selector } from "react-redux";
+import { connect } from "react-redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
 
 // libs
@@ -34,10 +35,7 @@ import normalizeOrigin from "../../lib/normalize-origin";
 // constants
 import { messageDisplayDuration } from "../../constants";
 
-type OwnProps = {
-  match: { params: { id: string } };
-  history: { push: (path: string) => void };
-};
+type OwnProps = {};
 type StateProps = {
   mapKey?: Key;
   teamId: string;
@@ -48,7 +46,11 @@ type DispatchProps = {
   updateKey: (teamId: string, keyId: string, key: Partial<Key>) => void;
   deleteKey: (teamId: string, keyId: string) => void;
 };
-type Props = OwnProps & StateProps & DispatchProps;
+type RouterProps = {
+  match: { params: { id: string } };
+  history: { push: (path: string) => void };
+};
+type Props = OwnProps & StateProps & DispatchProps & RouterProps;
 
 const Content = (props: Props) => {
   // state
@@ -63,7 +65,7 @@ const Content = (props: Props) => {
   // move on team change
   React.useEffect(() => {
     if (prevIndex !== props.selectedTeamIndex) {
-      props.history.push("/maps/api-keys");
+      props.history.push("/api-keys");
     }
   }, [prevIndex, props.history, props.selectedTeamIndex]);
 
@@ -77,8 +79,8 @@ const Content = (props: Props) => {
     setAllowedOrigins(propOrigins.join("\n"));
 
     const script = document.createElement("script");
-    script.src = 'https://geolonia.github.io/get-geolonia/app.js'
-    document.body.appendChild(script)
+    script.src = "https://geolonia.github.io/get-geolonia/app.js";
+    document.body.appendChild(script);
   }, [propName, propOrigins]);
 
   if (!props.mapKey) {
@@ -111,24 +113,10 @@ const Content = (props: Props) => {
       href: "#/"
     },
     {
-      title: __("Maps"),
-      href: null
-    },
-    {
       title: __("API keys"),
-      href: "#/maps/api-keys"
-    },
-    {
-      title: __("API key settings"),
-      href: null
+      href: "#/api-keys"
     }
   ];
-
-  const styleDangerZone: React.CSSProperties = {
-    border: "1px solid #ff0000",
-    marginTop: "10em",
-    padding: "16px 24px"
-  };
 
   const styleH3: React.CSSProperties = {
     marginTop: "1em"
@@ -145,7 +133,7 @@ const Content = (props: Props) => {
     fontFamily: "monospace",
     resize: "none",
     height: "5rem",
-    padding: "8px",
+    padding: "8px"
   };
 
   const saveDisabled =
@@ -195,7 +183,7 @@ const Content = (props: Props) => {
       } else {
         setStatus("success");
         setTimeout(() => {
-          props.history.push("/maps/api-keys");
+          props.history.push("/api-keys");
           props.deleteKey(props.teamId, keyId);
         }, messageDisplayDuration);
       }
@@ -203,12 +191,12 @@ const Content = (props: Props) => {
   };
 
   const copyToClipBoard = (cssSelector: string) => {
-    const input = document.querySelector(cssSelector) as HTMLInputElement
+    const input = document.querySelector(cssSelector) as HTMLInputElement;
     if (input) {
-      input.select()
-      clipboard.writeText(input.value)
+      input.select();
+      clipboard.writeText(input.value);
     }
-  }
+  };
 
   return (
     <div>
@@ -245,13 +233,29 @@ const Content = (props: Props) => {
           />
 
           <Help>
-            <Typography component="p">{__("URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.")}</Typography>
+            <Typography component="p">
+              {__(
+                "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key."
+              )}
+            </Typography>
             <ul>
-              <li>{__("Any page in a specific URL:")} <strong>https://www.example.com</strong></li>
-              <li>{__("Any subdomain:")} <strong>https://*.example.com</strong></li>
-              <li>{__("A URL with a non-standard port:")} <strong>https://example.com:*</strong></li>
+              <li>
+                {__("Any page in a specific URL:")}{" "}
+                <strong>https://www.example.com</strong>
+              </li>
+              <li>
+                {__("Any subdomain:")} <strong>https://*.example.com</strong>
+              </li>
+              <li>
+                {__("A URL with a non-standard port:")}{" "}
+                <strong>https://example.com:*</strong>
+              </li>
             </ul>
-            <p>{__("Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".")}</p>
+            <p>
+              {__(
+                'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
+              )}
+            </p>
           </Help>
 
           <Save
@@ -260,15 +264,11 @@ const Content = (props: Props) => {
             disabled={saveDisabled}
           />
 
-          <div style={styleDangerZone}>
-            <Typography component="h3" color="secondary">
-              {__("Danger Zone")}
-            </Typography>
-            <p>
-              {__(
-                "Once you delete an API, there is no going back. Please be certain."
-              )}
-            </p>
+          <DangerZone
+            whyDanger={__(
+              "Once you delete an API, there is no going back. Please be certain."
+            )}
+          >
             <Delete
               text1={__("Are you sure you want to delete this API key?")}
               text2={__("Please type in the name of the API key to confirm.")}
@@ -281,7 +281,7 @@ const Content = (props: Props) => {
                 input !== name || status === "success"
               }
             />
-          </div>
+          </DangerZone>
         </Grid>
 
         <Grid item xs={12} md={4}>
@@ -305,21 +305,63 @@ const Content = (props: Props) => {
                 )}
               />
             </p>
-            <textarea className="api-key-embed-code" style={styleTextarea} value={embedCode} readOnly={true}></textarea>
-            <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} onClick={() => copyToClipBoard(".api-key-embed-code") }>{__("Copy to Clipboard")}</Button></p>
+            <textarea
+              className="api-key-embed-code"
+              style={styleTextarea}
+              value={embedCode}
+              readOnly={true}
+            ></textarea>
+            <p>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                style={{ width: "100%" }}
+                onClick={() => copyToClipBoard(".api-key-embed-code")}
+              >
+                {__("Copy to Clipboard")}
+              </Button>
+            </p>
             <Typography component="h3" style={styleH3}>
               {__("Step 2")}
             </Typography>
             <p>
-              {__("Click following button and get HTML code where you want to place the map.")}
+              {__(
+                "Click following button and get HTML code where you want to place the map."
+              )}
             </p>
-            <p><Button className="launch-get-geolonia" variant="contained" color="primary" size="large" style={{width: "100%"}}>{__("Get HTML")}</Button></p>
+            <p>
+              <Button
+                className="launch-get-geolonia"
+                variant="contained"
+                color="primary"
+                size="large"
+                style={{ width: "100%" }}
+              >
+                {__("Get HTML")}
+              </Button>
+            </p>
             <Typography component="h3" style={styleH3}>
               {__("Step 3")}
             </Typography>
             <p>{__("Adjust the element size.")}</p>
-            <textarea className="api-key-embed-css" style={styleTextarea} value={embedCSS} readOnly={true}></textarea>
-            <p><Button variant="contained" color="primary" size="large" style={{width: "100%"}} onClick={() => copyToClipBoard(".api-key-embed-css") }>{__("Copy to Clipboard")}</Button></p>
+            <textarea
+              className="api-key-embed-css"
+              style={styleTextarea}
+              value={embedCSS}
+              readOnly={true}
+            ></textarea>
+            <p>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                style={{ width: "100%" }}
+                onClick={() => copyToClipBoard(".api-key-embed-css")}
+              >
+                {__("Copy to Clipboard")}
+              </Button>
+            </p>
           </Paper>
         </Grid>
       </Grid>
@@ -327,7 +369,10 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState, ownProps: OwnProps): StateProps => {
+const mapStateToProps = (
+  state: AppState,
+  ownProps: OwnProps & RouterProps
+): StateProps => {
   const session = state.authSupport.session;
   const selectedTeamIndex = state.team.selectedIndex;
   // TODO: typing enhancement

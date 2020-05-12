@@ -86,10 +86,6 @@ const Billing = () => {
       title: __("Team settings"),
       href: "#/team/general"
     },
-    {
-      title: __("billing"),
-      href: null
-    }
   ];
 
   return (

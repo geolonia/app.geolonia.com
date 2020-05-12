@@ -29,7 +29,6 @@ jobs:
           REACT_APP_COGNITO_APP_CLIENT_ID: ${{ secrets.REACT_APP_COGNITO_APP_CLIENT_ID }}
           REACT_APP_API_BASE: https://api.geolonia.com
           REACT_APP_APP_API_BASE: https://api.app.geolonia.com
-          REACT_APP_GEOSEARCH_API_BASE: https://gesearch.example.geolonia.com
           REACT_APP_STAGE: dev
       - run: npm run cname
         env:

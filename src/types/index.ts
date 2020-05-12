@@ -8,8 +8,6 @@ import {
   Role as _Role,
   Roles as _Roles
 } from "../redux/actions/team-member";
-import { State as GeosearchState } from "../redux/actions/geosearch";
-import Moment from "moment";
 
 // app type
 export type AppState = {
@@ -18,7 +16,6 @@ export type AppState = {
   team: TeamState;
   mapKey: MapKeyState;
   teamMember: TeamMemberState;
-  geosearch: GeosearchState;
 };
 
 export type ErrorCodes = "UnAuthorized" | "Network" | "Unknown";
@@ -40,15 +37,63 @@ export type Team = _Team;
 export type Member = _Member;
 export type Role = _Role;
 export const Roles = _Roles;
-export type FeatureCollection = {
-  id: string;
-  data: GeoJSON.FeatureCollection;
-  createAt: Moment.Moment | void;
-  updateAt: Moment.Moment | void;
-  isPublic: boolean;
-};
 
 export type DateStringify<T> = Omit<T, "createAt" | "updateAt"> & {
   createAt?: string;
   updateAt?: string;
+};
+
+export type HashBy<T, K extends string | number> = {
+  [id: string]: Omit<T, K>;
+};
+
+export type Geometry = {
+  coordinates: [];
+  type: string;
+};
+
+export type FeatureProperties = {
+  [key: string]: string | number;
+};
+
+export type Feature = {
+  geometry: Geometry;
+  id: string;
+  properties: FeatureProperties;
+  type: string;
+};
+
+// websocket
+
+export type UpstreamAuthorizeMessage = {
+  action: "authorize";
+  data: {
+    teamId: string;
+    token: string;
+  };
+};
+export type UpstreamPublishMessage = {
+  action: "publish";
+  data: {
+    geojsonId: string;
+    featureId: string;
+  };
+};
+
+export type DownstreamAckMessage = {
+  action: "ack";
+  data: {
+    subject: string;
+    teamId: string;
+  };
+};
+
+export type DownstreamNotifyMessage = {
+  action: "notify";
+  data: {
+    subject: string;
+    geojsonId: string;
+    featureId: string;
+    sender: string;
+  };
 };
