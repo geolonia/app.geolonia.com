@@ -7,7 +7,8 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import { Line } from "react-chartjs-2";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
+import { connect } from "react-redux";
 
 import Save from "../custom/Save";
 import Title from "../custom/Title";
@@ -17,6 +18,8 @@ import "./Billing.scss";
 // stripe integration
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+
+import { AppState } from "../../types";
 
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
@@ -74,7 +77,11 @@ const chartOptions = {
   }
 };
 
-const Billing = () => {
+type StateProps = {
+  last4?: string;
+};
+
+const Billing = (props: StateProps) => {
   const [open, setOpen] = React.useState(false);
 
   const breadcrumbItems = [
@@ -85,8 +92,9 @@ const Billing = () => {
     {
       title: __("Team settings"),
       href: "#/team/general"
-    },
+    }
   ];
+  // TODO: ロールがオーナーの時だけに表示させる
 
   return (
     <StripeContainer>
@@ -173,7 +181,9 @@ const Billing = () => {
               <TableCell component="th" scope="row">
                 {__("Payment method:")}
               </TableCell>
-              <TableCell>Visa ending in 1111</TableCell>
+              <TableCell>
+                {props.last4 ? sprintf(__("ending in %1$s"), props.last4) : ""}
+              </TableCell>
               <TableCell align="right">
                 <Button
                   variant="contained"
@@ -205,4 +215,11 @@ const Billing = () => {
   );
 };
 
-export default Billing;
+const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  return {
+    last4: team.last4
+  };
+};
+
+export default connect(mapStateToProps)(Billing);

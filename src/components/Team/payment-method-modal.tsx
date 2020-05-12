@@ -1,16 +1,22 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
-import Input from "@material-ui/core/Input";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import Button from "@material-ui/core/Button";
 import { __ } from "@wordpress/i18n";
-import fetch from "../../lib/";
+import fetch from "../../lib/fetch";
+import { connect } from "react-redux";
+import { AppState, Session } from "../../types";
 
-type Props = {
+type OwnProps = {
   open: boolean;
   handleClose: () => void;
 };
+type StateProps = {
+  session: Session;
+  teamId?: string;
+};
+type Props = OwnProps & StateProps;
 
 const modalStyle: React.CSSProperties = {
   position: "absolute",
@@ -24,15 +30,15 @@ const modalStyle: React.CSSProperties = {
 
 const { REACT_APP_STAGE } = process.env;
 
-export default function PaymentMethodModal(props: Props) {
-  const { open, handleClose } = props;
+const PaymentMethodModal = (props: Props) => {
+  const { open, handleClose, session, teamId } = props;
   const [name, setName] = React.useState("");
   const [message, setMessage] = React.useState("");
   const stripe = useStripe();
   const elements = useElements();
 
   const handleSubmit = async () => {
-    if (!stripe || !elements) {
+    if (!stripe || !elements || !teamId) {
       return null;
     }
     const cardElement = elements.getElement(CardElement);
@@ -41,16 +47,30 @@ export default function PaymentMethodModal(props: Props) {
       const { error, token } = await stripe.createToken(cardElement, {
         name: "test"
       });
-      if (error || !token) {
+      if (error || !token || !token.card) {
         setMessage(error && error.message ? error.message : "不明なエラーです");
       } else {
         setMessage("");
         fetch(
-          `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/payment`
-        );
-        // TODO
-        // - /teams/:teamId/payment を作って、トークンと最後の4けたを送る
-        //  - customerId がなければ
+          session,
+          `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/payment`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ token: token.id, last4: token.card.last4 })
+          }
+        )
+          .then(res => {
+            if (res.status < 400) {
+              handleClose();
+              window.location.reload();
+            } else {
+              throw new Error();
+            }
+          })
+          .catch(console.error);
       }
     }
   };
@@ -59,11 +79,6 @@ export default function PaymentMethodModal(props: Props) {
     <Modal open={open} onClose={handleClose}>
       <div style={modalStyle}>
         <Typography component="h3">{__("Card information")}</Typography>
-
-        <Input
-          value={name}
-          onChange={e => setName(e.currentTarget.value)}
-        ></Input>
         <div
           style={{
             margin: "1em 0 1em",
@@ -105,4 +120,20 @@ export default function PaymentMethodModal(props: Props) {
       </div>
     </Modal>
   );
-}
+};
+
+export const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  const { session } = state.authSupport;
+  if (team) {
+    const { teamId } = team;
+    return {
+      session,
+      teamId
+    };
+  } else {
+    return { session };
+  }
+};
+
+export default connect(mapStateToProps)(PaymentMethodModal);
