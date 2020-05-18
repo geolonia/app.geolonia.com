@@ -15,6 +15,7 @@ import { CircularProgress } from "@material-ui/core";
 import { __ } from "@wordpress/i18n";
 
 type Props = {
+  disabled?: boolean;
   label: string;
   description: string;
   defaultValue: string;
@@ -37,7 +38,7 @@ const getTexts = (props: Props) => ({
 });
 
 export const AddNew = (props: Props) => {
-  const { defaultValue, label, description } = props;
+  const { defaultValue, label, description, disabled } = props;
   const {
     buttonLabel,
     fieldName,
@@ -80,7 +81,7 @@ export const AddNew = (props: Props) => {
       })
       .catch(err => {
         setStatus("failure");
-        if (typeof props.onError === 'function') {
+        if (typeof props.onError === "function") {
           props.onError(err);
         }
       });
@@ -91,7 +92,12 @@ export const AddNew = (props: Props) => {
   return (
     <div>
       <p style={buttonStyle}>
-        <Button variant="contained" color="primary" onClick={handleClickOpen}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleClickOpen}
+          disabled={disabled}
+        >
           <AddIcon /> {buttonLabel}
         </Button>
       </p>
