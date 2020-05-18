@@ -116,10 +116,11 @@ const Content = (props: Props) => {
       />
 
       <FormControl fullWidth={true} style={selectStyle}>
-        <InputLabel htmlFor="select-language">{__("Billing email")}</InputLabel>
+        <InputLabel htmlFor="billing-email">{__("Billing email")}</InputLabel>
         <Select
-          id="select-language"
+          id="billing-email"
           fullWidth={true}
+          disabled={isOwner !== true}
           value={
             (draft.billingEmail === void 0 && ownersEmail.includes(billingEmail)
               ? billingEmail
