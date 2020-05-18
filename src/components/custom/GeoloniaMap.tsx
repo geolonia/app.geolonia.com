@@ -10,13 +10,18 @@ type Props = {
   lng: number;
   marker: Toggle;
   zoom: number;
+  navigationControl: Toggle;
   fullscreenControl: Toggle;
   geolocateControl: Toggle;
-  style: string;
+  bounds: mapboxgl.LngLatBoundsLike | undefined;
   onAfterLoad: (map: mapboxgl.Map) => void;
 };
 
-class Map extends React.Component<Props> {
+type State = {
+  map: mapboxgl.Map
+}
+
+class Map extends React.Component<Props, State> {
   style: React.CSSProperties = {};
   container = React.createRef<HTMLDivElement>();
 
@@ -37,6 +42,7 @@ class Map extends React.Component<Props> {
     zoom: 0,
     fullscreenControl: "off",
     geolocateControl: "off",
+    navigationControl: "off",
     style: null,
     onAfterLoad: () => {}
   };
@@ -46,6 +52,17 @@ class Map extends React.Component<Props> {
     const { geolonia } = window;
     const map = new geolonia.Map(this.container.current);
     this.props.onAfterLoad(map);
+
+    this.setState({map: map})
+  }
+
+  componentDidUpdate() {
+    if (this.props.bounds) {
+      this.state.map.fitBounds(this.props.bounds, {
+        padding: 20,
+        maxZoom: 16,
+      })
+    }
   }
 
   render() {
@@ -58,9 +75,9 @@ class Map extends React.Component<Props> {
         data-lng={this.props.lng.toString()}
         data-marker={this.props.marker}
         data-zoom={this.props.zoom}
+        data-navigation-control={this.props.navigationControl}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
-        data-style={this.props.style}
       />
     );
   }

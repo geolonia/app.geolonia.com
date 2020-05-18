@@ -12,7 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
 import CodeIcon from "@material-ui/icons/Code";
 import ViewListIcon from "@material-ui/icons/ViewList";
-import DescriptionIcon from "@material-ui/icons/Description"
+import DescriptionIcon from "@material-ui/icons/Description";
 import RoomIcon from "@material-ui/icons/Room";
 import GroupIcon from "@material-ui/icons/Group";
 import PaymentIcon from "@material-ui/icons/Payment";
@@ -128,24 +128,24 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
   const categories = [
     {
-      id: __("Maps"),
+      id: __("API keys"),
       children: [
         {
-          id: __("API keys"),
+          id: __("Manage API keys"),
           icon: <CodeIcon />,
-          href: "#/maps/api-keys",
+          href: "#/api-keys",
           active: false
         }
         // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
       ]
     },
     {
-      id: __("GIS Services"),
+      id: __("API Services"),
       children: [
         {
-          id: __("Geosearch"),
+          id: __("GeoJSON API"),
           icon: <RoomIcon />,
-          href: "#/data/gis",
+          href: "#/data/geojson",
           active: false
         }
         // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
@@ -207,7 +207,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
         const nextTeamIndex = teams.length;
         selectTeam(nextTeamIndex);
         window.location.hash = "#/team/general";
-        window.location.reload()
+        window.location.reload();
       }
     });
   };

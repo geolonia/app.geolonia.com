@@ -31,10 +31,6 @@ const Content = (props: Props) => {
       title: __("Team settings"),
       href: null
     },
-    {
-      title: __("General"),
-      href: null
-    }
   ];
 
   const isOwner = role === Roles.Owner;

@@ -79,6 +79,7 @@ const ChangeRole = (props: Props) => {
           setStatus("success");
           updateMemberRoleState(props.team.teamId, currentMember.userSub, role);
           toggle(false);
+          window.location.reload();
         }
       });
     }

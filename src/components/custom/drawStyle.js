@@ -3,6 +3,11 @@
  * See https://github.com/mapbox/mapbox-gl-draw/blob/master/docs/API.md
  */
 
+const textColor = '#000000'
+const textHaloColor = '#FFFFFF'
+const backgroundColor = 'rgba(255, 0, 0, 0.4)'
+const strokeColor = '#FFFFFF'
+
 export default [
   {
     id: 'draw-polygon',
@@ -12,17 +17,13 @@ export default [
       ['==', 'meta', 'feature']
     ],
     paint: {
-      'fill-color': ['string', ['get', 'user_fill'], '#7e7e7e'],
+      'fill-color': ['string', ['get', 'user_fill'], backgroundColor],
       'fill-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.2,
+        ['==', ['get', 'active'], 'true'], 1.0,
         ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
-      'fill-outline-color': [
-        'case',
-        ['==', ['get', 'active'], 'true'], '#ff6600',
-        ['string', ['get', 'user_stroke'], '#555555'],
-      ],
+      'fill-outline-color': ['string', ['get', 'user_stroke'], strokeColor],
     },
   },
   {
@@ -34,16 +35,8 @@ export default [
     ],
     paint: {
       'line-width': ['number', ['get', 'user_stroke-width'], 2],
-      'line-color': [
-        'case',
-        ['==', ['get', 'active'], 'true'], '#ff6600',
-        ['string', ['get', 'user_stroke'], '#555555'],
-      ],
-      'line-opacity': [
-        'case',
-        ['==', ['get', 'active'], 'true'], 0.2,
-        ['number', ['get', 'user_stroke-opacity'], 1.0],
-      ],
+      'line-color': ['string', ['get', 'user_stroke'], backgroundColor],
+      'line-opacity': 1.0,
     },
     layout: {
       'line-cap': 'round',
@@ -60,22 +53,18 @@ export default [
     paint: {
       'circle-radius': [
         'case',
-        ['==', 'small', ['get', 'user_marker-size']], 3,
+        ['==', 'small', ['get', 'user_marker-size']], 7,
         ['==', 'large', ['get', 'user_marker-size']], 13,
         9,
       ],
-      'circle-color': ['string', ['get', 'user_marker-color'], '#7e7e7e'],
+      'circle-color': ['string', ['get', 'user_marker-color'], backgroundColor],
       'circle-opacity': [
         'case',
-        ['==', ['get', 'active'], 'true'], 0.2,
-        ['number', ['get', 'user_fill-opacity'], 0.6],
+        ['==', ['get', 'active'], 'true'], 1.0,
+        ['number', ['get', 'user_fill-opacity'], 1.0],
       ],
       'circle-stroke-width': ['number', ['get', 'user_stroke-width'], 2],
-      'circle-stroke-color': [
-        'case',
-        ['==', ['get', 'active'], 'true'], '#ff6600',
-        ['string', ['get', 'user_stroke'], '#555555'],
-      ],
+      'circle-stroke-color': ['string', ['get', 'user_stroke'], strokeColor],
       'circle-stroke-opacity': ['number', ['get', 'user_stroke-opacity'], 1.0],
     },
   },
@@ -87,9 +76,9 @@ export default [
       ['==', 'meta', 'feature']
     ],
     paint: {
-      'text-color': '#000000',
-      'text-halo-color': 'rgba(255, 255, 255, 1)',
-      'text-halo-width': 2,
+      'text-color': ['string', ['get', 'user_text-color'], textColor],
+      'text-halo-color': ['string', ['get', 'user_text-halo-color'], textHaloColor],
+      'text-halo-width': 1,
     },
     layout: {
       'symbol-placement': 'line',
@@ -113,9 +102,9 @@ export default [
       ['==', 'meta', 'feature']
     ],
     paint: {
-      'text-color': '#000000',
-      'text-halo-color': 'rgba(255, 255, 255, 1)',
-      'text-halo-width': 2,
+      'text-color': ['string', ['get', 'user_text-color'], textColor],
+      'text-halo-color': ['string', ['get', 'user_text-halo-color'], textHaloColor],
+      'text-halo-width': 1,
     },
     layout: {
       'text-field': [
@@ -135,33 +124,30 @@ export default [
     type: 'symbol',
     filter: ['all',
       ['==', '$type', 'Point'],
-      ['==', 'meta', 'feature']
+      ['==', 'meta', 'feature'],
+      ['any', ['has', 'user_title'], ['has', 'user_marker-symbol']]
     ],
     paint: {
-      'text-color': '#333333',
-      'text-halo-color': 'rgba(255, 255, 255, 1)',
-      'text-halo-width': 2,
+      'text-color': ['string', ['get', 'user_text-color'], textColor],
+      'text-halo-color': ['string', ['get', 'user_text-halo-color'], textHaloColor],
+      'text-halo-width': 1,
     },
     layout: {
       'icon-image': [
         'case',
-        ['==', ['get', 'active'], 'false'], ['concat', ['get', 'user_marker-symbol'], '-11'],
-        ''
+        ['==', 'large', ['get', 'user_marker-size']], ['image', ['concat', ['get', 'user_marker-symbol'], '-15']],
+        ['image', ['concat', ['get', 'user_marker-symbol'], '-11']]
       ],
-      'text-field': [
-        'case',
-        ['==', ['get', 'active'], 'false'], ['get', 'user_title'],
-        ''
-      ],
+      'text-field': ['get', 'user_title'],
       'text-font': ['Noto Sans Regular'],
       'text-size': 12,
       'text-anchor': 'top',
       'text-max-width': 12,
       'text-offset': [
         'case',
-        ['==', 'small', ['get', 'user_marker-size']], ['literal', [0, 0.4]],
+        ['==', 'small', ['get', 'user_marker-size']], ['literal', [0, 0.6]],
         ['==', 'large', ['get', 'user_marker-size']], ['literal', [0, 1.2]],
-        ['literal', [0, 1]],
+        ['literal', [0, 0.8]],
       ],
       'text-allow-overlap': false,
     },
