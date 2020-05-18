@@ -79,6 +79,7 @@ const chartOptions = {
 
 type StateProps = {
   last4?: string;
+  isOwner: boolean;
 };
 
 const Billing = (props: StateProps) => {
@@ -172,44 +173,50 @@ const Billing = (props: StateProps) => {
           </div>
         </div>
 
-        <Typography component="h2" className="module-title">
-          {__("Payment information")}
-        </Typography>
-        <Table className="payment-info">
-          <TableBody>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                {__("Payment method:")}
-              </TableCell>
-              <TableCell>
-                {props.last4 ? sprintf(__("ending in %1$s"), props.last4) : ""}
-              </TableCell>
-              <TableCell align="right">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => setOpen(true)}
-                  type={"button"}
-                >
-                  {__("Change payment method")}
-                </Button>
-                <PaymentMethodModal
-                  open={open}
-                  handleClose={() => setOpen(false)}
-                />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell component="th" scope="row">
-                {__("Coupon:")}
-              </TableCell>
-              <TableCell>$200.0</TableCell>
-              <TableCell align="right">
-                <Save label={__("Redeem a coupon")} />
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
+        {props.isOwner && (
+          <>
+            <Typography component="h2" className="module-title">
+              {__("Payment information")}
+            </Typography>
+            <Table className="payment-info">
+              <TableBody>
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    {__("Payment method:")}
+                  </TableCell>
+                  <TableCell>
+                    {props.last4
+                      ? sprintf(__("ending in %1$s"), props.last4)
+                      : ""}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => setOpen(true)}
+                      type={"button"}
+                    >
+                      {__("Change payment method")}
+                    </Button>
+                    <PaymentMethodModal
+                      open={open}
+                      handleClose={() => setOpen(false)}
+                    />
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    {__("Coupon:")}
+                  </TableCell>
+                  <TableCell>$200.0</TableCell>
+                  <TableCell align="right">
+                    <Save label={__("Redeem a coupon")} />
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+          </>
+        )}
       </div>
     </StripeContainer>
   );
@@ -218,7 +225,8 @@ const Billing = (props: StateProps) => {
 const mapStateToProps = (state: AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   return {
-    last4: team.last4
+    last4: team.last4,
+    isOwner: team.role === "Owner"
   };
 };
 
