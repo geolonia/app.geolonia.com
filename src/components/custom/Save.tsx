@@ -92,7 +92,11 @@ const Save = (props: Props) => {
           disabled={disabled}
         >
           {status === "working" && (
-            <CircularProgress size={16} style={{ marginRight: 8 }} />
+            <CircularProgress
+              size={16}
+              color={"inherit"}
+              style={{ marginRight: 8 }}
+            />
           )}
           {label}
         </Button>
