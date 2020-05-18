@@ -1,0 +1,39 @@
+.geojson-importer
+{
+  .inner
+  {
+    width: 480px;
+    max-width: 95%;
+    border: 1px solid #eeeeee;
+    padding: 32px;
+    background-color: #ffffff;
+
+    h2
+    {
+      display: inline-flex;
+      vertical-align: middle;
+      line-height: 35px;
+      margin: 0 0 8px 0;
+
+      svg
+      {
+        margin-right: 10px;
+      }
+    }
+
+    input
+    {
+      width: 100%;
+    }
+
+    input[type="text"]
+    {
+      font-size: 16px;
+    }
+
+    .error
+    {
+      color: #ff0000;
+    }
+  }
+}

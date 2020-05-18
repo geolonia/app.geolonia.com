@@ -19,6 +19,7 @@ type Props = {
   ) => Promise<any>;
   onError?: (err: Error) => any;
   disabled?: boolean;
+  buttonStyle?: React.CSSProperties;
 };
 
 const getDefaultProps = (props: Props) => ({
@@ -90,6 +91,7 @@ const Save = (props: Props) => {
           color="primary"
           onClick={handleSave}
           disabled={disabled}
+          style={props.buttonStyle}
         >
           {status === "working" && (
             <CircularProgress size={16} style={{ marginRight: 8 }} />

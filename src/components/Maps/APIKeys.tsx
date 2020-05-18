@@ -39,10 +39,6 @@ function Content(props: Props) {
       href: "#/"
     },
     {
-      title: __("Maps"),
-      href: null
-    },
-    {
       title: __("API keys"),
       href: null
     }
@@ -87,7 +83,7 @@ function Content(props: Props) {
         errorMessage={message}
       />
 
-      <Table rows={rows} rowsPerPage={10} permalink="/maps/api-keys/%s" />
+      <Table rows={rows} rowsPerPage={10} permalink="/api-keys/%s" />
     </div>
   );
 }

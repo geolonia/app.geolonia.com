@@ -122,6 +122,28 @@ export const getSession = () =>
     }
   });
 
+export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {
+  return new Promise<CognitoIdentity.CognitoUserSession>((resolve, reject) => {
+    const cognitoUser = userPool.getCurrentUser();
+    if (cognitoUser !== null) {
+      const refreshToken = session.getRefreshToken();
+      cognitoUser.refreshSession(
+        refreshToken,
+        (err: Error, session: CognitoIdentity.CognitoUserSession) => {
+          if (err) {
+            cognitoUser.signOut();
+            reject(err);
+          } else {
+            resolve(session);
+          }
+        }
+      );
+    } else {
+      reject(new Error("no session found"));
+    }
+  });
+};
+
 export const signout = () =>
   new Promise(resolve => {
     const cognitoUser = userPool.getCurrentUser();

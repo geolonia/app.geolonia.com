@@ -13,6 +13,7 @@ export type Team = {
     putAvatar: string;
   };
   avatarImage: string | void;
+  last4?: string;
 };
 
 export const isTeam = (team: any): team is Team => {

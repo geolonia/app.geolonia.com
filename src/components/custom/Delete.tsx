@@ -20,6 +20,7 @@ type Status = false | "working" | "success" | "failure";
 type Props = {
   text1?: string;
   text2?: string;
+  answer?: string;
   errorMessage: string;
   onClick: () => Promise<any>;
   onFailure: () => void;
@@ -29,7 +30,8 @@ type Props = {
 
 const getTexts = (props: Props) => ({
   text1: props.text1 || __("Are you sure you want to delete this item?"),
-  text2: props.text2 || __("Please type as <code>delete</code> to confirm.")
+  text2: props.text2 || __("Please type as <code>delete</code> to confirm."),
+  answer: props.answer || "delete"
 });
 
 export const Delete = (props: Props) => {
@@ -138,7 +140,11 @@ export const Delete = (props: Props) => {
               color="secondary"
               onClick={onButtonClick}
               type="submit"
-              disabled={isDeleteDisabled || status === "working"}
+              disabled={
+                confirmation !== props.answer ||
+                isDeleteDisabled ||
+                status === "working"
+              }
             >
               {status === "working" ? (
                 <CircularProgress

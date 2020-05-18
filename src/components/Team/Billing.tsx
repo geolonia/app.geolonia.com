@@ -5,61 +5,84 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import Button from "@material-ui/core/Button";
 import { Line } from "react-chartjs-2";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
+import { connect } from "react-redux";
 
 import Save from "../custom/Save";
 import Title from "../custom/Title";
+import PaymentMethodModal from "./payment-method-modal";
 import "./Billing.scss";
-import ComingSoon from "../custom/coming-soon";
 
-const Content = () => {
-  const chartStyle: React.CSSProperties = {
-    width: "100%",
-    height: "250px",
-    margin: "2em 0"
-  };
+// stripe integration
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 
-  const chartData = {
-    labels: [
-      "Oct",
-      "Nov",
-      "Dec",
-      "Jan, 2019",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep"
-    ],
-    datasets: [
+import { AppState } from "../../types";
+
+const stripePromise = loadStripe(
+  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
+);
+
+// connect with Stripe
+const StripeContainer = (props: { children: React.ReactNode }) => {
+  return <Elements stripe={stripePromise}>{props.children}</Elements>;
+};
+
+const chartStyle: React.CSSProperties = {
+  width: "100%",
+  height: "250px",
+  margin: "2em 0"
+};
+
+const chartData = {
+  labels: [
+    "Oct",
+    "Nov",
+    "Dec",
+    "Jan, 2019",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep"
+  ],
+  datasets: [
+    {
+      borderColor: "rgba(0, 149, 221, 1)",
+      backgroundColor: "rgba(0, 149, 221, 0.2)",
+      data: [400, 500, 300, 456, 500, 700, 720, 710, 800, 910, 1000, 110]
+    }
+  ]
+};
+
+const chartOptions = {
+  legend: {
+    display: false
+  },
+  maintainAspectRatio: false,
+  responsive: true,
+  scales: {
+    yAxes: [
       {
-        borderColor: "rgba(0, 149, 221, 1)",
-        backgroundColor: "rgba(0, 149, 221, 0.2)",
-        data: [400, 500, 300, 456, 500, 700, 720, 710, 800, 910, 1000, 110]
+        ticks: {
+          min: 0
+        }
       }
     ]
-  };
+  }
+};
 
-  const chartOptions = {
-    legend: {
-      display: false
-    },
-    maintainAspectRatio: false,
-    responsive: true,
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            min: 0
-          }
-        }
-      ]
-    }
-  };
+type StateProps = {
+  last4?: string;
+};
+
+const Billing = (props: StateProps) => {
+  const [open, setOpen] = React.useState(false);
 
   const breadcrumbItems = [
     {
@@ -69,20 +92,17 @@ const Content = () => {
     {
       title: __("Team settings"),
       href: "#/team/general"
-    },
-    {
-      title: __("billing"),
-      href: null
     }
   ];
+  // TODO: ロールがオーナーの時だけに表示させる
 
   return (
-    <div className="billing">
-      <Title title="Billing" breadcrumb={breadcrumbItems}>
-        {__("You can see subscriptions for this team in this month.")}
-      </Title>
+    <StripeContainer>
+      <div className="billing">
+        <Title title="Billing" breadcrumb={breadcrumbItems}>
+          {__("You can see subscriptions for this team in this month.")}
+        </Title>
 
-      <ComingSoon style={{ padding: "1em" }}>
         <Typography component="h2" className="module-title">
           {__("Payment history")}
         </Typography>
@@ -161,9 +181,22 @@ const Content = () => {
               <TableCell component="th" scope="row">
                 {__("Payment method:")}
               </TableCell>
-              <TableCell>Visa ending in 1111</TableCell>
+              <TableCell>
+                {props.last4 ? sprintf(__("ending in %1$s"), props.last4) : ""}
+              </TableCell>
               <TableCell align="right">
-                <Save label={__("Change payment method")} />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => setOpen(true)}
+                  type={"button"}
+                >
+                  {__("Change payment method")}
+                </Button>
+                <PaymentMethodModal
+                  open={open}
+                  handleClose={() => setOpen(false)}
+                />
               </TableCell>
             </TableRow>
             <TableRow>
@@ -177,9 +210,16 @@ const Content = () => {
             </TableRow>
           </TableBody>
         </Table>
-      </ComingSoon>
-    </div>
+      </div>
+    </StripeContainer>
   );
 };
 
-export default Content;
+const mapStateToProps = (state: AppState): StateProps => {
+  const team = state.team.data[state.team.selectedIndex];
+  return {
+    last4: team.last4
+  };
+};
+
+export default connect(mapStateToProps)(Billing);

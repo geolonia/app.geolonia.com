@@ -1,8 +1,6 @@
 # app.geolonia.com
 
-| `master`-v1 (app.geolonia.com)                                                                                                                                    | `feature`-dev (dev.app.geolonia.com)                                                                       |
-| :---------------------------------------------------------------------------------------------------------------------------------------------------------------- | :--------------------------------------------------------------------------------------------------------- |
-| [![Netlify Status](https://api.netlify.com/api/v1/badges/82532c8e-8d86-4215-a8f7-9fca30cfb132/deploy-status)](https://app.netlify.com/sites/geolonia-app/deploys) | ![Node.js CI](https://github.com/geolonia/app.geolonia.com/workflows/Node.js%20CI/badge.svg?branch=master) |
+[![Netlify Status](https://api.netlify.com/api/v1/badges/82532c8e-8d86-4215-a8f7-9fca30cfb132/deploy-status)
 
 ## development
 
@@ -114,29 +112,6 @@ export default connect(
 import ReactDOM from "react-dom";
 import MyComponent from "path/to/my-component";
 ReactDOM.render(<MyComponent ownValue={"hello"} />);
-```
-
-### The alternative
-
-Sample to use `reduxify` container and simplify the connection between the global Redux store and local components
-
-```typescript
-import reduxify, { ReduxifyProps } from "src/redux/reduxify";
-
-type OwnProps = {};
-type Props = OwnProps & ReduxifyProps;
-
-export class MyComponent extends React.Component {
-  render() {
-    const { appState, setAppState } = this.props;
-    // appState: AppState
-    // setAppState: (nextState: Partial<AppState>) => void
-    return <>{/* ... */}</>;
-  }
-}
-
-const ConnetctedMyComponent = reduxify(MyComponent);
-export default ConnectedMyComponent;
 ```
 
 ## i18n

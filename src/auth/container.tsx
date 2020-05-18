@@ -10,7 +10,6 @@ import getUser from "../api/users/get";
 import listTeams from "../api/teams/list";
 import listKeys from "../api/keys/list";
 import listTeamMembers from "../api/members/list";
-import listFeatureCollections from "../api/geosearch/list";
 
 // Utils
 import delay from "../lib/promise-delay";
@@ -30,14 +29,12 @@ import {
 } from "../redux/actions/team";
 import { createActions as createMapKeyActions } from "../redux/actions/map-key";
 import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
-import { createActions as createGeosearchActions } from "../redux/actions/geosearch";
 
 // Types
 import { AppState, User, Session, Team, Key, Member } from "../types";
 import Redux from "redux";
 import { SELECTED_TEAM_ID } from "../redux/middlewares/local-storage";
 import Moment from "moment";
-import moment from "moment";
 
 type OwnProps = {};
 type StateProps = { session: Session };
@@ -58,14 +55,6 @@ type DispatchProps = {
   ) => void;
   setMapKeys: (teamId: string, keys: Key[]) => void;
   setTeamMembers: (teamId: string, members: Member[]) => void;
-  setFeatureCollection: (
-    teamId: string,
-    featureCollectionId: string,
-    featureCollection: GeoJSON.FeatureCollection,
-    createAt: Moment.Moment | void,
-    updateAt: Moment.Moment | void,
-    isPublic: boolean
-  ) => void;
   markMapKeyError: (teamId: string) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
@@ -141,19 +130,19 @@ export class AuthContainer extends React.Component<Props, State> {
       if (localeData) {
         setLocaleData(localeData);
       }
-      moment.locale(language);
-      moment.tz.setDefault(timezone);
+      Moment.locale(language);
+      Moment.tz.setDefault(timezone);
+      // NOTE: We can localize datetime format here
+      Moment.defaultFormat = "YYYY-MM-DD HH:mm:ss";
 
       const teamIds = teamsWithoutDeleted.map(team => team.teamId);
 
       await getTeamIdToSelect(teamsWithoutDeleted).then(this.props.selectTeam);
 
       // do not await then.
-      // TODO: catch them
       this.loadAvatars(user, teamsWithoutDeleted);
       this.loadMapKeys(session, teamIds);
       this.loadTeamMembers(session, teamIds);
-      this.loadFeatureCollections(session, teamIds);
     } catch (error) {
       console.error(error);
       this.props.serverTrouble();
@@ -260,33 +249,6 @@ export class AuthContainer extends React.Component<Props, State> {
     });
   };
 
-  loadFeatureCollections = (session: Session, teamIds: string[]) => {
-    const handleRequest = (teamId: string) => {
-      return listFeatureCollections(session, teamId).then(result => {
-        if (result.error) {
-          throw new Error(result.code);
-        } else {
-          const featureCollections = result.data;
-          featureCollections.forEach(feature => {
-            const { id, data, createAt, updateAt, isPublic } = dateParse(
-              feature
-            );
-            this.props.setFeatureCollection(
-              teamId,
-              id,
-              data,
-              createAt,
-              updateAt,
-              isPublic
-            );
-          });
-        }
-      });
-    };
-
-    return Promise.all(teamIds.map(handleRequest));
-  };
-
   render() {
     const { children } = this.props;
     return <>{children}</>;
@@ -316,24 +278,6 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   setMapKeys: (teamId, keys) => dispatch(createMapKeyActions.set(teamId, keys)),
   setTeamMembers: (teamId, members) =>
     dispatch(createTeamMemberActions.set(teamId, members)),
-  setFeatureCollection: (
-    teamId,
-    featureCollectionId,
-    featureCollection,
-    createAt,
-    updateAt,
-    isPublic
-  ) =>
-    dispatch(
-      createGeosearchActions.setFeatureCollections(
-        teamId,
-        featureCollectionId,
-        featureCollection,
-        createAt,
-        updateAt,
-        isPublic
-      )
-    ),
   markMapKeyError: teamId => dispatch(createMapKeyActions.markError(teamId))
 });
 

@@ -14,14 +14,19 @@ import { __ } from "@wordpress/i18n";
 import momentTimeZone from "moment-timezone";
 
 // Redux
-import reduxify, { ReduxifyProps } from "../../redux/reduxify";
+import { connect } from "react-redux";
+import { createActions as createUserActions } from "../../redux/actions/user-meta";
 
 // types
-import { User } from "../../types";
+import { AppState, Session, User } from "../../types";
+import { Dispatch } from "redux";
 
 type OwnProps = {};
-
-type Props = OwnProps & ReduxifyProps;
+type StateProps = { session: Session; user: User };
+type DispatchProps = {
+  updateUser: (nextUser: User) => void;
+};
+type Props = OwnProps & StateProps & DispatchProps;
 
 type State = {
   user: Pick<User, "name" | "language" | "timezone">;
@@ -164,4 +169,13 @@ export class Profile extends React.Component<Props, State> {
   }
 }
 
-export default reduxify(Profile);
+const mapStateToProps = (state: AppState): StateProps => ({
+  session: state.authSupport.session,
+  user: state.userMeta
+});
+
+const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
+  updateUser: (nextUser: User) => dispatch(createUserActions.set(nextUser))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
