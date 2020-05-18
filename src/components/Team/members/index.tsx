@@ -125,13 +125,15 @@ const Content = (props: Props) => {
     {
       title: __("Team settings"),
       href: "#/team/general"
-    },
+    }
   ];
 
   const { team } = props;
   let isOwner = false;
+  let isPayedTeam = false;
   if (team) {
     isOwner = team.role === Roles.Owner;
+    isPayedTeam = !!team.last4;
   }
 
   return (
@@ -139,7 +141,7 @@ const Content = (props: Props) => {
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
       </Title>
-      {isOwner && <Invite />}
+      <Invite disabled={!isOwner || !isPayedTeam} />
 
       {/* each member management */}
       {currentMember && (

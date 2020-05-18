@@ -17,7 +17,9 @@ import Redux from "redux";
 import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 import { connect } from "react-redux";
 
-type OwnProps = {};
+type OwnProps = {
+  disabled?: boolean;
+};
 
 type StateProps = {
   session: Session;
@@ -61,6 +63,7 @@ export const Invite = (props: Props) => {
 
   return (
     <AddNew
+      disabled={props.disabled}
       buttonLabel={__("Invite")}
       label={__("Invite a member")}
       description={__(
