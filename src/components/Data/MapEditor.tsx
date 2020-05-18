@@ -5,14 +5,11 @@ import jsonStyle from "../custom/drawStyle";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { _x } from "@wordpress/i18n";
 import fullscreen from "./fullscreenMap";
-import { connect } from "react-redux";
 
 // @ts-ignore
 import centroid from "@turf/centroid";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
-
-import { AppState, Session } from "../../types";
 
 type OwnProps = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
@@ -24,12 +21,7 @@ type OwnProps = {
   style: string;
 };
 
-type StateProps = {
-  session: Session;
-  teamId?: string;
-};
-
-type Props = OwnProps & StateProps;
+type Props = OwnProps;
 
 const mapStyle: React.CSSProperties = {
   width: "100%",
@@ -38,22 +30,29 @@ const mapStyle: React.CSSProperties = {
   margin: "0 0 1em 0"
 };
 
+const createMapEvents = (props: Props, map: mapboxgl.Map) => {
+  return {
+    selectionChange: (event: any) => {
+      if (event.features.length) {
+        const center = centroid(event.features[0]);
+        map.setCenter(center.geometry.coordinates);
+      }
+      props.onClickFeature(event);
+    },
+    drawUpdate: (event: any) => {
+      props.getNumberFeatures();
+      props.saveCallback(event);
+    }
+  };
+};
+
 export const MapEditor = (props: Props) => {
-  const {
-    geoJSON,
-    onClickFeature,
-    drawCallback,
-    saveCallback,
-    getNumberFeatures,
-    bounds,
-    style,
-    session,
-    teamId
-  } = props;
+  const { geoJSON, drawCallback, getNumberFeatures, bounds, style } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | undefined>(undefined);
   const [draw, setDraw] = React.useState<MapboxDraw | undefined>(undefined);
+  const [events, setEvents] = React.useState<any>(null);
 
   // import geoJSON
   React.useEffect(() => {
@@ -103,30 +102,29 @@ export const MapEditor = (props: Props) => {
     setDraw(draw);
     setMap(map);
 
-    map.on("draw.selectionchange", (event: any) => {
-      if (event.features.length) {
-        const center = centroid(event.features[0]);
-        map.setCenter(center.geometry.coordinates);
-      }
-
-      onClickFeature(event);
-    });
-
-    map.on("draw.create", (event: any) => {
-      getNumberFeatures();
-      saveCallback(event);
-    });
-
-    map.on("draw.delete", (event: any) => {
-      getNumberFeatures();
-      saveCallback(event);
-    });
-
-    map.on("draw.update", (event: any) => {
-      getNumberFeatures();
-      saveCallback(event);
-    });
+    const mapEvents = createMapEvents(props, map);
+    map.on("draw.selectionchange", mapEvents.selectionChange);
+    map.on("draw.create", mapEvents.drawUpdate);
+    map.on("draw.delete", mapEvents.drawUpdate);
+    map.on("draw.update", mapEvents.drawUpdate);
+    setEvents(mapEvents);
   };
+
+  React.useEffect(() => {
+    if (map && events) {
+      map.off("draw.selectionchange", events.selectionChange);
+      map.off("draw.create", events.drawUpdate);
+      map.off("draw.delete", events.drawUpdate);
+      map.off("draw.update", events.drawUpdate);
+      const nextEvents = createMapEvents(props, map);
+      map.on("draw.selectionchange", nextEvents.selectionChange);
+      map.on("draw.create", nextEvents.drawUpdate);
+      map.on("draw.delete", nextEvents.drawUpdate);
+      map.on("draw.update", nextEvents.drawUpdate);
+      setEvents(nextEvents);
+    }
+    // eslint-disable-next-line
+  }, [props]);
 
   return (
     <div style={mapStyle}>
@@ -148,12 +146,4 @@ export const MapEditor = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
-  return {
-    session: state.authSupport.session,
-    teamId: team && team.teamId
-  };
-};
-
-export default connect(mapStateToProps)(MapEditor);
+export default MapEditor;
