@@ -84,7 +84,7 @@ const Content = (props: Props) => {
   );
 
   // send web socket message to notify team members
-  const publish = (featureId: string) => {
+  const publish = (featureId = "") => {
     if (socket) {
       socket.send(
         JSON.stringify({
@@ -240,16 +240,12 @@ const Content = (props: Props) => {
 
   /**
    * Fires when a feature will be created, updated, deleted.
-   * TODO: WebSocket でメッセージを送信できない。これは GeoJSON をクライアント側で更新しても子コンポーネントが render されず、古い public の古い参照を保持し続けているため。
-   * リファクタリングしてReact のライフサイクルに合わせる必要がある。
    * @param event
    */
   const saveFeatureCallback = (event: any) => {
     if ("draw.delete" === event.type) {
       setCurrentFeature(undefined); // Set undefined to currentFeature
-    }
-
-    if ("draw.create" === event.type) {
+    } else if ("draw.create" === event.type) {
       fetch(
         props.session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
@@ -257,7 +253,7 @@ const Content = (props: Props) => {
           method: "POST",
           body: JSON.stringify(event.features)
         }
-      ).then(() => publish(""));
+      ).then(() => publish());
     } else if ("draw.update" === event.type) {
       event.features.forEach((feature: GeoJSON.Feature) => {
         return fetch(
@@ -267,7 +263,9 @@ const Content = (props: Props) => {
             method: "PUT",
             body: JSON.stringify(feature)
           }
-        ).then(() => publish(""));
+        ).then(() => {
+          publish();
+        });
       });
     } else if ("draw.delete" === event.type) {
       Promise.all(
@@ -282,7 +280,7 @@ const Content = (props: Props) => {
           );
         })
       ).then(() => {
-        publish("");
+        publish();
       });
     }
   };
@@ -311,7 +309,7 @@ const Content = (props: Props) => {
         method: "POST",
         body: JSON.stringify(all.features)
       }
-    ).then(() => publish(""));
+    ).then(() => publish());
   };
 
   const getNumberFeatures = () => {
