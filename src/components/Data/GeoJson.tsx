@@ -390,7 +390,7 @@ const Content = (props: Props) => {
           getNumberFeatures={getNumberFeatures}
           geoJSON={geoJSON}
           onClickFeature={onClickFeatureHandler}
-          saveCallback={(event: any) => saveFeatureCallback(event)}
+          saveCallback={saveFeatureCallback}
           bounds={bounds}
         />
         {currentFeature ? (

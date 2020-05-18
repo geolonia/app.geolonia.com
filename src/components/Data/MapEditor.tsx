@@ -5,14 +5,11 @@ import jsonStyle from "../custom/drawStyle";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { _x } from "@wordpress/i18n";
 import fullscreen from "./fullscreenMap";
-import { connect } from "react-redux";
 
 // @ts-ignore
 import centroid from "@turf/centroid";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
-
-import { AppState, Session } from "../../types";
 
 type OwnProps = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
@@ -24,12 +21,7 @@ type OwnProps = {
   style: string;
 };
 
-type StateProps = {
-  session: Session;
-  teamId?: string;
-};
-
-type Props = OwnProps & StateProps;
+type Props = OwnProps;
 
 const mapStyle: React.CSSProperties = {
   width: "100%",
@@ -46,9 +38,7 @@ export const MapEditor = (props: Props) => {
     saveCallback,
     getNumberFeatures,
     bounds,
-    style,
-    session,
-    teamId
+    style
   } = props;
 
   // mapbox map and draw binding
@@ -148,12 +138,4 @@ export const MapEditor = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
-  return {
-    session: state.authSupport.session,
-    teamId: team && team.teamId
-  };
-};
-
-export default connect(mapStateToProps)(MapEditor);
+export default MapEditor;
