@@ -20,6 +20,8 @@ import ResendCode from "./resend-code";
 import Signin from "./Signin";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
+import AcceptInvitation from "./AcceptInvitation";
+
 import { CircularProgress } from "@material-ui/core";
 
 // Types
@@ -128,6 +130,11 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
             <Route exact path="/signin" component={Signin} />
             <Route exact path="/forgot-password" component={ForgotPassword} />
             <Route exact path="/reset-password" component={ResetPassword} />
+            <Route
+              exact
+              path="/accept-invitation"
+              component={AcceptInvitation}
+            />
             <Route exact>
               <nav className={classes.drawer}>
                 <Hidden smUp implementation="js">

@@ -28,7 +28,8 @@ export const RouteController = (props: Props) => {
       pathname !== "/resend" &&
       pathname !== "/verify" &&
       pathname !== "/forgot-password" &&
-      pathname !== "/reset-password"
+      pathname !== "/reset-password" &&
+      pathname !== "/accept-invitation"
     ) {
       replace("/signin");
     }
