@@ -30,6 +30,8 @@ const StripeContainer = (props: { children: React.ReactNode }) => {
   return <Elements stripe={stripePromise}>{props.children}</Elements>;
 };
 
+const { REACT_APP_STAGE } = process.env;
+
 const chartStyle: React.CSSProperties = {
   width: "100%",
   height: "250px",
@@ -80,6 +82,20 @@ const chartOptions = {
 type StateProps = {
   last4?: string;
   isOwner: boolean;
+  memberCount?: number;
+};
+
+type StripeTier = {
+  flat_amount: number;
+  unit_amount: number;
+  up_to: null | number;
+};
+
+type GeoloniaPlan = {
+  seat: {
+    id: string;
+    tiers: StripeTier[];
+  };
 };
 
 const Billing = (props: StateProps) => {
@@ -95,7 +111,6 @@ const Billing = (props: StateProps) => {
       href: "#/team/general"
     }
   ];
-  // TODO: ロールがオーナーの時だけに表示させる
 
   return (
     <StripeContainer>
@@ -147,15 +162,17 @@ const Billing = (props: StateProps) => {
 
         <div className="billing-container">
           <div className="item">
-            <h3 className="title">{__("Cost per user/month")}</h3>
-            <p className="value">$6.0</p>
+            <h3 className="title">{__("Team plan")}</h3>
+            <p className="value">{'aaa'}</p>
           </div>
           <div className="item">
             <h3 className="title">{__("Users")}</h3>
-            <p className="value">11</p>
+            <p className="value">
+              {props.memberCount ? props.memberCount : ""}
+            </p>
           </div>
           <div className="item subtotal">
-            <p className="value">$66.0</p>
+            <p className="value">{"作成中"}</p>
           </div>
         </div>
 
@@ -224,9 +241,13 @@ const Billing = (props: StateProps) => {
 
 const mapStateToProps = (state: AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
+  const memberCount =
+    state.teamMember[team.teamId] && state.teamMember[team.teamId].data.length;
+
   return {
     last4: team.last4,
-    isOwner: team.role === "Owner"
+    isOwner: team.role === "Owner",
+    memberCount
   };
 };
 
