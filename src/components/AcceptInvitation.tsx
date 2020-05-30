@@ -61,23 +61,22 @@ const AcceptInvitation = (props: Props) => {
   const open = status === "success" || status === "failure";
 
   let message = "";
-  let buttonColor: "primary" | "secondary" = "primary";
   switch (status) {
     case "success":
       message = __("Your invitation has been validated.");
       break;
     case "failure":
       message = __("Your invitation has been outdated.");
-      buttonColor = "secondary";
       break;
   }
+
   return (
     <Snackbar
       style={{ top: 50, backgroundColor: "primary" }}
       message={message}
       open={open}
       action={
-        <Button color={buttonColor} size="small" onClick={proceed}>
+        <Button color={"primary"} size="small" onClick={proceed}>
           {"continue"}
         </Button>
       }
