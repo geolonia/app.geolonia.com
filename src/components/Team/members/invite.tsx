@@ -2,6 +2,9 @@ import React from "react";
 
 // Components
 import AddNew from "../../custom/AddNew";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 // Util
 import { __ } from "@wordpress/i18n";
@@ -26,6 +29,9 @@ type Props = OwnProps & StateProps;
 
 export const Invite = (props: Props) => {
   const [message, setMessage] = React.useState("");
+  const [status, setStatus] = React.useState<
+    false | "requesting" | "success" | "failure"
+  >(false);
 
   const inviteHandler = (email: string) => {
     const { session, team, members } = props;
@@ -36,6 +42,7 @@ export const Invite = (props: Props) => {
     }
 
     if (team) {
+      setStatus("requesting");
       return fetch(
         session,
         `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${team.teamId}/invitation`,
@@ -48,8 +55,10 @@ export const Invite = (props: Props) => {
         }
       ).then(res => {
         if (res.status < 400) {
+          setStatus("success");
           return res.json();
         } else {
+          setStatus("failure");
           setMessage(__("Please set correct email address."));
           throw new Error();
         }
@@ -60,21 +69,56 @@ export const Invite = (props: Props) => {
   };
 
   return (
-    <AddNew
-      disabled={props.disabled}
-      buttonLabel={__("Invite")}
-      label={__("Send an invitation")}
-      description={__(
-        "We automatically update your billing as your invitation is accepted."
-      )}
-      defaultValue=""
-      fieldName="email"
-      fieldLabel={__("Email")}
-      fieldType="email"
-      errorMessage={message}
-      onClick={inviteHandler}
-      onError={() => {}}
-    />
+    <>
+      <AddNew
+        disabled={props.disabled}
+        buttonLabel={__("Invite")}
+        label={__("Send an invitation")}
+        description={__(
+          "We automatically update your billing as your invitation is accepted."
+        )}
+        defaultValue=""
+        fieldName="email"
+        fieldLabel={__("Email")}
+        fieldType="email"
+        errorMessage={message}
+        onClick={inviteHandler}
+        onError={() => {}}
+        onSuccess={() => {}}
+      />
+      <Snackbar
+        className={`snackbar-saved ${status}`}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={status === "success" || status === "failure"}
+        autoHideDuration={6000}
+        onClose={() => setStatus(false)}
+        ContentProps={{
+          "aria-describedby": "message-id"
+        }}
+        message={
+          <span id="message-id">
+            {status === "success"
+              ? __("Successfully send invitation.")
+              : status === "failure"
+              ? __("Failed to send invitation.")
+              : ""}
+          </span>
+        }
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            onClick={() => setStatus(false)}
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      />
+    </>
   );
 };
 
