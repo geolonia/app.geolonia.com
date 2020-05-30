@@ -110,6 +110,7 @@ export const getSession = () =>
       cognitoUser.getSession(
         (err: Error, session: CognitoIdentity.CognitoUserSession) => {
           if (err) {
+            console.error(err);
             cognitoUser.signOut();
             reject(err);
           } else {
@@ -131,6 +132,7 @@ export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {
         refreshToken,
         (err: Error, session: CognitoIdentity.CognitoUserSession) => {
           if (err) {
+            console.error(err);
             cognitoUser.signOut();
             reject(err);
           } else {

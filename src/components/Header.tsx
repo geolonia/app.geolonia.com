@@ -80,7 +80,7 @@ const Header = (props: Props) => {
     handleClose();
   };
 
-  const handleLogout = () => {
+  const handleSignout = () => {
     handleClose();
     signout().then(() => {
       window.location.href = "/";
@@ -137,7 +137,7 @@ const Header = (props: Props) => {
                 <MenuItem onClick={handleProfileClick}>
                   {__("Profile")}
                 </MenuItem>
-                <MenuItem onClick={handleLogout}>{__("Logout")}</MenuItem>
+                <MenuItem onClick={handleSignout}>{__("Logout")}</MenuItem>
               </Menu>
             </Grid>
           </Grid>
