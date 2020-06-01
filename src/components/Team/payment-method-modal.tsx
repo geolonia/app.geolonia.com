@@ -59,6 +59,7 @@ const PaymentMethodModal = (props: Props) => {
       if (error || !token || !token.card) {
         setMessage(error && error.message ? error.message : "不明なエラーです");
       } else {
+        const last2 = token.card.last4.slice(2, 4);
         setMessage("");
         fetch(
           session,
@@ -68,7 +69,7 @@ const PaymentMethodModal = (props: Props) => {
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ token: token.id, last4: token.card.last4 })
+            body: JSON.stringify({ token: token.id, last2 })
           }
         )
           .then(res => {

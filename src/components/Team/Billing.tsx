@@ -80,7 +80,7 @@ const chartOptions = {
 };
 
 type StateProps = {
-  last4?: string;
+  last2?: string;
   isOwner: boolean;
   memberCount?: number;
 };
@@ -206,8 +206,8 @@ const Billing = (props: StateProps) => {
                     {__("Payment method:")}
                   </TableCell>
                   <TableCell>
-                    {props.last4
-                      ? sprintf(__("ending in %1$s"), props.last4)
+                    {props.last2
+                      ? sprintf(__("ending in **%1$s"), props.last2)
                       : ""}
                   </TableCell>
                   <TableCell align="right">
@@ -249,7 +249,7 @@ const mapStateToProps = (state: AppState): StateProps => {
     state.teamMember[team.teamId] && state.teamMember[team.teamId].data.length;
 
   return {
-    last4: team.last4,
+    last2: team.last2,
     isOwner: team.role === "Owner",
     memberCount
   };
