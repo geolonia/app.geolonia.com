@@ -33,7 +33,7 @@ import { createActions as createTeamMemberActions } from "../redux/actions/team-
 // Types
 import { AppState, User, Session, Team, Key, Member } from "../types";
 import Redux from "redux";
-import { SELECTED_TEAM_ID } from "../redux/middlewares/local-storage";
+import { SELECTED_TEAM_ID_KEY } from "../redux/middlewares/local-storage";
 import Moment from "moment";
 
 type OwnProps = {};
@@ -87,7 +87,7 @@ const fundamentalAPILoads = (session: Session) => {
 };
 
 const getTeamIdToSelect = async (teams: Team[]) => {
-  const prevTeamId = localStorage.getItem(SELECTED_TEAM_ID) || "";
+  const prevTeamId = localStorage.getItem(SELECTED_TEAM_ID_KEY) || "";
   const teamIndex = teams.map(team => team.teamId).indexOf(prevTeamId);
   if (teamIndex > -1) {
     return teamIndex;
