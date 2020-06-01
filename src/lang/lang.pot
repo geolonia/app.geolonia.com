@@ -682,42 +682,50 @@ msgid "Loads"
 msgstr ""
 
 #: src/components/Team/Billing.tsx:165
-msgid "Team plan"
+msgid "Plans"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:168
+msgid "Team Plan"
 msgstr ""
 
 #: src/components/Team/Billing.tsx:169
+msgid "Free Plan"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:173
 msgid "Users"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:183
+#: src/components/Team/Billing.tsx:187
 msgid "Amount"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:186
+#: src/components/Team/Billing.tsx:190
 msgid "Billed monthly on"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:196
+#: src/components/Team/Billing.tsx:200
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:202
+#: src/components/Team/Billing.tsx:206
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:206
+#: src/components/Team/Billing.tsx:210
 msgid "ending in %1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:216
+#: src/components/Team/Billing.tsx:220
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:226
+#: src/components/Team/Billing.tsx:230
 msgid "Coupon:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:230
+#: src/components/Team/Billing.tsx:234
 msgid "Redeem a coupon"
 msgstr ""
 

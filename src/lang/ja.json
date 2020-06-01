@@ -249,7 +249,9 @@
       "Cost per 1,000 API loads/month": ["API 1,000ロードあたりのコスト"],
       "Free for up to 50,000/month": ["50,000/月 までは無料"],
       "Loads": ["ロード回数"],
-      "Team plan": ["チームプラン"],
+      "Plans": [""],
+      "Team Plan": ["チームプラン"],
+      "Free Plan": ["フリープラン"],
       "Users": ["ユーザー数"],
       "Amount": ["合計"],
       "Billed monthly on": ["請求日"],
@@ -299,7 +301,7 @@
       "rows per page": ["表示する個数"],
       "Suspend": ["一時停止"],
       "Remove from team": ["チームから削除"],
-      "Successfully send invitation.": [""],
+      "Successfully send invitation.": ["チームへの招待が送信されました。"],
       "Failed to send invitation.": ["招待の送信に失敗しました。"],
       "They is already a member of this team.": [
         "すでにメンバーになっています。"

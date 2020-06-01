@@ -162,8 +162,12 @@ const Billing = (props: StateProps) => {
 
         <div className="billing-container">
           <div className="item">
-            <h3 className="title">{__("Team plan")}</h3>
-            <p className="value">{'aaa'}</p>
+            <h3 className="title">{__("Plans")}</h3>
+            <p className="value">
+              {props.memberCount && props.memberCount > 1
+                ? __("Team Plan")
+                : __("Free Plan")}
+            </p>
           </div>
           <div className="item">
             <h3 className="title">{__("Users")}</h3>
