@@ -7,6 +7,8 @@
         "plural_forms": "nplurals=1; plural=0;",
         "lang": "ja"
       },
+      "Your invitation has been validated.": ["招待が有効化されました。"],
+      "Your invitation has been outdated.": ["この招待は無効です。"],
       "Welcome, %s": ["ようこそ %s さん"],
       "Get API key": ["API キーを取得"],
       "Get API key then create your map!": [
@@ -23,6 +25,9 @@
       "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API.": [
         "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、GeoJSON API のアクセスポイントの URL を取得できます。"
       ],
+      "Update required": ["更新が必要です"],
+      "Reload": ["読み込み"],
+      "Continue": ["このまま続ける"],
       "Total Count of Features: %s": ["%s 件のデータ"],
       "Once you delete an Dataset, there is no going back. Please be certain.": [
         "一度データセットを削除するともとに戻すことはできません。"
@@ -44,10 +49,25 @@
         "最大アップロードファイルサイズ: %d MB"
       ],
       "Existing feature that has same `id` will be updated.": [""],
-      "Error: The name of identifier `id` must be lower case.": [""],
-      "Error: The `id` of each `fueature` must be unique in the GeoJSON.": [""],
+      "Error: The name of identifier `id` must be lower case.": [
+        "エラー: `id` は小文字である必要があります。"
+      ],
+      "Error: The `id` of each `fueature` must be unique in the GeoJSON.": [
+        "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要があります。"
+      ],
+      "Anyone can access this GeoJSON API.": [
+        "誰でもこの GeoJSON API にアクセスすることができます。"
+      ],
+      "You can restrict the URLs that can use this GeoJSON API.": [
+        "この GeoJSON API を利用できる URL を制限することができます。"
+      ],
+      "Datasets are published now.": [""],
+      "Datasets status are draft now.": [""],
+      "Upgrade to Geolonia Team": ["チーム機能をアップグレード"],
+      "Name": ["名前"],
       "Name of public GeoJSON will be displayed in public.": [""],
-      "API Endpoint": ["API エンドポイント"],
+      "Download": ["GeoJSON をダウンロード"],
+      "Private Endpoint": ["プライベートエンドポイント"],
       "Copy embed code to clipboard": [
         "埋め込み用コードをクリップボードにコピー"
       ],
@@ -55,22 +75,8 @@
       "Copy endpoint URL to clipboard": [
         "エンドポイント URL をクリップボードにコピー"
       ],
-      "URLs": ["URL のリスト"],
-      "Save": ["保存"],
-      "URLs will be used for an HTTP referrer to restrict the URLs that can use this GeoJSON API.": [
-        "URL のリストは、この GeoJSON API が意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
-      ],
-      "Become a Pro": ["Pro メンバーになる"],
-      "Anyone can access this GeoJSON API.": [
-        "誰でもこの GeoJSON API にアクセスすることができます。"
-      ],
-      "You can restrict the URLs that can use this GeoJSON API.": [
-        "この GeoJSON API を利用できる URL を制限することができます。"
-      ],
-      "You can change privacy of this GeoJSON API as a Pro.": [
-        "Pro メンバーになると、この GeoJSON API のプライバシー設定を変更することができます。"
-      ],
-      "Name": ["名前"],
+      "Network Error.": ["通信エラー。"],
+      "Network error.": ["通信エラー。"],
       "GeoJSON API is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
         "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
       ],
@@ -95,6 +101,7 @@
       "Stroke Width": ["線の太さ"],
       "Text Color": ["文字色"],
       "Text Halo Color": ["文字の輪郭色"],
+      "URLs": ["URL のリスト"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
@@ -114,16 +121,16 @@
       ],
       "Private URL": ["プライベート URL"],
       "Public URL": ["公開 URL"],
-      "Invalid JSON.": [""],
+      "Invalid JSON.": ["不正な JSON 形式です。"],
       "%s feature has been added.": ["%s 個の地物が追加されました。"],
       "Reset your password": ["パスワードのリセット"],
+      "Username or email": ["ユーザー名または Email アドレス"],
       "We will send you a verification code to reset your password.": [
         "パスワードをリセットするための検証コードを送付します。"
       ],
       "Send password reset email": ["メールを送信"],
       "Profile": ["プロフィール"],
       "Logout": ["ログアウト"],
-      "Maps": ["地図"],
       "API keys": ["API キー"],
       "API key settings": ["API キーの設定"],
       "Configure access control for your API key and Get the HTML code for your map.": [
@@ -170,6 +177,8 @@
       ],
       "My API": [""],
       "My team": [""],
+      "Manage API keys": ["API キー の管理"],
+      "API Services": ["API サービス"],
       "Team Settings": ["チーム設定"],
       "General": ["一般"],
       "Members": ["メンバー"],
@@ -230,18 +239,6 @@
       "We are currently private beta. Sign Up is restricted to invited users.": [
         "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
       ],
-      "Cost per 1,000 API loads/month": ["API 1,000ロードあたりのコスト"],
-      "Free for up to 50,000/month": ["50,000/月 までは無料"],
-      "Loads": ["ロード回数"],
-      "Cost per user/month": ["ユーザーあたりの月額コスト"],
-      "Users": ["ユーザー数"],
-      "Amount": ["合計"],
-      "Billed monthly on": ["請求日"],
-      "Payment information": ["支払情報"],
-      "Payment method:": ["支払い方法"],
-      "Change payment method": ["支払い方法を変更"],
-      "Coupon:": ["クーポン:"],
-      "Redeem a coupon": ["クーポンを適用"],
       "Team settings": ["チーム設定"],
       "You can see subscriptions for this team in this month.": [
         "このチームの今月のサブスクリプションを確認することができます。"
@@ -249,6 +246,19 @@
       "Payment history": ["支払履歴"],
       "Your subscriptions": ["あなたのサブスクリプション"],
       "Cost per 1,000 map loads/month": ["地図 1,000ロードあたりのコスト"],
+      "Cost per 1,000 API loads/month": ["API 1,000ロードあたりのコスト"],
+      "Free for up to 50,000/month": ["50,000/月 までは無料"],
+      "Loads": ["ロード回数"],
+      "Team plan": ["チームプラン"],
+      "Users": ["ユーザー数"],
+      "Amount": ["合計"],
+      "Billed monthly on": ["請求日"],
+      "Payment information": ["支払い情報"],
+      "Payment method:": ["支払い方法"],
+      "ending in %1$s": ["末尾の番号 %1$s"],
+      "Change payment method": ["支払い方法を変更"],
+      "Coupon:": ["クーポン:"],
+      "Redeem a coupon": ["クーポンを適用"],
       "Upload new picture": ["新しい写真をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [
         "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
@@ -281,6 +291,7 @@
       "Can manage all resources in the team, including API Keys.": [
         "APIキーを含むチームの全てのリソースを管理できます。"
       ],
+      "Save": ["保存"],
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。"
       ],
@@ -288,11 +299,18 @@
       "rows per page": ["表示する個数"],
       "Suspend": ["一時停止"],
       "Remove from team": ["チームから削除"],
-      "They are already a member of the team.": ["招待済みのメンバーです。"],
+      "Successfully send invitation.": [""],
+      "Failed to send invitation.": ["招待の送信に失敗しました。"],
+      "They is already a member of this team.": [
+        "すでにメンバーになっています。"
+      ],
+      "Please set correct email address.": [
+        "正しい Email アドレスを入力してください。"
+      ],
       "Invite": ["招待"],
-      "Invite a member": ["メンバーを招待"],
-      "We automatically update your billing as you add and remove team members.": [
-        "チームメンバーの追加や削除に伴う料金変更は自動的に行われます。"
+      "Send an invitation": ["招待する"],
+      "We automatically update your billing as your invitation is accepted.": [
+        "チームメンバーの招待に伴う料金変更は自動的に行われます。"
       ],
       "Email": ["メールアドレス"],
       "The following members will be removed:": [
@@ -303,13 +321,15 @@
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
       ],
+      "Update": ["更新"],
+      "Card information": ["クレジットカード情報"],
       "Your profile": ["プロフィール"],
       "You can update your profile and security.": [
         "プロフィールとセキュリティを設定できます。"
       ],
       "Language": ["言語"],
       "Time zone": ["タイムゾーン"],
-      "Update password": ["パスワードを変更"],
+      "Update password": ["パスワードを更新"],
       "I forgot my password": ["パスワードをお忘れですか？"],
       "Password changed successfuly.": ["パスワードを変更しました。"],
       "Failed to change password.": ["パスワードの変更に失敗しました。"],
@@ -319,6 +339,11 @@
       "name": ["ユーザー名"],
       "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],
+      "%s - %s of %s": [""],
+      "first page": ["最初のページ"],
+      "previous page": ["前のページ"],
+      "next page": ["次のページ"],
+      "last page": ["最後のページ"],
       "Are you sure you want to delete this item?": [
         "本当にこのデータセットを削除しますか？"
       ],
@@ -330,10 +355,6 @@
       "Terms": ["利用規約"],
       "Privacy": ["プライバシー"],
       "Contact Geolonia": ["お問い合わせ"],
-      "first page": ["最初のページ"],
-      "previous page": ["前のページ"],
-      "next page": ["次のページ"],
-      "last page": ["最後のページ"],
       "Coming soon": ["準備中"],
       "Japanese": ["日本語"],
       "English": ["英語"],
@@ -348,20 +369,23 @@
       "You are not authorized to do this operation.": [
         "この操作を行う権限がありません。"
       ],
-      "Network error.": ["通信エラー。"],
       "Unknown error.": ["不明なエラー。"],
       "Insufficient password strength.": ["パスワードの強度が不足しています。"],
       "Username exists already. You cannot use this username.": [
         "すでに存在するユーザー名です。このユーザー名は使用できません。"
       ],
-      "The email exists already. You cannot use this mail address.": [""],
-      "The email is not currently allowed for private beta.": [""],
+      "The email exists already. You cannot use this mail address.": [
+        "すでに存在する Email アドレスです。この　Email アドレスは利用できません。"
+      ],
+      "The email is not currently allowed for private beta.": [
+        "プライベートベータ版ではこの Email アドレスは利用できません。"
+      ],
       "Incorrect username, email address or password.": [
         "ユーザー名、 Email アドレス、またはパスワードが正しくありません。"
       ],
-      "You cannot use this username.": [""],
+      "You cannot use this username.": ["このユーザー名は使用できません。"],
       "Username should be less than 256 characters and include only lowercase characters(a-z), numbers(0-9), hyphen(-), underscore(_) and period(.).": [
-        ""
+        "ユーザー名には小文字（a-z）、数字（0-9）、ハイフン（-）、アンダースコア（-）、ピリオド（.）が利用でき、256文字以下である必要があります。"
       ],
       "Invalid parameter specified. You cannot use this username or email.": [
         ""

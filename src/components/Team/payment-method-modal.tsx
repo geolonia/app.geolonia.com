@@ -37,6 +37,15 @@ const PaymentMethodModal = (props: Props) => {
   const stripe = useStripe();
   const elements = useElements();
 
+  if (stripe) {
+    // stripe
+    //   .retrieveSource({
+    //     id: "plan_seat",
+    //     client_secret: process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
+    //   })
+    //   .then(console.log);
+  }
+
   const handleSubmit = async () => {
     if (!stripe || !elements || !teamId) {
       return null;
