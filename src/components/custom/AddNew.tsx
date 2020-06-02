@@ -27,6 +27,7 @@ type Props = {
   fieldType?: string;
   errorMessage?: string;
   onError?: (error: any) => void;
+  onSuccess?: () => void;
 };
 
 const getTexts = (props: Props) => ({
@@ -78,6 +79,9 @@ export const AddNew = (props: Props) => {
       .then(() => {
         setStatus("success");
         handleClose();
+        if (typeof props.onSuccess === "function") {
+          props.onSuccess();
+        }
       })
       .catch(err => {
         setStatus("failure");

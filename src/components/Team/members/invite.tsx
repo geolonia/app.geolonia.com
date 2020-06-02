@@ -2,19 +2,18 @@ import React from "react";
 
 // Components
 import AddNew from "../../custom/AddNew";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
 
 // Util
 import { __ } from "@wordpress/i18n";
-
-// API
-import addMember from "../../../api/members/add";
+import fetch from "../../../lib/fetch";
 
 // Types
 import { AppState, Session, Team, Member } from "../../../types";
 
 // redux
-import Redux from "redux";
-import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 import { connect } from "react-redux";
 
 type OwnProps = {
@@ -26,57 +25,100 @@ type StateProps = {
   members: Member[];
   team: Team | void;
 };
-type DispatchProps = {
-  addMemberState: (teamId: string, member: Member) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
+type Props = OwnProps & StateProps;
 
 export const Invite = (props: Props) => {
   const [message, setMessage] = React.useState("");
+  const [status, setStatus] = React.useState<
+    false | "requesting" | "success" | "failure"
+  >(false);
 
   const inviteHandler = (email: string) => {
-    const { session, team, addMemberState, members } = props;
+    const { session, team, members } = props;
 
     if (members.find(member => member.email === email)) {
-      setMessage(__("They are already a member of the team."));
+      setMessage(__("They is already a member of this team."));
       return Promise.reject("They are already a member of the team.");
     }
 
     if (team) {
-      return addMember(session, team.teamId, email).then(result => {
-        if (result.error) {
-          setMessage(result.message);
-          throw new Error(result.code);
+      setStatus("requesting");
+      return fetch(
+        session,
+        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${team.teamId}/invitation`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ email })
+        }
+      ).then(res => {
+        if (res.status < 400) {
+          setStatus("success");
+          return res.json();
         } else {
-          const newMember = result.data;
-          if (members.find(member => member.userSub === newMember.userSub)) {
-            console.warn("Already joined");
-          } else {
-            addMemberState(team.teamId, newMember);
-          }
+          setStatus("failure");
+          setMessage(__("Please set correct email address."));
+          throw new Error();
         }
       });
     } else {
-      return Promise.reject("Unknown Error");
+      return Promise.reject("No team");
     }
   };
 
   return (
-    <AddNew
-      disabled={props.disabled}
-      buttonLabel={__("Invite")}
-      label={__("Invite a member")}
-      description={__(
-        "We automatically update your billing as you add and remove team members."
-      )}
-      defaultValue=""
-      fieldName="email"
-      fieldLabel={__("Email")}
-      fieldType="email"
-      errorMessage={message}
-      onClick={inviteHandler}
-      onError={() => {}}
-    />
+    <>
+      <AddNew
+        disabled={props.disabled}
+        buttonLabel={__("Invite")}
+        label={__("Send an invitation")}
+        description={__(
+          "We automatically update your billing as your invitation is accepted."
+        )}
+        defaultValue=""
+        fieldName="email"
+        fieldLabel={__("Email")}
+        fieldType="email"
+        errorMessage={message}
+        onClick={inviteHandler}
+        onError={() => {}}
+        onSuccess={() => {}}
+      />
+      <Snackbar
+        className={`snackbar-saved ${status}`}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left"
+        }}
+        open={status === "success" || status === "failure"}
+        autoHideDuration={6000}
+        onClose={() => setStatus(false)}
+        ContentProps={{
+          "aria-describedby": "message-id"
+        }}
+        message={
+          <span id="message-id">
+            {status === "success"
+              ? __("Successfully send invitation.")
+              : status === "failure"
+              ? __("Failed to send invitation.")
+              : ""}
+          </span>
+        }
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            onClick={() => setStatus(false)}
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      />
+    </>
   );
 };
 
@@ -94,9 +136,4 @@ export const mapStateToProps = (state: AppState): StateProps => {
   return { session, team, members };
 };
 
-export const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
-  addMemberState: (teamId: string, member: Member) =>
-    dispatch(createTeamMemberActions.add(teamId, member))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Invite);
+export default connect(mapStateToProps)(Invite);
