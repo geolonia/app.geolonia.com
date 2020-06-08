@@ -239,28 +239,17 @@
       "We are currently private beta. Sign Up is restricted to invited users.": [
         "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
       ],
+      "Free plan": ["フリープラン"],
       "Team settings": ["チーム設定"],
       "You can see subscriptions for this team in this month.": [
         "このチームの今月のサブスクリプションを確認することができます。"
       ],
-      "Payment history": ["支払履歴"],
-      "Your subscriptions": ["あなたのサブスクリプション"],
-      "Cost per 1,000 map loads/month": ["地図 1,000ロードあたりのコスト"],
-      "Cost per 1,000 API loads/month": ["API 1,000ロードあたりのコスト"],
-      "Free for up to 50,000/month": ["50,000/月 までは無料"],
-      "Loads": ["ロード回数"],
-      "Plans": [""],
-      "Team Plan": ["チームプラン"],
-      "Free Plan": ["フリープラン"],
-      "Users": ["ユーザー数"],
-      "Amount": ["合計"],
-      "Billed monthly on": ["請求日"],
       "Payment information": ["支払い情報"],
       "Payment method:": ["支払い方法"],
-      "ending in %1$s": ["末尾の番号 %1$s"],
+      "ending in **%1$s": ["末尾の番号 **%1$s"],
       "Change payment method": ["支払い方法を変更"],
-      "Coupon:": ["クーポン:"],
-      "Redeem a coupon": ["クーポンを適用"],
+      "Current Plan": ["現在のプラン"],
+      "Change Plan": ["プランを変更"],
       "Upload new picture": ["新しい写真をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [
         "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
@@ -324,7 +313,9 @@
         "以下のメンバーによる操作が一時停止されます。"
       ],
       "Update": ["更新"],
+      "Unknown Error.": ["不明なエラー。"],
       "Card information": ["クレジットカード情報"],
+      "Your plan": ["あなたのプラン"],
       "Your profile": ["プロフィール"],
       "You can update your profile and security.": [
         "プロフィールとセキュリティを設定できます。"

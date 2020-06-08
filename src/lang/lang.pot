@@ -46,7 +46,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:114
 #: src/components/Maps/APIKey.tsx:112
 #: src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:106
+#: src/components/Team/Billing.tsx:176
 msgid "Home"
 msgstr ""
 
@@ -647,86 +647,42 @@ msgstr ""
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:110
+#: src/components/Team/Billing.tsx:154
+msgid "Free plan"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:180
 #: src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:119
+#: src/components/Team/Billing.tsx:189
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:123
-msgid "Payment history"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:130
-msgid "Your subscriptions"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:135
-msgid "Cost per 1,000 map loads/month"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:150
-msgid "Cost per 1,000 API loads/month"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:152
-msgid "Free for up to 50,000/month"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:155
-msgid "Loads"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:165
-msgid "Plans"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:168
-msgid "Team Plan"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:169
-msgid "Free Plan"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:173
-msgid "Users"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:187
-msgid "Amount"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:190
-msgid "Billed monthly on"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:200
+#: src/components/Team/Billing.tsx:341
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:206
+#: src/components/Team/Billing.tsx:347
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:210
-msgid "ending in %1$s"
+#: src/components/Team/Billing.tsx:351
+msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:220
+#: src/components/Team/Billing.tsx:361
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:230
-msgid "Coupon:"
+#: src/components/Team/Billing.tsx:371
+msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:234
-msgid "Redeem a coupon"
+#: src/components/Team/Billing.tsx:382
+msgid "Change Plan"
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:126
@@ -897,12 +853,21 @@ msgstr ""
 msgid "The following members will be suspended:"
 msgstr ""
 
-#: src/components/Team/payment-method-modal.tsx:127
+#: src/components/Team/payment-method-modal.tsx:128
+#: src/components/Team/plan-modal.tsx:114
 msgid "Update"
 msgstr ""
 
-#: src/components/Team/payment-method-modal.tsx:90
+#: src/components/Team/payment-method-modal.tsx:60
+msgid "Unknown Error."
+msgstr ""
+
+#: src/components/Team/payment-method-modal.tsx:91
 msgid "Card information"
+msgstr ""
+
+#: src/components/Team/plan-modal.tsx:75
+msgid "Your plan"
 msgstr ""
 
 #: src/components/User/User.tsx:24

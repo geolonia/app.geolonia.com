@@ -151,7 +151,7 @@ const usePlan = (props: StateProps) => {
 
   let currentPlanName = "";
   if (planId === null) {
-    currentPlanName = __("フリープラン");
+    currentPlanName = __("Free plan");
   } else {
     const currentPlan = plans
       .filter(plan => !isAppliancePlan(plan))
