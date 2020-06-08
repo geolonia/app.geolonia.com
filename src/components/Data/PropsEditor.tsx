@@ -17,8 +17,19 @@ type Props = {
 export const PropsEditor = (props: Props) => {
   const { currentFeature, updateFeatureProperties } = props;
   const [ mode, setMode ] = React.useState<boolean>(true)
-  const [ title, setTitle ] = React.useState<string>(currentFeature.properties.title.toString())
-  const [ description, setDescription ] = React.useState<string>(currentFeature.properties.description.toString())
+
+  const [ title, setTitle ] = React.useState<string>("")
+  const [ description, setDescription ] = React.useState<string>("")
+
+  // Make title and description work together on currentFeature changed
+  const [__prevFeatureId, __setPrevFeatureId] = React.useState<string>()
+  React.useEffect(() => {
+    if(__prevFeatureId !== currentFeature.id) {
+      __setPrevFeatureId(currentFeature.id)
+      setTitle(currentFeature.properties.title.toString())
+      setDescription(currentFeature.properties.description.toString())
+    }
+  }, [currentFeature, __prevFeatureId])
 
   const updatePropHandler = (event: React.FormEvent<HTMLInputElement>) => {
     const property = event.currentTarget.name
