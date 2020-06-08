@@ -220,7 +220,7 @@ const Billing = (props: StateProps) => {
         </Grid> */}
 
         <Grid container spacing={2}>
-          <Grid item md={4} sm={12}>
+          <Grid item md={4} sm={12} style={{ width: "100%" }}>
             <PriceCard
               title={"Pro プラン"}
               pricePerMonth={9}
