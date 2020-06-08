@@ -57,7 +57,7 @@ const PaymentMethodModal = (props: Props) => {
         name: "test"
       });
       if (error || !token || !token.card) {
-        setMessage(error && error.message ? error.message : "不明なエラーです");
+        setMessage(error && error.message ? error.message : __('Unknown Error.'));
       } else {
         const last2 = token.card.last4.slice(2, 4);
         setMessage("");
