@@ -14,6 +14,7 @@ type Props = {
   pricePerYear?: number;
   features: string[];
   pricePerPersonPerMonth?: number;
+  children?: React.ReactElement | string;
 };
 
 export default function PriceCard(props: Props) {
@@ -22,7 +23,8 @@ export default function PriceCard(props: Props) {
     pricePerMonth,
     pricePerYear,
     pricePerPersonPerMonth,
-    features
+    features,
+    children
   } = props;
   return (
     <Card style={{ height: "100%", width: "100%" }}>
@@ -62,6 +64,7 @@ export default function PriceCard(props: Props) {
             </ListItem>
           ))}
         </List>
+        {children}
       </CardContent>
     </Card>
   );

@@ -46,7 +46,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:114
 #: src/components/Maps/APIKey.tsx:112
 #: src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:176
+#: src/components/Team/Billing.tsx:177
 msgid "Home"
 msgstr ""
 
@@ -647,41 +647,49 @@ msgstr ""
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:154
+#: src/components/Team/Billing.tsx:155
 msgid "Free plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:180
+#: src/components/Team/Billing.tsx:181
 #: src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:189
+#: src/components/Team/Billing.tsx:190
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:341
+#: src/components/Team/Billing.tsx:249
+msgid "Geolonia Appliance"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:262
+msgid "Contact us"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:346
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:347
+#: src/components/Team/Billing.tsx:352
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:351
+#: src/components/Team/Billing.tsx:356
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:361
+#: src/components/Team/Billing.tsx:366
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:371
+#: src/components/Team/Billing.tsx:376
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:382
+#: src/components/Team/Billing.tsx:387
 msgid "Change Plan"
 msgstr ""
 
@@ -853,20 +861,20 @@ msgstr ""
 msgid "The following members will be suspended:"
 msgstr ""
 
-#: src/components/Team/payment-method-modal.tsx:128
-#: src/components/Team/plan-modal.tsx:114
-msgid "Update"
-msgstr ""
-
-#: src/components/Team/payment-method-modal.tsx:60
-msgid "Unknown Error."
-msgstr ""
-
-#: src/components/Team/payment-method-modal.tsx:91
+#: src/components/Team/payment-method-modal.tsx:104
 msgid "Card information"
 msgstr ""
 
-#: src/components/Team/plan-modal.tsx:75
+#: src/components/Team/payment-method-modal.tsx:148
+#: src/components/Team/plan-modal.tsx:127
+msgid "Update"
+msgstr ""
+
+#: src/components/Team/payment-method-modal.tsx:67
+msgid "Unknown Error."
+msgstr ""
+
+#: src/components/Team/plan-modal.tsx:80
 msgid "Your plan"
 msgstr ""
 

@@ -244,6 +244,8 @@
       "You can see subscriptions for this team in this month.": [
         "このチームの今月のサブスクリプションを確認することができます。"
       ],
+      "Geolonia Appliance": ["Geolonia アプライアンス"],
+      "Contact us": ["お問い合わせ下さい"],
       "Payment information": ["支払い情報"],
       "Payment method:": ["支払い方法"],
       "ending in **%1$s": ["末尾の番号 **%1$s"],
@@ -312,9 +314,9 @@
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
       ],
+      "Card information": ["クレジットカード情報"],
       "Update": ["更新"],
       "Unknown Error.": ["不明なエラー。"],
-      "Card information": ["クレジットカード情報"],
       "Your plan": ["あなたのプラン"],
       "Your profile": ["プロフィール"],
       "You can update your profile and security.": [

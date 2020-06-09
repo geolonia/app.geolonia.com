@@ -13,6 +13,7 @@ import PaymentMethodModal from "./payment-method-modal";
 import PlanModal from "./plan-modal";
 import PriceCard from "../custom/price-card";
 import Grid from "@material-ui/core/Grid";
+import Link from "@material-ui/core/Link";
 import "./Billing.scss";
 
 import { __, sprintf } from "@wordpress/i18n";
@@ -245,7 +246,7 @@ const Billing = (props: StateProps) => {
           </Grid>
           <Grid item md={4} sm={12}>
             <PriceCard
-              title={"Geolonia Appliance"}
+              title={__("Geolonia Appliance")}
               pricePerPersonPerMonth={5}
               features={[
                 "APIKeyの取得",
@@ -256,7 +257,11 @@ const Billing = (props: StateProps) => {
                 "位置情報の同時編集機能",
                 "プレミアムサポート"
               ]}
-            ></PriceCard>
+            >
+              <Link href={"https://geolonia.com/contact"}>
+                {__("Contact us")}
+              </Link>
+            </PriceCard>
           </Grid>
         </Grid>
 
