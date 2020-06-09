@@ -4,6 +4,7 @@ import React from "react";
 import AsyncTable from "../custom/AsyncTable";
 import AddNew from "../custom/AddNew";
 import Title from "../custom/Title";
+import { CircularProgress } from "@material-ui/core";
 
 // utils
 import { __ } from "@wordpress/i18n";
@@ -11,6 +12,7 @@ import { connect } from "react-redux";
 import Moment from 'moment'
 import queryString from "query-string";
 import fetch from '../../lib/fetch'
+
 
 // types
 import {
@@ -56,11 +58,12 @@ function Content(props: Props) {
   const [watchdog, setWatchdog] = React.useState(0);
   const [perPage, setPerPage] = React.useState(10);
   const [totalCount, setTotalCount] = React.useState(0);
+  const [loading, setLoading] = React.useState(false)
 
   const page = Number(queryString.parse(props.location.search).page) || 0
   React.useEffect(() => {
     if (props.teamId && props.session) {
-
+      setLoading(true)
       fetch(
         props.session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}&per_page=${perPage}&page=${page}`,
@@ -101,10 +104,12 @@ function Content(props: Props) {
               }
             })
           );
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.error(err)
           alert(__('Network Error.'))
         })
+        .finally(() => setLoading(false))
     }
   }, [props.teamId, props.session, watchdog, props.location.search, page, perPage, props.history]);
 
@@ -172,15 +177,27 @@ function Content(props: Props) {
         errorMessage={message}
       />
 
-      <AsyncTable
-        page={page}
-        rows={geoJsons}
-        rowsPerPage={perPage}
-        setPerPage={setPerPage}
-        totalCount={totalCount}
-        permalink="/data/geojson/%s"
-        onChangePage={(page) => props.history.push(`?page=${page}`)}
-      />
+        {loading ?
+          <div style={{
+            width: '100%',
+            height: '200px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'}
+          }>
+            <CircularProgress />
+          </div>
+          :
+          <AsyncTable
+            page={page}
+            rows={geoJsons}
+            rowsPerPage={perPage}
+            setPerPage={setPerPage}
+            totalCount={totalCount}
+            permalink="/data/geojson/%s"
+            onChangePage={(page) => props.history.push(`?page=${page}`)}
+          />
+        }
     </div>
   );
 }
