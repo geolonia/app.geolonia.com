@@ -53,7 +53,7 @@ msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GeoJson.tsx:106 src/components/Data/GeoJsons.tsx:114
 #: src/components/Maps/APIKey.tsx:112 src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:106
+#: src/components/Team/Billing.tsx:177
 msgid "Home"
 msgstr ""
 
@@ -660,78 +660,50 @@ msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
 
-#: src/components/Team/Billing.tsx:110 src/components/Team/general/index.tsx:31
+#: src/components/Team/Billing.tsx:155
+msgid "Free plan"
+msgstr "フリープラン"
+
+#: src/components/Team/Billing.tsx:181 src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:119
+#: src/components/Team/Billing.tsx:190
 msgid "You can see subscriptions for this team in this month."
 msgstr "このチームの今月のサブスクリプションを確認することができます。"
 
-#: src/components/Team/Billing.tsx:123
-msgid "Payment history"
-msgstr "支払履歴"
+#: src/components/Team/Billing.tsx:249
+msgid "Geolonia Appliance"
+msgstr "Geolonia アプライアンス"
 
-#: src/components/Team/Billing.tsx:130
-msgid "Your subscriptions"
-msgstr "あなたのサブスクリプション"
+#: src/components/Team/Billing.tsx:262
+msgid "Contact us"
+msgstr "お問い合わせ下さい"
 
-#: src/components/Team/Billing.tsx:135
-msgid "Cost per 1,000 map loads/month"
-msgstr "地図 1,000ロードあたりのコスト"
-
-#: src/components/Team/Billing.tsx:150
-msgid "Cost per 1,000 API loads/month"
-msgstr "API 1,000ロードあたりのコスト"
-
-#: src/components/Team/Billing.tsx:152
-msgid "Free for up to 50,000/month"
-msgstr "50,000/月 までは無料"
-
-#: src/components/Team/Billing.tsx:155
-msgid "Loads"
-msgstr "ロード回数"
-
-#: src/components/Team/Billing.tsx:165
-msgid "Team plan"
-msgstr "チームプラン"
-
-#: src/components/Team/Billing.tsx:169
-msgid "Users"
-msgstr "ユーザー数"
-
-#: src/components/Team/Billing.tsx:183
-msgid "Amount"
-msgstr "合計"
-
-#: src/components/Team/Billing.tsx:186
-msgid "Billed monthly on"
-msgstr "請求日"
-
-#: src/components/Team/Billing.tsx:196
+#: src/components/Team/Billing.tsx:346
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:202
+#: src/components/Team/Billing.tsx:352
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:206
-msgid "ending in %1$s"
-msgstr "末尾の番号 %1$s"
+#: src/components/Team/Billing.tsx:356
+msgid "ending in **%1$s"
+msgstr "末尾の番号 **%1$s"
 
-#: src/components/Team/Billing.tsx:216
+#: src/components/Team/Billing.tsx:366
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:226
-msgid "Coupon:"
-msgstr "クーポン:"
+#: src/components/Team/Billing.tsx:376
+msgid "Current Plan"
+msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:230
-msgid "Redeem a coupon"
-msgstr "クーポンを適用"
+#: src/components/Team/Billing.tsx:387
+msgid "Change Plan"
+msgstr "プランを変更"
 
 #: src/components/Team/general/avatar.tsx:126
 #: src/components/User/avatar.tsx:133
@@ -858,7 +830,7 @@ msgstr "チームから削除"
 
 #: src/components/Team/members/invite.tsx:104
 msgid "Successfully send invitation."
-msgstr ""
+msgstr "チームへの招待が送信されました。"
 
 #: src/components/Team/members/invite.tsx:106
 msgid "Failed to send invitation."
@@ -905,13 +877,22 @@ msgstr "メンバーの一時停止"
 msgid "The following members will be suspended:"
 msgstr "以下のメンバーによる操作が一時停止されます。"
 
-#: src/components/Team/payment-method-modal.tsx:127
+#: src/components/Team/payment-method-modal.tsx:104
+msgid "Card information"
+msgstr "クレジットカード情報"
+
+#: src/components/Team/payment-method-modal.tsx:148
+#: src/components/Team/plan-modal.tsx:127
 msgid "Update"
 msgstr "更新"
 
-#: src/components/Team/payment-method-modal.tsx:90
-msgid "Card information"
-msgstr "クレジットカード情報"
+#: src/components/Team/payment-method-modal.tsx:67
+msgid "Unknown Error."
+msgstr "不明なエラー。"
+
+#: src/components/Team/plan-modal.tsx:80
+msgid "Your plan"
+msgstr "あなたのプラン"
 
 #: src/components/User/User.tsx:24
 msgid "Your profile"
@@ -1180,6 +1161,42 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Payment history"
+#~ msgstr "支払履歴"
+
+#~ msgid "Your subscriptions"
+#~ msgstr "あなたのサブスクリプション"
+
+#~ msgid "Cost per 1,000 map loads/month"
+#~ msgstr "地図 1,000ロードあたりのコスト"
+
+#~ msgid "Cost per 1,000 API loads/month"
+#~ msgstr "API 1,000ロードあたりのコスト"
+
+#~ msgid "Free for up to 50,000/month"
+#~ msgstr "50,000/月 までは無料"
+
+#~ msgid "Loads"
+#~ msgstr "ロード回数"
+
+#~ msgid "Team Plan"
+#~ msgstr "チームプラン"
+
+#~ msgid "Users"
+#~ msgstr "ユーザー数"
+
+#~ msgid "Amount"
+#~ msgstr "合計"
+
+#~ msgid "Billed monthly on"
+#~ msgstr "請求日"
+
+#~ msgid "Coupon:"
+#~ msgstr "クーポン:"
+
+#~ msgid "Redeem a coupon"
+#~ msgstr "クーポンを適用"
 
 #~ msgid ""
 #~ "URLs will be used for an HTTP referrer to restrict the URLs that can use "

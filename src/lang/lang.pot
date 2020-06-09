@@ -46,7 +46,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:114
 #: src/components/Maps/APIKey.tsx:112
 #: src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:106
+#: src/components/Team/Billing.tsx:177
 msgid "Home"
 msgstr ""
 
@@ -647,78 +647,50 @@ msgstr ""
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:110
+#: src/components/Team/Billing.tsx:155
+msgid "Free plan"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:181
 #: src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:119
+#: src/components/Team/Billing.tsx:190
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:123
-msgid "Payment history"
+#: src/components/Team/Billing.tsx:249
+msgid "Geolonia Appliance"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:130
-msgid "Your subscriptions"
+#: src/components/Team/Billing.tsx:262
+msgid "Contact us"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:135
-msgid "Cost per 1,000 map loads/month"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:150
-msgid "Cost per 1,000 API loads/month"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:152
-msgid "Free for up to 50,000/month"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:155
-msgid "Loads"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:165
-msgid "Team plan"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:169
-msgid "Users"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:183
-msgid "Amount"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:186
-msgid "Billed monthly on"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:196
+#: src/components/Team/Billing.tsx:346
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:202
+#: src/components/Team/Billing.tsx:352
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:206
-msgid "ending in %1$s"
+#: src/components/Team/Billing.tsx:356
+msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:216
+#: src/components/Team/Billing.tsx:366
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:226
-msgid "Coupon:"
+#: src/components/Team/Billing.tsx:376
+msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:230
-msgid "Redeem a coupon"
+#: src/components/Team/Billing.tsx:387
+msgid "Change Plan"
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:126
@@ -889,12 +861,21 @@ msgstr ""
 msgid "The following members will be suspended:"
 msgstr ""
 
-#: src/components/Team/payment-method-modal.tsx:127
+#: src/components/Team/payment-method-modal.tsx:104
+msgid "Card information"
+msgstr ""
+
+#: src/components/Team/payment-method-modal.tsx:148
+#: src/components/Team/plan-modal.tsx:127
 msgid "Update"
 msgstr ""
 
-#: src/components/Team/payment-method-modal.tsx:90
-msgid "Card information"
+#: src/components/Team/payment-method-modal.tsx:67
+msgid "Unknown Error."
+msgstr ""
+
+#: src/components/Team/plan-modal.tsx:80
+msgid "Your plan"
 msgstr ""
 
 #: src/components/User/User.tsx:24

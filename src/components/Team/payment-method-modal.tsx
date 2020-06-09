@@ -1,8 +1,12 @@
 import React from "react";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import Button from "@material-ui/core/Button";
+import { CircularProgress } from "@material-ui/core";
+
+// Stripe
+import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+
 import { __ } from "@wordpress/i18n";
 import fetch from "../../lib/fetch";
 import { connect } from "react-redux";
@@ -32,7 +36,7 @@ const { REACT_APP_STAGE } = process.env;
 
 const PaymentMethodModal = (props: Props) => {
   const { open, handleClose, session, teamId } = props;
-  const [name, setName] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const stripe = useStripe();
   const elements = useElements();
@@ -53,12 +57,17 @@ const PaymentMethodModal = (props: Props) => {
     const cardElement = elements.getElement(CardElement);
 
     if (cardElement) {
+      setLoading(true);
       const { error, token } = await stripe.createToken(cardElement, {
         name: "test"
       });
       if (error || !token || !token.card) {
-        setMessage(error && error.message ? error.message : "不明なエラーです");
+        setLoading(false);
+        setMessage(
+          error && error.message ? error.message : __("Unknown Error.")
+        );
       } else {
+        const last2 = token.card.last4.slice(2, 4);
         setMessage("");
         fetch(
           session,
@@ -68,7 +77,7 @@ const PaymentMethodModal = (props: Props) => {
             headers: {
               "Content-Type": "application/json"
             },
-            body: JSON.stringify({ token: token.id, last4: token.card.last4 })
+            body: JSON.stringify({ token: token.id, last2 })
           }
         )
           .then(res => {
@@ -79,7 +88,12 @@ const PaymentMethodModal = (props: Props) => {
               throw new Error();
             }
           })
-          .catch(console.error);
+          .catch(error => {
+            console.error(error);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
       }
     }
   };
@@ -124,6 +138,13 @@ const PaymentMethodModal = (props: Props) => {
           }}
           type={"button"}
         >
+          {loading && (
+            <CircularProgress
+              size={16}
+              style={{ marginRight: 8 }}
+              color={"inherit"}
+            />
+          )}
           {__("Update")}
         </Button>
       </div>

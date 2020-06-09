@@ -132,7 +132,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
             <Route exact path="/reset-password" component={ResetPassword} />
             <Route
               exact
-              path="/accept-invitation/:invitationToken"
+              path="/accept-invitation/:invitationToken/:teamId"
               component={AcceptInvitation}
             />
             <Route exact>

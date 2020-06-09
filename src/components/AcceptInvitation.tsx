@@ -6,11 +6,11 @@ import Button from "@material-ui/core/Button";
 import { AppState } from "../types";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
+import { SELECTED_TEAM_ID_KEY } from "../redux/middlewares/local-storage";
 
 type OwnProps = { isReady: boolean };
 type RouterProps = {
-  history: { replace: (pathname: string) => void };
-  match: { params: { invitationToken: string } };
+  match: { params: { invitationToken: string; teamId: string } };
 };
 type Props = OwnProps & RouterProps;
 
@@ -21,9 +21,8 @@ const useInvitationAcceptRequest = (props: Props) => {
 
   const {
     isReady,
-    history,
     match: {
-      params: { invitationToken }
+      params: { invitationToken, teamId }
     }
   } = props;
 
@@ -40,6 +39,7 @@ const useInvitationAcceptRequest = (props: Props) => {
       )
         .then(res => {
           if (res.status < 400) {
+            localStorage.setItem(SELECTED_TEAM_ID_KEY, teamId);
             setStatus("success");
           } else {
             throw res.json();
@@ -50,9 +50,9 @@ const useInvitationAcceptRequest = (props: Props) => {
           setStatus("failure");
         });
     }
-  }, [history, invitationToken, isReady, status]);
+  }, [invitationToken, isReady, status, teamId]);
 
-  return { status, proceed: () => history.replace("/") };
+  return { status, proceed: () => (window.location.href = "/") };
 };
 
 const AcceptInvitation = (props: Props) => {

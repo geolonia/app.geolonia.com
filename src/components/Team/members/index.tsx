@@ -133,7 +133,7 @@ const Content = (props: Props) => {
   let isPayedTeam = false;
   if (team) {
     isOwner = team.role === Roles.Owner;
-    isPayedTeam = !!team.last4;
+    isPayedTeam = !!team.last2;
   }
 
   return (

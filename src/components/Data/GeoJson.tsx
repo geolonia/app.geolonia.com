@@ -456,7 +456,7 @@ export const mapStateToProps = (
       session,
       teamId,
       geojsonId,
-      isPayedUser: !!team.last4
+      isPayedUser: !!team.last2
     };
   } else {
     return { session, isPayedUser: false };

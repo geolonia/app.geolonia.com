@@ -2,7 +2,7 @@ import { Middleware } from "redux";
 import { isSelectAction } from "../actions/team";
 import { AppState } from "../../types";
 
-export const SELECTED_TEAM_ID = "geolonia__selectedTeamId";
+export const SELECTED_TEAM_ID_KEY = "geolonia__selectedTeamId";
 
 const localStorageMiddleware: Middleware = store => next => action => {
   if (isSelectAction(action)) {
@@ -12,7 +12,7 @@ const localStorageMiddleware: Middleware = store => next => action => {
     ];
     if (nextTeam) {
       const nextTeamId = nextTeam.teamId;
-      localStorage.setItem(SELECTED_TEAM_ID, nextTeamId);
+      localStorage.setItem(SELECTED_TEAM_ID_KEY, nextTeamId);
     }
   }
   return next(action);
