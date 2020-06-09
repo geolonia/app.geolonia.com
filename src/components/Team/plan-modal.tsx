@@ -40,6 +40,7 @@ const { REACT_APP_STAGE } = process.env;
 
 const PlanModal = (props: Props) => {
   const { open, handleClose, session, teamId, plans, currentPlanId } = props;
+  const [loading, setLoading] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [planId, setPlanId] = React.useState<string | null | undefined>(void 0);
 
@@ -47,6 +48,7 @@ const PlanModal = (props: Props) => {
     if (!teamId) {
       return null;
     }
+    setLoading(true);
     fetch(
       session,
       `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/plan`,
@@ -66,7 +68,10 @@ const PlanModal = (props: Props) => {
           throw new Error();
         }
       })
-      .catch(console.error);
+      .catch(console.error)
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -111,6 +116,14 @@ const PlanModal = (props: Props) => {
           }}
           type={"button"}
         >
+          {" "}
+          {loading && (
+            <CircularProgress
+              size={16}
+              style={{ marginRight: 8 }}
+              color={"inherit"}
+            />
+          )}
           {__("Update")}
         </Button>
       </div>
