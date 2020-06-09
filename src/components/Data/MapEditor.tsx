@@ -55,8 +55,10 @@ export const MapEditor = (props: Props) => {
   const [events, setEvents] = React.useState<any>(null);
 
   // import geoJSON
+  // WebSocket incomming
   React.useEffect(() => {
     if (draw && geoJSON) {
+      draw.deleteAll();
       draw.set(geoJSON);
     }
   }, [draw, geoJSON]);
