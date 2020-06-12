@@ -297,8 +297,8 @@
       "They is already a member of this team.": [
         "すでにメンバーになっています。"
       ],
-      "Please set correct email address.": [
-        "正しい Email アドレスを入力してください。"
+      "You cannot use this email address for invitation.": [
+        "このメールアドレスは招待に使用できません。"
       ],
       "Invite": ["招待"],
       "Send an invitation": ["招待する"],

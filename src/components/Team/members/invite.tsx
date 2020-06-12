@@ -59,7 +59,7 @@ export const Invite = (props: Props) => {
           return res.json();
         } else {
           setStatus("failure");
-          setMessage(__("Please set correct email address."));
+          setMessage(__("You cannot use this email address for invitation."));
           throw new Error();
         }
       });
