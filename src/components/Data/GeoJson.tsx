@@ -244,9 +244,7 @@ const Content = (props: Props) => {
    * @param event
    */
   const saveFeatureCallback = (event: any) => {
-    if ("draw.delete" === event.type) {
-      setCurrentFeature(undefined); // Set undefined to currentFeature
-    } else if ("draw.create" === event.type) {
+    if ("draw.create" === event.type) {
       fetch(
         props.session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
@@ -269,6 +267,7 @@ const Content = (props: Props) => {
         });
       });
     } else if ("draw.delete" === event.type) {
+      setCurrentFeature(undefined); // Set undefined to currentFeature
       Promise.all(
         event.features.map((feature: GeoJSON.Feature) => {
           return fetch(
