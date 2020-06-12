@@ -14,6 +14,7 @@ export type Team = {
   };
   avatarImage: string | void;
   last2?: string;
+  isPaidTeam: boolean;
 };
 
 export const isTeam = (team: any): team is Team => {

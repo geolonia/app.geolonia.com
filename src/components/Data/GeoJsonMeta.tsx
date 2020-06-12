@@ -38,7 +38,7 @@ type Props = {
     status: string;
   }) => void;
 
-  isPayedUser: boolean;
+  isPaidTeam: boolean;
   style: string;
 };
 
@@ -92,7 +92,11 @@ const usePublic = (
         .then(() => {
           setGeoJsonMeta({ isPublic: draftIsPublic, name, status });
         })
-        .catch(() => {});
+        .catch(() => {
+          // 意図せずリクエストが失敗している
+          // 元に戻す
+          setDraftIsPublic(isPublic)
+        });
     }
   }, [
     draftIsPublic,
@@ -186,7 +190,7 @@ const Content = (props: Props & StateProps) => {
               onChange={e => {
                 setDraftIsPublic(e.target.checked);
               }}
-              disabled={!props.isPayedUser}
+              disabled={!props.isPaidTeam}
               inputProps={{ "aria-label": "primary checkbox" }}
               color="primary"
             />

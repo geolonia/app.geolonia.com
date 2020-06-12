@@ -47,7 +47,7 @@ type StateProps = {
   session: Session;
   geojsonId?: string;
   teamId?: string;
-  isPayedUser: boolean;
+  isPaidTeam: boolean;
 };
 
 type RouterProps = {
@@ -418,7 +418,7 @@ const Content = (props: Props) => {
             status={geoJsonMeta.status}
             setGeoJsonMeta={setGeoJsonMeta}
             style={style}
-            isPayedUser={props.isPayedUser}
+            isPaidTeam={props.isPaidTeam}
           />
         </div>
       ) : (
@@ -456,10 +456,10 @@ export const mapStateToProps = (
       session,
       teamId,
       geojsonId,
-      isPayedUser: !!team.last2
+      isPaidTeam: team.isPaidTeam
     };
   } else {
-    return { session, isPayedUser: false };
+    return { session, isPaidTeam: false };
   }
 };
 

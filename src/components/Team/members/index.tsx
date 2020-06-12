@@ -130,10 +130,10 @@ const Content = (props: Props) => {
 
   const { team } = props;
   let isOwner = false;
-  let isPayedTeam = false;
+  let isPaidTeam = false;
   if (team) {
     isOwner = team.role === Roles.Owner;
-    isPayedTeam = !!team.last2;
+    isPaidTeam = !!team.last2;
   }
 
   return (
@@ -141,7 +141,7 @@ const Content = (props: Props) => {
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
       </Title>
-      <Invite disabled={!isOwner || !isPayedTeam} />
+      <Invite disabled={!isOwner || !isPaidTeam} />
 
       {/* each member management */}
       {currentMember && (

@@ -106,9 +106,8 @@ export class AuthContainer extends React.Component<Props, State> {
     }
 
     try {
-      const { user, teams } = (await delay(
-        fundamentalAPILoads(session),
-        500
+      const { user, teams } = (await fundamentalAPILoads(
+        session
       )) as FundamentalAPIResult;
       if (!isUserMeta(user)) {
         throw new Error("invalid user meta response");
