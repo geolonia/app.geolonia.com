@@ -297,6 +297,9 @@
       "They is already a member of this team.": [
         "すでにメンバーになっています。"
       ],
+      "The maximum number of members has been reached.": [
+        "メンバー数が上限に達しました。"
+      ],
       "You cannot use this email address for invitation.": [
         "このメールアドレスは招待に使用できません。"
       ],

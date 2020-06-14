@@ -136,12 +136,19 @@ const Content = (props: Props) => {
     isPaidTeam = team.isPaidTeam;
   }
 
+  const inviteDisabled =
+    !team || // Not ready
+    !isOwner ||
+    !isPaidTeam ||
+    team.maxMemberLength <= members.length ||
+    members.length === 0;
+  console.log({ team, isOwner, isPaidTeam, members });
   return (
     <div>
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
       </Title>
-      <Invite disabled={!isOwner || !isPaidTeam} />
+      <Invite disabled={inviteDisabled} />
 
       {/* each member management */}
       {currentMember && (

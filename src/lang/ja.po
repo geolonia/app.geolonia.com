@@ -759,7 +759,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:102
-#: src/components/Team/members/index.tsx:267
+#: src/components/Team/members/index.tsx:274
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -777,7 +777,7 @@ msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
 #: src/components/Team/members/change-role.tsx:128
-#: src/components/Team/members/index.tsx:189
+#: src/components/Team/members/index.tsx:196
 msgid "Owner"
 msgstr "オーナー"
 
@@ -807,32 +807,32 @@ msgstr "APIキーを含むチームの全てのリソースを管理できます
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Team/members/index.tsx:142
+#: src/components/Team/members/index.tsx:149
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
 
-#: src/components/Team/members/index.tsx:191
+#: src/components/Team/members/index.tsx:198
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:229
+#: src/components/Team/members/index.tsx:236
 #: src/components/custom/AsyncTable.tsx:139 src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:271
+#: src/components/Team/members/index.tsx:278
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:275
+#: src/components/Team/members/index.tsx:282
 msgid "Remove from team"
 msgstr "チームから削除"
 
-#: src/components/Team/members/invite.tsx:104
+#: src/components/Team/members/invite.tsx:108
 msgid "Successfully send invitation."
 msgstr "チームへの招待が送信されました。"
 
-#: src/components/Team/members/invite.tsx:106
+#: src/components/Team/members/invite.tsx:110
 msgid "Failed to send invitation."
 msgstr "招待の送信に失敗しました。"
 
@@ -841,22 +841,26 @@ msgid "They is already a member of this team."
 msgstr "すでにメンバーになっています。"
 
 #: src/components/Team/members/invite.tsx:62
+msgid "The maximum number of members has been reached."
+msgstr "メンバー数が上限に達しました。"
+
+#: src/components/Team/members/invite.tsx:66
 msgid "You cannot use this email address for invitation."
 msgstr "このメールアドレスは招待に使用できません。"
 
-#: src/components/Team/members/invite.tsx:75
+#: src/components/Team/members/invite.tsx:79
 msgid "Invite"
 msgstr "招待"
 
-#: src/components/Team/members/invite.tsx:76
+#: src/components/Team/members/invite.tsx:80
 msgid "Send an invitation"
 msgstr "招待する"
 
-#: src/components/Team/members/invite.tsx:77
+#: src/components/Team/members/invite.tsx:81
 msgid "We automatically update your billing as your invitation is accepted."
 msgstr "チームメンバーの招待に伴う料金変更は自動的に行われます。"
 
-#: src/components/Team/members/invite.tsx:82
+#: src/components/Team/members/invite.tsx:86
 #: src/components/User/profile.tsx:118
 msgid "Email"
 msgstr "メールアドレス"
