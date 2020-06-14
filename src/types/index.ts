@@ -97,3 +97,11 @@ export type DownstreamNotifyMessage = {
     sender: string;
   };
 };
+
+export type Invoice = {
+  id: string;
+  total: number;
+  currency: string;
+  period_start: number;
+  period_end: number;
+};

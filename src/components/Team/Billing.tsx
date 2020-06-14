@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import { Line } from "react-chartjs-2";
 import Save from "../custom/Save";
 import Title from "../custom/Title";
+import PaymentHistory from "./payment-history";
 import PaymentMethodModal from "./payment-method-modal";
 import PlanModal from "./plan-modal";
 import PriceCard from "../custom/price-card";
@@ -144,7 +145,6 @@ const usePlan = (props: StateProps) => {
       )
         .then(res => res.json())
         .then(data => {
-          console.log(data);
           setPlanId(data.planId);
         });
     }
@@ -339,6 +339,15 @@ const Billing = (props: StateProps) => {
             </p>
           </div>
         </div> */}
+
+        {props.isOwner && (
+          <>
+            <Typography component="h2" className="module-title">
+              {__("Payment history")}
+            </Typography>
+            <PaymentHistory></PaymentHistory>
+          </>
+        )}
 
         {props.isOwner && (
           <>
