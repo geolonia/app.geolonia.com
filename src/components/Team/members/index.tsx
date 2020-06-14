@@ -142,7 +142,7 @@ const Content = (props: Props) => {
     !isPaidTeam ||
     team.maxMemberLength <= members.length ||
     members.length === 0;
-  console.log({ team, isOwner, isPaidTeam, members });
+
   return (
     <div>
       <Title title="Members" breadcrumb={breadcrumbItems}>
