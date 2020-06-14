@@ -246,6 +246,7 @@
       ],
       "Geolonia Appliance": ["Geolonia アプライアンス"],
       "Contact us": ["お問い合わせ下さい"],
+      "Payment history": ["支払履歴"],
       "Payment information": ["支払い情報"],
       "Payment method:": ["支払い方法"],
       "ending in **%1$s": ["末尾の番号 **%1$s"],
@@ -314,6 +315,11 @@
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
       ],
+      "Date": ["日時"],
+      "Payment": ["支払い"],
+      "Balanced": ["差し引き"],
+      "Refund": ["返金"],
+      "Balance": ["残高"],
       "Card information": ["クレジットカード情報"],
       "Update": ["更新"],
       "Unknown Error.": ["不明なエラー。"],

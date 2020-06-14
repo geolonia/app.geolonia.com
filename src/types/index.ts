@@ -104,4 +104,6 @@ export type Invoice = {
   currency: string;
   period_start: number;
   period_end: number;
+  ending_balance: null | number;
+  starting_balance: number;
 };

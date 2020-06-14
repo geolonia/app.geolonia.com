@@ -682,26 +682,30 @@ msgid "Contact us"
 msgstr "お問い合わせ下さい"
 
 #: src/components/Team/Billing.tsx:346
+msgid "Payment history"
+msgstr "支払履歴"
+
+#: src/components/Team/Billing.tsx:355
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:352
+#: src/components/Team/Billing.tsx:361
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:356
+#: src/components/Team/Billing.tsx:365
 msgid "ending in **%1$s"
 msgstr "末尾の番号 **%1$s"
 
-#: src/components/Team/Billing.tsx:366
+#: src/components/Team/Billing.tsx:375
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:376
+#: src/components/Team/Billing.tsx:385
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:387
+#: src/components/Team/Billing.tsx:396
 msgid "Change Plan"
 msgstr "プランを変更"
 
@@ -876,6 +880,26 @@ msgstr "メンバーの一時停止"
 #: src/components/Team/members/suspend.tsx:95
 msgid "The following members will be suspended:"
 msgstr "以下のメンバーによる操作が一時停止されます。"
+
+#: src/components/Team/payment-history.tsx:69
+msgid "Date"
+msgstr "日時"
+
+#: src/components/Team/payment-history.tsx:72
+msgid "Payment"
+msgstr "支払い"
+
+#: src/components/Team/payment-history.tsx:75
+msgid "Balanced"
+msgstr "差し引き"
+
+#: src/components/Team/payment-history.tsx:78
+msgid "Refund"
+msgstr "返金"
+
+#: src/components/Team/payment-history.tsx:81
+msgid "Balance"
+msgstr "残高"
 
 #: src/components/Team/payment-method-modal.tsx:104
 msgid "Card information"
@@ -1161,9 +1185,6 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
-
-#~ msgid "Payment history"
-#~ msgstr "支払履歴"
 
 #~ msgid "Your subscriptions"
 #~ msgstr "あなたのサブスクリプション"

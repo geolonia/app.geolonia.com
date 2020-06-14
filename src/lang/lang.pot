@@ -670,26 +670,30 @@ msgid "Contact us"
 msgstr ""
 
 #: src/components/Team/Billing.tsx:346
+msgid "Payment history"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:355
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:352
+#: src/components/Team/Billing.tsx:361
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:356
+#: src/components/Team/Billing.tsx:365
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:366
+#: src/components/Team/Billing.tsx:375
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:376
+#: src/components/Team/Billing.tsx:385
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:387
+#: src/components/Team/Billing.tsx:396
 msgid "Change Plan"
 msgstr ""
 
@@ -859,6 +863,26 @@ msgstr ""
 
 #: src/components/Team/members/suspend.tsx:95
 msgid "The following members will be suspended:"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:69
+msgid "Date"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:72
+msgid "Payment"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:75
+msgid "Balanced"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:78
+msgid "Refund"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:81
+msgid "Balance"
 msgstr ""
 
 #: src/components/Team/payment-method-modal.tsx:104

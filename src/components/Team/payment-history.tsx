@@ -7,11 +7,13 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import moment from "moment";
+import { __ } from "@wordpress/i18n";
 
 type OwnProps = {};
 type StateProps = {
   session: Session;
   teamId?: string;
+  language: string;
 };
 type Props = OwnProps & StateProps;
 
@@ -53,42 +55,102 @@ const useInvoices = (props: Props) => {
     }
   }, [session, teamId, loaded, invoices]);
 
-  return invoices;
+  return { invoices };
 };
 
 function PaymentHistory(props: Props) {
-  const invoices = useInvoices(props);
+  const { invoices } = useInvoices(props);
   return (
-    <Table className="payment-info">
-      <TableBody>
-        {invoices.map(({ total, currency, period_start, period_end, id }) => {
-          return (
-            <TableRow key={id}>
-              <TableCell component="th" scope="row">
-                {total / 100 + currency.toUpperCase()}
-              </TableCell>
-              <TableCell>
-                {moment(period_start * 1000).toLocaleString()}
-              </TableCell>
-            </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
+    <>
+      <Table className="payment-info">
+        <TableBody>
+          <TableRow>
+            <TableCell component="th" scope="column">
+              {__("Date")}
+            </TableCell>
+            <TableCell component="th" scope="column">
+              {__("Payment")}
+            </TableCell>
+            <TableCell component="th" scope="column">
+              {__("Balanced")}
+            </TableCell>
+            <TableCell component="th" scope="column">
+              {__("Refund")}
+            </TableCell>
+            <TableCell component="th" scope="column">
+              {__("Balance")}
+            </TableCell>
+          </TableRow>
+          {invoices.map(invoice => {
+            const {
+              total,
+              currency,
+              period_start,
+              period_end,
+              ending_balance,
+              starting_balance,
+              id
+            } = invoice;
+
+            const formattedTotal = new Intl.NumberFormat(props.language, {
+              style: "currency",
+              currency
+            }).format(Math.abs(total) / 100);
+
+            const formattedEndingBalance =
+              ending_balance === null
+                ? ""
+                : ending_balance === 0
+                ? "-"
+                : new Intl.NumberFormat(props.language, {
+                    style: "currency",
+                    currency
+                  }).format(-ending_balance / 100);
+            const formattedActualPayment = new Intl.NumberFormat(
+              props.language,
+              {
+                style: "currency",
+                currency
+              }
+            ).format((total - (ending_balance || 0) + starting_balance) / 100);
+            const formattedBalanced = new Intl.NumberFormat(props.language, {
+              style: "currency",
+              currency
+            }).format(((ending_balance || 0) - starting_balance) / 100);
+
+            return (
+              <TableRow key={id}>
+                <TableCell>
+                  {moment(period_start * 1000).format("YYYY-MM-DD HH:mm:ss")}
+                </TableCell>
+                <TableCell>
+                  {total > 0 ? formattedActualPayment : "-"}
+                </TableCell>
+                <TableCell>{total > 0 ? formattedBalanced : "-"}</TableCell>
+                <TableCell>{total < 0 ? formattedTotal : "-"}</TableCell>
+                <TableCell>{formattedEndingBalance}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </>
   );
 }
 
 export const mapStateToProps = (state: AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
+  const language = state.userMeta.language;
   const { session } = state.authSupport;
   if (team) {
     const { teamId } = team;
     return {
       session,
-      teamId
+      teamId,
+      language
     };
   } else {
-    return { session };
+    return { session, language };
   }
 };
 
