@@ -89,6 +89,7 @@ export const Invite = (props: Props) => {
         onClick={inviteHandler}
         onError={() => {}}
         onSuccess={() => {}}
+        saveButtonLabel={__("Invite")}
       />
       <Snackbar
         className={`snackbar-saved ${status}`}
