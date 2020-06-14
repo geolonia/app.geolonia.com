@@ -144,7 +144,7 @@ msgstr ""
 #: src/components/Navigator.tsx:317
 #: src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:130
-#: src/components/custom/AddNew.tsx:36
+#: src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:121
 msgid "Name"
 msgstr ""
@@ -717,7 +717,7 @@ msgstr ""
 #: src/components/Team/members/change-role.tsx:161
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
-#: src/components/custom/AddNew.tsx:142
+#: src/components/custom/AddNew.tsx:145
 #: src/components/custom/Cancel.tsx:18
 #: src/components/custom/Delete.tsx:137
 msgid "Cancel"
@@ -785,7 +785,7 @@ msgstr ""
 
 #: src/components/Team/members/change-role.tsx:172
 #: src/components/Team/members/suspend.tsx:114
-#: src/components/custom/AddNew.tsx:153
+#: src/components/custom/AddNew.tsx:40
 #: src/components/custom/Save.tsx:26
 msgid "Save"
 msgstr ""
@@ -812,11 +812,11 @@ msgstr ""
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:108
+#: src/components/Team/members/invite.tsx:109
 msgid "Successfully send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:110
+#: src/components/Team/members/invite.tsx:111
 msgid "Failed to send invitation."
 msgstr ""
 
@@ -847,6 +847,10 @@ msgstr ""
 #: src/components/Team/members/invite.tsx:86
 #: src/components/User/profile.tsx:118
 msgid "Email"
+msgstr ""
+
+#: src/components/Team/members/invite.tsx:92
+msgid "Send"
 msgstr ""
 
 #: src/components/Team/members/remove-member.tsx:78
@@ -922,19 +926,19 @@ msgstr ""
 msgid "Old password"
 msgstr ""
 
-#: src/components/custom/AddNew.tsx:34
+#: src/components/custom/AddNew.tsx:35
 msgid "New"
 msgstr ""
 
-#: src/components/custom/AddNew.tsx:35
+#: src/components/custom/AddNew.tsx:36
 msgid "name"
 msgstr ""
 
-#: src/components/custom/AddNew.tsx:37
+#: src/components/custom/AddNew.tsx:38
 msgid "text"
 msgstr ""
 
-#: src/components/custom/AddNew.tsx:38
+#: src/components/custom/AddNew.tsx:39
 msgid "Some error."
 msgstr ""
 
