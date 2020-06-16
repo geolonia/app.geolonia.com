@@ -6,14 +6,12 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import { Line } from "react-chartjs-2";
-import Save from "../custom/Save";
+// import { Line } from "react-chartjs-2";
+// import Save from "../custom/Save";
 import Title from "../custom/Title";
 import PaymentMethodModal from "./payment-method-modal";
 import PlanModal from "./plan-modal";
-import PriceCard from "../custom/price-card";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
+import Receipts from './Billing/Receipts'
 import "./Billing.scss";
 
 import { __, sprintf } from "@wordpress/i18n";
@@ -190,155 +188,6 @@ const Billing = (props: StateProps) => {
           {__("You can see subscriptions for this team in this month.")}
         </Title>
 
-        {/* <Grid container spacing={2}>
-          {plans.map(plan => {
-            if (isAppliancePlan(plan)) {
-              return (
-                <Grid key={"appliance"} item md={4} sm={12}>
-                  <PriceCard
-                    title={plan.name}
-                    color={"green"}
-                    price={plan.unitPrice}
-                    unit={__("month * person")}
-                    features={["aaa", "bbb"]}
-                  ></PriceCard>
-                </Grid>
-              );
-            } else {
-              return (
-                <Grid key={plan.planId} item md={4} sm={12}>
-                  <PriceCard
-                    title={plan.name}
-                    color={"green"}
-                    price={plan.price}
-                    unit={__("month")}
-                    features={["aaa", "bbb"]}
-                  ></PriceCard>
-                </Grid>
-              );
-            }
-          })}
-        </Grid> */}
-
-        <Grid container spacing={2}>
-          <Grid item md={4} sm={12} style={{ width: "100%" }}>
-            <PriceCard
-              title={"Pro プラン"}
-              pricePerMonth={9}
-              pricePerYear={99}
-              features={["APIKeyの取得", "地図の作成", "位置情報ホスティング"]}
-            ></PriceCard>
-          </Grid>
-          <Grid item md={4} sm={12}>
-            <PriceCard
-              title={"Pro プラン Silver"}
-              pricePerMonth={30}
-              pricePerYear={330}
-              features={[
-                "APIKeyの取得",
-                "地図の作成",
-                "位置情報ホスティング",
-                "チームの作成",
-                "チームメンバーの追加（最大5名）",
-                "位置情報の同時編集機能"
-              ]}
-            ></PriceCard>
-          </Grid>
-          <Grid item md={4} sm={12}>
-            <PriceCard
-              title={__("Geolonia Appliance")}
-              pricePerPersonPerMonth={5}
-              features={[
-                "APIKeyの取得",
-                "地図の作成",
-                "位置情報ホスティング",
-                "チームの作成",
-                "チームメンバーの追加（制限なし）",
-                "位置情報の同時編集機能",
-                "プレミアムサポート"
-              ]}
-            >
-              <Link href={"https://geolonia.com/contact"}>
-                {__("Contact us")}
-              </Link>
-            </PriceCard>
-          </Grid>
-        </Grid>
-
-        {/* <Typography component="h2" className="module-title">
-          {__("Payment history")}
-        </Typography>
-        <div style={chartStyle}>
-          <Line data={chartData} options={chartOptions} />
-        </div> */}
-
-        {/* <Typography component="h2" className="module-title">
-          {__("Your subscriptions")}
-        </Typography> */}
-
-        {/* <div className="billing-container">
-          <div className="item">
-            <h3 className="title">{__("Cost per 1,000 map loads/month")}</h3>
-            <p className="value">$3.0</p>
-            <p className="billed-on">{__("Free for up to 50,000/month")}</p>
-          </div>
-          <div className="item">
-            <h3 className="title">{__("Loads")}</h3>
-            <p className="value">85,000</p>
-          </div>
-          <div className="item subtotal">
-            <p className="value">$105.0</p>
-          </div>
-        </div>
-
-        <div className="billing-container">
-          <div className="item">
-            <h3 className="title">{__("Cost per 1,000 API loads/month")}</h3>
-            <p className="value">$1.0</p>
-            <p className="billed-on">{__("Free for up to 50,000/month")}</p>
-          </div>
-          <div className="item">
-            <h3 className="title">{__("Loads")}</h3>
-            <p className="value">85,000</p>
-          </div>
-          <div className="item subtotal">
-            <p className="value">$35.0</p>
-          </div>
-        </div>
-
-        <div className="billing-container">
-          <div className="item">
-            <h3 className="title">{__("Plans")}</h3>
-            <p className="value">
-              {props.memberCount && props.memberCount > 1
-                ? __("Team Plan")
-                : __("Free Plan")}
-            </p>
-          </div>
-          <div className="item">
-            <h3 className="title">{__("Users")}</h3>
-            <p className="value">
-              {props.memberCount ? props.memberCount : ""}
-            </p>
-          </div>
-          <div className="item subtotal">
-            <p className="value">{"作成中"}</p>
-          </div>
-        </div>
-
-        <div className="billing-container no-border">
-          <div className="item empty"></div>
-          <div className="item empty"></div>
-          <div className="item subtotal">
-            <h3 className="title">{__("Amount")}</h3>
-            <p className="value amount">$206.0</p>
-            <p className="billed-on">
-              {__("Billed monthly on")}
-              <br />
-              Oct 1st, 2019
-            </p>
-          </div>
-        </div> */}
 
         {props.isOwner && (
           <>
@@ -412,6 +261,11 @@ const Billing = (props: StateProps) => {
           </>
         )}
       </div>
+      <p style={{textAlign: 'right'}}><a href="https://geolonia.com/pricing">Learn more about plans on the pricing page.</a></p>
+
+      <Typography component="h2" className="module-title">{__("Paid invoice receipts")}</Typography>
+      <Receipts />
+
     </StripeContainer>
   );
 };
