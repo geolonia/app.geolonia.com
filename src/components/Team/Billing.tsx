@@ -6,15 +6,13 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
-import { Line } from "react-chartjs-2";
-import Save from "../custom/Save";
+// import { Line } from "react-chartjs-2";
+// import Save from "../custom/Save";
 import Title from "../custom/Title";
 import PaymentHistory from "./payment-history";
 import PaymentMethodModal from "./payment-method-modal";
 import PlanModal from "./plan-modal";
-import PriceCard from "../custom/price-card";
-import Grid from "@material-ui/core/Grid";
-import Link from "@material-ui/core/Link";
+import Receipts from "./Billing/Receipts";
 import "./Billing.scss";
 
 import { __, sprintf } from "@wordpress/i18n";
@@ -36,52 +34,52 @@ const StripeContainer = (props: { children: React.ReactNode }) => {
   return <Elements stripe={stripePromise}>{props.children}</Elements>;
 };
 
-const chartStyle: React.CSSProperties = {
-  width: "100%",
-  height: "250px",
-  margin: "2em 0"
-};
+// const chartStyle: React.CSSProperties = {
+//   width: "100%",
+//   height: "250px",
+//   margin: "2em 0"
+// };
 
-const chartData = {
-  labels: [
-    "Oct",
-    "Nov",
-    "Dec",
-    "Jan, 2019",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep"
-  ],
-  datasets: [
-    {
-      borderColor: "rgba(0, 149, 221, 1)",
-      backgroundColor: "rgba(0, 149, 221, 0.2)",
-      data: [400, 500, 300, 456, 500, 700, 720, 710, 800, 910, 1000, 110]
-    }
-  ]
-};
+// const chartData = {
+//   labels: [
+//     "Oct",
+//     "Nov",
+//     "Dec",
+//     "Jan, 2019",
+//     "Feb",
+//     "Mar",
+//     "Apr",
+//     "May",
+//     "Jun",
+//     "Jul",
+//     "Aug",
+//     "Sep"
+//   ],
+//   datasets: [
+//     {
+//       borderColor: "rgba(0, 149, 221, 1)",
+//       backgroundColor: "rgba(0, 149, 221, 0.2)",
+//       data: [400, 500, 300, 456, 500, 700, 720, 710, 800, 910, 1000, 110]
+//     }
+//   ]
+// };
 
-const chartOptions = {
-  legend: {
-    display: false
-  },
-  maintainAspectRatio: false,
-  responsive: true,
-  scales: {
-    yAxes: [
-      {
-        ticks: {
-          min: 0
-        }
-      }
-    ]
-  }
-};
+// const chartOptions = {
+//   legend: {
+//     display: false
+//   },
+//   maintainAspectRatio: false,
+//   responsive: true,
+//   scales: {
+//     yAxes: [
+//       {
+//         ticks: {
+//           min: 0
+//         }
+//       }
+//     ]
+//   }
+// };
 
 type StateProps = {
   session: Session;
@@ -190,83 +188,6 @@ const Billing = (props: StateProps) => {
           {__("You can see subscriptions for this team in this month.")}
         </Title>
 
-        {/* <Grid container spacing={2}>
-          {plans.map(plan => {
-            if (isAppliancePlan(plan)) {
-              return (
-                <Grid key={"appliance"} item md={4} sm={12}>
-                  <PriceCard
-                    title={plan.name}
-                    color={"green"}
-                    price={plan.unitPrice}
-                    unit={__("month * person")}
-                    features={["aaa", "bbb"]}
-                  ></PriceCard>
-                </Grid>
-              );
-            } else {
-              return (
-                <Grid key={plan.planId} item md={4} sm={12}>
-                  <PriceCard
-                    title={plan.name}
-                    color={"green"}
-                    price={plan.price}
-                    unit={__("month")}
-                    features={["aaa", "bbb"]}
-                  ></PriceCard>
-                </Grid>
-              );
-            }
-          })}
-        </Grid> */}
-
-        <Grid container spacing={2}>
-          <Grid item md={4} sm={12} style={{ width: "100%" }}>
-            <PriceCard
-              title={"Pro プラン"}
-              pricePerMonth={9}
-              pricePerYear={99}
-              features={["APIKeyの取得", "地図の作成", "位置情報ホスティング"]}
-            ></PriceCard>
-          </Grid>
-          <Grid item md={4} sm={12}>
-            <PriceCard
-              title={"Pro プラン Silver"}
-              pricePerMonth={30}
-              pricePerYear={330}
-              features={[
-                "APIKeyの取得",
-                "地図の作成",
-                "位置情報ホスティング",
-                "チームの作成",
-                "チームメンバーの追加（最大5名）",
-                "位置情報の同時編集機能"
-              ]}
-            ></PriceCard>
-          </Grid>
-          <Grid item md={4} sm={12}>
-            <PriceCard
-              title={__("Geolonia Appliance")}
-              pricePerPersonPerMonth={5}
-              features={[
-                "APIKeyの取得",
-                "地図の作成",
-                "位置情報ホスティング",
-                "チームの作成",
-                "チームメンバーの追加（制限なし）",
-                "位置情報の同時編集機能",
-                "プレミアムサポート"
-              ]}
-            >
-              <Link href={"https://geolonia.com/contact"}>
-                {__("Contact us")}
-              </Link>
-            </PriceCard>
-          </Grid>
-        </Grid>
-
-        {props.isOwner && <PaymentHistory></PaymentHistory>}
-
         {props.isOwner && (
           <>
             <Typography component="h2" className="module-title">
@@ -339,6 +260,16 @@ const Billing = (props: StateProps) => {
           </>
         )}
       </div>
+      <p style={{ textAlign: "right" }}>
+        <a href="https://geolonia.com/pricing">
+          Learn more about plans on the pricing page.
+        </a>
+      </p>
+
+      <Typography component="h2" className="module-title">
+        {__("Paid invoice receipts")}
+      </Typography>
+      <Receipts />
     </StripeContainer>
   );
 };
