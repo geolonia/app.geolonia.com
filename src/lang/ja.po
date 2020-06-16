@@ -151,7 +151,7 @@ msgstr "チーム機能をアップグレード"
 #: src/components/Data/GeoJsonMeta.tsx:252 src/components/Data/fields.tsx:26
 #: src/components/Maps/APIKey.tsx:213 src/components/Navigator.tsx:317
 #: src/components/Team/general/fields.tsx:87
-#: src/components/User/profile.tsx:130 src/components/custom/AddNew.tsx:36
+#: src/components/User/profile.tsx:130 src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:121
 msgid "Name"
 msgstr "名前"
@@ -734,7 +734,7 @@ msgstr ""
 #: src/components/Team/members/change-role.tsx:161
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
-#: src/components/custom/AddNew.tsx:142 src/components/custom/Cancel.tsx:18
+#: src/components/custom/AddNew.tsx:145 src/components/custom/Cancel.tsx:18
 #: src/components/custom/Delete.tsx:137
 msgid "Cancel"
 msgstr "キャンセル"
@@ -763,7 +763,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:102
-#: src/components/Team/members/index.tsx:267
+#: src/components/Team/members/index.tsx:274
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -781,7 +781,7 @@ msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
 #: src/components/Team/members/change-role.tsx:128
-#: src/components/Team/members/index.tsx:189
+#: src/components/Team/members/index.tsx:196
 msgid "Owner"
 msgstr "オーナー"
 
@@ -807,36 +807,36 @@ msgstr "APIキーを含むチームの全てのリソースを管理できます
 
 #: src/components/Team/members/change-role.tsx:172
 #: src/components/Team/members/suspend.tsx:114
-#: src/components/custom/AddNew.tsx:153 src/components/custom/Save.tsx:26
+#: src/components/custom/AddNew.tsx:40 src/components/custom/Save.tsx:26
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Team/members/index.tsx:142
+#: src/components/Team/members/index.tsx:149
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
 
-#: src/components/Team/members/index.tsx:191
+#: src/components/Team/members/index.tsx:198
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:229
+#: src/components/Team/members/index.tsx:236
 #: src/components/custom/AsyncTable.tsx:139 src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:271
+#: src/components/Team/members/index.tsx:278
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:275
+#: src/components/Team/members/index.tsx:282
 msgid "Remove from team"
 msgstr "チームから削除"
 
-#: src/components/Team/members/invite.tsx:104
+#: src/components/Team/members/invite.tsx:109
 msgid "Successfully send invitation."
 msgstr "チームへの招待が送信されました。"
 
-#: src/components/Team/members/invite.tsx:106
+#: src/components/Team/members/invite.tsx:111
 msgid "Failed to send invitation."
 msgstr "招待の送信に失敗しました。"
 
@@ -845,25 +845,33 @@ msgid "They is already a member of this team."
 msgstr "すでにメンバーになっています。"
 
 #: src/components/Team/members/invite.tsx:62
+msgid "The maximum number of members has been reached."
+msgstr "メンバー数が上限に達しました。"
+
+#: src/components/Team/members/invite.tsx:66
 msgid "You cannot use this email address for invitation."
 msgstr "このメールアドレスは招待に使用できません。"
 
-#: src/components/Team/members/invite.tsx:75
+#: src/components/Team/members/invite.tsx:79
 msgid "Invite"
 msgstr "招待"
 
-#: src/components/Team/members/invite.tsx:76
+#: src/components/Team/members/invite.tsx:80
 msgid "Send an invitation"
 msgstr "招待する"
 
-#: src/components/Team/members/invite.tsx:77
+#: src/components/Team/members/invite.tsx:81
 msgid "We automatically update your billing as your invitation is accepted."
 msgstr "チームメンバーの招待に伴う料金変更は自動的に行われます。"
 
-#: src/components/Team/members/invite.tsx:82
+#: src/components/Team/members/invite.tsx:86
 #: src/components/User/profile.tsx:118
 msgid "Email"
 msgstr "メールアドレス"
+
+#: src/components/Team/members/invite.tsx:92
+msgid "Send"
+msgstr "送信"
 
 #: src/components/Team/members/remove-member.tsx:78
 msgid "The following members will be removed:"
@@ -958,19 +966,19 @@ msgstr "セキュリティ"
 msgid "Old password"
 msgstr "古いパスワード"
 
-#: src/components/custom/AddNew.tsx:34
+#: src/components/custom/AddNew.tsx:35
 msgid "New"
 msgstr "新規作成"
 
-#: src/components/custom/AddNew.tsx:35
+#: src/components/custom/AddNew.tsx:36
 msgid "name"
 msgstr "ユーザー名"
 
-#: src/components/custom/AddNew.tsx:37
+#: src/components/custom/AddNew.tsx:38
 msgid "text"
 msgstr "テキスト"
 
-#: src/components/custom/AddNew.tsx:38
+#: src/components/custom/AddNew.tsx:39
 msgid "Some error."
 msgstr "何かのエラーです。"
 
