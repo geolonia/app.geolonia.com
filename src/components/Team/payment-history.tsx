@@ -8,6 +8,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import moment from "moment";
 import { __ } from "@wordpress/i18n";
+import Typography from "@material-ui/core/Typography";
 
 type OwnProps = {};
 type StateProps = {
@@ -60,8 +61,27 @@ const useInvoices = (props: Props) => {
 
 function PaymentHistory(props: Props) {
   const { invoices } = useInvoices(props);
+  const formatter = (currency: string) =>
+    new Intl.NumberFormat(props.language, {
+      style: "currency",
+      currency
+    });
+  const currentBalance =
+    invoices[0] && invoices[0].ending_balance !== null
+      ? formatter(invoices[0].currency).format(
+          -invoices[0].ending_balance / 100
+        )
+      : "-";
+
   return (
     <>
+      <Typography component="h2" className="module-title">
+        {__("Balance")}
+      </Typography>
+      <p style={{ fontSize: 20 }}>{currentBalance}</p>
+      <Typography component="h2" className="module-title">
+        {__("Payment history")}
+      </Typography>
       <Table className="payment-info">
         <TableBody>
           <TableRow>
@@ -69,16 +89,10 @@ function PaymentHistory(props: Props) {
               {__("Date")}
             </TableCell>
             <TableCell component="th" scope="column">
-              {__("Payment")}
-            </TableCell>
-            <TableCell component="th" scope="column">
-              {__("Balanced")}
+              {`${__("Payment")} (${__("Balanced")})`}
             </TableCell>
             <TableCell component="th" scope="column">
               {__("Refund")}
-            </TableCell>
-            <TableCell component="th" scope="column">
-              {__("Balance")}
             </TableCell>
           </TableRow>
           {invoices.map(invoice => {
@@ -86,7 +100,6 @@ function PaymentHistory(props: Props) {
               total,
               currency,
               period_start,
-              period_end,
               ending_balance,
               starting_balance,
               id
@@ -97,26 +110,12 @@ function PaymentHistory(props: Props) {
               currency
             }).format(Math.abs(total) / 100);
 
-            const formattedEndingBalance =
-              ending_balance === null
-                ? ""
-                : ending_balance === 0
-                ? "-"
-                : new Intl.NumberFormat(props.language, {
-                    style: "currency",
-                    currency
-                  }).format(-ending_balance / 100);
-            const formattedActualPayment = new Intl.NumberFormat(
-              props.language,
-              {
-                style: "currency",
-                currency
-              }
-            ).format((total - (ending_balance || 0) + starting_balance) / 100);
-            const formattedBalanced = new Intl.NumberFormat(props.language, {
-              style: "currency",
-              currency
-            }).format(((ending_balance || 0) - starting_balance) / 100);
+            const formattedActualPayment = formatter(currency).format(
+              (total - (ending_balance || 0) + starting_balance) / 100
+            );
+            const formattedBalanced = formatter(currency).format(
+              ((ending_balance || 0) - starting_balance) / 100
+            );
 
             return (
               <TableRow key={id}>
@@ -124,11 +123,11 @@ function PaymentHistory(props: Props) {
                   {moment(period_start * 1000).format("YYYY-MM-DD HH:mm:ss")}
                 </TableCell>
                 <TableCell>
-                  {total > 0 ? formattedActualPayment : "-"}
+                  {total > 0
+                    ? `${formattedActualPayment}(${formattedBalanced})`
+                    : "-"}
                 </TableCell>
-                <TableCell>{total > 0 ? formattedBalanced : "-"}</TableCell>
                 <TableCell>{total < 0 ? formattedTotal : "-"}</TableCell>
-                <TableCell>{formattedEndingBalance}</TableCell>
               </TableRow>
             );
           })}
