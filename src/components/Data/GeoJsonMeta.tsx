@@ -44,17 +44,17 @@ type Props = {
 
 type StateProps = { session: Session };
 
-const copyToClipBoard = (style: string) => {
-  const input = document.querySelector(
-    ".geolonia-geojson-api-endpoint"
-  ) as HTMLInputElement;
-  if (input) {
-    input.select();
-    clipboard.writeText(
-      `<div class="geolonia" data-geojson="${input.value}" style="${style}"></div>`
-    );
-  }
-};
+// const copyToClipBoard = (style: string) => {
+//   const input = document.querySelector(
+//     ".geolonia-geojson-api-endpoint"
+//   ) as HTMLInputElement;
+//   if (input) {
+//     input.select();
+//     clipboard.writeText(
+//       `<div class="geolonia" data-geojson="${input.value}" style="${style}"></div>`
+//     );
+//   }
+// };
 
 const copyUrlToClipBoard = () => {
   const input = document.querySelector(

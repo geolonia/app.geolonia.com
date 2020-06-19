@@ -59,7 +59,7 @@ type RouterProps = {
 type Props = OwnProps & RouterProps & StateProps;
 
 const Content = (props: Props) => {
-  const [message, setMessage] = React.useState("");
+  const [message] = React.useState("");
   const [currentFeature, setCurrentFeature] = React.useState<
     Feature | undefined
   >();
