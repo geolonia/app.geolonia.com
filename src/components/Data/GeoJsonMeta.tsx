@@ -184,7 +184,7 @@ const Content = (props: Props & StateProps) => {
     <Grid className="geojson-meta" container spacing={2}>
       <Grid item sm={4} xs={12}>
         <Paper className="geojson-title-description">
-          {/* <div>
+          <div>
             <Switch
               checked={draftIsPublic}
               onChange={e => {
@@ -205,7 +205,7 @@ const Content = (props: Props & StateProps) => {
                 Private
               </span>
             )}
-          </div> */}
+          </div>
           <div>
             {isPublic ? (
               <p>{__("Anyone can access this GeoJSON API.")}</p>
@@ -284,19 +284,21 @@ const Content = (props: Props & StateProps) => {
                   )
                   .then(res => {
                     if (res.status < 400) {
-                      return res.json();
+                      return res.text();
                     } else {
                       throw new Error("");
                     }
                   })
-                  .then(geojson => {
+                  .then(geojsonString => {
                     const element = document.createElement("a");
-                    const file = new Blob([geojson], { type: "text/plain" });
+                    const file = new Blob([geojsonString], { type: "application/geo+json" });
                     element.href = URL.createObjectURL(file);
                     element.download = `${geojsonId}.geojson`;
                     document.body.appendChild(element); // Required for this to work in FireFox
                     element.click();
                     document.body.removeChild(element);
+                  }).catch(err => {
+                    //
                   });
               }}
               disabled={status === "draft" || !isPublic}

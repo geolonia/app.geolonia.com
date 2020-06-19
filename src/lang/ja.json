@@ -61,16 +61,14 @@
       "You can restrict the URLs that can use this GeoJSON API.": [
         "この GeoJSON API を利用できる URL を制限することができます。"
       ],
-      "Datasets are published now.": [""],
-      "Datasets status are draft now.": [""],
+      "Datasets are published now.": ["データセットは公開されています。"],
+      "Datasets status are draft now.": ["データセットは下書きの状態です。"],
       "Upgrade to Geolonia Team": ["チーム機能をアップグレード"],
       "Name": ["名前"],
-      "Name of public GeoJSON will be displayed in public.": [""],
-      "Download": ["GeoJSON をダウンロード"],
-      "Private Endpoint": ["プライベートエンドポイント"],
-      "Copy embed code to clipboard": [
-        "埋め込み用コードをクリップボードにコピー"
+      "Name of public GeoJSON will be displayed in public.": [
+        "公開されているGeoJSONの名前が表示されます。"
       ],
+      "Download": ["GeoJSON をダウンロード"],
       "Or": ["または"],
       "Copy endpoint URL to clipboard": [
         "エンドポイント URL をクリップボードにコピー"
@@ -244,14 +242,13 @@
       "You can see subscriptions for this team in this month.": [
         "このチームの今月のサブスクリプションを確認することができます。"
       ],
-      "Geolonia Appliance": ["Geolonia アプライアンス"],
-      "Contact us": ["お問い合わせ下さい"],
       "Payment information": ["支払い情報"],
       "Payment method:": ["支払い方法"],
       "ending in **%1$s": ["末尾の番号 **%1$s"],
       "Change payment method": ["支払い方法を変更"],
       "Current Plan": ["現在のプラン"],
       "Change Plan": ["プランを変更"],
+      "Paid invoice receipts": [""],
       "Upload new picture": ["新しい写真をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [
         "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"

@@ -46,7 +46,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:112
 #: src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:177
+#: src/components/Team/Billing.tsx:175
 msgid "Home"
 msgstr ""
 
@@ -153,23 +153,15 @@ msgstr ""
 msgid "Name of public GeoJSON will be displayed in public."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:278
+#: src/components/Data/GeoJsonMeta.tsx:306
 msgid "Download"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:284
-msgid "Private Endpoint"
-msgstr ""
-
-#: src/components/Data/GeoJsonMeta.tsx:300
-msgid "Copy embed code to clipboard"
-msgstr ""
-
-#: src/components/Data/GeoJsonMeta.tsx:305
+#: src/components/Data/GeoJsonMeta.tsx:311
 msgid "Or"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:309
+#: src/components/Data/GeoJsonMeta.tsx:314
 msgid "Copy endpoint URL to clipboard"
 msgstr ""
 
@@ -647,50 +639,46 @@ msgstr ""
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:155
+#: src/components/Team/Billing.tsx:153
 msgid "Free plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:181
+#: src/components/Team/Billing.tsx:179
 #: src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:190
+#: src/components/Team/Billing.tsx:188
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:249
-msgid "Geolonia Appliance"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:262
-msgid "Contact us"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:346
+#: src/components/Team/Billing.tsx:195
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:352
+#: src/components/Team/Billing.tsx:201
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:356
+#: src/components/Team/Billing.tsx:205
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:366
+#: src/components/Team/Billing.tsx:215
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:376
+#: src/components/Team/Billing.tsx:225
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:387
+#: src/components/Team/Billing.tsx:236
 msgid "Change Plan"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:266
+msgid "Paid invoice receipts"
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:126
