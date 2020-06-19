@@ -184,7 +184,7 @@ const Content = (props: Props & StateProps) => {
     <Grid className="geojson-meta" container spacing={2}>
       <Grid item sm={4} xs={12}>
         <Paper className="geojson-title-description">
-          <div>
+          {/* <div>
             <Switch
               checked={draftIsPublic}
               onChange={e => {
@@ -205,7 +205,7 @@ const Content = (props: Props & StateProps) => {
                 Private
               </span>
             )}
-          </div>
+          </div> */}
           <div>
             {isPublic ? (
               <p>{__("Anyone can access this GeoJSON API.")}</p>
