@@ -12,7 +12,6 @@ import listKeys from "../api/keys/list";
 import listTeamMembers from "../api/members/list";
 
 // Utils
-import delay from "../lib/promise-delay";
 import dateParse from "../lib/date-parse";
 import estimateLanguage from "../lib/estimate-language";
 
