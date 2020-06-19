@@ -95,7 +95,7 @@ const usePublic = (
         .catch(() => {
           // 意図せずリクエストが失敗している
           // 元に戻す
-          setDraftIsPublic(isPublic)
+          setDraftIsPublic(isPublic);
         });
     }
   }, [
@@ -266,51 +266,53 @@ const Content = (props: Props & StateProps) => {
       <Grid item sm={8} xs={12}>
         <Paper className="geojson-title-description">
           <h3>{__("Download GeoJSON")}</h3>
+          <input
+            disabled={!isPublic}
+            className="geolonia-geojson-api-endpoint"
+            value={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`}
+          />
           <p>
             <Button
               variant="contained"
               color="primary"
               size="large"
               style={{ width: "100%" }}
-              href={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`}
-              disabled={status === "draft"}
+              onClick={() => {
+                window
+                  .fetch(
+                    `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`
+                  )
+                  .then(res => {
+                    if (res.status < 400) {
+                      return res.json();
+                    } else {
+                      throw new Error("");
+                    }
+                  })
+                  .then(geojson => {
+                    const element = document.createElement("a");
+                    const file = new Blob([geojson], { type: "text/plain" });
+                    element.href = URL.createObjectURL(file);
+                    element.download = `${geojsonId}.geojson`;
+                    document.body.appendChild(element); // Required for this to work in FireFox
+                    element.click();
+                    document.body.removeChild(element);
+                  });
+              }}
+              disabled={status === "draft" || !isPublic}
             >
               {__("Download")}
             </Button>
           </p>
-        </Paper>
-
-        <Paper className="geojson-title-description">
-          <h3>{__("Private Endpoint")}</h3>
-          <>
-            <input
-              disabled={isPublic}
-              className="geolonia-geojson-api-endpoint"
-              value={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/private/${geojsonId}`}
-            />
-            <p>
-              <Button
-                disabled={isPublic}
-                variant="contained"
-                color="primary"
-                size="large"
-                style={{ width: "100%" }}
-                onClick={() => copyToClipBoard(props.style)}
-              >
-                {__("Copy embed code to clipboard")}
-              </Button>
+          {isPublic && (
+            <p style={{ textAlign: "center", fontSize: "90%" }}>
+              {__("Or")}
+              <br />
+              <button className="copy-button" onClick={copyUrlToClipBoard}>
+                {__("Copy endpoint URL to clipboard")}
+              </button>
             </p>
-            {!isPublic ? (
-              <p style={{ textAlign: "center", fontSize: "90%" }}>
-                {__("Or")}
-                <br />
-
-                <button className="copy-button" onClick={copyUrlToClipBoard}>
-                  {__("Copy endpoint URL to clipboard")}
-                </button>
-              </p>
-            ) : null}
-          </>
+          )}
         </Paper>
       </Grid>
     </Grid>
