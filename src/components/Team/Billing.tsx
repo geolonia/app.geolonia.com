@@ -34,53 +34,6 @@ const StripeContainer = (props: { children: React.ReactNode }) => {
   return <Elements stripe={stripePromise}>{props.children}</Elements>;
 };
 
-// const chartStyle: React.CSSProperties = {
-//   width: "100%",
-//   height: "250px",
-//   margin: "2em 0"
-// };
-
-// const chartData = {
-//   labels: [
-//     "Oct",
-//     "Nov",
-//     "Dec",
-//     "Jan, 2019",
-//     "Feb",
-//     "Mar",
-//     "Apr",
-//     "May",
-//     "Jun",
-//     "Jul",
-//     "Aug",
-//     "Sep"
-//   ],
-//   datasets: [
-//     {
-//       borderColor: "rgba(0, 149, 221, 1)",
-//       backgroundColor: "rgba(0, 149, 221, 0.2)",
-//       data: [400, 500, 300, 456, 500, 700, 720, 710, 800, 910, 1000, 110]
-//     }
-//   ]
-// };
-
-// const chartOptions = {
-//   legend: {
-//     display: false
-//   },
-//   maintainAspectRatio: false,
-//   responsive: true,
-//   scales: {
-//     yAxes: [
-//       {
-//         ticks: {
-//           min: 0
-//         }
-//       }
-//     ]
-//   }
-// };
-
 type StateProps = {
   session: Session;
   last2?: string;

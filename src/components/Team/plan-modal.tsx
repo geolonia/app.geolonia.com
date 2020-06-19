@@ -41,7 +41,7 @@ const { REACT_APP_STAGE } = process.env;
 const PlanModal = (props: Props) => {
   const { open, handleClose, session, teamId, plans, currentPlanId } = props;
   const [loading, setLoading] = React.useState(false);
-  const [message, setMessage] = React.useState("");
+  const [message] = React.useState("");
   const [planId, setPlanId] = React.useState<string | null | undefined>(void 0);
 
   const handleSubmit = async () => {

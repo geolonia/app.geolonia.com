@@ -53,7 +53,7 @@ msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GeoJson.tsx:106 src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:112 src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:177
+#: src/components/Team/Billing.tsx:128
 msgid "Home"
 msgstr ""
 
@@ -138,11 +138,11 @@ msgstr "この GeoJSON API を利用できる URL を制限することができ
 
 #: src/components/Data/GeoJsonMeta.tsx:241
 msgid "Datasets are published now."
-msgstr ""
+msgstr "データセットは公開されています。"
 
 #: src/components/Data/GeoJsonMeta.tsx:243
 msgid "Datasets status are draft now."
-msgstr ""
+msgstr "データセットは下書きの状態です。"
 
 #: src/components/Data/GeoJsonMeta.tsx:246
 msgid "Upgrade to Geolonia Team"
@@ -158,25 +158,17 @@ msgstr "名前"
 
 #: src/components/Data/GeoJsonMeta.tsx:263
 msgid "Name of public GeoJSON will be displayed in public."
-msgstr ""
+msgstr "公開されているGeoJSONの名前が表示されます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:278
+#: src/components/Data/GeoJsonMeta.tsx:306
 msgid "Download"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GeoJsonMeta.tsx:284
-msgid "Private Endpoint"
-msgstr "プライベートエンドポイント"
-
-#: src/components/Data/GeoJsonMeta.tsx:300
-msgid "Copy embed code to clipboard"
-msgstr "埋め込み用コードをクリップボードにコピー"
-
-#: src/components/Data/GeoJsonMeta.tsx:305
+#: src/components/Data/GeoJsonMeta.tsx:311
 msgid "Or"
 msgstr "または"
 
-#: src/components/Data/GeoJsonMeta.tsx:309
+#: src/components/Data/GeoJsonMeta.tsx:314
 msgid "Copy endpoint URL to clipboard"
 msgstr "エンドポイント URL をクリップボードにコピー"
 
@@ -660,54 +652,46 @@ msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
 
-#: src/components/Team/Billing.tsx:155
+#: src/components/Team/Billing.tsx:106
 msgid "Free plan"
 msgstr "フリープラン"
 
-#: src/components/Team/Billing.tsx:181 src/components/Team/general/index.tsx:31
+#: src/components/Team/Billing.tsx:132 src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:190
+#: src/components/Team/Billing.tsx:141
 msgid "You can see subscriptions for this team in this month."
 msgstr "このチームの今月のサブスクリプションを確認することができます。"
 
-#: src/components/Team/Billing.tsx:249
-msgid "Geolonia Appliance"
-msgstr "Geolonia アプライアンス"
-
-#: src/components/Team/Billing.tsx:262
-msgid "Contact us"
-msgstr "お問い合わせ下さい"
-
-#: src/components/Team/Billing.tsx:346
-msgid "Payment history"
-msgstr "支払履歴"
-
-#: src/components/Team/Billing.tsx:355
+#: src/components/Team/Billing.tsx:147
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:361
+#: src/components/Team/Billing.tsx:153
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:365
+#: src/components/Team/Billing.tsx:157
 msgid "ending in **%1$s"
 msgstr "末尾の番号 **%1$s"
 
-#: src/components/Team/Billing.tsx:375
+#: src/components/Team/Billing.tsx:167
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:385
+#: src/components/Team/Billing.tsx:177
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:396
+#: src/components/Team/Billing.tsx:188
 msgid "Change Plan"
 msgstr "プランを変更"
+
+#: src/components/Team/Billing.tsx:223
+msgid "Paid invoice receipts"
+msgstr ""
 
 #: src/components/Team/general/avatar.tsx:126
 #: src/components/User/avatar.tsx:133
@@ -889,25 +873,29 @@ msgstr "メンバーの一時停止"
 msgid "The following members will be suspended:"
 msgstr "以下のメンバーによる操作が一時停止されます。"
 
-#: src/components/Team/payment-history.tsx:69
+#: src/components/Team/payment-history.tsx:79
+msgid "Balance"
+msgstr "残高"
+
+#: src/components/Team/payment-history.tsx:83
+msgid "Payment history"
+msgstr "支払履歴"
+
+#: src/components/Team/payment-history.tsx:89
 msgid "Date"
 msgstr "日時"
 
-#: src/components/Team/payment-history.tsx:72
+#: src/components/Team/payment-history.tsx:92
 msgid "Payment"
 msgstr "支払い"
 
-#: src/components/Team/payment-history.tsx:75
+#: src/components/Team/payment-history.tsx:92
 msgid "Balanced"
 msgstr "差し引き"
 
-#: src/components/Team/payment-history.tsx:78
+#: src/components/Team/payment-history.tsx:95
 msgid "Refund"
 msgstr "返金"
-
-#: src/components/Team/payment-history.tsx:81
-msgid "Balance"
-msgstr "残高"
 
 #: src/components/Team/payment-method-modal.tsx:104
 msgid "Card information"
@@ -1193,6 +1181,18 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Private Endpoint"
+#~ msgstr "プライベートエンドポイント"
+
+#~ msgid "Copy embed code to clipboard"
+#~ msgstr "埋め込み用コードをクリップボードにコピー"
+
+#~ msgid "Geolonia Appliance"
+#~ msgstr "Geolonia アプライアンス"
+
+#~ msgid "Contact us"
+#~ msgstr "お問い合わせ下さい"
 
 #~ msgid "Your subscriptions"
 #~ msgstr "あなたのサブスクリプション"

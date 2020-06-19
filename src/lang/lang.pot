@@ -46,7 +46,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:112
 #: src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:177
+#: src/components/Team/Billing.tsx:128
 msgid "Home"
 msgstr ""
 
@@ -153,23 +153,15 @@ msgstr ""
 msgid "Name of public GeoJSON will be displayed in public."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:278
+#: src/components/Data/GeoJsonMeta.tsx:306
 msgid "Download"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:284
-msgid "Private Endpoint"
-msgstr ""
-
-#: src/components/Data/GeoJsonMeta.tsx:300
-msgid "Copy embed code to clipboard"
-msgstr ""
-
-#: src/components/Data/GeoJsonMeta.tsx:305
+#: src/components/Data/GeoJsonMeta.tsx:311
 msgid "Or"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:309
+#: src/components/Data/GeoJsonMeta.tsx:314
 msgid "Copy endpoint URL to clipboard"
 msgstr ""
 
@@ -647,54 +639,46 @@ msgstr ""
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:155
+#: src/components/Team/Billing.tsx:106
 msgid "Free plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:181
+#: src/components/Team/Billing.tsx:132
 #: src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:190
+#: src/components/Team/Billing.tsx:141
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:249
-msgid "Geolonia Appliance"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:262
-msgid "Contact us"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:346
-msgid "Payment history"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:355
+#: src/components/Team/Billing.tsx:147
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:361
+#: src/components/Team/Billing.tsx:153
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:365
+#: src/components/Team/Billing.tsx:157
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:375
+#: src/components/Team/Billing.tsx:167
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:385
+#: src/components/Team/Billing.tsx:177
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:396
+#: src/components/Team/Billing.tsx:188
 msgid "Change Plan"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:223
+msgid "Paid invoice receipts"
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:126
@@ -873,24 +857,28 @@ msgstr ""
 msgid "The following members will be suspended:"
 msgstr ""
 
-#: src/components/Team/payment-history.tsx:69
+#: src/components/Team/payment-history.tsx:79
+msgid "Balance"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:83
+msgid "Payment history"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:89
 msgid "Date"
 msgstr ""
 
-#: src/components/Team/payment-history.tsx:72
+#: src/components/Team/payment-history.tsx:92
 msgid "Payment"
 msgstr ""
 
-#: src/components/Team/payment-history.tsx:75
+#: src/components/Team/payment-history.tsx:92
 msgid "Balanced"
 msgstr ""
 
-#: src/components/Team/payment-history.tsx:78
+#: src/components/Team/payment-history.tsx:95
 msgid "Refund"
-msgstr ""
-
-#: src/components/Team/payment-history.tsx:81
-msgid "Balance"
 msgstr ""
 
 #: src/components/Team/payment-method-modal.tsx:104
