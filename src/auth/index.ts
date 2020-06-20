@@ -2,7 +2,7 @@
 
 import "isomorphic-fetch";
 import * as CognitoIdentity from "amazon-cognito-identity-js";
-import queryString from "query-string";
+import estimateLanguage from "../lib/estimate-language";
 
 const {
   REACT_APP_COGNITO_USERPOOL_ID: UserPoolId,
@@ -17,17 +17,12 @@ const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 export const signUp = (username: string, email: string, password: string) =>
   new Promise<CognitoIdentity.ISignUpResult>((resolve, reject) => {
     // NOTE: if we have more language option, let's extend
-    const parsed = queryString.parse(window.location.search);
-    const urlLang = parsed.lang;
-
-    const language =
-      typeof urlLang === "string" && urlLang !== "" ? urlLang : "ja";
-
     const attributeList = [
       new CognitoIdentity.CognitoUserAttribute({ Name: "email", Value: email }),
       new CognitoIdentity.CognitoUserAttribute({
         Name: "locale",
-        Value: language
+        // 今使っている言語を送信する
+        Value: estimateLanguage()
       })
     ];
 

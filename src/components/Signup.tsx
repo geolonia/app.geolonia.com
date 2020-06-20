@@ -86,13 +86,10 @@ const Content = (props: Props) => {
 
   // URL locale will be sent to UserPool. So serialize persisted locale at first
   React.useEffect(() => {
-    const persistedLang = localStorage.getItem("geolonia__persisted_language");
-    if (persistedLang) {
-      const parsed = queryString.parse(window.location.search);
-      parsed.lang = persistedLang;
-      const newUrl = `/?${queryString.stringify(parsed)}/#/signup`;
-      window.history.pushState({ path: newUrl }, "", newUrl);
-    }
+    const parsed = queryString.parse(window.location.search);
+    parsed.lang = estimateLanguage();
+    const newUrl = `/?${queryString.stringify(parsed)}#/signup`;
+    window.history.pushState({ path: newUrl }, "", newUrl);
   }, []);
 
   return (
