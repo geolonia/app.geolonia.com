@@ -2,6 +2,7 @@
 
 import "isomorphic-fetch";
 import * as CognitoIdentity from "amazon-cognito-identity-js";
+import queryString from "query-string";
 
 const {
   REACT_APP_COGNITO_USERPOOL_ID: UserPoolId,
@@ -15,8 +16,11 @@ const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 
 export const signUp = (username: string, email: string, password: string) =>
   new Promise<CognitoIdentity.ISignUpResult>((resolve, reject) => {
-    // TODO: if we have more language option, let's extend
-    const language = navigator.language.slice(0, 2) === "ja" ? "ja" : "en";
+    // NOTE: if we have more language option, let's extend
+    const parsed = queryString.parse(window.location.search);
+    const urlLang = parsed.lang;
+    const language =
+      typeof urlLang === "string" && urlLang !== "" ? urlLang : "ja";
     const attributeList = [
       new CognitoIdentity.CognitoUserAttribute({ Name: "email", Value: email }),
       new CognitoIdentity.CognitoUserAttribute({
@@ -150,7 +154,25 @@ export const signout = () =>
     if (cognitoUser) {
       cognitoUser.signOut();
     }
+
+    // Persists `geolonia__persisted*` items
+    // e.g. `geolonia__persisted_language` will be used at signin page without session
+    const thePersisted = Object.keys(localStorage)
+      .filter(key => key.indexOf("geolonia__persisted") === 0)
+      .reduce<{ [key: string]: string }>((prev, key) => {
+        const value = localStorage.getItem(key);
+        if (value) {
+          prev[key] = value;
+        }
+        return prev;
+      }, {});
+
     localStorage.clear();
+
+    Object.keys(thePersisted).forEach(key => {
+      const value = thePersisted[key];
+      localStorage.setItem(key, value);
+    });
     resolve();
   });
 
