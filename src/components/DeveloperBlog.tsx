@@ -9,7 +9,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 
 type BlogPost = {
-  id : string;
+  id: string;
   url: string;
   title: string;
   excerpt: string;

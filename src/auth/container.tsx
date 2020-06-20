@@ -112,6 +112,10 @@ export class AuthContainer extends React.Component<Props, State> {
         throw new Error("invalid user meta response");
       }
 
+      if (user.language) {
+        localStorage.setItem("geolonia__persisted_language", user.language);
+      }
+
       if (teams.some(team => !isTeam(team))) {
         throw new Error("invalid team response");
       }
