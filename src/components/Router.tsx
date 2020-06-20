@@ -13,7 +13,7 @@ import GeoJson from "./Data/GeoJson";
 
 import General from "./Team/general";
 import Members from "./Team/members";
-import Billing from "./Team/Billing";
+// import Billing from "./Team/Billing";
 
 import User from "./User/User";
 
@@ -35,7 +35,7 @@ function Content(props: Props) {
 
       <Route exact path="/team/general" component={General} />
       <Route exact path="/team/members" component={Members} />
-      <Route exact path="/team/billing" component={Billing} />
+      {/* <Route exact path="/team/billing" component={Billing} /> */}
 
       <Route exact path="/user" component={User} />
     </HashRouter>

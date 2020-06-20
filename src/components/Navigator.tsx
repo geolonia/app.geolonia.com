@@ -166,12 +166,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
           href: "#/team/members",
           active: false
         },
-        {
-          id: __("Billing"),
-          icon: <PaymentIcon />,
-          href: "#/team/billing",
-          active: false
-        }
+        // {
+        //   id: __("Billing"),
+        //   icon: <PaymentIcon />,
+        //   href: "#/team/billing",
+        //   active: false
+        // }
       ]
     },
     {
