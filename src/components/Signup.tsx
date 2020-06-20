@@ -17,6 +17,7 @@ import Interweave from "interweave";
 import { parseSignupError as parseCognitoSignupError } from "../lib/cognito/parse-error";
 import estimateLanguage from "../lib/estimate-language";
 import { pageTransitionInterval } from "../constants";
+import queryString from "query-string";
 
 type OwnProps = {};
 type RouterProps = {
@@ -82,6 +83,14 @@ const Content = (props: Props) => {
     // enter
     e.keyCode === 13 && !buttonDisabled && handleSignup();
   };
+
+  // URL locale will be sent to UserPool. So serialize persisted locale at first
+  React.useEffect(() => {
+    const parsed = queryString.parse(window.location.search);
+    parsed.lang = estimateLanguage();
+    const newUrl = `/?${queryString.stringify(parsed)}#/signup`;
+    window.history.pushState({ path: newUrl }, "", newUrl);
+  }, []);
 
   return (
     <div className="signup">

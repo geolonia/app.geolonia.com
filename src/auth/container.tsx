@@ -112,6 +112,8 @@ export class AuthContainer extends React.Component<Props, State> {
         throw new Error("invalid user meta response");
       }
 
+      // ログイン時に毎回ユーザーの言語をローカルストレージに保存しておく。
+      // ログアウトしたときの多言語化で使うため
       if (user.language) {
         localStorage.setItem("geolonia__persisted_language", user.language);
       }
