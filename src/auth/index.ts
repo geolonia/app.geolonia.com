@@ -154,7 +154,25 @@ export const signout = () =>
     if (cognitoUser) {
       cognitoUser.signOut();
     }
+
+    // Persists `geolonia__persisted*` items
+    // e.g. `geolonia__persisted_language` will be used at signin page without session
+    const thePersisted = Object.keys(localStorage)
+      .filter(key => key.indexOf("geolonia__persisted") === 0)
+      .reduce<{ [key: string]: string }>((prev, key) => {
+        const value = localStorage.getItem(key);
+        if (value) {
+          prev[key] = value;
+        }
+        return prev;
+      }, {});
+
     localStorage.clear();
+
+    Object.keys(thePersisted).forEach(key => {
+      const value = thePersisted[key];
+      localStorage.setItem(key, value);
+    });
     resolve();
   });
 

@@ -6,7 +6,7 @@ import { __ } from "@wordpress/i18n";
 type Languages = {
   [key: string]: { primitive: string; translated: string };
 };
-const Content = () => {
+const Languages = () => {
   const hash = window.location.hash;
   const estimatedLanguage = estimateLanguage();
 
@@ -28,7 +28,12 @@ const Content = () => {
               {estimatedLanguage === key ? (
                 <span>{languages[key].translated}</span>
               ) : (
-                <Link href={`/?lang=${key}${hash}`}>
+                <Link
+                  href={`/?lang=${key}${hash}`}
+                  onClick={() => {
+                    localStorage.setItem("geolonia__persisted_language", key);
+                  }}
+                >
                   {languages[key].primitive}
                 </Link>
               )}
@@ -40,4 +45,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default Languages;

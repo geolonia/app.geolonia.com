@@ -2,7 +2,7 @@ import { Middleware } from "redux";
 import { isSelectAction } from "../actions/team";
 import { AppState } from "../../types";
 
-export const SELECTED_TEAM_ID_KEY = "geolonia__selectedTeamId";
+export const SELECTED_TEAM_ID_KEY = "geolonia__persisted_selectedTeamId";
 
 const localStorageMiddleware: Middleware = store => next => action => {
   if (isSelectAction(action)) {

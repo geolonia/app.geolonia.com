@@ -42,7 +42,7 @@ type DispatchProps = {
 };
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
-const Content = (props: Props) => {
+const Signin = (props: Props) => {
   const { serverTrouble } = props;
 
   const [username, setUsername] = React.useState("");
@@ -168,7 +168,7 @@ const Content = (props: Props) => {
         </form>
 
         <p>
-          {__("New to Geolonia?")}
+          {__("New to Geolonia?")}{" "}
           <Link href="#/signup" tabIndex={500}>
             {__("Create an account.")}
           </Link>
@@ -189,6 +189,6 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setAccessToken: (accessToken: string) =>
     dispatch(createActions.setAccessToken(accessToken))
 });
-const ConnectedContent = connect(mapStateToProps, mapDispatchToProps)(Content);
+const ConnectedContent = connect(mapStateToProps, mapDispatchToProps)(Signin);
 
 export default ConnectedContent;
