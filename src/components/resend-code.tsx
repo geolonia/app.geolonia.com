@@ -12,9 +12,13 @@ import { __ } from "@wordpress/i18n";
 import estimateLanguage from "../lib/estimate-language";
 import { pageTransitionInterval } from "../constants";
 import { parseResendError as parseCognitoResendError } from "../lib/cognito/parse-error";
+import queryString from "query-string";
 
-const Content = () => {
-  const [username, setUsername] = React.useState("");
+const ResendCode = () => {
+  const parsed = queryString.parse(window.location.search);
+  const qsusername = parsed.username as string;
+
+  const [username, setUsername] = React.useState(qsusername || "");
   const [status, setStatus] = React.useState<
     null | "requesting" | "success" | "warning"
   >(null);
@@ -84,4 +88,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default ResendCode;

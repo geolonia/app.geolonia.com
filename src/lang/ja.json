@@ -419,7 +419,7 @@
         "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
       ],
       "User not found. Please check entered username or email. If you use email, perhaps the email is not verified.": [
-        ""
+        "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してください。メールアドレスが認証されていない可能性があります。"
       ],
       "Default value of latitude for map\u00040": ["35.65810422222222"],
       "Default value of longitude for map\u00040": ["139.74135747222223"],
