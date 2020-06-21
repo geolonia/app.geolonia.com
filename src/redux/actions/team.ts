@@ -15,6 +15,7 @@ export type Team = {
   avatarImage: string | void;
   last2?: string;
   isPaidTeam: boolean;
+  maxMemberLength: number;
 };
 
 export const isTeam = (team: any): team is Team => {

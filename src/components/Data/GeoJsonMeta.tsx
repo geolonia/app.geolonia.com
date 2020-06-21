@@ -23,7 +23,7 @@ type Meta = {
   status: string;
 };
 
-type Props = {
+type OwnProps = {
   geojsonId: string;
   name: string;
   isPublic: boolean;
@@ -43,6 +43,7 @@ type Props = {
 };
 
 type StateProps = { session: Session };
+type Props = OwnProps & StateProps;
 
 // const copyToClipBoard = (style: string) => {
 //   const input = document.querySelector(
@@ -67,7 +68,7 @@ const copyUrlToClipBoard = () => {
 };
 
 const usePublic = (
-  props: Props & StateProps
+  props: Props
 ): [boolean, (nextIsPublic: boolean) => void] => {
   const { session, geojsonId, isPublic, name, status, setGeoJsonMeta } = props;
   const [draftIsPublic, setDraftIsPublic] = React.useState(props.isPublic);
@@ -143,19 +144,21 @@ const useStatus = (
   return [draftStatus, setDraftStatus];
 };
 
-const Content = (props: Props & StateProps) => {
-  const { session, geojsonId, name, isPublic, status, setGeoJsonMeta } = props;
+const GeoJSONMeta = (props: Props) => {
+  // サーバーから取得してあるデータ
+  const { geojsonId, name, isPublic, status } = props;
+  const { session, setGeoJsonMeta } = props;
 
+  // UI上での変更をリクエスト前まで保持しておくための State
   const [draftIsPublic, setDraftIsPublic] = usePublic(props);
   const [draftStatus, setDraftStatus] = useStatus(props);
+  const [draftName, setDraftName] = React.useState(props.name);
 
-  const [draftName, setDraftName] = React.useState(name);
-
+  // fire save name request
   const saveHandler = (draftName: string) => {
     if (!session) {
       return Promise.resolve();
     }
-
     return fetch(
       session,
       `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
@@ -180,6 +183,9 @@ const Content = (props: Props & StateProps) => {
       });
   };
 
+  const downloadDisabled = status === "draft" || !isPublic;
+  const downloadUrl = `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`;
+
   return (
     <Grid className="geojson-meta" container spacing={2}>
       <Grid item sm={4} xs={12}>
@@ -190,7 +196,9 @@ const Content = (props: Props & StateProps) => {
               onChange={e => {
                 setDraftIsPublic(e.target.checked);
               }}
-              disabled={!props.isPaidTeam}
+              // NOTE: Billing feature
+              // disabled={!props.isPaidTeam}
+              disabled={true}
               inputProps={{ "aria-label": "primary checkbox" }}
               color="primary"
             />
@@ -207,13 +215,14 @@ const Content = (props: Props & StateProps) => {
             )}
           </div>
           <div>
-            {isPublic ? (
-              <p>{__("Anyone can access this GeoJSON API.")}</p>
-            ) : (
+            {/* NOTE: Billing feature */}
+            {/* {isPublic ? ( */}
+            <p>{__("Anyone can access this GeoJSON API.")}</p>
+            {/* ) : (
               <p>
                 {__("You can restrict the URLs that can use this GeoJSON API.")}
               </p>
-            )}
+            )} */}
 
             <Switch
               checked={draftStatus === "published"}
@@ -242,9 +251,10 @@ const Content = (props: Props & StateProps) => {
             ) : (
               <p>{__("Datasets status are draft now.")}</p>
             )}
-            <p>
+            {/* NOTE: Billing feature */}
+            {/* <p>
               <a href="#/team/billing">{__("Upgrade to Geolonia Team")}</a>
-            </p>
+            </p> */}
           </div>
         </Paper>
 
@@ -266,11 +276,13 @@ const Content = (props: Props & StateProps) => {
       <Grid item sm={8} xs={12}>
         <Paper className="geojson-title-description">
           <h3>{__("Download GeoJSON")}</h3>
-          <input
-            disabled={!isPublic}
-            className="geolonia-geojson-api-endpoint"
-            value={`https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`}
-          />
+          {!downloadDisabled && (
+            <input
+              disabled={downloadDisabled}
+              className="geolonia-geojson-api-endpoint"
+              value={downloadUrl}
+            />
+          )}
           <p>
             <Button
               variant="contained"
@@ -279,9 +291,7 @@ const Content = (props: Props & StateProps) => {
               style={{ width: "100%" }}
               onClick={() => {
                 window
-                  .fetch(
-                    `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`
-                  )
+                  .fetch(downloadUrl)
                   .then(res => {
                     if (res.status < 400) {
                       return res.text();
@@ -291,22 +301,25 @@ const Content = (props: Props & StateProps) => {
                   })
                   .then(geojsonString => {
                     const element = document.createElement("a");
-                    const file = new Blob([geojsonString], { type: "application/geo+json" });
+                    const file = new Blob([geojsonString], {
+                      type: "application/geo+json"
+                    });
                     element.href = URL.createObjectURL(file);
                     element.download = `${geojsonId}.geojson`;
                     document.body.appendChild(element); // Required for this to work in FireFox
                     element.click();
                     document.body.removeChild(element);
-                  }).catch(err => {
+                  })
+                  .catch(err => {
                     //
                   });
               }}
-              disabled={status === "draft" || !isPublic}
+              disabled={downloadDisabled}
             >
               {__("Download")}
             </Button>
           </p>
-          {isPublic && (
+          {!downloadDisabled && (
             <p style={{ textAlign: "center", fontSize: "90%" }}>
               {__("Or")}
               <br />
@@ -326,4 +339,4 @@ export const mapStateToProps = (state: AppState): StateProps => {
   return { session };
 };
 
-export default connect(mapStateToProps)(Content);
+export default connect(mapStateToProps)(GeoJSONMeta);

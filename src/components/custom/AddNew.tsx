@@ -28,6 +28,7 @@ type Props = {
   errorMessage?: string;
   onError?: (error: any) => void;
   onSuccess?: () => void;
+  saveButtonLabel?: string;
 };
 
 const getTexts = (props: Props) => ({
@@ -35,7 +36,8 @@ const getTexts = (props: Props) => ({
   fieldName: props.fieldName || __("name"),
   fieldLabel: props.fieldLabel || __("Name"),
   fieldType: props.fieldType || __("text"),
-  errorMessage: props.errorMessage || __("Some error.")
+  errorMessage: props.errorMessage || __("Some error."),
+  saveButtonLabel: props.saveButtonLabel || __("Save")
 });
 
 export const AddNew = (props: Props) => {
@@ -45,7 +47,8 @@ export const AddNew = (props: Props) => {
     fieldName,
     fieldLabel,
     fieldType,
-    errorMessage
+    errorMessage,
+    saveButtonLabel
   } = getTexts(props);
 
   const [text, setText] = React.useState(defaultValue);
@@ -150,7 +153,7 @@ export const AddNew = (props: Props) => {
               {status === "working" && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
               )}
-              {__("Save")}
+              {saveButtonLabel}
             </Button>
           </DialogActions>
         </Dialog>

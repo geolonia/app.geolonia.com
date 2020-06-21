@@ -46,7 +46,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:112
 #: src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:175
+#: src/components/Team/Billing.tsx:128
 msgid "Home"
 msgstr ""
 
@@ -144,7 +144,7 @@ msgstr ""
 #: src/components/Navigator.tsx:317
 #: src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:130
-#: src/components/custom/AddNew.tsx:36
+#: src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:121
 msgid "Name"
 msgstr ""
@@ -639,45 +639,45 @@ msgstr ""
 msgid "We are currently private beta. Sign Up is restricted to invited users."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:153
+#: src/components/Team/Billing.tsx:106
 msgid "Free plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:179
+#: src/components/Team/Billing.tsx:132
 #: src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:188
+#: src/components/Team/Billing.tsx:141
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:195
+#: src/components/Team/Billing.tsx:147
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:201
+#: src/components/Team/Billing.tsx:153
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:205
+#: src/components/Team/Billing.tsx:157
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:215
+#: src/components/Team/Billing.tsx:167
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:225
+#: src/components/Team/Billing.tsx:177
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:236
+#: src/components/Team/Billing.tsx:188
 msgid "Change Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:266
+#: src/components/Team/Billing.tsx:223
 msgid "Paid invoice receipts"
 msgstr ""
 
@@ -705,7 +705,7 @@ msgstr ""
 #: src/components/Team/members/change-role.tsx:161
 #: src/components/Team/members/remove-member.tsx:93
 #: src/components/Team/members/suspend.tsx:108
-#: src/components/custom/AddNew.tsx:142
+#: src/components/custom/AddNew.tsx:145
 #: src/components/custom/Cancel.tsx:18
 #: src/components/custom/Delete.tsx:137
 msgid "Cancel"
@@ -732,7 +732,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:102
-#: src/components/Team/members/index.tsx:267
+#: src/components/Team/members/index.tsx:274
 msgid "Change role"
 msgstr ""
 
@@ -747,7 +747,7 @@ msgid "Select a new role of %s."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:128
-#: src/components/Team/members/index.tsx:189
+#: src/components/Team/members/index.tsx:196
 msgid "Owner"
 msgstr ""
 
@@ -773,38 +773,38 @@ msgstr ""
 
 #: src/components/Team/members/change-role.tsx:172
 #: src/components/Team/members/suspend.tsx:114
-#: src/components/custom/AddNew.tsx:153
+#: src/components/custom/AddNew.tsx:40
 #: src/components/custom/Save.tsx:26
 msgid "Save"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:142
+#: src/components/Team/members/index.tsx:149
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:191
+#: src/components/Team/members/index.tsx:198
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:229
+#: src/components/Team/members/index.tsx:236
 #: src/components/custom/AsyncTable.tsx:139
 #: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:271
+#: src/components/Team/members/index.tsx:278
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:275
+#: src/components/Team/members/index.tsx:282
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:104
+#: src/components/Team/members/invite.tsx:109
 msgid "Successfully send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:106
+#: src/components/Team/members/invite.tsx:111
 msgid "Failed to send invitation."
 msgstr ""
 
@@ -813,24 +813,32 @@ msgid "They is already a member of this team."
 msgstr ""
 
 #: src/components/Team/members/invite.tsx:62
+msgid "The maximum number of members has been reached."
+msgstr ""
+
+#: src/components/Team/members/invite.tsx:66
 msgid "You cannot use this email address for invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:75
+#: src/components/Team/members/invite.tsx:79
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:76
+#: src/components/Team/members/invite.tsx:80
 msgid "Send an invitation"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:77
+#: src/components/Team/members/invite.tsx:81
 msgid "We automatically update your billing as your invitation is accepted."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:82
+#: src/components/Team/members/invite.tsx:86
 #: src/components/User/profile.tsx:118
 msgid "Email"
+msgstr ""
+
+#: src/components/Team/members/invite.tsx:92
+msgid "Send"
 msgstr ""
 
 #: src/components/Team/members/remove-member.tsx:78
@@ -847,6 +855,30 @@ msgstr ""
 
 #: src/components/Team/members/suspend.tsx:95
 msgid "The following members will be suspended:"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:79
+msgid "Balance"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:83
+msgid "Payment history"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:89
+msgid "Date"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:92
+msgid "Payment"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:92
+msgid "Balanced"
+msgstr ""
+
+#: src/components/Team/payment-history.tsx:95
+msgid "Refund"
 msgstr ""
 
 #: src/components/Team/payment-method-modal.tsx:104
@@ -906,19 +938,19 @@ msgstr ""
 msgid "Old password"
 msgstr ""
 
-#: src/components/custom/AddNew.tsx:34
+#: src/components/custom/AddNew.tsx:35
 msgid "New"
 msgstr ""
 
-#: src/components/custom/AddNew.tsx:35
+#: src/components/custom/AddNew.tsx:36
 msgid "name"
 msgstr ""
 
-#: src/components/custom/AddNew.tsx:37
+#: src/components/custom/AddNew.tsx:38
 msgid "text"
 msgstr ""
 
-#: src/components/custom/AddNew.tsx:38
+#: src/components/custom/AddNew.tsx:39
 msgid "Some error."
 msgstr ""
 

@@ -57,6 +57,10 @@ export const Invite = (props: Props) => {
         if (res.status < 400) {
           setStatus("success");
           return res.json();
+        } else if (res.status === 402) {
+          setStatus("failure");
+          setMessage(__("The maximum number of members has been reached."));
+          throw new Error();
         } else {
           setStatus("failure");
           setMessage(__("You cannot use this email address for invitation."));
@@ -85,6 +89,7 @@ export const Invite = (props: Props) => {
         onClick={inviteHandler}
         onError={() => {}}
         onSuccess={() => {}}
+        saveButtonLabel={__("Send")}
       />
       <Snackbar
         className={`snackbar-saved ${status}`}

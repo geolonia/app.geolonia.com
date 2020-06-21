@@ -130,18 +130,26 @@ const Content = (props: Props) => {
 
   const { team } = props;
   let isOwner = false;
-  let isPaidTeam = false;
+  // let isPaidTeam = false;
   if (team) {
     isOwner = team.role === Roles.Owner;
-    isPaidTeam = team.isPaidTeam;
+    // isPaidTeam = team.isPaidTeam;
   }
+
+  const inviteDisabled = true;
+  // NOTE: Payment feature and currently disabled
+  // !team || // Not ready
+  // !isOwner ||
+  // !isPaidTeam ||
+  // team.maxMemberLength <= members.length ||
+  // members.length === 0;
 
   return (
     <div>
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
       </Title>
-      <Invite disabled={!isOwner || !isPaidTeam} />
+      <Invite disabled={inviteDisabled} />
 
       {/* each member management */}
       {currentMember && (

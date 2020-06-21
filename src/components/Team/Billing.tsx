@@ -9,28 +9,30 @@ import Button from "@material-ui/core/Button";
 // import { Line } from "react-chartjs-2";
 // import Save from "../custom/Save";
 import Title from "../custom/Title";
+// import PaymentHistory from "./payment-history";
 import PaymentMethodModal from "./payment-method-modal";
 import PlanModal from "./plan-modal";
-import Receipts from './Billing/Receipts'
+import Receipts from "./Billing/Receipts";
 import "./Billing.scss";
 
 import { __, sprintf } from "@wordpress/i18n";
 import { connect } from "react-redux";
 
 // stripe integration
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 
 import { AppState, Session } from "../../types";
 import customFetch from "../../lib/fetch";
 
-const stripePromise = loadStripe(
-  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
-);
+// const stripePromise = loadStripe(
+//   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
+// );
 
 // connect with Stripe
 const StripeContainer = (props: { children: React.ReactNode }) => {
-  return <Elements stripe={stripePromise}>{props.children}</Elements>;
+  return <div>{props.children}</div>;
+  //   return <Elements stripe={stripePromise}>{props.children}</Elements>;
 };
 
 type StateProps = {
@@ -95,7 +97,6 @@ const usePlan = (props: StateProps) => {
       )
         .then(res => res.json())
         .then(data => {
-          console.log(data);
           setPlanId(data.planId);
         });
     }
@@ -140,7 +141,6 @@ const Billing = (props: StateProps) => {
         <Title title="Billing" breadcrumb={breadcrumbItems}>
           {__("You can see subscriptions for this team in this month.")}
         </Title>
-
 
         {props.isOwner && (
           <>
@@ -214,11 +214,16 @@ const Billing = (props: StateProps) => {
           </>
         )}
       </div>
-      <p style={{textAlign: 'right'}}><a href="https://geolonia.com/pricing">Learn more about plans on the pricing page.</a></p>
+      <p style={{ textAlign: "right" }}>
+        <a href="https://geolonia.com/pricing">
+          Learn more about plans on the pricing page.
+        </a>
+      </p>
 
-      <Typography component="h2" className="module-title">{__("Paid invoice receipts")}</Typography>
+      <Typography component="h2" className="module-title">
+        {__("Paid invoice receipts")}
+      </Typography>
       <Receipts />
-
     </StripeContainer>
   );
 };

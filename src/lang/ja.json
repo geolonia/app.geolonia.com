@@ -294,6 +294,9 @@
       "They is already a member of this team.": [
         "すでにメンバーになっています。"
       ],
+      "The maximum number of members has been reached.": [
+        "メンバー数が上限に達しました。"
+      ],
       "You cannot use this email address for invitation.": [
         "このメールアドレスは招待に使用できません。"
       ],
@@ -303,6 +306,7 @@
         "チームメンバーの招待に伴う料金変更は自動的に行われます。"
       ],
       "Email": ["メールアドレス"],
+      "Send": ["送信"],
       "The following members will be removed:": [
         "以下のメンバーがチームから削除されます。"
       ],
@@ -311,6 +315,12 @@
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
       ],
+      "Balance": ["残高"],
+      "Payment history": ["支払履歴"],
+      "Date": ["日時"],
+      "Payment": ["支払い"],
+      "Balanced": ["差し引き"],
+      "Refund": ["返金"],
       "Card information": ["クレジットカード情報"],
       "Update": ["更新"],
       "Unknown Error.": ["不明なエラー。"],
