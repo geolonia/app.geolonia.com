@@ -9,7 +9,7 @@ import Button from "@material-ui/core/Button";
 // import { Line } from "react-chartjs-2";
 // import Save from "../custom/Save";
 import Title from "../custom/Title";
-import PaymentHistory from "./payment-history";
+// import PaymentHistory from "./payment-history";
 import PaymentMethodModal from "./payment-method-modal";
 import PlanModal from "./plan-modal";
 import Receipts from "./Billing/Receipts";
@@ -19,19 +19,20 @@ import { __, sprintf } from "@wordpress/i18n";
 import { connect } from "react-redux";
 
 // stripe integration
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 
 import { AppState, Session } from "../../types";
 import customFetch from "../../lib/fetch";
 
-const stripePromise = loadStripe(
-  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
-);
+// const stripePromise = loadStripe(
+//   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
+// );
 
 // connect with Stripe
 const StripeContainer = (props: { children: React.ReactNode }) => {
-  return <Elements stripe={stripePromise}>{props.children}</Elements>;
+  return <div>{props.children}</div>;
+  //   return <Elements stripe={stripePromise}>{props.children}</Elements>;
 };
 
 type StateProps = {
