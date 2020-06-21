@@ -130,18 +130,19 @@ const Content = (props: Props) => {
 
   const { team } = props;
   let isOwner = false;
-  let isPaidTeam = false;
+  // let isPaidTeam = false;
   if (team) {
     isOwner = team.role === Roles.Owner;
-    isPaidTeam = team.isPaidTeam;
+    // isPaidTeam = team.isPaidTeam;
   }
 
-  const inviteDisabled =
-    !team || // Not ready
-    !isOwner ||
-    !isPaidTeam ||
-    team.maxMemberLength <= members.length ||
-    members.length === 0;
+  const inviteDisabled = true;
+  // NOTE: Payment feature and currently disabled
+  // !team || // Not ready
+  // !isOwner ||
+  // !isPaidTeam ||
+  // team.maxMemberLength <= members.length ||
+  // members.length === 0;
 
   return (
     <div>
