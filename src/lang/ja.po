@@ -1133,7 +1133,7 @@ msgstr "ユーザーが見つかりませんでした。ユーザー名を確認
 msgid ""
 "User not found. Please check entered username or email. If you use email, "
 "perhaps the email is not verified."
-msgstr ""
+msgstr "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してください。メールアドレスが認証されていない可能性があります。"
 
 #: src/components/Data/MapEditor.tsx:137
 msgctxt "Default value of latitude for map"
