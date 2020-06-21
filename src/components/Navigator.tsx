@@ -15,7 +15,7 @@ import ViewListIcon from "@material-ui/icons/ViewList";
 import DescriptionIcon from "@material-ui/icons/Description";
 import RoomIcon from "@material-ui/icons/Room";
 import GroupIcon from "@material-ui/icons/Group";
-import PaymentIcon from "@material-ui/icons/Payment";
+// import PaymentIcon from "@material-ui/icons/Payment";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -165,7 +165,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           icon: <GroupIcon />,
           href: "#/team/members",
           active: false
-        },
+        }
         // {
         //   id: __("Billing"),
         //   icon: <PaymentIcon />,
