@@ -24,7 +24,7 @@ msgid "Get API key then create your map!"
 msgstr ""
 
 #: src/components/Dashboard.tsx:73
-#: src/components/Data/GeoJson.tsx:114
+#: src/components/Data/GeoJson.tsx:115
 #: src/components/Navigator.tsx:146
 msgid "GeoJSON API"
 msgstr ""
@@ -38,55 +38,57 @@ msgid "Developer's Blog"
 msgstr ""
 
 #: src/components/Data/ExportButton.tsx:32
-#: src/components/Data/GeoJsonMeta.tsx:268
+#: src/components/Data/GeoJsonMeta.tsx:278
 msgid "Download GeoJSON"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:106
+#: src/components/Data/GeoJson.tsx:107
 #: src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:112
 #: src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:128
+#: src/components/Team/Billing.tsx:129
 msgid "Home"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:110
+#: src/components/Data/GeoJson.tsx:111
 #: src/components/Data/GeoJsons.tsx:123
 msgid "API services"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:328
+#: src/components/Data/GeoJson.tsx:333
 msgid ""
 "You can manage and style features in your GeoJSON, and get the the access "
 "point URL of GeoJSON API."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:346
+#: src/components/Data/GeoJson.tsx:351
 msgid "Update required"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:369
+#: src/components/Data/GeoJson.tsx:374
 msgid "Reload"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:378
+#: src/components/Data/GeoJson.tsx:383
 msgid "Continue"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:406
+#: src/components/Data/GeoJson.tsx:411
 msgid "Total Count of Features: %s"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:428
+#: src/components/Data/GeoJson.tsx:433
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:433
+#: src/components/Data/GeoJson.tsx:438
 msgid "Are you sure you want to delete this Dataset?"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:434
-msgid "Please type in the name of the Dataset to confirm."
+#: src/components/Data/GeoJson.tsx:439
+#: src/components/Data/fields.tsx:70
+#: src/components/Maps/APIKey.tsx:274
+msgid "Please type delete to confirm."
 msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:100
@@ -118,27 +120,19 @@ msgstr ""
 msgid "Error: The `id` of each `fueature` must be unique in the GeoJSON."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:211
+#: src/components/Data/GeoJsonMeta.tsx:220
 msgid "Anyone can access this GeoJSON API."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:214
-msgid "You can restrict the URLs that can use this GeoJSON API."
-msgstr ""
-
-#: src/components/Data/GeoJsonMeta.tsx:241
+#: src/components/Data/GeoJsonMeta.tsx:250
 msgid "Datasets are published now."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:243
+#: src/components/Data/GeoJsonMeta.tsx:252
 msgid "Datasets status are draft now."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:246
-msgid "Upgrade to Geolonia Team"
-msgstr ""
-
-#: src/components/Data/GeoJsonMeta.tsx:252
+#: src/components/Data/GeoJsonMeta.tsx:262
 #: src/components/Data/fields.tsx:26
 #: src/components/Maps/APIKey.tsx:213
 #: src/components/Navigator.tsx:317
@@ -149,19 +143,19 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:263
+#: src/components/Data/GeoJsonMeta.tsx:273
 msgid "Name of public GeoJSON will be displayed in public."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:306
+#: src/components/Data/GeoJsonMeta.tsx:319
 msgid "Download"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:311
+#: src/components/Data/GeoJsonMeta.tsx:324
 msgid "Or"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:314
+#: src/components/Data/GeoJsonMeta.tsx:327
 msgid "Copy endpoint URL to clipboard"
 msgstr ""
 
@@ -285,10 +279,6 @@ msgstr ""
 msgid "Are you sure you want to delete this dataset?"
 msgstr ""
 
-#: src/components/Data/fields.tsx:70
-msgid "Please type in the name of the dataset to confirm."
-msgstr ""
-
 #: src/components/Data/publish.tsx:34
 #: src/components/custom/AsyncTable.tsx:119
 #: src/components/custom/Table.tsx:121
@@ -385,10 +375,6 @@ msgstr ""
 msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:274
-msgid "Please type in the name of the API key to confirm."
-msgstr ""
-
 #: src/components/Maps/APIKey.tsx:290
 msgid "Your API Key"
 msgstr ""
@@ -476,10 +462,6 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:170
-msgid "Billing"
-msgstr ""
-
 #: src/components/Navigator.tsx:178
 msgid "Documentation"
 msgstr ""
@@ -525,7 +507,7 @@ msgid "Confirm new password"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:129
-#: src/components/Signup.tsx:132
+#: src/components/Signup.tsx:141
 msgid "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
 
@@ -578,7 +560,7 @@ msgid "Username or email address"
 msgstr ""
 
 #: src/components/Signin.tsx:138
-#: src/components/Signup.tsx:121
+#: src/components/Signup.tsx:130
 msgid "Password"
 msgstr ""
 
@@ -599,25 +581,38 @@ msgid "Create an account."
 msgstr ""
 
 #: src/components/Signup.tsx:100
+#: src/components/verify.tsx:75
+msgid "Welcome to Geolonia"
+msgstr ""
+
+#: src/components/Signup.tsx:101
+msgid "Create your account"
+msgstr ""
+
+#: src/components/Signup.tsx:103
+msgid "We are currently private beta. Sign Up is restricted to invited users."
+msgstr ""
+
+#: src/components/Signup.tsx:109
 #: src/components/User/profile.tsx:109
 #: src/components/resend-code.tsx:56
 #: src/components/verify.tsx:87
 msgid "Username"
 msgstr ""
 
-#: src/components/Signup.tsx:108
+#: src/components/Signup.tsx:117
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:112
+#: src/components/Signup.tsx:121
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:145
+#: src/components/Signup.tsx:154
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:152
+#: src/components/Signup.tsx:161
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" "
@@ -626,58 +621,45 @@ msgid ""
 "href=\"https://geolonia.com/privacy\">Privacy policy</a>."
 msgstr ""
 
-#: src/components/Signup.tsx:91
-#: src/components/verify.tsx:75
-msgid "Welcome to Geolonia"
-msgstr ""
-
-#: src/components/Signup.tsx:92
-msgid "Create your account"
-msgstr ""
-
-#: src/components/Signup.tsx:94
-msgid "We are currently private beta. Sign Up is restricted to invited users."
-msgstr ""
-
-#: src/components/Team/Billing.tsx:106
+#: src/components/Team/Billing.tsx:107
 msgid "Free plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:132
+#: src/components/Team/Billing.tsx:133
 #: src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:141
+#: src/components/Team/Billing.tsx:142
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:147
+#: src/components/Team/Billing.tsx:148
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:153
+#: src/components/Team/Billing.tsx:154
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:157
+#: src/components/Team/Billing.tsx:158
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:167
+#: src/components/Team/Billing.tsx:168
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:177
+#: src/components/Team/Billing.tsx:178
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:188
+#: src/components/Team/Billing.tsx:189
 msgid "Change Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:223
+#: src/components/Team/Billing.tsx:224
 msgid "Paid invoice receipts"
 msgstr ""
 
@@ -732,7 +714,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:102
-#: src/components/Team/members/index.tsx:274
+#: src/components/Team/members/index.tsx:275
 msgid "Change role"
 msgstr ""
 
@@ -747,7 +729,7 @@ msgid "Select a new role of %s."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:128
-#: src/components/Team/members/index.tsx:196
+#: src/components/Team/members/index.tsx:197
 msgid "Owner"
 msgstr ""
 
@@ -778,25 +760,25 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:149
+#: src/components/Team/members/index.tsx:150
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:198
+#: src/components/Team/members/index.tsx:199
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:236
+#: src/components/Team/members/index.tsx:237
 #: src/components/custom/AsyncTable.tsx:139
 #: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:278
+#: src/components/Team/members/index.tsx:279
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:282
+#: src/components/Team/members/index.tsx:283
 msgid "Remove from team"
 msgstr ""
 

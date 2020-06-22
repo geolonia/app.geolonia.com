@@ -141,7 +141,7 @@ export const Delete = (props: Props) => {
               onClick={onButtonClick}
               type="submit"
               disabled={
-                confirmation !== props.answer ||
+                confirmation !== "delete" ||
                 isDeleteDisabled ||
                 status === "working"
               }

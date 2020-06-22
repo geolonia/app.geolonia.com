@@ -75,7 +75,8 @@ const Content = (props: Props) => {
     geoJSON,
     setGeoJSON,
     setGeoJsonMeta,
-    setBounds
+    setBounds,
+    error
   } = useGeoJSON(props.session, props.geojsonId);
 
   const [socket, updateRequired, resetUpdateRequired] = useWebSocket(
@@ -319,6 +320,10 @@ const Content = (props: Props) => {
     }
   };
 
+  if (error) {
+    return <></>;
+  }
+
   return (
     <div className="gis-panel">
       <Title
@@ -431,7 +436,7 @@ const Content = (props: Props) => {
       >
         <Delete
           text1={__("Are you sure you want to delete this Dataset?")}
-          text2={__("Please type in the name of the Dataset to confirm.")}
+          text2={__("Please type delete to confirm.")}
           answer={geoJsonMeta ? geoJsonMeta.name : void 0}
           errorMessage={message}
           onClick={onDeleteClick}

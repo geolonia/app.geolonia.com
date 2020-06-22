@@ -271,15 +271,15 @@ const Content = (props: Props) => {
           >
             <Delete
               text1={__("Are you sure you want to delete this API key?")}
-              text2={__("Please type in the name of the API key to confirm.")}
+              text2={__("Please type delete to confirm.")}
               errorMessage={message}
               onClick={onDeleteClick}
               onFailure={onRequestError}
               // disable buttons before page move on success
               disableCancel={status => status === "success"}
-              disableDelete={(input, status) =>
-                input !== name || status === "success"
-              }
+              disableDelete={(input, status) => {
+                return input !== "delete" || status === "success";
+              }}
             />
           </DangerZone>
         </Grid>
