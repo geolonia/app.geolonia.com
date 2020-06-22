@@ -48,7 +48,9 @@
       "Maximum upload file size: %d MB": [
         "最大アップロードファイルサイズ: %d MB"
       ],
-      "Existing feature that has same `id` will be updated.": [""],
+      "Existing feature that has same `id` will be updated.": [
+        "同じ `id` を持つ地物が更新されます。"
+      ],
       "Error: The name of identifier `id` must be lower case.": [
         "エラー: `id` は小文字である必要があります。"
       ],
@@ -214,9 +216,6 @@
       "Create an account.": ["アカウントを作成"],
       "Welcome to Geolonia": ["Geolonia へようこそ"],
       "Create your account": ["アカウントを作成"],
-      "We are currently private beta. Sign Up is restricted to invited users.": [
-        "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
-      ],
       "Username": ["ユーザー名"],
       "Username cannot be modified later.": [
         "ユーザー名は後から変更できません。"
@@ -273,6 +272,9 @@
       "Save": ["保存"],
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。"
+      ],
+      "We are in public beta version. Member features will be added soon.": [
+        "現在パブリックβ版です。メンバー機能は近日追加されます。"
       ],
       "Suspended": ["一時停止"],
       "rows per page": ["表示する個数"],
@@ -408,7 +410,7 @@
         "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
       ],
       "User not found. Please check entered username or email. If you use email, perhaps the email is not verified.": [
-        ""
+        "ユーザーが見つかりませんでした。入力したユーザー名とメールアドレスを確認してください。もしくはメールアドレスが認証されていないようです。"
       ],
       "Default value of latitude for map\u00040": ["35.65810422222222"],
       "Default value of longitude for map\u00040": ["139.74135747222223"],

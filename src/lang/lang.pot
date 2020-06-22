@@ -580,31 +580,27 @@ msgstr ""
 msgid "Create an account."
 msgstr ""
 
-#: src/components/Signup.tsx:100
+#: src/components/Signup.tsx:104
 #: src/components/verify.tsx:75
 msgid "Welcome to Geolonia"
 msgstr ""
 
-#: src/components/Signup.tsx:101
+#: src/components/Signup.tsx:105
 msgid "Create your account"
 msgstr ""
 
-#: src/components/Signup.tsx:103
-msgid "We are currently private beta. Sign Up is restricted to invited users."
-msgstr ""
-
-#: src/components/Signup.tsx:109
+#: src/components/Signup.tsx:108
 #: src/components/User/profile.tsx:109
 #: src/components/resend-code.tsx:56
 #: src/components/verify.tsx:87
 msgid "Username"
 msgstr ""
 
-#: src/components/Signup.tsx:117
+#: src/components/Signup.tsx:116
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:121
+#: src/components/Signup.tsx:120
 msgid "Email address"
 msgstr ""
 
@@ -627,7 +623,7 @@ msgstr ""
 
 #: src/components/Team/Billing.tsx:133
 #: src/components/Team/general/index.tsx:31
-#: src/components/Team/members/index.tsx:126
+#: src/components/Team/members/index.tsx:127
 msgid "Team settings"
 msgstr ""
 
@@ -714,7 +710,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:102
-#: src/components/Team/members/index.tsx:275
+#: src/components/Team/members/index.tsx:282
 msgid "Change role"
 msgstr ""
 
@@ -729,7 +725,7 @@ msgid "Select a new role of %s."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:128
-#: src/components/Team/members/index.tsx:197
+#: src/components/Team/members/index.tsx:204
 msgid "Owner"
 msgstr ""
 
@@ -760,25 +756,29 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:150
+#: src/components/Team/members/index.tsx:151
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:199
+#: src/components/Team/members/index.tsx:153
+msgid "We are in public beta version. Member features will be added soon."
+msgstr ""
+
+#: src/components/Team/members/index.tsx:206
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:237
+#: src/components/Team/members/index.tsx:244
 #: src/components/custom/AsyncTable.tsx:139
 #: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:279
+#: src/components/Team/members/index.tsx:286
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:283
+#: src/components/Team/members/index.tsx:290
 msgid "Remove from team"
 msgstr ""
 

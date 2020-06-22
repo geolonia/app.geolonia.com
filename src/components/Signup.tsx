@@ -34,7 +34,7 @@ type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 type Status = null | "requesting" | "success" | "warning";
 
-const Content = (props: Props) => {
+const Signup = (props: Props) => {
   const [username, setUsername] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -49,6 +49,9 @@ const Content = (props: Props) => {
     setStatus(null);
     setEmail(e.currentTarget.value);
   };
+  const onEmailBlur = (e: React.FormEvent<HTMLInputElement>) => {
+    setEmail(e.currentTarget.value.trim());
+  };
   const onPasswordChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
     setPassword(e.currentTarget.value);
@@ -57,14 +60,15 @@ const Content = (props: Props) => {
   const handleSignup = (e: React.MouseEvent | void) => {
     e && e.preventDefault();
     setStatus("requesting");
+    setUsername(username);
     delay(signUp(username, email, password), 500)
       .then(result => {
         setStatus("success");
-        const username = result.user.getUsername();
-        props.setCurrentUser(username);
+        const succeededUsername = result.user.getUsername();
+        props.setCurrentUser(succeededUsername);
         setTimeout(() => {
           window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
-            username
+            succeededUsername
           )}#/verify`;
         }, pageTransitionInterval);
       })
@@ -119,6 +123,7 @@ const Content = (props: Props) => {
               type={"text"}
               value={email}
               onChange={onEmailChange}
+              onBlur={onEmailBlur}
             />
           </label>
           <label className="password">
@@ -174,9 +179,8 @@ const mapStateToProps = (): StateProps => ({});
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   setCurrentUser: (user: string) => dispatch(createActions.setCurrentUser(user))
 });
-const ConnectedContent = connect<StateProps, DispatchProps>(
+
+export default connect<StateProps, DispatchProps>(
   mapStateToProps,
   mapDispatchToProps
-)(Content);
-
-export default ConnectedContent;
+)(Signup);
