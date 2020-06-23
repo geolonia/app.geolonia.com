@@ -35,8 +35,8 @@
       "Are you sure you want to delete this Dataset?": [
         "本当にこのデータセットを削除しますか？"
       ],
-      "Please type in the name of the Dataset to confirm.": [
-        "確認のためにデータセット名を入力してください。"
+      "Please type delete to confirm.": [
+        "確認のために delete と入力してください。"
       ],
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
@@ -48,7 +48,9 @@
       "Maximum upload file size: %d MB": [
         "最大アップロードファイルサイズ: %d MB"
       ],
-      "Existing feature that has same `id` will be updated.": [""],
+      "Existing feature that has same `id` will be updated.": [
+        "同じ `id` を持つ地物が更新されます。"
+      ],
       "Error: The name of identifier `id` must be lower case.": [
         "エラー: `id` は小文字である必要があります。"
       ],
@@ -58,12 +60,8 @@
       "Anyone can access this GeoJSON API.": [
         "誰でもこの GeoJSON API にアクセスすることができます。"
       ],
-      "You can restrict the URLs that can use this GeoJSON API.": [
-        "この GeoJSON API を利用できる URL を制限することができます。"
-      ],
       "Datasets are published now.": ["データセットは公開されています。"],
       "Datasets status are draft now.": ["データセットは下書きの状態です。"],
-      "Upgrade to Geolonia Team": ["チーム機能をアップグレード"],
       "Name": ["名前"],
       "Name of public GeoJSON will be displayed in public.": [
         "公開されているGeoJSONの名前が表示されます。"
@@ -110,9 +108,6 @@
       "Are you sure you want to delete this dataset?": [
         "本当にこのデータセットを削除しますか？"
       ],
-      "Please type in the name of the dataset to confirm.": [
-        "確認のためにデータセット名を入力してください。"
-      ],
       "Public": ["一般公開"],
       "Public features will be displayed on <a class=\"MuiTypography-colorPrimary\" href=\"#\">open data directory</a> and anyone can download this features without API key.": [
         "一般公開のデータは、<a class=\"MuiTypography-colorPrimary\" href=\"#\">オープンデータディレクトリ</a>にて公開され、だれでも API キー無しでデータをダウンロードすることができます。"
@@ -146,9 +141,6 @@
       "Are you sure you want to delete this API key?": [
         "この API キーを本当に削除しますか？"
       ],
-      "Please type in the name of the API key to confirm.": [
-        "確認のために API キーの名前を入力してください。"
-      ],
       "Your API Key": ["あなたの API キー"],
       "Add the map to your site": ["ウェブサイトに地図を追加しましょう"],
       "Step 1": ["ステップ 1"],
@@ -180,7 +172,6 @@
       "Team Settings": ["チーム設定"],
       "General": ["一般"],
       "Members": ["メンバー"],
-      "Billing": ["支払い"],
       "Documentation": ["ドキュメント"],
       "Official Documents": ["公式ドキュメント"],
       "Dashboard": ["ダッシュボード"],
@@ -223,6 +214,8 @@
       "Sign in": ["サインイン"],
       "New to Geolonia?": ["アカウントをお持ちですか？"],
       "Create an account.": ["アカウントを作成"],
+      "Welcome to Geolonia": ["Geolonia へようこそ"],
+      "Create your account": ["アカウントを作成"],
       "Username": ["ユーザー名"],
       "Username cannot be modified later.": [
         "ユーザー名は後から変更できません。"
@@ -231,11 +224,6 @@
       "Sign up": ["サインアップ"],
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
-      ],
-      "Welcome to Geolonia": ["Geolonia へようこそ"],
-      "Create your account": ["アカウントを作成"],
-      "We are currently private beta. Sign Up is restricted to invited users.": [
-        "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
       ],
       "Free plan": ["フリープラン"],
       "Team settings": ["チーム設定"],
@@ -284,6 +272,9 @@
       "Save": ["保存"],
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。"
+      ],
+      "We are in public beta version. Member features will be added soon.": [
+        "現在パブリックβ版です。メンバー機能は近日追加されます。"
       ],
       "Suspended": ["一時停止"],
       "rows per page": ["表示する個数"],
@@ -390,7 +381,7 @@
         "ユーザー名には小文字（a-z）、数字（0-9）、ハイフン（-）、アンダースコア（-）、ピリオド（.）が利用でき、256文字以下である必要があります。"
       ],
       "Invalid parameter specified. You cannot use this username or email.": [
-        ""
+        "不正なパラメーターです。このユーザー名またはメールアドレスは利用できません。"
       ],
       "Invalid parameter specified. You cannot use this username, email, or verification code.": [
         "不正なパラメータです。このユーザー名、メールアドレスまたは認証コードは使用できません。"
@@ -419,7 +410,7 @@
         "ユーザーが見つかりませんでした。ユーザー名を確認してください。"
       ],
       "User not found. Please check entered username or email. If you use email, perhaps the email is not verified.": [
-        "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してください。メールアドレスが認証されていない可能性があります。"
+        "ユーザーが見つかりませんでした。入力したユーザー名とメールアドレスを確認してください。もしくはメールアドレスが認証されていないようです。"
       ],
       "Default value of latitude for map\u00040": ["35.65810422222222"],
       "Default value of longitude for map\u00040": ["139.74135747222223"],

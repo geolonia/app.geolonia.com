@@ -20,6 +20,7 @@ import ChangeRole from "./change-role";
 import Suspend from "./suspend";
 import RemoveMember from "./remove-member";
 import { Chip, Avatar } from "@material-ui/core";
+import Alert from "../../custom/Alert";
 
 // utils
 import { __ } from "@wordpress/i18n";
@@ -148,7 +149,13 @@ const Content = (props: Props) => {
     <div>
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
+        <Alert type="danger">
+          {__(
+            "We are in public beta version. Member features will be added soon."
+          )}
+        </Alert>
       </Title>
+
       <Invite disabled={inviteDisabled} />
 
       {/* each member management */}
