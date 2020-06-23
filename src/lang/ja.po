@@ -47,13 +47,13 @@ msgid "Developer's Blog"
 msgstr ""
 
 #: src/components/Data/ExportButton.tsx:32
-#: src/components/Data/GeoJsonMeta.tsx:268
+#: src/components/Data/GeoJsonMeta.tsx:278
 msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GeoJson.tsx:106 src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:112 src/components/Maps/APIKeys.tsx:38
-#: src/components/Team/Billing.tsx:128
+#: src/components/Team/Billing.tsx:129
 msgid "Home"
 msgstr ""
 
@@ -128,27 +128,22 @@ msgstr ""
 "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要がありま"
 "す。"
 
-#: src/components/Data/GeoJsonMeta.tsx:211
-msgid "Anyone can access this GeoJSON API."
-msgstr "誰でもこの GeoJSON API にアクセスすることができます。"
+#: src/components/Data/GeoJsonMeta.tsx:220
+msgid ""
+"Public features will be displayed publicly and anyone can download this "
+"features without API key."
+msgstr ""
+"Public のデータは一般に公開され、だれでも API キー無しでダウンロードすることができます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:214
-msgid "You can restrict the URLs that can use this GeoJSON API."
-msgstr "この GeoJSON API を利用できる URL を制限することができます。"
-
-#: src/components/Data/GeoJsonMeta.tsx:241
+#: src/components/Data/GeoJsonMeta.tsx:250
 msgid "Datasets are published now."
 msgstr "データセットは公開されています。"
 
-#: src/components/Data/GeoJsonMeta.tsx:243
+#: src/components/Data/GeoJsonMeta.tsx:252
 msgid "Datasets status are draft now."
 msgstr "データセットは下書きの状態です。"
 
-#: src/components/Data/GeoJsonMeta.tsx:246
-msgid "Upgrade to Geolonia Team"
-msgstr "チーム機能をアップグレード"
-
-#: src/components/Data/GeoJsonMeta.tsx:252 src/components/Data/fields.tsx:26
+#: src/components/Data/GeoJsonMeta.tsx:262 src/components/Data/fields.tsx:26
 #: src/components/Maps/APIKey.tsx:213 src/components/Navigator.tsx:317
 #: src/components/Team/general/fields.tsx:87
 #: src/components/User/profile.tsx:130 src/components/custom/AddNew.tsx:37
@@ -156,19 +151,19 @@ msgstr "チーム機能をアップグレード"
 msgid "Name"
 msgstr "名前"
 
-#: src/components/Data/GeoJsonMeta.tsx:263
+#: src/components/Data/GeoJsonMeta.tsx:273
 msgid "Name of public GeoJSON will be displayed in public."
 msgstr "公開されているGeoJSONの名前が表示されます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:306
+#: src/components/Data/GeoJsonMeta.tsx:319
 msgid "Download"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GeoJsonMeta.tsx:311
+#: src/components/Data/GeoJsonMeta.tsx:324
 msgid "Or"
 msgstr "または"
 
-#: src/components/Data/GeoJsonMeta.tsx:314
+#: src/components/Data/GeoJsonMeta.tsx:327
 msgid "Copy endpoint URL to clipboard"
 msgstr "エンドポイント URL をクリップボードにコピー"
 
@@ -490,10 +485,6 @@ msgstr "一般"
 msgid "Members"
 msgstr "メンバー"
 
-#: src/components/Navigator.tsx:170
-msgid "Billing"
-msgstr "支払い"
-
 #: src/components/Navigator.tsx:178
 msgid "Documentation"
 msgstr "ドキュメント"
@@ -534,7 +525,7 @@ msgstr "新しいパスワード"
 msgid "Confirm new password"
 msgstr "新しいパスワードを確認"
 
-#: src/components/ResetPassword.tsx:129 src/components/Signup.tsx:132
+#: src/components/ResetPassword.tsx:129 src/components/Signup.tsx:141
 msgid ""
 "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
@@ -544,7 +535,7 @@ msgstr ""
 msgid "Change password"
 msgstr "パスワードを変更"
 
-#: src/components/ResetPassword.tsx:156 src/components/resend-code.tsx:52
+#: src/components/ResetPassword.tsx:156 src/components/resend-code.tsx:56
 msgid "Request a new verification code"
 msgstr "検証コードを再送する"
 
@@ -590,7 +581,7 @@ msgstr "おっと、サーバーが正しく応答していないようです。
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:138 src/components/Signup.tsx:121
+#: src/components/Signin.tsx:138 src/components/Signup.tsx:130
 msgid "Password"
 msgstr "パスワード"
 
@@ -610,24 +601,37 @@ msgstr "アカウントをお持ちですか？"
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:100 src/components/User/profile.tsx:109
-#: src/components/resend-code.tsx:56 src/components/verify.tsx:87
+#: src/components/Signup.tsx:100 src/components/verify.tsx:75
+msgid "Welcome to Geolonia"
+msgstr "Geolonia へようこそ"
+
+#: src/components/Signup.tsx:101
+msgid "Create your account"
+msgstr "アカウントを作成"
+
+#: src/components/Signup.tsx:103
+msgid "We are currently private beta. Sign Up is restricted to invited users."
+msgstr ""
+"現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
+
+#: src/components/Signup.tsx:109 src/components/User/profile.tsx:109
+#: src/components/resend-code.tsx:60 src/components/verify.tsx:87
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/components/Signup.tsx:108
+#: src/components/Signup.tsx:117
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:112
+#: src/components/Signup.tsx:121
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:145
+#: src/components/Signup.tsx:154
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:152
+#: src/components/Signup.tsx:161
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
@@ -639,57 +643,44 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Signup.tsx:91 src/components/verify.tsx:75
-msgid "Welcome to Geolonia"
-msgstr "Geolonia へようこそ"
-
-#: src/components/Signup.tsx:92
-msgid "Create your account"
-msgstr "アカウントを作成"
-
-#: src/components/Signup.tsx:94
-msgid "We are currently private beta. Sign Up is restricted to invited users."
-msgstr ""
-"現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
-
-#: src/components/Team/Billing.tsx:106
+#: src/components/Team/Billing.tsx:107
 msgid "Free plan"
 msgstr "フリープラン"
 
-#: src/components/Team/Billing.tsx:132 src/components/Team/general/index.tsx:31
+#: src/components/Team/Billing.tsx:133 src/components/Team/general/index.tsx:31
 #: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:141
+#: src/components/Team/Billing.tsx:142
 msgid "You can see subscriptions for this team in this month."
 msgstr "このチームの今月のサブスクリプションを確認することができます。"
 
-#: src/components/Team/Billing.tsx:147
+#: src/components/Team/Billing.tsx:148
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:153
+#: src/components/Team/Billing.tsx:154
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:157
+#: src/components/Team/Billing.tsx:158
 msgid "ending in **%1$s"
 msgstr "末尾の番号 **%1$s"
 
-#: src/components/Team/Billing.tsx:167
+#: src/components/Team/Billing.tsx:168
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:177
+#: src/components/Team/Billing.tsx:178
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:188
+#: src/components/Team/Billing.tsx:189
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:223
+#: src/components/Team/Billing.tsx:224
 msgid "Paid invoice receipts"
 msgstr ""
 
@@ -747,7 +738,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:102
-#: src/components/Team/members/index.tsx:274
+#: src/components/Team/members/index.tsx:275
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -765,7 +756,7 @@ msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
 #: src/components/Team/members/change-role.tsx:128
-#: src/components/Team/members/index.tsx:196
+#: src/components/Team/members/index.tsx:197
 msgid "Owner"
 msgstr "オーナー"
 
@@ -795,24 +786,24 @@ msgstr "APIキーを含むチームの全てのリソースを管理できます
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Team/members/index.tsx:149
+#: src/components/Team/members/index.tsx:150
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
 
-#: src/components/Team/members/index.tsx:198
+#: src/components/Team/members/index.tsx:199
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:236
+#: src/components/Team/members/index.tsx:237
 #: src/components/custom/AsyncTable.tsx:139 src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:278
+#: src/components/Team/members/index.tsx:279
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:282
+#: src/components/Team/members/index.tsx:283
 msgid "Remove from team"
 msgstr "チームから削除"
 
@@ -1030,7 +1021,7 @@ msgstr "日本語"
 msgid "English"
 msgstr "英語"
 
-#: src/components/resend-code.tsx:73
+#: src/components/resend-code.tsx:77
 msgid "request send"
 msgstr "再送する"
 
@@ -1165,7 +1156,9 @@ msgstr "ユーザーが見つかりませんでした。ユーザー名を確認
 msgid ""
 "User not found. Please check entered username or email. If you use email, "
 "perhaps the email is not verified."
-msgstr "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してください。メールアドレスが認証されていない可能性があります。"
+msgstr ""
+"ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してくだ"
+"さい。メールアドレスが認証されていない可能性があります。"
 
 #: src/components/Data/MapEditor.tsx:137
 msgctxt "Default value of latitude for map"
@@ -1181,6 +1174,18 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Anyone can access this GeoJSON API."
+#~ msgstr "誰でもこの GeoJSON API にアクセスすることができます。"
+
+#~ msgid "You can restrict the URLs that can use this GeoJSON API."
+#~ msgstr "この GeoJSON API を利用できる URL を制限することができます。"
+
+#~ msgid "Upgrade to Geolonia Team"
+#~ msgstr "チーム機能をアップグレード"
+
+#~ msgid "Billing"
+#~ msgstr "支払い"
 
 #~ msgid "Private Endpoint"
 #~ msgstr "プライベートエンドポイント"

@@ -217,7 +217,7 @@ const GeoJSONMeta = (props: Props) => {
           <div>
             {/* NOTE: Billing feature */}
             {/* {isPublic ? ( */}
-            <p>{__("Anyone can access this GeoJSON API.")}</p>
+            <p>{__('Public features will be displayed publicly and anyone can download this features without API key.')}</p>
             {/* ) : (
               <p>
                 {__("You can restrict the URLs that can use this GeoJSON API.")}

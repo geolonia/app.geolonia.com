@@ -55,15 +55,11 @@
       "Error: The `id` of each `fueature` must be unique in the GeoJSON.": [
         "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要があります。"
       ],
-      "Anyone can access this GeoJSON API.": [
-        "誰でもこの GeoJSON API にアクセスすることができます。"
-      ],
-      "You can restrict the URLs that can use this GeoJSON API.": [
-        "この GeoJSON API を利用できる URL を制限することができます。"
+      "Public features will be displayed publicly and anyone can download this features without API key.": [
+        "Public のデータは一般に公開され、だれでも API キー無しでダウンロードすることができます。"
       ],
       "Datasets are published now.": ["データセットは公開されています。"],
       "Datasets status are draft now.": ["データセットは下書きの状態です。"],
-      "Upgrade to Geolonia Team": ["チーム機能をアップグレード"],
       "Name": ["名前"],
       "Name of public GeoJSON will be displayed in public.": [
         "公開されているGeoJSONの名前が表示されます。"
@@ -180,7 +176,6 @@
       "Team Settings": ["チーム設定"],
       "General": ["一般"],
       "Members": ["メンバー"],
-      "Billing": ["支払い"],
       "Documentation": ["ドキュメント"],
       "Official Documents": ["公式ドキュメント"],
       "Dashboard": ["ダッシュボード"],
@@ -223,6 +218,11 @@
       "Sign in": ["サインイン"],
       "New to Geolonia?": ["アカウントをお持ちですか？"],
       "Create an account.": ["アカウントを作成"],
+      "Welcome to Geolonia": ["Geolonia へようこそ"],
+      "Create your account": ["アカウントを作成"],
+      "We are currently private beta. Sign Up is restricted to invited users.": [
+        "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
+      ],
       "Username": ["ユーザー名"],
       "Username cannot be modified later.": [
         "ユーザー名は後から変更できません。"
@@ -231,11 +231,6 @@
       "Sign up": ["サインアップ"],
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
-      ],
-      "Welcome to Geolonia": ["Geolonia へようこそ"],
-      "Create your account": ["アカウントを作成"],
-      "We are currently private beta. Sign Up is restricted to invited users.": [
-        "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できます。"
       ],
       "Free plan": ["フリープラン"],
       "Team settings": ["チーム設定"],
