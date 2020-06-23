@@ -25,6 +25,7 @@ export default function useGeoJSON(session: Session, geojsonId: string | void) {
   const [bounds, setBounds] = React.useState<
     mapboxgl.LngLatBoundsLike | undefined
   >(undefined);
+  const [error, setError] = React.useState(false);
 
   React.useEffect(() => {
     if (session && geojsonId) {
@@ -33,19 +34,32 @@ export default function useGeoJSON(session: Session, geojsonId: string | void) {
         session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`
       )
-        .then(res => res.json())
+        .then(res => {
+          if (res.status < 400) {
+            return res.json();
+          } else {
+            throw new Error();
+          }
+        })
         .then(json => {
           const allowedOrigins =
             typeof json.allowedOrigins === "string" ? json.allowedOrigins : "";
           setGeoJsonMeta({ ...json, allowedOrigins });
-        });
+        })
+        .catch(() => setError(true));
 
       // get Features
       fetch(
         session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}/features`
       )
-        .then(res => res.json())
+        .then(res => {
+          if (res.status < 400) {
+            return res.json();
+          } else {
+            throw new Error();
+          }
+        })
         .then(json => {
           const geojson = {
             type: "FeatureCollection",
@@ -53,7 +67,8 @@ export default function useGeoJSON(session: Session, geojsonId: string | void) {
           } as GeoJSON.FeatureCollection;
           setGeoJSON(geojson);
           setBounds(geojsonExtent(geojson));
-        });
+        })
+        .catch(() => setError(true));
     }
   }, [session, geojsonId]);
 
@@ -63,6 +78,7 @@ export default function useGeoJSON(session: Session, geojsonId: string | void) {
     geoJSON,
     setGeoJSON,
     setBounds,
-    setGeoJsonMeta
+    setGeoJsonMeta,
+    error
   };
 }
