@@ -9,14 +9,15 @@ import Delete from "./delete";
 
 // utils
 import { __ } from "@wordpress/i18n";
-import { Roles } from "../../../types";
 
 // types
-import { Role, AppState } from "../../../types";
 import { connect } from "react-redux";
 
+// Constants
+import { Roles } from "../../../constants";
+
 type OwnProps = {};
-type StateProps = { role?: Role };
+type StateProps = { role?: Geolonia.Role };
 type Props = OwnProps & StateProps;
 
 const Content = (props: Props) => {
@@ -30,7 +31,7 @@ const Content = (props: Props) => {
     {
       title: __("Team settings"),
       href: null
-    },
+    }
   ];
 
   const isOwner = role === Roles.Owner;
@@ -62,7 +63,7 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   const role = team && team.role;
   return { role };

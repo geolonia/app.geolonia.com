@@ -13,7 +13,6 @@ import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
 import fetch from "../../lib/fetch";
-import { AppState, Session } from "../../types";
 
 const { REACT_APP_STAGE } = process.env;
 
@@ -42,7 +41,7 @@ type OwnProps = {
   style: string;
 };
 
-type StateProps = { session: Session };
+type StateProps = { session: Geolonia.Session };
 type Props = OwnProps & StateProps;
 
 // const copyToClipBoard = (style: string) => {
@@ -217,7 +216,11 @@ const GeoJSONMeta = (props: Props) => {
           <div>
             {/* NOTE: Billing feature */}
             {/* {isPublic ? ( */}
-            <p>{__('Public features will be displayed publicly and anyone can download this features without API key.')}</p>
+            <p>
+              {__(
+                "Public features will be displayed publicly and anyone can download this features without API key."
+              )}
+            </p>
             {/* ) : (
               <p>
                 {__("You can restrict the URLs that can use this GeoJSON API.")}
@@ -334,7 +337,7 @@ const GeoJSONMeta = (props: Props) => {
   );
 };
 
-export const mapStateToProps = (state: AppState): StateProps => {
+export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const { session } = state.authSupport;
   return { session };
 };

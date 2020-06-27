@@ -34,9 +34,6 @@ import useGeoJSON from "./GeoJson/hooks/use-geojson";
 
 import "./GeoJson.scss";
 
-// types
-import { AppState, Session, Feature, FeatureProperties } from "../../types";
-
 // constants
 import { messageDisplayDuration } from "../../constants";
 const { REACT_APP_STAGE } = process.env;
@@ -44,7 +41,7 @@ const { REACT_APP_STAGE } = process.env;
 type OwnProps = {};
 
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   geojsonId?: string;
   teamId?: string;
   isPaidTeam: boolean;
@@ -61,7 +58,7 @@ type Props = OwnProps & RouterProps & StateProps;
 const Content = (props: Props) => {
   const [message] = React.useState("");
   const [currentFeature, setCurrentFeature] = React.useState<
-    Feature | undefined
+    Geolonia.Feature | undefined
   >();
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0);
@@ -122,7 +119,7 @@ const Content = (props: Props) => {
    *
    * @param feature
    */
-  const mergeDefaultProperties = (feature: Feature | undefined) => {
+  const mergeDefaultProperties = (feature: Geolonia.Feature | undefined) => {
     if (!feature) {
       return feature;
     }
@@ -209,11 +206,11 @@ const Content = (props: Props) => {
    * @param value
    */
   const updateFeatureProps = (
-    key: keyof FeatureProperties,
+    key: keyof Geolonia.FeatureProperties,
     value: string | number
   ) => {
     if (currentFeature) {
-      const feature = { ...currentFeature } as Feature;
+      const feature = { ...currentFeature } as Geolonia.Feature;
       feature.properties[key] = value;
       drawObject.setFeatureProperty(feature.id, key, value);
 
@@ -448,7 +445,7 @@ const Content = (props: Props) => {
 };
 
 export const mapStateToProps = (
-  state: AppState,
+  state: Geolonia.Redux.AppState,
   ownProps: OwnProps & RouterProps
 ): StateProps => {
   const session = state.authSupport.session;

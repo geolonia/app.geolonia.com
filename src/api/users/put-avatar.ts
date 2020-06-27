@@ -1,7 +1,6 @@
-import { Session } from "../../types";
 import fetch from "../custom-fetch";
 
-const putAvatar = (session: Session, file: File) => {
+const putAvatar = (session: Geolonia.Session, file: File) => {
   const userSub = session && session.getIdToken().decodePayload().sub;
 
   return fetch<{ links: { putAvatar: string } }>(

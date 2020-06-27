@@ -1,7 +1,6 @@
 import React from "react";
 import fetch from "../../lib/fetch";
 import { connect } from "react-redux";
-import { Session, AppState, Invoice } from "../../types";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -12,7 +11,7 @@ import Typography from "@material-ui/core/Typography";
 
 type OwnProps = {};
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   teamId?: string;
   language: string;
 };
@@ -21,7 +20,7 @@ type Props = OwnProps & StateProps;
 const useInvoices = (props: Props) => {
   const { session, teamId } = props;
   const [loaded, setLoaded] = React.useState(false);
-  const [invoices, setInvoices] = React.useState<Invoice[]>([]);
+  const [invoices, setInvoices] = React.useState<Geolonia.Invoice[]>([]);
 
   React.useEffect(() => {
     if (loaded) {
@@ -137,7 +136,7 @@ function PaymentHistory(props: Props) {
   );
 }
 
-export const mapStateToProps = (state: AppState): StateProps => {
+export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   const language = state.userMeta.language;
   const { session } = state.authSupport;

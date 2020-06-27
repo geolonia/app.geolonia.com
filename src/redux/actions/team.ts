@@ -1,34 +1,11 @@
-import { Member } from "./team-member";
+type State = Geolonia.Redux.State.Team;
 
-export type Team = {
-  teamId: string;
-  name: string;
-  description: string;
-  url: string;
-  role: Member["role"];
-  billingEmail: string;
-  isDeleted?: boolean;
-  links: {
-    getAvatar: string;
-    putAvatar: string;
-  };
-  avatarImage: string | void;
-  last2?: string;
-  isPaidTeam: boolean;
-  maxMemberLength: number;
-};
-
-export const isTeam = (team: any): team is Team => {
+export const isTeam = (team: any): team is Geolonia.Team => {
   if (!team || !team.teamId || !team.role || !team.links) {
     return false;
   } else {
     return true;
   }
-};
-
-export type State = {
-  data: Team[];
-  selectedIndex: number;
 };
 
 const initialState: State = { data: [], selectedIndex: 0 };
@@ -39,12 +16,18 @@ const ADD_ACTION = "TEAM/ADD";
 const UPDATE_ACTION = "TEAM/UPDATE";
 const SET_AVATAR_ACTION = "TEAM/SET_AVATAR";
 
-type SetAction = { type: typeof SET_ACTION; payload: { teams: Team[] } };
+type SetAction = {
+  type: typeof SET_ACTION;
+  payload: { teams: Geolonia.Team[] };
+};
 type SelectAction = { type: typeof SELECT_ACTION; payload: { index: number } };
-type AddAction = { type: typeof ADD_ACTION; payload: { team: Team } };
+type AddAction = {
+  type: typeof ADD_ACTION;
+  payload: { team: Geolonia.Team };
+};
 type UpdateAction = {
   type: typeof UPDATE_ACTION;
-  payload: { index: number; team: Partial<Team> };
+  payload: { index: number; team: Partial<Geolonia.Team> };
 };
 type SetAvatarAction = {
   type: typeof SET_AVATAR_ACTION;
@@ -73,10 +56,10 @@ const isSetAvatarAction = (action: TeamAction): action is SetAvatarAction =>
   action.type === SET_AVATAR_ACTION;
 
 export const createActions = {
-  set: (teams: Team[]) => ({ type: SET_ACTION, payload: { teams } }),
+  set: (teams: Geolonia.Team[]) => ({ type: SET_ACTION, payload: { teams } }),
   select: (index: number) => ({ type: SELECT_ACTION, payload: { index } }),
-  add: (team: Team) => ({ type: ADD_ACTION, payload: { team } }),
-  update: (index: number, team: Partial<Team>) => ({
+  add: (team: Geolonia.Team) => ({ type: ADD_ACTION, payload: { team } }),
+  update: (index: number, team: Partial<Geolonia.Team>) => ({
     type: UPDATE_ACTION,
     payload: { index, team }
   }),
@@ -92,7 +75,7 @@ export const reducer = (state: State = initialState, action: TeamAction) => {
   } else if (isSelectAction(action)) {
     return { ...state, selectedIndex: action.payload.index };
   } else if (isAddAction(action)) {
-    const newTeam = { links: {}, ...action.payload.team };
+    const newTeam = action.payload.team;
     return { ...state, data: [...state.data, newTeam] };
   } else if (isUpdateAciton(action)) {
     const nextTeams = [...state.data];

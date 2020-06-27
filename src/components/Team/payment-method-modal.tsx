@@ -10,14 +10,13 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { __ } from "@wordpress/i18n";
 import fetch from "../../lib/fetch";
 import { connect } from "react-redux";
-import { AppState, Session } from "../../types";
 
 type OwnProps = {
   open: boolean;
   handleClose: () => void;
 };
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   teamId?: string;
 };
 type Props = OwnProps & StateProps;
@@ -152,7 +151,7 @@ const PaymentMethodModal = (props: Props) => {
   );
 };
 
-export const mapStateToProps = (state: AppState): StateProps => {
+export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   const { session } = state.authSupport;
   if (team) {

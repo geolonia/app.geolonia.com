@@ -19,16 +19,13 @@ import { __, sprintf } from "@wordpress/i18n";
 // API
 import putAvatar from "../../api/users/put-avatar";
 
-// types
-import { AppState, Session, User } from "../../types";
-
 // constants
 import { avatarLimitSize } from "../../constants";
 
 type OwnProps = {};
 type StateProps = {
-  session: Session;
-  userMeta: User;
+  session: Geolonia.Session;
+  userMeta: Geolonia.User;
 };
 type DispatchProps = {
   setAvatar: (avatarBlobUrl: string | void) => void;
@@ -149,7 +146,7 @@ export class AvatarSection extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: AppState): StateProps => ({
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
   session: state.authSupport.session,
   userMeta: state.userMeta
 });
@@ -158,7 +155,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   setAvatar: blobUrl => dispatch(createUserMetaActions.setAvatar(blobUrl))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(AvatarSection);
+export default connect(mapStateToProps, mapDispatchToProps)(AvatarSection);

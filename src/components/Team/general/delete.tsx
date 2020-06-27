@@ -23,7 +23,6 @@ import deleteTeam from "../../../api/teams/delete";
 
 // types
 import { connect } from "react-redux";
-import { AppState, Team, Session } from "../../../types";
 
 // parameters
 const styleDangerZone: React.CSSProperties = {
@@ -33,8 +32,8 @@ const styleDangerZone: React.CSSProperties = {
 
 type OwnProps = {};
 type StateProps = {
-  session: Session;
-  team: Team;
+  session: Geolonia.Session;
+  team: Geolonia.Team;
 };
 type Props = OwnProps & StateProps;
 
@@ -55,7 +54,6 @@ const Content = (props: Props) => {
       setStatus("requesting");
       deleteTeam(session, team.teamId)
         .then(result => {
-          console.log(result);
           if (result.error) {
             throw new Error(result.code);
           } else {
@@ -164,7 +162,7 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   return {
     session: state.authSupport.session,
     team: state.team.data[state.team.selectedIndex]

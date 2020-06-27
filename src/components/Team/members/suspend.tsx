@@ -15,20 +15,22 @@ import { __ } from "@wordpress/i18n";
 import updateMember from "../../../api/members/update";
 
 // Types
-import { AppState, Member, Session, Role, Roles } from "../../../types";
 import { connect } from "react-redux";
 
 // Redux
 import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 import Redux from "redux";
 
+// constants
+import { Roles } from "../../../constants";
+
 type OwnProps = {
-  currentMember: Member;
+  currentMember: Geolonia.Member;
   open: boolean;
   toggle: (open: boolean) => void;
 };
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   teamId: string;
   teamName: string;
 };
@@ -36,14 +38,16 @@ type DispatchProps = {
   updateMemberRoleState: (
     teamId: string,
     memberSub: string,
-    role: Role
+    role: Geolonia.Role
   ) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
 const Suspend = (props: Props) => {
   const { currentMember, open, toggle, updateMemberRoleState } = props;
-  const [role, setRole] = React.useState<false | Role>(currentMember.role);
+  const [role, setRole] = React.useState<false | Geolonia.Role>(
+    currentMember.role
+  );
   const [status, setStatus] = React.useState<
     false | "requesting" | "success" | "failure"
   >(false);
@@ -128,7 +132,7 @@ const Suspend = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   return {
     session: state.authSupport.session,
@@ -142,7 +146,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
     dispatch(createTeamMemberActions.update(teamId, userSub, { role }))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Suspend);
+export default connect(mapStateToProps, mapDispatchToProps)(Suspend);

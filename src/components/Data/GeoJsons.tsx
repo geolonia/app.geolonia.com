@@ -9,16 +9,9 @@ import { CircularProgress } from "@material-ui/core";
 // utils
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
-import Moment from 'moment'
+import Moment from "moment";
 import queryString from "query-string";
-import fetch from '../../lib/fetch'
-
-
-// types
-import {
-  AppState,
-  Session,
-} from "../../types";
+import fetch from "../../lib/fetch";
 
 const { REACT_APP_STAGE } = process.env;
 
@@ -31,7 +24,7 @@ type Row = {
 
 type OwnProps = {};
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   teamId?: string;
 };
 type RouteProps = {
@@ -41,7 +34,7 @@ type RouteProps = {
   history: {
     push: (href: string) => void;
   };
-}
+};
 type Props = OwnProps & StateProps & RouteProps;
 
 type typeTableRows = {
@@ -58,35 +51,35 @@ function Content(props: Props) {
   const [watchdog, setWatchdog] = React.useState(0);
   const [perPage, setPerPage] = React.useState(10);
   const [totalCount, setTotalCount] = React.useState(0);
-  const [loading, setLoading] = React.useState(false)
+  const [loading, setLoading] = React.useState(false);
 
-  const page = Number(queryString.parse(props.location.search).page) || 0
+  const page = Number(queryString.parse(props.location.search).page) || 0;
   React.useEffect(() => {
     if (props.teamId && props.session) {
-      setLoading(true)
+      setLoading(true);
       fetch(
         props.session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}&per_page=${perPage}&page=${page}`,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}&per_page=${perPage}&page=${page}`
       )
         .then(res => {
-          if(res.status < 300) {
-            return res.json()
+          if (res.status < 300) {
+            return res.json();
           } else {
-            throw new Error()
+            throw new Error();
           }
         })
         .then(json => {
-          const { totalCount, geojsons } = json
+          const { totalCount, geojsons } = json;
 
-          if(perPage * page > totalCount) {
-            props.history.push('?page=0');
+          if (perPage * page > totalCount) {
+            props.history.push("?page=0");
             return;
           }
 
           const rows = [];
           for (let i = 0; i < geojsons.length; i++) {
             // const item = dateParse<DateStringify<any>>(json[i]);
-            const geojson = geojsons[i]
+            const geojson = geojsons[i];
             rows.push({
               id: geojson.id,
               name: geojson.name,
@@ -94,7 +87,7 @@ function Content(props: Props) {
               isPublic: geojson.isPublic
             } as typeTableRows);
           }
-          setTotalCount(totalCount)
+          setTotalCount(totalCount);
           setGeoJsons(
             rows.sort((a: typeTableRows, b: typeTableRows) => {
               if (a.updated > b.updated) {
@@ -105,14 +98,21 @@ function Content(props: Props) {
             })
           );
         })
-        .catch((err) => {
-          console.error(err)
-          alert(__('Network Error.'))
+        .catch(err => {
+          console.error(err);
+          alert(__("Network Error."));
         })
-        .finally(() => setLoading(false))
+        .finally(() => setLoading(false));
     }
-  }, [props.teamId, props.session, watchdog, props.location.search, page, perPage, props.history]);
-
+  }, [
+    props.teamId,
+    props.session,
+    watchdog,
+    props.location.search,
+    page,
+    perPage,
+    props.history
+  ]);
 
   const breadcrumbItems = [
     {
@@ -135,30 +135,30 @@ function Content(props: Props) {
       props.session,
       `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${teamId}`,
       {
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({ name })
       }
     )
-      .then((res) => {
-        if(res.status < 300) {
-          return res.json()
+      .then(res => {
+        if (res.status < 300) {
+          return res.json();
         } else {
-          throw new Error()
+          throw new Error();
         }
       })
       .then(() => {
         // wait until the Elasticsearch completes indexing
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
           setTimeout(() => {
-            setWatchdog(watchdog + 1)
-            resolve()
-          }, 1500)
-        })
+            setWatchdog(watchdog + 1);
+            resolve();
+          }, 1500);
+        });
       })
       .catch(() => {
-        setMessage(__('Network error.'))
-        throw new Error() // will be caught by <AddNew />
-      })
+        setMessage(__("Network error."));
+        throw new Error(); // will be caught by <AddNew />
+      });
   };
 
   return (
@@ -177,39 +177,41 @@ function Content(props: Props) {
         errorMessage={message}
       />
 
-        {loading ?
-          <div style={{
-            width: '100%',
-            height: '200px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'}
-          }>
-            <CircularProgress />
-          </div>
-          :
-          <AsyncTable
-            page={page}
-            rows={geoJsons}
-            rowsPerPage={perPage}
-            setPerPage={setPerPage}
-            totalCount={totalCount}
-            permalink="/data/geojson/%s"
-            onChangePage={(page) => props.history.push(`?page=${page}`)}
-          />
-        }
+      {loading ? (
+        <div
+          style={{
+            width: "100%",
+            height: "200px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center"
+          }}
+        >
+          <CircularProgress />
+        </div>
+      ) : (
+        <AsyncTable
+          page={page}
+          rows={geoJsons}
+          rowsPerPage={perPage}
+          setPerPage={setPerPage}
+          totalCount={totalCount}
+          permalink="/data/geojson/%s"
+          onChangePage={page => props.history.push(`?page=${page}`)}
+        />
+      )}
     </div>
   );
 }
 
-export const mapStateToProps = (state: AppState): StateProps => {
+export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   const { session } = state.authSupport;
   if (team) {
     const { teamId } = team;
     return {
       session,
-      teamId,
+      teamId
     };
   } else {
     return { session };

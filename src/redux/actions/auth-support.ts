@@ -1,19 +1,10 @@
-import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
-
 const SET_CURRENT_USER_ACTION = "AUTH_SUPPORT/SET_CURRENT_USER_ACTION";
 const SET_SESSION_ACTION = "AUTH_SUPPORT/SET_SESSION";
 const SET_ACCESS_TOKEN = "AUTH_SUPPORT/SET_ACCESS_TOKEN";
 const GET_IN_TROUBLE_ACTION = "AUTH_SUPORT/GET_IN_TROUBLE";
 const READY_ACTION = "AUTH_SUPPORT/READY";
 
-export type State = {
-  currentUser?: string;
-  session?: AmazonCognitoIdentity.CognitoUserSession;
-  accessToken?: string;
-  hasTrouble: boolean;
-  isReady: boolean;
-  isVerified: boolean;
-};
+type State = Geolonia.Redux.State.AuthSupport;
 
 const initialState: State = {
   currentUser: void 0,
@@ -31,7 +22,7 @@ type SetCognitoUserAction = {
 
 type SetSessionAction = {
   type: typeof SET_SESSION_ACTION;
-  payload: { session: AmazonCognitoIdentity.CognitoUserSession };
+  payload: { session: Geolonia.Session };
 };
 
 type SetAccessTokenAction = {
@@ -61,7 +52,7 @@ export const createActions = {
     type: SET_CURRENT_USER_ACTION,
     payload: { currentUser }
   }),
-  setSession: (session: AmazonCognitoIdentity.CognitoUserSession) => ({
+  setSession: (session: Geolonia.Session) => ({
     type: SET_SESSION_ACTION,
     payload: { session }
   }),

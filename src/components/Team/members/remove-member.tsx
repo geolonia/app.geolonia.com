@@ -14,21 +14,18 @@ import { __, sprintf } from "@wordpress/i18n";
 // API
 import deleteMember from "../../../api/members/delete";
 
-// Types
-import { AppState, Session, Member } from "../../../types";
-
 // Redux
 import { connect } from "react-redux";
 import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 import Redux from "redux";
 
 type OwnProps = {
-  currentMember: Member;
+  currentMember: Geolonia.Member;
   open: boolean;
   toggle: (open: boolean) => void;
 };
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   teamId: string;
   teamName: string;
 };
@@ -105,7 +102,7 @@ const RemoveMember = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   return {
     session: state.authSupport.session,
@@ -119,7 +116,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
     dispatch(createTeamMemberActions.delete(teamId, userSub))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RemoveMember);
+export default connect(mapStateToProps, mapDispatchToProps)(RemoveMember);
