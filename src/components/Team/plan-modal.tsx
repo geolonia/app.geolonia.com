@@ -5,7 +5,6 @@ import Button from "@material-ui/core/Button";
 import { __ } from "@wordpress/i18n";
 import fetch from "../../lib/fetch";
 import { connect } from "react-redux";
-import { AppState, Session } from "../../types";
 import { GeoloniaConstantPlan } from "./Billing";
 import {
   CircularProgress,
@@ -21,7 +20,7 @@ type OwnProps = {
   currentPlanId: string | null | undefined;
 };
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   teamId?: string;
 };
 type Props = OwnProps & StateProps;
@@ -131,7 +130,7 @@ const PlanModal = (props: Props) => {
   );
 };
 
-export const mapStateToProps = (state: AppState): StateProps => {
+export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   const { session } = state.authSupport;
   if (team) {

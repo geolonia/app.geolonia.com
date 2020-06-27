@@ -1,8 +1,8 @@
-import { Session, Member } from "../../types";
 import fetch from "../custom-fetch";
+type FetchResult = Geolonia.Member[];
 
-const listMembers = (session: Session, teamId: string) => {
-  return fetch<Member[]>(session, `/teams/${teamId}/members`, {
+const listMembers = (session: Geolonia.Session, teamId: string) => {
+  return fetch<FetchResult>(session, `/teams/${teamId}/members`, {
     method: "GET"
   });
 };

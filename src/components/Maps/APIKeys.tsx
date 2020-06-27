@@ -10,9 +10,6 @@ import { connect } from "react-redux";
 // api
 import createKey from "../../api/keys/create";
 
-// types
-import { AppState, Key, Session } from "../../types";
-
 // redux
 import Redux from "redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
@@ -20,13 +17,13 @@ import dateParse from "../../lib/date-parse";
 
 type OwnProps = {};
 type StateProps = {
-  session: Session;
-  mapKeys: Key[];
+  session: Geolonia.Session;
+  mapKeys: Geolonia.Key[];
   error: boolean;
   teamId: string;
 };
 type DispatchProps = {
-  addKey: (teamId: string, key: Key) => void;
+  addKey: (teamId: string, key: Geolonia.Key) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
@@ -88,7 +85,7 @@ function Content(props: Props) {
   );
 }
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const { session } = state.authSupport;
   const { data: teams, selectedIndex } = state.team;
   const teamId = teams[selectedIndex] && teams[selectedIndex].teamId;
@@ -99,7 +96,7 @@ const mapStateToProps = (state: AppState): StateProps => {
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
   return {
-    addKey: (teamId: string, key: Key) =>
+    addKey: (teamId: string, key: Geolonia.Key) =>
       dispatch(createMapKeyActions.add(teamId, key))
   };
 };

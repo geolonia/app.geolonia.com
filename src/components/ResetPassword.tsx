@@ -18,7 +18,6 @@ import queryString from "query-string";
 import delay from "../lib/promise-delay";
 
 // Types
-import { AppState } from "../types";
 import { pageTransitionInterval } from "../constants";
 import estimateLanguage from "../lib/estimate-language";
 import StatusIndication from "./custom/status-indication";
@@ -167,7 +166,7 @@ const Content = () => {
   );
 };
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: Geolonia.Redux.AppState) => ({
   currentUser: state.authSupport.currentUser || ""
 });
 

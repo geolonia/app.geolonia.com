@@ -83,7 +83,7 @@ export class MyComponent extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: Geolonia.Redux.AppState) => {
   return {
     appValue: state.app.value,
   }

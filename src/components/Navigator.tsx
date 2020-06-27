@@ -31,15 +31,11 @@ import { Link } from "@material-ui/core";
 
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
-import {
-  createActions as createTeamActions,
-  Team
-} from "../redux/actions/team";
+import { createActions as createTeamActions } from "../redux/actions/team";
 
 import createTeam from "../api/teams/create";
 
 // types
-import { AppState, Session } from "../types";
 import Redux from "redux";
 
 const styles = (theme: Theme) => ({
@@ -96,15 +92,15 @@ type OwnProps = {
 };
 
 type StateProps = {
-  session: Session;
-  teams: Team[];
+  session: Geolonia.Session;
+  teams: Geolonia.Team[];
   selectedTeamIndex: number;
   ownerEmail: string;
 };
 
 type DispatchProps = {
   selectTeam: (index: number) => void;
-  addTeam: (team: Team) => void;
+  addTeam: (team: Geolonia.Team) => void;
 };
 
 type Props = OwnProps & StateProps & DispatchProps;
@@ -341,7 +337,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => ({
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
   teams: state.team.data,
   selectedTeamIndex: state.team.selectedIndex,
   session: state.authSupport.session,
@@ -350,7 +346,7 @@ const mapStateToProps = (state: AppState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   selectTeam: (index: number) => dispatch(createTeamActions.select(index)),
-  addTeam: (team: Team) => dispatch(createTeamActions.add(team))
+  addTeam: (team: Geolonia.Team) => dispatch(createTeamActions.add(team))
 });
 
 const ConnectedNavigator = connect(

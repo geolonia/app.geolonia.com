@@ -16,7 +16,6 @@ import { signout } from "../auth";
 
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
-import { AppState } from "../types";
 import Avatar from "@material-ui/core/Avatar";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
@@ -147,7 +146,7 @@ const Header = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   return {
     userAvatar: state.userMeta.avatarImage
   };
