@@ -6,6 +6,11 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+import Card from "@material-ui/core/Card";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormControl from "@material-ui/core/FormControl";
 
 import { sprintf, __ } from "@wordpress/i18n";
 import Interweave from "interweave";
@@ -14,6 +19,7 @@ import Code from "../custom/Code";
 import Save from "../custom/Save";
 import Delete from "../custom/Delete";
 import Help from "../custom/Help";
+import Alert from "../custom/Alert";
 import Title from "../custom/Title";
 import DangerZone from "../custom/danger-zone";
 
@@ -52,8 +58,35 @@ type RouterProps = {
   history: { push: (path: string) => void };
 };
 type Props = OwnProps & StateProps & DispatchProps & RouterProps;
+type Mode = "publishable" | "bundle";
 
-const Content = (props: Props) => {
+const styleH3: React.CSSProperties = {
+  marginTop: "1em"
+};
+
+const sidebarStyle: React.CSSProperties = {
+  marginBottom: "2em",
+  overflowWrap: "break-word"
+};
+
+const styleTextarea: React.CSSProperties = {
+  width: "100%",
+  color: "#555555",
+  fontFamily: "monospace",
+  resize: "none",
+  height: "5rem",
+  padding: "8px"
+};
+
+const copyToClipBoard = (cssSelector: string) => {
+  const input = document.querySelector(cssSelector) as HTMLInputElement;
+  if (input) {
+    input.select();
+    clipboard.writeText(input.value);
+  }
+};
+
+function APIKey(props: Props) {
   // state
   const [name, setName] = React.useState("");
   const [allowedOrigins, setAllowedOrigins] = React.useState("");
@@ -62,6 +95,7 @@ const Content = (props: Props) => {
   >(false);
   const [message, setMessage] = React.useState("");
   const [prevIndex] = React.useState(props.selectedTeamIndex);
+  const [mode, setMode] = React.useState<Mode>("publishable");
 
   // move on team change
   React.useEffect(() => {
@@ -78,7 +112,10 @@ const Content = (props: Props) => {
   React.useEffect(() => {
     setName(propName);
     setAllowedOrigins(propOrigins.join("\n"));
-
+    // 少なくとも1つ * が入っていたらバンドルモードとして扱う
+    setMode(
+      propOrigins.some(origin => origin === "*") ? "bundle" : "publishable"
+    );
     const script = document.createElement("script");
     script.src = "https://geolonia.github.io/get-geolonia/app.js";
     document.body.appendChild(script);
@@ -119,27 +156,19 @@ const Content = (props: Props) => {
     }
   ];
 
-  const styleH3: React.CSSProperties = {
-    marginTop: "1em"
-  };
+  const hasAnyMatch = allowedOrigins
+    .split("\n")
+    .some(line => /^\*$/.test(line));
 
-  const sidebarStyle: React.CSSProperties = {
-    marginBottom: "2em",
-    overflowWrap: "break-word"
-  };
-
-  const styleTextarea: React.CSSProperties = {
-    width: "100%",
-    color: "#555555",
-    fontFamily: "monospace",
-    resize: "none",
-    height: "5rem",
-    padding: "8px"
-  };
+  /**
+   * take into account of bundle Mode
+   */
+  const calculatedAllowedOrigins =
+    mode === "bundle" && !hasAnyMatch ? "*\n" + allowedOrigins : allowedOrigins;
 
   const saveDisabled =
-    name.trim() === "" ||
-    (name === propName && allowedOrigins === propOrigins.join("\n"));
+    (hasAnyMatch && mode === "publishable") ||
+    (name === propName && calculatedAllowedOrigins === propOrigins.join("\n"));
 
   const onUpdateClick = () => {
     if (saveDisabled) {
@@ -148,7 +177,7 @@ const Content = (props: Props) => {
 
     setStatus("requesting");
 
-    const normalizedAllowedOrigins = allowedOrigins
+    const normalizedAllowedOrigins = calculatedAllowedOrigins
       .split("\n")
       .filter(url => !!url)
       .map(origin => normalizeOrigin(origin));
@@ -191,14 +220,6 @@ const Content = (props: Props) => {
     });
   };
 
-  const copyToClipBoard = (cssSelector: string) => {
-    const input = document.querySelector(cssSelector) as HTMLInputElement;
-    if (input) {
-      input.select();
-      clipboard.writeText(input.value);
-    }
-  };
-
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title={__("API key settings")}>
@@ -220,6 +241,29 @@ const Content = (props: Props) => {
             onBlur={onNameBlur}
           />
 
+          <Card>
+            <FormControl component="fieldset">
+              <RadioGroup
+                aria-label={__("Mode")}
+                name="mode"
+                value={mode}
+                onChange={e => setMode(e.currentTarget.value as Mode)}
+                style={{ display: "flex", flexDirection: "row" }}
+              >
+                <FormControlLabel
+                  value={"publishable"}
+                  control={<Radio />}
+                  label={__("Publishable Mode")}
+                />
+                <FormControlLabel
+                  value={"bundle"}
+                  control={<Radio />}
+                  label={__("Bundle Mode")}
+                />
+              </RadioGroup>
+            </FormControl>
+          </Card>
+
           <TextField
             id="standard-name"
             label={__("URLs")}
@@ -228,9 +272,9 @@ const Content = (props: Props) => {
             rows={5}
             placeholder="https://example.com"
             fullWidth={true}
-            value={allowedOrigins}
+            value={calculatedAllowedOrigins}
             onChange={e => setAllowedOrigins(e.target.value)}
-            disabled={status === "requesting"}
+            disabled={status === "requesting" || mode === "bundle"}
           />
 
           <Help>
@@ -258,7 +302,11 @@ const Content = (props: Props) => {
               )}
             </p>
           </Help>
-
+          {((hasAnyMatch && mode === "publishable") || mode === "bundle") && (
+            <Alert type={mode === "bundle" ? "success" : "danger"}>
+              {__("The any match (*) is only allowed in bundle mode.")}
+            </Alert>
+          )}
           <Save
             onClick={onUpdateClick}
             onError={onRequestError}
@@ -368,7 +416,7 @@ const Content = (props: Props) => {
       </Grid>
     </div>
   );
-};
+}
 
 const mapStateToProps = (
   state: Geolonia.Redux.AppState,
@@ -403,4 +451,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
     dispatch(createMapKeyActions.delete(teamId, keyId))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(APIKey);

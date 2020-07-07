@@ -44,7 +44,7 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:104
 #: src/components/Data/GeoJsons.tsx:119
-#: src/components/Maps/APIKey.tsx:113
+#: src/components/Maps/APIKey.tsx:151
 #: src/components/Maps/APIKeys.tsx:35
 #: src/components/Team/Billing.tsx:128
 msgid "Home"
@@ -87,7 +87,7 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:436
 #: src/components/Data/fields.tsx:70
-#: src/components/Maps/APIKey.tsx:275
+#: src/components/Maps/APIKey.tsx:324
 msgid "Please type delete to confirm."
 msgstr ""
 
@@ -136,7 +136,7 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:265
 #: src/components/Data/fields.tsx:26
-#: src/components/Maps/APIKey.tsx:214
+#: src/components/Maps/APIKey.tsx:236
 #: src/components/Navigator.tsx:313
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129
@@ -256,12 +256,12 @@ msgid "Text Halo Color"
 msgstr ""
 
 #: src/components/Data/fields.tsx:40
-#: src/components/Maps/APIKey.tsx:225
+#: src/components/Maps/APIKey.tsx:270
 msgid "URLs"
 msgstr ""
 
 #: src/components/Data/fields.tsx:50
-#: src/components/Maps/APIKey.tsx:238
+#: src/components/Maps/APIKey.tsx:283
 msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use an "
 "API key."
@@ -337,85 +337,101 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:117
+#: src/components/Maps/APIKey.tsx:155
 #: src/components/Maps/APIKeys.tsx:69
 #: src/components/Navigator.tsx:127
 msgid "API keys"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:204
+#: src/components/Maps/APIKey.tsx:226
 msgid "API key settings"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:205
+#: src/components/Maps/APIKey.tsx:227
 msgid ""
 "Configure access control for your API key and Get the HTML code for your "
 "map."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:244
+#: src/components/Maps/APIKey.tsx:248
+msgid "Mode"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:257
+msgid "Publishable Mode"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:262
+msgid "Bundle Mode"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:289
 msgid "Any page in a specific URL:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:248
+#: src/components/Maps/APIKey.tsx:293
 msgid "Any subdomain:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:251
+#: src/components/Maps/APIKey.tsx:296
 msgid "A URL with a non-standard port:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:256
+#: src/components/Maps/APIKey.tsx:301
 msgid "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\"."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:269
+#: src/components/Maps/APIKey.tsx:308
+msgid "The any match (*) is only allowed in bundle mode."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:318
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:274
+#: src/components/Maps/APIKey.tsx:323
 msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:291
+#: src/components/Maps/APIKey.tsx:340
 msgid "Your API Key"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:297
+#: src/components/Maps/APIKey.tsx:346
 msgid "Add the map to your site"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:300
+#: src/components/Maps/APIKey.tsx:349
 msgid "Step 1"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:304
+#: src/components/Maps/APIKey.tsx:353
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body "
 "/&gt;</code> in your HTML file."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:327
+#: src/components/Maps/APIKey.tsx:376
 msgid "Step 2"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:330
+#: src/components/Maps/APIKey.tsx:379
 msgid "Click following button and get HTML code where you want to place the map."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:342
+#: src/components/Maps/APIKey.tsx:391
 msgid "Get HTML"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:346
+#: src/components/Maps/APIKey.tsx:395
 msgid "Step 3"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:348
+#: src/components/Maps/APIKey.tsx:397
 msgid "Adjust the element size."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:363
+#: src/components/Maps/APIKey.tsx:412
 msgid "Copy to Clipboard"
 msgstr ""
 

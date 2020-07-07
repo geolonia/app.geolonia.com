@@ -129,11 +129,17 @@
       "Configure access control for your API key and Get the HTML code for your map.": [
         "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを取得しましょう。"
       ],
+      "Mode": ["モード"],
+      "Publishable Mode": ["公開可能モード"],
+      "Bundle Mode": ["バンドルモード"],
       "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
       "Any subdomain:": ["すべてのサブドメイン:"],
       "A URL with a non-standard port:": ["一般的ではないポート:"],
       "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
         "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
+      ],
+      "The any match (*) is only allowed in bundle mode.": [
+        "任意の一致(*)はバンドルモードでのみ許可されます。"
       ],
       "Once you delete an API, there is no going back. Please be certain.": [
         "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してください。"
@@ -274,7 +280,7 @@
         "チームメンバーの管理ができます。"
       ],
       "We are in public beta version. Member features will be added soon.": [
-        ""
+        "現在は公開β版です。メンバー機能は後ほど追加されます。"
       ],
       "Suspended": ["一時停止"],
       "rows per page": ["表示する個数"],
