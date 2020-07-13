@@ -11,7 +11,6 @@ import iconPlane from "./custom/plane.svg";
 
 import "./Dashboard.scss";
 import { connect } from "react-redux";
-import { AppState, Session, User } from "../types";
 
 import DeveloperBlog from "./DeveloperBlog";
 
@@ -22,8 +21,8 @@ type OwnProps = {
 };
 
 type StateProps = {
-  userMeta: User;
-  session: Session;
+  userMeta: Geolonia.User;
+  session: Geolonia.Session;
 };
 
 type Props = OwnProps & StateProps;
@@ -89,7 +88,7 @@ Dashboard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state: AppState) => ({
+const mapStateToProps = (state: Geolonia.Redux.AppState) => ({
   userMeta: state.userMeta,
   session: state.authSupport.session
 });

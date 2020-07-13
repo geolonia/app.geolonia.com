@@ -1,23 +1,23 @@
-import { errorCodes, APIResult, Session } from "../types";
 import { getErrorMessage } from "../constants";
 import { refreshSession } from "../auth";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
+import { errorCodes } from "../constants";
 const { REACT_APP_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
 export const customFetch = async <T>(
-  session: Session,
+  session: Geolonia.Session,
   url: string,
   options: Parameters<typeof fetch>[1],
   {
     absPath,
     noAuth,
-    decode,
+    decode
   }: {
     absPath?: boolean;
     noAuth?: boolean;
     decode?: "text" | "json";
   } = {}
-): Promise<APIResult<T>> => {
+): Promise<Geolonia.APIResult<T>> => {
   if (!session) {
     // session should be exists when call those API
     return Promise.resolve({
@@ -56,7 +56,7 @@ export const customFetch = async <T>(
     : `${REACT_APP_APP_API_BASE}/${REACT_APP_STAGE}${url}`;
 
   return fetch(requestUrl, fetchOptions)
-    .then<APIResult<T>>(res => {
+    .then<Geolonia.APIResult<T>>(res => {
       if (res.ok) {
         if (decode === "text") {
           return res.text().then((data: any) => ({ data, error: false }));
@@ -77,7 +77,7 @@ export const customFetch = async <T>(
         };
       }
     })
-    .catch<APIResult<T>>(error => {
+    .catch<Geolonia.APIResult<T>>(error => {
       console.log(error);
       return {
         error: true,

@@ -1,7 +1,6 @@
-import { Session } from "../../types";
 import fetch from "../custom-fetch";
 
-const deleteTeam = (session: Session, teamId: string) => {
+const deleteTeam = (session: Geolonia.Session, teamId: string) => {
   return fetch<any>(session, `/teams/${teamId}`, {
     method: "DELETE",
     headers: {

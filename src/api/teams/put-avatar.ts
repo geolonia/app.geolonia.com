@@ -1,7 +1,6 @@
-import { Session } from "../../types";
 import fetch from "../custom-fetch";
 
-const putAvatar = (session: Session, teamId: string, file: File) => {
+const putAvatar = (session: Geolonia.Session, teamId: string, file: File) => {
   return fetch<{ links: { putAvatar: string } }>(
     session,
     `/teams/${teamId}/avatar/links`,

@@ -1,8 +1,8 @@
-import { Session, Key, DateStringify } from "../../types";
 import fetch from "../custom-fetch";
+type FetchResult = Geolonia.DateStringify<Geolonia.Key>;
 
-const createKey = (session: Session, teamId: string, name: string) => {
-  return fetch<DateStringify<Key>>(session, `/teams/${teamId}/keys`, {
+const createKey = (session: Geolonia.Session, teamId: string, name: string) => {
+  return fetch<FetchResult>(session, `/teams/${teamId}/keys`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

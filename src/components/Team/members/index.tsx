@@ -13,7 +13,6 @@ import TableRow from "@material-ui/core/TableRow";
 import BrightnessLowIcon from "@material-ui/icons/BrightnessLow";
 import PersonIcon from "@material-ui/icons/Person";
 import Title from "../../custom/Title";
-import { AppState } from "../../../types";
 import { connect } from "react-redux";
 import Invite from "./invite";
 import ChangeRole from "./change-role";
@@ -25,30 +24,29 @@ import Alert from "../../custom/Alert";
 // utils
 import { __ } from "@wordpress/i18n";
 
-// Types
-import { Team, Member, Role, Roles } from "../../../types";
+import { Roles } from "../../../constants";
 
 type Row = {
   id: number | string;
   avatar: string | void;
   name: string;
   username: string;
-  role: Role;
+  role: Geolonia.Role;
 };
 
 type OwnProps = {};
 type StateProps = {
-  team: Team | void;
-  members: Member[];
+  team: Geolonia.Team | void;
+  members: Geolonia.Member[];
 };
 
 type Props = OwnProps & StateProps;
 
 const Content = (props: Props) => {
   const { members } = props;
-  const [currentMember, setCurrentMember] = React.useState<false | Member>(
-    false
-  );
+  const [currentMember, setCurrentMember] = React.useState<
+    false | Geolonia.Member
+  >(false);
 
   // Dialogs open
   const [openChangeRole, setOpenChangeRole] = React.useState(false);
@@ -297,10 +295,10 @@ const Content = (props: Props) => {
   );
 };
 
-export const mapStateToProps = (state: AppState): StateProps => {
+export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const selectedTeamIndex = state.team.selectedIndex;
-  const team = state.team.data[selectedTeamIndex] as Team | void;
-  let members: Member[] = [];
+  const team = state.team.data[selectedTeamIndex] as Geolonia.Team | void;
+  let members: Geolonia.Member[] = [];
   if (team) {
     const memberObject = state.teamMember[team.teamId];
     if (memberObject) {

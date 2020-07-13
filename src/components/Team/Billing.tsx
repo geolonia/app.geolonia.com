@@ -22,7 +22,6 @@ import { connect } from "react-redux";
 // import { Elements } from "@stripe/react-stripe-js";
 // import { loadStripe } from "@stripe/stripe-js";
 
-import { AppState, Session } from "../../types";
 import customFetch from "../../lib/fetch";
 
 // const stripePromise = loadStripe(
@@ -36,7 +35,7 @@ const StripeContainer = (props: { children: React.ReactNode }) => {
 };
 
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   last2?: string;
   isOwner?: boolean;
   memberCount?: number;
@@ -228,7 +227,7 @@ const Billing = (props: StateProps) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   return {
     session: state.authSupport.session,

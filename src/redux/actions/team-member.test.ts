@@ -1,5 +1,7 @@
-import { reducer, State, createActions, Roles } from "./team-member";
-import { Member } from "../../types";
+import { reducer, createActions } from "./team-member";
+import { Roles } from "../../constants";
+
+type State = Geolonia.Redux.State.TeamMember;
 
 const TEAM_ID = "test-team-id";
 
@@ -18,7 +20,7 @@ it("should sort member when set", () => {
       data: []
     }
   };
-  const members: Member[] = [
+  const members: any[] = [
     {
       userSub: "0",
       role: Roles.Suspended,
@@ -63,7 +65,7 @@ it("should sort member when add", () => {
       ]
     }
   };
-  const member: Member = {
+  const member: Geolonia.Member = {
     userSub: "3",
     role: Roles.Owner,
     ...commonMemberProps

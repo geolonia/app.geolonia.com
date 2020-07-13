@@ -4,9 +4,6 @@ import React from "react";
 import geojsonExtent from "@mapbox/geojson-extent";
 import fetch from "../../../../lib/fetch";
 
-// types
-import { Session } from "../../../../types";
-
 const { REACT_APP_STAGE } = process.env;
 
 type GeoJSONMeta = {
@@ -15,7 +12,10 @@ type GeoJSONMeta = {
   status: string;
 };
 
-export default function useGeoJSON(session: Session, geojsonId: string | void) {
+export default function useGeoJSON(
+  session: Geolonia.Session,
+  geojsonId: string | void
+) {
   const [geoJsonMeta, setGeoJsonMeta] = React.useState<GeoJSONMeta | null>(
     null
   );

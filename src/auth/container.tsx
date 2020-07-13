@@ -30,20 +30,19 @@ import { createActions as createMapKeyActions } from "../redux/actions/map-key";
 import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
 
 // Types
-import { AppState, User, Session, Team, Key, Member } from "../types";
 import Redux from "redux";
 import { SELECTED_TEAM_ID_KEY } from "../redux/middlewares/local-storage";
 import Moment from "moment";
 
 type OwnProps = {};
-type StateProps = { session: Session };
+type StateProps = { session: Geolonia.Session };
 type DispatchProps = {
-  setSession: (session: Session) => void;
+  setSession: (session: Geolonia.Session) => void;
   setAccessToken: (accessToken: string) => void;
   serverTrouble: () => void;
   ready: () => void;
-  setUserMeta: (userMeta: User) => void;
-  setTeams: (teams: Team[]) => void;
+  setUserMeta: (userMeta: Geolonia.User) => void;
+  setTeams: (teams: Geolonia.Team[]) => void;
   selectTeam: (index: number) => void;
   setUserAvatar: (avatarImage: string | void) => void;
   setTeamAvatar: (teamIndex: number, avatarImage: string | void) => void;
@@ -52,8 +51,8 @@ type DispatchProps = {
     userSub: string,
     avatarImage: string | void
   ) => void;
-  setMapKeys: (teamId: string, keys: Key[]) => void;
-  setTeamMembers: (teamId: string, members: Member[]) => void;
+  setMapKeys: (teamId: string, keys: Geolonia.Key[]) => void;
+  setTeamMembers: (teamId: string, members: Geolonia.Member[]) => void;
   markMapKeyError: (teamId: string) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
@@ -61,11 +60,11 @@ type Props = OwnProps & StateProps & DispatchProps;
 type State = {};
 
 type FundamentalAPIResult = {
-  teams: Team[];
-  user: User;
+  teams: Geolonia.Team[];
+  user: Geolonia.User;
 };
 
-const fundamentalAPILoads = (session: Session) => {
+const fundamentalAPILoads = (session: Geolonia.Session) => {
   if (!session) {
     return Promise.reject("nosession");
   }
@@ -85,7 +84,7 @@ const fundamentalAPILoads = (session: Session) => {
   });
 };
 
-const getTeamIdToSelect = async (teams: Team[]) => {
+const getTeamIdToSelect = async (teams: Geolonia.Team[]) => {
   const prevTeamId = localStorage.getItem(SELECTED_TEAM_ID_KEY) || "";
   const teamIndex = teams.map(team => team.teamId).indexOf(prevTeamId);
   if (teamIndex > -1) {
@@ -163,7 +162,7 @@ export class AuthContainer extends React.Component<Props, State> {
     }
   };
 
-  loadAvatars = (userMeta: User, teams: Team[]) => {
+  loadAvatars = (userMeta: Geolonia.User, teams: Geolonia.Team[]) => {
     return Promise.all([
       userMeta.links.getAvatar
         ? fetch(userMeta.links.getAvatar)
@@ -191,7 +190,7 @@ export class AuthContainer extends React.Component<Props, State> {
     });
   };
 
-  loadMapKeys = (session: Session, teamIds: string[]) => {
+  loadMapKeys = (session: Geolonia.Session, teamIds: string[]) => {
     const handleListKeys = (teamId: string) => {
       return listKeys(session, teamId)
         .then(result => {
@@ -210,7 +209,7 @@ export class AuthContainer extends React.Component<Props, State> {
     return Promise.all(teamIds.map(teamId => handleListKeys(teamId)));
   };
 
-  loadTeamMembers = (session: Session, teamIds: string[]) => {
+  loadTeamMembers = (session: Geolonia.Session, teamIds: string[]) => {
     const handleListTeamMembersRequest = (teamId: string) => {
       return listTeamMembers(session, teamId).then(result => {
         if (result.error) {
@@ -259,7 +258,7 @@ export class AuthContainer extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: AppState): StateProps => ({
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
   session: state.authSupport.session
 });
 

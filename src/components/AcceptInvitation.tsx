@@ -3,7 +3,6 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
 
 // Utils
-import { AppState } from "../types";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import { SELECTED_TEAM_ID_KEY } from "../redux/middlewares/local-storage";
@@ -84,7 +83,7 @@ const AcceptInvitation = (props: Props) => {
   );
 };
 
-const mapStateToProps = (appState: AppState): OwnProps => {
+const mapStateToProps = (appState: Geolonia.Redux.AppState): OwnProps => {
   return {
     isReady: appState.authSupport.isReady
   };

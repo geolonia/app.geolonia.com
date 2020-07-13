@@ -1,8 +1,8 @@
-import { Session, Key, DateStringify } from "../../types";
 import fetch from "../custom-fetch";
+type FetchResult = Geolonia.DateStringify<Geolonia.Key>[];
 
-const listKeys = (session: Session, teamId: string) => {
-  return fetch<DateStringify<Key>[]>(session, `/teams/${teamId}/keys`, {
+const listKeys = (session: Geolonia.Session, teamId: string) => {
+  return fetch<FetchResult>(session, `/teams/${teamId}/keys`, {
     method: "GET"
   });
 };

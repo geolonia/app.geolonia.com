@@ -11,6 +11,7 @@ import {
   FormControlLabel,
   Radio
 } from "@material-ui/core";
+import Interweave from "interweave";
 
 // libs
 import { __, sprintf } from "@wordpress/i18n";
@@ -19,39 +20,37 @@ import { __, sprintf } from "@wordpress/i18n";
 import updateMember from "../../../api/members/update";
 
 // Types
-import { AppState, Session, Member, Team } from "../../../types";
 import { connect } from "react-redux";
 
 // Redux
-import {
-  createActions as createTeamMemberActions,
-  Roles
-} from "../../../redux/actions/team-member";
+import { createActions as createTeamMemberActions } from "../../../redux/actions/team-member";
 import Redux from "redux";
-import Interweave from "interweave";
+
+// Constants
+import { Roles } from "../../../constants";
 
 type OwnProps = {
-  currentMember: Member;
+  currentMember: Geolonia.Member;
   open: boolean;
   toggle: (open: boolean) => void;
 };
 type StateProps = {
-  session: Session;
-  team: Team;
+  session: Geolonia.Session;
+  team: Geolonia.Team;
 };
 
 type DispatchProps = {
   updateMemberRoleState: (
     teamId: string,
     memberSub: string,
-    role: Member["role"]
+    role: Geolonia.Role
   ) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
 const ChangeRole = (props: Props) => {
   const { currentMember, open, toggle, updateMemberRoleState } = props;
-  const [role, setRole] = React.useState<false | Member["role"]>(
+  const [role, setRole] = React.useState<false | Geolonia.Role>(
     currentMember.role
   );
   const [status, setStatus] = React.useState<
@@ -120,7 +119,7 @@ const ChangeRole = (props: Props) => {
               aria-label="role"
               name="role"
               value={role}
-              onChange={e => setRole(e.target.value as Member["role"])}
+              onChange={e => setRole(e.target.value as Geolonia.Role)}
             >
               <FormControlLabel
                 value="Owner"
@@ -186,7 +185,7 @@ const ChangeRole = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
   return {
     session: state.authSupport.session,

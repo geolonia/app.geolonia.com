@@ -1,4 +1,3 @@
-import Moment from "moment";
 import byCreateAt from "../../lib/by-create-at";
 
 const SET = "MAP_KEY/SET";
@@ -7,30 +6,13 @@ const ADD = "MAP_KEY/ADD";
 const UPDATE = "MAP_KEY/UPDATE";
 const DELETE = "MAP_KEY/DELETE";
 
-export type Key = {
-  keyId: string;
-  userKey: string;
-  name: string;
-  description: string;
-  enabled: boolean;
-  forceDisabled?: boolean;
-  allowedOrigins: string[];
-  createAt: Moment.Moment | void;
-  updateAt?: Moment.Moment | void;
-};
-
-export type State = {
-  [teamId: string]: {
-    data: Key[];
-    error?: boolean;
-  };
-};
+type State = Geolonia.Redux.State.MapKey;
 
 const initialState = {};
 
 type SetAction = {
   type: typeof SET;
-  payload: { teamId: string; keys: Key[] };
+  payload: { teamId: string; keys: Geolonia.Key[] };
 };
 type MarkErrorAction = {
   type: typeof MARK_ERROR;
@@ -38,11 +20,11 @@ type MarkErrorAction = {
 };
 type AddAction = {
   type: typeof ADD;
-  payload: { teamId: string; key: Key };
+  payload: { teamId: string; key: Geolonia.Key };
 };
 type UpdateAction = {
   type: typeof UPDATE;
-  payload: { teamId: string; keyId: string; key: Partial<Key> };
+  payload: { teamId: string; keyId: string; key: Partial<Geolonia.Key> };
 };
 type DeleteAction = {
   type: typeof DELETE;
@@ -57,7 +39,7 @@ type MapKeyAction =
   | DeleteAction;
 
 export const createActions = {
-  set: (teamId: string, keys: Key[]): SetAction => ({
+  set: (teamId: string, keys: Geolonia.Key[]): SetAction => ({
     type: SET,
     payload: { teamId, keys }
   }),
@@ -65,11 +47,15 @@ export const createActions = {
     type: MARK_ERROR,
     payload: { teamId }
   }),
-  add: (teamId: string, key: Key): AddAction => ({
+  add: (teamId: string, key: Geolonia.Key): AddAction => ({
     type: ADD,
     payload: { teamId, key }
   }),
-  update: (teamId: string, keyId: string, key: Partial<Key>): UpdateAction => ({
+  update: (
+    teamId: string,
+    keyId: string,
+    key: Partial<Geolonia.Key>
+  ): UpdateAction => ({
     type: UPDATE,
     payload: { teamId, keyId, key }
   }),

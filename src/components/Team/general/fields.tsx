@@ -12,23 +12,20 @@ import { createActions as createTeamActions } from "../../../redux/actions/team"
 // API
 import updateTeam from "../../../api/teams/update";
 
-// types
-import { AppState, Session, Team, Member } from "../../../types";
-
 // utils
 import { __ } from "@wordpress/i18n";
-import { Roles } from "../../../redux/actions/team-member";
+import { Roles } from "../../../constants";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
 type OwnProps = {};
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   selectedIndex: number;
-  team: Team;
-  members: Member[];
+  team: Geolonia.Team;
+  members: Geolonia.Member[];
 };
 type DispatchProps = {
-  updateTeamState: (index: number, team: Partial<Team>) => void;
+  updateTeamState: (index: number, team: Partial<Geolonia.Team>) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
@@ -42,7 +39,7 @@ const Content = (props: Props) => {
   const { session, team, members, selectedIndex, updateTeamState } = props;
   const { teamId, name, description, url, billingEmail } = team;
   // state
-  const [draft, setDraft] = React.useState<Partial<Team>>({});
+  const [draft, setDraft] = React.useState<Partial<Geolonia.Team>>({});
 
   const onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const name = e.currentTarget.value;
@@ -145,7 +142,7 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = (state: Geolonia.Redux.AppState) => {
   const selectedIndex = state.team.selectedIndex;
   const team = state.team.data[selectedIndex];
   const members = (state.teamMember[team.teamId] || { data: [] }).data;
@@ -159,7 +156,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
   return {
-    updateTeamState: (index: number, team: Partial<Team>) =>
+    updateTeamState: (index: number, team: Partial<Geolonia.Team>) =>
       dispatch(createTeamActions.update(index, team))
   };
 };

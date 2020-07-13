@@ -1,9 +1,8 @@
-import { Session } from "../types";
 import { refreshSession } from "../auth";
 import { CognitoUserSession } from "amazon-cognito-identity-js";
 
 export const customFetch = async (
-  session: Session,
+  session: Geolonia.Session,
   url: string,
   options: Parameters<typeof fetch>[1] = {}
 ): Promise<Response> => {

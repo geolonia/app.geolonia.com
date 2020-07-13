@@ -1,8 +1,11 @@
-import { Session, Team } from "../../types";
 import fetch from "../custom-fetch";
 
-const createTeam = (session: Session, name: string, billingEmail: string) => {
-  return fetch<Team>(session, "/teams", {
+const createTeam = (
+  session: Geolonia.Session,
+  name: string,
+  billingEmail: string
+) => {
+  return fetch<Geolonia.Team>(session, "/teams", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

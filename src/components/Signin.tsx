@@ -14,9 +14,6 @@ import queryString from "query-string";
 import { __ } from "@wordpress/i18n";
 import { parseSigninError as parseCognitoSigninError } from "../lib/cognito/parse-error";
 
-// Types
-import { AppState } from "../types";
-
 // API
 import { signin } from "../auth";
 
@@ -182,7 +179,7 @@ const Signin = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => ({
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
   serverTrouble: state.authSupport.hasTrouble
 });
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({

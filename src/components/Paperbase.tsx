@@ -5,15 +5,14 @@ import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
+import { CircularProgress } from "@material-ui/core";
 import { HashRouter, Route, Switch } from "react-router-dom";
-import RouteController from "./route-controller";
 
+import RouteController from "./route-controller";
 import Navigator from "./Navigator";
 import Router from "./Router";
 import Header from "./Header";
 import Footer from "./Footer";
-import { theme } from "../assets/mui-theme";
-
 import Signup from "./Signup";
 import Verify from "./verify";
 import ResendCode from "./resend-code";
@@ -22,15 +21,14 @@ import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import AcceptInvitation from "./AcceptInvitation";
 
-import { CircularProgress } from "@material-ui/core";
-
-// Types
-import { AppState, Team, Session, User, Role, Roles } from "../types";
+import { theme } from "../assets/mui-theme";
 
 // redux
 import { connect } from "react-redux";
 import Alert from "./custom/Alert";
 import { __ } from "@wordpress/i18n";
+
+import { Roles } from "../constants";
 
 const drawerWidth = 256;
 const styles = createStyles({
@@ -75,12 +73,12 @@ type OwnProps = {
   };
 };
 type StateProps = {
-  session: Session;
+  session: Geolonia.Session;
   isReady: boolean;
-  teams: Team[];
-  currentTeam?: Team;
-  currentRole?: Role;
-  userMeta: User;
+  teams: Geolonia.Team[];
+  currentTeam?: Geolonia.Team;
+  currentRole?: Geolonia.Role;
+  userMeta: Geolonia.User;
 };
 type Props = OwnProps & StateProps;
 
@@ -169,11 +167,13 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => {
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   // map Teams
   const selectedTeamIndex = state.team.selectedIndex;
   const teams = state.team.data;
-  const currentTeam = state.team.data[selectedTeamIndex] as Team | undefined;
+  const currentTeam = state.team.data[selectedTeamIndex] as
+    | Geolonia.Team
+    | undefined;
   const currentRole = currentTeam ? currentTeam.role : void 0;
 
   // map UserMeta

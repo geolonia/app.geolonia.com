@@ -1,10 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { Profile } from "./profile";
-import { User } from "../../types";
 
 // test assets
-const userMeta: User = {
+const userMeta: Geolonia.User = {
   name: "hello",
   email: "test@geolonia.com",
   username: "aaa",

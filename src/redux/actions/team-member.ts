@@ -1,5 +1,3 @@
-import { State as UserMetaState } from "./user-meta";
-
 const SET = "TEAM_MEMBER/SET";
 const MARK_ERROR = "TEAM_MEMBER/MARK_ERROR";
 const ADD = "TEAM_MEMBER/ADD";
@@ -7,38 +5,18 @@ const UPDATE = "TEAM_MEMBER/UPDATE";
 const DELETE = "TEAM_MEMBER/DELETE";
 const SET_AVATAR = "TEAM_MEMBER/SET_AVATAR";
 
-export type Role = "Owner" | "Member" | "Suspended";
-
-export const Roles = {
-  Owner: "Owner" as "Owner",
-  Member: "Member" as "Member",
-  Suspended: "Suspended" as "Suspended"
-};
-
 export const RoleOrders = {
-  [Roles.Owner]: 0,
-  [Roles.Member]: 1,
-  [Roles.Suspended]: 2
+  Owner: 0,
+  Member: 1,
+  Suspended: 2
 };
 
-export type Member = Omit<UserMetaState, "links"> & {
-  userSub: string;
-  role: keyof typeof Roles;
-  links: { getAvatar: string };
-};
-
-export type State = {
-  [teamId: string]: {
-    data: Member[];
-    error?: boolean;
-  };
-};
-
-const initialState = {};
+type State = Geolonia.Redux.State.TeamMember;
+const initialState: State = {};
 
 type SetAction = {
   type: typeof SET;
-  payload: { teamId: string; members: Member[] };
+  payload: { teamId: string; members: Geolonia.Member[] };
 };
 type MarkErrorAction = {
   type: typeof MARK_ERROR;
@@ -46,11 +24,15 @@ type MarkErrorAction = {
 };
 type AddAction = {
   type: typeof ADD;
-  payload: { teamId: string; member: Member };
+  payload: { teamId: string; member: Geolonia.Member };
 };
 type UpdateAction = {
   type: typeof UPDATE;
-  payload: { teamId: string; userSub: string; member: Partial<Member> };
+  payload: {
+    teamId: string;
+    userSub: string;
+    member: Partial<Geolonia.Member>;
+  };
 };
 type DeleteAction = {
   type: typeof DELETE;
@@ -70,7 +52,7 @@ type TeamMemberAction =
   | SetAvatarAction;
 
 export const createActions = {
-  set: (teamId: string, members: Member[]): SetAction => ({
+  set: (teamId: string, members: Geolonia.Member[]): SetAction => ({
     type: SET,
     payload: { teamId, members }
   }),
@@ -78,14 +60,14 @@ export const createActions = {
     type: MARK_ERROR,
     payload: { teamId }
   }),
-  add: (teamId: string, member: Member): AddAction => ({
+  add: (teamId: string, member: Geolonia.Member): AddAction => ({
     type: ADD,
     payload: { teamId, member }
   }),
   update: (
     teamId: string,
     userSub: string,
-    member: Partial<Member>
+    member: Partial<Geolonia.Member>
   ): UpdateAction => ({
     type: UPDATE,
     payload: { teamId, userSub, member }

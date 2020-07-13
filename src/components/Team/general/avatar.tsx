@@ -13,21 +13,18 @@ import { __, sprintf } from "@wordpress/i18n";
 // API
 import putAvatar from "../../../api/teams/put-avatar";
 
-// types
-import { AppState, Team, Session, Roles } from "../../../types";
-
 // redux
 import Redux from "redux";
 import { createActions as createTeamActions } from "../../../redux/actions/team";
 import { connect } from "react-redux";
 
 // constants
-import { avatarLimitSize } from "../../../constants";
+import { avatarLimitSize, Roles } from "../../../constants";
 
 type OwnProps = {};
 type StateProps = {
-  session: Session;
-  team: Team;
+  session: Geolonia.Session;
+  team: Geolonia.Team;
   index: number;
 };
 type DispatchProps = {
@@ -141,7 +138,7 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: AppState): StateProps => ({
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
   session: state.authSupport.session,
   team: state.team.data[state.team.selectedIndex],
   index: state.team.selectedIndex
@@ -152,7 +149,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
     dispatch(createTeamActions.setAvatar(index, blobUrl))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(Content);

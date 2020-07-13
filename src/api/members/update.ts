@@ -1,11 +1,10 @@
-import { Session, Role } from "../../types";
 import fetch from "../custom-fetch";
 
 const updateMember = (
-  session: Session,
+  session: Geolonia.Session,
   teamId: string,
   memberSub: string,
-  role: Role
+  role: Geolonia.Role
 ) => {
   return fetch<any>(session, `/teams/${teamId}/members/${memberSub}`, {
     method: "PUT",

@@ -1,11 +1,14 @@
-import { Session, Team } from "../../types";
 import fetch from "../custom-fetch";
 
-type WritableTeam = Partial<
-  Omit<Team, "teamId" | "role" | "avatarImage" | "links" | "isDeleted">
+type TeamUpdateParam = Partial<
+  Omit<Geolonia.Team, "teamId" | "role" | "avatarImage" | "links" | "isDeleted">
 >;
 
-const updateTeam = (session: Session, teamId: string, team: WritableTeam) => {
+const updateTeam = (
+  session: Geolonia.Session,
+  teamId: string,
+  team: TeamUpdateParam
+) => {
   return fetch<any>(session, `/teams/${teamId}`, {
     method: "PUT",
     headers: {

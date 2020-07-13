@@ -1,10 +1,8 @@
 import React from "react";
 import { refreshSession } from "../../../../auth";
-// types
-import { UpstreamAuthorizeMessage, Session } from "../../../../types";
 
 export default function useWebSocket(
-  session: Session,
+  session: Geolonia.Session,
   teamId: string | void,
   geojsonId: string | void
 ): [WebSocket | null, boolean, () => void] {
@@ -21,7 +19,7 @@ export default function useWebSocket(
         );
 
         ws.onopen = () => {
-          const message: UpstreamAuthorizeMessage = {
+          const message: Geolonia.WebSocket.UpstreamAuthorizeMessage = {
             action: "authorize",
             data: {
               teamId: teamId as string,

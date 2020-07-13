@@ -18,18 +18,17 @@ import { connect } from "react-redux";
 import { createActions as createUserActions } from "../../redux/actions/user-meta";
 
 // types
-import { AppState, Session, User } from "../../types";
 import { Dispatch } from "redux";
 
 type OwnProps = {};
-type StateProps = { session: Session; user: User };
+type StateProps = { session: Geolonia.Session; user: Geolonia.User };
 type DispatchProps = {
-  updateUser: (nextUser: User) => void;
+  updateUser: (nextUser: Geolonia.User) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
 type State = {
-  user: Pick<User, "name" | "language" | "timezone">;
+  user: Pick<Geolonia.User, "name" | "language" | "timezone">;
   email: string;
   username: string;
 };
@@ -53,7 +52,7 @@ export class Profile extends React.Component<Props, State> {
     };
   }
 
-  _setUserMeta = (key: keyof User, value: string) => {
+  _setUserMeta = (key: keyof Geolonia.User, value: string) => {
     this.setState({
       user: { ...this.state.user, [key]: value }
     });
@@ -169,13 +168,14 @@ export class Profile extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: AppState): StateProps => ({
+const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
   session: state.authSupport.session,
   user: state.userMeta
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  updateUser: (nextUser: User) => dispatch(createUserActions.set(nextUser))
+  updateUser: (nextUser: Geolonia.User) =>
+    dispatch(createUserActions.set(nextUser))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

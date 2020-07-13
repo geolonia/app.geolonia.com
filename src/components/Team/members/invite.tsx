@@ -10,9 +10,6 @@ import CloseIcon from "@material-ui/icons/Close";
 import { __ } from "@wordpress/i18n";
 import fetch from "../../../lib/fetch";
 
-// Types
-import { AppState, Session, Team, Member } from "../../../types";
-
 // redux
 import { connect } from "react-redux";
 
@@ -21,9 +18,9 @@ type OwnProps = {
 };
 
 type StateProps = {
-  session: Session;
-  members: Member[];
-  team: Team | void;
+  session: Geolonia.Session;
+  members: Geolonia.Member[];
+  team: Geolonia.Team | void;
 };
 type Props = OwnProps & StateProps;
 
@@ -127,11 +124,11 @@ export const Invite = (props: Props) => {
   );
 };
 
-export const mapStateToProps = (state: AppState): StateProps => {
+export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const { session } = state.authSupport;
   const selectedTeamIndex = state.team.selectedIndex;
-  const team = state.team.data[selectedTeamIndex] as Team | void;
-  let members: Member[] = [];
+  const team = state.team.data[selectedTeamIndex] as Geolonia.Team | void;
+  let members: Geolonia.Member[] = [];
   if (team) {
     const memberObject = state.teamMember[team.teamId];
     if (memberObject) {

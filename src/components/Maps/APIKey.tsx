@@ -17,9 +17,6 @@ import Help from "../custom/Help";
 import Title from "../custom/Title";
 import DangerZone from "../custom/danger-zone";
 
-// types
-import { AppState, Session, Key } from "../../types";
-
 // api
 import updateKey from "../../api/keys/update";
 import deleteKey from "../../api/keys/delete";
@@ -37,13 +34,17 @@ import { messageDisplayDuration } from "../../constants";
 
 type OwnProps = {};
 type StateProps = {
-  mapKey?: Key;
+  mapKey?: Geolonia.Key;
   teamId: string;
-  session: Session;
+  session: Geolonia.Session;
   selectedTeamIndex: number;
 };
 type DispatchProps = {
-  updateKey: (teamId: string, keyId: string, key: Partial<Key>) => void;
+  updateKey: (
+    teamId: string,
+    keyId: string,
+    key: Partial<Geolonia.Key>
+  ) => void;
   deleteKey: (teamId: string, keyId: string) => void;
 };
 type RouterProps = {
@@ -370,7 +371,7 @@ const Content = (props: Props) => {
 };
 
 const mapStateToProps = (
-  state: AppState,
+  state: Geolonia.Redux.AppState,
   ownProps: OwnProps & RouterProps
 ): StateProps => {
   const session = state.authSupport.session;
@@ -396,7 +397,7 @@ const mapStateToProps = (
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
-  updateKey: (teamId: string, keyId: string, key: Partial<Key>) =>
+  updateKey: (teamId: string, keyId: string, key: Partial<Geolonia.Key>) =>
     dispatch(createMapKeyActions.update(teamId, keyId, key)),
   deleteKey: (teamId: string, keyId: string) =>
     dispatch(createMapKeyActions.delete(teamId, keyId))
