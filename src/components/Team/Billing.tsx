@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
@@ -9,29 +9,33 @@ import Button from "@material-ui/core/Button";
 // import { Line } from "react-chartjs-2";
 // import Save from "../custom/Save";
 import Title from "../custom/Title";
-// import PaymentHistory from "./payment-history";
-import PaymentMethodModal from "./payment-method-modal";
-import PlanModal from "./plan-modal";
+import PaymentMethodModal from "./Billing/payment-method-modal";
+import PlanModal from "./Billing/plan-modal";
 import Receipts from "./Billing/Receipts";
 import "./Billing.scss";
 
 import { __, sprintf } from "@wordpress/i18n";
 import { connect } from "react-redux";
 
+import {
+  CircularProgress
+} from "@material-ui/core";
+
 // stripe integration
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+
+import moment from "moment";
 
 import customFetch from "../../lib/fetch";
 
-// const stripePromise = loadStripe(
-//   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
-// );
+const stripePromise = loadStripe(
+  process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
+);
 
 // connect with Stripe
 const StripeContainer = (props: { children: React.ReactNode }) => {
-  return <div>{props.children}</div>;
-  //   return <Elements stripe={stripePromise}>{props.children}</Elements>;
+  return <Elements stripe={stripePromise}>{props.children}</Elements>;
 };
 
 type StateProps = {
@@ -48,13 +52,22 @@ type StripeTier = {
   up_to: null | number;
 };
 
+type Duration = "" | "month" | "year";
+
+export type GeoloniaFreePlan = {
+  planId: null;
+  name: string;
+  duration: Duration;
+  contactRequired: undefined;
+};
+
 export type GeoloniaConstantPlan = {
   planId: string;
   name: string;
   price: number;
-  duration: "month" | "year";
+  duration: Duration;
   maxMemberLength: number;
-  contactRequired: undefined;
+  contactRequired: false;
 };
 
 type GeoloniaAppliancePlan = {
@@ -63,65 +76,108 @@ type GeoloniaAppliancePlan = {
   unitPrice: number;
 };
 
-type GeoloniaPlan = GeoloniaConstantPlan | GeoloniaAppliancePlan;
+type GeoloniaPlan =
+  | GeoloniaFreePlan
+  | GeoloniaConstantPlan
+  | GeoloniaAppliancePlan;
 
 const isAppliancePlan = (plan: GeoloniaPlan): plan is GeoloniaAppliancePlan => {
   return plan.contactRequired === true;
 };
 
-const usePlan = (props: StateProps) => {
-  const { session, teamId } = props;
-  const [plans, setPlans] = React.useState<GeoloniaPlan[]>([]);
-  // planId === null フリープラン
-  // planId === void 0 リクエスト中
-  const [planId, setPlanId] = React.useState<string | null | undefined>(void 0);
-  const [loaded, setLoaded] = React.useState(false);
+type PossiblePlanId = string | null | undefined;
 
-  // get plan list
-  React.useEffect(() => {
-    fetch(`https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/plans`)
-      .then(res => res.json())
-      .then(data => {
-        setPlans(data);
-      });
-  }, []);
+interface SubscriptionDetails {
+  cancel_at_period_end: boolean;
+  current_period_end: number;
+}
 
-  React.useEffect(() => {
-    // 現在のプランを取得する
-    if (session && teamId && !loaded) {
-      setLoaded(true);
-      customFetch(
-        session,
-        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${teamId}/plan`
-      )
-        .then(res => res.json())
-        .then(data => {
-          setPlanId(data.planId);
-        });
-    }
-  }, [loaded, session, teamId]);
-
+export const parsePlanLabel = (
+  plans: GeoloniaPlan[],
+  planId: PossiblePlanId
+) => {
   let currentPlanName = "";
+  let currentDuration: "" | Duration = "";
   if (planId === null) {
     currentPlanName = __("Free plan");
   } else {
     const currentPlan = plans
       .filter(plan => !isAppliancePlan(plan))
       .find(plan => (plan as GeoloniaConstantPlan).planId === planId);
-    if (currentPlan) {
-      currentPlanName = `${currentPlan.name} ${
-        (currentPlan as GeoloniaConstantPlan).duration
-      }ly`;
+    if (currentPlan && currentPlan.name === "Pro") {
+      currentPlanName = __("Pro plan");
+      currentDuration = (currentPlan as GeoloniaConstantPlan).duration;
     }
   }
 
-  return { plans, name: currentPlanName, planId };
+  if (currentDuration === "month") {
+    currentPlanName += " " + __("monthly");
+  } else if (currentDuration === "year") {
+    currentPlanName += " " + __("yearly");
+  }
+  return currentPlanName;
+};
+
+const usePlan = (props: StateProps) => {
+  const { session, teamId } = props;
+  const [plans, setPlans] = useState<GeoloniaPlan[]>([]);
+  // planId === null フリープラン
+  // planId === void 0 リクエスト中
+  const [planId, setPlanId] = useState<string | null | undefined>(void 0);
+  const [subscription, setSubscription] = useState<SubscriptionDetails | undefined>(undefined);
+  const [loaded, setLoaded] = useState(false);
+
+  // 全てのプランを取得
+  useEffect(() => {
+    (async () => {
+      const freePlan: GeoloniaFreePlan = {
+        planId: null,
+        name: __("Free Plan"),
+        duration: "month",
+        contactRequired: void 0
+      };
+
+      const res = await fetch(`https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/plans`);
+      const data = await res.json();
+      setPlans([freePlan, ...data]);
+    })();
+  }, [ setPlans ]);
+
+  // チーム変えたらロード状態をリセット
+  useEffect(() => {
+    setLoaded(false);
+    setPlanId(undefined);
+  }, [ teamId ]);
+
+  useEffect(() => {
+    // 現在のプランを取得する
+    if (!(session && teamId && !loaded)) {
+      return
+    }
+
+    (async () => {
+      setLoaded(true);
+      const res = await customFetch(
+        session,
+        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${teamId}/plan`
+      );
+      const data = await res.json();
+      setPlanId(data.planId);
+      setSubscription(data.subscription);
+    })();
+  }, [ loaded, session, teamId, setPlanId, setSubscription ]);
+
+  const currentPlanName = parsePlanLabel(plans, planId);
+
+  return { plans, name: currentPlanName, planId, subscription };
 };
 
 const Billing = (props: StateProps) => {
-  const [openPayment, setOpenPayment] = React.useState(false);
-  const [openPlan, setOpenPlan] = React.useState(false);
-  const { plans, name, planId } = usePlan(props);
+  const { session, teamId } = props
+  const [openPayment, setOpenPayment] = useState(false);
+  const [openPlan, setOpenPlan] = useState(false);
+  const { plans, name, planId, subscription } = usePlan(props);
+  const [ resumeSubLoading, setResumeSubLoading ] = useState(false);
 
   const breadcrumbItems = [
     {
@@ -134,6 +190,37 @@ const Billing = (props: StateProps) => {
     }
   ];
 
+  const resumeSubscriptionHandler = useCallback(async () => {
+    if (resumeSubLoading) {
+      return
+    }
+
+    setResumeSubLoading(true);
+    const res = await customFetch(
+      session,
+      `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${teamId}/plan`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ planId }),
+      }
+    );
+
+    try {
+      if (res.status < 400) {
+        window.location.reload();
+      } else {
+        throw new Error();
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setResumeSubLoading(false);
+    }
+  }, [ session, planId, teamId, resumeSubLoading, setResumeSubLoading ]);
+
   return (
     <StripeContainer>
       <div className="billing">
@@ -141,65 +228,96 @@ const Billing = (props: StateProps) => {
           {__("You can see subscriptions for this team in this month.")}
         </Title>
 
-        {props.isOwner && (
-          <>
-            <Typography component="h2" className="module-title">
-              {__("Payment information")}
-            </Typography>
-            <Table className="payment-info">
-              <TableBody>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    {__("Payment method:")}
-                  </TableCell>
-                  <TableCell>
-                    {props.last2
-                      ? sprintf(__("ending in **%1$s"), props.last2)
-                      : ""}
-                  </TableCell>
-                  <TableCell align="right">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => setOpenPayment(true)}
-                      type={"button"}
-                    >
-                      {__("Change payment method")}
-                    </Button>
-                    <PaymentMethodModal
-                      open={openPayment}
-                      handleClose={() => setOpenPayment(false)}
-                    />
-                  </TableCell>
-                </TableRow>
-                <TableRow>
-                  <TableCell component="th" scope="row">
-                    {__("Current Plan")}
-                  </TableCell>
-                  <TableCell>{name}</TableCell>
-                  <TableCell align="right">
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => setOpenPlan(true)}
-                      type={"button"}
-                      disabled={!props.last2}
-                    >
-                      {__("Change Plan")}
-                    </Button>
-                    <PlanModal
-                      open={openPlan}
-                      handleClose={() => setOpenPlan(false)}
-                      plans={
-                        plans.filter(
-                          plan => !isAppliancePlan(plan)
-                        ) as GeoloniaConstantPlan[]
-                      }
-                      currentPlanId={planId}
-                    />
-                  </TableCell>
-                </TableRow>
-                {/* <TableRow>
+        <Typography component="h2" className="module-title">
+          {__("Payment information")}
+        </Typography>
+        <Table className="payment-info">
+          <TableBody>
+            {props.isOwner && (
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  {__("Payment method:")}
+                </TableCell>
+                <TableCell>
+                  {props.last2
+                    ? sprintf(__("ending in **%1$s"), props.last2)
+                    : ""}
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOpenPayment(true)}
+                    type={"button"}
+                  >
+                    {__("Change payment method")}
+                  </Button>
+                  <PaymentMethodModal
+                    open={openPayment}
+                    handleClose={() => setOpenPayment(false)}
+                  />
+                </TableCell>
+              </TableRow>
+            )}
+            <TableRow>
+              <TableCell component="th" scope="row">
+                {__("Current Plan")}
+              </TableCell>
+              <TableCell>
+                {name}
+                { subscription && <>
+                  <br />
+                  { subscription.cancel_at_period_end ?
+                    sprintf(__("Scheduled to expire on %1$s"), moment(subscription.current_period_end * 1000).format("YYYY-MM-DD"))
+                    :
+                    sprintf(__("Will automatically renew on %1$s"), moment(subscription.current_period_end * 1000).format("YYYY-MM-DD"))
+                  }
+                </>}
+              </TableCell>
+              <TableCell align="right">
+                { subscription && subscription.cancel_at_period_end === true ?
+                  <>
+                    { resumeSubLoading ?
+                      <CircularProgress
+                        size={16}
+                        color={"inherit"}
+                      />
+                      :
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={resumeSubscriptionHandler}
+                        type={"button"}
+                        disabled={!props.last2 || !props.isOwner}
+                      >
+                        {__("Resume subscription")}
+                      </Button>
+                    }
+                  </>
+                  :
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOpenPlan(true)}
+                    type={"button"}
+                    disabled={!props.last2 || !props.isOwner}
+                  >
+                    {__("Change Plan")}
+                  </Button>
+                }
+                <PlanModal
+                  open={openPlan}
+                  handleClose={() => setOpenPlan(false)}
+                  plans={
+                    plans.filter(
+                      plan => !isAppliancePlan(plan)
+                    ) as GeoloniaConstantPlan[]
+                  }
+                  currentPlanId={planId}
+                />
+              </TableCell>
+            </TableRow>
+            {/* <TableRow>
                   <TableCell component="th" scope="row">
                     {__("Coupon:")}
                   </TableCell>
@@ -208,21 +326,23 @@ const Billing = (props: StateProps) => {
                     <Save label={__("Redeem a coupon")} />
                   </TableCell>
                 </TableRow> */}
-              </TableBody>
-            </Table>
-          </>
-        )}
+          </TableBody>
+        </Table>
       </div>
       <p style={{ textAlign: "right" }}>
         <a href="https://geolonia.com/pricing">
-          Learn more about plans on the pricing page.
+          {__("Learn more about plans on the pricing page.")}
         </a>
       </p>
 
-      <Typography component="h2" className="module-title">
-        {__("Paid invoice receipts")}
-      </Typography>
-      <Receipts />
+      {props.isOwner && (
+        <>
+          <Typography component="h2" className="module-title">
+            {__("Payment history")}
+          </Typography>
+          <Receipts />
+        </>
+      )}
     </StripeContainer>
   );
 };

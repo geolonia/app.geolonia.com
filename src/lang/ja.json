@@ -172,6 +172,7 @@
       "Team Settings": ["チーム設定"],
       "General": ["一般"],
       "Members": ["メンバー"],
+      "Billing": ["支払い"],
       "Documentation": ["ドキュメント"],
       "Official Documents": ["公式ドキュメント"],
       "Dashboard": ["ダッシュボード"],
@@ -225,7 +226,10 @@
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
       ],
-      "Free plan": ["フリープラン"],
+      "Pro plan": ["Pro プラン"],
+      "monthly": ["月払い"],
+      "yearly": ["年払い"],
+      "Free Plan": ["Free プラン"],
       "Team settings": ["チーム設定"],
       "You can see subscriptions for this team in this month.": [
         "このチームの今月のサブスクリプションを確認することができます。"
@@ -235,8 +239,26 @@
       "ending in **%1$s": ["末尾の番号 **%1$s"],
       "Change payment method": ["支払い方法を変更"],
       "Current Plan": ["現在のプラン"],
+      "Scheduled to expire on %1$s": ["%1$s にキャンセルされます"],
+      "Will automatically renew on %1$s": ["%1$s に自動更新されます"],
+      "Resume subscription": ["自動更新を再開"],
       "Change Plan": ["プランを変更"],
-      "Paid invoice receipts": [""],
+      "Learn more about plans on the pricing page.": [
+        "プラン詳細については、料金ページをご覧ください。"
+      ],
+      "Payment history": ["支払い履歴"],
+      "Free plan": ["Free プラン"],
+      "No payment history.": ["支払い履歴はありません。"],
+      "Card information": ["クレジットカード情報"],
+      "Update": ["更新"],
+      "Unknown Error.": ["不明なエラー。"],
+      "Your plan": ["あなたのプラン"],
+      "Your subscription will be canceled.": [
+        "サブスクリプションはキャンセルされます。"
+      ],
+      "The difference between the plan changes will be charged or charged as a balance.": [
+        "プランの変更に伴う差額が請求または残高としてチャージされます。"
+      ],
       "Upload new picture": ["新しい写真をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [
         "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
@@ -306,16 +328,6 @@
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
       ],
-      "Balance": ["残高"],
-      "Payment history": ["支払履歴"],
-      "Date": ["日時"],
-      "Payment": ["支払い"],
-      "Balanced": ["差し引き"],
-      "Refund": ["返金"],
-      "Card information": ["クレジットカード情報"],
-      "Update": ["更新"],
-      "Unknown Error.": ["不明なエラー。"],
-      "Your plan": ["あなたのプラン"],
       "Your profile": ["プロフィール"],
       "You can update your profile and security.": [
         "プロフィールとセキュリティを設定できます。"

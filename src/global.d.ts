@@ -167,5 +167,13 @@ declare namespace Geolonia {
     period_end: number;
     ending_balance: null | number;
     starting_balance: number;
+    invoice_pdf: string | null | undefined;
+    descriptions: (string | null)[];
+  };
+
+  type Charge = {
+    id: string;
+    invoice: string | null;
+    receipt_url: string | null;
   };
 }

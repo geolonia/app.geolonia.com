@@ -144,7 +144,26 @@ export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {
       );
     } else {
       reject(new Error("no session found"));
+      return;
     }
+
+    // We don't need to refresh the session if it is valid
+    if (session.isValid() === true) {
+      return resolve(session);
+    }
+
+    const refreshToken = session.getRefreshToken();
+    cognitoUser.refreshSession(
+      refreshToken,
+      (err: Error, session: CognitoIdentity.CognitoUserSession) => {
+        if (err) {
+          cognitoUser.signOut();
+          reject(err);
+        } else {
+          resolve(session);
+        }
+      }
+    );
   });
 };
 

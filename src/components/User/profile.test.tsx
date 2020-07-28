@@ -8,7 +8,7 @@ const userMeta: Geolonia.User = {
   email: "test@geolonia.com",
   username: "aaa",
   language: "en",
-  timezone: "Aasia/Tokyo",
+  timezone: "Asia/Tokyo",
   links: { getAvatar: "", putAvatar: "" },
   avatarImage: undefined
 };
