@@ -34,7 +34,7 @@ import Redux from "redux";
 import { SELECTED_TEAM_ID_KEY } from "../redux/middlewares/local-storage";
 import Moment from "moment";
 
-type OwnProps = {};
+type OwnProps = { children: React.ReactElement };
 type StateProps = { session: Geolonia.Session };
 type DispatchProps = {
   setSession: (session: Geolonia.Session) => void;

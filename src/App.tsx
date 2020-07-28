@@ -10,7 +10,7 @@ const App: React.FC = () => {
   return (
     <Provider store={store}>
       <AuthContainer>
-        <Paperbase></Paperbase>
+        <Paperbase />
       </AuthContainer>
     </Provider>
   );
