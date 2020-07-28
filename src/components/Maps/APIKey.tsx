@@ -376,7 +376,6 @@ const mapStateToProps = (
 ): StateProps => {
   const session = state.authSupport.session;
   const selectedTeamIndex = state.team.selectedIndex;
-  // TODO: typing enhancement
   const { teamId } = state.team.data[selectedTeamIndex] || {
     teamId: "-- unexpected fallback when no team id found --"
   };

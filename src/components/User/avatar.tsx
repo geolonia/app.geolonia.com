@@ -33,7 +33,6 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 type State = {
   status: false | "requesting" | "success" | "failure";
-  isFileAPISupported: boolean;
   errorMessage: string;
 };
 
@@ -53,7 +52,6 @@ export class AvatarSection extends React.Component<Props, State> {
     this.inputFileRef = null;
     this.state = {
       status: false,
-      isFileAPISupported: true, // TODO: check it
       errorMessage: ""
     };
   }

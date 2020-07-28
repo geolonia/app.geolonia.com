@@ -10,7 +10,6 @@ type StyledProps = {
   error: boolean;
 };
 
-// TODO: enrich error style
 const TextArea = styled.textarea<StyledProps>`
   width: 100%;
   height: 100%;
