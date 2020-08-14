@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import { HashRouter, Route } from "react-router-dom";
 
@@ -20,10 +19,10 @@ import User from "./User/User";
 const styles = (theme: Theme) => ({});
 
 type Props = {
-  classes: any;
+  classes: object;
 };
 
-function Content(props: Props) {
+function Router(props: Props) {
   return (
     <HashRouter>
       <Route exact path="/" component={Dashboard} />
@@ -42,8 +41,4 @@ function Content(props: Props) {
   );
 }
 
-Content.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(Content);
+export default withStyles(styles)(Router);

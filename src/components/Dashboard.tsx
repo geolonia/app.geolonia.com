@@ -1,6 +1,5 @@
 import React from "react";
 
-import PropTypes from "prop-types";
 import Paper from "@material-ui/core/Paper";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
@@ -17,7 +16,7 @@ import DeveloperBlog from "./DeveloperBlog";
 const styles = (theme: Theme) => ({});
 
 type OwnProps = {
-  classes: any;
+  classes: object;
 };
 
 type StateProps = {
@@ -82,10 +81,6 @@ const Dashboard = (props: Props) => {
       <DeveloperBlog />
     </div>
   );
-};
-
-Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired
 };
 
 const mapStateToProps = (state: Geolonia.Redux.AppState) => ({
