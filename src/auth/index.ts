@@ -127,6 +127,10 @@ export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {
   return new Promise<CognitoIdentity.CognitoUserSession>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser !== null) {
+      // We don't need to refresh the session if it is valid
+      if (session.isValid() === true) {
+        return resolve(session);
+      }
       const refreshToken = session.getRefreshToken();
       cognitoUser.refreshSession(
         refreshToken,
