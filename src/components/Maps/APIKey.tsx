@@ -97,7 +97,7 @@ const Content = (props: Props) => {
   const apiKey = props.mapKey.userKey;
   const embedCode = sprintf(
     '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
-    process.env.REACT_APP_API_BASE,
+    'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
     process.env.REACT_APP_STAGE,
     apiKey
   );
