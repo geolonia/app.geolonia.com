@@ -1,6 +1,6 @@
 import queryString from "query-string";
 
-export default () => {
+const estimateLanguage = () => {
   // URL で明示される言語を優先
   const parsed = queryString.parse(window.location.search);
   const qsLang =
@@ -19,3 +19,5 @@ export default () => {
   const browserLang = navigator.language.slice(0, 2) === "ja" ? "ja" : "en";
   return browserLang;
 };
+
+export default estimateLanguage

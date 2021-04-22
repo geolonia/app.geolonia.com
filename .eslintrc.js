@@ -11,15 +11,16 @@ module.exports = {
     jest: true
   },
   rules: {
-    "no-console": "warn",
-    "@typescript-eslint/ban-ts-comment": "warn",
+    "no-console": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/prop-types": "off", // TypeScript will take care of prop validation
-    "@typescript-eslint/no-explicit-any": "warn",
-    "@typescript-eslint/no-unused-vars": "warn",
-    "@typescript-eslint/no-empty-function": "warn",
-    "@typescript-eslint/ban-types": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-unused-vars": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
   },
   settings: {
     react: {

@@ -3,14 +3,14 @@ import Link from "@material-ui/core/Link";
 import estimateLanguage from "../../lib/estimate-language";
 import { __ } from "@wordpress/i18n";
 
-type Languages = {
+type LanguagesData = {
   [key: string]: { primitive: string; translated: string };
 };
 const Languages = () => {
   const hash = window.location.hash;
   const estimatedLanguage = estimateLanguage();
 
-  const languages: Languages = {
+  const languages: LanguagesData = {
     ja: { primitive: "日本語", translated: __("Japanese") },
     en: { primitive: "English", translated: __("English") }
   };
