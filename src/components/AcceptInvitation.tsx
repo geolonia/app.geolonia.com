@@ -45,7 +45,6 @@ const useInvitationAcceptRequest = (props: Props) => {
           }
         })
         .catch(error => {
-          console.error(error);
           setStatus("failure");
         });
     }

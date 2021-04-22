@@ -25,11 +25,9 @@ type Props = {
 const getDefaultProps = (props: Props) => ({
   label: props.label || __("Save"),
   style: props.style || {},
-  onClick:
-    props.onClick ||
-    ((event: React.MouseEvent) => Promise.resolve(console.log(event))),
-  onError: props.onError || ((err: Error) => console.error(err)),
-  disabled: !!props.disabled
+  onClick: props.onClick,
+  onError: props.onError,
+  disabled: !!props.disabled,
 });
 
 const Save = (props: Props) => {
@@ -51,6 +49,9 @@ const Save = (props: Props) => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     setStatus("working");
+    if (typeof onClick === 'undefined') {
+      return
+    }
 
     onClick(event)
       .then(() => {
@@ -61,7 +62,9 @@ const Save = (props: Props) => {
       .catch(err => {
         setStatus("failure");
         setOpen(true);
-        onError(err);
+        if (typeof onError !== 'undefined') {
+          onError(err);
+        }
         setTimeout(() => setOpen(false), messageDisplayDuration);
       });
   };

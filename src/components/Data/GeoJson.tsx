@@ -83,19 +83,18 @@ const Content = (props: Props) => {
 
   // send web socket message to notify team members
   const publish = (featureId = "") => {
-    if (socket) {
-      socket.send(
-        JSON.stringify({
-          action: "publish",
-          data: {
-            geojsonId: props.geojsonId,
-            featureId: featureId
-          }
-        })
-      );
-    } else {
-      console.error("No socket found.");
+    if (!socket) {
+      return
     }
+    socket.send(
+      JSON.stringify({
+        action: "publish",
+        data: {
+          geojsonId: props.geojsonId,
+          featureId: featureId
+        }
+      })
+    );
   };
 
   const breadcrumbItems = [

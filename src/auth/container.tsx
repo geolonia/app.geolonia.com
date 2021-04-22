@@ -147,7 +147,6 @@ export class AuthContainer extends React.Component<Props, State> {
       this.loadMapKeys(session, teamIds);
       this.loadTeamMembers(session, teamIds);
     } catch (error) {
-      console.error(error);
       this.props.serverTrouble();
     } finally {
       this.props.ready();
@@ -168,7 +167,6 @@ export class AuthContainer extends React.Component<Props, State> {
         ? fetch(userMeta.links.getAvatar)
             .then(this._handleAvatarResponse)
             .catch(err => {
-              console.error(err);
               return void 0;
             })
         : void 0,
@@ -177,7 +175,6 @@ export class AuthContainer extends React.Component<Props, State> {
           ? fetch(team.links.getAvatar)
               .then(this._handleAvatarResponse)
               .catch(err => {
-                console.error(err);
                 return void 0;
               })
           : void 0
@@ -230,10 +227,6 @@ export class AuthContainer extends React.Component<Props, State> {
               member.links.getAvatar
                 ? fetch(member.links.getAvatar)
                     .then(this._handleAvatarResponse)
-                    .catch(err => {
-                      console.error(err);
-                      return void 0;
-                    })
                 : void 0
             )
           ).then(teamMemberAvatarImages => {
@@ -247,9 +240,7 @@ export class AuthContainer extends React.Component<Props, State> {
           });
         })
       )
-    ).catch(err => {
-      console.error(err);
-    });
+    );
   };
 
   render() {

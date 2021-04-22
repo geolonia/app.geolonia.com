@@ -12,7 +12,6 @@ const poolData = {
   UserPoolId,
   ClientId
 } as CognitoIdentity.ICognitoUserPoolData;
-console.log(poolData)
 const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 
 export const signUp = (username: string, email: string, password: string) =>

@@ -99,7 +99,6 @@ function Content(props: Props) {
           );
         })
         .catch(err => {
-          console.error(err);
           alert(__("Network Error."));
         })
         .finally(() => setLoading(false));

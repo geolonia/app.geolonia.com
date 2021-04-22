@@ -72,7 +72,6 @@ export const customFetch = async <T>(
       }
     })
     .catch<Geolonia.APIResult<T>>(error => {
-      console.log(error);
       return {
         error: true,
         code: errorCodes.Network,
