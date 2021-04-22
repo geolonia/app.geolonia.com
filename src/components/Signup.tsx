@@ -19,7 +19,7 @@ import estimateLanguage from "../lib/estimate-language";
 import { pageTransitionInterval } from "../constants";
 import queryString from "query-string";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type RouterProps = {
   history: {
     push: (path: string) => void;

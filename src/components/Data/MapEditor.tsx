@@ -6,7 +6,6 @@ import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { _x } from "@wordpress/i18n";
 import fullscreen from "./fullscreenMap";
 
-// @ts-ignore
 import centroid from "@turf/centroid";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
@@ -35,7 +34,7 @@ const createMapEvents = (props: Props, map: mapboxgl.Map) => {
     selectionChange: (event: any) => {
       if (event.features.length) {
         const center = centroid(event.features[0]);
-        map.setCenter(center.geometry.coordinates);
+        map.setCenter(center.geometry.coordinates as [number, number]);
       }
       props.onClickFeature(event);
     },

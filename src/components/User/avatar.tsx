@@ -22,7 +22,7 @@ import putAvatar from "../../api/users/put-avatar";
 // constants
 import { avatarLimitSize } from "../../constants";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
   userMeta: Geolonia.User;
@@ -85,7 +85,6 @@ export class AvatarSection extends React.Component<Props, State> {
       this.setState({ status: "requesting" });
 
       putAvatar(this.props.session, file).then(result => {
-        console.log(result);
         if (result.error) {
           this.props.setAvatar(prevAvatarUrl); // roleback
           this.setState({ status: "failure", errorMessage: result.message });

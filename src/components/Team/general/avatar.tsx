@@ -21,7 +21,7 @@ import { connect } from "react-redux";
 // constants
 import { avatarLimitSize, Roles } from "../../../constants";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
   team: Geolonia.Team;

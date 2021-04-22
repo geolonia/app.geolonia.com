@@ -17,7 +17,6 @@ const getDefaultProps = (props: Props) => ({
   ...props,
   label: props.label || __("Cancel"),
   style: props.style || {},
-  handler: props.handler || ((event: React.MouseEvent) => console.log(event)),
   disabled: !!props.disabled
 });
 

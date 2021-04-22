@@ -11,16 +11,14 @@ interface StyleSpec {
   [key: string]: Spec;
 }
 
-interface SimpleStyle {
-  [key: string]: StyleSpec;
-}
-
 const textColor = '#000000'
 const textHaloColor = '#FFFFFF'
 const backgroundColor = 'rgba(255, 0, 0, 0.4)'
 const strokeColor = '#FFFFFF'
 
-const SimpleStyle: SimpleStyle = {
+const SimpleStyle: {
+  [key: string]: StyleSpec;
+} = {
   "Point": {
     "text-color": {
       "label": __("Text Color"),

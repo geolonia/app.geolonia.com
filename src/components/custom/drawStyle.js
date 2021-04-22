@@ -8,7 +8,7 @@ const textHaloColor = '#FFFFFF'
 const backgroundColor = 'rgba(255, 0, 0, 0.4)'
 const strokeColor = '#FFFFFF'
 
-export default [
+const drawStyle = [
   {
     id: 'draw-polygon',
     type: 'fill',
@@ -153,3 +153,5 @@ export default [
     },
   }
 ]
+
+export default drawStyle

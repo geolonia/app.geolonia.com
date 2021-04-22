@@ -20,7 +20,7 @@ import { createActions as createUserActions } from "../../redux/actions/user-met
 // types
 import { Dispatch } from "redux";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = { session: Geolonia.Session; user: Geolonia.User };
 type DispatchProps = {
   updateUser: (nextUser: Geolonia.User) => void;

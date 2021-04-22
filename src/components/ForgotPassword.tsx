@@ -14,13 +14,13 @@ import { pageTransitionInterval } from "../constants";
 import StatusIndication from "./custom/status-indication";
 import { parseForgotPasswordError as parseCognitoForgotPasswordError } from "../lib/cognito/parse-error";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type RouterProps = {
   history: {
     push: (path: string) => void;
   };
 };
-type DispatchProps = {};
+type DispatchProps = Record<string, never>;
 type Props = OwnProps & RouterProps & DispatchProps;
 
 const Content = (props: Props) => {

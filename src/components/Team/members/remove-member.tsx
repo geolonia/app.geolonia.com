@@ -45,7 +45,6 @@ const RemoveMember = (props: Props) => {
     setStatus("requesting");
     deleteMember(props.session, props.teamId, currentMember.userSub).then(
       result => {
-        console.log(result);
         if (result.error) {
           setStatus("failure");
           setMessage(result.message);

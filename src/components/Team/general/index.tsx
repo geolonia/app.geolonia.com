@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 // Constants
 import { Roles } from "../../../constants";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = { role?: Geolonia.Role };
 type Props = OwnProps & StateProps;
 

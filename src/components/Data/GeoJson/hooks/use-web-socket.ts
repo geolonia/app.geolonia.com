@@ -45,7 +45,7 @@ export default function useWebSocket(
               throw new Error();
             }
           } catch (error) {
-            console.error("Web socket connection failed");
+            // no-op
           }
         };
 

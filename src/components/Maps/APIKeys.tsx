@@ -15,7 +15,7 @@ import Redux from "redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
 import dateParse from "../../lib/date-parse";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
   mapKeys: Geolonia.Key[];

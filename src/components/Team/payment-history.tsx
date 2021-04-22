@@ -9,7 +9,7 @@ import moment from "moment";
 import { __ } from "@wordpress/i18n";
 import Typography from "@material-ui/core/Typography";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
   teamId?: string;

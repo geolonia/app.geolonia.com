@@ -20,20 +20,14 @@ export const customFetch = async <T>(
 ): Promise<Geolonia.APIResult<T>> => {
   if (!session) {
     // session should be exists when call those API
-    return Promise.resolve({
+    return {
       error: true,
       code: errorCodes.UnAuthorized,
       message: getErrorMessage(errorCodes.UnAuthorized)
-    });
+    }
   }
 
-  let refreshedSession: CognitoUserSession;
-
-  try {
-    refreshedSession = await refreshSession(session);
-  } catch (error) {
-    return Promise.reject(error);
-  }
+  const refreshedSession: CognitoUserSession = await refreshSession(session);
 
   let fetchOptions;
   const headers = (options && options.headers) || {};
@@ -78,7 +72,6 @@ export const customFetch = async <T>(
       }
     })
     .catch<Geolonia.APIResult<T>>(error => {
-      console.log(error);
       return {
         error: true,
         code: errorCodes.Network,

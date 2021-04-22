@@ -136,8 +136,7 @@ const useStatus = (
         })
         .then(() => {
           setGeoJsonMeta({ isPublic, name, status: draftStatus });
-        })
-        .catch(() => {});
+        });
     }
   }, [draftStatus, geojsonId, isPublic, name, session, setGeoJsonMeta, status]);
   return [draftStatus, setDraftStatus];

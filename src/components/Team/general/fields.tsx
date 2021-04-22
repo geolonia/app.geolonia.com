@@ -17,7 +17,7 @@ import { __ } from "@wordpress/i18n";
 import { Roles } from "../../../constants";
 import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
   selectedIndex: number;
