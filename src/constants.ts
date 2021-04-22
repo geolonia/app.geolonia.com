@@ -1,15 +1,15 @@
 import { __ } from "@wordpress/i18n";
 
 export const Roles = {
-  Owner: "Owner" as "Owner",
-  Member: "Member" as "Member",
-  Suspended: "Suspended" as "Suspended"
+  Owner: "Owner" as const,
+  Member: "Member" as const,
+  Suspended: "Suspended" as const,
 };
 
 export const errorCodes = {
-  UnAuthorized: "UnAuthorized" as "UnAuthorized",
-  Unknown: "Unknown" as "Unknown",
-  Network: "Network" as "Network"
+  UnAuthorized: "UnAuthorized" as const,
+  Unknown: "Unknown" as const,
+  Network: "Network" as const,
 };
 
 export const avatarLimitSize = 10; // Unit: MB
@@ -20,7 +20,7 @@ export const pageTransitionInterval = 500;
 
 export const MapStylesAPI = "https://cdn.geolonia.com/style/styles.json";
 
-export const getErrorMessage = (code: Geolonia.ErrorCodes) => {
+export const getErrorMessage: (code: Geolonia.ErrorCodes) => string = (code) => {
   switch (code) {
     case errorCodes.UnAuthorized:
       return __("You are not authorized to do this operation.");

@@ -10,3 +10,12 @@
   REACT_APP_API_BASE = "https://api.geolonia.com"
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
   REACT_APP_STAGE = "dev"
+
+[[headers]]
+  for = "/static/*"
+
+  [headers.values]
+    cache-control = '''
+    max-age=31536000,
+    public
+    '''

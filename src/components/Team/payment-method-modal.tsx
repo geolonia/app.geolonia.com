@@ -112,7 +112,7 @@ const PaymentMethodModal = (props: Props) => {
               hidePostalCode: true,
               style: {
                 base: {
-                  padding: 16,
+                  padding: "16px",
                   fontSize: "16px",
                   color: "#424770",
                   "::placeholder": {

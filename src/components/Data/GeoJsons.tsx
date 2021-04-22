@@ -22,7 +22,7 @@ type Row = {
   isPublic: boolean;
 };
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
   teamId?: string;
@@ -148,7 +148,7 @@ function Content(props: Props) {
       })
       .then(() => {
         // wait until the Elasticsearch completes indexing
-        return new Promise(resolve => {
+        return new Promise<void>(resolve => {
           setTimeout(() => {
             setWatchdog(watchdog + 1);
             resolve();

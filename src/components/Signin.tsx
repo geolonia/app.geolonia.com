@@ -25,7 +25,7 @@ import { connect } from "react-redux";
 // constants
 import { pageTransitionInterval } from "../constants";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type RouterProps = {
   history: {
     push: (path: string) => void;

@@ -32,7 +32,7 @@ import normalizeOrigin from "../../lib/normalize-origin";
 // constants
 import { messageDisplayDuration } from "../../constants";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   mapKey?: Geolonia.Key;
   teamId: string;

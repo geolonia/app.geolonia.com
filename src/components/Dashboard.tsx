@@ -16,7 +16,7 @@ import DeveloperBlog from "./DeveloperBlog";
 const styles = (theme: Theme) => ({});
 
 type OwnProps = {
-  classes: object;
+  classes: { [key: string]: string };
 };
 
 type StateProps = {

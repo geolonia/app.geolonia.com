@@ -23,7 +23,7 @@ type Props = {
   answer?: string;
   errorMessage: string;
   onClick: () => Promise<any>;
-  onFailure: () => void;
+  onFailure?: () => void;
   disableCancel?: boolean | ((status?: Status) => boolean);
   disableDelete?: boolean | ((inputValue: string, status?: Status) => boolean);
 };
@@ -34,7 +34,7 @@ const getTexts = (props: Props) => ({
   answer: props.answer || "delete"
 });
 
-export const Delete = (props: Props) => {
+export const Delete: React.FC<Props> = (props) => {
   const { disableCancel, disableDelete } = props;
   const { text1, text2 } = getTexts(props);
 
@@ -82,7 +82,7 @@ export const Delete = (props: Props) => {
         })
         .catch(() => {
           setStatus("failure");
-          props.onFailure();
+          if (props.onFailure) props.onFailure();
         });
     }
   };

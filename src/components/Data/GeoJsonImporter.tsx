@@ -7,8 +7,8 @@ import { __, sprintf } from "@wordpress/i18n";
 
 type Props = {
   state: boolean;
-  onClose: Function;
-  GeoJsonImporter: Function;
+  onClose: () => void;
+  GeoJsonImporter: (input: GeoJSON.FeatureCollection<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>) => void;
 };
 
 type TypeUniqueIds = {
@@ -30,7 +30,7 @@ const styleOuterDefault: React.CSSProperties = {
   textAlign: 'left',
 }
 
-const Importer = (props: Props) => {
+const Importer: React.FC<Props> = (props) => {
   const {state, onClose, GeoJsonImporter} = props;
   const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
   const [error, setError] = React.useState<string | null>(null)

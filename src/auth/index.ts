@@ -12,6 +12,7 @@ const poolData = {
   UserPoolId,
   ClientId
 } as CognitoIdentity.ICognitoUserPoolData;
+console.log(poolData)
 const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 
 export const signUp = (username: string, email: string, password: string) =>
@@ -27,11 +28,10 @@ export const signUp = (username: string, email: string, password: string) =>
     ];
 
     userPool.signUp(username, password, attributeList, [], (err, result) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(result);
+      if (err || !result) {
+        return reject(err);
       }
+      resolve(result)
     });
   });
 
@@ -149,8 +149,8 @@ export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {
   });
 };
 
-export const signout = () =>
-  new Promise(resolve => {
+export const signout: () => Promise<void> = () =>
+  new Promise<void>(resolve => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser) {
       cognitoUser.signOut();
@@ -181,7 +181,7 @@ export const signout = () =>
  *
  * @param identity username or email
  */
-export const sendVerificationEmail = (identity: string) =>
+export const sendVerificationEmail: (identity: string) => Promise<boolean> = (identity: string) =>
   new Promise((resolve, reject) => {
     const cognitoUser = new CognitoIdentity.CognitoUser({
       Username: identity,
@@ -223,7 +223,7 @@ export const resetPassword = (
 };
 
 export const changePassword = (oldPassword: string, newPassword: string) =>
-  new Promise((resolve, reject) => {
+  new Promise<void>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser) {
       const username = cognitoUser.getUsername();

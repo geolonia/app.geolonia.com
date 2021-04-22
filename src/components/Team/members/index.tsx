@@ -34,7 +34,7 @@ type Row = {
   role: Geolonia.Role;
 };
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   team: Geolonia.Team | void;
   members: Geolonia.Member[];

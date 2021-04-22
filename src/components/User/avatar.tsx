@@ -22,7 +22,7 @@ import putAvatar from "../../api/users/put-avatar";
 // constants
 import { avatarLimitSize } from "../../constants";
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
   userMeta: Geolonia.User;

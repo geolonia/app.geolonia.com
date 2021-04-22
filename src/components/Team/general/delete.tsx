@@ -30,7 +30,7 @@ const styleDangerZone: React.CSSProperties = {
   padding: "16px 24px"
 };
 
-type OwnProps = {};
+type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
   team: Geolonia.Team;

@@ -57,7 +57,7 @@ type DispatchProps = {
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
-type State = {};
+type State = Record<string, never>;
 
 type FundamentalAPIResult = {
   teams: Geolonia.Team[];

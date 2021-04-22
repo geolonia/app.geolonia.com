@@ -25,6 +25,3 @@ yarn-debug.log*
 yarn-error.log*
 
 *.po~
-
-// use npm, not Yarn
-yarn.lock
