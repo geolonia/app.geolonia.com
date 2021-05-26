@@ -90,6 +90,7 @@ const PaymentMethodModal: React.FC<Props> = (props) => {
         throw new Error();
       }
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(error);
     } finally {
       setLoading(false);

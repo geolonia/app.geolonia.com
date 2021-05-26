@@ -93,6 +93,7 @@ const PlanModal = (props: Props) => {
         throw new Error();
       }
     } catch (e) {
+      // eslint-disable-next-line no-console
       console.error(e);
     } finally {
       setLoading(false);
