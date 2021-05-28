@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
@@ -15,7 +15,7 @@ import ViewListIcon from "@material-ui/icons/ViewList";
 import DescriptionIcon from "@material-ui/icons/Description";
 import RoomIcon from "@material-ui/icons/Room";
 import GroupIcon from "@material-ui/icons/Group";
-// import PaymentIcon from "@material-ui/icons/Payment";
+import PaymentIcon from "@material-ui/icons/Payment";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -117,10 +117,36 @@ const Navigator: React.FC<Props> = (props: Props) => {
     ownerEmail,
     ...other
   } = props;
-  const [open, setOpen] = React.useState(false);
-  const [newTeamName, setNewTeamName] = React.useState(
+  const [open, setOpen] = useState(false);
+  const [newTeamName, setNewTeamName] = useState(
     initialValueForNewTeamName
   );
+
+  const selectedTeam = teams[selectedTeamIndex];
+
+  const teamSettingsChildren = [
+    {
+      id: __("General"),
+      icon: <ViewListIcon />,
+      href: "#/team/general",
+      active: false
+    },
+    {
+      id: __("Members"),
+      icon: <GroupIcon />,
+      href: "#/team/members",
+      active: false
+    },
+  ];
+
+  if (selectedTeam.billingMode === "STRIPE") {
+    teamSettingsChildren.push({
+      id: __("Billing"),
+      icon: <PaymentIcon />,
+      href: "#/team/billing",
+      active: false,
+    });
+  }
 
   const categories = [
     {
@@ -149,26 +175,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     },
     {
       id: __("Team Settings"),
-      children: [
-        {
-          id: __("General"),
-          icon: <ViewListIcon />,
-          href: "#/team/general",
-          active: false
-        },
-        {
-          id: __("Members"),
-          icon: <GroupIcon />,
-          href: "#/team/members",
-          active: false
-        }
-        // {
-        //   id: __("Billing"),
-        //   icon: <PaymentIcon />,
-        //   href: "#/team/billing",
-        //   active: false
-        // }
-      ]
+      children: teamSettingsChildren,
     },
     {
       id: __("Documentation"),

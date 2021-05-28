@@ -85,6 +85,8 @@ declare namespace Geolonia {
    */
   type Session = AmazonCognitoIdentity.CognitoUserSession | null | undefined;
 
+  type TeamBillingMethod = "STRIPE" | "INVOICE" | "DISABLED";
+
   type User = {
     name: string;
     email: string;
@@ -113,6 +115,7 @@ declare namespace Geolonia {
     last2?: string;
     isPaidTeam: boolean;
     maxMemberLength: number;
+    billingMode: TeamBillingMethod;
   };
   type Key = {
     keyId: string;
@@ -167,5 +170,13 @@ declare namespace Geolonia {
     period_end: number;
     ending_balance: null | number;
     starting_balance: number;
+    invoice_pdf: string | null | undefined;
+    descriptions: (string | null)[];
+  };
+
+  type Charge = {
+    id: string;
+    invoice: string | null;
+    receipt_url: string | null;
   };
 }

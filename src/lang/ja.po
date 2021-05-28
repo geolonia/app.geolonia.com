@@ -1,17 +1,18 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2021-02-21 15:55+0900\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "lang: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: src/components/AcceptInvitation.tsx:65
 msgid "Your invitation has been validated."
@@ -21,28 +22,28 @@ msgstr "招待が有効化されました。"
 msgid "Your invitation has been outdated."
 msgstr "この招待は無効です。"
 
-#: src/components/Dashboard.tsx:62
+#: src/components/Dashboard.tsx:61
 msgid "Welcome, %s"
 msgstr "ようこそ %s さん"
 
-#: src/components/Dashboard.tsx:66
+#: src/components/Dashboard.tsx:65
 msgid "Get API key"
 msgstr "API キーを取得"
 
-#: src/components/Dashboard.tsx:68
+#: src/components/Dashboard.tsx:67
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:72 src/components/Data/GeoJson.tsx:112
+#: src/components/Dashboard.tsx:71 src/components/Data/GeoJson.tsx:112
 #: src/components/Navigator.tsx:142
 msgid "GeoJSON API"
 msgstr ""
 
-#: src/components/Dashboard.tsx:74
+#: src/components/Dashboard.tsx:73
 msgid "Manage and style your GeoJSON."
 msgstr "GeoJSON を登録してスタイルをカスタマイズしましょう。"
 
-#: src/components/Dashboard.tsx:80
+#: src/components/Dashboard.tsx:79
 msgid "Developer's Blog"
 msgstr ""
 
@@ -53,7 +54,7 @@ msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GeoJson.tsx:104 src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:113 src/components/Maps/APIKeys.tsx:35
-#: src/components/Team/Billing.tsx:128
+#: src/components/Team/Billing.tsx:179
 msgid "Home"
 msgstr ""
 
@@ -479,6 +480,10 @@ msgstr "一般"
 msgid "Members"
 msgstr "メンバー"
 
+#: src/components/Navigator.tsx:166
+msgid "Billing"
+msgstr "支払い"
+
 #: src/components/Navigator.tsx:174
 msgid "Documentation"
 msgstr "ドキュメント"
@@ -632,53 +637,116 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Team/Billing.tsx:106
-msgid "Free plan"
-msgstr "フリープラン"
+#: src/components/Team/Billing.tsx:105
+msgid "Pro plan"
+msgstr "Pro プラン"
 
-#: src/components/Team/Billing.tsx:132 src/components/Team/general/index.tsx:32
+#: src/components/Team/Billing.tsx:111
+msgid "monthly"
+msgstr "月払い"
+
+#: src/components/Team/Billing.tsx:113
+msgid "yearly"
+msgstr "年払い"
+
+#: src/components/Team/Billing.tsx:132
+msgid "Free Plan"
+msgstr "Free プラン"
+
+#: src/components/Team/Billing.tsx:183 src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:141
+#: src/components/Team/Billing.tsx:192
 msgid "You can see subscriptions for this team in this month."
 msgstr "このチームの今月のサブスクリプションを確認することができます。"
 
-#: src/components/Team/Billing.tsx:147
+#: src/components/Team/Billing.tsx:196
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:153
+#: src/components/Team/Billing.tsx:203
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:157
+#: src/components/Team/Billing.tsx:207
 msgid "ending in **%1$s"
 msgstr "末尾の番号 **%1$s"
 
-#: src/components/Team/Billing.tsx:167
+#: src/components/Team/Billing.tsx:217
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:177
+#: src/components/Team/Billing.tsx:228
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:188
+#: src/components/Team/Billing.tsx:235
+msgid "Scheduled to expire on %1$s"
+msgstr "%1$s にキャンセルされます"
+
+#: src/components/Team/Billing.tsx:237
+msgid "Will automatically renew on %1$s"
+msgstr "%1$s に自動更新されます"
+
+#: src/components/Team/Billing.tsx:250
+msgid "Resume subscription"
+msgstr "自動更新を再開"
+
+#: src/components/Team/Billing.tsx:260
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:223
-msgid "Paid invoice receipts"
-msgstr ""
+#: src/components/Team/Billing.tsx:289
+msgid "Learn more about plans on the pricing page."
+msgstr "プラン詳細については、料金ページをご覧ください。"
+
+#: src/components/Team/Billing.tsx:296
+msgid "Payment history"
+msgstr "支払い履歴"
+
+#: src/components/Team/Billing.tsx:99
+msgid "Free plan"
+msgstr "Free プラン"
+
+#: src/components/Team/Billing/Receipts.tsx:156
+msgid "No payment history."
+msgstr "支払い履歴はありません。"
+
+#: src/components/Team/Billing/payment-method-modal.tsx:102
+msgid "Card information"
+msgstr "クレジットカード情報"
+
+#: src/components/Team/Billing/payment-method-modal.tsx:146
+#: src/components/Team/Billing/plan-modal.tsx:153
+msgid "Update"
+msgstr "更新"
+
+#: src/components/Team/Billing/payment-method-modal.tsx:66
+msgid "Unknown Error."
+msgstr "不明なエラー。"
+
+#: src/components/Team/Billing/plan-modal.tsx:105
+msgid "Your plan"
+msgstr "あなたのプラン"
+
+#: src/components/Team/Billing/plan-modal.tsx:55
+msgid "Your subscription will be canceled."
+msgstr "サブスクリプションはキャンセルされます。"
+
+#: src/components/Team/Billing/plan-modal.tsx:57
+msgid ""
+"The difference between the plan changes will be charged or charged as a "
+"balance."
+msgstr "プランの変更に伴う差額が請求または残高としてチャージされます。"
 
 #: src/components/Team/general/avatar.tsx:123
-#: src/components/User/avatar.tsx:130
+#: src/components/User/avatar.tsx:128
 msgid "Upload new picture"
 msgstr "新しい写真をアップロード"
 
-#: src/components/Team/general/avatar.tsx:63 src/components/User/avatar.tsx:76
+#: src/components/Team/general/avatar.tsx:63 src/components/User/avatar.tsx:74
 msgid "Upload failed. The avatar image size cannot be larger than %d MB."
 msgstr "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
 
@@ -856,47 +924,6 @@ msgstr "メンバーの一時停止"
 #: src/components/Team/members/suspend.tsx:99
 msgid "The following members will be suspended:"
 msgstr "以下のメンバーによる操作が一時停止されます。"
-
-#: src/components/Team/payment-history.tsx:78
-msgid "Balance"
-msgstr "残高"
-
-#: src/components/Team/payment-history.tsx:82
-msgid "Payment history"
-msgstr "支払履歴"
-
-#: src/components/Team/payment-history.tsx:88
-msgid "Date"
-msgstr "日時"
-
-#: src/components/Team/payment-history.tsx:91
-msgid "Payment"
-msgstr "支払い"
-
-#: src/components/Team/payment-history.tsx:91
-msgid "Balanced"
-msgstr "差し引き"
-
-#: src/components/Team/payment-history.tsx:94
-msgid "Refund"
-msgstr "返金"
-
-#: src/components/Team/payment-method-modal.tsx:103
-msgid "Card information"
-msgstr "クレジットカード情報"
-
-#: src/components/Team/payment-method-modal.tsx:147
-#: src/components/Team/plan-modal.tsx:126
-msgid "Update"
-msgstr "更新"
-
-#: src/components/Team/payment-method-modal.tsx:66
-msgid "Unknown Error."
-msgstr "不明なエラー。"
-
-#: src/components/Team/plan-modal.tsx:79
-msgid "Your plan"
-msgstr "あなたのプラン"
 
 #: src/components/User/User.tsx:24
 msgid "Your profile"
@@ -1169,6 +1196,21 @@ msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
 
+#~ msgid "Date"
+#~ msgstr "日時"
+
+#~ msgid "Payment"
+#~ msgstr "支払い"
+
+#~ msgid "Balanced"
+#~ msgstr "差し引き"
+
+#~ msgid "Refund"
+#~ msgstr "返金"
+
+#~ msgid "Balance"
+#~ msgstr "残高"
+
 #~ msgid ""
 #~ "We are currently private beta. Sign Up is restricted to invited users."
 #~ msgstr ""
@@ -1184,9 +1226,6 @@ msgstr "6"
 #~ msgid "Upgrade to Geolonia Team"
 #~ msgstr "チーム機能をアップグレード"
 
-#~ msgid "Billing"
-#~ msgstr "支払い"
-
 #~ msgid "Private Endpoint"
 #~ msgstr "プライベートエンドポイント"
 
@@ -1198,9 +1237,6 @@ msgstr "6"
 
 #~ msgid "Contact us"
 #~ msgstr "お問い合わせ下さい"
-
-#~ msgid "Your subscriptions"
-#~ msgstr "あなたのサブスクリプション"
 
 #~ msgid "Cost per 1,000 map loads/month"
 #~ msgstr "地図 1,000ロードあたりのコスト"

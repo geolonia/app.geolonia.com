@@ -11,29 +11,29 @@ msgstr ""
 msgid "Your invitation has been outdated."
 msgstr ""
 
-#: src/components/Dashboard.tsx:62
+#: src/components/Dashboard.tsx:61
 msgid "Welcome, %s"
 msgstr ""
 
-#: src/components/Dashboard.tsx:66
+#: src/components/Dashboard.tsx:65
 msgid "Get API key"
 msgstr ""
 
-#: src/components/Dashboard.tsx:68
+#: src/components/Dashboard.tsx:67
 msgid "Get API key then create your map!"
 msgstr ""
 
-#: src/components/Dashboard.tsx:72
+#: src/components/Dashboard.tsx:71
 #: src/components/Data/GeoJson.tsx:112
 #: src/components/Navigator.tsx:142
 msgid "GeoJSON API"
 msgstr ""
 
-#: src/components/Dashboard.tsx:74
+#: src/components/Dashboard.tsx:73
 msgid "Manage and style your GeoJSON."
 msgstr ""
 
-#: src/components/Dashboard.tsx:80
+#: src/components/Dashboard.tsx:79
 msgid "Developer's Blog"
 msgstr ""
 
@@ -46,7 +46,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:113
 #: src/components/Maps/APIKeys.tsx:35
-#: src/components/Team/Billing.tsx:128
+#: src/components/Team/Billing.tsx:179
 msgid "Home"
 msgstr ""
 
@@ -464,6 +464,10 @@ msgstr ""
 msgid "Members"
 msgstr ""
 
+#: src/components/Navigator.tsx:166
+msgid "Billing"
+msgstr ""
+
 #: src/components/Navigator.tsx:174
 msgid "Documentation"
 msgstr ""
@@ -619,55 +623,118 @@ msgid ""
 "href=\"https://geolonia.com/privacy\">Privacy policy</a>."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:106
-msgid "Free plan"
+#: src/components/Team/Billing.tsx:105
+msgid "Pro plan"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:111
+msgid "monthly"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:113
+msgid "yearly"
 msgstr ""
 
 #: src/components/Team/Billing.tsx:132
+msgid "Free Plan"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:183
 #: src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:141
+#: src/components/Team/Billing.tsx:192
 msgid "You can see subscriptions for this team in this month."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:147
+#: src/components/Team/Billing.tsx:196
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:153
+#: src/components/Team/Billing.tsx:203
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:157
+#: src/components/Team/Billing.tsx:207
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:167
+#: src/components/Team/Billing.tsx:217
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:177
+#: src/components/Team/Billing.tsx:228
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:188
+#: src/components/Team/Billing.tsx:235
+msgid "Scheduled to expire on %1$s"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:237
+msgid "Will automatically renew on %1$s"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:250
+msgid "Resume subscription"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:260
 msgid "Change Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:223
-msgid "Paid invoice receipts"
+#: src/components/Team/Billing.tsx:289
+msgid "Learn more about plans on the pricing page."
+msgstr ""
+
+#: src/components/Team/Billing.tsx:296
+msgid "Payment history"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:99
+msgid "Free plan"
+msgstr ""
+
+#: src/components/Team/Billing/Receipts.tsx:156
+msgid "No payment history."
+msgstr ""
+
+#: src/components/Team/Billing/payment-method-modal.tsx:102
+msgid "Card information"
+msgstr ""
+
+#: src/components/Team/Billing/payment-method-modal.tsx:146
+#: src/components/Team/Billing/plan-modal.tsx:153
+msgid "Update"
+msgstr ""
+
+#: src/components/Team/Billing/payment-method-modal.tsx:66
+msgid "Unknown Error."
+msgstr ""
+
+#: src/components/Team/Billing/plan-modal.tsx:105
+msgid "Your plan"
+msgstr ""
+
+#: src/components/Team/Billing/plan-modal.tsx:55
+msgid "Your subscription will be canceled."
+msgstr ""
+
+#: src/components/Team/Billing/plan-modal.tsx:57
+msgid ""
+"The difference between the plan changes will be charged or charged as a "
+"balance."
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:123
-#: src/components/User/avatar.tsx:130
+#: src/components/User/avatar.tsx:128
 msgid "Upload new picture"
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:63
-#: src/components/User/avatar.tsx:76
+#: src/components/User/avatar.tsx:74
 msgid "Upload failed. The avatar image size cannot be larger than %d MB."
 msgstr ""
 
@@ -839,47 +906,6 @@ msgstr ""
 
 #: src/components/Team/members/suspend.tsx:99
 msgid "The following members will be suspended:"
-msgstr ""
-
-#: src/components/Team/payment-history.tsx:78
-msgid "Balance"
-msgstr ""
-
-#: src/components/Team/payment-history.tsx:82
-msgid "Payment history"
-msgstr ""
-
-#: src/components/Team/payment-history.tsx:88
-msgid "Date"
-msgstr ""
-
-#: src/components/Team/payment-history.tsx:91
-msgid "Payment"
-msgstr ""
-
-#: src/components/Team/payment-history.tsx:91
-msgid "Balanced"
-msgstr ""
-
-#: src/components/Team/payment-history.tsx:94
-msgid "Refund"
-msgstr ""
-
-#: src/components/Team/payment-method-modal.tsx:103
-msgid "Card information"
-msgstr ""
-
-#: src/components/Team/payment-method-modal.tsx:147
-#: src/components/Team/plan-modal.tsx:126
-msgid "Update"
-msgstr ""
-
-#: src/components/Team/payment-method-modal.tsx:66
-msgid "Unknown Error."
-msgstr ""
-
-#: src/components/Team/plan-modal.tsx:79
-msgid "Your plan"
 msgstr ""
 
 #: src/components/User/User.tsx:24

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -8,7 +8,7 @@ import { CircularProgress } from "@material-ui/core";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 
 import { __ } from "@wordpress/i18n";
-import fetch from "../../lib/fetch";
+import fetch from "../../../lib/fetch";
 import { connect } from "react-redux";
 
 type OwnProps = {
@@ -33,7 +33,7 @@ const modalStyle: React.CSSProperties = {
 
 const { REACT_APP_STAGE } = process.env;
 
-const PaymentMethodModal = (props: Props) => {
+const PaymentMethodModal: React.FC<Props> = (props) => {
   const { open, handleClose, session, teamId } = props;
   const [loading, setLoading] = React.useState(false);
   const [message, setMessage] = React.useState("");
@@ -49,53 +49,53 @@ const PaymentMethodModal = (props: Props) => {
     //   .then(console.log);
   }
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     if (!stripe || !elements || !teamId) {
       return null;
     }
-    const cardElement = elements.getElement(CardElement);
 
-    if (cardElement) {
-      setLoading(true);
-      const { error, token } = await stripe.createToken(cardElement, {
-        name: "test"
-      });
-      if (error || !token || !token.card) {
-        setLoading(false);
-        setMessage(
-          error && error.message ? error.message : __("Unknown Error.")
-        );
-      } else {
-        const last2 = token.card.last4.slice(2, 4);
-        setMessage("");
-        fetch(
-          session,
-          `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/payment`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ token: token.id, last2 })
-          }
-        )
-          .then(res => {
-            if (res.status < 400) {
-              handleClose();
-              window.location.reload();
-            } else {
-              throw new Error();
-            }
-          })
-          .catch(error => {
-            console.error(error);
-          })
-          .finally(() => {
-            setLoading(false);
-          });
-      }
+    const cardElement = elements.getElement(CardElement);
+    if (!cardElement) return;
+    setLoading(true);
+    const { error, token } = await stripe.createToken(cardElement, {
+      name: "test"
+    });
+    if (error || !token || !token.card) {
+      setLoading(false);
+      setMessage(
+        error && error.message ? error.message : __("Unknown Error.")
+      );
+      return;
     }
-  };
+
+    const last2 = token.card.last4.slice(2, 4);
+    setMessage("");
+
+    try {
+      const res = await fetch(
+        session,
+        `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/payment`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ token: token.id, last2 })
+        }
+      )
+      if (res.status < 400) {
+        handleClose();
+        window.location.reload();
+      } else {
+        throw new Error();
+      }
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  }, [ stripe, elements, teamId, handleClose, session ]);
 
   return (
     <Modal open={open} onClose={handleClose}>
