@@ -28,6 +28,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import moment from "moment";
 
 import customFetch from "../../lib/fetch";
+import { Redirect } from "react-router";
 
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
@@ -43,7 +44,7 @@ type StateProps = {
   last2?: string;
   isOwner?: boolean;
   memberCount?: number;
-  teamId?: string;
+  team?: Geolonia.Team;
 };
 
 type StripeTier = {
@@ -119,7 +120,8 @@ export const parsePlanLabel = (
 };
 
 const usePlan = (props: StateProps) => {
-  const { session, teamId } = props;
+  const { session, team } = props;
+  const teamId = team?.teamId;
   const [plans, setPlans] = useState<GeoloniaPlan[]>([]);
   // planId === null フリープラン
   // planId === void 0 リクエスト中
@@ -173,7 +175,8 @@ const usePlan = (props: StateProps) => {
 };
 
 const Billing = (props: StateProps) => {
-  const { session, teamId } = props
+  const { session, team } = props
+  const teamId = team?.teamId;
   const [openPayment, setOpenPayment] = useState(false);
   const [openPlan, setOpenPlan] = useState(false);
   const { plans, name, planId, subscription } = usePlan(props);
@@ -221,6 +224,10 @@ const Billing = (props: StateProps) => {
       setResumeSubLoading(false);
     }
   }, [ session, planId, teamId, resumeSubLoading, setResumeSubLoading ]);
+
+  if (team && team.billingMode !== 'STRIPE') {
+    return <Redirect to="/" />
+  }
 
   return (
     <StripeContainer>
@@ -358,7 +365,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
       team &&
       state.teamMember[team.teamId] &&
       state.teamMember[team.teamId].data.length,
-    teamId: team && team.teamId
+    team: team,
   };
 };
 
