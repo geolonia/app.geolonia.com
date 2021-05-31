@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -37,7 +37,7 @@ const Content = (props: Props) => {
   const [blogItems, setBlogItems] = React.useState<BlogPost[]>([])
   const classes = useStyles();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const endpoint = "https://blog.geolonia.com/feed.json"
     fetch(endpoint)
       .then(res => res.json())
@@ -51,12 +51,12 @@ const Content = (props: Props) => {
       <Grid container spacing={2}>
       {blogItems.map((post, index) => {
         return (
-          <Grid item sm={6} xs={12} key={index}>
+          <Grid item lg={4} md={6} xs={12} key={index}>
             <Card className={classes.root}>
               <CardActionArea onClick={() => window.location.href = post.url}>
                 <CardMedia
                   className={classes.media}
-                  image={post.thumbnail}
+                  image={post.thumbnail + '-/resize/600x/-/quality/lightest/'}
                   title={post.title}
                 />
                 <CardContent>
