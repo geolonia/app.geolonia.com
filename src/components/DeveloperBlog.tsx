@@ -56,7 +56,7 @@ const Content = (props: Props) => {
               <CardActionArea onClick={() => window.location.href = post.url}>
                 <CardMedia
                   className={classes.media}
-                  image={post.thumbnail + '-/resize/600x/-/quality/lightest/'}
+                  image={post.thumbnail + '-/resize/800x/-/format/auto/-/quality/lightest/'}
                   title={post.title}
                 />
                 <CardContent>
