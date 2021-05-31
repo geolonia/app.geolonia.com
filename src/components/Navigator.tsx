@@ -122,7 +122,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     initialValueForNewTeamName
   );
 
-  const selectedTeam = teams[selectedTeamIndex];
+  const selectedTeam: Geolonia.Team | undefined = teams[selectedTeamIndex];
 
   const teamSettingsChildren = [
     {
@@ -139,7 +139,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     },
   ];
 
-  if (selectedTeam.billingMode === "STRIPE") {
+  if (selectedTeam?.billingMode === "STRIPE") {
     teamSettingsChildren.push({
       id: __("Billing"),
       icon: <PaymentIcon />,
