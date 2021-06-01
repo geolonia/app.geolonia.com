@@ -283,6 +283,7 @@ const GeoJSONMeta = (props: Props) => {
               disabled={downloadDisabled}
               className="geolonia-geojson-api-endpoint"
               value={downloadUrl}
+              readOnly={true}
             />
           )}
           <p>
