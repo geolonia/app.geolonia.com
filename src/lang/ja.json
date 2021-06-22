@@ -90,13 +90,13 @@
       "Key": ["キー"],
       "Value": ["値"],
       "Nothing found.": ["なにもありません。"],
-      "Background": ["背景色"],
       "Stroke": ["線の色"],
       "Size": ["サイズ"],
       "Symbol": ["シンボル"],
       "Stroke Width": ["線の太さ"],
       "Text Color": ["文字色"],
       "Text Halo Color": ["文字の輪郭色"],
+      "Background": ["背景色"],
       "URLs": ["URL のリスト"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
@@ -167,12 +167,12 @@
       ],
       "My API": [""],
       "My team": [""],
-      "Manage API keys": ["API キー の管理"],
-      "API Services": ["API サービス"],
-      "Team Settings": ["チーム設定"],
       "General": ["一般"],
       "Members": ["メンバー"],
       "Billing": ["支払い"],
+      "Manage API keys": ["API キー の管理"],
+      "API Services": ["API サービス"],
+      "Team Settings": ["チーム設定"],
       "Documentation": ["ドキュメント"],
       "Official Documents": ["公式ドキュメント"],
       "Dashboard": ["ダッシュボード"],
@@ -226,9 +226,9 @@
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
       ],
+      "Free plan": ["Free プラン"],
       "Pro plan": ["Pro プラン"],
       "monthly": ["月払い"],
-      "yearly": ["年払い"],
       "Free Plan": ["Free プラン"],
       "Team settings": ["チーム設定"],
       "You can see subscriptions for this team in this month.": [
@@ -247,7 +247,6 @@
         "プラン詳細については、料金ページをご覧ください。"
       ],
       "Payment history": ["支払い履歴"],
-      "Free plan": ["Free プラン"],
       "No payment history.": ["支払い履歴はありません。"],
       "Card information": ["クレジットカード情報"],
       "Update": ["更新"],

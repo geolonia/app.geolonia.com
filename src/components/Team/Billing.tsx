@@ -53,12 +53,12 @@ type StripeTier = {
   up_to: null | number;
 };
 
-type Duration = "" | "month" | "year";
+type ChargeDuration = null | "month"; // Free プラン は null
 
 export type GeoloniaFreePlan = {
   planId: null;
   name: string;
-  duration: Duration;
+  duration: ChargeDuration;
   contactRequired: undefined;
 };
 
@@ -66,7 +66,7 @@ export type GeoloniaConstantPlan = {
   planId: string;
   name: string;
   price: number;
-  duration: Duration;
+  duration: ChargeDuration;
   maxMemberLength: number;
   contactRequired: false;
 };
@@ -98,7 +98,7 @@ export const parsePlanLabel = (
   planId: PossiblePlanId
 ) => {
   let currentPlanName = "";
-  let currentDuration: "" | Duration = "";
+  let currentDuration: ChargeDuration = null;
   if (planId === null) {
     currentPlanName = __("Free plan");
   } else {
@@ -113,8 +113,6 @@ export const parsePlanLabel = (
 
   if (currentDuration === "month") {
     currentPlanName += " " + __("monthly");
-  } else if (currentDuration === "year") {
-    currentPlanName += " " + __("yearly");
   }
   return currentPlanName;
 };
