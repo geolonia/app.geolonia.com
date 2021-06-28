@@ -9,11 +9,15 @@
 ```shell
 $ git clone git@github.com:geolonia/app.geolonia.com.git
 $ cd app.geolonia.com
-$ npm install
+$ yarn
 $ cp .env.development.sample .env.development
 $ vi .env.development
-$ npm start
+$ yarn start
 ```
+
+http://localhost:3000/ で開発用環境が立ち上がります。
+
+開発環境では本番と別のデータベースを使用しています。ダッシュボードにログインするためには http://localhost:3000/?lang=ja#/signup から新しくユーザーを作成して下さい。
 
 ## Component Template
 
