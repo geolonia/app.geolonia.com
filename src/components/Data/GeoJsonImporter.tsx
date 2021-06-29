@@ -105,7 +105,7 @@ const Importer: React.FC<Props> = (props) => {
   }
 
   return (
-    <div>
+    <>
       {(uiType === "button") && (
         <div className="geojson-importer" style={styleOuter} onClick={close}>
           <div className="inner" onClick={preventClose}>
@@ -120,7 +120,7 @@ const Importer: React.FC<Props> = (props) => {
       {(uiType === "dropZone") && (
         <DropZone handle={handleFileUpload}/>
       )}
-    </div>
+    </>
   );
 };
 

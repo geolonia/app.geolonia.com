@@ -383,9 +383,7 @@ const Content = (props: Props) => {
       ></Snackbar>
 
       <div className="editor">
-        {(geoJSON?.features.length === 0) ? (
-          <ImportDropZone GeoJsonImporter={GeoJsonImporter} />
-        ) : (
+        {(geoJSON && geoJSON?.features.length !== 0) ? (
           <>
             <MapEditor
               style={style}
@@ -405,6 +403,8 @@ const Content = (props: Props) => {
               <></>
             )}
           </>
+        ) : (
+          <ImportDropZone GeoJsonImporter={GeoJsonImporter} />
         )}
       </div>
 
