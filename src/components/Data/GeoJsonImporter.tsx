@@ -4,11 +4,13 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { GeoJsonMaxUploadSize } from "../../constants";
 import './GeoJsonImporter.scss'
 import { __, sprintf } from "@wordpress/i18n";
+import DropZone from "./DropZone"
 
 type Props = {
   state: boolean;
   onClose: () => void;
   GeoJsonImporter: (input: GeoJSON.FeatureCollection<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>) => void;
+  uiType: "button" | "dropZone"
 };
 
 type TypeUniqueIds = {
@@ -31,7 +33,7 @@ const styleOuterDefault: React.CSSProperties = {
 }
 
 const Importer: React.FC<Props> = (props) => {
-  const {state, onClose, GeoJsonImporter} = props;
+  const {state, onClose, GeoJsonImporter, uiType} = props;
   const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
   const [error, setError] = React.useState<string | null>(null)
 
@@ -104,14 +106,25 @@ const Importer: React.FC<Props> = (props) => {
   }
 
   return (
-    <div className="geojson-importer" style={styleOuter} onClick={close}>
-      <div className="inner" onClick={preventClose}>
-        <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
-  <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
-        <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
-        <p>{__("Existing feature that has same `id` will be updated.")}</p>
-        {error? <div className="error">{error}</div> : <></>}
-      </div>
+    <div>
+      { (uiType === "button") && 
+        (
+          <div className="geojson-importer" style={styleOuter} onClick={close}>
+            <div className="inner" onClick={preventClose}>
+              <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
+              <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
+              <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
+              <p>{__("Existing feature that has same `id` will be updated.")}</p>
+              {error? <div className="error">{error}</div> : <></>}
+            </div>
+          </div>
+        )
+      }
+      { (uiType === "dropZone") && 
+        (
+          <DropZone/>
+        )
+      }
     </div>
   );
 };
