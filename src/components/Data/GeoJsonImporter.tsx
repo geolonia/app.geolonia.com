@@ -55,9 +55,8 @@ const Importer: React.FC<Props> = (props) => {
     event.stopPropagation()
   }
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileUpload = (files: FileList | null) => {
     setError(null)
-    const files = event.currentTarget.files
     if (files) {
       if (GeoJsonMaxUploadSize > files[0].size) {
         const filereader = new FileReader()
@@ -107,24 +106,20 @@ const Importer: React.FC<Props> = (props) => {
 
   return (
     <div>
-      { (uiType === "button") && 
-        (
-          <div className="geojson-importer" style={styleOuter} onClick={close}>
-            <div className="inner" onClick={preventClose}>
-              <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
-              <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
-              <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
-              <p>{__("Existing feature that has same `id` will be updated.")}</p>
-              {error? <div className="error">{error}</div> : <></>}
-            </div>
+      {(uiType === "button") && (
+        <div className="geojson-importer" style={styleOuter} onClick={close}>
+          <div className="inner" onClick={preventClose}>
+            <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
+            <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
+            <p><input type="file" accept='.json,.geojson' onChange={(event) => handleFileUpload(event.currentTarget.files)} /></p>
+            <p>{__("Existing feature that has same `id` will be updated.")}</p>
+            {error? <div className="error">{error}</div> : <></>}
           </div>
-        )
-      }
-      { (uiType === "dropZone") && 
-        (
-          <DropZone handle={handleFileUpload}/>
-        )
-      }
+        </div>
+      )}
+      {(uiType === "dropZone") && (
+        <DropZone handle={handleFileUpload}/>
+      )}
     </div>
   );
 };

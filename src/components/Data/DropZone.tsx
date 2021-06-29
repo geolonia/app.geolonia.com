@@ -1,5 +1,7 @@
 import React, {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
+import { GeoJsonMaxUploadSize } from "../../constants";
+import { __, sprintf } from "@wordpress/i18n";
 
 type Props = {
   handle: Function
@@ -7,18 +9,17 @@ type Props = {
 
 const Content = (props: Props) => {
 
-  const handleFileUpload = props.handle
+  const fileUpload = props.handle
   const [error, setError] = React.useState<boolean>(false)
 
   const onDrop = useCallback( acceptedFiles => {
 
-    if(acceptedFiles.length > 1) {
+    if (acceptedFiles.length > 1) {
       setError(true)
     } else {
       setError(false)
-      handleFileUpload(acceptedFiles[0])
+      fileUpload(acceptedFiles)
     }
-    
   }, [])
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
@@ -26,14 +27,13 @@ const Content = (props: Props) => {
   return (
     <div {...getRootProps()}>
       <input {...getInputProps()} />
-      {
-        isDragActive ?
-          <p>Drop the files here ...</p> :
-          <p>Drag and drop some files here, or click to select files</p>
-      }
-      {
-        error && <p>Can not upload multiple files.</p>
-      }
+      {isDragActive ? <p>{__("Drop to add your GeoJSON")}</p> : (
+        <>
+          <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
+          <p>{__("Drag a file here to add your map,")}<br />{__("Or click to choose your file")}</p>
+        </>
+      )}
+      {error && <p>{__("Can not upload multiple files.")}</p>}
     </div>
   )
 }

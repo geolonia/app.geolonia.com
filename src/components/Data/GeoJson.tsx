@@ -15,6 +15,7 @@ import Title from "../custom/Title";
 import PropsEditor from "./PropsEditor";
 import SimpleStyle from "./SimpleStyle";
 import ImportButton from "./ImportButton";
+import ImportDropZone from "./ImportDropZone";
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from "./GeoJsonMeta";
 import StyleSelector from "./StyleSelector";
@@ -382,22 +383,28 @@ const Content = (props: Props) => {
       ></Snackbar>
 
       <div className="editor">
-        <MapEditor
-          style={style}
-          drawCallback={drawCallback}
-          getNumberFeatures={getNumberFeatures}
-          geoJSON={geoJSON}
-          onClickFeature={onClickFeatureHandler}
-          saveCallback={saveFeatureCallback}
-          bounds={bounds}
-        />
-        {currentFeature ? (
-          <PropsEditor
-            currentFeature={currentFeature}
-            updateFeatureProperties={updateFeatureProps}
-          />
+        {(geoJSON?.features.length === 0) ? (
+          <ImportDropZone GeoJsonImporter={GeoJsonImporter} />
         ) : (
-          <></>
+          <>
+            <MapEditor
+              style={style}
+              drawCallback={drawCallback}
+              getNumberFeatures={getNumberFeatures}
+              geoJSON={geoJSON}
+              onClickFeature={onClickFeatureHandler}
+              saveCallback={saveFeatureCallback}
+              bounds={bounds}
+            />
+            {currentFeature ? (
+              <PropsEditor
+                currentFeature={currentFeature}
+                updateFeatureProperties={updateFeatureProps}
+              />
+            ) : (
+              <></>
+            )}
+          </>
         )}
       </div>
 
