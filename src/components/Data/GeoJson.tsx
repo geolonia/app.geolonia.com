@@ -283,28 +283,19 @@ const Content = (props: Props) => {
   };
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
-    drawObject.changeMode(drawObject.modes.SIMPLE_SELECT);
-    setCurrentFeature(undefined); // Deselect a feature, because it may be deleted.
-
-    for (let i = 0; i < geojson.features.length; i++) {
-      if (geojson.features[i].id) {
-        // Delete existing feature that has same `id`.
-        drawObject.delete(geojson.features[i].id);
-      }
+    if (drawObject) {
+      drawObject.changeMode(drawObject.modes.SIMPLE_SELECT);
     }
-
-    // Get all features that contains existing and imported feature.
-    const all = geojsonMerge.merge([drawObject.getAll(), geojson]);
-
-    setGeoJSON(all);
-    setBounds(geojsonExtent(all));
+    setCurrentFeature(undefined); // Deselect a feature, because it may be deleted.
+    setGeoJSON(geojson);
+    setBounds(geojsonExtent(geojson));
 
     fetch(
       props.session,
       `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
       {
         method: "POST",
-        body: JSON.stringify(all.features)
+        body: JSON.stringify(geojson.features)
       }
     ).then(() => publish());
   };
