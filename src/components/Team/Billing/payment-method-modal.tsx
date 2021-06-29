@@ -10,6 +10,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { __ } from "@wordpress/i18n";
 import fetch from "../../../lib/fetch";
 import { connect } from "react-redux";
+import { buildApiAppUrl } from "../../../lib/api";
 
 type OwnProps = {
   open: boolean;
@@ -74,7 +75,7 @@ const PaymentMethodModal: React.FC<Props> = (props) => {
     try {
       const res = await fetch(
         session,
-        `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/payment`,
+        buildApiAppUrl(`teams/${teamId}/payment`),
         {
           method: "POST",
           headers: {

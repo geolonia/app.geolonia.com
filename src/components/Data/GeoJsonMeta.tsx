@@ -13,6 +13,7 @@ import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
 import fetch from "../../lib/fetch";
+import { buildApiUrl } from "../../lib/api";
 
 const { REACT_APP_STAGE } = process.env;
 
@@ -76,7 +77,7 @@ const usePublic = (
     if (isPublic !== draftIsPublic) {
       fetch(
         session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
           body: JSON.stringify({ isPublic: draftIsPublic, name: name })
@@ -121,7 +122,7 @@ const useStatus = (
     if (status !== draftStatus) {
       fetch(
         session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
           body: JSON.stringify({ isPublic, name, status: draftStatus })
@@ -159,7 +160,7 @@ const GeoJSONMeta = (props: Props) => {
     }
     return fetch(
       session,
-      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+      buildApiUrl(`/geojsons/${geojsonId}`),
       {
         method: "PUT",
         body: JSON.stringify({
@@ -182,7 +183,7 @@ const GeoJSONMeta = (props: Props) => {
   };
 
   const downloadDisabled = status === "draft" || !isPublic;
-  const downloadUrl = `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`;
+  const downloadUrl = buildApiUrl(`/geojsons/pub/${geojsonId}`);
 
   return (
     <Grid className="geojson-meta" container spacing={2}>

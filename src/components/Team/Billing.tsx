@@ -29,6 +29,7 @@ import moment from "moment";
 
 import customFetch from "../../lib/fetch";
 import { Redirect } from "react-router";
+import { buildApiAppUrl } from "../../lib/api";
 
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
@@ -139,7 +140,7 @@ const usePlan = (props: StateProps) => {
         contactRequired: void 0
       };
 
-      const res = await fetch(`https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/plans`);
+      const res = await fetch(buildApiAppUrl('/plans'));
       const data = await res.json();
       setPlans([freePlan, ...data]);
     })();
@@ -161,7 +162,7 @@ const usePlan = (props: StateProps) => {
       setLoaded(true);
       const res = await customFetch(
         session,
-        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${teamId}/plan`
+        buildApiAppUrl(`/teams/${teamId}/plan`),
       );
       const data = await res.json();
       setPlanId(data.planId);
@@ -201,7 +202,7 @@ const Billing = (props: StateProps) => {
     setResumeSubLoading(true);
     const res = await customFetch(
       session,
-      `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${teamId}/plan`,
+      buildApiAppUrl(`teams/${teamId}/plan`),
       {
         method: "PUT",
         headers: {

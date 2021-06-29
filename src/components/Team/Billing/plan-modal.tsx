@@ -13,6 +13,7 @@ import {
   Radio
 } from "@material-ui/core";
 import { parsePlanLabel } from "../Billing";
+import { buildApiAppUrl } from "../../../lib/api";
 
 type PlanId = string | null | undefined;
 
@@ -75,7 +76,7 @@ const PlanModal = (props: Props) => {
     setLoading(true);
     const res = await fetch(
       session,
-      `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/plan`,
+      buildApiAppUrl(`teams/${teamId}/plan`),
       {
         method: "PUT",
         headers: {

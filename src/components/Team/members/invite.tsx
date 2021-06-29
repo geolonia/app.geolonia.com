@@ -12,6 +12,7 @@ import fetch from "../../../lib/fetch";
 
 // redux
 import { connect } from "react-redux";
+import { buildApiAppUrl } from "../../../lib/api";
 
 type OwnProps = {
   disabled?: boolean;
@@ -30,7 +31,7 @@ export const Invite = (props: Props) => {
     false | "requesting" | "success" | "failure"
   >(false);
 
-  const inviteHandler = (email: string) => {
+  const inviteHandler = async (email: string) => {
     const { session, team, members } = props;
 
     if (members.find(member => member.email === email)) {
@@ -40,9 +41,9 @@ export const Invite = (props: Props) => {
 
     if (team) {
       setStatus("requesting");
-      return fetch(
+      const res = await fetch(
         session,
-        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${team.teamId}/invitation`,
+        buildApiAppUrl(`teams/${team.teamId}/invitation`),
         {
           method: "POST",
           headers: {
@@ -50,20 +51,19 @@ export const Invite = (props: Props) => {
           },
           body: JSON.stringify({ email })
         }
-      ).then(res => {
-        if (res.status < 400) {
-          setStatus("success");
-          return res.json();
-        } else if (res.status === 402) {
-          setStatus("failure");
-          setMessage(__("The maximum number of members has been reached."));
-          throw new Error();
-        } else {
-          setStatus("failure");
-          setMessage(__("You cannot use this email address for invitation."));
-          throw new Error();
-        }
-      });
+      );
+      if (res.status < 400) {
+        setStatus("success");
+        return res.json();
+      } else if (res.status === 402) {
+        setStatus("failure");
+        setMessage(__("The maximum number of members has been reached."));
+        throw new Error();
+      } else {
+        setStatus("failure");
+        setMessage(__("You cannot use this email address for invitation."));
+        throw new Error();
+      }
     } else {
       return Promise.reject("No team");
     }
