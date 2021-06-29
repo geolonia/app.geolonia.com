@@ -122,7 +122,7 @@ const Importer: React.FC<Props> = (props) => {
       }
       { (uiType === "dropZone") && 
         (
-          <DropZone/>
+          <DropZone handle={handleFileUpload}/>
         )
       }
     </div>
