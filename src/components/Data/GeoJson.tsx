@@ -8,8 +8,6 @@ import DangerZone from "../custom/danger-zone";
 
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
-// @ts-ignore
-import geojsonMerge from "@mapbox/geojson-merge";
 
 import Title from "../custom/Title";
 import PropsEditor from "./PropsEditor";
@@ -21,6 +19,7 @@ import GeoJsonMeta from "./GeoJsonMeta";
 import StyleSelector from "./StyleSelector";
 import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
+import { CircularProgress } from "@material-ui/core";
 
 // lib
 import { connect } from "react-redux";
@@ -62,7 +61,6 @@ const Content = (props: Props) => {
   >();
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0);
-
   const [style, setStyle] = React.useState<string>("geolonia/basic");
 
   // custom hooks
@@ -286,6 +284,13 @@ const Content = (props: Props) => {
     if (drawObject) {
       drawObject.changeMode(drawObject.modes.SIMPLE_SELECT);
     }
+
+    // @ts-ignore
+    if ( geojson.crs ) {
+      // @ts-ignore
+      delete geojson.crs // mapbox gl js dose not support crs property.
+    }
+
     setCurrentFeature(undefined); // Deselect a feature, because it may be deleted.
     setGeoJSON(geojson);
     setBounds(geojsonExtent(geojson));
@@ -322,11 +327,13 @@ const Content = (props: Props) => {
         )}
       </Title>
 
-      <div className="nav">
-        <StyleSelector style={style} setStyle={setStyle}></StyleSelector>
-        {/* <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} /> */}
-        <ImportButton GeoJsonImporter={GeoJsonImporter} />
-      </div>
+      {(geoJSON && geoJSON?.features.length !== 0) && (
+        <div className="nav">
+          <StyleSelector style={style} setStyle={setStyle}></StyleSelector>
+          {/* <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} /> */}
+          <ImportButton GeoJsonImporter={GeoJsonImporter} />
+        </div>
+      )}
 
       <Snackbar
         className={"snackbar-update-required"}
@@ -374,8 +381,10 @@ const Content = (props: Props) => {
       ></Snackbar>
 
       <div className="editor">
-        {(geoJSON && geoJSON?.features.length !== 0) ? (
+        {geoJSON ? (
           <>
+          { (geoJSON?.features.length !== 0) ? (
+            <>
             <MapEditor
               style={style}
               drawCallback={drawCallback}
@@ -394,8 +403,22 @@ const Content = (props: Props) => {
               <></>
             )}
           </>
+          ) : (
+            <ImportDropZone GeoJsonImporter={GeoJsonImporter} />
+          )}
+          </>
         ) : (
-          <ImportDropZone GeoJsonImporter={GeoJsonImporter} />
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <CircularProgress />
+          </div>
         )}
       </div>
 

@@ -28,8 +28,8 @@ const Content = (props: Props) => {
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
   return (
-    <Paper className={"geojson-import-dropzone"}>
-      <div {...getRootProps()}>
+    <Paper className={"geojson-dropzone-container"}>
+      <div className={"geojson-dropzone"} {...getRootProps()}>
         <input {...getInputProps()} />
         {isDragActive ? <p>{__("Drop to add your GeoJSON")}</p> : (
           <>
