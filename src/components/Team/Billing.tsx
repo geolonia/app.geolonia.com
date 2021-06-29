@@ -98,26 +98,11 @@ export const parsePlanLabel = (
   plans: GeoloniaPlan[],
   planId: PossiblePlanId
 ) => {
-  let currentPlanName = "";
-  let currentDuration: "" | Duration = "";
   if (planId === null) {
-    currentPlanName = __("Free plan");
-  } else {
-    const currentPlan = plans
-      .filter(plan => !isAppliancePlan(plan))
-      .find(plan => (plan as GeoloniaConstantPlan).planId === planId);
-    if (currentPlan && currentPlan.name === "Pro") {
-      currentPlanName = __("Pro plan");
-      currentDuration = (currentPlan as GeoloniaConstantPlan).duration;
-    }
+    return __("Free plan");
   }
-
-  if (currentDuration === "month") {
-    currentPlanName += " " + __("monthly");
-  } else if (currentDuration === "year") {
-    currentPlanName += " " + __("yearly");
-  }
-  return currentPlanName;
+  const plan = plans.find(plan => (plan as GeoloniaConstantPlan).planId === planId);
+  return plan?.name;
 };
 
 const usePlan = (props: StateProps) => {

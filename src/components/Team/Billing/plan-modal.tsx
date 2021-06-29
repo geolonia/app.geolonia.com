@@ -119,7 +119,9 @@ const PlanModal = (props: Props) => {
                     onChange={e => setPlanId(plan.planId)}
                   />
                 }
-                label={parsePlanLabel(plans, plan.planId)}
+                label={<>
+                  {parsePlanLabel(plans, plan.planId)}
+                </>}
               />
               {/* <DialogContentText>
             <ul>
