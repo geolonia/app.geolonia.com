@@ -16,7 +16,6 @@ import PropsEditor from "./PropsEditor";
 import SimpleStyle from "./SimpleStyle";
 import ImportButton from "./ImportButton";
 import DropZone from "./DropZone"
-
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from "./GeoJsonMeta";
 import StyleSelector from "./StyleSelector";
