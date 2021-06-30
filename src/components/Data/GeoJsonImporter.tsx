@@ -9,7 +9,6 @@ type Props = {
   state: boolean;
   onClose: () => void;
   GeoJsonImporter: (input: GeoJSON.FeatureCollection<GeoJSON.Geometry, GeoJSON.GeoJsonProperties>) => void;
-  uiType: "button" | "dropZone"
 };
 
 type TypeUniqueIds = {
@@ -32,7 +31,7 @@ const styleOuterDefault: React.CSSProperties = {
 }
 
 const Importer: React.FC<Props> = (props) => {
-  const {state, onClose, GeoJsonImporter, uiType} = props;
+  const {state, onClose, GeoJsonImporter} = props;
   const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
   const [error, setError] = React.useState<string | null>(null)
 
@@ -54,8 +53,9 @@ const Importer: React.FC<Props> = (props) => {
     event.stopPropagation()
   }
 
-  const handleFileUpload = (files: FileList | null) => {
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     setError(null)
+    const files = event.currentTarget.files
     if (files) {
       if (GeoJsonMaxUploadSize > files[0].size) {
         const filereader = new FileReader()
@@ -104,18 +104,15 @@ const Importer: React.FC<Props> = (props) => {
   }
 
   return (
-    <>
-      {(uiType === "button") && (
-        <div className="geojson-importer" style={styleOuter} onClick={close}>
-          <div className="inner" onClick={preventClose}>
-            <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
-            <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
-            <p><input type="file" accept='.json,.geojson' onChange={(event) => handleFileUpload(event.currentTarget.files)} /></p>
-            {error? <div className="error">{error}</div> : <></>}
-          </div>
-        </div>
-      )}
-    </>
+    <div className="geojson-importer" style={styleOuter} onClick={close}>
+      <div className="inner" onClick={preventClose}>
+        <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
+  <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
+        <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
+        <p>{__("Existing feature that has same `id` will be updated.")}</p>
+        {error? <div className="error">{error}</div> : <></>}
+      </div>
+    </div>
   );
 };
 

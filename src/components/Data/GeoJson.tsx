@@ -8,6 +8,8 @@ import DangerZone from "../custom/danger-zone";
 
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
+// @ts-ignore
+import geojsonMerge from "@mapbox/geojson-merge";
 
 import Title from "../custom/Title";
 import PropsEditor from "./PropsEditor";
@@ -283,26 +285,28 @@ const Content = (props: Props) => {
   };
 
   const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
-    if (drawObject) {
-      drawObject.changeMode(drawObject.modes.SIMPLE_SELECT);
-    }
-
-    // @ts-ignore
-    if ( geojson.crs ) {
-      // @ts-ignore
-      delete geojson.crs // mapbox gl js dose not support crs property.
-    }
-
+    drawObject.changeMode(drawObject.modes.SIMPLE_SELECT);
     setCurrentFeature(undefined); // Deselect a feature, because it may be deleted.
-    setGeoJSON(geojson);
-    setBounds(geojsonExtent(geojson));
+
+    for (let i = 0; i < geojson.features.length; i++) {
+      if (geojson.features[i].id) {
+        // Delete existing feature that has same `id`.
+        drawObject.delete(geojson.features[i].id);
+      }
+    }
+
+    // Get all features that contains existing and imported feature.
+    const all = geojsonMerge.merge([drawObject.getAll(), geojson]);
+
+    setGeoJSON(all);
+    setBounds(geojsonExtent(all));
 
     fetch(
       props.session,
       `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
       {
         method: "POST",
-        body: JSON.stringify(geojson.features)
+        body: JSON.stringify(all.features)
       }
     ).then(() => publish());
   };
