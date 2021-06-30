@@ -5,14 +5,14 @@ import { GeoJsonMaxUploadSize } from "../../constants";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from "@wordpress/i18n";
 import "./DropZone.scss"
-
 import fetch from "../../api/custom-fetch";
+const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
 const uploadGeoJson = (geojson: GeoJSON.FeatureCollection, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
 
   return fetch<{ links: { putGeoJSON: string } }>(
     session,
-    `https://api.geolonia.com/dev/geojsons/${geojsonId}/links?teamId=${teamId}`,
+    `${REACT_APP_API_BASE}/${REACT_APP_STAGE}/geojsons/${geojsonId}/links?teamId=${teamId}`,
     { method: "GET" },
     { absPath: true }
   ).then(result => {
