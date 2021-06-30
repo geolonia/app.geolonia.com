@@ -64,7 +64,7 @@ const Content = (props: Props) => {
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0);
   const [style, setStyle] = React.useState<string>("geolonia/basic");
-  const [tileCreated, setTileCreated] = React.useState< null | "progress" | "created">(null); // カスタムタイルの生成結果を保存する為に用意。
+  const [tileStatus, setTileStatus] = React.useState< null | "progress" | "created">(null); // カスタムタイルの生成結果を保存する為に用意。
 
   // custom hooks
   const {
@@ -332,7 +332,7 @@ const Content = (props: Props) => {
         )}
       </Title>
 
-      {(geoJSON && geoJSON?.features.length !== 0) && (
+      {tileStatus === "created" && (
         <div className="nav">
           <StyleSelector style={style} setStyle={setStyle}></StyleSelector>
           {/* <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} /> */}
@@ -386,9 +386,9 @@ const Content = (props: Props) => {
       ></Snackbar>
 
       <div className="editor">
-        {tileCreated  ? (
+        {tileStatus  ? (
           <>
-          { tileCreated === "created" ? (
+          {tileStatus === "created" ? (
             <>
             <MapEditor
               style={style}
@@ -429,6 +429,7 @@ const Content = (props: Props) => {
             session={props.session}
             teamId={props.teamId}
             geojsonId={props.geojsonId}
+            setTileStatus={setTileStatus}
           />
         )}
       </div>

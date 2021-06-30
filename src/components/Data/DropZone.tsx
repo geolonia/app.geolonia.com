@@ -36,9 +36,10 @@ const uploadGeoJson = (geojson: File, session: Geolonia.Session, teamId?: string
 };
 
 type Props = {
+  setTileStatus: Function,
   session: Geolonia.Session,
   teamId?: string,
-  geojsonId?: string
+  geojsonId?: string,
 };
 
 const Content = (props: Props) => {
@@ -64,8 +65,11 @@ const Content = (props: Props) => {
 
     uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId)
     setError(null)
+    props.setTileStatus("progress")
 
-  }, [props.session, props.teamId, props.geojsonId])
+    setTimeout(()=>{props.setTileStatus("created")}, 1000) // デバッグ用にモックとして追加。後で削除する。
+
+  }, [props])
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
