@@ -12,23 +12,27 @@ const uploadGeoJson = (geojson: GeoJSON.FeatureCollection, session: Geolonia.Ses
 
   return fetch<{ links: { putAvatar: string } }>(
     session,
-    `/geojsons/${geojsonId}?teamId=${teamId}`,
-    { method: "GET" }
+    `https://api.geolonia.com/dev/geojsons/${geojsonId}?teamId=${teamId}`,
+    { method: "GET" },
+    { absPath: true }
   ).then(result => {
-    
+
     if (result.error) {
       return Promise.resolve(result);
     } else {
-      const signedURL = result.data.links.putAvatar;
-      return fetch<any>(
-        session,
-        signedURL,
-        {
-          method: "PUT",
-          body: JSON.stringify(geojson)
-        },
-        { absPath: true, noAuth: true, decode: "text" }
-      );
+
+      console.log(result)
+
+      // const signedURL = result.data.links.putAvatar;
+      // return fetch<any>(
+      //   session,
+      //   signedURL,
+      //   {
+      //     method: "PUT",
+      //     body: JSON.stringify(geojson)
+      //   },
+      //   { absPath: true, noAuth: true, decode: "text" }
+      // );
     }
   });
 };

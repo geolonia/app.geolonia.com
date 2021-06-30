@@ -63,6 +63,7 @@ const Content = (props: Props) => {
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0);
   const [style, setStyle] = React.useState<string>("geolonia/basic");
+  const [tileCreated, setTileCreated] = React.useState< null | "progress" | "created">(null); // カスタムタイルの生成結果を保存する為に用意。
 
   // custom hooks
   const {
@@ -382,9 +383,9 @@ const Content = (props: Props) => {
       ></Snackbar>
 
       <div className="editor">
-        {geoJSON ? (
+        {tileCreated  ? (
           <>
-          { (geoJSON?.features.length !== 0) ? (
+          { tileCreated === "created" ? (
             <>
             <MapEditor
               style={style}
@@ -405,25 +406,27 @@ const Content = (props: Props) => {
             )}
           </>
           ) : (
-            <DropZone
-              session={props.session}
-              teamId={props.teamId}
-              geojsonId={props.geojsonId}
-            />
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column"
+              }}
+            >
+              <p>{__("Adding your data to map ...")}</p>
+              <CircularProgress />
+            </div>
           )}
           </>
         ) : (
-          <div
-            style={{
-              width: "100%",
-              height: "100%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-          >
-            <CircularProgress />
-          </div>
+          <DropZone
+            session={props.session}
+            teamId={props.teamId}
+            geojsonId={props.geojsonId}
+          />
         )}
       </div>
 
