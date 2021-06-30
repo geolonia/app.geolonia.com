@@ -8,7 +8,7 @@ import "./DropZone.scss"
 import fetch from "../../api/custom-fetch";
 const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
-const uploadGeoJson = (geojson: GeoJSON.FeatureCollection, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
+const uploadGeoJson = (geojson: File, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
 
   return fetch<{ links: { putGeoJSON: string } }>(
     session,
@@ -27,7 +27,7 @@ const uploadGeoJson = (geojson: GeoJSON.FeatureCollection, session: Geolonia.Ses
         signedURL,
         {
           method: "PUT",
-          body: JSON.stringify(geojson)
+          body: geojson
         },
         { absPath: true, noAuth: true, decode: "text" }
       );
