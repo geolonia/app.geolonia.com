@@ -10,9 +10,9 @@ import fetch from "../../api/custom-fetch";
 
 const uploadGeoJson = (geojson: GeoJSON.FeatureCollection, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
 
-  return fetch<{ links: { putAvatar: string } }>(
+  return fetch<{ links: { putGeoJSON: string } }>(
     session,
-    `https://api.geolonia.com/dev/geojsons/${geojsonId}?teamId=${teamId}`,
+    `https://api.geolonia.com/dev/geojsons/${geojsonId}/links?teamId=${teamId}`,
     { method: "GET" },
     { absPath: true }
   ).then(result => {
@@ -20,19 +20,17 @@ const uploadGeoJson = (geojson: GeoJSON.FeatureCollection, session: Geolonia.Ses
     if (result.error) {
       return Promise.resolve(result);
     } else {
-
-      console.log(result)
-
-      // const signedURL = result.data.links.putAvatar;
-      // return fetch<any>(
-      //   session,
-      //   signedURL,
-      //   {
-      //     method: "PUT",
-      //     body: JSON.stringify(geojson)
-      //   },
-      //   { absPath: true, noAuth: true, decode: "text" }
-      // );
+      
+      const signedURL = result.data.links.putGeoJSON;
+      return fetch<any>(
+        session,
+        signedURL,
+        {
+          method: "PUT",
+          body: JSON.stringify(geojson)
+        },
+        { absPath: true, noAuth: true, decode: "text" }
+      );
     }
   });
 };
