@@ -13,7 +13,8 @@ import Title from "../custom/Title";
 import PropsEditor from "./PropsEditor";
 import SimpleStyle from "./SimpleStyle";
 import ImportButton from "./ImportButton";
-import ImportDropZone from "./ImportDropZone";
+import DropZone from "./DropZone"
+
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from "./GeoJsonMeta";
 import StyleSelector from "./StyleSelector";
@@ -404,7 +405,11 @@ const Content = (props: Props) => {
             )}
           </>
           ) : (
-            <ImportDropZone GeoJsonImporter={GeoJsonImporter} />
+            <DropZone
+              session={props.session}
+              teamId={props.teamId}
+              geojsonId={props.geojsonId}
+            />
           )}
           </>
         ) : (

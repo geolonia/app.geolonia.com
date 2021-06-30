@@ -6,13 +6,41 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from "@wordpress/i18n";
 import "./DropZone.scss"
 
+import fetch from "../../api/custom-fetch";
+
+const uploadGeoJson = (geojson: GeoJSON.FeatureCollection, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
+
+  return fetch<{ links: { putAvatar: string } }>(
+    session,
+    `/geojsons/${geojsonId}?teamId=${teamId}`,
+    { method: "GET" }
+  ).then(result => {
+    
+    if (result.error) {
+      return Promise.resolve(result);
+    } else {
+      const signedURL = result.data.links.putAvatar;
+      return fetch<any>(
+        session,
+        signedURL,
+        {
+          method: "PUT",
+          body: JSON.stringify(geojson)
+        },
+        { absPath: true, noAuth: true, decode: "text" }
+      );
+    }
+  });
+};
+
 type Props = {
-  handle: Function
+  session: Geolonia.Session,
+  teamId?: string,
+  geojsonId?: string
 };
 
 const Content = (props: Props) => {
 
-  const fileUpload = props.handle
   const [error, setError] = React.useState<string | null>(null)
 
   const onDrop = useCallback( acceptedFiles => {
@@ -32,10 +60,10 @@ const Content = (props: Props) => {
       return
     }
 
-    fileUpload(acceptedFiles)
+    uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId)
     setError(null)
 
-  }, [fileUpload])
+  }, [])
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 

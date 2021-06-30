@@ -4,7 +4,6 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { GeoJsonMaxUploadSize } from "../../constants";
 import './GeoJsonImporter.scss'
 import { __, sprintf } from "@wordpress/i18n";
-import DropZone from "./DropZone"
 
 type Props = {
   state: boolean;
@@ -115,9 +114,6 @@ const Importer: React.FC<Props> = (props) => {
             {error? <div className="error">{error}</div> : <></>}
           </div>
         </div>
-      )}
-      {(uiType === "dropZone") && (
-        <DropZone handle={handleFileUpload}/>
       )}
     </>
   );
