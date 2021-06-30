@@ -894,7 +894,7 @@ msgid "Failed to send invitation."
 msgstr ""
 
 #: src/components/Team/members/invite.tsx:37
-msgid "They is already a member of this team."
+msgid "That user is already a member of this team."
 msgstr ""
 
 #: src/components/Team/members/invite.tsx:59

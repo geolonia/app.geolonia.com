@@ -39,7 +39,7 @@ const useInvoices = (props: Props) => {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       };
-      const urlBase = buildApiAppUrl(`teams/${teamId}`);
+      const urlBase = buildApiAppUrl(`/teams/${teamId}`);
 
       const loadInvoices = async () => {
         const resp = await fetch(session, `${urlBase}/invoices`, headers)

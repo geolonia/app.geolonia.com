@@ -913,7 +913,7 @@ msgid "Failed to send invitation."
 msgstr "招待の送信に失敗しました。"
 
 #: src/components/Team/members/invite.tsx:37
-msgid "They is already a member of this team."
+msgid "That user is already a member of this team."
 msgstr "すでにメンバーになっています。"
 
 #: src/components/Team/members/invite.tsx:59

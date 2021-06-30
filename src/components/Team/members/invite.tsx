@@ -35,15 +35,15 @@ export const Invite = (props: Props) => {
     const { session, team, members } = props;
 
     if (members.find(member => member.email === email)) {
-      setMessage(__("They is already a member of this team."));
-      return Promise.reject("They are already a member of the team.");
+      setMessage(__("That user is already a member of this team."));
+      return Promise.reject("That user is already a member of the team.");
     }
 
     if (team) {
       setStatus("requesting");
       const res = await fetch(
         session,
-        buildApiAppUrl(`teams/${team.teamId}/invitation`),
+        buildApiAppUrl(`/teams/${team.teamId}/invitation`),
         {
           method: "POST",
           headers: {
@@ -75,9 +75,9 @@ export const Invite = (props: Props) => {
         disabled={props.disabled}
         buttonLabel={__("Invite")}
         label={__("Send an invitation")}
-        description={__(
+        description={"" /*__(
           "We automatically update your billing as your invitation is accepted."
-        )}
+        )*/}
         defaultValue=""
         fieldName="email"
         fieldLabel={__("Email")}

@@ -187,7 +187,7 @@ const Billing = (props: StateProps) => {
     setResumeSubLoading(true);
     const res = await customFetch(
       session,
-      buildApiAppUrl(`teams/${teamId}/plan`),
+      buildApiAppUrl(`/teams/${teamId}/plan`),
       {
         method: "PUT",
         headers: {

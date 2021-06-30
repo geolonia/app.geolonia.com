@@ -75,7 +75,7 @@ const PaymentMethodModal: React.FC<Props> = (props) => {
     try {
       const res = await fetch(
         session,
-        buildApiAppUrl(`teams/${teamId}/payment`),
+        buildApiAppUrl(`/teams/${teamId}/payment`),
         {
           method: "POST",
           headers: {

@@ -323,7 +323,7 @@
       "Remove from team": ["チームから削除"],
       "Successfully send invitation.": ["チームへの招待が送信されました。"],
       "Failed to send invitation.": ["招待の送信に失敗しました。"],
-      "They is already a member of this team.": [
+      "That user is already a member of this team.": [
         "すでにメンバーになっています。"
       ],
       "The maximum number of members has been reached.": [

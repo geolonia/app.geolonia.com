@@ -76,7 +76,7 @@ const PlanModal = (props: Props) => {
     setLoading(true);
     const res = await fetch(
       session,
-      buildApiAppUrl(`teams/${teamId}/plan`),
+      buildApiAppUrl(`/teams/${teamId}/plan`),
       {
         method: "PUT",
         headers: {
@@ -101,6 +101,11 @@ const PlanModal = (props: Props) => {
     }
   }, [ session, teamId, planId, setLoading, handleClose ]);
 
+  const currencyFormatter = new Intl.NumberFormat('ja-JP', {
+    style: 'currency',
+    currency: 'JPY',
+  });
+
   return (
     <Modal open={open} onClose={handleClose}>
       <div style={modalStyle}>
@@ -121,6 +126,10 @@ const PlanModal = (props: Props) => {
                 }
                 label={<>
                   {parsePlanLabel(plans, plan.planId)}
+                  {typeof plan.price !== 'undefined' && <>
+                    &nbsp;-&nbsp;
+                    {currencyFormatter.format(plan.price)}/月
+                  </> }
                 </>}
               />
               {/* <DialogContentText>
