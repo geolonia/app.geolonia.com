@@ -1,16 +1,23 @@
-.geojson-dropzone-container {
+.geojson-dropzone-container 
+{
   height: 100%;
   width: 100%;
   padding: 0;
-  .geojson-dropzone {
+  .geojson-dropzone 
+  {
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    p {
+    p 
+    {
       margin: 14px;
+    }
+    .error
+    {
+      color: #ff0000;
     }
   }
 }

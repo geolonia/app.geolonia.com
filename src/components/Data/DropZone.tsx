@@ -13,16 +13,28 @@ type Props = {
 const Content = (props: Props) => {
 
   const fileUpload = props.handle
-  const [error, setError] = React.useState<boolean>(false)
+  const [error, setError] = React.useState<string | null>(null)
 
   const onDrop = useCallback( acceptedFiles => {
 
-    if (acceptedFiles.length > 1) {
-      setError(true)
-    } else {
-      setError(false)
-      fileUpload(acceptedFiles)
+    if (acceptedFiles.length !== 1) {
+      setError(__('Error: Can not upload multiple files.'))
+      return
     }
+
+    if (!acceptedFiles[0].name.endsWith('.geojson') && !acceptedFiles[0].name.endsWith('.json')) {
+      setError(__('Error: Please upload *.geojson or *.json file.'))
+      return
+    }
+
+    if (acceptedFiles[0].size > GeoJsonMaxUploadSize) {
+      setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 1000000))
+      return
+    }
+
+    fileUpload(acceptedFiles)
+    setError(null)
+
   }, [fileUpload])
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
@@ -30,7 +42,7 @@ const Content = (props: Props) => {
   return (
     <Paper className={"geojson-dropzone-container"}>
       <div className={"geojson-dropzone"} {...getRootProps()}>
-        <input {...getInputProps()} />
+        <input {...getInputProps()} accept='.json,.geojson' />
         {isDragActive ? <p>{__("Drop to add your GeoJSON")}</p> : (
           <>
             <CloudUploadIcon fontSize="large" />
@@ -38,7 +50,7 @@ const Content = (props: Props) => {
             <p>{__("Drag a file here to add your map,")}<br />{__("Or click to choose your file")}</p>
           </>
         )}
-        {error && <p>{__("Can not upload multiple files.")}</p>}
+        {error? <div className="error">{error}</div> : <></>}
       </div>
     </Paper>
   )
