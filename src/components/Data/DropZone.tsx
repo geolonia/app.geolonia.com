@@ -20,7 +20,7 @@ const uploadGeoJson = (geojson: GeoJSON.FeatureCollection, session: Geolonia.Ses
     if (result.error) {
       return Promise.resolve(result);
     } else {
-      
+
       const signedURL = result.data.links.putGeoJSON;
       return fetch<any>(
         session,
@@ -65,7 +65,7 @@ const Content = (props: Props) => {
     uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId)
     setError(null)
 
-  }, [])
+  }, [props.session, props.teamId, props.geojsonId])
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
