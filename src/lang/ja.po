@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: 2021-02-21 15:55+0900\n"
+"PO-Revision-Date: 2021-07-01 15:41+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -12,13 +12,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "lang: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0\n"
 
-#: src/components/AcceptInvitation.tsx:64
+#: src/components/AcceptInvitation.tsx:66
 msgid "Your invitation has been validated."
 msgstr "招待が有効化されました。"
 
-#: src/components/AcceptInvitation.tsx:67
+#: src/components/AcceptInvitation.tsx:69
 msgid "Your invitation has been outdated."
 msgstr "この招待は無効です。"
 
@@ -48,17 +48,17 @@ msgid "Developer's Blog"
 msgstr "Developer's Blog"
 
 #: src/components/Data/ExportButton.tsx:32
-#: src/components/Data/GeoJsonMeta.tsx:280
+#: src/components/Data/GeoJsonMeta.tsx:281
 msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GeoJson.tsx:106 src/components/Data/GeoJsons.tsx:118
+#: src/components/Data/GeoJson.tsx:106 src/components/Data/GeoJsons.tsx:119
 #: src/components/Maps/APIKey.tsx:113 src/components/Maps/APIKeys.tsx:35
-#: src/components/Team/Billing.tsx:187
+#: src/components/Team/Billing.tsx:173
 msgid "Home"
 msgstr "Home"
 
-#: src/components/Data/GeoJson.tsx:110 src/components/Data/GeoJsons.tsx:122
+#: src/components/Data/GeoJson.tsx:110 src/components/Data/GeoJsons.tsx:123
 msgid "API services"
 msgstr "API サービス"
 
@@ -84,7 +84,7 @@ msgstr "このまま続ける"
 
 #: src/components/Data/GeoJson.tsx:430
 msgid "Adding your data to map"
-msgstr "データを地図に追加しています。"
+msgstr ""
 
 #: src/components/Data/GeoJson.tsx:448
 msgid "Total Count of Features: %s"
@@ -138,7 +138,7 @@ msgstr ""
 "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要がありま"
 "す。"
 
-#: src/components/Data/GeoJsonMeta.tsx:219
+#: src/components/Data/GeoJsonMeta.tsx:220
 msgid ""
 "Public features will be displayed publicly and anyone can download this "
 "features without API key."
@@ -146,15 +146,15 @@ msgstr ""
 "Public のデータは一般に公開され、だれでも API キー無しでダウンロードすること"
 "ができます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:252
+#: src/components/Data/GeoJsonMeta.tsx:253
 msgid "Datasets are published now."
 msgstr "データセットは公開されています。"
 
-#: src/components/Data/GeoJsonMeta.tsx:254
+#: src/components/Data/GeoJsonMeta.tsx:255
 msgid "Datasets status are draft now."
 msgstr "データセットは下書きの状態です。"
 
-#: src/components/Data/GeoJsonMeta.tsx:264 src/components/Data/fields.tsx:26
+#: src/components/Data/GeoJsonMeta.tsx:265 src/components/Data/fields.tsx:26
 #: src/components/Maps/APIKey.tsx:214 src/components/Navigator.tsx:320
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129 src/components/custom/AddNew.tsx:37
@@ -162,31 +162,31 @@ msgstr "データセットは下書きの状態です。"
 msgid "Name"
 msgstr "名前"
 
-#: src/components/Data/GeoJsonMeta.tsx:275
+#: src/components/Data/GeoJsonMeta.tsx:276
 msgid "Name of public GeoJSON will be displayed in public."
 msgstr "公開されているGeoJSONの名前が表示されます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:322
+#: src/components/Data/GeoJsonMeta.tsx:323
 msgid "Download"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GeoJsonMeta.tsx:327
+#: src/components/Data/GeoJsonMeta.tsx:328
 msgid "Or"
 msgstr "または"
 
-#: src/components/Data/GeoJsonMeta.tsx:330
+#: src/components/Data/GeoJsonMeta.tsx:331
 msgid "Copy endpoint URL to clipboard"
 msgstr "エンドポイント URL をクリップボードにコピー"
 
-#: src/components/Data/GeoJsons.tsx:102
+#: src/components/Data/GeoJsons.tsx:103
 msgid "Network Error."
 msgstr "通信エラー。"
 
-#: src/components/Data/GeoJsons.tsx:158 src/constants.ts:29
+#: src/components/Data/GeoJsons.tsx:159 src/constants.ts:29
 msgid "Network error."
 msgstr "通信エラー。"
 
-#: src/components/Data/GeoJsons.tsx:166
+#: src/components/Data/GeoJsons.tsx:167
 msgid ""
 "GeoJSON API is an API service specialized for location data. Register "
 "various location information data such as stores and real estate "
@@ -195,15 +195,15 @@ msgstr ""
 "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗"
 "情報や不動産情報などのデータを登録しましょう。"
 
-#: src/components/Data/GeoJsons.tsx:172
+#: src/components/Data/GeoJsons.tsx:173
 msgid "Create a new dataset"
 msgstr "データセットを作成"
 
-#: src/components/Data/GeoJsons.tsx:173
+#: src/components/Data/GeoJsons.tsx:174
 msgid "Please enter the name of the new dataset."
 msgstr "新しいデータセットの名前を入力してください。"
 
-#: src/components/Data/GeoJsons.tsx:174
+#: src/components/Data/GeoJsons.tsx:175
 msgid "My dataset"
 msgstr "データセット"
 
@@ -221,7 +221,8 @@ msgstr "複数のファイルをアップロードできません。"
 
 #: src/components/Data/ImportDropZone.tsx:63
 msgid "Error: Please upload *.geojson or *.json file."
-msgstr "エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
+msgstr ""
+"エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
 
 #: src/components/Data/ImportDropZone.tsx:93
 msgid "Drop file to add your map."
@@ -673,105 +674,93 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Team/Billing.tsx:103
+#: src/components/Team/Billing.tsx:102
 msgid "Free plan"
 msgstr "Free プラン"
 
-#: src/components/Team/Billing.tsx:109
-msgid "Pro plan"
-msgstr "Pro プラン"
-
-#: src/components/Team/Billing.tsx:115
-msgid "monthly"
-msgstr "月払い"
-
-#: src/components/Team/Billing.tsx:117
-msgid "yearly"
-msgstr "年払い"
-
-#: src/components/Team/Billing.tsx:137
+#: src/components/Team/Billing.tsx:123
 msgid "Free Plan"
 msgstr "Free プラン"
 
-#: src/components/Team/Billing.tsx:191 src/components/Team/general/index.tsx:32
+#: src/components/Team/Billing.tsx:177 src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:236
+#: src/components/Team/Billing.tsx:222
 msgid "You can see subscriptions for this team in this month."
 msgstr "このチームの今月のサブスクリプションを確認することができます。"
 
-#: src/components/Team/Billing.tsx:240
+#: src/components/Team/Billing.tsx:226
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:247
+#: src/components/Team/Billing.tsx:233
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:251
+#: src/components/Team/Billing.tsx:237
 msgid "ending in **%1$s"
 msgstr "末尾の番号 **%1$s"
 
-#: src/components/Team/Billing.tsx:261
+#: src/components/Team/Billing.tsx:247
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:272
+#: src/components/Team/Billing.tsx:258
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:279
+#: src/components/Team/Billing.tsx:265
 msgid "Scheduled to expire on %1$s"
 msgstr "%1$s にキャンセルされます"
 
-#: src/components/Team/Billing.tsx:281
+#: src/components/Team/Billing.tsx:267
 msgid "Will automatically renew on %1$s"
 msgstr "%1$s に自動更新されます"
 
-#: src/components/Team/Billing.tsx:301
+#: src/components/Team/Billing.tsx:287
 msgid "Resume subscription"
 msgstr "自動更新を再開"
 
-#: src/components/Team/Billing.tsx:313
+#: src/components/Team/Billing.tsx:299
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:342
+#: src/components/Team/Billing.tsx:328
 msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
-#: src/components/Team/Billing.tsx:349
+#: src/components/Team/Billing.tsx:335
 msgid "Payment history"
 msgstr "支払い履歴"
 
-#: src/components/Team/Billing/Receipts.tsx:157
+#: src/components/Team/Billing/Receipts.tsx:158
 msgid "No payment history."
 msgstr "支払い履歴はありません。"
 
-#: src/components/Team/Billing/payment-method-modal.tsx:103
+#: src/components/Team/Billing/payment-method-modal.tsx:104
 msgid "Card information"
 msgstr "クレジットカード情報"
 
-#: src/components/Team/Billing/payment-method-modal.tsx:147
-#: src/components/Team/Billing/plan-modal.tsx:154
+#: src/components/Team/Billing/payment-method-modal.tsx:148
+#: src/components/Team/Billing/plan-modal.tsx:166
 msgid "Update"
 msgstr "更新"
 
-#: src/components/Team/Billing/payment-method-modal.tsx:66
+#: src/components/Team/Billing/payment-method-modal.tsx:67
 msgid "Unknown Error."
 msgstr "不明なエラー。"
 
-#: src/components/Team/Billing/plan-modal.tsx:106
+#: src/components/Team/Billing/plan-modal.tsx:112
 msgid "Your plan"
 msgstr "あなたのプラン"
 
-#: src/components/Team/Billing/plan-modal.tsx:55
+#: src/components/Team/Billing/plan-modal.tsx:56
 msgid "Your subscription will be canceled."
 msgstr "サブスクリプションはキャンセルされます。"
 
-#: src/components/Team/Billing/plan-modal.tsx:57
+#: src/components/Team/Billing/plan-modal.tsx:58
 msgid ""
 "The difference between the plan changes will be charged or charged as a "
 "balance."
@@ -831,7 +820,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:280
+#: src/components/Team/members/index.tsx:284
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -849,7 +838,7 @@ msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:202
+#: src/components/Team/members/index.tsx:206
 msgid "Owner"
 msgstr "オーナー"
 
@@ -879,28 +868,32 @@ msgstr "APIキーを含むチームの全てのリソースを管理できます
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Team/members/index.tsx:149
+#: src/components/Team/members/index.tsx:150
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
 
-#: src/components/Team/members/index.tsx:151
-msgid "We are in public beta version. Member features will be added soon."
-msgstr "現在は公開β版です。メンバー機能は後ほど追加されます。"
+#: src/components/Team/members/index.tsx:154
+msgid ""
+"You currently can not invite any new members. To invite more than one member "
+"to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
+msgstr ""
+"現在、新しいメンバーを招待することはできません。メンバーをチームに招待するに"
+"は、Geolonia Pro（2～5ユーザー）プランにアップグレードしてください。"
 
-#: src/components/Team/members/index.tsx:204
+#: src/components/Team/members/index.tsx:208
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:242
+#: src/components/Team/members/index.tsx:246
 #: src/components/custom/AsyncTable.tsx:139 src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:284
+#: src/components/Team/members/index.tsx:288
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:288
+#: src/components/Team/members/index.tsx:292
 msgid "Remove from team"
 msgstr "チームから削除"
 
@@ -912,15 +905,15 @@ msgstr "チームへの招待が送信されました。"
 msgid "Failed to send invitation."
 msgstr "招待の送信に失敗しました。"
 
-#: src/components/Team/members/invite.tsx:37
-msgid "They is already a member of this team."
+#: src/components/Team/members/invite.tsx:38
+msgid "That user is already a member of this team."
 msgstr "すでにメンバーになっています。"
 
-#: src/components/Team/members/invite.tsx:59
+#: src/components/Team/members/invite.tsx:60
 msgid "The maximum number of members has been reached."
 msgstr "メンバー数が上限に達しました。"
 
-#: src/components/Team/members/invite.tsx:63
+#: src/components/Team/members/invite.tsx:64
 msgid "You cannot use this email address for invitation."
 msgstr "このメールアドレスは招待に使用できません。"
 
@@ -931,10 +924,6 @@ msgstr "招待"
 #: src/components/Team/members/invite.tsx:77
 msgid "Send an invitation"
 msgstr "招待する"
-
-#: src/components/Team/members/invite.tsx:78
-msgid "We automatically update your billing as your invitation is accepted."
-msgstr "チームメンバーの招待に伴う料金変更は自動的に行われます。"
 
 #: src/components/Team/members/invite.tsx:83
 #: src/components/User/profile.tsx:117
@@ -1231,6 +1220,21 @@ msgstr "139.74135747222223"
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Pro plan"
+#~ msgstr "Pro プラン"
+
+#~ msgid "monthly"
+#~ msgstr "月払い"
+
+#~ msgid "yearly"
+#~ msgstr "年払い"
+
+#~ msgid "We are in public beta version. Member features will be added soon."
+#~ msgstr "現在は公開β版です。メンバー機能は後ほど追加されます。"
+
+#~ msgid "We automatically update your billing as your invitation is accepted."
+#~ msgstr "チームメンバーの招待に伴う料金変更は自動的に行われます。"
 
 #~ msgid "Date"
 #~ msgstr "日時"

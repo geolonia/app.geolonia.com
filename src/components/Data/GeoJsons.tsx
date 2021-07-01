@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import Moment from "moment";
 import queryString from "query-string";
 import fetch from "../../lib/fetch";
+import { buildApiUrl } from "../../lib/api";
 
 const { REACT_APP_STAGE } = process.env;
 
@@ -59,7 +60,7 @@ function Content(props: Props) {
       setLoading(true);
       fetch(
         props.session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${props.teamId}&per_page=${perPage}&page=${page}`
+        buildApiUrl(`/geojsons?teamId=${props.teamId}&per_page=${perPage}&page=${page}`)
       )
         .then(res => {
           if (res.status < 300) {
@@ -132,7 +133,7 @@ function Content(props: Props) {
 
     return fetch(
       props.session,
-      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons?teamId=${teamId}`,
+      buildApiUrl(`/geojsons?teamId=${teamId}`),
       {
         method: "POST",
         body: JSON.stringify({ name })

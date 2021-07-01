@@ -12,6 +12,7 @@ import fetch from "../../../lib/fetch";
 
 // redux
 import { connect } from "react-redux";
+import { buildApiAppUrl } from "../../../lib/api";
 
 type OwnProps = {
   disabled?: boolean;
@@ -30,19 +31,19 @@ export const Invite = (props: Props) => {
     false | "requesting" | "success" | "failure"
   >(false);
 
-  const inviteHandler = (email: string) => {
+  const inviteHandler = async (email: string) => {
     const { session, team, members } = props;
 
     if (members.find(member => member.email === email)) {
-      setMessage(__("They is already a member of this team."));
-      return Promise.reject("They are already a member of the team.");
+      setMessage(__("That user is already a member of this team."));
+      return Promise.reject("That user is already a member of the team.");
     }
 
     if (team) {
       setStatus("requesting");
-      return fetch(
+      const res = await fetch(
         session,
-        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${team.teamId}/invitation`,
+        buildApiAppUrl(`/teams/${team.teamId}/invitation`),
         {
           method: "POST",
           headers: {
@@ -50,20 +51,19 @@ export const Invite = (props: Props) => {
           },
           body: JSON.stringify({ email })
         }
-      ).then(res => {
-        if (res.status < 400) {
-          setStatus("success");
-          return res.json();
-        } else if (res.status === 402) {
-          setStatus("failure");
-          setMessage(__("The maximum number of members has been reached."));
-          throw new Error();
-        } else {
-          setStatus("failure");
-          setMessage(__("You cannot use this email address for invitation."));
-          throw new Error();
-        }
-      });
+      );
+      if (res.status < 400) {
+        setStatus("success");
+        return res.json();
+      } else if (res.status === 402) {
+        setStatus("failure");
+        setMessage(__("The maximum number of members has been reached."));
+        throw new Error();
+      } else {
+        setStatus("failure");
+        setMessage(__("You cannot use this email address for invitation."));
+        throw new Error();
+      }
     } else {
       return Promise.reject("No team");
     }
@@ -75,9 +75,9 @@ export const Invite = (props: Props) => {
         disabled={props.disabled}
         buttonLabel={__("Invite")}
         label={__("Send an invitation")}
-        description={__(
+        description={"" /*__(
           "We automatically update your billing as your invitation is accepted."
-        )}
+        )*/}
         defaultValue=""
         fieldName="email"
         fieldLabel={__("Email")}

@@ -39,6 +39,7 @@ import "./GeoJson.scss";
 
 // constants
 import { messageDisplayDuration } from "../../constants";
+import { buildApiUrl } from "../../lib/api";
 const { REACT_APP_STAGE } = process.env;
 
 type OwnProps = Record<string, never>;
@@ -151,7 +152,7 @@ const Content = (props: Props) => {
 
     return fetch(
       session,
-      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+      buildApiUrl(`/geojsons/${geojsonId}`),
       {
         method: "PUT",
         body: JSON.stringify({ deleted: true })
@@ -229,7 +230,7 @@ const Content = (props: Props) => {
 
       fetch(
         props.session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
+        buildApiUrl(`/geojsons/${props.geojsonId}/features/${feature.id}`),
         {
           method: "PUT",
           body: JSON.stringify(feature)
@@ -246,7 +247,7 @@ const Content = (props: Props) => {
     if ("draw.create" === event.type) {
       fetch(
         props.session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+        buildApiUrl(`/geojsons/${props.geojsonId}/features`),
         {
           method: "POST",
           body: JSON.stringify(event.features)
@@ -256,7 +257,7 @@ const Content = (props: Props) => {
       event.features.forEach((feature: GeoJSON.Feature) => {
         return fetch(
           props.session,
-          `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
+          buildApiUrl(`/geojsons/${props.geojsonId}/features/${feature.id}`),
           {
             method: "PUT",
             body: JSON.stringify(feature)
@@ -271,7 +272,7 @@ const Content = (props: Props) => {
         event.features.map((feature: GeoJSON.Feature) => {
           return fetch(
             props.session,
-            `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features/${feature.id}`,
+            buildApiUrl(`/geojsons/${props.geojsonId}/features/${feature.id}`),
             {
               method: "PUT",
               body: JSON.stringify({ deleted: true })
@@ -303,7 +304,7 @@ const Content = (props: Props) => {
 
     fetch(
       props.session,
-      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`,
+      buildApiUrl(`/geojsons/${props.geojsonId}/features`),
       {
         method: "POST",
         body: JSON.stringify(all.features)
@@ -363,7 +364,7 @@ const Content = (props: Props) => {
               onClick={() => {
                 fetch(
                   props.session,
-                  `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${props.geojsonId}/features`
+                  buildApiUrl(`/geojsons/${props.geojsonId}/features`)
                 )
                   .then(res => res.json())
                   .then(json => {
