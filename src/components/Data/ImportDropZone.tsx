@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import { GeoJsonMaxUploadSize } from "../../constants";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from "@wordpress/i18n";
-import "./DropZone.scss"
+import "./ImportDropZone.scss"
 import fetch from "../../api/custom-fetch";
 const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
@@ -30,17 +30,17 @@ const uploadGeoJson = (geojson: File, session: Geolonia.Session, teamId?: string
           body: geojson
         },
         { absPath: true, noAuth: true, decode: "text" }
-      );
+      )
     }
-  });
-};
+  })
+}
 
 type Props = {
   setTileStatus: Function,
   session: Geolonia.Session,
   teamId?: string,
   geojsonId?: string,
-};
+}
 
 const Content = (props: Props) => {
 
@@ -67,7 +67,7 @@ const Content = (props: Props) => {
     setError(null)
     props.setTileStatus("progress")
 
-    setTimeout(()=>{props.setTileStatus("created")}, 1000) // デバッグ用にモックとして追加。後で削除する。
+    setTimeout(()=>{props.setTileStatus("created")}, 1000) // デバッグ用に追加。後で削除する。
 
   }, [props])
 

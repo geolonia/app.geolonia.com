@@ -15,7 +15,8 @@ import Title from "../custom/Title";
 import PropsEditor from "./PropsEditor";
 import SimpleStyle from "./SimpleStyle";
 import ImportButton from "./ImportButton";
-import DropZone from "./DropZone"
+import ImportDropZoneButton from "./ImportDropZoneButton";
+import ImportDropZone from "./ImportDropZone"
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from "./GeoJsonMeta";
 import StyleSelector from "./StyleSelector";
@@ -336,7 +337,12 @@ const Content = (props: Props) => {
         <div className="nav">
           <StyleSelector style={style} setStyle={setStyle}></StyleSelector>
           {/* <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} /> */}
-          <ImportButton GeoJsonImporter={GeoJsonImporter} />
+          <ImportDropZoneButton
+            session={props.session}
+            teamId={props.teamId}
+            geojsonId={props.geojsonId}
+            setTileStatus={setTileStatus}
+          />
         </div>
       )}
 
@@ -425,7 +431,7 @@ const Content = (props: Props) => {
           )}
           </>
         ) : (
-          <DropZone
+          <ImportDropZone
             session={props.session}
             teamId={props.teamId}
             geojsonId={props.geojsonId}
