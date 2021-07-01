@@ -90,11 +90,11 @@ const Content = (props: Props) => {
     <Paper className={"geojson-dropzone-container"}>
       <div className={"geojson-dropzone"} {...getRootProps()}>
         <input {...getInputProps()} accept='.json,.geojson' />
-        {isDragActive ? <p>{__("Drop to add your GeoJSON")}</p> : (
+        {isDragActive ? <p>{__("Drop file to add your map.")}</p> : (
           <>
             <CloudUploadIcon fontSize="large" />
             <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
-            <p>{__("Drag a file here to add your map,")}<br />{__("Or click to choose your file")}</p>
+            <p>{__("Drag and drop a file here to add your map,")}<br />{__("Or click to choose your file")}</p>
           </>
         )}
         {error? <div className="error">{error}</div> : <></>}

@@ -427,7 +427,7 @@ const Content = (props: Props) => {
                 flexDirection: "column"
               }}
             >
-              <p>{__("Adding your data to map ...")}</p>
+              <p>{__("Adding your data to map")}</p>
               <CircularProgress />
             </div>
           )}
