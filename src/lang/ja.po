@@ -37,7 +37,7 @@ msgstr "API キーを取得して新しい地図を作成しましょう。"
 #: src/components/Dashboard.tsx:71 src/components/Data/GeoJson.tsx:110
 #: src/components/Navigator.tsx:168
 msgid "GeoJSON API"
-msgstr ""
+msgstr "GeoJSON API"
 
 #: src/components/Dashboard.tsx:73
 msgid "Manage and style your GeoJSON."
@@ -45,7 +45,7 @@ msgstr "GeoJSON を登録してスタイルをカスタマイズしましょう�
 
 #: src/components/Dashboard.tsx:79
 msgid "Developer's Blog"
-msgstr ""
+msgstr "Developer's Blog"
 
 #: src/components/Data/ExportButton.tsx:32
 #: src/components/Data/GeoJsonMeta.tsx:280
@@ -56,7 +56,7 @@ msgstr "GeoJSON をダウンロード"
 #: src/components/Maps/APIKey.tsx:113 src/components/Maps/APIKeys.tsx:35
 #: src/components/Team/Billing.tsx:187
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
 #: src/components/Data/GeoJson.tsx:106 src/components/Data/GeoJsons.tsx:122
 msgid "API services"
@@ -454,11 +454,11 @@ msgstr "新しいチームの名前を入力してください。"
 
 #: src/components/Maps/APIKeys.tsx:77
 msgid "My API"
-msgstr ""
+msgstr "API キー"
 
 #: src/components/Navigator.tsx:109
 msgid "My team"
-msgstr ""
+msgstr "My team"
 
 #: src/components/Navigator.tsx:129 src/components/Team/general/index.tsx:41
 msgid "General"
@@ -782,7 +782,7 @@ msgstr "一度チームを削除するともとに戻すことはできません
 
 #: src/components/Team/general/fields.tsx:107
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/components/Team/general/index.tsx:42
 msgid ""
@@ -982,8 +982,8 @@ msgid "Some error."
 msgstr "何かのエラーです。"
 
 #: src/components/custom/AsyncTable.tsx:144
-msgid "%s - %s of %s"
-msgstr ""
+msgid "%1$s - %2$s of %3$s"
+msgstr "%3$s中 %1$s - %2$s"
 
 #: src/components/custom/AsyncTable.tsx:61 src/components/custom/Table.tsx:57
 msgid "first page"

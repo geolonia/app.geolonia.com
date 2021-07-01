@@ -965,7 +965,7 @@ msgid "Some error."
 msgstr ""
 
 #: src/components/custom/AsyncTable.tsx:144
-msgid "%s - %s of %s"
+msgid "%1$s - %2$s of %3$s"
 msgstr ""
 
 #: src/components/custom/AsyncTable.tsx:61
