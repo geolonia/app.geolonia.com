@@ -312,7 +312,7 @@
         "チームメンバーの管理ができます。"
       ],
       "You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan.": [
-        ""
+        "現在、新しいメンバーを招待することはできません。メンバーをチームに招待するには、Geolonia Pro（2～5ユーザー）プランにアップグレードしてください。"
       ],
       "Suspended": ["一時停止"],
       "rows per page": ["表示する個数"],
