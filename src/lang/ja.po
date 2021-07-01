@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: src/components/AcceptInvitation.tsx:65
+#: src/components/AcceptInvitation.tsx:64
 msgid "Your invitation has been validated."
 msgstr "招待が有効化されました。"
 
-#: src/components/AcceptInvitation.tsx:68
+#: src/components/AcceptInvitation.tsx:67
 msgid "Your invitation has been outdated."
 msgstr "この招待は無効です。"
 
@@ -34,10 +34,10 @@ msgstr "API キーを取得"
 msgid "Get API key then create your map!"
 msgstr "API キーを取得して新しい地図を作成しましょう。"
 
-#: src/components/Dashboard.tsx:71 src/components/Data/GeoJson.tsx:112
-#: src/components/Navigator.tsx:142
+#: src/components/Dashboard.tsx:71 src/components/Data/GeoJson.tsx:110
+#: src/components/Navigator.tsx:168
 msgid "GeoJSON API"
-msgstr ""
+msgstr "GeoJSON API"
 
 #: src/components/Dashboard.tsx:73
 msgid "Manage and style your GeoJSON."
@@ -45,24 +45,24 @@ msgstr "GeoJSON を登録してスタイルをカスタマイズしましょう�
 
 #: src/components/Dashboard.tsx:79
 msgid "Developer's Blog"
-msgstr ""
+msgstr "Developer's Blog"
 
 #: src/components/Data/ExportButton.tsx:32
-#: src/components/Data/GeoJsonMeta.tsx:281
+#: src/components/Data/GeoJsonMeta.tsx:280
 msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GeoJson.tsx:104 src/components/Data/GeoJsons.tsx:119
+#: src/components/Data/GeoJson.tsx:102 src/components/Data/GeoJsons.tsx:118
 #: src/components/Maps/APIKey.tsx:113 src/components/Maps/APIKeys.tsx:35
-#: src/components/Team/Billing.tsx:179
+#: src/components/Team/Billing.tsx:187
 msgid "Home"
-msgstr ""
+msgstr "Home"
 
-#: src/components/Data/GeoJson.tsx:108 src/components/Data/GeoJsons.tsx:123
+#: src/components/Data/GeoJson.tsx:106 src/components/Data/GeoJsons.tsx:122
 msgid "API services"
 msgstr "API サービス"
 
-#: src/components/Data/GeoJson.tsx:330
+#: src/components/Data/GeoJson.tsx:328
 msgid ""
 "You can manage and style features in your GeoJSON, and get the the access "
 "point URL of GeoJSON API."
@@ -70,31 +70,31 @@ msgstr ""
 "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、"
 "GeoJSON API のアクセスポイントの URL を取得できます。"
 
-#: src/components/Data/GeoJson.tsx:348
+#: src/components/Data/GeoJson.tsx:346
 msgid "Update required"
 msgstr "更新が必要です"
 
-#: src/components/Data/GeoJson.tsx:371
+#: src/components/Data/GeoJson.tsx:369
 msgid "Reload"
 msgstr "読み込み"
 
-#: src/components/Data/GeoJson.tsx:380
+#: src/components/Data/GeoJson.tsx:378
 msgid "Continue"
 msgstr "このまま続ける"
 
-#: src/components/Data/GeoJson.tsx:408
+#: src/components/Data/GeoJson.tsx:406
 msgid "Total Count of Features: %s"
 msgstr "%s 件のデータ"
 
-#: src/components/Data/GeoJson.tsx:430
+#: src/components/Data/GeoJson.tsx:428
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr "一度データセットを削除するともとに戻すことはできません。"
 
-#: src/components/Data/GeoJson.tsx:435
+#: src/components/Data/GeoJson.tsx:433
 msgid "Are you sure you want to delete this Dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
-#: src/components/Data/GeoJson.tsx:436 src/components/Data/fields.tsx:70
+#: src/components/Data/GeoJson.tsx:434 src/components/Data/fields.tsx:70
 #: src/components/Maps/APIKey.tsx:275
 msgid "Please type delete to confirm."
 msgstr "確認のために delete と入力してください。"
@@ -130,7 +130,7 @@ msgstr ""
 "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要がありま"
 "す。"
 
-#: src/components/Data/GeoJsonMeta.tsx:220
+#: src/components/Data/GeoJsonMeta.tsx:219
 msgid ""
 "Public features will be displayed publicly and anyone can download this "
 "features without API key."
@@ -138,23 +138,23 @@ msgstr ""
 "Public のデータは一般に公開され、だれでも API キー無しでダウンロードすること"
 "ができます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:253
+#: src/components/Data/GeoJsonMeta.tsx:252
 msgid "Datasets are published now."
 msgstr "データセットは公開されています。"
 
-#: src/components/Data/GeoJsonMeta.tsx:255
+#: src/components/Data/GeoJsonMeta.tsx:254
 msgid "Datasets status are draft now."
 msgstr "データセットは下書きの状態です。"
 
-#: src/components/Data/GeoJsonMeta.tsx:265 src/components/Data/fields.tsx:26
-#: src/components/Maps/APIKey.tsx:214 src/components/Navigator.tsx:313
+#: src/components/Data/GeoJsonMeta.tsx:264 src/components/Data/fields.tsx:26
+#: src/components/Maps/APIKey.tsx:214 src/components/Navigator.tsx:320
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129 src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:121
 msgid "Name"
 msgstr "名前"
 
-#: src/components/Data/GeoJsonMeta.tsx:276
+#: src/components/Data/GeoJsonMeta.tsx:275
 msgid "Name of public GeoJSON will be displayed in public."
 msgstr "公開されているGeoJSONの名前が表示されます。"
 
@@ -170,15 +170,15 @@ msgstr "または"
 msgid "Copy endpoint URL to clipboard"
 msgstr "エンドポイント URL をクリップボードにコピー"
 
-#: src/components/Data/GeoJsons.tsx:103
+#: src/components/Data/GeoJsons.tsx:102
 msgid "Network Error."
 msgstr "通信エラー。"
 
-#: src/components/Data/GeoJsons.tsx:159 src/constants.ts:28
+#: src/components/Data/GeoJsons.tsx:158 src/constants.ts:28
 msgid "Network error."
 msgstr "通信エラー。"
 
-#: src/components/Data/GeoJsons.tsx:167
+#: src/components/Data/GeoJsons.tsx:166
 msgid ""
 "GeoJSON API is an API service specialized for location data. Register "
 "various location information data such as stores and real estate "
@@ -187,15 +187,15 @@ msgstr ""
 "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗"
 "情報や不動産情報などのデータを登録しましょう。"
 
-#: src/components/Data/GeoJsons.tsx:173
+#: src/components/Data/GeoJsons.tsx:172
 msgid "Create a new dataset"
 msgstr "データセットを作成"
 
-#: src/components/Data/GeoJsons.tsx:174
+#: src/components/Data/GeoJsons.tsx:173
 msgid "Please enter the name of the new dataset."
 msgstr "新しいデータセットの名前を入力してください。"
 
-#: src/components/Data/GeoJsons.tsx:175
+#: src/components/Data/GeoJsons.tsx:174
 msgid "My dataset"
 msgstr "データセット"
 
@@ -236,33 +236,33 @@ msgstr "値"
 msgid "Nothing found."
 msgstr "なにもありません。"
 
-#: src/components/Data/SimpleStyle.tsx:100
-msgid "Background"
-msgstr "背景色"
-
-#: src/components/Data/SimpleStyle.tsx:105
+#: src/components/Data/SimpleStyle.tsx:103
 msgid "Stroke"
 msgstr "線の色"
 
-#: src/components/Data/SimpleStyle.tsx:36
+#: src/components/Data/SimpleStyle.tsx:34
 msgid "Size"
 msgstr "サイズ"
 
-#: src/components/Data/SimpleStyle.tsx:46
+#: src/components/Data/SimpleStyle.tsx:44
 msgid "Symbol"
 msgstr "シンボル"
 
-#: src/components/Data/SimpleStyle.tsx:83
+#: src/components/Data/SimpleStyle.tsx:81
 msgid "Stroke Width"
 msgstr "線の太さ"
 
-#: src/components/Data/SimpleStyle.tsx:90
+#: src/components/Data/SimpleStyle.tsx:88
 msgid "Text Color"
 msgstr "文字色"
 
-#: src/components/Data/SimpleStyle.tsx:95
+#: src/components/Data/SimpleStyle.tsx:93
 msgid "Text Halo Color"
 msgstr "文字の輪郭色"
+
+#: src/components/Data/SimpleStyle.tsx:98
+msgid "Background"
+msgstr "背景色"
 
 #: src/components/Data/fields.tsx:40 src/components/Maps/APIKey.tsx:225
 msgid "URLs"
@@ -348,7 +348,7 @@ msgid "Logout"
 msgstr "ログアウト"
 
 #: src/components/Maps/APIKey.tsx:117 src/components/Maps/APIKeys.tsx:69
-#: src/components/Navigator.tsx:127
+#: src/components/Navigator.tsx:153
 msgid "API keys"
 msgstr "API キー"
 
@@ -454,61 +454,61 @@ msgstr "新しいチームの名前を入力してください。"
 
 #: src/components/Maps/APIKeys.tsx:77
 msgid "My API"
-msgstr ""
+msgstr "API キー"
 
 #: src/components/Navigator.tsx:109
 msgid "My team"
-msgstr ""
+msgstr "My team"
 
-#: src/components/Navigator.tsx:130
-msgid "Manage API keys"
-msgstr "API キー の管理"
-
-#: src/components/Navigator.tsx:139
-msgid "API Services"
-msgstr "API サービス"
-
-#: src/components/Navigator.tsx:151
-msgid "Team Settings"
-msgstr "チーム設定"
-
-#: src/components/Navigator.tsx:154 src/components/Team/general/index.tsx:41
+#: src/components/Navigator.tsx:129 src/components/Team/general/index.tsx:41
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:160
+#: src/components/Navigator.tsx:135
 msgid "Members"
 msgstr "メンバー"
 
-#: src/components/Navigator.tsx:166
+#: src/components/Navigator.tsx:144
 msgid "Billing"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:174
+#: src/components/Navigator.tsx:156
+msgid "Manage API keys"
+msgstr "API キー の管理"
+
+#: src/components/Navigator.tsx:165
+msgid "API Services"
+msgstr "API サービス"
+
+#: src/components/Navigator.tsx:177
+msgid "Team Settings"
+msgstr "チーム設定"
+
+#: src/components/Navigator.tsx:181
 msgid "Documentation"
 msgstr "ドキュメント"
 
-#: src/components/Navigator.tsx:177
+#: src/components/Navigator.tsx:184
 msgid "Official Documents"
 msgstr "公式ドキュメント"
 
-#: src/components/Navigator.tsx:258
+#: src/components/Navigator.tsx:265
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-#: src/components/Navigator.tsx:303
+#: src/components/Navigator.tsx:310
 msgid "Create a new team"
 msgstr "新しいチームを作成"
 
-#: src/components/Navigator.tsx:307
+#: src/components/Navigator.tsx:314
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Navigator.tsx:321 src/components/Team/general/fields.tsx:116
+#: src/components/Navigator.tsx:328 src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:328 src/components/Team/general/fields.tsx:138
+#: src/components/Navigator.tsx:335 src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr "指定したメールに請求情報を送信します。"
 
@@ -637,89 +637,89 @@ msgstr ""
 "\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
-#: src/components/Team/Billing.tsx:105
+#: src/components/Team/Billing.tsx:103
+msgid "Free plan"
+msgstr "Free プラン"
+
+#: src/components/Team/Billing.tsx:109
 msgid "Pro plan"
 msgstr "Pro プラン"
 
-#: src/components/Team/Billing.tsx:111
+#: src/components/Team/Billing.tsx:115
 msgid "monthly"
 msgstr "月払い"
 
-#: src/components/Team/Billing.tsx:113
+#: src/components/Team/Billing.tsx:117
 msgid "yearly"
 msgstr "年払い"
 
-#: src/components/Team/Billing.tsx:132
+#: src/components/Team/Billing.tsx:137
 msgid "Free Plan"
 msgstr "Free プラン"
 
-#: src/components/Team/Billing.tsx:183 src/components/Team/general/index.tsx:32
+#: src/components/Team/Billing.tsx:191 src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:192
+#: src/components/Team/Billing.tsx:236
 msgid "You can see subscriptions for this team in this month."
 msgstr "このチームの今月のサブスクリプションを確認することができます。"
 
-#: src/components/Team/Billing.tsx:196
+#: src/components/Team/Billing.tsx:240
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:203
+#: src/components/Team/Billing.tsx:247
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:207
+#: src/components/Team/Billing.tsx:251
 msgid "ending in **%1$s"
 msgstr "末尾の番号 **%1$s"
 
-#: src/components/Team/Billing.tsx:217
+#: src/components/Team/Billing.tsx:261
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:228
+#: src/components/Team/Billing.tsx:272
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:235
+#: src/components/Team/Billing.tsx:279
 msgid "Scheduled to expire on %1$s"
 msgstr "%1$s にキャンセルされます"
 
-#: src/components/Team/Billing.tsx:237
+#: src/components/Team/Billing.tsx:281
 msgid "Will automatically renew on %1$s"
 msgstr "%1$s に自動更新されます"
 
-#: src/components/Team/Billing.tsx:250
+#: src/components/Team/Billing.tsx:301
 msgid "Resume subscription"
 msgstr "自動更新を再開"
 
-#: src/components/Team/Billing.tsx:260
+#: src/components/Team/Billing.tsx:313
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:289
+#: src/components/Team/Billing.tsx:342
 msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
-#: src/components/Team/Billing.tsx:296
+#: src/components/Team/Billing.tsx:349
 msgid "Payment history"
 msgstr "支払い履歴"
 
-#: src/components/Team/Billing.tsx:99
-msgid "Free plan"
-msgstr "Free プラン"
-
-#: src/components/Team/Billing/Receipts.tsx:156
+#: src/components/Team/Billing/Receipts.tsx:157
 msgid "No payment history."
 msgstr "支払い履歴はありません。"
 
-#: src/components/Team/Billing/payment-method-modal.tsx:102
+#: src/components/Team/Billing/payment-method-modal.tsx:103
 msgid "Card information"
 msgstr "クレジットカード情報"
 
-#: src/components/Team/Billing/payment-method-modal.tsx:146
-#: src/components/Team/Billing/plan-modal.tsx:153
+#: src/components/Team/Billing/payment-method-modal.tsx:147
+#: src/components/Team/Billing/plan-modal.tsx:154
 msgid "Update"
 msgstr "更新"
 
@@ -727,7 +727,7 @@ msgstr "更新"
 msgid "Unknown Error."
 msgstr "不明なエラー。"
 
-#: src/components/Team/Billing/plan-modal.tsx:105
+#: src/components/Team/Billing/plan-modal.tsx:106
 msgid "Your plan"
 msgstr "あなたのプラン"
 
@@ -742,7 +742,7 @@ msgid ""
 msgstr "プランの変更に伴う差額が請求または残高としてチャージされます。"
 
 #: src/components/Team/general/avatar.tsx:123
-#: src/components/User/avatar.tsx:128
+#: src/components/User/avatar.tsx:127
 msgid "Upload new picture"
 msgstr "新しい写真をアップロード"
 
@@ -764,7 +764,7 @@ msgstr ""
 
 #: src/components/Team/general/delete.tsx:137
 #: src/components/Team/members/change-role.tsx:160
-#: src/components/Team/members/remove-member.tsx:90
+#: src/components/Team/members/remove-member.tsx:89
 #: src/components/Team/members/suspend.tsx:112
 #: src/components/custom/AddNew.tsx:145 src/components/custom/Cancel.tsx:18
 #: src/components/custom/Delete.tsx:137
@@ -782,7 +782,7 @@ msgstr "一度チームを削除するともとに戻すことはできません
 
 #: src/components/Team/general/fields.tsx:107
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: src/components/Team/general/index.tsx:42
 msgid ""
@@ -909,11 +909,11 @@ msgstr "メールアドレス"
 msgid "Send"
 msgstr "送信"
 
-#: src/components/Team/members/remove-member.tsx:75
+#: src/components/Team/members/remove-member.tsx:74
 msgid "The following members will be removed:"
 msgstr "以下のメンバーがチームから削除されます。"
 
-#: src/components/Team/members/remove-member.tsx:96
+#: src/components/Team/members/remove-member.tsx:95
 msgid "Remove"
 msgstr "削除"
 
@@ -982,8 +982,8 @@ msgid "Some error."
 msgstr "何かのエラーです。"
 
 #: src/components/custom/AsyncTable.tsx:144
-msgid "%s - %s of %s"
-msgstr ""
+msgid "%1$s - %2$s / %3$s"
+msgstr "%1$s - %2$s / %3$s"
 
 #: src/components/custom/AsyncTable.tsx:61 src/components/custom/Table.tsx:57
 msgid "first page"
@@ -1009,11 +1009,11 @@ msgstr "本当にこのデータセットを削除しますか？"
 msgid "Please type as <code>delete</code> to confirm."
 msgstr "確認のためにデータセット名を入力してください。"
 
-#: src/components/custom/Save.tsx:120
+#: src/components/custom/Save.tsx:123
 msgid "Saved."
 msgstr "保存しました。"
 
-#: src/components/custom/Save.tsx:120
+#: src/components/custom/Save.tsx:123
 msgid "Failed to save."
 msgstr "保存できませんでした。"
 
@@ -1181,17 +1181,17 @@ msgstr ""
 "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してくだ"
 "さい。メールアドレスが認証されていない可能性があります。"
 
-#: src/components/Data/MapEditor.tsx:137
+#: src/components/Data/MapEditor.tsx:136
 msgctxt "Default value of latitude for map"
 msgid "0"
 msgstr "35.65810422222222"
 
-#: src/components/Data/MapEditor.tsx:138
+#: src/components/Data/MapEditor.tsx:137
 msgctxt "Default value of longitude for map"
 msgid "0"
 msgstr "139.74135747222223"
 
-#: src/components/Data/MapEditor.tsx:140
+#: src/components/Data/MapEditor.tsx:139
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"

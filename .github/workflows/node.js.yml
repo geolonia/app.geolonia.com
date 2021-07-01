@@ -35,6 +35,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
       - run: yarn
+      - run: yarn run validate:jed
       - run: yarn test
         env:
          REACT_APP_COGNITO_USERPOOL_ID: us-east-1_000000000

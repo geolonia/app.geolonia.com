@@ -122,14 +122,20 @@ ReactDOM.render(<MyComponent ownValue={"hello"} />);
 
 ## i18n
 
-Make pot:
+Make pot and merge existing po file(s):
 
-```
+```shell
 $ npm run i18n
 ```
 
 Translate `ja.po` and run following.
 
-```
+```shell
 $ npm run po2json
+```
+
+Perform a simple check to make sure that all text has been translated.
+
+```shell
+$ npm run validate:jed
 ```

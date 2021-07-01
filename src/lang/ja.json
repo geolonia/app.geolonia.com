@@ -14,13 +14,13 @@
       "Get API key then create your map!": [
         "API キーを取得して新しい地図を作成しましょう。"
       ],
-      "GeoJSON API": [""],
+      "GeoJSON API": ["GeoJSON API"],
       "Manage and style your GeoJSON.": [
         "GeoJSON を登録してスタイルをカスタマイズしましょう。"
       ],
-      "Developer's Blog": [""],
+      "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
-      "Home": [""],
+      "Home": ["Home"],
       "API services": ["API サービス"],
       "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API.": [
         "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、GeoJSON API のアクセスポイントの URL を取得できます。"
@@ -90,13 +90,13 @@
       "Key": ["キー"],
       "Value": ["値"],
       "Nothing found.": ["なにもありません。"],
-      "Background": ["背景色"],
       "Stroke": ["線の色"],
       "Size": ["サイズ"],
       "Symbol": ["シンボル"],
       "Stroke Width": ["線の太さ"],
       "Text Color": ["文字色"],
       "Text Halo Color": ["文字の輪郭色"],
+      "Background": ["背景色"],
       "URLs": ["URL のリスト"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
@@ -165,14 +165,14 @@
       "Please enter the name of new API key.": [
         "新しいチームの名前を入力してください。"
       ],
-      "My API": [""],
-      "My team": [""],
-      "Manage API keys": ["API キー の管理"],
-      "API Services": ["API サービス"],
-      "Team Settings": ["チーム設定"],
+      "My API": ["API キー"],
+      "My team": ["My team"],
       "General": ["一般"],
       "Members": ["メンバー"],
       "Billing": ["支払い"],
+      "Manage API keys": ["API キー の管理"],
+      "API Services": ["API サービス"],
+      "Team Settings": ["チーム設定"],
       "Documentation": ["ドキュメント"],
       "Official Documents": ["公式ドキュメント"],
       "Dashboard": ["ダッシュボード"],
@@ -226,6 +226,7 @@
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
       ],
+      "Free plan": ["Free プラン"],
       "Pro plan": ["Pro プラン"],
       "monthly": ["月払い"],
       "yearly": ["年払い"],
@@ -247,7 +248,6 @@
         "プラン詳細については、料金ページをご覧ください。"
       ],
       "Payment history": ["支払い履歴"],
-      "Free plan": ["Free プラン"],
       "No payment history.": ["支払い履歴はありません。"],
       "Card information": ["クレジットカード情報"],
       "Update": ["更新"],
@@ -272,7 +272,7 @@
       "Once you delete a team, there is no going back. Please be certain. ": [
         "一度チームを削除するともとに戻すことはできません。"
       ],
-      "URL": [""],
+      "URL": ["URL"],
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [
         "すべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザー名と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバーの左上にあるプルダウンで行うことができます。"
       ],
@@ -344,7 +344,7 @@
       "name": ["ユーザー名"],
       "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],
-      "%s - %s of %s": [""],
+      "%1$s - %2$s / %3$s": ["%1$s - %2$s / %3$s"],
       "first page": ["最初のページ"],
       "previous page": ["前のページ"],
       "next page": ["次のページ"],
