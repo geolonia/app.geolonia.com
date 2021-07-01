@@ -175,13 +175,8 @@
       "Please enter the name of new API key.": [
         "新しいチームの名前を入力してください。"
       ],
-<<<<<<< HEAD
-      "My API": [""],
-      "My team": [""],
-=======
       "My API": ["API キー"],
       "My team": ["My team"],
->>>>>>> be5d601d8854b75db9201305c2f7d292f804dcaa
       "General": ["一般"],
       "Members": ["メンバー"],
       "Billing": ["支払い"],
