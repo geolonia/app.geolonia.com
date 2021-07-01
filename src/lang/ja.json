@@ -14,13 +14,13 @@
       "Get API key then create your map!": [
         "API キーを取得して新しい地図を作成しましょう。"
       ],
-      "GeoJSON API": [""],
+      "GeoJSON API": ["GeoJSON API"],
       "Manage and style your GeoJSON.": [
         "GeoJSON を登録してスタイルをカスタマイズしましょう。"
       ],
-      "Developer's Blog": [""],
+      "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
-      "Home": [""],
+      "Home": ["Home"],
       "API services": ["API サービス"],
       "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API.": [
         "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、GeoJSON API のアクセスポイントの URL を取得できます。"
@@ -175,8 +175,13 @@
       "Please enter the name of new API key.": [
         "新しいチームの名前を入力してください。"
       ],
+<<<<<<< HEAD
       "My API": [""],
       "My team": [""],
+=======
+      "My API": ["API キー"],
+      "My team": ["My team"],
+>>>>>>> be5d601d8854b75db9201305c2f7d292f804dcaa
       "General": ["一般"],
       "Members": ["メンバー"],
       "Billing": ["支払い"],
@@ -282,7 +287,7 @@
       "Once you delete a team, there is no going back. Please be certain. ": [
         "一度チームを削除するともとに戻すことはできません。"
       ],
-      "URL": [""],
+      "URL": ["URL"],
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [
         "すべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザー名と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバーの左上にあるプルダウンで行うことができます。"
       ],
@@ -354,7 +359,7 @@
       "name": ["ユーザー名"],
       "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],
-      "%s - %s of %s": [""],
+      "%1$s - %2$s / %3$s": ["%1$s - %2$s / %3$s"],
       "first page": ["最初のページ"],
       "previous page": ["前のページ"],
       "next page": ["次のページ"],
