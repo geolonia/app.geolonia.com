@@ -64,6 +64,7 @@ const Content = (props: Props) => {
   >();
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0);
+  
   const [style, setStyle] = React.useState<string>("geolonia/basic");
   const [tileStatus, setTileStatus] = React.useState< null | "progress" | "created">(null); // カスタムタイルの生成結果を保存する為に用意。
 
