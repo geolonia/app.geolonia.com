@@ -246,9 +246,6 @@
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
       ],
       "Free plan": ["Free プラン"],
-      "Pro plan": ["Pro プラン"],
-      "monthly": ["月払い"],
-      "yearly": ["年払い"],
       "Free Plan": ["Free プラン"],
       "Team settings": ["チーム設定"],
       "You can see subscriptions for this team in this month.": [
@@ -314,8 +311,8 @@
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。"
       ],
-      "We are in public beta version. Member features will be added soon.": [
-        "現在は公開β版です。メンバー機能は後ほど追加されます。"
+      "You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan.": [
+        ""
       ],
       "Suspended": ["一時停止"],
       "rows per page": ["表示する個数"],
@@ -334,9 +331,6 @@
       ],
       "Invite": ["招待"],
       "Send an invitation": ["招待する"],
-      "We automatically update your billing as your invitation is accepted.": [
-        "チームメンバーの招待に伴う料金変更は自動的に行われます。"
-      ],
       "Email": ["メールアドレス"],
       "Send": ["送信"],
       "The following members will be removed:": [
