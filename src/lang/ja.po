@@ -232,7 +232,7 @@ msgstr "地図に追加するファイルをドロップしてください。"
 #: src/components/Data/ImportDropZone.tsx:97
 #, fuzzy
 msgid "Drag and drop a file here to add your map,"
-msgstr "地図に追加するファイルを、ここにドラッグアンドドロップしてください。"
+msgstr "地図に追加するファイルをここにドラッグアンドドロップしてください。"
 
 #: src/components/Data/ImportDropZone.tsx:97
 msgid "Or click to choose your file"
