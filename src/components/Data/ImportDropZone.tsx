@@ -48,6 +48,11 @@ const Content = (props: Props) => {
 
   const onDrop = useCallback( acceptedFiles => {
 
+    if (!props.session || !props.teamId || !props.geojsonId) {
+      setError(__('Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/'))
+      return
+    }
+
     if (acceptedFiles.length !== 1) {
       setError(__('Error: Can not upload multiple files.'))
       return
