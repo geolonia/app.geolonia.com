@@ -342,6 +342,7 @@ const Content = (props: Props) => {
             session={props.session}
             teamId={props.teamId}
             geojsonId={props.geojsonId}
+            isPaidTeam={props.isPaidTeam}
             setTileStatus={setTileStatus}
           />
         </div>
@@ -436,6 +437,7 @@ const Content = (props: Props) => {
             session={props.session}
             teamId={props.teamId}
             geojsonId={props.geojsonId}
+            isPaidTeam={props.isPaidTeam}
             setTileStatus={setTileStatus}
           />
         )}

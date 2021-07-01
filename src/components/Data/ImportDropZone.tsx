@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 import Paper from "@material-ui/core/Paper";
-import { GeoJsonMaxUploadSize } from "../../constants";
+import { GeoJsonMaxUploadSize, GeoJsonMaxUploadSizePaid } from "../../constants";
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from "@wordpress/i18n";
 import fetch from "../../api/custom-fetch";
@@ -38,6 +38,7 @@ const uploadGeoJson = (geojson: File, session: Geolonia.Session, teamId?: string
 type Props = {
   setTileStatus: Function,
   session: Geolonia.Session,
+  isPaidTeam: boolean,
   teamId?: string,
   geojsonId?: string,
 }
@@ -63,8 +64,15 @@ const Content = (props: Props) => {
       return
     }
 
-    if (acceptedFiles[0].size > GeoJsonMaxUploadSize) {
-      setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 1000000))
+    let maxUploadSize
+    if (props.isPaidTeam) {
+      maxUploadSize = GeoJsonMaxUploadSizePaid
+    } else {
+      maxUploadSize = GeoJsonMaxUploadSize
+    }
+
+    if (acceptedFiles[0].size > maxUploadSize) {
+      setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), maxUploadSize / 1000000))
       return
     }
 
