@@ -88,6 +88,15 @@
       "Error: Can not upload multiple files.": [
         "複数のファイルをアップロードできません。"
       ],
+      "Error: Please upload *.geojson or *.json file.": [
+        "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
+      ],
+      "Drop file to add your map.": [
+        "地図に追加するファイルをドロップしてください。"
+      ],
+      "Drag and drop a file here to add your map,": [
+        "地図に追加するファイルをここにドラッグアンドドロップしてください。"
+      ],
       "Or click to choose your file": [
         "もしくは、クリックしてファイルを選択してください。"
       ],
