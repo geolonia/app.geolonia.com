@@ -982,8 +982,8 @@ msgid "Some error."
 msgstr "何かのエラーです。"
 
 #: src/components/custom/AsyncTable.tsx:144
-msgid "%1$s - %2$s of %3$s"
-msgstr "%3$s中 %1$s - %2$s"
+msgid "%1$s - %2$s / %3$s"
+msgstr "%1$s - %2$s / %3$s"
 
 #: src/components/custom/AsyncTable.tsx:61 src/components/custom/Table.tsx:57
 msgid "first page"

@@ -141,7 +141,7 @@ export const CustomTable = (props: Props) => {
                 if(from > count) {
                   return ''
                 } else {
-                  return sprintf(__('%1$s - %2$s of %3$s'), from, to, count)
+                  return sprintf(__('%1$s - %2$s / %3$s'), from, to, count)
                 }
               }}
               onChangePage={(e, newPage) => props.onChangePage(newPage)}
