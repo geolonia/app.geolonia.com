@@ -40,7 +40,7 @@
         "確認のために delete と入力してください。"
       ],
       "Error: Please upload GeoJSON file less than %d MB.": [
-        "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
+        "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
       "Import GeoJSON": ["GeoJSON をインポート"],
       "Import GeoJSON from your computer.": [
@@ -89,13 +89,13 @@
         "複数のファイルをアップロードできません。"
       ],
       "Error: Please upload *.geojson or *.json file.": [
-        "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
+        "エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
       ],
       "Drop file to add your map.": [
-        "地図に追加するファイルをドロップしてください。"
+        "地図に追加するファイルをドロップして下さい。"
       ],
       "Drag and drop a file here to add your map,": [
-        "地図に追加するファイルをここにドラッグアンドドロップしてください。"
+        "地図に追加するファイルをドラッグ&ドロップしてください。"
       ],
       "Or click to choose your file": [
         "もしくは、クリックしてファイルを選択してください。"

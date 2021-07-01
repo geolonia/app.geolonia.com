@@ -106,7 +106,7 @@ msgstr "確認のために delete と入力してください。"
 #: src/components/Data/GeoJsonImporter.tsx:100
 #: src/components/Data/ImportDropZone.tsx:75
 msgid "Error: Please upload GeoJSON file less than %d MB."
-msgstr "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
+msgstr "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
 
 #: src/components/Data/GeoJsonImporter.tsx:109
 #: src/components/Data/ImportButton.tsx:25
@@ -220,19 +220,16 @@ msgid "Error: Can not upload multiple files."
 msgstr "複数のファイルをアップロードできません。"
 
 #: src/components/Data/ImportDropZone.tsx:63
-#, fuzzy
 msgid "Error: Please upload *.geojson or *.json file."
-msgstr "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
+msgstr "エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
 
 #: src/components/Data/ImportDropZone.tsx:93
-#, fuzzy
 msgid "Drop file to add your map."
-msgstr "地図に追加するファイルをドロップしてください。"
+msgstr "地図に追加するファイルをドロップして下さい。"
 
 #: src/components/Data/ImportDropZone.tsx:97
-#, fuzzy
 msgid "Drag and drop a file here to add your map,"
-msgstr "地図に追加するファイルをここにドラッグアンドドロップしてください。"
+msgstr "地図に追加するファイルをドラッグ&ドロップしてください。"
 
 #: src/components/Data/ImportDropZone.tsx:97
 msgid "Or click to choose your file"
