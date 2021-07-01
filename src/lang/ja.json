@@ -28,6 +28,7 @@
       "Update required": ["更新が必要です"],
       "Reload": ["読み込み"],
       "Continue": ["このまま続ける"],
+      "Adding your data to map": ["データを地図に追加しています。"],
       "Total Count of Features: %s": ["%s 件のデータ"],
       "Once you delete an Dataset, there is no going back. Please be certain.": [
         "一度データセットを削除するともとに戻すことはできません。"
@@ -39,7 +40,7 @@
         "確認のために delete と入力してください。"
       ],
       "Error: Please upload GeoJSON file less than %d MB.": [
-        "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
+        "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
       "Import GeoJSON": ["GeoJSON をインポート"],
       "Import GeoJSON from your computer.": [
@@ -81,6 +82,24 @@
         "新しいデータセットの名前を入力してください。"
       ],
       "My dataset": ["データセット"],
+      "Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/": [
+        "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタマーサポートに連絡してください。"
+      ],
+      "Error: Can not upload multiple files.": [
+        "複数のファイルをアップロードできません。"
+      ],
+      "Error: Please upload *.geojson or *.json file.": [
+        "エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
+      ],
+      "Drop file to add your map.": [
+        "地図に追加するファイルをドロップして下さい。"
+      ],
+      "Drag and drop a file here to add your map,": [
+        "地図に追加するファイルをドラッグ&ドロップしてください。"
+      ],
+      "Or click to choose your file": [
+        "もしくは、クリックしてファイルを選択してください。"
+      ],
       "Small": ["小サイズ"],
       "Medium": ["中サイズ"],
       "Large": ["大サイズ"],

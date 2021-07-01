@@ -15,11 +15,14 @@ import Title from "../custom/Title";
 import PropsEditor from "./PropsEditor";
 import SimpleStyle from "./SimpleStyle";
 import ImportButton from "./ImportButton";
+import ImportDropZoneButton from "./ImportDropZoneButton";
+import ImportDropZone from "./ImportDropZone"
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from "./GeoJsonMeta";
 import StyleSelector from "./StyleSelector";
 import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
+import { CircularProgress } from "@material-ui/core";
 
 // lib
 import { connect } from "react-redux";
@@ -61,8 +64,8 @@ const Content = (props: Props) => {
   >();
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0);
-
   const [style, setStyle] = React.useState<string>("geolonia/basic");
+  const [tileStatus, setTileStatus] = React.useState< null | "progress" | "created">(null); // カスタムタイルの生成結果を保存する為に用意。
 
   // custom hooks
   const {
@@ -330,11 +333,19 @@ const Content = (props: Props) => {
         )}
       </Title>
 
-      <div className="nav">
-        <StyleSelector style={style} setStyle={setStyle}></StyleSelector>
-        {/* <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} /> */}
-        <ImportButton GeoJsonImporter={GeoJsonImporter} />
-      </div>
+      {tileStatus === "created" && (
+        <div className="nav">
+          <StyleSelector style={style} setStyle={setStyle}></StyleSelector>
+          {/* <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} /> */}
+          <ImportDropZoneButton
+            session={props.session}
+            teamId={props.teamId}
+            geojsonId={props.geojsonId}
+            isPaidTeam={props.isPaidTeam}
+            setTileStatus={setTileStatus}
+          />
+        </div>
+      )}
 
       <Snackbar
         className={"snackbar-update-required"}
@@ -382,22 +393,52 @@ const Content = (props: Props) => {
       ></Snackbar>
 
       <div className="editor">
-        <MapEditor
-          style={style}
-          drawCallback={drawCallback}
-          getNumberFeatures={getNumberFeatures}
-          geoJSON={geoJSON}
-          onClickFeature={onClickFeatureHandler}
-          saveCallback={saveFeatureCallback}
-          bounds={bounds}
-        />
-        {currentFeature ? (
-          <PropsEditor
-            currentFeature={currentFeature}
-            updateFeatureProperties={updateFeatureProps}
-          />
+        {tileStatus  ? (
+          <>
+          {tileStatus === "created" ? (
+            <>
+            <MapEditor
+              style={style}
+              drawCallback={drawCallback}
+              getNumberFeatures={getNumberFeatures}
+              geoJSON={geoJSON}
+              onClickFeature={onClickFeatureHandler}
+              saveCallback={saveFeatureCallback}
+              bounds={bounds}
+            />
+            {currentFeature ? (
+              <PropsEditor
+                currentFeature={currentFeature}
+                updateFeatureProperties={updateFeatureProps}
+              />
+            ) : (
+              <></>
+            )}
+          </>
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column"
+              }}
+            >
+              <p>{__("Adding your data to map")}</p>
+              <CircularProgress />
+            </div>
+          )}
+          </>
         ) : (
-          <></>
+          <ImportDropZone
+            session={props.session}
+            teamId={props.teamId}
+            geojsonId={props.geojsonId}
+            isPaidTeam={props.isPaidTeam}
+            setTileStatus={setTileStatus}
+          />
         )}
       </div>
 
