@@ -14,6 +14,13 @@ import { connect } from "react-redux";
 import Save from "../custom/Save";
 import fetch from "../../lib/fetch";
 
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import Help from "../custom/Help";
+
+// libs
+import normalizeOrigin from "../../lib/normalize-origin";
+
 const { REACT_APP_STAGE } = process.env;
 
 type Meta = {
@@ -152,6 +159,11 @@ const GeoJSONMeta = (props: Props) => {
   const [draftStatus, setDraftStatus] = useStatus(props);
   const [draftName, setDraftName] = React.useState(props.name);
 
+  const [allowedOrigins, setAllowedOrigins] = React.useState("");
+  const [saveStatus, setSaveStatus] = React.useState<false | "requesting" | "success" | "failure">(false);
+  const onRequestError = () => setSaveStatus("failure");
+  const propOrigins = { allowedOrigins: [] }.allowedOrigins;
+  
   // fire save name request
   const saveHandler = (draftName: string) => {
     if (!session) {
@@ -179,6 +191,58 @@ const GeoJSONMeta = (props: Props) => {
       .then(() => {
         setGeoJsonMeta({ isPublic, name: draftName, status });
       });
+  };
+  
+  const saveDisabled = allowedOrigins === propOrigins.join("\n");
+
+  const onUpdateClick = () => {
+    if (saveDisabled || !session) {
+      return Promise.resolve();
+    }
+
+    setSaveStatus("requesting");
+
+    const normalizedAllowedOrigins = allowedOrigins
+      .split("\n")
+      .filter(url => !!url)
+      .map(origin => normalizeOrigin(origin));
+
+    return fetch(
+      session,
+      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          allowedOrigins: normalizedAllowedOrigins
+        })
+      }
+    )
+      .then(res => {
+        if (res.status < 400) {
+          return res.json();
+        } else {
+          // will be caught at <Save />
+          setSaveStatus("failure");
+          throw new Error();
+        }
+      })
+      .then(() => {
+        setSaveStatus("success");
+        // setGeoJsonMeta({ name: draftName, status });
+      });
+
+    // return updateKey(props.session, props.teamId, keyId, nextKey).then(
+    //   result => {
+    //     if (result.error) {
+    //       setSaveStatus("failure");
+    //       setMessage(result.message);
+    //       throw new Error(result.code);
+    //     } else {
+    //       setSaveStatus("success");
+    //       props.updateKey(props.teamId, keyId, nextKey);
+    //     }
+    //   }
+    // );
   };
 
   const downloadDisabled = status === "draft" || !isPublic;
@@ -332,8 +396,53 @@ const GeoJSONMeta = (props: Props) => {
             </p>
           )}
         </Paper>
-        {(isPublic || draftIsPublic) && (
-          <Paper className="geojson-title-description">Helllo</Paper>
+        {draftIsPublic && (
+          <Paper className="geojson-title-description">
+            <h3>{__("Access allowed URLs")}</h3>
+            <p>{__("Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.")}</p>
+            <TextField
+              id="standard-name"
+              label={__("URLs")}
+              margin="normal"
+              multiline={true}
+              rows={5}
+              placeholder="https://example.com"
+              fullWidth={true}
+              value={allowedOrigins}
+              onChange={e => setAllowedOrigins(e.target.value)}
+              disabled={saveStatus === "requesting"}
+            />
+            <Help>
+              <Typography component="p">
+                {__(
+                  "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key."
+                )}
+              </Typography>
+              <ul>
+                <li>
+                  {__("Any page in a specific URL:")}{" "}
+                  <strong>https://www.example.com</strong>
+                </li>
+                <li>
+                  {__("Any subdomain:")} <strong>https://*.example.com</strong>
+                </li>
+                <li>
+                  {__("A URL with a non-standard port:")}{" "}
+                  <strong>https://example.com:*</strong>
+                </li>
+              </ul>
+              <p>
+                {__(
+                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
+                )}
+              </p>
+            </Help>
+            <Save
+              onClick={onUpdateClick}
+              onError={onRequestError}
+              disabled={saveDisabled}
+            />
+          </Paper>
         )}
       </Grid>
     </Grid>
