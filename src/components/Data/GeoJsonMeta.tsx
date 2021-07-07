@@ -332,6 +332,9 @@ const GeoJSONMeta = (props: Props) => {
             </p>
           )}
         </Paper>
+        {(isPublic || draftIsPublic) && (
+          <Paper className="geojson-title-description">Helllo</Paper>
+        )}
       </Grid>
     </Grid>
   );
