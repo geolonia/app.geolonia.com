@@ -33,14 +33,17 @@ type OwnProps = {
   geojsonId: string;
   name: string;
   isPublic: boolean;
+  allowedOrigins: string;
   status: string;
   setGeoJsonMeta: ({
     name,
     isPublic,
+    allowedOrigins,
     status
   }: {
     name: string;
     isPublic: boolean;
+    allowedOrigins: string;
     status: string;
   }) => void;
 

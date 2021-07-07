@@ -9,6 +9,7 @@ const { REACT_APP_STAGE } = process.env;
 type GeoJSONMeta = {
   name: string;
   isPublic: boolean;
+  allowedOrigins: string;
   status: string;
 };
 
