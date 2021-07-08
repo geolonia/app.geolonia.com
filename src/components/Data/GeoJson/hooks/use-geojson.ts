@@ -9,7 +9,7 @@ const { REACT_APP_STAGE } = process.env;
 type GeoJSONMeta = {
   name: string;
   isPublic: boolean;
-  allowedOrigins: Array<string> | string;
+  allowedOrigins: string[];
   status: string;
 };
 
@@ -44,7 +44,7 @@ export default function useGeoJSON(
         })
         .then(json => {
           const allowedOrigins = 
-            typeof json.allowedOrigins !== "undefined" ? json.allowedOrigins : "";
+            typeof json.allowedOrigins !== "undefined" ? json.allowedOrigins : [];
           setGeoJsonMeta({ ...json, allowedOrigins });
         })
         .catch(() => setError(true));

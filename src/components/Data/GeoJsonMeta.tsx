@@ -21,17 +21,11 @@ import { buildApiUrl } from "../../lib/api";
 
 const { REACT_APP_STAGE } = process.env;
 
-type Meta = {
-  name: string;
-  isPublic: boolean;
-  status: string;
-};
-
 type OwnProps = {
   geojsonId: string;
   name: string;
   isPublic: boolean;
-  allowedOrigins: Array<string> | string;
+  allowedOrigins: string[];
   status: string;
   setGeoJsonMeta: ({
     name,
@@ -41,7 +35,7 @@ type OwnProps = {
   }: {
     name: string;
     isPublic: boolean;
-    allowedOrigins: Array<string> | string;
+    allowedOrigins: string[];
     status: string;
   }) => void;
 
@@ -87,7 +81,7 @@ const usePublic = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic: draftIsPublic, name: name })
+          body: JSON.stringify({ isPublic: draftIsPublic, allowedOrigins, name, status })
         }
       )
         .then(res => {
@@ -133,7 +127,7 @@ const useStatus = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic, name, status: draftStatus })
+          body: JSON.stringify({ isPublic, name, allowedOrigins, status: draftStatus })
         }
       )
         .then(res => {
@@ -153,27 +147,22 @@ const useStatus = (
 
 const GeoJSONMeta = (props: Props) => {
   // サーバーから取得してあるデータ
-  const { geojsonId, name, isPublic, status } = props;
+  const { geojsonId, name, isPublic, allowedOrigins, status } = props;
   const { session, setGeoJsonMeta } = props;
 
   // UI上での変更をリクエスト前まで保持しておくための State
   const [draftIsPublic, setDraftIsPublic] = usePublic(props);
   const [draftStatus, setDraftStatus] = useStatus(props);
   const [draftName, setDraftName] = React.useState(props.name);
+  const [draftAllowedOrigins, setDraftAllowedOrigins] = React.useState("");
 
-  const [allowedOrigins, setAllowedOrigins] = React.useState("");
   const [saveStatus, setSaveStatus] = React.useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
-  const propOrigins = (props || { allowedOrigins: [] }).allowedOrigins;
 
   // effects
   React.useEffect(() => {
-    if (typeof propOrigins === "string") {
-      setAllowedOrigins(propOrigins);
-    } else {
-      setAllowedOrigins(propOrigins.join("\n"));
-    }
-  }, [propOrigins]);
+    setDraftAllowedOrigins(allowedOrigins.join("\n"));
+  }, [allowedOrigins]);
   
   // fire save name request
   const saveHandler = (draftName: string) => {
@@ -187,7 +176,9 @@ const GeoJSONMeta = (props: Props) => {
         method: "PUT",
         body: JSON.stringify({
           name: draftName,
-          isPublic: isPublic
+          isPublic,
+          allowedOrigins,
+          status
         })
       }
     )
@@ -204,17 +195,16 @@ const GeoJSONMeta = (props: Props) => {
       });
   };
 
-  const saveDisabled = 
-    allowedOrigins === ((typeof propOrigins === "string") ? propOrigins: propOrigins.join("\n"))
+  const saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
 
-  const onUpdateClick = () => {
+  const onUpdateClick = React.useCallback(() => {
     if (saveDisabled || !session) {
       return Promise.resolve();
     }
 
     setSaveStatus("requesting");
 
-    const normalizedAllowedOrigins = allowedOrigins
+    const normalizedAllowedOrigins = draftAllowedOrigins
       .split("\n")
       .filter(url => !!url)
       .map(origin => normalizeOrigin(origin));
@@ -225,7 +215,10 @@ const GeoJSONMeta = (props: Props) => {
       {
         method: "PUT",
         body: JSON.stringify({
-          allowedOrigins: normalizedAllowedOrigins
+          isPublic,
+          name,
+          allowedOrigins: normalizedAllowedOrigins,
+          status
         })
       }
     )
@@ -240,9 +233,9 @@ const GeoJSONMeta = (props: Props) => {
       })
       .then(() => {
         setSaveStatus("success");
-        setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status });
+        setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status });
       });
-  };
+  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, setGeoJsonMeta, status])
 
   const downloadDisabled = status === "draft" || !isPublic;
   const downloadUrl = buildApiUrl(`/geojsons/pub/${geojsonId}`);
@@ -406,14 +399,14 @@ const GeoJSONMeta = (props: Props) => {
               rows={5}
               placeholder="https://example.com"
               fullWidth={true}
-              value={allowedOrigins}
-              onChange={e => setAllowedOrigins(e.target.value)}
+              value={draftAllowedOrigins}
+              onChange={e => setDraftAllowedOrigins(e.target.value)}
               disabled={saveStatus === "requesting"}
             />
             <Help>
               <Typography component="p">
                 {__(
-                  "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key."
+                  "Only requests that come from the URLs specified here will be allowed."
                 )}
               </Typography>
               <ul>
