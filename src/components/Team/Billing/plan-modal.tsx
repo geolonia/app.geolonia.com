@@ -13,6 +13,7 @@ import {
   Radio
 } from "@material-ui/core";
 import { parsePlanLabel } from "../Billing";
+import { buildApiAppUrl } from "../../../lib/api";
 
 type PlanId = string | null | undefined;
 
@@ -75,7 +76,7 @@ const PlanModal = (props: Props) => {
     setLoading(true);
     const res = await fetch(
       session,
-      `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/plan`,
+      buildApiAppUrl(`/teams/${teamId}/plan`),
       {
         method: "PUT",
         headers: {
@@ -100,6 +101,11 @@ const PlanModal = (props: Props) => {
     }
   }, [ session, teamId, planId, setLoading, handleClose ]);
 
+  const currencyFormatter = new Intl.NumberFormat('ja-JP', {
+    style: 'currency',
+    currency: 'JPY',
+  });
+
   return (
     <Modal open={open} onClose={handleClose}>
       <div style={modalStyle}>
@@ -118,7 +124,13 @@ const PlanModal = (props: Props) => {
                     onChange={e => setPlanId(plan.planId)}
                   />
                 }
-                label={parsePlanLabel(plans, plan.planId)}
+                label={<>
+                  {parsePlanLabel(plans, plan.planId)}
+                  {typeof plan.price !== 'undefined' && <>
+                    &nbsp;-&nbsp;
+                    {currencyFormatter.format(plan.price)}/月
+                  </> }
+                </>}
               />
               {/* <DialogContentText>
             <ul>

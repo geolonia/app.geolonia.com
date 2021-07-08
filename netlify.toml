@@ -4,6 +4,15 @@
   REACT_APP_API_BASE = "https://api.geolonia.com"
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
   REACT_APP_STAGE = "v1"
+
+[context.develop.environment]
+  REACT_APP_COGNITO_USERPOOL_ID = "us-east-1_0C5yMqsfC"
+  REACT_APP_COGNITO_APP_CLIENT_ID = "6ingkpu2h114sajpbdu31ikeke"
+  REACT_APP_API_BASE = "https://api.geolonia.com"
+  REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
+  REACT_APP_STRIPE_PUBLISHABLE_KEY = "pk_test_6GhUQ1viPKrXjeJxG5RWGHpX00f61FfRHZ"
+  REACT_APP_STAGE = "dev"
+
 [context.deploy-preview.environment]
   REACT_APP_COGNITO_USERPOOL_ID = "us-east-1_0C5yMqsfC"
   REACT_APP_COGNITO_APP_CLIENT_ID = "6ingkpu2h114sajpbdu31ikeke"

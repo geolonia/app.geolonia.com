@@ -8,15 +8,16 @@ import LockIcon from "@material-ui/icons/Lock";
 import EditIcon from "@material-ui/icons/Edit";
 import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 import * as clipboard from "clipboard-polyfill";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
-import fetch from "../../lib/fetch";
-import Typography from "@material-ui/core/Typography";
-import TextField from "@material-ui/core/TextField";
 import Help from "../custom/Help";
+import fetch from "../../lib/fetch";
 import normalizeOrigin from "../../lib/normalize-origin";
+import { buildApiUrl } from "../../lib/api";
 
 const { REACT_APP_STAGE } = process.env;
 
@@ -83,7 +84,7 @@ const usePublic = (
     if (isPublic !== draftIsPublic) {
       fetch(
         session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
           body: JSON.stringify({ isPublic: draftIsPublic, name: name })
@@ -129,7 +130,7 @@ const useStatus = (
     if (status !== draftStatus) {
       fetch(
         session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
           body: JSON.stringify({ isPublic, name, status: draftStatus })
@@ -181,7 +182,7 @@ const GeoJSONMeta = (props: Props) => {
     }
     return fetch(
       session,
-      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+      buildApiUrl(`/geojsons/${geojsonId}`),
       {
         method: "PUT",
         body: JSON.stringify({
@@ -244,7 +245,7 @@ const GeoJSONMeta = (props: Props) => {
   };
 
   const downloadDisabled = status === "draft" || !isPublic;
-  const downloadUrl = `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/pub/${geojsonId}`;
+  const downloadUrl = buildApiUrl(`/geojsons/pub/${geojsonId}`);
 
   return (
     <Grid className="geojson-meta" container spacing={2}>
