@@ -21,6 +21,12 @@ import { buildApiUrl } from "../../lib/api";
 
 const { REACT_APP_STAGE } = process.env;
 
+type Meta = {
+  name: string;
+  isPublic: boolean;
+  status: string;
+};
+
 type OwnProps = {
   geojsonId: string;
   name: string;
@@ -235,7 +241,7 @@ const GeoJSONMeta = (props: Props) => {
         setSaveStatus("success");
         setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status });
       });
-  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, setGeoJsonMeta, status])
+  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status])
 
   const downloadDisabled = status === "draft" || !isPublic;
   const downloadUrl = buildApiUrl(`/geojsons/pub/${geojsonId}`);
