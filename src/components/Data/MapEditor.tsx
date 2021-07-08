@@ -11,6 +11,7 @@ import centroid from "@turf/centroid";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
 type OwnProps = {
+  geojsonId: string | undefined;
   geoJSON: GeoJSON.FeatureCollection | undefined;
   onClickFeature: Function;
   drawCallback: Function;
@@ -46,7 +47,7 @@ const createMapEvents = (props: Props, map: mapboxgl.Map) => {
 };
 
 export const MapEditor = (props: Props) => {
-  const { geoJSON, drawCallback, getNumberFeatures, bounds, style } = props;
+  const { geojsonId, geoJSON, drawCallback, getNumberFeatures, bounds, style } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | undefined>(undefined);
@@ -142,6 +143,7 @@ export const MapEditor = (props: Props) => {
         navigationControl={"off"}
         onAfterLoad={handleOnAfterLoad}
         bounds={bounds}
+        geojsonId={geojsonId}
       />
     </div>
   );

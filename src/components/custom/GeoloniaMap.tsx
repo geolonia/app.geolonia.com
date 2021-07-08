@@ -3,6 +3,7 @@ import React from "react";
 type Toggle = "on" | "off";
 
 type Props = {
+  geojsonId: string | undefined;
   width: string;
   height: string;
   gestureHandling: Toggle;
@@ -44,6 +45,7 @@ class Map extends React.Component<Props, State> {
     geolocateControl: "off",
     navigationControl: "off",
     style: null,
+    simpleVector: null,
     onAfterLoad: () => {}
   };
 
@@ -78,6 +80,7 @@ class Map extends React.Component<Props, State> {
         data-navigation-control={this.props.navigationControl}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
+        data-simple-vector={`https://tileserver.geolonia.com/customtiles/${this.props.geojsonId}/tiles.json`}
       />
     );
   }

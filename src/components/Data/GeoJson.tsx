@@ -422,6 +422,7 @@ const Content = (props: Props) => {
               style={style}
               drawCallback={drawCallback}
               getNumberFeatures={getNumberFeatures}
+              geojsonId={props.geojsonId}
               geoJSON={geoJSON}
               onClickFeature={onClickFeatureHandler}
               saveCallback={saveFeatureCallback}
