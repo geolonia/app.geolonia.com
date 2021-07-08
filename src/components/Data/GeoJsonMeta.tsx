@@ -8,11 +8,15 @@ import LockIcon from "@material-ui/icons/Lock";
 import EditIcon from "@material-ui/icons/Edit";
 import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
 import * as clipboard from "clipboard-polyfill";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
+import Help from "../custom/Help";
 import fetch from "../../lib/fetch";
+import normalizeOrigin from "../../lib/normalize-origin";
 import { buildApiUrl } from "../../lib/api";
 
 const { REACT_APP_STAGE } = process.env;
@@ -27,14 +31,17 @@ type OwnProps = {
   geojsonId: string;
   name: string;
   isPublic: boolean;
+  allowedOrigins: string[];
   status: string;
   setGeoJsonMeta: ({
     name,
     isPublic,
+    allowedOrigins,
     status
   }: {
     name: string;
     isPublic: boolean;
+    allowedOrigins: string[];
     status: string;
   }) => void;
 
@@ -70,7 +77,7 @@ const copyUrlToClipBoard = () => {
 const usePublic = (
   props: Props
 ): [boolean, (nextIsPublic: boolean) => void] => {
-  const { session, geojsonId, isPublic, name, status, setGeoJsonMeta } = props;
+  const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
   const [draftIsPublic, setDraftIsPublic] = React.useState(props.isPublic);
 
   React.useEffect(() => {
@@ -80,7 +87,7 @@ const usePublic = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic: draftIsPublic, name: name })
+          body: JSON.stringify({ isPublic: draftIsPublic, allowedOrigins, name, status })
         }
       )
         .then(res => {
@@ -91,7 +98,7 @@ const usePublic = (
           }
         })
         .then(() => {
-          setGeoJsonMeta({ isPublic: draftIsPublic, name, status });
+          setGeoJsonMeta({ isPublic: draftIsPublic, allowedOrigins, name, status });
         })
         .catch(() => {
           // 意図せずリクエストが失敗している
@@ -103,6 +110,7 @@ const usePublic = (
     draftIsPublic,
     geojsonId,
     isPublic,
+    allowedOrigins,
     name,
     session,
     setGeoJsonMeta,
@@ -115,7 +123,7 @@ const usePublic = (
 const useStatus = (
   props: Props & StateProps
 ): [string, (nextStatus: string) => void] => {
-  const { session, geojsonId, isPublic, name, status, setGeoJsonMeta } = props;
+  const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
   const [draftStatus, setDraftStatus] = React.useState(props.status);
 
   React.useEffect(() => {
@@ -125,7 +133,7 @@ const useStatus = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic, name, status: draftStatus })
+          body: JSON.stringify({ isPublic, name, allowedOrigins, status: draftStatus })
         }
       )
         .then(res => {
@@ -136,23 +144,32 @@ const useStatus = (
           }
         })
         .then(() => {
-          setGeoJsonMeta({ isPublic, name, status: draftStatus });
+          setGeoJsonMeta({ isPublic, name, allowedOrigins, status: draftStatus });
         });
     }
-  }, [draftStatus, geojsonId, isPublic, name, session, setGeoJsonMeta, status]);
+  }, [draftStatus, geojsonId, isPublic, allowedOrigins, name, session, setGeoJsonMeta, status]);
   return [draftStatus, setDraftStatus];
 };
 
 const GeoJSONMeta = (props: Props) => {
   // サーバーから取得してあるデータ
-  const { geojsonId, name, isPublic, status } = props;
+  const { geojsonId, name, isPublic, allowedOrigins, status } = props;
   const { session, setGeoJsonMeta } = props;
 
   // UI上での変更をリクエスト前まで保持しておくための State
   const [draftIsPublic, setDraftIsPublic] = usePublic(props);
   const [draftStatus, setDraftStatus] = useStatus(props);
   const [draftName, setDraftName] = React.useState(props.name);
+  const [draftAllowedOrigins, setDraftAllowedOrigins] = React.useState("");
 
+  const [saveStatus, setSaveStatus] = React.useState<false | "requesting" | "success" | "failure">(false);
+  const onRequestError = () => setSaveStatus("failure");
+
+  // effects
+  React.useEffect(() => {
+    setDraftAllowedOrigins(allowedOrigins.join("\n"));
+  }, [allowedOrigins]);
+  
   // fire save name request
   const saveHandler = (draftName: string) => {
     if (!session) {
@@ -165,7 +182,9 @@ const GeoJSONMeta = (props: Props) => {
         method: "PUT",
         body: JSON.stringify({
           name: draftName,
-          isPublic: isPublic
+          isPublic,
+          allowedOrigins,
+          status
         })
       }
     )
@@ -178,9 +197,51 @@ const GeoJSONMeta = (props: Props) => {
         }
       })
       .then(() => {
-        setGeoJsonMeta({ isPublic, name: draftName, status });
+        setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status });
       });
   };
+
+  const saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
+
+  const onUpdateClick = React.useCallback(() => {
+    if (saveDisabled || !session) {
+      return Promise.resolve();
+    }
+
+    setSaveStatus("requesting");
+
+    const normalizedAllowedOrigins = draftAllowedOrigins
+      .split("\n")
+      .filter(url => !!url)
+      .map(origin => normalizeOrigin(origin));
+
+    return fetch(
+      session,
+      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+      {
+        method: "PUT",
+        body: JSON.stringify({
+          isPublic,
+          name,
+          allowedOrigins: normalizedAllowedOrigins,
+          status
+        })
+      }
+    )
+      .then(res => {
+        if (res.status < 400) {
+          return res.json();
+        } else {
+          // will be caught at <Save />
+          setSaveStatus("failure");
+          throw new Error();
+        }
+      })
+      .then(() => {
+        setSaveStatus("success");
+        setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status });
+      });
+  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta])
 
   const downloadDisabled = status === "draft" || !isPublic;
   const downloadUrl = buildApiUrl(`/geojsons/pub/${geojsonId}`);
@@ -197,7 +258,6 @@ const GeoJSONMeta = (props: Props) => {
               }}
               // NOTE: Billing feature
               // disabled={!props.isPaidTeam}
-              disabled={true}
               inputProps={{ "aria-label": "primary checkbox" }}
               color="primary"
             />
@@ -333,6 +393,54 @@ const GeoJSONMeta = (props: Props) => {
             </p>
           )}
         </Paper>
+        {draftIsPublic && (
+          <Paper className="geojson-title-description">
+            <h3>{__("Access allowed URLs")}</h3>
+            <p>{__("Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.")}</p>
+            <TextField
+              id="standard-name"
+              label={__("URLs")}
+              margin="normal"
+              multiline={true}
+              rows={5}
+              placeholder="https://example.com"
+              fullWidth={true}
+              value={draftAllowedOrigins}
+              onChange={e => setDraftAllowedOrigins(e.target.value)}
+              disabled={saveStatus === "requesting"}
+            />
+            <Help>
+              <Typography component="p">
+                {__(
+                  "Only requests that come from the URLs specified here will be allowed."
+                )}
+              </Typography>
+              <ul>
+                <li>
+                  {__("Any page in a specific URL:")}{" "}
+                  <strong>https://www.example.com</strong>
+                </li>
+                <li>
+                  {__("Any subdomain:")} <strong>https://*.example.com</strong>
+                </li>
+                <li>
+                  {__("A URL with a non-standard port:")}{" "}
+                  <strong>https://example.com:*</strong>
+                </li>
+              </ul>
+              <p>
+                {__(
+                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
+                )}
+              </p>
+            </Help>
+            <Save
+              onClick={onUpdateClick}
+              onError={onRequestError}
+              disabled={saveDisabled}
+            />
+          </Paper>
+        )}
       </Grid>
     </Grid>
   );

@@ -456,6 +456,7 @@ const Content = (props: Props) => {
             geojsonId={props.geojsonId}
             name={geoJsonMeta.name}
             isPublic={geoJsonMeta.isPublic}
+            allowedOrigins={geoJsonMeta.allowedOrigins}
             status={geoJsonMeta.status}
             setGeoJsonMeta={setGeoJsonMeta}
             style={style}
