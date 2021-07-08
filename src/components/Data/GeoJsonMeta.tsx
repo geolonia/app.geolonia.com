@@ -241,7 +241,7 @@ const GeoJSONMeta = (props: Props) => {
         setSaveStatus("success");
         setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status });
       });
-  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status])
+  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta])
 
   const downloadDisabled = status === "draft" || !isPublic;
   const downloadUrl = buildApiUrl(`/geojsons/pub/${geojsonId}`);
