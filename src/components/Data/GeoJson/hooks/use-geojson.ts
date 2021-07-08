@@ -43,8 +43,7 @@ export default function useGeoJSON(
           }
         })
         .then(json => {
-          const allowedOrigins =
-            typeof json.allowedOrigins === "string" ? json.allowedOrigins : "";
+          const allowedOrigins = typeof json.allowedOrigins !== "undefined" ? json.allowedOrigins : [];
           setGeoJsonMeta({ ...json, allowedOrigins });
         })
         .catch(() => setError(true));
