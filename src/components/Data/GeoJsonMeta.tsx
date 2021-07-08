@@ -13,12 +13,9 @@ import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
 import fetch from "../../lib/fetch";
-
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Help from "../custom/Help";
-
-// libs
 import normalizeOrigin from "../../lib/normalize-origin";
 
 const { REACT_APP_STAGE } = process.env;
@@ -206,7 +203,8 @@ const GeoJSONMeta = (props: Props) => {
       });
   };
 
-  const saveDisabled = allowedOrigins === ((typeof propOrigins === "string") ? propOrigins: propOrigins.join("\n"))
+  const saveDisabled = 
+    allowedOrigins === ((typeof propOrigins === "string") ? propOrigins: propOrigins.join("\n"))
 
   const onUpdateClick = () => {
     if (saveDisabled || !session) {
