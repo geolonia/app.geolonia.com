@@ -258,7 +258,7 @@ const GeoJSONMeta = (props: Props) => {
               }}
               // NOTE: Billing feature
               // disabled={!props.isPaidTeam}
-              disabled={true}
+              disabled={false}
               inputProps={{ "aria-label": "primary checkbox" }}
               color="primary"
             />
