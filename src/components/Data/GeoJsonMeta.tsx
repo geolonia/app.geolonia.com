@@ -167,6 +167,15 @@ const GeoJSONMeta = (props: Props) => {
   const [saveStatus, setSaveStatus] = React.useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
   const propOrigins = (props || { allowedOrigins: [] }).allowedOrigins;
+
+  // effects
+  React.useEffect(() => {
+    if (typeof propOrigins === "string") {
+      setAllowedOrigins(propOrigins);
+    } else {
+      setAllowedOrigins(propOrigins.join("\n"));
+    }
+  }, [propOrigins]);
   
   // fire save name request
   const saveHandler = (draftName: string) => {
@@ -197,12 +206,7 @@ const GeoJSONMeta = (props: Props) => {
       });
   };
 
-  let saveDisabled = false
-  if (typeof propOrigins === "string") {
-    saveDisabled = allowedOrigins === propOrigins
-  } else {
-    saveDisabled = allowedOrigins === propOrigins.join("\n")
-  }
+  const saveDisabled = allowedOrigins === ((typeof propOrigins === "string") ? propOrigins: propOrigins.join("\n"))
 
   const onUpdateClick = () => {
     if (saveDisabled || !session) {
@@ -216,7 +220,6 @@ const GeoJSONMeta = (props: Props) => {
       .filter(url => !!url)
       .map(origin => normalizeOrigin(origin));
 
-    console.log(normalizedAllowedOrigins)
     return fetch(
       session,
       `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
