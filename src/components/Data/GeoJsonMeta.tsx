@@ -33,7 +33,7 @@ type OwnProps = {
   geojsonId: string;
   name: string;
   isPublic: boolean;
-  allowedOrigins: string;
+  allowedOrigins: Array<string> | string;
   status: string;
   setGeoJsonMeta: ({
     name,
@@ -43,7 +43,7 @@ type OwnProps = {
   }: {
     name: string;
     isPublic: boolean;
-    allowedOrigins: string;
+    allowedOrigins: Array<string> | string;
     status: string;
   }) => void;
 
@@ -79,7 +79,7 @@ const copyUrlToClipBoard = () => {
 const usePublic = (
   props: Props
 ): [boolean, (nextIsPublic: boolean) => void] => {
-  const { session, geojsonId, isPublic, name, status, setGeoJsonMeta } = props;
+  const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
   const [draftIsPublic, setDraftIsPublic] = React.useState(props.isPublic);
 
   React.useEffect(() => {
@@ -100,7 +100,7 @@ const usePublic = (
           }
         })
         .then(() => {
-          setGeoJsonMeta({ isPublic: draftIsPublic, name, status });
+          setGeoJsonMeta({ isPublic: draftIsPublic, allowedOrigins, name, status });
         })
         .catch(() => {
           // 意図せずリクエストが失敗している
@@ -112,6 +112,7 @@ const usePublic = (
     draftIsPublic,
     geojsonId,
     isPublic,
+    allowedOrigins,
     name,
     session,
     setGeoJsonMeta,
@@ -124,7 +125,7 @@ const usePublic = (
 const useStatus = (
   props: Props & StateProps
 ): [string, (nextStatus: string) => void] => {
-  const { session, geojsonId, isPublic, name, status, setGeoJsonMeta } = props;
+  const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
   const [draftStatus, setDraftStatus] = React.useState(props.status);
 
   React.useEffect(() => {
@@ -145,10 +146,10 @@ const useStatus = (
           }
         })
         .then(() => {
-          setGeoJsonMeta({ isPublic, name, status: draftStatus });
+          setGeoJsonMeta({ isPublic, name, allowedOrigins, status: draftStatus });
         });
     }
-  }, [draftStatus, geojsonId, isPublic, name, session, setGeoJsonMeta, status]);
+  }, [draftStatus, geojsonId, isPublic, allowedOrigins, name, session, setGeoJsonMeta, status]);
   return [draftStatus, setDraftStatus];
 };
 
@@ -165,7 +166,7 @@ const GeoJSONMeta = (props: Props) => {
   const [allowedOrigins, setAllowedOrigins] = React.useState("");
   const [saveStatus, setSaveStatus] = React.useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
-  const propOrigins = { allowedOrigins: [] }.allowedOrigins;
+  const propOrigins = (props || { allowedOrigins: [] }).allowedOrigins;
   
   // fire save name request
   const saveHandler = (draftName: string) => {
@@ -192,11 +193,16 @@ const GeoJSONMeta = (props: Props) => {
         }
       })
       .then(() => {
-        setGeoJsonMeta({ isPublic, name: draftName, status });
+        setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status });
       });
   };
-  
-  const saveDisabled = allowedOrigins === propOrigins.join("\n");
+
+  let saveDisabled = false
+  if (typeof propOrigins === "string") {
+    saveDisabled = allowedOrigins === propOrigins
+  } else {
+    saveDisabled = allowedOrigins === propOrigins.join("\n")
+  }
 
   const onUpdateClick = () => {
     if (saveDisabled || !session) {
@@ -210,6 +216,7 @@ const GeoJSONMeta = (props: Props) => {
       .filter(url => !!url)
       .map(origin => normalizeOrigin(origin));
 
+    console.log(normalizedAllowedOrigins)
     return fetch(
       session,
       `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
@@ -231,21 +238,8 @@ const GeoJSONMeta = (props: Props) => {
       })
       .then(() => {
         setSaveStatus("success");
-        // setGeoJsonMeta({ name: draftName, status });
+        setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status });
       });
-
-    // return updateKey(props.session, props.teamId, keyId, nextKey).then(
-    //   result => {
-    //     if (result.error) {
-    //       setSaveStatus("failure");
-    //       setMessage(result.message);
-    //       throw new Error(result.code);
-    //     } else {
-    //       setSaveStatus("success");
-    //       props.updateKey(props.teamId, keyId, nextKey);
-    //     }
-    //   }
-    // );
   };
 
   const downloadDisabled = status === "draft" || !isPublic;
