@@ -5,6 +5,7 @@ import { __ } from "@wordpress/i18n"
 import "./ImportDropZoneButton.scss"
 
 type Props = {
+  getTileStatus: Function,
   setTileStatus: Function,
   session: Geolonia.Session,
   isPaidTeam: boolean,
@@ -60,6 +61,7 @@ const Content = (props: Props) => {
               teamId={props.teamId}
               geojsonId={props.geojsonId}
               isPaidTeam={props.isPaidTeam}
+              getTileStatus={props.getTileStatus}
               setTileStatus={props.setTileStatus}
             />
           </div>

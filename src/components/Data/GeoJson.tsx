@@ -66,7 +66,7 @@ const Content = (props: Props) => {
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0);
   const [style, setStyle] = React.useState<string>("geolonia/basic");
-  const [tileStatus, setTileStatus] = React.useState< null | "progress" | "created">(null); // カスタムタイルの生成結果を保存する為に用意。
+  const [tileStatus, setTileStatus] = React.useState< undefined | "progress" | "created" | "failure">(undefined);
 
   // custom hooks
   const {
@@ -319,6 +319,25 @@ const Content = (props: Props) => {
     }
   };
 
+  const getTileStatus = async (session: Geolonia.Session, teamId: string, geojsonId: string ) => {
+    let status: undefined | "progress" | "created" | "failure"
+    while (status !== "created") {
+      try {
+        const res = await fetch(
+          session,
+          buildApiUrl(`/geojsons/${geojsonId}?teamId=${teamId}`),
+          { method: "GET" }
+        )
+        const json = await res.json()
+        status = json.gvp_status
+
+      } catch (error) {
+        throw new Error();
+      }
+    }
+    return status
+  }
+
   if (error) {
     return <></>;
   }
@@ -343,6 +362,7 @@ const Content = (props: Props) => {
             teamId={props.teamId}
             geojsonId={props.geojsonId}
             isPaidTeam={props.isPaidTeam}
+            getTileStatus={getTileStatus}
             setTileStatus={setTileStatus}
           />
         </div>
@@ -438,6 +458,7 @@ const Content = (props: Props) => {
             teamId={props.teamId}
             geojsonId={props.geojsonId}
             isPaidTeam={props.isPaidTeam}
+            getTileStatus={getTileStatus}
             setTileStatus={setTileStatus}
           />
         )}
