@@ -319,6 +319,10 @@ const Content = (props: Props) => {
     }
   };
 
+  const sleep = () => {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+  }
+
   const getTileStatus = async (session: Geolonia.Session, teamId: string, geojsonId: string ) => {
     let status: undefined | "progress" | "created" | "failure"
     while (status !== "created") {
@@ -334,6 +338,7 @@ const Content = (props: Props) => {
       } catch (error) {
         throw new Error();
       }
+      await sleep()
     }
     return status
   }
