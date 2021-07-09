@@ -453,8 +453,16 @@ const Content = (props: Props) => {
                 flexDirection: "column"
               }}
             >
-              <p>{__("Adding your data to map")}</p>
-              <CircularProgress />
+              <>
+                {tileStatus === "failure" ? (
+                  <p>{__("Failed to add your data. Your GeoJSON might be invalid.")}</p>
+                ) : (
+                  <>
+                    <p>{__("Adding your data to map")}</p>
+                    <CircularProgress />
+                  </>
+                )}
+              </>
             </div>
           )}
           </>
