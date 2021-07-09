@@ -455,7 +455,7 @@ const Content = (props: Props) => {
             >
               <>
                 {tileStatus === "failure" ? (
-                  <p>{__("Failed to add your data. Your GeoJSON might be invalid.")}</p>
+                  <p>{__("Failed to add your data. Your GeoJSON might be invalid format.")}</p>
                 ) : (
                   <>
                     <p>{__("Adding your data to map")}</p>
