@@ -80,7 +80,7 @@ const Content = (props: Props) => {
     uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId)
     setError(null)
     props.setTileStatus("progress") // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
-    props.getTileStatus(props.session, props.teamId, props.geojsonId, props.setTileStatus)
+    props.getTileStatus(props.session, props.teamId, props.geojsonId)
       .then((status: undefined | "progress" | "created" | "failure") => {
         props.setTileStatus(status)
       })
