@@ -352,7 +352,7 @@ const Content = (props: Props) => {
   if (error) {
     return <></>;
   }
-  
+
   return (
     <div className="gis-panel">
       <Title
@@ -440,7 +440,7 @@ const Content = (props: Props) => {
           </div>
         ) : (
           <>
-          {tileStatus === undefined && 
+          {tileStatus === undefined &&
             <ImportDropZone
               session={props.session}
               teamId={props.teamId}
@@ -468,6 +468,7 @@ const Content = (props: Props) => {
           {tileStatus === "created" &&
             <>
               <MapEditor
+                session={props.session}
                 style={style}
                 drawCallback={drawCallback}
                 getNumberFeatures={getNumberFeatures}
@@ -477,7 +478,7 @@ const Content = (props: Props) => {
                 saveCallback={saveFeatureCallback}
                 bounds={bounds}
               />
-              {currentFeature && 
+              {currentFeature &&
                 <PropsEditor
                   currentFeature={currentFeature}
                   updateFeatureProperties={updateFeatureProps}
