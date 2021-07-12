@@ -1,5 +1,5 @@
 import React from "react";
-const { REACT_APP_STAGE } = process.env;
+const { REACT_APP_STAGE, REACT_APP_TILE_SEVER } = process.env;
 
 type Toggle = "on" | "off";
 
@@ -26,7 +26,6 @@ type State = {
 class Map extends React.Component<Props, State> {
   style: React.CSSProperties = {};
   container = React.createRef<HTMLDivElement>();
-  tileserverHost: string = REACT_APP_STAGE === "v1" ? "tileserver.geolonia.com" : "tileserver-dev.geolonia.com"
 
   constructor(props: Props) {
     super(props);
@@ -82,7 +81,7 @@ class Map extends React.Component<Props, State> {
         data-navigation-control={this.props.navigationControl}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
-        data-simple-vector={`https://${this.tileserverHost}/customtiles/${this.props.geojsonId}/tiles.json?key=YOUR-API-KEY`}
+        data-simple-vector={`${REACT_APP_TILE_SEVER}/customtiles/${this.props.geojsonId}/tiles.json?key=YOUR-API-KEY`}
       />
     );
   }
