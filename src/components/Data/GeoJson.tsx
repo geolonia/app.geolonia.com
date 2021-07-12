@@ -40,8 +40,6 @@ import "./GeoJson.scss";
 // constants
 import { messageDisplayDuration } from "../../constants";
 import { buildApiUrl } from "../../lib/api";
-import { stat } from "node:fs";
-const { REACT_APP_STAGE } = process.env;
 
 type OwnProps = Record<string, never>;
 
