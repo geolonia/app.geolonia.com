@@ -11,6 +11,7 @@ type GeoJSONMeta = {
   isPublic: boolean;
   allowedOrigins: string[];
   status: string;
+  gvp_status?: undefined | "progress" | "created" | "failure"
 };
 
 export default function useGeoJSON(

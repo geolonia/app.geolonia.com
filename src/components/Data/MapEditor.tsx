@@ -9,8 +9,10 @@ import fullscreen from "./fullscreenMap";
 import centroid from "@turf/centroid";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
+const {REACT_APP_TILE_SEVER} = process.env
 
 type OwnProps = {
+  geojsonId: string | undefined;
   geoJSON: GeoJSON.FeatureCollection | undefined;
   onClickFeature: Function;
   drawCallback: Function;
@@ -46,7 +48,7 @@ const createMapEvents = (props: Props, map: mapboxgl.Map) => {
 };
 
 export const MapEditor = (props: Props) => {
-  const { geoJSON, drawCallback, getNumberFeatures, bounds, style } = props;
+  const { geojsonId, geoJSON, drawCallback, getNumberFeatures, bounds, style } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = React.useState<mapboxgl.Map | undefined>(undefined);
@@ -80,7 +82,15 @@ export const MapEditor = (props: Props) => {
     }
   }, [map, style]);
 
-  const handleOnAfterLoad = (map: mapboxgl.Map) => {
+  const handleOnAfterLoad = async (map: mapboxgl.Map) => {
+
+    const res = await fetch(`${REACT_APP_TILE_SEVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`)
+    const tileJson = await res.json()
+    map.fitBounds(tileJson.bounds, {
+      padding: 20,
+      maxZoom: 16,
+    })
+    
     const draw: MapboxDraw = new MapboxDraw({
       boxSelect: true,
       controls: {
@@ -142,6 +152,7 @@ export const MapEditor = (props: Props) => {
         navigationControl={"off"}
         onAfterLoad={handleOnAfterLoad}
         bounds={bounds}
+        geojsonId={geojsonId}
       />
     </div>
   );

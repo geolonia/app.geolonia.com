@@ -36,6 +36,7 @@ const uploadGeoJson = (geojson: File, session: Geolonia.Session, teamId?: string
 }
 
 type Props = {
+  getTileStatus: Function,
   setTileStatus: Function,
   session: Geolonia.Session,
   isPaidTeam: boolean,
@@ -78,9 +79,11 @@ const Content = (props: Props) => {
 
     uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId)
     setError(null)
-    props.setTileStatus("progress")
-
-    setTimeout(()=>{props.setTileStatus("created")}, 1000) // TODO: デバッグ用に追加。後で削除する。
+    props.setTileStatus("progress") // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
+    props.getTileStatus(props.session, props.teamId, props.geojsonId)
+      .then((status: undefined | "progress" | "created" | "failure") => {
+        props.setTileStatus(status)
+      })
 
   }, [props])
 

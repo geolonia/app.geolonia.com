@@ -1,8 +1,10 @@
 import React from "react";
+const { REACT_APP_STAGE, REACT_APP_TILE_SEVER } = process.env;
 
 type Toggle = "on" | "off";
 
 type Props = {
+  geojsonId: string | undefined;
   width: string;
   height: string;
   gestureHandling: Toggle;
@@ -44,6 +46,7 @@ class Map extends React.Component<Props, State> {
     geolocateControl: "off",
     navigationControl: "off",
     style: null,
+    simpleVector: null,
     onAfterLoad: () => {}
   };
 
@@ -78,6 +81,7 @@ class Map extends React.Component<Props, State> {
         data-navigation-control={this.props.navigationControl}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
+        data-simple-vector={`${REACT_APP_TILE_SEVER}/customtiles/${this.props.geojsonId}/tiles.json?key=YOUR-API-KEY`}
       />
     );
   }

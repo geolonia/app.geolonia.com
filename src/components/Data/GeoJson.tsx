@@ -40,7 +40,6 @@ import "./GeoJson.scss";
 // constants
 import { messageDisplayDuration } from "../../constants";
 import { buildApiUrl } from "../../lib/api";
-const { REACT_APP_STAGE } = process.env;
 
 type OwnProps = Record<string, never>;
 
@@ -66,7 +65,7 @@ const Content = (props: Props) => {
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0);
   const [style, setStyle] = React.useState<string>("geolonia/basic");
-  const [tileStatus, setTileStatus] = React.useState< null | "progress" | "created">(null); // カスタムタイルの生成結果を保存する為に用意。
+  const [tileStatus, setTileStatus] = React.useState< null | undefined | "progress" | "created" | "failure">(null);
 
   // custom hooks
   const {
@@ -319,10 +318,41 @@ const Content = (props: Props) => {
     }
   };
 
+  const sleep = () => {
+    return new Promise(resolve => setTimeout(resolve, 1000));
+  }
+
+  const getTileStatus = React.useCallback( async (session: Geolonia.Session, teamId: string, geojsonId: string ) => {
+    let status = "progress"
+    while (status !== "created" && status !== "failure") {
+      try {
+        const res = await fetch(
+          session,
+          buildApiUrl(`/geojsons/${geojsonId}?teamId=${teamId}`),
+          { method: "GET" }
+        )
+        const json = await res.json()
+        status = json.gvp_status
+
+      } catch (error) {
+        throw new Error();
+      }
+      await sleep()
+    }
+    return status
+  },[])
+
+  React.useEffect(() => {
+    if (geoJsonMeta) {
+      setTileStatus(geoJsonMeta.gvp_status)
+    }
+
+  }, [geoJsonMeta]);
+
   if (error) {
     return <></>;
   }
-
+  
   return (
     <div className="gis-panel">
       <Title
@@ -343,6 +373,7 @@ const Content = (props: Props) => {
             teamId={props.teamId}
             geojsonId={props.geojsonId}
             isPaidTeam={props.isPaidTeam}
+            getTileStatus={getTileStatus}
             setTileStatus={setTileStatus}
           />
         </div>
@@ -394,29 +425,67 @@ const Content = (props: Props) => {
       ></Snackbar>
 
       <div className="editor">
-        {tileStatus  ? (
+        {tileStatus === null ? (
+          <div
+            style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column"
+          }}
+          >
+            <CircularProgress />
+          </div>
+        ) : (
           <>
-          {tileStatus === "created" ? (
-            <>
-            <MapEditor
-              style={style}
-              drawCallback={drawCallback}
-              getNumberFeatures={getNumberFeatures}
-              geoJSON={geoJSON}
-              onClickFeature={onClickFeatureHandler}
-              saveCallback={saveFeatureCallback}
-              bounds={bounds}
+          {tileStatus === undefined && 
+            <ImportDropZone
+              session={props.session}
+              teamId={props.teamId}
+              geojsonId={props.geojsonId}
+              isPaidTeam={props.isPaidTeam}
+              getTileStatus={getTileStatus}
+              setTileStatus={setTileStatus}
             />
-            {currentFeature ? (
-              <PropsEditor
-                currentFeature={currentFeature}
-                updateFeatureProperties={updateFeatureProps}
+          }
+          {tileStatus === "progress" &&
+            <div
+              style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column"
+            }}
+            >
+              <p>{__("Adding your data to map")}</p>
+              <CircularProgress />
+            </div>
+          }
+          {tileStatus === "created" &&
+            <>
+              <MapEditor
+                style={style}
+                drawCallback={drawCallback}
+                getNumberFeatures={getNumberFeatures}
+                geojsonId={props.geojsonId}
+                geoJSON={geoJSON}
+                onClickFeature={onClickFeatureHandler}
+                saveCallback={saveFeatureCallback}
+                bounds={bounds}
               />
-            ) : (
-              <></>
-            )}
-          </>
-          ) : (
+              {currentFeature && 
+                <PropsEditor
+                  currentFeature={currentFeature}
+                  updateFeatureProperties={updateFeatureProps}
+                />
+              }
+            </>
+          }
+          {tileStatus === "failure" &&
             <div
               style={{
                 width: "100%",
@@ -427,19 +496,10 @@ const Content = (props: Props) => {
                 flexDirection: "column"
               }}
             >
-              <p>{__("Adding your data to map")}</p>
-              <CircularProgress />
+              <p>{__("Failed to add your data. Your GeoJSON might be invalid format.")}</p>
             </div>
-          )}
+          }
           </>
-        ) : (
-          <ImportDropZone
-            session={props.session}
-            teamId={props.teamId}
-            geojsonId={props.geojsonId}
-            isPaidTeam={props.isPaidTeam}
-            setTileStatus={setTileStatus}
-          />
         )}
       </div>
 
