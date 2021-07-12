@@ -65,7 +65,7 @@ const Content = (props: Props) => {
   const [drawObject, setDrawObject] = React.useState<MapboxDraw>();
   const [numberFeatures, setNumberFeatures] = React.useState<number>(0);
   const [style, setStyle] = React.useState<string>("geolonia/basic");
-  const [tileStatus, setTileStatus] = React.useState< undefined | "progress" | "created" | "failure">(undefined);
+  const [tileStatus, setTileStatus] = React.useState< null | undefined | "progress" | "created" | "failure">(null);
 
   // custom hooks
   const {
@@ -343,18 +343,16 @@ const Content = (props: Props) => {
   },[])
 
   React.useEffect(() => {
-    if (props.teamId && props.geojsonId) {
-      getTileStatus(props.session, props.teamId, props.geojsonId)
-      .then((status: undefined | "progress" | "created" | "failure") => {
-        setTileStatus(status)
-      })
+    if (geoJsonMeta) {
+      setTileStatus(geoJsonMeta.gvp_status)
     }
-  }, [getTileStatus, props.geojsonId, props.session, props.teamId]);
+
+  }, [geoJsonMeta]);
 
   if (error) {
     return <></>;
   }
-
+  
   return (
     <div className="gis-panel">
       <Title
@@ -427,17 +425,7 @@ const Content = (props: Props) => {
       ></Snackbar>
 
       <div className="editor">
-        {tileStatus === undefined && 
-          <ImportDropZone
-            session={props.session}
-            teamId={props.teamId}
-            geojsonId={props.geojsonId}
-            isPaidTeam={props.isPaidTeam}
-            getTileStatus={getTileStatus}
-            setTileStatus={setTileStatus}
-          />
-        }
-        {tileStatus === "progress" &&
+        {tileStatus === null ? (
           <div
             style={{
             width: "100%",
@@ -448,33 +436,23 @@ const Content = (props: Props) => {
             flexDirection: "column"
           }}
           >
-            <p>{__("Adding your data to map")}</p>
             <CircularProgress />
           </div>
-        }
-        {tileStatus === "created" &&
+        ) : (
           <>
-            <MapEditor
-              style={style}
-              drawCallback={drawCallback}
-              getNumberFeatures={getNumberFeatures}
+          {tileStatus === undefined && 
+            <ImportDropZone
+              session={props.session}
+              teamId={props.teamId}
               geojsonId={props.geojsonId}
-              geoJSON={geoJSON}
-              onClickFeature={onClickFeatureHandler}
-              saveCallback={saveFeatureCallback}
-              bounds={bounds}
+              isPaidTeam={props.isPaidTeam}
+              getTileStatus={getTileStatus}
+              setTileStatus={setTileStatus}
             />
-            {currentFeature && 
-              <PropsEditor
-                currentFeature={currentFeature}
-                updateFeatureProperties={updateFeatureProps}
-              />
-            }
-          </>
-        }
-        {tileStatus === "failure" &&
-          <div
-            style={{
+          }
+          {tileStatus === "progress" &&
+            <div
+              style={{
               width: "100%",
               height: "100%",
               display: "flex",
@@ -482,10 +460,47 @@ const Content = (props: Props) => {
               alignItems: "center",
               flexDirection: "column"
             }}
-          >
-            <p>{__("Failed to add your data. Your GeoJSON might be invalid format.")}</p>
-          </div>
-        }
+            >
+              <p>{__("Adding your data to map")}</p>
+              <CircularProgress />
+            </div>
+          }
+          {tileStatus === "created" &&
+            <>
+              <MapEditor
+                style={style}
+                drawCallback={drawCallback}
+                getNumberFeatures={getNumberFeatures}
+                geojsonId={props.geojsonId}
+                geoJSON={geoJSON}
+                onClickFeature={onClickFeatureHandler}
+                saveCallback={saveFeatureCallback}
+                bounds={bounds}
+              />
+              {currentFeature && 
+                <PropsEditor
+                  currentFeature={currentFeature}
+                  updateFeatureProperties={updateFeatureProps}
+                />
+              }
+            </>
+          }
+          {tileStatus === "failure" &&
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                flexDirection: "column"
+              }}
+            >
+              <p>{__("Failed to add your data. Your GeoJSON might be invalid format.")}</p>
+            </div>
+          }
+          </>
+        )}
       </div>
 
       <div className="number-features">
