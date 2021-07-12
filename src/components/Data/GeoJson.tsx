@@ -322,7 +322,7 @@ const Content = (props: Props) => {
     return new Promise(resolve => setTimeout(resolve, 1000));
   }
 
-  const getTileStatus = async (session: Geolonia.Session, teamId: string, geojsonId: string ) => {
+  const getTileStatus = React.useCallback( async (session: Geolonia.Session, teamId: string, geojsonId: string ) => {
     let status = "progress"
     while (status !== "created" && status !== "failure") {
       try {
@@ -340,17 +340,19 @@ const Content = (props: Props) => {
       await sleep()
     }
     return status
-  }
+  },[])
+
+  React.useEffect(() => {
+    if (props.teamId && props.geojsonId) {
+      getTileStatus(props.session, props.teamId, props.geojsonId)
+      .then((status: undefined | "progress" | "created" | "failure") => {
+        setTileStatus(status)
+      })
+    }
+  }, [getTileStatus, props.geojsonId, props.session, props.teamId]);
 
   if (error) {
     return <></>;
-  }
-
-  if (props.teamId && props.geojsonId) {
-    getTileStatus(props.session, props.teamId, props.geojsonId)
-    .then((status: undefined | "progress" | "created" | "failure") => {
-      setTileStatus(status)
-    })
   }
 
   return (
