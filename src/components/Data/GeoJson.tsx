@@ -40,6 +40,7 @@ import "./GeoJson.scss";
 // constants
 import { messageDisplayDuration } from "../../constants";
 import { buildApiUrl } from "../../lib/api";
+import { stat } from "node:fs";
 const { REACT_APP_STAGE } = process.env;
 
 type OwnProps = Record<string, never>;
@@ -324,8 +325,8 @@ const Content = (props: Props) => {
   }
 
   const getTileStatus = async (session: Geolonia.Session, teamId: string, geojsonId: string ) => {
-    let status: undefined | "progress" | "created" | "failure"
-    while (status !== "created") {
+    let status = "progress"
+    while (status !== "created" && status !== "failure") {
       try {
         const res = await fetch(
           session,
@@ -345,6 +346,13 @@ const Content = (props: Props) => {
 
   if (error) {
     return <></>;
+  }
+
+  if (props.teamId && props.geojsonId) {
+    getTileStatus(props.session, props.teamId, props.geojsonId)
+    .then((status: undefined | "progress" | "created" | "failure") => {
+      setTileStatus(status)
+    })
   }
 
   return (
@@ -419,10 +427,33 @@ const Content = (props: Props) => {
       ></Snackbar>
 
       <div className="editor">
-        {tileStatus  ? (
+        {tileStatus === undefined && 
+          <ImportDropZone
+            session={props.session}
+            teamId={props.teamId}
+            geojsonId={props.geojsonId}
+            isPaidTeam={props.isPaidTeam}
+            getTileStatus={getTileStatus}
+            setTileStatus={setTileStatus}
+          />
+        }
+        {tileStatus === "progress" &&
+          <div
+            style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column"
+          }}
+          >
+            <p>{__("Adding your data to map")}</p>
+            <CircularProgress />
+          </div>
+        }
+        {tileStatus === "created" &&
           <>
-          {tileStatus === "created" ? (
-            <>
             <MapEditor
               style={style}
               drawCallback={drawCallback}
@@ -433,49 +464,28 @@ const Content = (props: Props) => {
               saveCallback={saveFeatureCallback}
               bounds={bounds}
             />
-            {currentFeature ? (
+            {currentFeature && 
               <PropsEditor
                 currentFeature={currentFeature}
                 updateFeatureProperties={updateFeatureProps}
               />
-            ) : (
-              <></>
-            )}
+            }
           </>
-          ) : (
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                flexDirection: "column"
-              }}
-            >
-              <>
-                {tileStatus === "failure" ? (
-                  <p>{__("Failed to add your data. Your GeoJSON might be invalid format.")}</p>
-                ) : (
-                  <>
-                    <p>{__("Adding your data to map")}</p>
-                    <CircularProgress />
-                  </>
-                )}
-              </>
-            </div>
-          )}
-          </>
-        ) : (
-          <ImportDropZone
-            session={props.session}
-            teamId={props.teamId}
-            geojsonId={props.geojsonId}
-            isPaidTeam={props.isPaidTeam}
-            getTileStatus={getTileStatus}
-            setTileStatus={setTileStatus}
-          />
-        )}
+        }
+        {tileStatus === "failure" &&
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column"
+            }}
+          >
+            <p>{__("Failed to add your data. Your GeoJSON might be invalid format.")}</p>
+          </div>
+        }
       </div>
 
       <div className="number-features">
