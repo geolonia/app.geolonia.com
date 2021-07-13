@@ -3,6 +3,7 @@
   REACT_APP_COGNITO_APP_CLIENT_ID = "6qq07b80cimmd9d5033k7je42a"
   REACT_APP_API_BASE = "https://api.geolonia.com"
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
+  REACT_APP_TILE_SERVER="https://tileserver.geolonia.com"
   REACT_APP_STAGE = "v1"
 
 [context.develop.environment]
@@ -11,6 +12,7 @@
   REACT_APP_API_BASE = "https://api.geolonia.com"
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
   REACT_APP_STRIPE_PUBLISHABLE_KEY = "pk_test_6GhUQ1viPKrXjeJxG5RWGHpX00f61FfRHZ"
+  REACT_APP_TILE_SERVER="https://tileserver-dev.geolonia.com"
   REACT_APP_STAGE = "dev"
 
 [context.deploy-preview.environment]
@@ -19,6 +21,7 @@
   REACT_APP_API_BASE = "https://api.geolonia.com"
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
   REACT_APP_STRIPE_PUBLISHABLE_KEY = "pk_test_6GhUQ1viPKrXjeJxG5RWGHpX00f61FfRHZ"
+  REACT_APP_TILE_SERVER="https://tileserver-dev.geolonia.com"
   REACT_APP_STAGE = "dev"
 
 [[headers]]

@@ -6,38 +6,36 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from "@wordpress/i18n";
 import fetch from "../../api/custom-fetch";
 import "./ImportDropZone.scss"
+import { TileStatus } from './GeoJson';
 const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
-const uploadGeoJson = (geojson: File, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
-
-  return fetch<{ links: { putGeoJSON: string } }>(
+const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
+  const result = await fetch<{ links: { putGeoJSON: string; }; }>(
     session,
     `${REACT_APP_API_BASE}/${REACT_APP_STAGE}/geojsons/${geojsonId}/links?teamId=${teamId}`,
     { method: "GET" },
     { absPath: true }
-  ).then(result => {
+  );
 
-    if (result.error) {
-      return Promise.resolve(result);
-    } else {
+  if (result.error) {
+    return result;
+  }
 
-      const signedURL = result.data.links.putGeoJSON;
-      return fetch<any>(
-        session,
-        signedURL,
-        {
-          method: "PUT",
-          body: geojson
-        },
-        { absPath: true, noAuth: true, decode: "text" }
-      )
-    }
-  })
+  const signedURL = result.data.links.putGeoJSON;
+  await fetch<any>(
+    session,
+    signedURL,
+    {
+      method: "PUT",
+      body: geojson
+    },
+    { absPath: true, noAuth: true, decode: "text" }
+  );
 }
 
 type Props = {
-  getTileStatus: Function,
-  setTileStatus: Function,
+  getTileStatus: () => Promise<TileStatus>,
+  setTileStatus: (value: TileStatus) => void,
   session: Geolonia.Session,
   isPaidTeam: boolean,
   teamId?: string,
@@ -46,48 +44,46 @@ type Props = {
 
 const Content = (props: Props) => {
 
-  const [error, setError] = React.useState<string | null>(null)
+  const [error, setError] = React.useState<string | null>(null);
 
-  const onDrop = useCallback( acceptedFiles => {
+  const onDrop = useCallback( async (acceptedFiles) => {
 
     if (!props.session || !props.teamId || !props.geojsonId) {
-      setError(__('Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/'))
-      return
+      setError(__('Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/'));
+      return;
     }
 
     if (acceptedFiles.length !== 1) {
-      setError(__('Error: Can not upload multiple files.'))
-      return
+      setError(__('Error: Can not upload multiple files.'));
+      return;
     }
 
     if (!acceptedFiles[0].name.endsWith('.geojson') && !acceptedFiles[0].name.endsWith('.json')) {
-      setError(__('Error: Please upload *.geojson or *.json file.'))
-      return
+      setError(__('Error: Please upload *.geojson or *.json file.'));
+      return;
     }
 
-    let maxUploadSize
+    let maxUploadSize;
     if (props.isPaidTeam) {
-      maxUploadSize = GeoJsonMaxUploadSizePaid
+      maxUploadSize = GeoJsonMaxUploadSizePaid;
     } else {
-      maxUploadSize = GeoJsonMaxUploadSize
+      maxUploadSize = GeoJsonMaxUploadSize;
     }
 
     if (acceptedFiles[0].size > maxUploadSize) {
-      setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), maxUploadSize / 1000000))
-      return
+      setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), maxUploadSize / 1000000));
+      return;
     }
+    setError(null);
+    props.setTileStatus("progress"); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
+    await uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId);
 
-    uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId)
-    setError(null)
-    props.setTileStatus("progress") // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
-    props.getTileStatus(props.session, props.teamId, props.geojsonId)
-      .then((status: undefined | "progress" | "created" | "failure") => {
-        props.setTileStatus(status)
-      })
+    const status = await props.getTileStatus();
+    props.setTileStatus(status);
 
-  }, [props])
+  }, [props]);
 
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
   return (
     <Paper className={"geojson-dropzone-container"}>

@@ -12,7 +12,7 @@ import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
 import fetch from "../../lib/fetch";
 
-const {REACT_APP_TILE_SEVER} = process.env
+const {REACT_APP_TILE_SERVER} = process.env
 
 type OwnProps = {
   geojsonId: string | undefined;
@@ -87,8 +87,7 @@ export const MapEditor = (props: Props) => {
   }, [map, style]);
 
   const handleOnAfterLoad = useCallback(async (map: mapboxgl.Map) => {
-
-    const res = await fetch(props.session, `${REACT_APP_TILE_SEVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`, { method: "GET" })
+    const res = await fetch(props.session, `${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`, { method: "GET" })
     const tileJson = await res.json()
     map.fitBounds(tileJson.bounds, {
       padding: 20,

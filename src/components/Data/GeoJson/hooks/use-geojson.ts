@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // @ts-ignore
 import geojsonExtent from "@mapbox/geojson-extent";
@@ -14,22 +14,24 @@ type GeoJSONMeta = {
   gvp_status?: undefined | "progress" | "created" | "failure"
 };
 
+export type GeoJsonMetaSetter = React.Dispatch<React.SetStateAction<GeoJSONMeta | null>>;
+
 export default function useGeoJSON(
   session: Geolonia.Session,
   geojsonId: string | void
 ) {
-  const [geoJsonMeta, setGeoJsonMeta] = React.useState<GeoJSONMeta | null>(
+  const [geoJsonMeta, setGeoJsonMeta] = useState<GeoJSONMeta | null>(
     null
   );
-  const [geoJSON, setGeoJSON] = React.useState<
+  const [geoJSON, setGeoJSON] = useState<
     GeoJSON.FeatureCollection | undefined
   >(void 0);
-  const [bounds, setBounds] = React.useState<
+  const [bounds, setBounds] = useState<
     mapboxgl.LngLatBoundsLike | undefined
   >(undefined);
-  const [error, setError] = React.useState(false);
+  const [error, setError] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (session && geojsonId) {
       // get GeoJSON meta
       fetch(
@@ -44,7 +46,7 @@ export default function useGeoJSON(
           }
         })
         .then(json => {
-          const allowedOrigins = 
+          const allowedOrigins =
             typeof json.allowedOrigins !== "undefined" ? json.allowedOrigins : [];
           setGeoJsonMeta({ ...json, allowedOrigins });
         })

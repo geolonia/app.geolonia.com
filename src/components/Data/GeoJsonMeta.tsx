@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
@@ -18,6 +18,7 @@ import Help from "../custom/Help";
 import fetch from "../../lib/fetch";
 import normalizeOrigin from "../../lib/normalize-origin";
 import { buildApiUrl } from "../../lib/api";
+import { GeoJsonMetaSetter } from "./GeoJson/hooks/use-geojson";
 
 const { REACT_APP_STAGE } = process.env;
 
@@ -33,17 +34,7 @@ type OwnProps = {
   isPublic: boolean;
   allowedOrigins: string[];
   status: string;
-  setGeoJsonMeta: ({
-    name,
-    isPublic,
-    allowedOrigins,
-    status
-  }: {
-    name: string;
-    isPublic: boolean;
-    allowedOrigins: string[];
-    status: string;
-  }) => void;
+  setGeoJsonMeta: GeoJsonMetaSetter;
 
   isPaidTeam: boolean;
   style: string;
@@ -78,34 +69,36 @@ const usePublic = (
   props: Props
 ): [boolean, (nextIsPublic: boolean) => void] => {
   const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
-  const [draftIsPublic, setDraftIsPublic] = React.useState(props.isPublic);
+  const [draftIsPublic, setDraftIsPublic] = useState(props.isPublic);
 
-  React.useEffect(() => {
-    if (isPublic !== draftIsPublic) {
-      fetch(
+  useEffect(() => {
+    if (isPublic === draftIsPublic) {
+      return;
+    }
+
+    (async () => {
+      const rawResp = await fetch(
         session,
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
           body: JSON.stringify({ isPublic: draftIsPublic, allowedOrigins, name, status })
         }
-      )
-        .then(res => {
-          if (res.status < 400) {
-            return res.json();
-          } else {
-            throw new Error();
-          }
-        })
-        .then(() => {
-          setGeoJsonMeta({ isPublic: draftIsPublic, allowedOrigins, name, status });
-        })
-        .catch(() => {
-          // 意図せずリクエストが失敗している
-          // 元に戻す
-          setDraftIsPublic(isPublic);
-        });
-    }
+      );
+      if (rawResp.status >= 400) {
+        setDraftIsPublic(isPublic);
+        return;
+      }
+
+      const resp = await rawResp.json();
+      setGeoJsonMeta({
+        isPublic: resp.body._source.isPublic,
+        name: resp.body._source.name,
+        allowedOrigins: resp.body._source.allowedOrigins,
+        status: resp.body._source.status,
+        gvp_status: resp.body._source.gvp_status,
+      });
+    })();
   }, [
     draftIsPublic,
     geojsonId,
@@ -124,31 +117,41 @@ const useStatus = (
   props: Props & StateProps
 ): [string, (nextStatus: string) => void] => {
   const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
-  const [draftStatus, setDraftStatus] = React.useState(props.status);
+  const [ draftStatus, setDraftStatus ] = useState(props.status);
 
-  React.useEffect(() => {
-    if (status !== draftStatus) {
-      fetch(
+  useEffect(() => {
+    if (status === draftStatus) {
+      return;
+    }
+
+    (async () => {
+      const rawResp = await fetch(
         session,
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
           body: JSON.stringify({ isPublic, name, allowedOrigins, status: draftStatus })
         }
-      )
-        .then(res => {
-          if (res.status < 400) {
-            return res.json();
-          } else {
-            throw new Error();
-          }
-        })
-        .then(() => {
-          setGeoJsonMeta({ isPublic, name, allowedOrigins, status: draftStatus });
-        });
-    }
-  }, [draftStatus, geojsonId, isPublic, allowedOrigins, name, session, setGeoJsonMeta, status]);
-  return [draftStatus, setDraftStatus];
+      );
+
+      if (rawResp.status >= 400) {
+        throw new Error(`HTTP error`);
+      }
+
+      const resp = await rawResp.json();
+      setGeoJsonMeta({
+        isPublic: resp.body._source.isPublic,
+        name: resp.body._source.name,
+        allowedOrigins: resp.body._source.allowedOrigins,
+        status: resp.body._source.status,
+        gvp_status: resp.body._source.gvp_status,
+      });
+    })();
+  }, [
+    draftStatus, geojsonId, isPublic, allowedOrigins, name, session, setGeoJsonMeta, status
+  ]);
+
+  return [ draftStatus, setDraftStatus ];
 };
 
 const GeoJSONMeta = (props: Props) => {
@@ -159,23 +162,24 @@ const GeoJSONMeta = (props: Props) => {
   // UI上での変更をリクエスト前まで保持しておくための State
   const [draftIsPublic, setDraftIsPublic] = usePublic(props);
   const [draftStatus, setDraftStatus] = useStatus(props);
-  const [draftName, setDraftName] = React.useState(props.name);
-  const [draftAllowedOrigins, setDraftAllowedOrigins] = React.useState("");
+  const [draftName, setDraftName] = useState(props.name);
+  const [draftAllowedOrigins, setDraftAllowedOrigins] = useState("");
 
-  const [saveStatus, setSaveStatus] = React.useState<false | "requesting" | "success" | "failure">(false);
+  const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
 
   // effects
-  React.useEffect(() => {
+  useEffect(() => {
     setDraftAllowedOrigins(allowedOrigins.join("\n"));
   }, [allowedOrigins]);
-  
+
   // fire save name request
-  const saveHandler = (draftName: string) => {
+  const saveHandler = useCallback(async (draftName: string) => {
     if (!session) {
-      return Promise.resolve();
+      return;
     }
-    return fetch(
+
+    const rawResp = await fetch(
       session,
       buildApiUrl(`/geojsons/${geojsonId}`),
       {
@@ -187,23 +191,17 @@ const GeoJSONMeta = (props: Props) => {
           status
         })
       }
-    )
-      .then(res => {
-        if (res.status < 400) {
-          return res.json();
-        } else {
-          // will be caught at <Save />
-          throw new Error();
-        }
-      })
-      .then(() => {
-        setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status });
-      });
-  };
+    );
+    if (rawResp.status >= 400) {
+      throw new Error();
+    }
+    // const resp = await rawResp.json();
+    setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status });
+  }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status]);
 
   const saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
 
-  const onUpdateClick = React.useCallback(() => {
+  const onUpdateClick = useCallback(() => {
     if (saveDisabled || !session) {
       return Promise.resolve();
     }
