@@ -1,5 +1,5 @@
 import React from "react";
-const { REACT_APP_STAGE, REACT_APP_TILE_SEVER } = process.env;
+const { REACT_APP_STAGE, REACT_APP_TILE_SERVER } = process.env;
 
 type Toggle = "on" | "off";
 
@@ -86,7 +86,7 @@ class Map extends React.Component<Props, State> {
         data-navigation-control={this.props.navigationControl}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
-        data-simple-vector={`${REACT_APP_TILE_SEVER}/customtiles/${this.props.geojsonId}/tiles.json?key=YOUR-API-KEY`}
+        data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${this.props.geojsonId}/tiles.json?key=YOUR-API-KEY`}
       />
     );
   }
