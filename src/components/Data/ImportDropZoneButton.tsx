@@ -3,10 +3,11 @@ import ImportDropZone from "./ImportDropZone"
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { __ } from "@wordpress/i18n"
 import "./ImportDropZoneButton.scss"
+import { TileStatus } from "./GeoJson"
 
 type Props = {
-  getTileStatus: Function,
-  setTileStatus: Function,
+  getTileStatus: () => Promise<TileStatus>,
+  setTileStatus: (value: TileStatus) => void,
   session: Geolonia.Session,
   isPaidTeam: boolean,
   teamId?: string,
