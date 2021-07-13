@@ -373,7 +373,7 @@ const Content = (props: Props) => {
       flexDirection: "column"
     }}
     >
-      <p>{__("Adding your data to the map...")}</p>
+      { tileStatus === "progress" &&  <p>{__("Adding your data to the map...")}</p> }
       <CircularProgress />
     </div>;
   } else if (tileStatus === undefined) {
