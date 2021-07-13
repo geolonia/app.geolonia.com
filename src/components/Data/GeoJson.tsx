@@ -362,7 +362,7 @@ const Content = (props: Props) => {
   }
 
   let mapEditorElement: JSX.Element = <></>;
-  if (tileStatus === null || tileStatus === undefined || tileStatus === "progress") {
+  if (tileStatus === null || tileStatus === "progress") {
     mapEditorElement = <div
       style={{
       width: "100%",
@@ -376,6 +376,15 @@ const Content = (props: Props) => {
       <p>{__("Adding your data to the map...")}</p>
       <CircularProgress />
     </div>;
+  } else if (tileStatus === undefined) {
+    mapEditorElement = <ImportDropZone
+      session={props.session}
+      teamId={props.teamId}
+      geojsonId={props.geojsonId}
+      isPaidTeam={props.isPaidTeam}
+      getTileStatus={getTileStatus}
+      setTileStatus={setTileStatus}
+    />
   } else if (tileStatus === "created") {
     mapEditorElement = <>
       <MapEditor
