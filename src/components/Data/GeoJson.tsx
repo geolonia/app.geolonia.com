@@ -59,8 +59,8 @@ type Props = OwnProps & RouterProps & StateProps;
 
 export type TileStatus = null | undefined | "progress" | "created" | "failure";
 
-const sleep = () => {
-  return new Promise(resolve => setTimeout(resolve, 1000));
+const sleep = (msec: number) => {
+  return new Promise(resolve => setTimeout(resolve, msec));
 }
 
 const Content = (props: Props) => {
@@ -333,6 +333,7 @@ const Content = (props: Props) => {
   const getTileStatus = useCallback(async () => {
     let status = "progress"
     while (status !== "created" && status !== "failure") {
+      await sleep(2500)
       try {
         const res = await fetch(
           session,
@@ -345,7 +346,6 @@ const Content = (props: Props) => {
       } catch (error) {
         throw new Error();
       }
-      await sleep()
     }
     return status
   }, [session, geojsonId, teamId]);

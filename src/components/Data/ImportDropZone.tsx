@@ -22,7 +22,7 @@ const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: 
   }
 
   const signedURL = result.data.links.putGeoJSON;
-  return fetch<any>(
+  await fetch<any>(
     session,
     signedURL,
     {
@@ -44,47 +44,46 @@ type Props = {
 
 const Content = (props: Props) => {
 
-  const [error, setError] = React.useState<string | null>(null)
+  const [error, setError] = React.useState<string | null>(null);
 
   const onDrop = useCallback( async (acceptedFiles) => {
 
     if (!props.session || !props.teamId || !props.geojsonId) {
-      setError(__('Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/'))
-      return
+      setError(__('Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/'));
+      return;
     }
 
     if (acceptedFiles.length !== 1) {
-      setError(__('Error: Can not upload multiple files.'))
-      return
+      setError(__('Error: Can not upload multiple files.'));
+      return;
     }
 
     if (!acceptedFiles[0].name.endsWith('.geojson') && !acceptedFiles[0].name.endsWith('.json')) {
-      setError(__('Error: Please upload *.geojson or *.json file.'))
-      return
+      setError(__('Error: Please upload *.geojson or *.json file.'));
+      return;
     }
 
-    let maxUploadSize
+    let maxUploadSize;
     if (props.isPaidTeam) {
-      maxUploadSize = GeoJsonMaxUploadSizePaid
+      maxUploadSize = GeoJsonMaxUploadSizePaid;
     } else {
-      maxUploadSize = GeoJsonMaxUploadSize
+      maxUploadSize = GeoJsonMaxUploadSize;
     }
 
     if (acceptedFiles[0].size > maxUploadSize) {
-      setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), maxUploadSize / 1000000))
-      return
+      setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), maxUploadSize / 1000000));
+      return;
     }
+    setError(null);
+    props.setTileStatus("progress"); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
+    await uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId);
 
-    uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId)
-    setError(null)
-    props.setTileStatus("progress") // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
+    const status = await props.getTileStatus();
+    props.setTileStatus(status);
 
-    const status = await props.getTileStatus()
-    props.setTileStatus(status)
+  }, [props]);
 
-  }, [props])
-
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
+  const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
   return (
     <Paper className={"geojson-dropzone-container"}>
