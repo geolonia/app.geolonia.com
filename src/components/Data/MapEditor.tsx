@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import GeoloniaMap from "../custom/GeoloniaMap";
 
 import jsonStyle from "../custom/drawStyle";
@@ -9,10 +9,14 @@ import fullscreen from "./fullscreenMap";
 import centroid from "@turf/centroid";
 // @ts-ignore
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
+
+import fetch from "../../lib/fetch";
+
 const {REACT_APP_TILE_SEVER} = process.env
 
 type OwnProps = {
   geojsonId: string | undefined;
+  session: Geolonia.Session;
   geoJSON: GeoJSON.FeatureCollection | undefined;
   onClickFeature: Function;
   drawCallback: Function;
@@ -51,46 +55,46 @@ export const MapEditor = (props: Props) => {
   const { geojsonId, geoJSON, drawCallback, getNumberFeatures, bounds, style } = props;
 
   // mapbox map and draw binding
-  const [map, setMap] = React.useState<mapboxgl.Map | undefined>(undefined);
-  const [draw, setDraw] = React.useState<MapboxDraw | undefined>(undefined);
-  const [events, setEvents] = React.useState<any>(null);
+  const [map, setMap] = useState<mapboxgl.Map | undefined>(undefined);
+  const [draw, setDraw] = useState<MapboxDraw | undefined>(undefined);
+  const [events, setEvents] = useState<any>(null);
 
   // import geoJSON
   // WebSocket incomming
-  React.useEffect(() => {
+  useEffect(() => {
     if (draw && geoJSON) {
       draw.deleteAll();
       draw.set(geoJSON);
     }
   }, [draw, geoJSON]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (geoJSON) {
       getNumberFeatures();
     }
   }, [geoJSON, getNumberFeatures]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (draw) {
       drawCallback(draw);
     }
   }, [draw, drawCallback]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (map && style) {
       map.setStyle(style);
     }
   }, [map, style]);
 
-  const handleOnAfterLoad = async (map: mapboxgl.Map) => {
+  const handleOnAfterLoad = useCallback(async (map: mapboxgl.Map) => {
 
-    const res = await fetch(`${REACT_APP_TILE_SEVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`)
+    const res = await fetch(props.session, `${REACT_APP_TILE_SEVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`, { method: "GET" })
     const tileJson = await res.json()
     map.fitBounds(tileJson.bounds, {
       padding: 20,
       maxZoom: 16,
     })
-    
+
     const draw: MapboxDraw = new MapboxDraw({
       boxSelect: true,
       controls: {
@@ -119,9 +123,9 @@ export const MapEditor = (props: Props) => {
     map.on("draw.delete", mapEvents.drawUpdate);
     map.on("draw.update", mapEvents.drawUpdate);
     setEvents(mapEvents);
-  };
+  }, [props, geojsonId]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (map && events) {
       map.off("draw.selectionchange", events.selectionChange);
       map.off("draw.create", events.drawUpdate);
@@ -136,6 +140,19 @@ export const MapEditor = (props: Props) => {
     }
     // eslint-disable-next-line
   }, [props]);
+
+  const transformRequest = useCallback((url: string, resourceType) => {
+    if (props.session && url.indexOf('customtiles') >= 0) {
+      const idToken = props.session.getIdToken().getJwtToken();
+      return {
+        url,
+        headers: {
+          Authorization: idToken
+        }
+      }
+    }
+    return { url };
+  }, [props.session])
 
   return (
     <div style={mapStyle}>
@@ -153,6 +170,9 @@ export const MapEditor = (props: Props) => {
         onAfterLoad={handleOnAfterLoad}
         bounds={bounds}
         geojsonId={geojsonId}
+        initialMapOptions={{
+          transformRequest
+        }}
       />
     </div>
   );
