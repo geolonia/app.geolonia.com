@@ -6,30 +6,17 @@ import MapEditor from "./MapEditor";
 import Delete from "../custom/Delete";
 import DangerZone from "../custom/danger-zone";
 
-// @ts-ignore
-import MapboxDraw from "@mapbox/mapbox-gl-draw";
-// @ts-ignore
-import geojsonMerge from "@mapbox/geojson-merge";
-
 import Title from "../custom/Title";
-import PropsEditor from "./PropsEditor";
-import SimpleStyle from "./SimpleStyle";
-import ImportButton from "./ImportButton";
 import ImportDropZoneButton from "./ImportDropZoneButton";
 import ImportDropZone from "./ImportDropZone"
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from "./GeoJsonMeta";
 import StyleSelector from "./StyleSelector";
-import Snackbar from "@material-ui/core/Snackbar";
-import Button from "@material-ui/core/Button";
 import { CircularProgress } from "@material-ui/core";
 
 // lib
 import { connect } from "react-redux";
-import { __, sprintf } from "@wordpress/i18n";
-import blackOrWhite from "../../lib/black-or-white";
-// @ts-ignore
-import geojsonExtent from "@mapbox/geojson-extent";
+import { __ } from "@wordpress/i18n";
 
 // hooks
 import useWebSocket from "./GeoJson/hooks/use-web-socket";
@@ -65,11 +52,6 @@ const sleep = (msec: number) => {
 
 const Content = (props: Props) => {
   const [message] = useState("");
-  const [currentFeature, setCurrentFeature] = useState<
-    Geolonia.Feature | undefined
-  >();
-  const [drawObject, setDrawObject] = useState<MapboxDraw>();
-  const [numberFeatures, setNumberFeatures] = useState<number>(0);
   const [style, setStyle] = useState<string>("geolonia/basic");
   const [tileStatus, setTileStatus] = useState<TileStatus>(null);
 
@@ -77,10 +59,7 @@ const Content = (props: Props) => {
   const {
     geoJsonMeta,
     bounds,
-    geoJSON,
-    setGeoJSON,
     setGeoJsonMeta,
-    setBounds,
     error
   } = useGeoJSON(props.session, props.geojsonId);
 
@@ -90,7 +69,7 @@ const Content = (props: Props) => {
     geojsonId,
   } = props;
 
-  const [socket, updateRequired, resetUpdateRequired] = useWebSocket(
+  const [socket] = useWebSocket(
     props.session,
     props.teamId,
     props.geojsonId
@@ -127,34 +106,6 @@ const Content = (props: Props) => {
     }
   ];
 
-  /**
-   * Merge default properties to the feature to prevent undefined error.
-   *
-   * @param feature
-   */
-  const mergeDefaultProperties = (feature: Geolonia.Feature | undefined) => {
-    if (!feature) {
-      return feature;
-    }
-
-    const type = feature.geometry.type;
-    const styleSpec = SimpleStyle[type];
-
-    for (const key in styleSpec) {
-      if ("undefined" === typeof feature.properties[key]) {
-        feature.properties[key] = styleSpec[key].default;
-      }
-    }
-
-    if ("undefined" === typeof feature.properties.title) {
-      feature.properties.title = "";
-    }
-
-    if ("undefined" === typeof feature.properties.description) {
-      feature.properties.description = "";
-    }
-  };
-
   const onDeleteClick = () => {
     const { session, teamId, geojsonId } = props;
     if (!teamId || !geojsonId) {
@@ -183,151 +134,6 @@ const Content = (props: Props) => {
           messageDisplayDuration
         );
       });
-  };
-
-  /**
-   * Update the `currentFeature` and set default properties.
-   *
-   * @param feature
-   */
-  const onClickFeatureHandler = (event: any) => {
-    setBounds(undefined);
-
-    if (1 < event.features.length || 0 === event.features.length) {
-      setCurrentFeature(undefined); // We don't support multiple selection to edit property.
-      return;
-    }
-
-    // Set the default properties, title, description ..., if the feature doesn't have them.
-    mergeDefaultProperties(event.features[0]);
-    setCurrentFeature(event.features[0]);
-  };
-
-  /**
-   * Set the Mapbox GL Draw object into state.
-   *
-   * @param drawObject
-   */
-  const drawCallback = (drawObject: MapboxDraw) => {
-    setDrawObject(drawObject);
-  };
-
-  /**
-   * Fires when user will do something change property.
-   *
-   * @param key
-   * @param value
-   */
-  const updateFeatureProps = (
-    key: keyof Geolonia.FeatureProperties,
-    value: string | number
-  ) => {
-    if (currentFeature) {
-      const feature = { ...currentFeature } as Geolonia.Feature;
-      feature.properties[key] = value;
-      drawObject.setFeatureProperty(feature.id, key, value);
-
-      if ("text-color" === key) {
-        feature.properties["text-halo-color"] = blackOrWhite(value as string);
-        drawObject.setFeatureProperty(
-          feature.id,
-          "text-halo-color",
-          blackOrWhite(value as string)
-        );
-      }
-
-      setCurrentFeature(feature);
-      setGeoJSON(drawObject.getAll()); // It is needed to assign result of edit to the map.
-
-      fetch(
-        props.session,
-        buildApiUrl(`/geojsons/${props.geojsonId}/features/${feature.id}`),
-        {
-          method: "PUT",
-          body: JSON.stringify(feature)
-        }
-      ).then(() => publish(feature.id));
-    }
-  };
-
-  /**
-   * Fires when a feature will be created, updated, deleted.
-   * @param event
-   */
-  const saveFeatureCallback = (event: any) => {
-    if ("draw.create" === event.type) {
-      fetch(
-        props.session,
-        buildApiUrl(`/geojsons/${props.geojsonId}/features`),
-        {
-          method: "POST",
-          body: JSON.stringify(event.features)
-        }
-      ).then(() => publish());
-    } else if ("draw.update" === event.type) {
-      event.features.forEach((feature: GeoJSON.Feature) => {
-        return fetch(
-          props.session,
-          buildApiUrl(`/geojsons/${props.geojsonId}/features/${feature.id}`),
-          {
-            method: "PUT",
-            body: JSON.stringify(feature)
-          }
-        ).then(() => {
-          publish();
-        });
-      });
-    } else if ("draw.delete" === event.type) {
-      setCurrentFeature(undefined); // Set undefined to currentFeature
-      Promise.all(
-        event.features.map((feature: GeoJSON.Feature) => {
-          return fetch(
-            props.session,
-            buildApiUrl(`/geojsons/${props.geojsonId}/features/${feature.id}`),
-            {
-              method: "PUT",
-              body: JSON.stringify({ deleted: true })
-            }
-          );
-        })
-      ).then(() => {
-        publish();
-      });
-    }
-  };
-
-  const GeoJsonImporter = (geojson: GeoJSON.FeatureCollection) => {
-    drawObject.changeMode(drawObject.modes.SIMPLE_SELECT);
-    setCurrentFeature(undefined); // Deselect a feature, because it may be deleted.
-
-    for (let i = 0; i < geojson.features.length; i++) {
-      if (geojson.features[i].id) {
-        // Delete existing feature that has same `id`.
-        drawObject.delete(geojson.features[i].id);
-      }
-    }
-
-    // Get all features that contains existing and imported feature.
-    const all = geojsonMerge.merge([drawObject.getAll(), geojson]);
-
-    setGeoJSON(all);
-    setBounds(geojsonExtent(all));
-
-    fetch(
-      props.session,
-      buildApiUrl(`/geojsons/${props.geojsonId}/features`),
-      {
-        method: "POST",
-        body: JSON.stringify(all.features)
-      }
-    ).then(() => publish());
-  };
-
-  const getNumberFeatures = () => {
-    if (drawObject) {
-      const number = drawObject.getAll().features.length;
-      setNumberFeatures(number);
-    }
   };
 
   const getTileStatus = useCallback(async () => {
@@ -390,20 +196,9 @@ const Content = (props: Props) => {
       <MapEditor
         session={props.session}
         style={style}
-        drawCallback={drawCallback}
-        getNumberFeatures={getNumberFeatures}
         geojsonId={props.geojsonId}
-        geoJSON={geoJSON}
-        onClickFeature={onClickFeatureHandler}
-        saveCallback={saveFeatureCallback}
         bounds={bounds}
       />
-      {currentFeature &&
-        <PropsEditor
-          currentFeature={currentFeature}
-          updateFeatureProperties={updateFeatureProps}
-        />
-      }
     </>;
   } else if (tileStatus === "failure") {
     mapEditorElement = <div
@@ -446,60 +241,8 @@ const Content = (props: Props) => {
         </div>
       )}
 
-      <Snackbar
-        className={"snackbar-update-required"}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        open={updateRequired === true}
-        message={__("Update required")}
-        action={
-          <>
-            <Button
-              color="secondary"
-              size="small"
-              onClick={() => {
-                fetch(
-                  props.session,
-                  buildApiUrl(`/geojsons/${props.geojsonId}/features`)
-                )
-                  .then(res => res.json())
-                  .then(json => {
-                    const geojson = {
-                      type: "FeatureCollection",
-                      features: json.features
-                    } as GeoJSON.FeatureCollection;
-                    setGeoJSON(geojson);
-                    setBounds(geojsonExtent(geojson));
-                    resetUpdateRequired();
-                  });
-              }}
-            >
-              {__("Reload")}
-            </Button>
-            <Button
-              color="secondary"
-              size="small"
-              onClick={() => {
-                resetUpdateRequired();
-              }}
-            >
-              {__("Continue")}
-            </Button>
-          </>
-        }
-      ></Snackbar>
-
       <div className="editor">
         {mapEditorElement}
-      </div>
-
-      <div className="number-features">
-        {sprintf(
-          __("Total Count of Features: %s"),
-          new Intl.NumberFormat().format(numberFeatures)
-        )}
       </div>
 
       {props.geojsonId && geoJsonMeta ? (

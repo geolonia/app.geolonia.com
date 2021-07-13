@@ -1709,18 +1709,6 @@
     rw "~0.1.4"
     traverse "~0.6.6"
 
-"@mapbox/geojson-merge@^1.1.1":
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/@mapbox/geojson-merge/-/geojson-merge-1.1.1.tgz#0848e09ae0e44eeb6ea2f7943f54c76fc2a561ed"
-  integrity sha512-gFrqoPnIjD6RQt2uJTG4q5MhCDPsCS8IjWNDJs0HFQtheHSLK5H9u2MHcM0UL6CA4ALeABGcz2JL7IwwPntFqQ==
-  dependencies:
-    "@mapbox/geojson-normalize" "^0.0.1"
-    geojson-fixtures "~0.1.0"
-    geojson-stream "0.0.1"
-    minimist "^1.2.0"
-    stream-concat "0.1.0"
-    tape "^4.9.0"
-
 "@mapbox/geojson-normalize@0.0.1", "@mapbox/geojson-normalize@^0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@mapbox/geojson-normalize/-/geojson-normalize-0.0.1.tgz#1da1e6b3a7add3ad29909b30f438f60581b7cd80"
@@ -2115,14 +2103,6 @@
     "@babel/runtime" "^7.8.4"
     "@testing-library/dom" "^6.15.0"
     "@types/testing-library__react" "^9.1.2"
-
-"@turf/centroid@^6.0.2":
-  version "6.3.0"
-  resolved "https://registry.yarnpkg.com/@turf/centroid/-/centroid-6.3.0.tgz#e86611e1e171fb0a38ade30453351a00e04956a3"
-  integrity sha512-7KTyqhUEqXDoyR/nf/jAXiW8ZVszEnrp5XZkgYyrf2GWdSovSO0iCN1J3bE2jkJv7IWyeDmGYL61GGzuTSZS2Q==
-  dependencies:
-    "@turf/helpers" "^6.3.0"
-    "@turf/meta" "^6.3.0"
 
 "@turf/helpers@^6.3.0":
   version "6.3.0"
