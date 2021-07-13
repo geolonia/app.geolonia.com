@@ -7,7 +7,6 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import LockIcon from "@material-ui/icons/Lock";
 import EditIcon from "@material-ui/icons/Edit";
 import DoneIcon from "@material-ui/icons/Done";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import * as clipboard from "clipboard-polyfill";
@@ -21,12 +20,6 @@ import { buildApiUrl } from "../../lib/api";
 import { GeoJsonMetaSetter } from "./GeoJson/hooks/use-geojson";
 
 const { REACT_APP_STAGE } = process.env;
-
-type Meta = {
-  name: string;
-  isPublic: boolean;
-  status: string;
-};
 
 type OwnProps = {
   geojsonId: string;
@@ -54,16 +47,6 @@ type Props = OwnProps & StateProps;
 //     );
 //   }
 // };
-
-const copyUrlToClipBoard = () => {
-  const input = document.querySelector(
-    ".geolonia-geojson-api-endpoint"
-  ) as HTMLInputElement;
-  if (input) {
-    input.select();
-    clipboard.writeText(input.value);
-  }
-};
 
 const usePublic = (
   props: Props
@@ -241,9 +224,6 @@ const GeoJSONMeta = (props: Props) => {
       });
   }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta])
 
-  const downloadDisabled = status === "draft" || !isPublic;
-  const downloadUrl = buildApiUrl(`/geojsons/pub/${geojsonId}`);
-
   return (
     <Grid className="geojson-meta" container spacing={2}>
       <Grid item sm={4} xs={12}>
@@ -335,62 +315,6 @@ const GeoJSONMeta = (props: Props) => {
         </Paper>
       </Grid>
       <Grid item sm={8} xs={12}>
-        <Paper className="geojson-title-description">
-          <h3>{__("Download GeoJSON")}</h3>
-          {!downloadDisabled && (
-            <input
-              disabled={downloadDisabled}
-              className="geolonia-geojson-api-endpoint"
-              value={downloadUrl}
-              readOnly={true}
-            />
-          )}
-          <p>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              style={{ width: "100%" }}
-              onClick={() => {
-                window
-                  .fetch(downloadUrl)
-                  .then(res => {
-                    if (res.status < 400) {
-                      return res.text();
-                    } else {
-                      throw new Error("");
-                    }
-                  })
-                  .then(geojsonString => {
-                    const element = document.createElement("a");
-                    const file = new Blob([geojsonString], {
-                      type: "application/geo+json"
-                    });
-                    element.href = URL.createObjectURL(file);
-                    element.download = `${geojsonId}.geojson`;
-                    document.body.appendChild(element); // Required for this to work in FireFox
-                    element.click();
-                    document.body.removeChild(element);
-                  })
-                  .catch(err => {
-                    //
-                  });
-              }}
-              disabled={downloadDisabled}
-            >
-              {__("Download")}
-            </Button>
-          </p>
-          {!downloadDisabled && (
-            <p style={{ textAlign: "center", fontSize: "90%" }}>
-              {__("Or")}
-              <br />
-              <button className="copy-button" onClick={copyUrlToClipBoard}>
-                {__("Copy endpoint URL to clipboard")}
-              </button>
-            </p>
-          )}
-        </Paper>
         {draftIsPublic && (
           <Paper className="geojson-title-description">
             <h3>{__("Access allowed URLs")}</h3>

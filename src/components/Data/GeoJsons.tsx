@@ -14,15 +14,6 @@ import queryString from "query-string";
 import fetch from "../../lib/fetch";
 import { buildApiUrl } from "../../lib/api";
 
-const { REACT_APP_STAGE } = process.env;
-
-type Row = {
-  id: number | string;
-  name: string;
-  updated: string;
-  isPublic: boolean;
-};
-
 type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
