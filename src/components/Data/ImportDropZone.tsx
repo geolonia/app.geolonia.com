@@ -8,31 +8,28 @@ import fetch from "../../api/custom-fetch";
 import "./ImportDropZone.scss"
 const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
-const uploadGeoJson = (geojson: File, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
-
-  return fetch<{ links: { putGeoJSON: string } }>(
+const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
+  const result = await fetch<{ links: { putGeoJSON: string; }; }>(
     session,
     `${REACT_APP_API_BASE}/${REACT_APP_STAGE}/geojsons/${geojsonId}/links?teamId=${teamId}`,
     { method: "GET" },
     { absPath: true }
-  ).then(result => {
+  );
 
-    if (result.error) {
-      return Promise.resolve(result);
-    } else {
+  if (result.error) {
+    return result;
+  }
 
-      const signedURL = result.data.links.putGeoJSON;
-      return fetch<any>(
-        session,
-        signedURL,
-        {
-          method: "PUT",
-          body: geojson
-        },
-        { absPath: true, noAuth: true, decode: "text" }
-      )
-    }
-  })
+  const signedURL = result.data.links.putGeoJSON;
+  return fetch<any>(
+    session,
+    signedURL,
+    {
+      method: "PUT",
+      body: geojson
+    },
+    { absPath: true, noAuth: true, decode: "text" }
+  );
 }
 
 type Props = {

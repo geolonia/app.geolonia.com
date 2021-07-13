@@ -87,7 +87,6 @@ export const MapEditor = (props: Props) => {
   }, [map, style]);
 
   const handleOnAfterLoad = useCallback(async (map: mapboxgl.Map) => {
-
     const res = await fetch(props.session, `${REACT_APP_TILE_SEVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`, { method: "GET" })
     const tileJson = await res.json()
     map.fitBounds(tileJson.bounds, {
