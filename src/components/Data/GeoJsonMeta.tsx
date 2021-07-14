@@ -428,6 +428,9 @@ const GeoJSONMeta = (props: Props) => {
           <button
             className="launch-get-geolonia MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge"
             tabIndex={0}
+            data-lat="38.592126509927425"
+            data-lng="136.8448477633185"
+            data-zoom="4"
             data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`}
             style={{ width: "100%" }}
           >
