@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 // components
 import AsyncTable from "../custom/AsyncTable";
@@ -46,16 +46,16 @@ type typeTableRows = {
 };
 
 function Content(props: Props) {
-  const [message, setMessage] = React.useState("");
-  const [geoJsons, setGeoJsons] = React.useState<typeTableRows[]>([]);
+  const [message, setMessage] = useState("");
+  const [geoJsons, setGeoJsons] = useState<typeTableRows[]>([]);
   // watchDog monitors successful POST request and force refresh.
-  const [watchdog, setWatchdog] = React.useState(0);
-  const [perPage, setPerPage] = React.useState(10);
-  const [totalCount, setTotalCount] = React.useState(0);
-  const [loading, setLoading] = React.useState(false);
+  const [watchdog, setWatchdog] = useState(0);
+  const [perPage, setPerPage] = useState(1000);
+  const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(false);
 
   const page = Number(queryString.parse(props.location.search).page) || 0;
-  React.useEffect(() => {
+  useEffect(() => {
     if (props.teamId && props.session) {
       setLoading(true);
       fetch(
@@ -125,7 +125,7 @@ function Content(props: Props) {
     }
   ];
 
-  const handler = (name: string) => {
+  const createHandler = useCallback(async (name: string) => {
     const { teamId, session } = props;
     if (!(teamId && session)) {
       return Promise.resolve();
@@ -150,7 +150,7 @@ function Content(props: Props) {
         // wait until the Elasticsearch completes indexing
         return new Promise<void>(resolve => {
           setTimeout(() => {
-            setWatchdog(watchdog + 1);
+            setWatchdog((oldWatchdog) => oldWatchdog + 1);
             resolve();
           }, 1500);
         });
@@ -159,7 +159,7 @@ function Content(props: Props) {
         setMessage(__("Network error."));
         throw new Error(); // will be caught by <AddNew />
       });
-  };
+  }, [props]);
 
   return (
     <div>
@@ -173,7 +173,7 @@ function Content(props: Props) {
         label={__("Create a new dataset")}
         description={__("Please enter the name of the new dataset.")}
         defaultValue={__("My dataset")}
-        onClick={handler}
+        onClick={createHandler}
         errorMessage={message}
       />
 

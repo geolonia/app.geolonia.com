@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react'
+import React, {useCallback, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
 import Paper from "@material-ui/core/Paper";
 import { GeoJsonMaxUploadSize, GeoJsonMaxUploadSizePaid } from "../../constants";
@@ -43,12 +43,18 @@ type Props = {
 }
 
 const Content = (props: Props) => {
-
-  const [error, setError] = React.useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const {
+    session,
+    teamId,
+    geojsonId,
+    setTileStatus,
+    getTileStatus,
+  } = props;
+  const maxUploadSize = props.isPaidTeam ? GeoJsonMaxUploadSizePaid : GeoJsonMaxUploadSize;
 
   const onDrop = useCallback( async (acceptedFiles) => {
-
-    if (!props.session || !props.teamId || !props.geojsonId) {
+    if (!session || !teamId || !geojsonId) {
       setError(__('Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/'));
       return;
     }
@@ -63,25 +69,18 @@ const Content = (props: Props) => {
       return;
     }
 
-    let maxUploadSize;
-    if (props.isPaidTeam) {
-      maxUploadSize = GeoJsonMaxUploadSizePaid;
-    } else {
-      maxUploadSize = GeoJsonMaxUploadSize;
-    }
-
     if (acceptedFiles[0].size > maxUploadSize) {
       setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), maxUploadSize / 1000000));
       return;
     }
     setError(null);
-    props.setTileStatus("progress"); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
-    await uploadGeoJson(acceptedFiles[0], props.session, props.teamId, props.geojsonId);
+    setTileStatus("progress"); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
+    await uploadGeoJson(acceptedFiles[0], session, teamId, geojsonId);
 
-    const status = await props.getTileStatus();
-    props.setTileStatus(status);
+    const status = await getTileStatus();
+    setTileStatus(status);
 
-  }, [props]);
+  }, [geojsonId, getTileStatus, maxUploadSize, session, setTileStatus, teamId]);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
 
@@ -92,7 +91,7 @@ const Content = (props: Props) => {
         {isDragActive ? <p>{__("Drop file to add your map.")}</p> : (
           <>
             <CloudUploadIcon fontSize="large" />
-            <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
+            <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), maxUploadSize / 1000000)})</p>
             <p>{__("Drag and drop a file here to add your map,")}<br />{__("Or click to choose your file")}</p>
           </>
         )}
