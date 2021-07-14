@@ -395,7 +395,7 @@ const GeoJSONMeta = (props: Props) => {
         <p>
           <Interweave
             content={__(
-              "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file."
+              "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file. <br/> Please replace YOUR-API-KEY to your API key. If you don't have one, create it from <a href='#/api-keys'>API keys</a> page."
             )}
           />
         </p>
