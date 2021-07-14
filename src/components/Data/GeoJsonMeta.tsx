@@ -21,7 +21,7 @@ import { buildApiUrl } from "../../lib/api";
 import { GeoJsonMetaSetter } from "./GeoJson/hooks/use-geojson";
 import Interweave from "interweave";
 
-const { REACT_APP_STAGE } = process.env;
+const { REACT_APP_STAGE, REACT_APP_TILE_SERVER } = process.env;
 
 type Meta = {
   name: string;
@@ -425,15 +425,13 @@ const GeoJSONMeta = (props: Props) => {
           )}
         </p>
         <p>
-          <Button
+          <button
             className="launch-get-geolonia"
-            variant="contained"
-            color="primary"
-            size="large"
+            data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`}
             style={{ width: "100%" }}
           >
             {__("Get HTML")}
-          </Button>
+          </button>
         </p>
         <Typography component="h3" style={styleH3}>
           {__("Step 3")}
