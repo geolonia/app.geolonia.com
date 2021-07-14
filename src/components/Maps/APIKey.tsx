@@ -333,8 +333,8 @@ const Content = (props: Props) => {
             </p>
             <p>
               <Button
-                className="launch-get-geolonia"
-                variant="contained"
+                // className="launch-get-geolonia"
+                // variant="contained"
                 color="primary"
                 size="large"
                 style={{ width: "100%" }}

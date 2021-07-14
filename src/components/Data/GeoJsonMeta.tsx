@@ -81,7 +81,7 @@ const styleTextarea: React.CSSProperties = {
   color: "#555555",
   fontFamily: "monospace",
   resize: "none",
-  height: "5rem",
+  height: "2.5rem",
   padding: "8px"
 };
 
@@ -205,6 +205,12 @@ const GeoJSONMeta = (props: Props) => {
 
   const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
+
+  React.useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://geolonia.github.io/get-geolonia/app.js";
+    document.body.appendChild(script);
+  }, []);
 
   // effects
   useEffect(() => {
