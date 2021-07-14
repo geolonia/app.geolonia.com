@@ -426,11 +426,13 @@ const GeoJSONMeta = (props: Props) => {
         </p>
         <p>
           <button
-            className="launch-get-geolonia"
+            className="launch-get-geolonia MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-containedSizeLarge MuiButton-sizeLarge"
+            tabIndex={0}
             data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`}
             style={{ width: "100%" }}
           >
-            {__("Get HTML")}
+            <span className="MuiButton-label">{__("Get HTML")}</span>
+            <span className="MuiTouchRipple-root"></span>
           </button>
         </p>
         <Typography component="h3" style={styleH3}>
