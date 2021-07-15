@@ -123,46 +123,46 @@ export const AddNew: React.FC<Props> = (props) => {
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">{label}</DialogTitle>
-        <DialogContent>
-          <form onSubmit={saveHandler}>
-            <DialogContentText>{description}</DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              name={fieldName}
-              label={fieldLabel}
-              type={fieldType}
-              value={text}
-              onChange={e => {
-                setStatus(false);
-                setText(e.target.value);
-              }}
-              fullWidth
-            />
-            {status === "failure" && (
-              <DialogContentText>{errorMessage}</DialogContentText>
-            )}
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={handleClose}
-            color="primary"
-            disabled={isButtonsDisabled}
-          >
-            {__("Cancel")}
-          </Button>
-          <Button
-            disabled={isButtonsDisabled}
-            color="primary"
-            type="submit"
-          >
-            {status === "working" && (
-              <CircularProgress size={16} style={{ marginRight: 8 }} />
-            )}
-            {saveButtonLabel}
-          </Button>
-        </DialogActions>
+        <form onSubmit={saveHandler}>
+          <DialogContent>
+              <DialogContentText>{description}</DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                name={fieldName}
+                label={fieldLabel}
+                type={fieldType}
+                value={text}
+                onChange={e => {
+                  setStatus(false);
+                  setText(e.target.value);
+                }}
+                fullWidth
+              />
+              {status === "failure" && (
+                <DialogContentText>{errorMessage}</DialogContentText>
+              )}
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={handleClose}
+              color="primary"
+              disabled={isButtonsDisabled}
+            >
+              {__("Cancel")}
+            </Button>
+            <Button
+              disabled={isButtonsDisabled}
+              color="primary"
+              type="submit"
+            >
+              {status === "working" && (
+                <CircularProgress size={16} style={{ marginRight: 8 }} />
+              )}
+              {saveButtonLabel}
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     </div>
   );
