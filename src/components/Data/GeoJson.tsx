@@ -19,7 +19,6 @@ import { connect } from "react-redux";
 import { __ } from "@wordpress/i18n";
 
 // hooks
-import useWebSocket from "./GeoJson/hooks/use-web-socket";
 import useGeoJSON from "./GeoJson/hooks/use-geojson";
 
 import "./GeoJson.scss";
@@ -68,28 +67,6 @@ const Content = (props: Props) => {
     teamId,
     geojsonId,
   } = props;
-
-  const [socket] = useWebSocket(
-    props.session,
-    props.teamId,
-    props.geojsonId
-  );
-
-  // send web socket message to notify team members
-  const publish = (featureId = "") => {
-    if (!socket) {
-      return
-    }
-    socket.send(
-      JSON.stringify({
-        action: "publish",
-        data: {
-          geojsonId: props.geojsonId,
-          featureId: featureId
-        }
-      })
-    );
-  };
 
   const breadcrumbItems = [
     {
