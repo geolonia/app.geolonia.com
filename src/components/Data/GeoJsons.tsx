@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 // components
 import AsyncTable from "../custom/AsyncTable";
@@ -37,72 +37,69 @@ type typeTableRows = {
 };
 
 function Content(props: Props) {
-  const [message, setMessage] = React.useState("");
-  const [geoJsons, setGeoJsons] = React.useState<typeTableRows[]>([]);
-  // watchDog monitors successful POST request and force refresh.
-  const [watchdog, setWatchdog] = React.useState(0);
-  const [perPage, setPerPage] = React.useState(10);
-  const [totalCount, setTotalCount] = React.useState(0);
-  const [loading, setLoading] = React.useState(false);
+  const [message, setMessage] = useState("");
+  const [geoJsons, setGeoJsons] = useState<typeTableRows[]>([]);
+  const [perPage, setPerPage] = useState(1000);
+  const [totalCount, setTotalCount] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const { teamId, session, history } = props;
 
   const page = Number(queryString.parse(props.location.search).page) || 0;
-  React.useEffect(() => {
-    if (props.teamId && props.session) {
-      setLoading(true);
-      fetch(
-        props.session,
-        buildApiUrl(`/geojsons?teamId=${props.teamId}&per_page=${perPage}&page=${page}`)
-      )
-        .then(res => {
-          if (res.status < 300) {
-            return res.json();
-          } else {
-            throw new Error();
-          }
-        })
-        .then(json => {
-          const { totalCount, geojsons } = json;
-
-          if (perPage * page > totalCount) {
-            props.history.push("?page=0");
-            return;
-          }
-
-          const rows = [];
-          for (let i = 0; i < geojsons.length; i++) {
-            // const item = dateParse<DateStringify<any>>(json[i]);
-            const geojson = geojsons[i];
-            rows.push({
-              id: geojson.id,
-              name: geojson.name,
-              updated: Moment(geojson.updateAt).format(),
-              isPublic: geojson.isPublic
-            } as typeTableRows);
-          }
-          setTotalCount(totalCount);
-          setGeoJsons(
-            rows.sort((a: typeTableRows, b: typeTableRows) => {
-              if (a.updated > b.updated) {
-                return -1;
-              } else {
-                return 1;
-              }
-            })
-          );
-        })
-        .catch(err => {
-          alert(__("Network Error."));
-        })
-        .finally(() => setLoading(false));
+  useEffect(() => {
+    if (!teamId || !session) {
+      return;
     }
+
+    (async () => {
+      setLoading(true);
+      const rawResp = await fetch(
+        session,
+        buildApiUrl(`/geojsons?teamId=${teamId}&per_page=${perPage}&page=${page}`)
+      );
+      if (rawResp.status >= 300) {
+        alert(__("Network Error."));
+        setLoading(false);
+        return;
+      }
+
+      const json = await rawResp.json();
+      const { totalCount, geojsons } = json;
+      if (perPage * page > totalCount) {
+        history.push("?page=0");
+        return;
+      }
+
+      const rows = [];
+      for (let i = 0; i < geojsons.length; i++) {
+        // const item = dateParse<DateStringify<any>>(json[i]);
+        const geojson = geojsons[i];
+        rows.push({
+          id: geojson.id,
+          name: geojson.name,
+          updated: Moment(geojson.updateAt).format(),
+          isPublic: geojson.isPublic
+        } as typeTableRows);
+      }
+      setTotalCount(totalCount);
+      setGeoJsons(
+        rows.sort((a: typeTableRows, b: typeTableRows) => {
+          if (a.updated > b.updated) {
+            return -1;
+          } else {
+            return 1;
+          }
+        })
+      );
+      setLoading(false);
+    })();
   }, [
-    props.teamId,
-    props.session,
-    watchdog,
+    teamId,
+    session,
     props.location.search,
     page,
     perPage,
-    props.history
+    history,
   ]);
 
   const breadcrumbItems = [
@@ -116,41 +113,28 @@ function Content(props: Props) {
     }
   ];
 
-  const handler = (name: string) => {
-    const { teamId, session } = props;
-    if (!(teamId && session)) {
-      return Promise.resolve();
+  const createHandler = useCallback(async (name: string) => {
+    if (!teamId || !session) {
+      return;
     }
 
-    return fetch(
-      props.session,
+    const rawResp = await fetch(
+      session,
       buildApiUrl(`/geojsons?teamId=${teamId}`),
       {
         method: "POST",
         body: JSON.stringify({ name })
       }
-    )
-      .then(res => {
-        if (res.status < 300) {
-          return res.json();
-        } else {
-          throw new Error();
-        }
-      })
-      .then(() => {
-        // wait until the Elasticsearch completes indexing
-        return new Promise<void>(resolve => {
-          setTimeout(() => {
-            setWatchdog(watchdog + 1);
-            resolve();
-          }, 1500);
-        });
-      })
-      .catch(() => {
-        setMessage(__("Network error."));
-        throw new Error(); // will be caught by <AddNew />
-      });
-  };
+    );
+    if (rawResp.status >= 300) {
+      setMessage(__("Network error."));
+      throw new Error();
+    }
+    const resp = await rawResp.json();
+    const newId = resp.body._id;
+    history.push(`/data/geojson/${newId}`);
+
+  }, [session, history, teamId]);
 
   return (
     <div>
@@ -164,7 +148,7 @@ function Content(props: Props) {
         label={__("Create a new dataset")}
         description={__("Please enter the name of the new dataset.")}
         defaultValue={__("My dataset")}
-        onClick={handler}
+        onClick={createHandler}
         errorMessage={message}
       />
 

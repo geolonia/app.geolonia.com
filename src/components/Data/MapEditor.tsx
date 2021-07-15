@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import GeoloniaMap from "../custom/GeoloniaMap";
 
 import { _x } from "@wordpress/i18n";
 import fullscreen from "./fullscreenMap";
 
 import fetch from "../../lib/fetch";
+import { refreshSession } from "../../auth";
 
 const {REACT_APP_TILE_SERVER} = process.env
 
@@ -25,10 +26,12 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapEditor = (props: Props) => {
-  const { geojsonId, bounds, style } = props;
+  const { geojsonId, bounds, style, session } = props;
 
   // mapbox map and draw binding
   const [map, setMap] = useState<mapboxgl.Map | undefined>(undefined);
+  const [sessionIsValid, setSessionIsValid] = useState<boolean>(!!session?.isValid());
+  const sessionRef = useRef<Geolonia.Session>(session);
 
   useEffect(() => {
     if (map && style) {
@@ -37,12 +40,16 @@ export const MapEditor = (props: Props) => {
   }, [map, style]);
 
   const handleOnAfterLoad = useCallback(async (map: mapboxgl.Map) => {
-    const res = await fetch(props.session, `${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`, { method: "GET" })
-    const tileJson = await res.json()
-    map.fitBounds(tileJson.bounds, {
-      padding: 20,
-      maxZoom: 16,
-    })
+    map.on('sourcedata', (ev) => {
+      if (ev.isSourceLoaded !== true) { return; }
+      if (!('tile' in ev) && ev.sourceId === "vt-geolonia-simple-style") {
+        const source = map.getSource(ev.sourceId) as mapboxgl.VectorSourceImpl;
+        map.fitBounds(source.bounds as [number, number], {
+          padding: 20,
+          maxZoom: 16,
+        });
+      }
+    });
 
     map.addControl(new fullscreen(".gis-panel .editor"), "top-right");
     // @ts-ignore
@@ -50,11 +57,11 @@ export const MapEditor = (props: Props) => {
 
     setMap(map);
 
-  }, [props, geojsonId]);
+  }, [props]);
 
   const transformRequest = useCallback((url: string, resourceType) => {
-    if (props.session && url.indexOf('customtiles') >= 0) {
-      const idToken = props.session.getIdToken().getJwtToken();
+    if (sessionRef.current && url.indexOf('customtiles') >= 0) {
+      const idToken = sessionRef.current.getIdToken().getJwtToken();
       return {
         url,
         headers: {
@@ -63,7 +70,31 @@ export const MapEditor = (props: Props) => {
       }
     }
     return { url };
-  }, [props.session])
+  }, [])
+
+  useEffect(() => {
+    let updateTimer: number | undefined;
+    const updater = (async () => {
+      if (!session || session.isValid()) {
+        return;
+      }
+      const newSession = await refreshSession(session);
+      sessionRef.current = newSession;
+      setSessionIsValid(newSession.isValid());
+      updateTimer = setTimeout(updater, 30_000) as unknown as number;
+    });
+    updater();
+
+    return () => {
+      if (updateTimer) {
+        clearTimeout(updateTimer);
+      }
+    }
+  }, [ session ]);
+
+  if (!sessionIsValid) {
+    return null;
+  }
 
   return (
     <div style={mapStyle}>

@@ -4,6 +4,7 @@
   REACT_APP_API_BASE = "https://api.geolonia.com"
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
   REACT_APP_TILE_SERVER="https://tileserver.geolonia.com"
+  REACT_APP_SENTRY_DSN="https://6e0597420997498988d7929549a28fc1@o526716.ingest.sentry.io/5784973"
   REACT_APP_STAGE = "v1"
 
 [context.develop.environment]
@@ -13,6 +14,7 @@
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
   REACT_APP_STRIPE_PUBLISHABLE_KEY = "pk_test_6GhUQ1viPKrXjeJxG5RWGHpX00f61FfRHZ"
   REACT_APP_TILE_SERVER="https://tileserver-dev.geolonia.com"
+  REACT_APP_SENTRY_DSN="https://6e0597420997498988d7929549a28fc1@o526716.ingest.sentry.io/5784973"
   REACT_APP_STAGE = "dev"
 
 [context.deploy-preview.environment]
@@ -22,6 +24,7 @@
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
   REACT_APP_STRIPE_PUBLISHABLE_KEY = "pk_test_6GhUQ1viPKrXjeJxG5RWGHpX00f61FfRHZ"
   REACT_APP_TILE_SERVER="https://tileserver-dev.geolonia.com"
+  REACT_APP_SENTRY_DSN="https://6e0597420997498988d7929549a28fc1@o526716.ingest.sentry.io/5784973"
   REACT_APP_STAGE = "dev"
 
 [[headers]]
