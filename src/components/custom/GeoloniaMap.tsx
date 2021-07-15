@@ -1,5 +1,5 @@
 import React from "react";
-const { REACT_APP_STAGE, REACT_APP_TILE_SERVER } = process.env;
+const { REACT_APP_TILE_SERVER } = process.env;
 
 type Toggle = "on" | "off";
 

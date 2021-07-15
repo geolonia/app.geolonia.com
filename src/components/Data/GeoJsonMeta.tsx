@@ -23,12 +23,6 @@ import Interweave from "interweave";
 
 const { REACT_APP_STAGE, REACT_APP_TILE_SERVER } = process.env;
 
-type Meta = {
-  name: string;
-  isPublic: boolean;
-  status: string;
-};
-
 type OwnProps = {
   geojsonId: string;
   name: string;
@@ -43,18 +37,6 @@ type OwnProps = {
 
 type StateProps = { session: Geolonia.Session };
 type Props = OwnProps & StateProps;
-
-// const copyToClipBoard = (style: string) => {
-//   const input = document.querySelector(
-//     ".geolonia-geojson-api-endpoint"
-//   ) as HTMLInputElement;
-//   if (input) {
-//     input.select();
-//     clipboard.writeText(
-//       `<div class="geolonia" data-geojson="${input.value}" style="${style}"></div>`
-//     );
-//   }
-// };
 
 const embedCode = sprintf(
   '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
@@ -87,16 +69,6 @@ const styleTextarea: React.CSSProperties = {
 
 const copyToClipBoard = (cssSelector: string) => {
   const input = document.querySelector(cssSelector) as HTMLInputElement;
-  if (input) {
-    input.select();
-    clipboard.writeText(input.value);
-  }
-};
-
-const copyUrlToClipBoard = () => {
-  const input = document.querySelector(
-    ".geolonia-geojson-api-endpoint"
-  ) as HTMLInputElement;
   if (input) {
     input.select();
     clipboard.writeText(input.value);
@@ -291,9 +263,6 @@ const GeoJSONMeta = (props: Props) => {
       });
   }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta])
 
-  const downloadDisabled = status === "draft" || !isPublic;
-  const downloadUrl = buildApiUrl(`/geojsons/pub/${geojsonId}`);
-
   return (
     <Grid className="geojson-meta" container spacing={2}>
       <Grid item sm={4} xs={12}>
@@ -385,137 +354,81 @@ const GeoJSONMeta = (props: Props) => {
         </Paper>
       </Grid>
       <Grid item sm={8} xs={12}>
-      <Paper style={sidebarStyle}>
-        <Typography component="h2" className="module-title">
-          {__("Add the map to your site")}
-        </Typography>
-        <Typography component="h3" style={styleH3}>
-          {__("Step 1")}
-        </Typography>
-        <p>
-          <Interweave
-            content={__(
-              "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file. <br/> Please replace YOUR-API-KEY to your API key. If you don't have one, create it from <a href='#/api-keys'>API keys</a> page."
-            )}
-          />
-        </p>
-        <textarea
-          className="api-key-embed-code"
-          style={styleTextarea}
-          value={embedCode}
-          readOnly={true}
-        ></textarea>
-        <p>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            style={{ width: "100%" }}
-            onClick={() => copyToClipBoard(".api-key-embed-code")}
-          >
-            {__("Copy to Clipboard")}
-          </Button>
-        </p>
-        <Typography component="h3" style={styleH3}>
-          {__("Step 2")}
-        </Typography>
-        <p>
-          {__(
-            "Click following button and get HTML code where you want to place the map."
-          )}
-        </p>
-        <p>
-          <Button
-            className="launch-get-geolonia"
-            variant="contained"
-            color="primary"
-            size="large"
-            style={{ width: "100%" }}
-            data-lat="38.592126509927425"
-            data-lng="136.8448477633185"
-            data-zoom="4"
-            data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`}
-          >
-            {__("Get HTML")}
-          </Button>
-        </p>
-        <Typography component="h3" style={styleH3}>
-          {__("Step 3")}
-        </Typography>
-        <p>{__("Adjust the element size.")}</p>
-        <textarea
-          className="api-key-embed-css"
-          style={styleTextarea}
-          value={embedCSS}
-          readOnly={true}
-        ></textarea>
-        <p>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            style={{ width: "100%" }}
-            onClick={() => copyToClipBoard(".api-key-embed-css")}
-          >
-            {__("Copy to Clipboard")}
-          </Button>
-        </p>
-      </Paper>
-        <Paper className="geojson-title-description">
-          <h3>{__("Download GeoJSON")}</h3>
-          {!downloadDisabled && (
-            <input
-              disabled={downloadDisabled}
-              className="geolonia-geojson-api-endpoint"
-              value={downloadUrl}
-              readOnly={true}
+        <Paper style={sidebarStyle}>
+          <Typography component="h2" className="module-title">
+            {__("Add the map to your site")}
+          </Typography>
+          <Typography component="h3" style={styleH3}>
+            {__("Step 1")}
+          </Typography>
+          <p>
+            <Interweave
+              content={__(
+                "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file. <br/> Please replace YOUR-API-KEY to your API key. If you don't have one, create it from <a href='#/api-keys'>API keys</a> page."
+              )}
             />
-          )}
+          </p>
+          <textarea
+            className="api-key-embed-code"
+            style={styleTextarea}
+            value={embedCode}
+            readOnly={true}
+          ></textarea>
           <p>
             <Button
               variant="contained"
               color="primary"
               size="large"
               style={{ width: "100%" }}
-              onClick={() => {
-                window
-                  .fetch(downloadUrl)
-                  .then(res => {
-                    if (res.status < 400) {
-                      return res.text();
-                    } else {
-                      throw new Error("");
-                    }
-                  })
-                  .then(geojsonString => {
-                    const element = document.createElement("a");
-                    const file = new Blob([geojsonString], {
-                      type: "application/geo+json"
-                    });
-                    element.href = URL.createObjectURL(file);
-                    element.download = `${geojsonId}.geojson`;
-                    document.body.appendChild(element); // Required for this to work in FireFox
-                    element.click();
-                    document.body.removeChild(element);
-                  })
-                  .catch(err => {
-                    //
-                  });
-              }}
-              disabled={downloadDisabled}
+              onClick={() => copyToClipBoard(".api-key-embed-code")}
             >
-              {__("Download")}
+              {__("Copy to Clipboard")}
             </Button>
           </p>
-          {!downloadDisabled && (
-            <p style={{ textAlign: "center", fontSize: "90%" }}>
-              {__("Or")}
-              <br />
-              <button className="copy-button" onClick={copyUrlToClipBoard}>
-                {__("Copy endpoint URL to clipboard")}
-              </button>
-            </p>
-          )}
+          <Typography component="h3" style={styleH3}>
+            {__("Step 2")}
+          </Typography>
+          <p>
+            {__(
+              "Click following button and get HTML code where you want to place the map."
+            )}
+          </p>
+          <p>
+            <Button
+              className="launch-get-geolonia"
+              variant="contained"
+              color="primary"
+              size="large"
+              style={{ width: "100%" }}
+              data-lat="38.592126509927425"
+              data-lng="136.8448477633185"
+              data-zoom="4"
+              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`}
+            >
+              {__("Get HTML")}
+            </Button>
+          </p>
+          <Typography component="h3" style={styleH3}>
+            {__("Step 3")}
+          </Typography>
+          <p>{__("Adjust the element size.")}</p>
+          <textarea
+            className="api-key-embed-css"
+            style={styleTextarea}
+            value={embedCSS}
+            readOnly={true}
+          ></textarea>
+          <p>
+            <Button
+              variant="contained"
+              color="primary"
+              size="large"
+              style={{ width: "100%" }}
+              onClick={() => copyToClipBoard(".api-key-embed-css")}
+            >
+              {__("Copy to Clipboard")}
+            </Button>
+          </p>
         </Paper>
         {draftIsPublic && (
           <Paper className="geojson-title-description">

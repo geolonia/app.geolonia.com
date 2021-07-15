@@ -45,41 +45,6 @@ declare namespace Geolonia {
     };
   }
 
-  namespace WebSocket {
-    type UpstreamAuthorizeMessage = {
-      action: "authorize";
-      data: {
-        teamId: string;
-        token: string;
-      };
-    };
-    type UpstreamPublishMessage = {
-      action: "publish";
-      data: {
-        geojsonId: string;
-        featureId: string;
-      };
-    };
-
-    type DownstreamAckMessage = {
-      action: "ack";
-      data: {
-        subject: string;
-        teamId: string;
-      };
-    };
-
-    type DownstreamNotifyMessage = {
-      action: "notify";
-      data: {
-        subject: string;
-        geojsonId: string;
-        featureId: string;
-        sender: string;
-      };
-    };
-  }
-
   /**
    * ========== Common Types for Dashboard Developers =============
    */
