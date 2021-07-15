@@ -11,7 +11,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import * as clipboard from "clipboard-polyfill";
-import { __ } from "@wordpress/i18n";
+import { __, sprintf } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
 import Help from "../custom/Help";
@@ -19,8 +19,9 @@ import fetch from "../../lib/fetch";
 import normalizeOrigin from "../../lib/normalize-origin";
 import { buildApiUrl } from "../../lib/api";
 import { GeoJsonMetaSetter } from "./GeoJson/hooks/use-geojson";
+import Interweave from "interweave";
 
-const { REACT_APP_STAGE } = process.env;
+const { REACT_APP_STAGE, REACT_APP_TILE_SERVER } = process.env;
 
 type Meta = {
   name: string;
@@ -54,6 +55,43 @@ type Props = OwnProps & StateProps;
 //     );
 //   }
 // };
+
+const embedCode = sprintf(
+  '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
+  'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
+  process.env.REACT_APP_STAGE,
+  'YOUR-API-KEY'
+);
+const embedCSS = `.geolonia {
+width: 100%;
+height: 400px;
+}`;
+
+const styleH3: React.CSSProperties = {
+  marginTop: "1em"
+};
+
+const sidebarStyle: React.CSSProperties = {
+  marginBottom: "2em",
+  overflowWrap: "break-word"
+};
+
+const styleTextarea: React.CSSProperties = {
+  width: "100%",
+  color: "#555555",
+  fontFamily: "monospace",
+  resize: "none",
+  height: "2.5rem",
+  padding: "8px"
+};
+
+const copyToClipBoard = (cssSelector: string) => {
+  const input = document.querySelector(cssSelector) as HTMLInputElement;
+  if (input) {
+    input.select();
+    clipboard.writeText(input.value);
+  }
+};
 
 const copyUrlToClipBoard = () => {
   const input = document.querySelector(
@@ -168,9 +206,17 @@ const GeoJSONMeta = (props: Props) => {
   const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
 
+  React.useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://geolonia.github.io/get-geolonia/app.js";
+    document.body.appendChild(script);
+  }, []);
+
   // effects
   useEffect(() => {
-    setDraftAllowedOrigins(allowedOrigins.join("\n"));
+    if (allowedOrigins) {
+      setDraftAllowedOrigins(allowedOrigins.join("\n"));
+    }
   }, [allowedOrigins]);
 
   // fire save name request
@@ -199,7 +245,11 @@ const GeoJSONMeta = (props: Props) => {
     setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status });
   }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status]);
 
-  const saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
+  let saveDisabled = false
+
+  if (allowedOrigins) {
+    saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
+  }
 
   const onUpdateClick = useCallback(() => {
     if (saveDisabled || !session) {
@@ -335,6 +385,82 @@ const GeoJSONMeta = (props: Props) => {
         </Paper>
       </Grid>
       <Grid item sm={8} xs={12}>
+      <Paper style={sidebarStyle}>
+        <Typography component="h2" className="module-title">
+          {__("Add the map to your site")}
+        </Typography>
+        <Typography component="h3" style={styleH3}>
+          {__("Step 1")}
+        </Typography>
+        <p>
+          <Interweave
+            content={__(
+              "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file. <br/> Please replace YOUR-API-KEY to your API key. If you don't have one, create it from <a href='#/api-keys'>API keys</a> page."
+            )}
+          />
+        </p>
+        <textarea
+          className="api-key-embed-code"
+          style={styleTextarea}
+          value={embedCode}
+          readOnly={true}
+        ></textarea>
+        <p>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            style={{ width: "100%" }}
+            onClick={() => copyToClipBoard(".api-key-embed-code")}
+          >
+            {__("Copy to Clipboard")}
+          </Button>
+        </p>
+        <Typography component="h3" style={styleH3}>
+          {__("Step 2")}
+        </Typography>
+        <p>
+          {__(
+            "Click following button and get HTML code where you want to place the map."
+          )}
+        </p>
+        <p>
+          <Button
+            className="launch-get-geolonia"
+            variant="contained"
+            color="primary"
+            size="large"
+            style={{ width: "100%" }}
+            data-lat="38.592126509927425"
+            data-lng="136.8448477633185"
+            data-zoom="4"
+            data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`}
+          >
+            {__("Get HTML")}
+          </Button>
+        </p>
+        <Typography component="h3" style={styleH3}>
+          {__("Step 3")}
+        </Typography>
+        <p>{__("Adjust the element size.")}</p>
+        <textarea
+          className="api-key-embed-css"
+          style={styleTextarea}
+          value={embedCSS}
+          readOnly={true}
+        ></textarea>
+        <p>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            style={{ width: "100%" }}
+            onClick={() => copyToClipBoard(".api-key-embed-css")}
+          >
+            {__("Copy to Clipboard")}
+          </Button>
+        </p>
+      </Paper>
         <Paper className="geojson-title-description">
           <h3>{__("Download GeoJSON")}</h3>
           {!downloadDisabled && (
