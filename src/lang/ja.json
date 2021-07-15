@@ -14,13 +14,13 @@
       "Get API key then create your map!": [
         "API キーを取得して新しい地図を作成しましょう。"
       ],
-      "GeoJSON API": [""],
+      "GeoJSON API": ["GeoJSON API"],
       "Manage and style your GeoJSON.": [
         "GeoJSON を登録してスタイルをカスタマイズしましょう。"
       ],
-      "Developer's Blog": [""],
+      "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
-      "Home": [""],
+      "Home": ["Home"],
       "API services": ["API サービス"],
       "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API.": [
         "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、GeoJSON API のアクセスポイントの URL を取得できます。"
@@ -28,6 +28,7 @@
       "Update required": ["更新が必要です"],
       "Reload": ["読み込み"],
       "Continue": ["このまま続ける"],
+      "Adding your data to map": ["データを地図に追加しています。"],
       "Total Count of Features: %s": ["%s 件のデータ"],
       "Once you delete an Dataset, there is no going back. Please be certain.": [
         "一度データセットを削除するともとに戻すことはできません。"
@@ -39,7 +40,7 @@
         "確認のために delete と入力してください。"
       ],
       "Error: Please upload GeoJSON file less than %d MB.": [
-        "エラー: 5 MB 以下の GeoJSON ファイルをアップロードしてください。"
+        "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
       "Import GeoJSON": ["GeoJSON をインポート"],
       "Import GeoJSON from your computer.": [
@@ -81,6 +82,24 @@
         "新しいデータセットの名前を入力してください。"
       ],
       "My dataset": ["データセット"],
+      "Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/": [
+        "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタマーサポートに連絡してください。"
+      ],
+      "Error: Can not upload multiple files.": [
+        "複数のファイルをアップロードできません。"
+      ],
+      "Error: Please upload *.geojson or *.json file.": [
+        "エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
+      ],
+      "Drop file to add your map.": [
+        "地図に追加するファイルをドロップして下さい。"
+      ],
+      "Drag and drop a file here to add your map,": [
+        "地図に追加するファイルをドラッグ&ドロップしてください。"
+      ],
+      "Or click to choose your file": [
+        "もしくは、クリックしてファイルを選択してください。"
+      ],
       "Small": ["小サイズ"],
       "Medium": ["中サイズ"],
       "Large": ["大サイズ"],
@@ -90,13 +109,13 @@
       "Key": ["キー"],
       "Value": ["値"],
       "Nothing found.": ["なにもありません。"],
-      "Background": ["背景色"],
       "Stroke": ["線の色"],
       "Size": ["サイズ"],
       "Symbol": ["シンボル"],
       "Stroke Width": ["線の太さ"],
       "Text Color": ["文字色"],
       "Text Halo Color": ["文字の輪郭色"],
+      "Background": ["背景色"],
       "URLs": ["URL のリスト"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
@@ -165,14 +184,14 @@
       "Please enter the name of new API key.": [
         "新しいチームの名前を入力してください。"
       ],
-      "My API": [""],
-      "My team": [""],
-      "Manage API keys": ["API キー の管理"],
-      "API Services": ["API サービス"],
-      "Team Settings": ["チーム設定"],
+      "My API": ["API キー"],
+      "My team": ["My team"],
       "General": ["一般"],
       "Members": ["メンバー"],
       "Billing": ["支払い"],
+      "Manage API keys": ["API キー の管理"],
+      "API Services": ["API サービス"],
+      "Team Settings": ["チーム設定"],
       "Documentation": ["ドキュメント"],
       "Official Documents": ["公式ドキュメント"],
       "Dashboard": ["ダッシュボード"],
@@ -226,9 +245,7 @@
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
       ],
-      "Pro plan": ["Pro プラン"],
-      "monthly": ["月払い"],
-      "yearly": ["年払い"],
+      "Free plan": ["Free プラン"],
       "Free Plan": ["Free プラン"],
       "Team settings": ["チーム設定"],
       "You can see subscriptions for this team in this month.": [
@@ -247,7 +264,6 @@
         "プラン詳細については、料金ページをご覧ください。"
       ],
       "Payment history": ["支払い履歴"],
-      "Free plan": ["Free プラン"],
       "No payment history.": ["支払い履歴はありません。"],
       "Card information": ["クレジットカード情報"],
       "Update": ["更新"],
@@ -272,7 +288,7 @@
       "Once you delete a team, there is no going back. Please be certain. ": [
         "一度チームを削除するともとに戻すことはできません。"
       ],
-      "URL": [""],
+      "URL": ["URL"],
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [
         "すべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザー名と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバーの左上にあるプルダウンで行うことができます。"
       ],
@@ -295,8 +311,8 @@
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。"
       ],
-      "We are in public beta version. Member features will be added soon.": [
-        "現在は公開β版です。メンバー機能は後ほど追加されます。"
+      "You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan.": [
+        "現在、新しいメンバーを招待することはできません。メンバーをチームに招待するには、Geolonia Pro（2～5ユーザー）プランにアップグレードしてください。"
       ],
       "Suspended": ["一時停止"],
       "rows per page": ["表示する個数"],
@@ -304,7 +320,7 @@
       "Remove from team": ["チームから削除"],
       "Successfully send invitation.": ["チームへの招待が送信されました。"],
       "Failed to send invitation.": ["招待の送信に失敗しました。"],
-      "They is already a member of this team.": [
+      "That user is already a member of this team.": [
         "すでにメンバーになっています。"
       ],
       "The maximum number of members has been reached.": [
@@ -315,9 +331,6 @@
       ],
       "Invite": ["招待"],
       "Send an invitation": ["招待する"],
-      "We automatically update your billing as your invitation is accepted.": [
-        "チームメンバーの招待に伴う料金変更は自動的に行われます。"
-      ],
       "Email": ["メールアドレス"],
       "Send": ["送信"],
       "The following members will be removed:": [
@@ -344,7 +357,7 @@
       "name": ["ユーザー名"],
       "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],
-      "%s - %s of %s": [""],
+      "%1$s - %2$s / %3$s": ["%1$s - %2$s / %3$s"],
       "first page": ["最初のページ"],
       "previous page": ["前のページ"],
       "next page": ["次のページ"],

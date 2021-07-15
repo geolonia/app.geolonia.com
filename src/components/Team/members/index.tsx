@@ -129,13 +129,14 @@ const Content = (props: Props) => {
 
   const { team } = props;
   let isOwner = false;
-  // let isPaidTeam = false;
+  let isPaidTeam = false;
   if (team) {
     isOwner = team.role === Roles.Owner;
-    // isPaidTeam = team.isPaidTeam;
+    isPaidTeam = team.isPaidTeam;
   }
 
-  const inviteDisabled = true;
+  const inviteDisabled =
+    !isOwner || !isPaidTeam || !( team && (team.maxMemberLength > members.length));
   // NOTE: Payment feature and currently disabled
   // !team || // Not ready
   // !isOwner ||
@@ -147,11 +148,14 @@ const Content = (props: Props) => {
     <div>
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
-        <Alert type="danger">
-          {__(
-            "We are in public beta version. Member features will be added soon."
-          )}
-        </Alert>
+
+        { inviteDisabled &&
+          <Alert type="danger">
+            {__(
+              "You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
+            )}
+          </Alert>
+        }
       </Title>
 
       <Invite disabled={inviteDisabled} />

@@ -7,6 +7,8 @@ import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import { SELECTED_TEAM_ID_KEY } from "../redux/middlewares/local-storage";
 
+import { buildApiAppUrl } from "../lib/api";
+
 type OwnProps = { isReady: boolean };
 type RouterProps = {
   match: { params: { invitationToken: string; teamId: string } };
@@ -29,7 +31,7 @@ const useInvitationAcceptRequest = (props: Props) => {
     if (isReady && status === false) {
       setStatus("requesting");
       fetch(
-        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/accept-invitation`,
+        buildApiAppUrl('/accept-invitation'),
         {
           method: "POST",
           headers: { "Content-Type": "Application/json" },

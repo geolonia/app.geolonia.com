@@ -1,8 +1,10 @@
 import React from "react";
+const { REACT_APP_TILE_SERVER } = process.env;
 
 type Toggle = "on" | "off";
 
 type Props = {
+  geojsonId: string | undefined;
   width: string;
   height: string;
   gestureHandling: Toggle;
@@ -15,6 +17,7 @@ type Props = {
   geolocateControl: Toggle;
   bounds: mapboxgl.LngLatBoundsLike | undefined;
   onAfterLoad: (map: mapboxgl.Map) => void;
+  initialMapOptions?: { [key: string]: any };
 };
 
 type State = {
@@ -44,13 +47,18 @@ class Map extends React.Component<Props, State> {
     geolocateControl: "off",
     navigationControl: "off",
     style: null,
-    onAfterLoad: () => {}
+    simpleVector: null,
+    onAfterLoad: () => {},
+    initialMapOptions: {},
   };
 
   componentDidMount() {
     // @ts-ignore
     const { geolonia } = window;
-    const map = new geolonia.Map(this.container.current);
+    const map = new geolonia.Map({
+      container: this.container.current,
+      ...this.props.initialMapOptions,
+    });
     this.props.onAfterLoad(map);
 
     this.setState({map: map})
@@ -78,6 +86,7 @@ class Map extends React.Component<Props, State> {
         data-navigation-control={this.props.navigationControl}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
+        data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${this.props.geojsonId}/tiles.json?key=YOUR-API-KEY`}
       />
     );
   }
