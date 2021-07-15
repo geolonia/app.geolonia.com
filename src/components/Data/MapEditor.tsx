@@ -57,7 +57,7 @@ export const MapEditor = (props: Props) => {
 
     setMap(map);
 
-  }, [props]);
+  }, []);
 
   const transformRequest = useCallback((url: string, resourceType) => {
     if (sessionRef.current && url.indexOf('customtiles') >= 0) {
