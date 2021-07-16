@@ -153,13 +153,13 @@ const GeoJson = (props: Props) => {
   }
 
   let mapEditorElement: JSX.Element = <></>;
-  if (tileStatus === null || tileStatus === "progress") {
-    mapEditorElement = <div style={mapEditorStyle}>{
-      tileStatus === 'progress' && <>
-          <p>{__("Adding your data to the map...")}</p>
-          <CircularProgress />
-        </>
-    }</div>;
+  if (tileStatus === null) {
+    mapEditorElement = <div style={mapEditorStyle} />;
+  } else if (tileStatus === "progress") {
+    mapEditorElement = <div style={mapEditorStyle}>
+      <p>{__("Adding your data to the map...")}</p>
+      <CircularProgress />
+    </div>;
   } else if (tileStatus === undefined || tileStatus === 'failure') {
     mapEditorElement = <ImportDropZone
       session={session}
@@ -178,8 +178,7 @@ const GeoJson = (props: Props) => {
         bounds={bounds}
       />;
   } else if (tileStatus === "failure") {
-    mapEditorElement = <div style={mapEditorStyle}>
-    </div>;
+    mapEditorElement = <div style={mapEditorStyle} />;
   }
 
   return (

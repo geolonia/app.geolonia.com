@@ -104,7 +104,7 @@ const Content = (props: Props) => {
             <p>{__("Drag and drop a file here to add your map,")}<br />{__("Or click to choose your file")}</p>
           </>
         )}
-        {error && !isDragActive ? <div className="error">{error}</div> : <></>}
+        {error && !isDragActive && <div className="error">{error}</div>}
       </div>
     </Paper>
   )
