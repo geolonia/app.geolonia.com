@@ -188,7 +188,7 @@ const GeoJson = (props: Props) => {
         title={geoJsonMeta ? geoJsonMeta.name : ""}
       >
         {__(
-          "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API."
+          "You can upload your location data. Also you can get embed HTML code to add the map to your web site."
         )}
       </Title>
 
