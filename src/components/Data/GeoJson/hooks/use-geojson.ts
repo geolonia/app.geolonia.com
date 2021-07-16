@@ -11,7 +11,8 @@ type GeoJSONMeta = {
   isPublic: boolean;
   allowedOrigins: string[];
   status: string;
-  gvp_status?: undefined | "progress" | "created" | "failure"
+  gvp_status?: undefined | "progress" | "created" | "failure",
+  teamId: string;
 };
 
 export type GeoJsonMetaSetter = React.Dispatch<React.SetStateAction<GeoJSONMeta | null>>;
@@ -52,27 +53,27 @@ export default function useGeoJSON(
         })
         .catch(() => setError(true));
 
-      // get Features
-      fetch(
-        session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}/features`
-      )
-        .then(res => {
-          if (res.status < 400) {
-            return res.json();
-          } else {
-            throw new Error();
-          }
-        })
-        .then(json => {
-          const geojson = {
-            type: "FeatureCollection",
-            features: json.features
-          } as GeoJSON.FeatureCollection;
-          setGeoJSON(geojson);
-          setBounds(geojsonExtent(geojson));
-        })
-        .catch(() => setError(true));
+      // // get Features
+      // fetch(
+      //   session,
+      //   `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}/features`
+      // )
+      //   .then(res => {
+      //     if (res.status < 400) {
+      //       return res.json();
+      //     } else {
+      //       throw new Error();
+      //     }
+      //   })
+      //   .then(json => {
+      //     const geojson = {
+      //       type: "FeatureCollection",
+      //       features: json.features
+      //     } as GeoJSON.FeatureCollection;
+      //     setGeoJSON(geojson);
+      //     setBounds(geojsonExtent(geojson));
+      //   })
+      //   .catch(() => setError(true));
     }
   }, [session, geojsonId]);
 

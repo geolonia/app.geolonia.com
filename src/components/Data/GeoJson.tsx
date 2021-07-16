@@ -50,9 +50,17 @@ const sleep = (msec: number) => {
 }
 
 const Content = (props: Props) => {
+  const {
+    session,
+    teamId,
+    geojsonId,
+    history,
+  } = props;
+
   const [message] = useState("");
   const [style, setStyle] = useState<string>("geolonia/basic");
   const [tileStatus, setTileStatus] = useState<TileStatus>(null);
+  const [prevTeamId] = useState(teamId);
 
   // custom hooks
   const {
@@ -62,11 +70,12 @@ const Content = (props: Props) => {
     error
   } = useGeoJSON(props.session, props.geojsonId);
 
-  const {
-    session,
-    teamId,
-    geojsonId,
-  } = props;
+// move on team change
+  React.useEffect(() => {
+    if (prevTeamId !== teamId) {
+      history.push("/data/geojson");
+    }
+  }, [prevTeamId, history, teamId]);
 
   const breadcrumbItems = [
     {
@@ -140,6 +149,10 @@ const Content = (props: Props) => {
 
   }, [geoJsonMeta]);
 
+  // invalid url entered
+  if (geoJsonMeta && geoJsonMeta.teamId !== teamId) {
+    return <></>;
+  }
   if (error) {
     return <></>;
   }
@@ -192,6 +205,7 @@ const Content = (props: Props) => {
     </div>;
   }
 
+
   return (
     <div className="gis-panel">
       <Title
@@ -229,6 +243,7 @@ const Content = (props: Props) => {
             name={geoJsonMeta.name}
             isPublic={geoJsonMeta.isPublic}
             allowedOrigins={geoJsonMeta.allowedOrigins}
+            teamId={geoJsonMeta.teamId}
             status={geoJsonMeta.status}
             setGeoJsonMeta={setGeoJsonMeta}
             style={style}

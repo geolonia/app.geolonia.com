@@ -29,6 +29,7 @@ type OwnProps = {
   isPublic: boolean;
   allowedOrigins: string[];
   status: string;
+  teamId: string;
   setGeoJsonMeta: GeoJsonMetaSetter;
 
   isPaidTeam: boolean;
@@ -107,6 +108,7 @@ const usePublic = (
         allowedOrigins: resp.body._source.allowedOrigins,
         status: resp.body._source.status,
         gvp_status: resp.body._source.gvp_status,
+        teamId: resp.body._source.teamId,
       });
     })();
   }, [
@@ -155,6 +157,7 @@ const useStatus = (
         allowedOrigins: resp.body._source.allowedOrigins,
         status: resp.body._source.status,
         gvp_status: resp.body._source.gvp_status,
+        teamId: resp.body._source.teamId,
       });
     })();
   }, [
@@ -166,7 +169,7 @@ const useStatus = (
 
 const GeoJSONMeta = (props: Props) => {
   // サーバーから取得してあるデータ
-  const { geojsonId, name, isPublic, allowedOrigins, status } = props;
+  const { geojsonId, name, isPublic, allowedOrigins, status, teamId } = props;
   const { session, setGeoJsonMeta } = props;
 
   // UI上での変更をリクエスト前まで保持しておくための State
@@ -214,7 +217,7 @@ const GeoJSONMeta = (props: Props) => {
       throw new Error();
     }
     // const resp = await rawResp.json();
-    setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status });
+    setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status, teamId });
   }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status]);
 
   let saveDisabled = false
@@ -259,7 +262,7 @@ const GeoJSONMeta = (props: Props) => {
       })
       .then(() => {
         setSaveStatus("success");
-        setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status });
+        setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status, teamId });
       });
   }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta])
 
