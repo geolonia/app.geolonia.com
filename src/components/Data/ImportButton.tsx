@@ -23,7 +23,7 @@ const Content = (props: Props) => {
   return (
     <>
       <button className="btn" onClick={() => setStateImporter(true)}><CloudUploadIcon fontSize="small" /><span className="label">{__("Import GeoJSON")}</span></button>
-      {stateImporter? <Importer state={stateImporter} onClose={closeImporter} GeoJsonImporter={GeoJsonImporter} />: <></>}
+      {stateImporter && <Importer state={stateImporter} onClose={closeImporter} GeoJsonImporter={GeoJsonImporter} />}
     </>
   );
 };

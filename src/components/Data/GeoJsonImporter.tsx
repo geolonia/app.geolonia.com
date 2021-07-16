@@ -110,7 +110,7 @@ const Importer: React.FC<Props> = (props) => {
   <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
         <p>{__("Existing feature that has same `id` will be updated.")}</p>
-        {error? <div className="error">{error}</div> : <></>}
+        {error && <div className="error">{error}</div>}
       </div>
     </div>
   );

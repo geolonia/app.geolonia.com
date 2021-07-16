@@ -157,7 +157,7 @@ const Content = (props: Props) => {
     return null;
   }
 
-  let mapEditorElement: JSX.Element = <></>;
+  let mapEditorElement: JSX.Element | null = null;
   if (tileStatus === null || tileStatus === "progress") {
     mapEditorElement = <div
       style={{
@@ -236,8 +236,7 @@ const Content = (props: Props) => {
         {mapEditorElement}
       </div>
 
-      {props.geojsonId && geoJsonMeta ? (
-        <div className="geojson-meta">
+      {props.geojsonId && geoJsonMeta && <div className="geojson-meta">
           <GeoJsonMeta
             geojsonId={props.geojsonId}
             name={geoJsonMeta.name}
@@ -250,9 +249,7 @@ const Content = (props: Props) => {
             isPaidTeam={props.isPaidTeam}
           />
         </div>
-      ) : (
-        <></>
-      )}
+      }
 
       <DangerZone
         whyDanger={__(
