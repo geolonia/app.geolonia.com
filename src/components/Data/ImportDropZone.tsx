@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {ReactElement, useCallback, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
 import Paper from "@material-ui/core/Paper";
 import { GeoJsonMaxUploadSize, GeoJsonMaxUploadSizePaid } from "../../constants";
@@ -40,6 +40,7 @@ type Props = {
   isPaidTeam: boolean,
   teamId?: string,
   geojsonId?: string,
+  customMessage?: ReactElement
 }
 
 const Content = (props: Props) => {
@@ -48,6 +49,7 @@ const Content = (props: Props) => {
     session,
     teamId,
     geojsonId,
+    customMessage,
     setTileStatus,
     getTileStatus,
   } = props;
@@ -93,6 +95,7 @@ const Content = (props: Props) => {
             <CloudUploadIcon fontSize="large" />
             <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), maxUploadSize / 1000000)})</p>
             <p>{__("Drag and drop a file here to add your map,")}<br />{__("Or click to choose your file")}</p>
+            {customMessage}
           </>
         )}
         {error? <div className="error">{error}</div> : <></>}
