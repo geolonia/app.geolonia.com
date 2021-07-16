@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { GeoJsonMaxUploadSize } from "../../constants";
@@ -32,10 +32,10 @@ const styleOuterDefault: React.CSSProperties = {
 
 const Importer: React.FC<Props> = (props) => {
   const {state, onClose, GeoJsonImporter} = props;
-  const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
-  const [error, setError] = React.useState<string | null>(null)
+  const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault)
+  const [error, setError] = useState<string | null>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const style = {...styleOuterDefault}
     if (state) {
       style.display = 'flex'
@@ -110,7 +110,7 @@ const Importer: React.FC<Props> = (props) => {
   <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
         <p>{__("Existing feature that has same `id` will be updated.")}</p>
-        {error? <div className="error">{error}</div> : <></>}
+        {error && <div className="error">{error}</div>}
       </div>
     </div>
   );

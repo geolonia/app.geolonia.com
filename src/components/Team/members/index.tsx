@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import Button from "@material-ui/core/Button";
@@ -44,16 +44,16 @@ type Props = OwnProps & StateProps;
 
 const Content = (props: Props) => {
   const { members } = props;
-  const [currentMember, setCurrentMember] = React.useState<
+  const [currentMember, setCurrentMember] = useState<
     false | Geolonia.Member
   >(false);
 
   // Dialogs open
-  const [openChangeRole, setOpenChangeRole] = React.useState(false);
-  const [openSuspend, setOpenSuspend] = React.useState(false);
-  const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
+  const [openChangeRole, setOpenChangeRole] = useState(false);
+  const [openSuspend, setOpenSuspend] = useState(false);
+  const [openRemoveMember, setOpenRemoveMember] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     handleClose();
   }, [openChangeRole, openRemoveMember]);
   const rows: Row[] = members.map(member => {
@@ -101,7 +101,7 @@ const Content = (props: Props) => {
 
   const onClick = (e: any) => {};
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const index = parseInt(event.currentTarget.value);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 type Props = {
@@ -18,10 +18,10 @@ const TextArea = styled.textarea<StyledProps>`
 
 export const TextEditor = (props: Props) => {
   const { geoJSON, setGeoJSON } = props;
-  const [draft, setDraft] = React.useState("");
-  const [error, setError] = React.useState(false);
+  const [draft, setDraft] = useState("");
+  const [error, setError] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setDraft(JSON.stringify(geoJSON, null, 2));
   }, [geoJSON]);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 
 import Support from "./custom/Support";
@@ -35,11 +35,11 @@ type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 type Status = null | "requesting" | "success" | "warning";
 
 const Signup = (props: Props) => {
-  const [username, setUsername] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [status, setStatus] = React.useState<Status>(null);
-  const [message, setMessage] = React.useState("");
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [status, setStatus] = useState<Status>(null);
+  const [message, setMessage] = useState("");
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -89,7 +89,7 @@ const Signup = (props: Props) => {
   };
 
   // URL locale will be sent to UserPool. So serialize persisted locale at first
-  React.useEffect(() => {
+  useEffect(() => {
     const parsed = queryString.parse(window.location.search);
     parsed.lang = estimateLanguage();
     const newUrl = `/?${queryString.stringify(parsed)}#/signup`;

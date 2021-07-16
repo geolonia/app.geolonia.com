@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
 import Paper from "@material-ui/core/Paper";
 import { GeoJsonMaxUploadSize, GeoJsonMaxUploadSizePaid } from "../../constants";
@@ -40,7 +40,8 @@ type Props = {
   isPaidTeam: boolean,
   teamId?: string,
   geojsonId?: string,
-  customMessage?: React.ReactElement
+  customMessage?: React.ReactElement,
+  tileStatus?: undefined | 'failure'
 }
 
 const Content = (props: Props) => {
@@ -52,7 +53,15 @@ const Content = (props: Props) => {
     customMessage,
     setTileStatus,
     getTileStatus,
+    tileStatus,
   } = props;
+
+  useEffect(() => {
+    if (tileStatus === 'failure') {
+      setError(__('Failed to add your data. Your GeoJSON might be invalid format.'))
+    }
+  }, [tileStatus])
+
   const maxUploadSize = props.isPaidTeam ? GeoJsonMaxUploadSizePaid : GeoJsonMaxUploadSize;
 
   const onDrop = useCallback( async (acceptedFiles) => {
@@ -98,7 +107,7 @@ const Content = (props: Props) => {
             {customMessage}
           </>
         )}
-        {error? <div className="error">{error}</div> : <></>}
+        {error && !isDragActive && <div className="error">{error}</div>}
       </div>
     </Paper>
   )

@@ -29,6 +29,7 @@ type OwnProps = {
   isPublic: boolean;
   allowedOrigins: string[];
   status: string;
+  teamId: string;
   setGeoJsonMeta: GeoJsonMetaSetter;
 
   isPaidTeam: boolean;
@@ -107,6 +108,7 @@ const usePublic = (
         allowedOrigins: resp.body._source.allowedOrigins,
         status: resp.body._source.status,
         gvp_status: resp.body._source.gvp_status,
+        teamId: resp.body._source.teamId,
       });
     })();
   }, [
@@ -155,6 +157,7 @@ const useStatus = (
         allowedOrigins: resp.body._source.allowedOrigins,
         status: resp.body._source.status,
         gvp_status: resp.body._source.gvp_status,
+        teamId: resp.body._source.teamId,
       });
     })();
   }, [
@@ -166,7 +169,7 @@ const useStatus = (
 
 const GeoJSONMeta = (props: Props) => {
   // サーバーから取得してあるデータ
-  const { geojsonId, name, isPublic, allowedOrigins, status } = props;
+  const { geojsonId, name, isPublic, allowedOrigins, status, teamId } = props;
   const { session, setGeoJsonMeta } = props;
 
   // UI上での変更をリクエスト前まで保持しておくための State
@@ -178,7 +181,7 @@ const GeoJSONMeta = (props: Props) => {
   const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
 
-  React.useEffect(() => {
+  useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://geolonia.github.io/get-geolonia/app.js";
     document.body.appendChild(script);
@@ -214,8 +217,8 @@ const GeoJSONMeta = (props: Props) => {
       throw new Error();
     }
     // const resp = await rawResp.json();
-    setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status });
-  }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status]);
+    setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status, teamId });
+  }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status, teamId]);
 
   let saveDisabled = false
 
@@ -259,13 +262,27 @@ const GeoJSONMeta = (props: Props) => {
       })
       .then(() => {
         setSaveStatus("success");
-        setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status });
+        setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status, teamId });
       });
-  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta])
+  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta, teamId])
 
   return (
     <Grid className="geojson-meta" container spacing={2}>
       <Grid item sm={4} xs={12}>
+        <Paper className="geojson-title-description">
+          <h3>{__("Name")}</h3>
+          <input
+            type="text"
+            value={draftName}
+            onChange={e => setDraftName(e.currentTarget.value)}
+          />
+
+          <Save
+            onClick={() => saveHandler(draftName)}
+            disabled={draftName === name}
+          />
+          <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
+        </Paper>
         <Paper className="geojson-title-description">
           <div>
             <Switch
@@ -337,21 +354,54 @@ const GeoJSONMeta = (props: Props) => {
             </p> */}
           </div>
         </Paper>
-
-        <Paper className="geojson-title-description">
-          <h3>{__("Name")}</h3>
-          <input
-            type="text"
-            value={draftName}
-            onChange={e => setDraftName(e.currentTarget.value)}
-          />
-
-          <Save
-            onClick={() => saveHandler(draftName)}
-            disabled={draftName === name}
-          />
-          <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
-        </Paper>
+        {draftIsPublic && (
+          <Paper className="geojson-title-description">
+            <h3>{__("Access allowed URLs")}</h3>
+            <p>{__("Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.")}</p>
+            <TextField
+              id="standard-name"
+              label={__("URLs")}
+              margin="normal"
+              multiline={true}
+              rows={5}
+              placeholder="https://example.com"
+              fullWidth={true}
+              value={draftAllowedOrigins}
+              onChange={e => setDraftAllowedOrigins(e.target.value)}
+              disabled={saveStatus === "requesting"}
+            />
+            <Help>
+              <Typography component="p">
+                {__(
+                  "Only requests that come from the URLs specified here will be allowed."
+                )}
+              </Typography>
+              <ul>
+                <li>
+                  {__("Any page in a specific URL:")}{" "}
+                  <strong>https://www.example.com</strong>
+                </li>
+                <li>
+                  {__("Any subdomain:")} <strong>https://*.example.com</strong>
+                </li>
+                <li>
+                  {__("A URL with a non-standard port:")}{" "}
+                  <strong>https://example.com:*</strong>
+                </li>
+              </ul>
+              <p>
+                {__(
+                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
+                )}
+              </p>
+            </Help>
+            <Save
+              onClick={onUpdateClick}
+              onError={onRequestError}
+              disabled={saveDisabled}
+            />
+          </Paper>
+        )}
       </Grid>
       <Grid item sm={8} xs={12}>
         <Paper style={sidebarStyle}>
@@ -430,54 +480,6 @@ const GeoJSONMeta = (props: Props) => {
             </Button>
           </p>
         </Paper>
-        {draftIsPublic && (
-          <Paper className="geojson-title-description">
-            <h3>{__("Access allowed URLs")}</h3>
-            <p>{__("Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.")}</p>
-            <TextField
-              id="standard-name"
-              label={__("URLs")}
-              margin="normal"
-              multiline={true}
-              rows={5}
-              placeholder="https://example.com"
-              fullWidth={true}
-              value={draftAllowedOrigins}
-              onChange={e => setDraftAllowedOrigins(e.target.value)}
-              disabled={saveStatus === "requesting"}
-            />
-            <Help>
-              <Typography component="p">
-                {__(
-                  "Only requests that come from the URLs specified here will be allowed."
-                )}
-              </Typography>
-              <ul>
-                <li>
-                  {__("Any page in a specific URL:")}{" "}
-                  <strong>https://www.example.com</strong>
-                </li>
-                <li>
-                  {__("Any subdomain:")} <strong>https://*.example.com</strong>
-                </li>
-                <li>
-                  {__("A URL with a non-standard port:")}{" "}
-                  <strong>https://example.com:*</strong>
-                </li>
-              </ul>
-              <p>
-                {__(
-                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
-                )}
-              </p>
-            </Help>
-            <Save
-              onClick={onUpdateClick}
-              onError={onRequestError}
-              disabled={saveDisabled}
-            />
-          </Paper>
-        )}
       </Grid>
     </Grid>
   );

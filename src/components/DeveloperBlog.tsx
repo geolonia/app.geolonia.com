@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 });
 
 const Content = (props: Props) => {
-  const [blogItems, setBlogItems] = React.useState<BlogPost[]>([])
+  const [blogItems, setBlogItems] = useState<BlogPost[]>([])
   const classes = useStyles();
 
   useEffect(() => {

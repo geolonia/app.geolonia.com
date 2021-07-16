@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -86,8 +86,8 @@ const TablePaginationActions = (props: TablePaginationActionsProps) => {
 export const CustomTable = (props: Props) => {
   const { rows, rowsPerPage: rowsPerPageDefault = 5, permalink } = props;
 
-  const [offset, setOffset] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(rowsPerPageDefault);
+  const [offset, setOffset] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(rowsPerPageDefault);
 
   const currentRows = rows.slice(offset, offset + rowsPerPage);
   const page = Math.floor(offset / rowsPerPage);

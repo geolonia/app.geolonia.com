@@ -1,6 +1,6 @@
 import "./ResetPassword.scss";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Support from "./custom/Support";
 import Logo from "./custom/logo.svg";
@@ -26,14 +26,14 @@ const Content = () => {
   const parsed = queryString.parse(window.location.search);
   const qsusername = parsed.username as string;
 
-  const [code, setCode] = React.useState("");
-  const [username, setUsername] = React.useState(qsusername || "");
-  const [password, setPassword] = React.useState("");
-  const [passwordAgain, setPasswordAgain] = React.useState("");
-  const [status, setStatus] = React.useState<
+  const [code, setCode] = useState("");
+  const [username, setUsername] = useState(qsusername || "");
+  const [password, setPassword] = useState("");
+  const [passwordAgain, setPasswordAgain] = useState("");
+  const [status, setStatus] = useState<
     null | "requesting" | "success" | "warning"
   >(null);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   const onCodeChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);

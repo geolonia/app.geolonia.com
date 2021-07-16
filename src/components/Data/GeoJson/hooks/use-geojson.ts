@@ -11,7 +11,8 @@ type GeoJSONMeta = {
   isPublic: boolean;
   allowedOrigins: string[];
   status: string;
-  gvp_status?: undefined | "progress" | "created" | "failure"
+  gvp_status?: undefined | "progress" | "created" | "failure",
+  teamId: string;
 };
 
 export type GeoJsonMetaSetter = React.Dispatch<React.SetStateAction<GeoJSONMeta | null>>;

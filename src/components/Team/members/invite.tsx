@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import AddNew from "../../custom/AddNew";
@@ -26,8 +26,8 @@ type StateProps = {
 type Props = OwnProps & StateProps;
 
 export const Invite = (props: Props) => {
-  const [message, setMessage] = React.useState("");
-  const [status, setStatus] = React.useState<
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<
     false | "requesting" | "success" | "failure"
   >(false);
 
