@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -36,8 +36,8 @@ const { REACT_APP_STAGE } = process.env;
 
 const PaymentMethodModal: React.FC<Props> = (props) => {
   const { open, handleClose, session, teamId } = props;
-  const [loading, setLoading] = React.useState(false);
-  const [message, setMessage] = React.useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const stripe = useStripe();
   const elements = useElements();
 

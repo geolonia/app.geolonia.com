@@ -71,7 +71,7 @@ const Content = (props: Props) => {
   } = useGeoJSON(props.session, props.geojsonId);
 
 // move on team change
-  React.useEffect(() => {
+  useEffect(() => {
     if (prevTeamId !== teamId) {
       history.push("/data/geojson");
     }
@@ -151,10 +151,10 @@ const Content = (props: Props) => {
 
   // invalid url entered
   if (geoJsonMeta && geoJsonMeta.teamId !== teamId) {
-    return <></>;
+    return null;
   }
   if (error) {
-    return <></>;
+    return null;
   }
 
   let mapEditorElement: JSX.Element = <></>;

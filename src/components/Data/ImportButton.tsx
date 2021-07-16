@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import Importer from './GeoJsonImporter'
@@ -9,7 +9,7 @@ type Props = {
 };
 
 const Content = (props: Props) => {
-  const [stateImporter, setStateImporter] = React.useState<boolean>(false)
+  const [stateImporter, setStateImporter] = useState<boolean>(false)
 
   const closeImporter = () => {
     setStateImporter(false)

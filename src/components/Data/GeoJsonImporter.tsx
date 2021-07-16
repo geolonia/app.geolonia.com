@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { GeoJsonMaxUploadSize } from "../../constants";
@@ -32,10 +32,10 @@ const styleOuterDefault: React.CSSProperties = {
 
 const Importer: React.FC<Props> = (props) => {
   const {state, onClose, GeoJsonImporter} = props;
-  const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
-  const [error, setError] = React.useState<string | null>(null)
+  const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault)
+  const [error, setError] = useState<string | null>(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const style = {...styleOuterDefault}
     if (state) {
       style.display = 'flex'

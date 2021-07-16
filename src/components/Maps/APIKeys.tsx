@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Table from "../custom/Table";
 import AddNew from "../custom/AddNew";
@@ -28,7 +28,7 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 function Content(props: Props) {
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   const breadcrumbItems = [
     {

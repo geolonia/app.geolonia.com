@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import ImportDropZone from "./ImportDropZone"
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { __ } from "@wordpress/i18n"
@@ -30,10 +30,10 @@ const styleOuterDefault: React.CSSProperties = {
 }
 
 const Content = (props: Props) => {
-  const [stateImporter, setStateImporter] = React.useState<boolean>(false)
-  const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
+  const [stateImporter, setStateImporter] = useState<boolean>(false)
+  const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const style = {...styleOuterDefault}
     if (stateImporter) {
       style.display = 'flex'

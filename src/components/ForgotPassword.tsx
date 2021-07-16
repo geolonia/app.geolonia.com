@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Button from "@material-ui/core/Button";
 import { __ } from "@wordpress/i18n";
@@ -24,11 +24,11 @@ type DispatchProps = Record<string, never>;
 type Props = OwnProps & RouterProps & DispatchProps;
 
 const Content = (props: Props) => {
-  const [email, setEmail] = React.useState("");
-  const [status, setStatus] = React.useState<
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<
     null | "requesting" | "success" | "warning"
   >(null);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   const handleSignup = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
@@ -55,7 +55,7 @@ type Props = OwnProps & StateProps;
 
 const Header = (props: Props) => {
   const { classes, onDrawerToggle } = props;
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const headerStyle: React.CSSProperties = {
     backgroundColor: "#EE5F28"

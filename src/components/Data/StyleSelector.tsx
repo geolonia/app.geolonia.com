@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { MapStylesAPI } from '../../constants'
 
@@ -8,9 +8,9 @@ type Props = {
 };
 
 const Content = (props: Props) => {
-  const [styles, setStyles] = React.useState<[]>([])
+  const [styles, setStyles] = useState<[]>([])
 
-  React.useEffect(() => {
+  useEffect(() => {
     fetch(MapStylesAPI)
       .then(res => res.json())
       .then(json => {

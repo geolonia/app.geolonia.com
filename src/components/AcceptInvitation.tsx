@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
 
@@ -16,7 +16,7 @@ type RouterProps = {
 type Props = OwnProps & RouterProps;
 
 const useInvitationAcceptRequest = (props: Props) => {
-  const [status, setStatus] = React.useState<
+  const [status, setStatus] = useState<
     false | "success" | "failure" | "requesting"
   >(false);
 
@@ -27,7 +27,7 @@ const useInvitationAcceptRequest = (props: Props) => {
     }
   } = props;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isReady && status === false) {
       setStatus("requesting");
       fetch(

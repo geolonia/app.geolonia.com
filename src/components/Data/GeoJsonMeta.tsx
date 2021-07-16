@@ -181,7 +181,7 @@ const GeoJSONMeta = (props: Props) => {
   const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
 
-  React.useEffect(() => {
+  useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://geolonia.github.io/get-geolonia/app.js";
     document.body.appendChild(script);
@@ -218,7 +218,7 @@ const GeoJSONMeta = (props: Props) => {
     }
     // const resp = await rawResp.json();
     setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status, teamId });
-  }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status]);
+  }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status, teamId]);
 
   let saveDisabled = false
 
@@ -264,7 +264,7 @@ const GeoJSONMeta = (props: Props) => {
         setSaveStatus("success");
         setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status, teamId });
       });
-  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta])
+  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta, teamId])
 
   return (
     <Grid className="geojson-meta" container spacing={2}>

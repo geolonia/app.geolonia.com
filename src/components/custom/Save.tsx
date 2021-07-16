@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -33,8 +33,8 @@ const getDefaultProps = (props: Props) => ({
 const Save = (props: Props) => {
   const { label, style, onClick, onError, disabled } = getDefaultProps(props);
 
-  const [open, setOpen] = React.useState(false);
-  const [status, setStatus] = React.useState<
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState<
     false | "working" | "success" | "failure"
   >(false);
 

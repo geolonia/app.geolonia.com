@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 
 import Support from "./custom/Support";
@@ -17,18 +17,18 @@ import { parseVerifyError as parseCognitoVerifyError } from "../lib/cognito/pars
 import { Link } from "@material-ui/core";
 
 const Content = () => {
-  const [username, setUsername] = React.useState("");
-  const [code, setCode] = React.useState("");
-  const [status, setStatus] = React.useState<
+  const [username, setUsername] = useState("");
+  const [code, setCode] = useState("");
+  const [status, setStatus] = useState<
     null | "requesting" | "success" | "warning"
   >(null);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   const parsed = queryString.parse(window.location.search);
   const hasQueryStringUsername =
     !!parsed.username && typeof parsed.username === "string";
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (hasQueryStringUsername && username === "") {
       setUsername(parsed.username as string);
       const codeInput = document.getElementById("code");
