@@ -67,6 +67,7 @@ const Content = (props: Props) => {
               isPaidTeam={props.isPaidTeam}
               getTileStatus={props.getTileStatus}
               setTileStatus={props.setTileStatus}
+              customMessage={<p>{__("GeoJSON that has already been uploaded will be overwritten.")}</p>}
             />
           </div>
         </div>
