@@ -123,6 +123,9 @@
       "Error: Please upload *.geojson or *.json file.": [
         "エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
       ],
+      "GeoJSON that has already been uploaded will be overwritten.": [
+        "既にアップロードされたGeoJSONは上書きされます。"
+      ],
       "Description": ["説明"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
