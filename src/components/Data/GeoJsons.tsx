@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 
 // components
-import AsyncTable from "../custom/AsyncTable";
 import AddNew from "../custom/AddNew";
 import Title from "../custom/Title";
 import { CircularProgress } from "@material-ui/core";
@@ -10,9 +9,9 @@ import { CircularProgress } from "@material-ui/core";
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Moment from "moment";
-import queryString from "query-string";
 import fetch from "../../lib/fetch";
 import { buildApiUrl } from "../../lib/api";
+import Table from "../custom/Table";
 
 type OwnProps = Record<string, never>;
 type StateProps = {
@@ -39,13 +38,10 @@ type typeTableRows = {
 function Content(props: Props) {
   const [message, setMessage] = useState("");
   const [geoJsons, setGeoJsons] = useState<typeTableRows[]>([]);
-  const [perPage, setPerPage] = useState(1000);
-  const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const { teamId, session, history } = props;
 
-  const page = Number(queryString.parse(props.location.search).page) || 0;
   useEffect(() => {
     if (!teamId || !session) {
       return;
@@ -55,7 +51,7 @@ function Content(props: Props) {
       setLoading(true);
       const rawResp = await fetch(
         session,
-        buildApiUrl(`/geojsons?teamId=${teamId}&per_page=${perPage}&page=${page}`)
+        buildApiUrl(`/geojsons?teamId=${teamId}&per_page=10000`)
       );
       if (rawResp.status >= 300) {
         alert(__("Network Error."));
@@ -64,11 +60,7 @@ function Content(props: Props) {
       }
 
       const json = await rawResp.json();
-      const { totalCount, geojsons } = json;
-      if (perPage * page > totalCount) {
-        history.push("?page=0");
-        return;
-      }
+      const { geojsons } = json;
 
       const rows = [];
       for (let i = 0; i < geojsons.length; i++) {
@@ -81,7 +73,6 @@ function Content(props: Props) {
           isPublic: geojson.isPublic
         } as typeTableRows);
       }
-      setTotalCount(totalCount);
       setGeoJsons(
         rows.sort((a: typeTableRows, b: typeTableRows) => {
           if (a.updated > b.updated) {
@@ -93,14 +84,7 @@ function Content(props: Props) {
       );
       setLoading(false);
     })();
-  }, [
-    teamId,
-    session,
-    props.location.search,
-    page,
-    perPage,
-    history,
-  ]);
+  }, [teamId, session, history]);
 
   const breadcrumbItems = [
     {
@@ -165,14 +149,10 @@ function Content(props: Props) {
           <CircularProgress />
         </div>
       ) : (
-        <AsyncTable
-          page={page}
+        <Table
           rows={geoJsons}
-          rowsPerPage={perPage}
-          setPerPage={setPerPage}
-          totalCount={totalCount}
+          rowsPerPage={10}
           permalink="/data/geojson/%s"
-          onChangePage={page => props.history.push(`?page=${page}`)}
         />
       )}
     </div>
