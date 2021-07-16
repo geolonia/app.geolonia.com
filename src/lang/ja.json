@@ -20,16 +20,10 @@
       ],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
-      "Home": ["Home"],
-      "API services": ["API サービス"],
-      "You can manage and style features in your GeoJSON, and get the the access point URL of GeoJSON API.": [
-        "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、GeoJSON API のアクセスポイントの URL を取得できます。"
+      "Adding your data to the map...": ["データを地図に追加しています。"],
+      "You can upload your location data. Also you can get embed HTML code to add the map to your web site.": [
+        "ここでは位置情報をアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。"
       ],
-      "Update required": ["更新が必要です"],
-      "Reload": ["読み込み"],
-      "Continue": ["このまま続ける"],
-      "Adding your data to map": ["データを地図に追加しています。"],
-      "Total Count of Features: %s": ["%s 件のデータ"],
       "Once you delete an Dataset, there is no going back. Please be certain.": [
         "一度データセットを削除するともとに戻すことはできません。"
       ],
@@ -39,6 +33,8 @@
       "Please type delete to confirm.": [
         "確認のために delete と入力してください。"
       ],
+      "Home": ["Home"],
+      "API services": ["API サービス"],
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
@@ -58,21 +54,44 @@
       "Error: The `id` of each `fueature` must be unique in the GeoJSON.": [
         "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要があります。"
       ],
+      "Name": ["名前"],
+      "Name of public GeoJSON will be displayed in public.": [
+        "公開されているGeoJSONの名前が表示されます。"
+      ],
       "Public features will be displayed publicly and anyone can download this features without API key.": [
         "Public のデータは一般に公開され、だれでも API キー無しでダウンロードすることができます。"
       ],
       "Datasets are published now.": ["データセットは公開されています。"],
       "Datasets status are draft now.": ["データセットは下書きの状態です。"],
-      "Name": ["名前"],
-      "Name of public GeoJSON will be displayed in public.": [
-        "公開されているGeoJSONの名前が表示されます。"
+      "Access allowed URLs": ["アクセスを許可したURL"],
+      "Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.": [
+        "地図の表示を許可するURLを入力してください。複数のURLを指定するには、各URLの後に改行を挿入してください。"
       ],
-      "Download": ["GeoJSON をダウンロード"],
-      "Or": ["または"],
-      "Copy endpoint URL to clipboard": [
-        "エンドポイント URL をクリップボードにコピー"
+      "URLs": ["URL のリスト"],
+      "Only requests that come from the URLs specified here will be allowed.": [
+        "ここで指定したURLからのリクエストのみが許可されます。"
       ],
-      "Network Error.": ["通信エラー。"],
+      "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
+      "Any subdomain:": ["すべてのサブドメイン:"],
+      "A URL with a non-standard port:": ["一般的ではないポート:"],
+      "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
+        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
+      ],
+      "Add the map to your site": ["ウェブサイトに地図を追加しましょう"],
+      "Step 1": ["ステップ 1"],
+      "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file. <br/> Please replace YOUR-API-KEY to your API key. If you don't have one, create it from <a href='#/api-keys'>API keys</a> page.": [
+        "<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。<code>YOUR-API-KEY</code> はご自身のAPIキーに置き換えてください。APIキーを未作成の場合は、<a href='#/api-keys'>API keys</a> より作成して下さい。"
+      ],
+      "Step 2": ["ステップ 2"],
+      "Click following button and get HTML code where you want to place the map.": [
+        "以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
+      ],
+      "Get HTML": ["HTML を取得"],
+      "Step 3": ["ステップ 3"],
+      "Adjust the element size.": [
+        "地図を表示する要素のサイズを調整して下さい。"
+      ],
+      "Copy to Clipboard": ["クリップボードにコピー"],
       "Network error.": ["通信エラー。"],
       "GeoJSON API is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
         "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
@@ -82,15 +101,7 @@
         "新しいデータセットの名前を入力してください。"
       ],
       "My dataset": ["データセット"],
-      "Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/": [
-        "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタマーサポートに連絡してください。"
-      ],
-      "Error: Can not upload multiple files.": [
-        "複数のファイルをアップロードできません。"
-      ],
-      "Error: Please upload *.geojson or *.json file.": [
-        "エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
-      ],
+      "Network Error.": ["通信エラー。"],
       "Drop file to add your map.": [
         "地図に追加するファイルをドロップして下さい。"
       ],
@@ -100,23 +111,19 @@
       "Or click to choose your file": [
         "もしくは、クリックしてファイルを選択してください。"
       ],
-      "Small": ["小サイズ"],
-      "Medium": ["中サイズ"],
-      "Large": ["大サイズ"],
-      "Title": ["タイトル"],
+      "Failed to add your data. Your GeoJSON might be invalid format.": [
+        "データの追加に失敗しました。GeoJSONが無効なフォーマットである可能性があります。"
+      ],
+      "Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/": [
+        "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタマーサポートに連絡してください。"
+      ],
+      "Error: Can not upload multiple files.": [
+        "複数のファイルをアップロードできません。"
+      ],
+      "Error: Please upload *.geojson or *.json file.": [
+        "エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
+      ],
       "Description": ["説明"],
-      "Style": ["スタイル"],
-      "Key": ["キー"],
-      "Value": ["値"],
-      "Nothing found.": ["なにもありません。"],
-      "Stroke": ["線の色"],
-      "Size": ["サイズ"],
-      "Symbol": ["シンボル"],
-      "Stroke Width": ["線の太さ"],
-      "Text Color": ["文字色"],
-      "Text Halo Color": ["文字の輪郭色"],
-      "Background": ["背景色"],
-      "URLs": ["URL のリスト"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
@@ -148,12 +155,6 @@
       "Configure access control for your API key and Get the HTML code for your map.": [
         "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを取得しましょう。"
       ],
-      "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
-      "Any subdomain:": ["すべてのサブドメイン:"],
-      "A URL with a non-standard port:": ["一般的ではないポート:"],
-      "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
-        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
-      ],
       "Once you delete an API, there is no going back. Please be certain.": [
         "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してください。"
       ],
@@ -161,21 +162,9 @@
         "この API キーを本当に削除しますか？"
       ],
       "Your API Key": ["あなたの API キー"],
-      "Add the map to your site": ["ウェブサイトに地図を追加しましょう"],
-      "Step 1": ["ステップ 1"],
       "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file.": [
         "<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
       ],
-      "Step 2": ["ステップ 2"],
-      "Click following button and get HTML code where you want to place the map.": [
-        "以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
-      ],
-      "Get HTML": ["HTML を取得"],
-      "Step 3": ["ステップ 3"],
-      "Adjust the element size.": [
-        "地図を表示する要素のサイズを調整して下さい。"
-      ],
-      "Copy to Clipboard": ["クリップボードにコピー"],
       "(No date)": ["(データなし)"],
       "You need an API key to display map. Get an API key.": [
         "地図を表示するには API キーが必要です。 API キーを取得してください。"
