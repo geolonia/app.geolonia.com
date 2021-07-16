@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 
 import Support from "./custom/Support";
@@ -18,11 +18,11 @@ const ResendCode = () => {
   const parsed = queryString.parse(window.location.search);
   const qsusername = parsed.username as string;
 
-  const [username, setUsername] = React.useState(qsusername || "");
-  const [status, setStatus] = React.useState<
+  const [username, setUsername] = useState(qsusername || "");
+  const [status, setStatus] = useState<
     null | "requesting" | "success" | "warning"
   >(null);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);

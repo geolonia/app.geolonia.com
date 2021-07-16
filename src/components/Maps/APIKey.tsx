@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import * as clipboard from "clipboard-polyfill";
 
 import Grid from "@material-ui/core/Grid";
@@ -55,16 +55,16 @@ type Props = OwnProps & StateProps & DispatchProps & RouterProps;
 
 const Content = (props: Props) => {
   // state
-  const [name, setName] = React.useState("");
-  const [allowedOrigins, setAllowedOrigins] = React.useState("");
-  const [status, setStatus] = React.useState<
+  const [name, setName] = useState("");
+  const [allowedOrigins, setAllowedOrigins] = useState("");
+  const [status, setStatus] = useState<
     false | "requesting" | "success" | "failure"
   >(false);
-  const [message, setMessage] = React.useState("");
-  const [prevIndex] = React.useState(props.selectedTeamIndex);
+  const [message, setMessage] = useState("");
+  const [prevIndex] = useState(props.selectedTeamIndex);
 
   // move on team change
-  React.useEffect(() => {
+  useEffect(() => {
     if (prevIndex !== props.selectedTeamIndex) {
       props.history.push("/api-keys");
     }
@@ -75,7 +75,7 @@ const Content = (props: Props) => {
   const propOrigins = (props.mapKey || { allowedOrigins: [] }).allowedOrigins;
 
   // effects
-  React.useEffect(() => {
+  useEffect(() => {
     setName(propName);
     setAllowedOrigins(propOrigins.join("\n"));
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import Button from "@material-ui/core/Button";
 import { readFile } from "../../lib/read-file";
@@ -13,7 +13,7 @@ type Props = {
 };
 
 export const Upload = (props: Props) => {
-  const [error, setError] = React.useState(false);
+  const [error, setError] = useState(false);
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(false);
     if (e.target.files && e.target.files.length > 0) {

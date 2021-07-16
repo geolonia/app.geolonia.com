@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -36,10 +36,10 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 const RemoveMember = (props: Props) => {
   const { currentMember, teamName, open, toggle, deleteMemberState } = props;
-  const [status, setStatus] = React.useState<
+  const [status, setStatus] = useState<
     false | "requesting" | "success" | "failure"
   >(false);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   const onRemoveClick = () => {
     setStatus("requesting");

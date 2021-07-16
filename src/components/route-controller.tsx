@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 type Props = {
   isLoggedIn: boolean;
@@ -21,7 +21,7 @@ export const RouteController = (props: Props) => {
     }
   } = props;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (
       !isLoggedIn &&
       pathname !== "/signup" &&
@@ -35,7 +35,7 @@ export const RouteController = (props: Props) => {
     }
   }, [isLoggedIn, pathname, replace]);
 
-  return <></>;
+  return null;
 };
 
 export default RouteController;

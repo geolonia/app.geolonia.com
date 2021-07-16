@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import Typography from "@material-ui/core/Typography";
@@ -39,9 +39,9 @@ type Props = OwnProps & StateProps;
 
 const Content = (props: Props) => {
   // state
-  const [open, setOpen] = React.useState(false);
-  const [confirmation, setConfirmation] = React.useState("");
-  const [status, setStatus] = React.useState<
+  const [open, setOpen] = useState(false);
+  const [confirmation, setConfirmation] = useState("");
+  const [status, setStatus] = useState<
     false | "requesting" | "success" | "failure"
   >(false);
 

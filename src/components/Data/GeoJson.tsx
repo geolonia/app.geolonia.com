@@ -49,26 +49,27 @@ const sleep = (msec: number) => {
 }
 
 const mapEditorStyle: React.CSSProperties = {
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "column"
-    }
+  width: "100%",
+  height: "100%",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  flexDirection: "column"
+}
 
 const GeoJson = (props: Props) => {
-  const [message] = useState("");
-  const [style, setStyle] = useState<string>("geolonia/basic");
-  const [tileStatus, setTileStatus] = useState<TileStatus>(null);
-
-  const {
+    const {
     session,
     teamId,
     geojsonId,
     isPaidTeam,
     history,
-  } = props;
+    } = props;
+
+  const [message] = useState("");
+  const [style, setStyle] = useState<string>("geolonia/basic");
+  const [tileStatus, setTileStatus] = useState<TileStatus>(null);
+  const [prevTeamId] = useState(teamId);
 
   // custom hooks
   const {
@@ -76,7 +77,14 @@ const GeoJson = (props: Props) => {
     bounds,
     setGeoJsonMeta,
     error
-  } = useGeoJSON(session, geojsonId);
+  } = useGeoJSON(props.session, props.geojsonId);
+
+// move on team change
+  useEffect(() => {
+    if (prevTeamId !== teamId) {
+      history.push("/data/geojson");
+    }
+  }, [prevTeamId, history, teamId]);
 
   const breadcrumbItems = [
     {
@@ -148,11 +156,15 @@ const GeoJson = (props: Props) => {
     }
   }, [geoJsonMeta]);
 
+  // invalid url entered
+  if (geoJsonMeta && geoJsonMeta.teamId !== teamId) {
+    return null;
+  }
   if (error) {
-    return <></>;
+    return null;
   }
 
-  let mapEditorElement: JSX.Element = <></>;
+  let mapEditorElement: JSX.Element | null = null;
   if (tileStatus === null) {
     mapEditorElement = <div style={mapEditorStyle} />;
   } else if (tileStatus === "progress") {
@@ -180,6 +192,7 @@ const GeoJson = (props: Props) => {
   } else if (tileStatus === "failure") {
     mapEditorElement = <div style={mapEditorStyle} />;
   }
+
 
   return (
     <div className="gis-panel">
@@ -211,22 +224,20 @@ const GeoJson = (props: Props) => {
         {mapEditorElement}
       </div>
 
-      {geojsonId && geoJsonMeta ? (
-        <div className="geojson-meta">
+      {geojsonId && geoJsonMeta && <div className="geojson-meta">
           <GeoJsonMeta
             geojsonId={geojsonId}
             name={geoJsonMeta.name}
             isPublic={geoJsonMeta.isPublic}
             allowedOrigins={geoJsonMeta.allowedOrigins}
+            teamId={geoJsonMeta.teamId}
             status={geoJsonMeta.status}
             setGeoJsonMeta={setGeoJsonMeta}
             style={style}
             isPaidTeam={isPaidTeam}
           />
         </div>
-      ) : (
-        <></>
-      )}
+      }
 
       <DangerZone
         whyDanger={__(

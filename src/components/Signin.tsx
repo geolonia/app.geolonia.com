@@ -1,6 +1,6 @@
 import "./Signin.scss";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
 import Logo from "./custom/logo.svg";
@@ -42,19 +42,19 @@ type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 const Signin = (props: Props) => {
   const { serverTrouble } = props;
 
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [status, setStatus] = React.useState<
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [status, setStatus] = useState<
     null | "requesting" | "success" | "warning"
   >(null);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   const parsed = queryString.parse(window.location.search);
   const hasQueryStringUsername =
     !!parsed.username && typeof parsed.username === "string";
   const hasPasswordReset = parsed.reset === "true";
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (hasQueryStringUsername && username === "") {
       setUsername(parsed.username as string);
       const passwordInput = document.getElementById("password");

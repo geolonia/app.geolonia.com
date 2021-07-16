@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import ImportDropZone from "./ImportDropZone"
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { __ } from "@wordpress/i18n"
@@ -30,10 +30,10 @@ const styleOuterDefault: React.CSSProperties = {
 }
 
 const Content = (props: Props) => {
-  const [stateImporter, setStateImporter] = React.useState<boolean>(false)
-  const [styleOuter, setStyleOuter] = React.useState<React.CSSProperties>(styleOuterDefault)
+  const [stateImporter, setStateImporter] = useState<boolean>(false)
+  const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault)
 
-  React.useEffect(() => {
+  useEffect(() => {
     const style = {...styleOuterDefault}
     if (stateImporter) {
       style.display = 'flex'
@@ -53,7 +53,10 @@ const Content = (props: Props) => {
 
   return (
     <>
-      <button className="btn" onClick={() => setStateImporter(true)}><CloudUploadIcon fontSize="small" /><span className="label">{__("Import GeoJSON")}</span></button>
+      <button className="btn" onClick={() => setStateImporter(true)}>
+        <CloudUploadIcon fontSize="small" />
+        <span className="label">{__("Import GeoJSON")}</span>
+      </button>
       {stateImporter ? (
         <div className="geojson-importer geojson-dropzone-button" style={styleOuter} onClick={close}>
           <div className="inner" onClick={preventClose}>
@@ -67,9 +70,7 @@ const Content = (props: Props) => {
             />
           </div>
         </div>
-      ) : (
-      <></>
-      )}
+      ) : null}
     </>
   );
 };
