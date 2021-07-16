@@ -1,4 +1,4 @@
-import React, {ReactElement, useCallback, useState} from 'react'
+import React, {useCallback, useState} from 'react'
 import {useDropzone} from 'react-dropzone'
 import Paper from "@material-ui/core/Paper";
 import { GeoJsonMaxUploadSize, GeoJsonMaxUploadSizePaid } from "../../constants";
@@ -40,7 +40,7 @@ type Props = {
   isPaidTeam: boolean,
   teamId?: string,
   geojsonId?: string,
-  customMessage?: ReactElement
+  customMessage?: React.ReactElement
 }
 
 const Content = (props: Props) => {
