@@ -22,7 +22,6 @@ import { __ } from "@wordpress/i18n";
 import useGeoJSON from "./GeoJson/hooks/use-geojson";
 
 import "./GeoJson.scss";
-
 // constants
 import { messageDisplayDuration } from "../../constants";
 import { buildApiUrl } from "../../lib/api";
@@ -49,10 +48,27 @@ const sleep = (msec: number) => {
   return new Promise(resolve => setTimeout(resolve, msec));
 }
 
-const Content = (props: Props) => {
+const mapEditorStyle: React.CSSProperties = {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      flexDirection: "column"
+    }
+
+const GeoJson = (props: Props) => {
   const [message] = useState("");
   const [style, setStyle] = useState<string>("geolonia/basic");
   const [tileStatus, setTileStatus] = useState<TileStatus>(null);
+
+  const {
+    session,
+    teamId,
+    geojsonId,
+    isPaidTeam,
+    history,
+  } = props;
 
   // custom hooks
   const {
@@ -60,13 +76,7 @@ const Content = (props: Props) => {
     bounds,
     setGeoJsonMeta,
     error
-  } = useGeoJSON(props.session, props.geojsonId);
-
-  const {
-    session,
-    teamId,
-    geojsonId,
-  } = props;
+  } = useGeoJSON(session, geojsonId);
 
   const breadcrumbItems = [
     {
@@ -83,8 +93,7 @@ const Content = (props: Props) => {
     }
   ];
 
-  const onDeleteClick = () => {
-    const { session, teamId, geojsonId } = props;
+  const onDeleteClick = useCallback(async () => {
     if (!teamId || !geojsonId) {
       return Promise.resolve();
     }
@@ -107,11 +116,11 @@ const Content = (props: Props) => {
       })
       .then(() => {
         setTimeout(
-          () => props.history.push("/data/geojson"),
+          () => history.push("/data/geojson"),
           messageDisplayDuration
         );
       });
-  };
+  }, [session, teamId, geojsonId, history])
 
   const getTileStatus = useCallback(async () => {
     let status = "progress"
@@ -137,7 +146,6 @@ const Content = (props: Props) => {
     if (geoJsonMeta) {
       setTileStatus(geoJsonMeta.gvp_status)
     }
-
   }, [geoJsonMeta]);
 
   if (error) {
@@ -145,51 +153,32 @@ const Content = (props: Props) => {
   }
 
   let mapEditorElement: JSX.Element = <></>;
-  if (tileStatus === null || tileStatus === "progress") {
-    mapEditorElement = <div
-      style={{
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      flexDirection: "column"
-    }}
-    >
-      { tileStatus === "progress" &&  <p>{__("Adding your data to the map...")}</p> }
+  if (tileStatus === null) {
+    mapEditorElement = <div style={mapEditorStyle} />;
+  } else if (tileStatus === "progress") {
+    mapEditorElement = <div style={mapEditorStyle}>
+      <p>{__("Adding your data to the map...")}</p>
       <CircularProgress />
     </div>;
-  } else if (tileStatus === undefined) {
+  } else if (tileStatus === undefined || tileStatus === 'failure') {
     mapEditorElement = <ImportDropZone
-      session={props.session}
-      teamId={props.teamId}
-      geojsonId={props.geojsonId}
-      isPaidTeam={props.isPaidTeam}
+      session={session}
+      teamId={teamId}
+      geojsonId={geojsonId}
+      isPaidTeam={isPaidTeam}
+      tileStatus={tileStatus}
       getTileStatus={getTileStatus}
       setTileStatus={setTileStatus}
     />
   } else if (tileStatus === "created") {
-    mapEditorElement = <>
-      <MapEditor
-        session={props.session}
+    mapEditorElement = <MapEditor
+        session={session}
         style={style}
-        geojsonId={props.geojsonId}
+        geojsonId={geojsonId}
         bounds={bounds}
-      />
-    </>;
+      />;
   } else if (tileStatus === "failure") {
-    mapEditorElement = <div
-      style={{
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column"
-      }}
-    >
-      <p>{__("Failed to add your data. Your GeoJSON might be invalid format.")}</p>
-    </div>;
+    mapEditorElement = <div style={mapEditorStyle} />;
   }
 
   return (
@@ -206,12 +195,12 @@ const Content = (props: Props) => {
       {tileStatus === "created" && (
         <div className="nav">
           <StyleSelector style={style} setStyle={setStyle} />
-          {/* <ExportButton GeoJsonID={props.geojsonId} drawObject={drawObject} /> */}
+          {/* <ExportButton GeoJsonID={geojsonId} drawObject={drawObject} /> */}
           <ImportDropZoneButton
-            session={props.session}
-            teamId={props.teamId}
-            geojsonId={props.geojsonId}
-            isPaidTeam={props.isPaidTeam}
+            session={session}
+            teamId={teamId}
+            geojsonId={geojsonId}
+            isPaidTeam={isPaidTeam}
             getTileStatus={getTileStatus}
             setTileStatus={setTileStatus}
           />
@@ -222,17 +211,17 @@ const Content = (props: Props) => {
         {mapEditorElement}
       </div>
 
-      {props.geojsonId && geoJsonMeta ? (
+      {geojsonId && geoJsonMeta ? (
         <div className="geojson-meta">
           <GeoJsonMeta
-            geojsonId={props.geojsonId}
+            geojsonId={geojsonId}
             name={geoJsonMeta.name}
             isPublic={geoJsonMeta.isPublic}
             allowedOrigins={geoJsonMeta.allowedOrigins}
             status={geoJsonMeta.status}
             setGeoJsonMeta={setGeoJsonMeta}
             style={style}
-            isPaidTeam={props.isPaidTeam}
+            isPaidTeam={isPaidTeam}
           />
         </div>
       ) : (
@@ -276,4 +265,4 @@ export const mapStateToProps = (
   }
 };
 
-export default connect(mapStateToProps)(Content);
+export default connect(mapStateToProps)(GeoJson);
