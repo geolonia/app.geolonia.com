@@ -270,6 +270,20 @@ const GeoJSONMeta = (props: Props) => {
     <Grid className="geojson-meta" container spacing={2}>
       <Grid item sm={4} xs={12}>
         <Paper className="geojson-title-description">
+          <h3>{__("Name")}</h3>
+          <input
+            type="text"
+            value={draftName}
+            onChange={e => setDraftName(e.currentTarget.value)}
+          />
+
+          <Save
+            onClick={() => saveHandler(draftName)}
+            disabled={draftName === name}
+          />
+          <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
+        </Paper>
+        <Paper className="geojson-title-description">
           <div>
             <Switch
               checked={draftIsPublic}
@@ -340,21 +354,54 @@ const GeoJSONMeta = (props: Props) => {
             </p> */}
           </div>
         </Paper>
-
-        <Paper className="geojson-title-description">
-          <h3>{__("Name")}</h3>
-          <input
-            type="text"
-            value={draftName}
-            onChange={e => setDraftName(e.currentTarget.value)}
-          />
-
-          <Save
-            onClick={() => saveHandler(draftName)}
-            disabled={draftName === name}
-          />
-          <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
-        </Paper>
+        {draftIsPublic && (
+          <Paper className="geojson-title-description">
+            <h3>{__("Access allowed URLs")}</h3>
+            <p>{__("Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.")}</p>
+            <TextField
+              id="standard-name"
+              label={__("URLs")}
+              margin="normal"
+              multiline={true}
+              rows={5}
+              placeholder="https://example.com"
+              fullWidth={true}
+              value={draftAllowedOrigins}
+              onChange={e => setDraftAllowedOrigins(e.target.value)}
+              disabled={saveStatus === "requesting"}
+            />
+            <Help>
+              <Typography component="p">
+                {__(
+                  "Only requests that come from the URLs specified here will be allowed."
+                )}
+              </Typography>
+              <ul>
+                <li>
+                  {__("Any page in a specific URL:")}{" "}
+                  <strong>https://www.example.com</strong>
+                </li>
+                <li>
+                  {__("Any subdomain:")} <strong>https://*.example.com</strong>
+                </li>
+                <li>
+                  {__("A URL with a non-standard port:")}{" "}
+                  <strong>https://example.com:*</strong>
+                </li>
+              </ul>
+              <p>
+                {__(
+                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
+                )}
+              </p>
+            </Help>
+            <Save
+              onClick={onUpdateClick}
+              onError={onRequestError}
+              disabled={saveDisabled}
+            />
+          </Paper>
+        )}
       </Grid>
       <Grid item sm={8} xs={12}>
         <Paper style={sidebarStyle}>
@@ -433,54 +480,6 @@ const GeoJSONMeta = (props: Props) => {
             </Button>
           </p>
         </Paper>
-        {draftIsPublic && (
-          <Paper className="geojson-title-description">
-            <h3>{__("Access allowed URLs")}</h3>
-            <p>{__("Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.")}</p>
-            <TextField
-              id="standard-name"
-              label={__("URLs")}
-              margin="normal"
-              multiline={true}
-              rows={5}
-              placeholder="https://example.com"
-              fullWidth={true}
-              value={draftAllowedOrigins}
-              onChange={e => setDraftAllowedOrigins(e.target.value)}
-              disabled={saveStatus === "requesting"}
-            />
-            <Help>
-              <Typography component="p">
-                {__(
-                  "Only requests that come from the URLs specified here will be allowed."
-                )}
-              </Typography>
-              <ul>
-                <li>
-                  {__("Any page in a specific URL:")}{" "}
-                  <strong>https://www.example.com</strong>
-                </li>
-                <li>
-                  {__("Any subdomain:")} <strong>https://*.example.com</strong>
-                </li>
-                <li>
-                  {__("A URL with a non-standard port:")}{" "}
-                  <strong>https://example.com:*</strong>
-                </li>
-              </ul>
-              <p>
-                {__(
-                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
-                )}
-              </p>
-            </Help>
-            <Save
-              onClick={onUpdateClick}
-              onError={onRequestError}
-              disabled={saveDisabled}
-            />
-          </Paper>
-        )}
       </Grid>
     </Grid>
   );
