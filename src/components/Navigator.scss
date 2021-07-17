@@ -1,22 +1,120 @@
-#navigator .team
-{
-  width: 100%;
-  color: #ffffff;
+
+
+
+#navigator {
+  .logo {
+    width: 48px;
+    height: auto;
+    margin-right: 16px;
+  }
+  hr{display: none;}
+  .MuiInput-underline:after{
+    border-bottom: 2px solid #EB5C0B !important;
+  }
+  .MuiPaper-root {
+    color: #ffffff;
+    padding: 0 !important;
+  }
+  &.bg_white{
+    .MuiDrawer-paper {
+      background-color: #ffffff;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      border: none;
+    }
+  }
+  .teamContent{
+    background-color: #fff !important;
+    color: #333 !important;
+    box-shadow: none !important;
+    padding: 10px !important;
+    svg{
+      fill: #EB5C0B;
+    }
+  }
+  .team{
+    width: 100%;
+    &::before {
+      border-color: #ffffff;
+    }
+    .MuiSvgIcon-root {
+      color: #ffffff;
+      padding: 0 !important;
+    }
+
+  }
+  .categoryHeader{
+    &bg{
+      position: relative;
+      padding: 0 5px !important;
+      &::after{
+        content: "";
+        position: absolute;
+        top: 50%;
+        z-index: 0;
+        display: block;
+        width: 90%;
+        height: 1px;
+        background-color: #ccc;
+      }
+    }
+    &icon{
+      z-index: 1;
+      background-color: #fff;
+      padding: 5px;
+      display: inline-block;
+      width: auto;
+      flex: inherit;
+      margin-right: 0 !important;
+      svg{
+        fill: #EB5C0B;
+      }
+    }
+    &text{
+      z-index: 1;
+      background-color: #fff;
+      padding: 5px;
+      display: inline-block;
+      width: auto;
+      flex: inherit !important;
+      span{
+        font-size: 12px !important;
+      }
+    }
+  }
+  .categoryItemcontent{
+    background-color: #F4F4F4 !important;
+    padding: 10px !important;
+    margin-bottom: 1px !important;
+    box-shadow:none !important;
+    &:hover{
+      background-color: #EB5C0B !important;
+      color: #ffffff;
+    }
+  }
+  .navDashboard{
+    padding: 10px !important;
+    &icon{
+      margin-right: 10px;
+      svg{
+        fill: #EB5C0B;
+      }
+    }
+    &:hover{
+      background-color: #EB5C0B !important;
+      color: #ffffff;
+      svg{
+        fill: #ffffff;
+      }
+    }
+  }
+
 }
 
-#navigator .team::before
-{
-  border-color: #ffffff;
-}
 
-#navigator .team .MuiSvgIcon-root
-{
-  color: #ffffff;
-}
 
-#navigator .logo
-{
-  width: 48px;
-  height: auto;
-  margin-right: 16px;
-}
+
+
+
+
+
+
