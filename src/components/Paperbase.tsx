@@ -42,6 +42,9 @@ const styles = createStyles({
       flexShrink: 0
     }
   },
+  headerColor: {
+    color: '#ffffff',
+  },
   appContent: {
     flex: 1,
     display: "flex",
@@ -58,7 +61,7 @@ const styles = createStyles({
   mainContent: {
     flex: 1,
     padding: "48px 36px 48px",
-    background: "#ffffff"
+    background: "#ececec"
   }
 });
 
@@ -66,6 +69,7 @@ type OwnProps = {
   classes: {
     root: string;
     drawer: string;
+    headerColor: string;
     appContent: string;
     notificationContent: string;
     warningContent: string;
@@ -134,7 +138,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
               component={AcceptInvitation}
             />
             <Route exact>
-              <nav className={classes.drawer}>
+              <nav className={classes.drawer + " " + classes.headerColor}>
                 <Hidden smUp implementation="js">
                   <Navigator
                     PaperProps={{ style: { width: drawerWidth } }}

@@ -17,7 +17,7 @@ code {
   padding: 16px;
 }
 
-a
-{
-  color: #007bff;
+a {color: #EB5C0B;}
+.MuiTypography-colorPrimary{
+  color: #EB5C0B !important;
 }
