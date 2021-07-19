@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import * as clipboard from "clipboard-polyfill";
@@ -287,7 +288,6 @@ const GeoJSONMeta = (props: Props) => {
             value={draftName}
             onChange={e => setDraftName(e.currentTarget.value)}
           />
-
           <Save
             onClick={() => saveHandler(draftName)}
             disabled={draftName === name}
@@ -422,17 +422,25 @@ const GeoJSONMeta = (props: Props) => {
           <Typography component="h3" style={styleH3}>
             {__("Step 1")}
           </Typography>
+          <p>{__("Please select API key.")}</p>
           <FormControl>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            value={selectApiKey}
-            onChange={handleSelectApiKey}
-          >
-            <MenuItem value={'xxxxxxx'}>xxxxxxx</MenuItem>
-            <MenuItem value={'zzzzzzz'}>zzzzzzz</MenuItem>
-          </Select>
+            <InputLabel id="demo-simple-select-label">API Key</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectApiKey}
+              onChange={handleSelectApiKey}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {mapKeys.map((key) => <MenuItem key={key.keyId} value={key.keyId}>{key.name}</MenuItem>)}
+            </Select>
+          <FormHelperText>
+              <Interweave
+                content={__("If you don't have one, create it from <a href='#/api-keys'>API Keys</a>.")}
+              />
+          </FormHelperText>
         </FormControl>
           <Typography component="h3" style={styleH3}>
             {__("Step 1")}
