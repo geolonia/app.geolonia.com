@@ -33,7 +33,6 @@ type StateProps = {
   geojsonId?: string;
   teamId?: string;
   isPaidTeam: boolean;
-  mapKeys: Geolonia.Key[];
 };
 
 type RouterProps = {
@@ -65,7 +64,6 @@ const GeoJson = (props: Props) => {
     geojsonId,
     isPaidTeam,
     history,
-    mapKeys
     } = props;
 
   const [message] = useState("");
@@ -266,17 +264,15 @@ export const mapStateToProps = (
   const team = state.team.data[state.team.selectedIndex];
   if (team) {
     const { teamId } = team;
-    const { data: mapKeys = [] } = state.mapKey[teamId];
     const geojsonId = ownProps.match.params.id;
     return {
       session,
       teamId,
       geojsonId,
-      isPaidTeam: team.isPaidTeam,
-      mapKeys
+      isPaidTeam: team.isPaidTeam
     };
   } else {
-    return { session, isPaidTeam: false, mapKeys: [] };
+    return { session, isPaidTeam: false };
   }
 };
 

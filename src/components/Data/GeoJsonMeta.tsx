@@ -36,7 +36,7 @@ type OwnProps = {
   style: string;
 };
 
-type StateProps = { session: Geolonia.Session };
+type StateProps = { session: Geolonia.Session, mapKeys: Geolonia.Key[] };
 type Props = OwnProps & StateProps;
 
 const embedCode = sprintf(
@@ -169,7 +169,7 @@ const useStatus = (
 
 const GeoJSONMeta = (props: Props) => {
   // サーバーから取得してあるデータ
-  const { geojsonId, name, isPublic, allowedOrigins, status, teamId } = props;
+  const { geojsonId, name, isPublic, allowedOrigins, status, teamId, mapKeys } = props;
   const { session, setGeoJsonMeta } = props;
 
   // UI上での変更をリクエスト前まで保持しておくための State
@@ -487,7 +487,10 @@ const GeoJSONMeta = (props: Props) => {
 
 export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const { session } = state.authSupport;
-  return { session };
+  const { data: teams, selectedIndex } = state.team;
+  const teamId = teams[selectedIndex] && teams[selectedIndex].teamId;
+  const { data: mapKeys = [] } = state.mapKey[teamId];
+  return { session, mapKeys };
 };
 
 export default connect(mapStateToProps)(GeoJSONMeta);
