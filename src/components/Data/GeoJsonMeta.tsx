@@ -13,6 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import InputLabel from '@material-ui/core/InputLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import * as clipboard from "clipboard-polyfill";
 import { __, sprintf } from "@wordpress/i18n";
 import { connect } from "react-redux";
@@ -184,17 +185,9 @@ const GeoJSONMeta = (props: Props) => {
   const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
 
-  const [state, setState] = React.useState<{ age: string | number; name: string }>({
-    age: '',
-    name: 'hai',
-  });
-
-  const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    const name = event.target.name as keyof typeof state;
-    setState({
-      ...state,
-      [name]: event.target.value,
-    });
+  const [age, setAge] = React.useState('');
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setAge(event.target.value as string);
   };
 
   useEffect(() => {
@@ -428,22 +421,18 @@ const GeoJSONMeta = (props: Props) => {
             {__("Step 1")}
           </Typography>
           <FormControl>
-            <InputLabel htmlFor="age-native-simple">Age</InputLabel>
-            <Select
-              native
-              value={state.age}
-              onChange={handleChange}
-              inputProps={{
-                name: 'age',
-                id: 'age-native-simple',
-              }}
-            >
-              <option aria-label="None" value="" />
-              <option value={10}>Ten</option>
-              <option value={20}>Twenty</option>
-              <option value={30}>Thirty</option>
-            </Select>
-          </FormControl>
+          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={age}
+            onChange={handleChange}
+          >
+            <MenuItem value={10}>Ten</MenuItem>
+            <MenuItem value={20}>Twenty</MenuItem>
+            <MenuItem value={30}>Thirty</MenuItem>
+          </Select>
+        </FormControl>
           <Typography component="h3" style={styleH3}>
             {__("Step 1")}
           </Typography>
@@ -525,7 +514,7 @@ export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const { session } = state.authSupport;
   const { data: teams, selectedIndex } = state.team;
   const teamId = teams[selectedIndex] && teams[selectedIndex].teamId;
-  const { data: mapKeys = [] } = state.mapKey[teamId];
+  const { data: mapKeys = [] } = state.mapKey[teamId] || {};
   return { session, mapKeys };
 };
 
