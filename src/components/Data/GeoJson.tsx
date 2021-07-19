@@ -166,7 +166,9 @@ const GeoJson = (props: Props) => {
 
   let mapEditorElement: JSX.Element | null = null;
   if (tileStatus === null) {
-    mapEditorElement = <div style={mapEditorStyle} />;
+    mapEditorElement = <div style={mapEditorStyle}>
+      <CircularProgress />
+    </div>;
   } else if (tileStatus === "progress") {
     mapEditorElement = <div style={mapEditorStyle}>
       <p>{__("Adding your data to the map...")}</p>

@@ -94,17 +94,24 @@ const Content = (props: Props) => {
   }, [geojsonId, getTileStatus, maxUploadSize, session, setTileStatus, teamId]);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
+  const mouseOverStyle = { background: isDragActive ? 'rgb(245, 245, 245)' : 'inherit' }
 
   return (
     <Paper className={"geojson-dropzone-container"}>
-      <div className={"geojson-dropzone"} {...getRootProps()}>
+      <div className={"geojson-dropzone"} {...getRootProps()} style={mouseOverStyle}>
         <input {...getInputProps()} accept='.json,.geojson' />
         {isDragActive ? <p>{__("Drop file to add your map.")}</p> : (
           <>
             <CloudUploadIcon fontSize="large" />
-            <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), maxUploadSize / 1000000)})</p>
-            <p>{__("Drag and drop a file here to add your map,")}<br />{__("Or click to choose your file")}</p>
-            {customMessage}
+            <p>
+              {__("Import GeoJSON from your computer.")}<br />
+              {sprintf(__('Maximum upload file size: %d MB'), maxUploadSize / 1_000_000)}
+            </p>
+            <p>
+              {__("Drag and drop a file here to add your map,")}<br />
+              {__("Or click to choose your file")}
+            </p>
+            { customMessage && <p>{customMessage}</p>}
           </>
         )}
         {error && !isDragActive && <div className="error">{error}</div>}
