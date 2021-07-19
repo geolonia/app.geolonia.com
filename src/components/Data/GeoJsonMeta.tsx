@@ -443,12 +443,12 @@ const GeoJSONMeta = (props: Props) => {
           </FormHelperText>
         </FormControl>
           <Typography component="h3" style={styleH3}>
-            {__("Step 1")}
+            {__("Step 2")}
           </Typography>
           <p>
             <Interweave
               content={__(
-                "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file. <br/> Please replace YOUR-API-KEY to your API key. If you don't have one, create it from <a href='#/api-keys'>API keys</a> page."
+                "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file."
               )}
             />
           </p>
@@ -470,7 +470,7 @@ const GeoJSONMeta = (props: Props) => {
             </Button>
           </p>
           <Typography component="h3" style={styleH3}>
-            {__("Step 2")}
+            {__("Step 3")}
           </Typography>
           <p>
             {__(
@@ -493,7 +493,7 @@ const GeoJSONMeta = (props: Props) => {
             </Button>
           </p>
           <Typography component="h3" style={styleH3}>
-            {__("Step 3")}
+            {__("Step 4")}
           </Typography>
           <p>{__("Adjust the element size.")}</p>
           <textarea
