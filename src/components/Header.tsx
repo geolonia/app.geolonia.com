@@ -122,7 +122,7 @@ const Header = (props: Props) => {
               <IconButton
                 onClick={handleClick}
                 color="inherit"
-                className={'iconButtonAvatar' + " " + (classes.iconButtonAvatar)}
+                className={`iconButtonAvatar ${(classes.iconButtonAvatar)}`}
               >
                 {props.userAvatar ? (
                   <Avatar src={props.userAvatar} style={avatarStyle} />
@@ -143,6 +143,7 @@ const Header = (props: Props) => {
                 <MenuItem onClick={handleSignout}>{__("Logout")}</MenuItem>
               </Menu>
             </Grid>
+
 
 
             <Grid item>

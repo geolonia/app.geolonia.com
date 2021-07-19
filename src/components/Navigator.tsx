@@ -226,9 +226,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
   return (
     <Drawer id="navigator" variant="permanent" {...other} className="bg_white">
       <List disablePadding >
-        <ListItem
-          className={'teamContent' + " " + clsx(classes.firebase, classes.item, classes.itemCategory)}
-        >
+        <ListItem className={ `teamContent ${clsx(classes.firebase, classes.item, classes.itemCategory)}` }>
           <img
             src={
               (teams[selectedTeamIndex] &&
@@ -262,9 +260,9 @@ const Navigator: React.FC<Props> = (props: Props) => {
           button
           component="a"
           onClick={handleClickHome}
-          className={'navDashboard' + " " + clsx(classes.item, classes.itemCategory)}
+          className={`navDashboard ${clsx(classes.item, classes.itemCategory)}`}
         >
-          <ListItemIcon className={'navDashboardicon' + " " + classes.itemIcon}>
+          <ListItemIcon className={`navDashboardicon ${classes.itemIcon}`}>
             <AppsOutlinedIcon />
           </ListItemIcon>
           <ListItemText
@@ -277,9 +275,9 @@ const Navigator: React.FC<Props> = (props: Props) => {
         </ListItem>
         {categories.map(({ id, icon, children }) => (
           <React.Fragment key={id}>
-            <ListItem className={'categoryHeaderbg' + " " + (classes.categoryHeader)}>
+            <ListItem className={`categoryHeaderbg ${(classes.categoryHeader)}`}>
 
-              <ListItemIcon className={'categoryHeadericon' + " " + (classes.itemIcon)}>{icon}</ListItemIcon>
+              <ListItemIcon className={`categoryHeadericon  ${(classes.itemIcon)}`}>{icon}</ListItemIcon>
 
               <ListItemText className={'categoryHeadertext'}
                 classes={{
@@ -295,7 +293,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
                 component="a"
                 href={href}
                 key={childId}
-                className={'categoryItemcontent' + " " + clsx(classes.item, active && classes.itemActiveItem)}
+                className={`categoryItemcontent ${clsx(classes.item, active && classes.itemActiveItem)}`}
               >
                 <ListItemText
                   classes={{
