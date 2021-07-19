@@ -43,12 +43,6 @@ type OwnProps = {
 type StateProps = { session: Geolonia.Session, mapKeys: Geolonia.Key[] };
 type Props = OwnProps & StateProps;
 
-const embedCode = sprintf(
-  '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
-  'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
-  process.env.REACT_APP_STAGE,
-  'YOUR-API-KEY'
-);
 const embedCSS = `.geolonia {
 width: 100%;
 height: 400px;
@@ -185,10 +179,7 @@ const GeoJSONMeta = (props: Props) => {
   const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
 
-  const [age, setAge] = React.useState('');
-  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    setAge(event.target.value as string);
-  };
+  const [selectApiKey, setSelectApiKey] = React.useState('');
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -274,6 +265,17 @@ const GeoJSONMeta = (props: Props) => {
         setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status, teamId });
       });
   }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta, teamId])
+
+  const handleSelectApiKey = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setSelectApiKey(event.target.value as string);
+  };
+
+  const embedCode = sprintf(
+    '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
+    'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
+    process.env.REACT_APP_STAGE,
+    selectApiKey
+  );
 
   return (
     <Grid className="geojson-meta" container spacing={2}>
@@ -425,12 +427,11 @@ const GeoJSONMeta = (props: Props) => {
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={age}
-            onChange={handleChange}
+            value={selectApiKey}
+            onChange={handleSelectApiKey}
           >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
+            <MenuItem value={'xxxxxxx'}>xxxxxxx</MenuItem>
+            <MenuItem value={'zzzzzzz'}>zzzzzzz</MenuItem>
           </Select>
         </FormControl>
           <Typography component="h3" style={styleH3}>
@@ -478,7 +479,7 @@ const GeoJSONMeta = (props: Props) => {
               data-lat="38.592126509927425"
               data-lng="136.8448477633185"
               data-zoom="4"
-              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`}
+              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=${selectApiKey}`}
             >
               {__("Get HTML")}
             </Button>
