@@ -29,15 +29,20 @@ const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: 
   }
 
   let signedURL = result.data.links.putGeoJSON;
+  let contentType = "application/json";
   if (geojson.name.endsWith('.csv')) {
     signedURL = result.data.links.putCSV;
+    contentType = "text/csv";
   }
   await fetch<any>(
     session,
     signedURL,
     {
       method: "PUT",
-      body: geojson
+      body: geojson,
+      headers: {
+        "Content-Type": contentType,
+      },
     },
     { absPath: true, noAuth: true, decode: "text" }
   );
