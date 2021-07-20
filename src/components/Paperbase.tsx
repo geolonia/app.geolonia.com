@@ -138,7 +138,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
               component={AcceptInvitation}
             />
             <Route exact>
-              <nav className={classes.drawer + " " + classes.headerColor}>
+              <nav className={`${classes.drawer} ${classes.headerColor}`}>
                 <Hidden smUp implementation="js">
                   <Navigator
                     PaperProps={{ style: { width: drawerWidth } }}
