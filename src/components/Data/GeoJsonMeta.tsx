@@ -25,6 +25,7 @@ import normalizeOrigin from "../../lib/normalize-origin";
 import { buildApiUrl } from "../../lib/api";
 import { GeoJsonMetaSetter } from "./GeoJson/hooks/use-geojson";
 import Interweave from "interweave";
+import { stat } from "node:fs";
 
 const { REACT_APP_STAGE, REACT_APP_TILE_SERVER } = process.env;
 
@@ -229,12 +230,13 @@ const GeoJSONMeta = (props: Props) => {
 
   const saveAllowedOrigins = async (allowedOriginsSave: string[]) => {
     try {
-      const res = await fetch(
+      await fetch(
         session,
         `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
         {
           method: "PUT",
           body: JSON.stringify({
+            primaryApiKeyId: "xxxxxxxxxxxxx",
             isPublic,
             name,
             allowedOrigins: allowedOriginsSave,
