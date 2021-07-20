@@ -33,7 +33,7 @@ type OwnProps = {
   setGeoJsonMeta: GeoJsonMetaSetter;
 
   isPaidTeam: boolean;
-  style: string;
+  style?: string;
 };
 
 type StateProps = { session: Geolonia.Session };
