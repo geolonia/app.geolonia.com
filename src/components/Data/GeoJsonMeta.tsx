@@ -227,7 +227,31 @@ const GeoJSONMeta = (props: Props) => {
     saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
   }
 
-  const onUpdateClick = useCallback(() => {
+  const saveAllowedOrigins = async (allowedOriginsSave: string[]) => {
+    try {
+      const res = await fetch(
+        session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            isPublic,
+            name,
+            allowedOrigins: allowedOriginsSave,
+            status
+          })
+        }
+      )
+      setSaveStatus("success");
+      setGeoJsonMeta({ isPublic, name, allowedOrigins: allowedOriginsSave, status, teamId });
+
+    } catch (error) {
+      setSaveStatus("failure");
+      throw new Error();
+    }
+  }
+
+  const onUpdateClick = useCallback(async () => {
     if (saveDisabled || !session) {
       return Promise.resolve();
     }
@@ -239,40 +263,18 @@ const GeoJSONMeta = (props: Props) => {
       .filter(url => !!url)
       .map(origin => normalizeOrigin(origin));
 
-    return fetch(
-      session,
-      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
-      {
-        method: "PUT",
-        body: JSON.stringify({
-          isPublic,
-          name,
-          allowedOrigins: normalizedAllowedOrigins,
-          status
-        })
-      }
-    )
-      .then(res => {
-        if (res.status < 400) {
-          return res.json();
-        } else {
-          // will be caught at <Save />
-          setSaveStatus("failure");
-          throw new Error();
-        }
-      })
-      .then(() => {
-        setSaveStatus("success");
-        setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status, teamId });
-      });
+    await saveAllowedOrigins(normalizedAllowedOrigins)
+
   }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta, teamId])
 
   const handleSelectApiKey = (event: React.ChangeEvent<{ value: unknown }>) => {
 
     setSelectApiKey(event.target.value as string);
-    const allowedOrigins = mapKeys.find(key => key.keyId === event.target.value)?.allowedOrigins
 
-    // geojsonMeta に AllowedOrigins を保存する処理を追加
+    const allowedOrigins = mapKeys.find(key => key.keyId === event.target.value)?.allowedOrigins
+    if (allowedOrigins) {
+      saveAllowedOrigins(allowedOrigins)
+    }
   };
 
   const embedCode = sprintf(
