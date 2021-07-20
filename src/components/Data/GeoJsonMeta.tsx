@@ -268,7 +268,11 @@ const GeoJSONMeta = (props: Props) => {
   }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta, teamId])
 
   const handleSelectApiKey = (event: React.ChangeEvent<{ value: unknown }>) => {
+
     setSelectApiKey(event.target.value as string);
+    const allowedOrigins = mapKeys.find(key => key.keyId === event.target.value)?.allowedOrigins
+
+    // geojsonMeta に AllowedOrigins を保存する処理を追加
   };
 
   const embedCode = sprintf(
@@ -424,10 +428,10 @@ const GeoJSONMeta = (props: Props) => {
           </Typography>
           <p>{__("Please select API key.")}</p>
           <FormControl>
-            <InputLabel id="demo-simple-select-label">API Key</InputLabel>
+            <InputLabel id="api-key-select-label">API Key</InputLabel>
             <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
+              labelId="api-key-select-label"
+              id="api-key-select"
               value={selectApiKey}
               onChange={handleSelectApiKey}
             >
