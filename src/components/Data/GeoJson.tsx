@@ -67,7 +67,7 @@ const GeoJson = (props: Props) => {
     } = props;
 
   const [message] = useState("");
-  const [style, setStyle] = useState<string>("geolonia/basic");
+  const [style, setStyle] = useState<string | undefined>();
   const [tileStatus, setTileStatus] = useState<TileStatus>(null);
   const [prevTeamId] = useState(teamId);
 

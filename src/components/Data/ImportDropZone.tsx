@@ -9,8 +9,15 @@ import "./ImportDropZone.scss"
 import { TileStatus } from './GeoJson';
 const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
+type GeoJSONLinksResp = {
+  links: {
+    putGeoJSON: string;
+    putCSV: string;
+  }
+};
+
 const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
-  const result = await fetch<{ links: { putGeoJSON: string; }; }>(
+  const result = await fetch<GeoJSONLinksResp>(
     session,
     `${REACT_APP_API_BASE}/${REACT_APP_STAGE}/geojsons/${geojsonId}/links?teamId=${teamId}`,
     { method: "GET" },
@@ -21,13 +28,21 @@ const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: 
     return result;
   }
 
-  const signedURL = result.data.links.putGeoJSON;
+  let signedURL = result.data.links.putGeoJSON;
+  let contentType = "application/json";
+  if (geojson.name.endsWith('.csv')) {
+    signedURL = result.data.links.putCSV;
+    contentType = "text/csv";
+  }
   await fetch<any>(
     session,
     signedURL,
     {
       method: "PUT",
-      body: geojson
+      body: geojson,
+      headers: {
+        "Content-Type": contentType,
+      },
     },
     { absPath: true, noAuth: true, decode: "text" }
   );
@@ -75,13 +90,17 @@ const Content = (props: Props) => {
       return;
     }
 
-    if (!acceptedFiles[0].name.endsWith('.geojson') && !acceptedFiles[0].name.endsWith('.json')) {
-      setError(__('Error: Please upload *.geojson or *.json file.'));
+    if (
+      !acceptedFiles[0].name.endsWith('.geojson') &&
+      !acceptedFiles[0].name.endsWith('.json') &&
+      !acceptedFiles[0].name.endsWith('.csv')
+    ) {
+      setError(__('Error: We currently support GeoJSON and CSV files. Please try uploading again.'));
       return;
     }
 
     if (acceptedFiles[0].size > maxUploadSize) {
-      setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), maxUploadSize / 1000000));
+      setError(sprintf(__("Error: The file you selected was too big. Please upload a file less than %d MB."), maxUploadSize / 1000000));
       return;
     }
     setError(null);
@@ -99,7 +118,7 @@ const Content = (props: Props) => {
   return (
     <Paper className={"geojson-dropzone-container"}>
       <div className={"geojson-dropzone"} {...getRootProps()} style={mouseOverStyle}>
-        <input {...getInputProps()} accept='.json,.geojson' />
+        <input {...getInputProps()} accept='.json,.geojson,.csv' />
         {isDragActive ? <p>{__("Drop file to add your map.")}</p> : (
           <>
             <CloudUploadIcon fontSize="large" />
