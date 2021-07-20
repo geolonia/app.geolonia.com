@@ -25,7 +25,6 @@ import normalizeOrigin from "../../lib/normalize-origin";
 import { buildApiUrl } from "../../lib/api";
 import { GeoJsonMetaSetter } from "./GeoJson/hooks/use-geojson";
 import Interweave from "interweave";
-import { stat } from "node:fs";
 
 const { REACT_APP_STAGE, REACT_APP_TILE_SERVER } = process.env;
 
@@ -40,6 +39,7 @@ type OwnProps = {
 
   isPaidTeam: boolean;
   style: string;
+  primaryApiKeyId: string | undefined;
 };
 
 type StateProps = { session: Geolonia.Session, mapKeys: Geolonia.Key[] };
@@ -79,7 +79,7 @@ const copyToClipBoard = (cssSelector: string) => {
 const usePublic = (
   props: Props
 ): [boolean, (nextIsPublic: boolean) => void] => {
-  const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
+  const { session, geojsonId, isPublic, allowedOrigins, name, status, primaryApiKeyId, setGeoJsonMeta } = props;
   const [draftIsPublic, setDraftIsPublic] = useState(props.isPublic);
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const usePublic = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic: draftIsPublic, allowedOrigins, name, status })
+          body: JSON.stringify({ isPublic: draftIsPublic, allowedOrigins, name, status, primaryApiKeyId })
         }
       );
       if (rawResp.status >= 400) {
@@ -109,6 +109,7 @@ const usePublic = (
         status: resp.body._source.status,
         gvp_status: resp.body._source.gvp_status,
         teamId: resp.body._source.teamId,
+        primaryApiKeyId: resp.body._source.primaryApiKeyId,
       });
     })();
   }, [
@@ -119,7 +120,8 @@ const usePublic = (
     name,
     session,
     setGeoJsonMeta,
-    status
+    status,
+    primaryApiKeyId
   ]);
 
   return [draftIsPublic, setDraftIsPublic];
@@ -128,7 +130,7 @@ const usePublic = (
 const useStatus = (
   props: Props & StateProps
 ): [string, (nextStatus: string) => void] => {
-  const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
+  const { session, geojsonId, isPublic, allowedOrigins, name, status, primaryApiKeyId, setGeoJsonMeta } = props;
   const [ draftStatus, setDraftStatus ] = useState(props.status);
 
   useEffect(() => {
@@ -142,7 +144,7 @@ const useStatus = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic, name, allowedOrigins, status: draftStatus })
+          body: JSON.stringify({ isPublic, name, allowedOrigins, status: draftStatus, primaryApiKeyId })
         }
       );
 
@@ -158,10 +160,11 @@ const useStatus = (
         status: resp.body._source.status,
         gvp_status: resp.body._source.gvp_status,
         teamId: resp.body._source.teamId,
+        primaryApiKeyId: resp.body._source.primaryApiKeyId,
       });
     })();
   }, [
-    draftStatus, geojsonId, isPublic, allowedOrigins, name, session, setGeoJsonMeta, status
+    draftStatus, geojsonId, isPublic, allowedOrigins, name, session, setGeoJsonMeta, status, primaryApiKeyId
   ]);
 
   return [ draftStatus, setDraftStatus ];
@@ -169,7 +172,7 @@ const useStatus = (
 
 const GeoJSONMeta = (props: Props) => {
   // サーバーから取得してあるデータ
-  const { geojsonId, name, isPublic, allowedOrigins, status, teamId, mapKeys } = props;
+  const { geojsonId, name, isPublic, allowedOrigins, status, teamId, mapKeys, primaryApiKeyId } = props;
   const { session, setGeoJsonMeta } = props;
 
   // UI上での変更をリクエスト前まで保持しておくための State
@@ -181,7 +184,7 @@ const GeoJSONMeta = (props: Props) => {
   const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
 
-  const [selectApiKey, setSelectApiKey] = React.useState('');
+  const [selectApiKey, setSelectApiKey] = React.useState(primaryApiKeyId);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -211,7 +214,8 @@ const GeoJSONMeta = (props: Props) => {
           name: draftName,
           isPublic,
           allowedOrigins,
-          status
+          status,
+          primaryApiKeyId
         })
       }
     );
@@ -219,8 +223,8 @@ const GeoJSONMeta = (props: Props) => {
       throw new Error();
     }
     // const resp = await rawResp.json();
-    setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status, teamId });
-  }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status, teamId]);
+    setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status, teamId, primaryApiKeyId });
+  }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status, teamId, primaryApiKeyId]);
 
   let saveDisabled = false
 
@@ -228,7 +232,7 @@ const GeoJSONMeta = (props: Props) => {
     saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
   }
 
-  const saveAllowedOrigins = async (allowedOriginsSave: string[]) => {
+  const saveAllowedOrigins = useCallback(async (allowedOriginsSave: string[], apiKey: string | undefined) => {
     try {
       await fetch(
         session,
@@ -236,22 +240,22 @@ const GeoJSONMeta = (props: Props) => {
         {
           method: "PUT",
           body: JSON.stringify({
-            primaryApiKeyId: "xxxxxxxxxxxxx",
             isPublic,
             name,
             allowedOrigins: allowedOriginsSave,
-            status
+            status,
+            primaryApiKeyId: apiKey,
           })
         }
       )
       setSaveStatus("success");
-      setGeoJsonMeta({ isPublic, name, allowedOrigins: allowedOriginsSave, status, teamId });
+      setGeoJsonMeta({ primaryApiKeyId: apiKey, isPublic, name, allowedOrigins: allowedOriginsSave, status, teamId });
 
     } catch (error) {
       setSaveStatus("failure");
       throw new Error();
     }
-  }
+  }, [geojsonId, isPublic, name, session, setGeoJsonMeta, status, teamId])
 
   const onUpdateClick = useCallback(async () => {
     if (saveDisabled || !session) {
@@ -265,17 +269,18 @@ const GeoJSONMeta = (props: Props) => {
       .filter(url => !!url)
       .map(origin => normalizeOrigin(origin));
 
-    await saveAllowedOrigins(normalizedAllowedOrigins)
+    await saveAllowedOrigins(normalizedAllowedOrigins, selectApiKey)
 
-  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta, teamId])
+  }, [draftAllowedOrigins, saveDisabled, session, saveAllowedOrigins, selectApiKey])
 
   const handleSelectApiKey = (event: React.ChangeEvent<{ value: unknown }>) => {
 
-    setSelectApiKey(event.target.value as string);
+    const savedApiKey = event.target.value as string
+    setSelectApiKey(savedApiKey);
 
-    const allowedOrigins = mapKeys.find(key => key.keyId === event.target.value)?.allowedOrigins
+    const allowedOrigins = mapKeys.find(key => key.keyId === savedApiKey)?.allowedOrigins
     if (allowedOrigins) {
-      saveAllowedOrigins(allowedOrigins)
+      saveAllowedOrigins(allowedOrigins, savedApiKey)
     }
   };
 

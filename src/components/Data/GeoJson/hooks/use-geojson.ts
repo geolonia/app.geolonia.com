@@ -11,8 +11,9 @@ type GeoJSONMeta = {
   isPublic: boolean;
   allowedOrigins: string[];
   status: string;
-  gvp_status?: undefined | "progress" | "created" | "failure",
   teamId: string;
+  gvp_status?: undefined | "progress" | "created" | "failure",
+  primaryApiKeyId: string | undefined
 };
 
 export type GeoJsonMetaSetter = React.Dispatch<React.SetStateAction<GeoJSONMeta | null>>;
@@ -47,7 +48,6 @@ export default function useGeoJSON(
           }
         })
         .then(json => {
-          console.log(json)
           const allowedOrigins =
             typeof json.allowedOrigins !== "undefined" ? json.allowedOrigins : [];
           setGeoJsonMeta({ ...json, allowedOrigins });
