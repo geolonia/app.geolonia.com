@@ -173,6 +173,14 @@ const useStatus = (
   return [ draftStatus, setDraftStatus ];
 };
 
+const getApiKeyIdAllowedOrigins = (mapKeys: Geolonia.Key[], apiKeyId: string | undefined) => {
+  return mapKeys.find(key => key.keyId === apiKeyId)?.allowedOrigins
+}
+
+const getApiKeyIdUserKey = (mapKeys: Geolonia.Key[], apiKeyId: string | undefined) => {
+  return mapKeys.find(key => key.keyId === apiKeyId)?.userKey
+}
+
 const GeoJSONMeta = (props: Props) => {
   // サーバーから取得してあるデータ
   const { geojsonId, name, isPublic, allowedOrigins, status, teamId, mapKeys, primaryApiKeyId } = props;
@@ -189,7 +197,6 @@ const GeoJSONMeta = (props: Props) => {
 
   const [apiKeyId, setApiKeyId] = useState(primaryApiKeyId);
   const [apiKeyIdAllowedOrigins, setApiKeyIdAllowedOrigins] = useState<string[] | undefined>([]);
-
   const [userKey, setUserKey] = useState<string | undefined>("");
 
   useEffect(() => {
@@ -249,7 +256,7 @@ const GeoJSONMeta = (props: Props) => {
 
   const onUpdateClick = useCallback(async () => {
     if (saveDisabled || !session) {
-      return Promise.resolve();
+      return
     }
 
     setSaveStatus("requesting");
@@ -262,7 +269,7 @@ const GeoJSONMeta = (props: Props) => {
     try {
       await fetch(
         session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
           body: JSON.stringify({
@@ -283,14 +290,6 @@ const GeoJSONMeta = (props: Props) => {
     }
 
   }, [draftAllowedOrigins, saveDisabled, apiKeyId, geojsonId, isPublic, name, session, setGeoJsonMeta, status, teamId])
-
-  const getApiKeyIdAllowedOrigins = (mapKeys: Geolonia.Key[], apiKeyId: string | undefined) => {
-    return mapKeys.find(key => key.keyId === apiKeyId)?.allowedOrigins
-  }
-
-  const getApiKeyIdUserKey = (mapKeys: Geolonia.Key[], apiKeyId: string | undefined) => {
-    return mapKeys.find(key => key.keyId === apiKeyId)?.userKey
-  }
 
   const savePrimaryApiKeyId = useCallback(async (apiKeyId: string) => {
     if (!session) {
@@ -320,7 +319,7 @@ const GeoJSONMeta = (props: Props) => {
 
   }, [allowedOrigins, geojsonId, isPublic, name, session, setGeoJsonMeta, status, teamId]);
 
-  const handleSelectApiKey = (event: React.ChangeEvent<{ value: unknown }>) => {
+  const handleSelectApiKey = useCallback((event: React.ChangeEvent<{ value: unknown }>) => {
 
     const primaryApiKeyId = event.target.value as string
     const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, primaryApiKeyId)
@@ -331,7 +330,7 @@ const GeoJSONMeta = (props: Props) => {
     setApiKeyId(primaryApiKeyId);
     setUserKey(userKey)
     setApiKeyIdAllowedOrigins(allowedOrigins)
-  };
+  },[mapKeys, savePrimaryApiKeyId]);
 
   const embedCode = sprintf(
     '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
@@ -427,7 +426,7 @@ const GeoJSONMeta = (props: Props) => {
             </p> */}
           </div>
         </Paper>
-        {draftIsPublic && (
+        {apiKeyIdAllowedOrigins && (
           <Accordion className="geojson-title-description geojson-advanced-settings">
             <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -439,13 +438,9 @@ const GeoJSONMeta = (props: Props) => {
                 <h4>{__("Access allowed URLs")}</h4>
                 <p>{__("If you want to add more URLs to the \"URLs to allow access\" set on the API key page, please use the following settings. (e.g., if you want to use multiple API keys for a single tile, etc.)")}</p>
                 <h5>{__("URLs from API Key page.")}</h5>
-                <TextField
-                  multiline={true}
-                  fullWidth={true}
-                  value={apiKeyIdAllowedOrigins && apiKeyIdAllowedOrigins.join("\n")}
-                  disabled
-                  variant="outlined"
-                />
+                <ul className={"geojson-api-key-allowed-url"}>
+                  {apiKeyIdAllowedOrigins && apiKeyIdAllowedOrigins.map((allowedOrigin, index) => <li key={index}><code>{allowedOrigin}</code></li>)}
+                </ul>
                 <h5>{__("Enter URLs to be added.")}</h5>
                 <TextField
                   id="standard-name"
@@ -482,7 +477,7 @@ const GeoJSONMeta = (props: Props) => {
             <Select
               labelId="api-key-select-label"
               id="api-key-select"
-              value={apiKeyId}
+              value={apiKeyId || ""}
               onChange={handleSelectApiKey}
             >
               <MenuItem value="">
