@@ -203,7 +203,7 @@ const GeoJson = (props: Props) => {
         title={geoJsonMeta ? geoJsonMeta.name : ""}
       >
         {__(
-          "You can upload your location data. Also you can get embed HTML code to add the map to your web site."
+          "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON and CSV files."
         )}
       </Title>
 

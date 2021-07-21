@@ -55,7 +55,7 @@ type Props = {
   isPaidTeam: boolean,
   teamId?: string,
   geojsonId?: string,
-  customMessage?: React.ReactElement,
+  customMessage?: string,
   tileStatus?: undefined | 'failure'
 }
 
@@ -123,12 +123,11 @@ const Content = (props: Props) => {
           <>
             <CloudUploadIcon fontSize="large" />
             <p>
-              {__("Import GeoJSON from your computer.")}<br />
+              {__("Upload a file from your computer.")}<br />
               {sprintf(__('Maximum upload file size: %d MB'), maxUploadSize / 1_000_000)}
             </p>
             <p>
-              {__("Drag and drop a file here to add your map,")}<br />
-              {__("Or click to choose your file")}
+              {__("Drag and drop a file here to add your map, or click to choose your file.")}<br />
             </p>
             { customMessage && <p>{customMessage}</p>}
           </>
