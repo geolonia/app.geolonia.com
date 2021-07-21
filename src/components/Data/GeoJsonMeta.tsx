@@ -15,11 +15,14 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import * as clipboard from "clipboard-polyfill";
 import { __, sprintf } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
-import Help from "../custom/Help";
 import fetch from "../../lib/fetch";
 import normalizeOrigin from "../../lib/normalize-origin";
 import { buildApiUrl } from "../../lib/api";
@@ -383,35 +386,44 @@ const GeoJSONMeta = (props: Props) => {
           </div>
         </Paper>
         {draftIsPublic && (
-          <Paper className="geojson-title-description">
-            <h3>{__("Access allowed URLs")}</h3>
-            <p>{__("If you want to add more URLs to the \"URLs to allow access\" set on the API key page, please use the following settings. (e.g., if you want to use multiple API keys for a single tile, etc.)")}</p>
-            <h4>{__("URLs from API Key page.")}</h4>
-            <TextField
-              multiline={true}
-              fullWidth={true}
-              value={apiKeyIdAllowedOrigins && apiKeyIdAllowedOrigins.join("\n")}
-              disabled
-              variant="outlined"
-            />
-            <h4>{__("Enter URLs to be added.")}</h4>
-            <TextField
-              id="standard-name"
-              multiline={true}
-              rows={5}
-              placeholder="https://example.com"
-              fullWidth={true}
-              value={draftAllowedOrigins}
-              onChange={e => setDraftAllowedOrigins(e.target.value)}
-              disabled={saveStatus === "requesting"}
-              variant="outlined"
-            />
-            <Save
-              onClick={onUpdateClick}
-              onError={onRequestError}
-              disabled={saveDisabled}
-            />
-          </Paper>
+          <Accordion className="geojson-title-description geojson-advanced-settings">
+            <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            >
+              <h3>{__("Advanced Settings")}</h3>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid>
+                <h4>{__("Access allowed URLs")}</h4>
+                <p>{__("If you want to add more URLs to the \"URLs to allow access\" set on the API key page, please use the following settings. (e.g., if you want to use multiple API keys for a single tile, etc.)")}</p>
+                <h5>{__("URLs from API Key page.")}</h5>
+                <TextField
+                  multiline={true}
+                  fullWidth={true}
+                  value={apiKeyIdAllowedOrigins && apiKeyIdAllowedOrigins.join("\n")}
+                  disabled
+                  variant="outlined"
+                />
+                <h5>{__("Enter URLs to be added.")}</h5>
+                <TextField
+                  id="standard-name"
+                  multiline={true}
+                  rows={5}
+                  placeholder="https://example.com"
+                  fullWidth={true}
+                  value={draftAllowedOrigins}
+                  onChange={e => setDraftAllowedOrigins(e.target.value)}
+                  disabled={saveStatus === "requesting"}
+                  variant="outlined"
+                />
+                <Save
+                  onClick={onUpdateClick}
+                  onError={onRequestError}
+                  disabled={saveDisabled}
+                />
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
         )}
       </Grid>
       <Grid item sm={8} xs={12}>
@@ -423,7 +435,7 @@ const GeoJSONMeta = (props: Props) => {
             {__("Step 1")}
           </Typography>
           <p>{__("Please select API key.")}</p>
-          <FormControl>
+          <FormControl fullWidth={true}>
             <InputLabel id="api-key-select-label">API Key</InputLabel>
             <Select
               labelId="api-key-select-label"
