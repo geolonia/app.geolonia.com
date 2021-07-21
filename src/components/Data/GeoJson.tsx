@@ -25,6 +25,7 @@ import "./GeoJson.scss";
 // constants
 import { messageDisplayDuration } from "../../constants";
 import { buildApiUrl } from "../../lib/api";
+import { sleep } from "../../lib/sleep";
 
 type OwnProps = Record<string, never>;
 
@@ -43,10 +44,7 @@ type RouterProps = {
 type Props = OwnProps & RouterProps & StateProps;
 
 export type TileStatus = null | undefined | "progress" | "created" | "failure";
-
-const sleep = (msec: number) => {
-  return new Promise(resolve => setTimeout(resolve, msec));
-}
+export type GVPStep = null | 'uploading' | 'processing'
 
 const mapEditorStyle: React.CSSProperties = {
   width: "100%",
@@ -57,7 +55,7 @@ const mapEditorStyle: React.CSSProperties = {
   flexDirection: "column"
 }
 
-const GeoJson = (props: Props) => {
+const GeoJson: React.FC<Props> = (props: Props) => {
     const {
     session,
     teamId,
@@ -70,6 +68,7 @@ const GeoJson = (props: Props) => {
   const [style, setStyle] = useState<string | undefined>();
   const [tileStatus, setTileStatus] = useState<TileStatus>(null);
   const [prevTeamId] = useState(teamId);
+  const [gvpStep, setGvpStep] = useState<GVPStep>(null)
 
   // custom hooks
   const {
@@ -164,15 +163,19 @@ const GeoJson = (props: Props) => {
     return null;
   }
 
+  const stepper: React.ReactNode = <p>{gvpStep}</p>
+
   let mapEditorElement: JSX.Element | null = null;
   if (tileStatus === null) {
     mapEditorElement = <div style={mapEditorStyle}>
       <CircularProgress />
+      {stepper}
     </div>;
   } else if (tileStatus === "progress") {
     mapEditorElement = <div style={mapEditorStyle}>
       <p>{__("Adding your data to the map...")}</p>
       <CircularProgress />
+      {stepper}
     </div>;
   } else if (tileStatus === undefined || tileStatus === 'failure') {
     mapEditorElement = <ImportDropZone
@@ -183,6 +186,7 @@ const GeoJson = (props: Props) => {
       tileStatus={tileStatus}
       getTileStatus={getTileStatus}
       setTileStatus={setTileStatus}
+      setGvpStep={setGvpStep}
     />
   } else if (tileStatus === "created") {
     mapEditorElement = <MapEditor
@@ -218,6 +222,7 @@ const GeoJson = (props: Props) => {
             isPaidTeam={isPaidTeam}
             getTileStatus={getTileStatus}
             setTileStatus={setTileStatus}
+            setGvpStep={setGvpStep}
           />
         </div>
       )}

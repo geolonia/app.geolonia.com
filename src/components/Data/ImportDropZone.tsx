@@ -6,7 +6,7 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from "@wordpress/i18n";
 import fetch from "../../api/custom-fetch";
 import "./ImportDropZone.scss"
-import { TileStatus } from './GeoJson';
+import { TileStatus, GVPStep } from './GeoJson';
 const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
 type GeoJSONLinksResp = {
@@ -51,6 +51,7 @@ const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: 
 type Props = {
   getTileStatus: () => Promise<TileStatus>,
   setTileStatus: (value: TileStatus) => void,
+  setGvpStep: (value: GVPStep) => void,
   session: Geolonia.Session,
   isPaidTeam: boolean,
   teamId?: string,
@@ -67,6 +68,7 @@ const Content = (props: Props) => {
     geojsonId,
     customMessage,
     setTileStatus,
+    setGvpStep,
     getTileStatus,
     tileStatus,
   } = props;
@@ -105,12 +107,20 @@ const Content = (props: Props) => {
     }
     setError(null);
     setTileStatus("progress"); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
-    await uploadGeoJson(acceptedFiles[0], session, teamId, geojsonId);
+    setGvpStep('uploading')
+    try {
+      await uploadGeoJson(acceptedFiles[0], session, teamId, geojsonId);
+    } catch (error) {
+      setGvpStep(null)
+      throw error
+    }
 
+    setGvpStep('processing')
     const status = await getTileStatus();
     setTileStatus(status);
+    setGvpStep(null)
 
-  }, [geojsonId, getTileStatus, maxUploadSize, session, setTileStatus, teamId]);
+  }, [geojsonId, getTileStatus, maxUploadSize, session, setGvpStep, setTileStatus, teamId]);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
   const mouseOverStyle = { background: isDragActive ? 'rgb(245, 245, 245)' : 'inherit' }
