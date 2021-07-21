@@ -292,13 +292,43 @@ const GeoJSONMeta = (props: Props) => {
     return mapKeys.find(key => key.keyId === apiKeyId)?.userKey
   }
 
+  const savePrimaryApiKeyId = useCallback(async (apiKeyId: string) => {
+    if (!session) {
+      return;
+    }
+
+    try {
+      await fetch(
+        session,
+        buildApiUrl(`/geojsons/${geojsonId}`),
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            name,
+            isPublic,
+            allowedOrigins,
+            status,
+            primaryApiKeyId: apiKeyId
+          })
+        }
+      );
+    } catch (error) {
+      throw new Error();
+    }
+
+    setGeoJsonMeta({ isPublic, name, allowedOrigins, status, teamId, primaryApiKeyId: apiKeyId });
+
+  }, [allowedOrigins, geojsonId, isPublic, name, session, setGeoJsonMeta, status, teamId]);
+
   const handleSelectApiKey = (event: React.ChangeEvent<{ value: unknown }>) => {
 
-    const apiKeyId = event.target.value as string
-    const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, apiKeyId)
-    const userKey = getApiKeyIdUserKey(mapKeys, apiKeyId)
+    const primaryApiKeyId = event.target.value as string
+    const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, primaryApiKeyId)
+    const userKey = getApiKeyIdUserKey(mapKeys, primaryApiKeyId)
 
-    setApiKeyId(apiKeyId);
+    savePrimaryApiKeyId(primaryApiKeyId)
+
+    setApiKeyId(primaryApiKeyId);
     setUserKey(userKey)
     setApiKeyIdAllowedOrigins(allowedOrigins)
   };
