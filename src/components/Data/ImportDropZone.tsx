@@ -7,6 +7,7 @@ import { __, sprintf } from "@wordpress/i18n";
 import fetch from "../../api/custom-fetch";
 import "./ImportDropZone.scss"
 import { TileStatus, GVPStep } from './GeoJson';
+import { sleep } from '../../lib/sleep';
 const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
 type GeoJSONLinksResp = {
@@ -107,18 +108,21 @@ const Content = (props: Props) => {
     }
     setError(null);
     setTileStatus("progress"); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
+    await sleep(50) // Just waiting for the visual effect of GVPProgress
     setGvpStep('uploading')
     try {
       await uploadGeoJson(acceptedFiles[0], session, teamId, geojsonId);
     } catch (error) {
-      setGvpStep(null)
+      setGvpStep('started')
       throw error
     }
 
     setGvpStep('processing')
     const status = await getTileStatus();
+    setGvpStep('done')
+    status === 'created' && await sleep(1500) // Just waiting for the visual effect of GVPProgress
     setTileStatus(status);
-    setGvpStep(null)
+    setTimeout(() => setGvpStep('started'), 200) // // Just waiting and reset for the visual effect of GVPProgress
 
   }, [geojsonId, getTileStatus, maxUploadSize, session, setGvpStep, setTileStatus, teamId]);
 
