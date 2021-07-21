@@ -38,8 +38,8 @@ type OwnProps = {
   setGeoJsonMeta: GeoJsonMetaSetter;
 
   isPaidTeam: boolean;
-  style: string;
   primaryApiKeyId: string | undefined;
+  style?: string;
 };
 
 type StateProps = { session: Geolonia.Session, mapKeys: Geolonia.Key[] };

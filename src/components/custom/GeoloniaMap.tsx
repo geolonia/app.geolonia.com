@@ -4,12 +4,10 @@ const { REACT_APP_TILE_SERVER } = process.env;
 type Toggle = "on" | "off";
 
 type Props = {
-  geojsonId: string | undefined;
+  geojsonId: string;
   width: string;
   height: string;
   gestureHandling: Toggle;
-  lat: number;
-  lng: number;
   marker: Toggle;
   zoom: number;
   navigationControl: Toggle;
@@ -39,8 +37,6 @@ class Map extends React.Component<Props, State> {
     width: "100%",
     height: "200px",
     gestureHandling: "on",
-    lat: 0,
-    lng: 0,
     marker: "on",
     zoom: 0,
     fullscreenControl: "off",
@@ -60,7 +56,6 @@ class Map extends React.Component<Props, State> {
       ...this.props.initialMapOptions,
     });
     this.props.onAfterLoad(map);
-
     this.setState({map: map})
   }
 
@@ -79,8 +74,6 @@ class Map extends React.Component<Props, State> {
         ref={this.container}
         style={this.style}
         data-gesture-handling={this.props.gestureHandling}
-        data-lat={this.props.lat.toString()}
-        data-lng={this.props.lng.toString()}
         data-marker={this.props.marker}
         data-zoom={this.props.zoom}
         data-navigation-control={this.props.navigationControl}

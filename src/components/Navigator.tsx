@@ -10,11 +10,15 @@ import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import HomeIcon from "@material-ui/icons/Home";
+import AppsOutlinedIcon from '@material-ui/icons/AppsOutlined';
 import CodeIcon from "@material-ui/icons/Code";
 import ViewListIcon from "@material-ui/icons/ViewList";
 import DescriptionIcon from "@material-ui/icons/Description";
+import DescriptionOutlinedIcon from '@material-ui/icons/DescriptionOutlined';
 import RoomIcon from "@material-ui/icons/Room";
+import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
 import GroupIcon from "@material-ui/icons/Group";
+import PeopleAltOutlinedIcon from '@material-ui/icons/PeopleAltOutlined';
 import PaymentIcon from "@material-ui/icons/Payment";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -44,19 +48,19 @@ const styles = (theme: Theme) => ({
     paddingBottom: theme.spacing(2)
   },
   categoryHeaderPrimary: {
-    color: theme.palette.common.white
+    color: theme.palette.common.black
   },
   item: {
     paddingTop: 1,
     paddingBottom: 1,
-    color: "rgba(255, 255, 255, 0.7)",
+    color: "rgb(51 51 51)",
     "&:hover,&:focus": {
       backgroundColor: "rgba(255, 255, 255, 0.08)"
     }
   },
   itemCategory: {
-    backgroundColor: "#232f3e",
-    boxShadow: "0 -1px 0 #404854 inset",
+    backgroundColor: "#F4F4F4",
+    color:"#333333",
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2)
   },
@@ -151,6 +155,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
   const categories = [
     {
       id: __("API keys"),
+      icon: <CodeIcon />,
       children: [
         {
           id: __("Manage API keys"),
@@ -163,6 +168,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     },
     {
       id: __("API Services"),
+      icon: <RoomOutlinedIcon />,
       children: [
         {
           id: __("GeoJSON API"),
@@ -175,10 +181,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
     },
     {
       id: __("Team Settings"),
+      icon: <PeopleAltOutlinedIcon />,
       children: teamSettingsChildren,
     },
     {
       id: __("Documentation"),
+      icon: <DescriptionOutlinedIcon />,
       children: [
         {
           id: __("Official Documents"),
@@ -216,11 +224,9 @@ const Navigator: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <Drawer id="navigator" variant="permanent" {...other}>
-      <List disablePadding>
-        <ListItem
-          className={clsx(classes.firebase, classes.item, classes.itemCategory)}
-        >
+    <Drawer id="navigator" variant="permanent" {...other} className="bg_white">
+      <List disablePadding >
+        <ListItem className={ `teamContent ${clsx(classes.firebase, classes.item, classes.itemCategory)}` }>
           <img
             src={
               (teams[selectedTeamIndex] &&
@@ -248,14 +254,16 @@ const Navigator: React.FC<Props> = (props: Props) => {
             </MenuItem>
           </Select>
         </ListItem>
+
+
         <ListItem
           button
           component="a"
           onClick={handleClickHome}
-          className={clsx(classes.item, classes.itemCategory)}
+          className={`navDashboard ${clsx(classes.item, classes.itemCategory)}`}
         >
-          <ListItemIcon className={classes.itemIcon}>
-            <HomeIcon />
+          <ListItemIcon className={`navDashboardicon ${classes.itemIcon}`}>
+            <AppsOutlinedIcon />
           </ListItemIcon>
           <ListItemText
             classes={{
@@ -265,10 +273,13 @@ const Navigator: React.FC<Props> = (props: Props) => {
             {__("Dashboard")}
           </ListItemText>
         </ListItem>
-        {categories.map(({ id, children }) => (
+        {categories.map(({ id, icon, children }) => (
           <React.Fragment key={id}>
-            <ListItem className={classes.categoryHeader}>
-              <ListItemText
+            <ListItem className={`categoryHeaderbg ${(classes.categoryHeader)}`}>
+
+              <ListItemIcon className={`categoryHeadericon  ${(classes.itemIcon)}`}>{icon}</ListItemIcon>
+
+              <ListItemText className={'categoryHeadertext'}
                 classes={{
                   primary: classes.categoryHeaderPrimary
                 }}
@@ -276,15 +287,14 @@ const Navigator: React.FC<Props> = (props: Props) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active, href }) => (
+            {children.map(({ id: childId, active, href }) => (
               <ListItem
                 button
                 component="a"
                 href={href}
                 key={childId}
-                className={clsx(classes.item, active && classes.itemActiveItem)}
+                className={`categoryItemcontent ${clsx(classes.item, active && classes.itemActiveItem)}`}
               >
-                <ListItemIcon className={classes.itemIcon}>{icon}</ListItemIcon>
                 <ListItemText
                   classes={{
                     primary: classes.itemPrimary
