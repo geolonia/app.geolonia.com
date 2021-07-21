@@ -190,6 +190,8 @@ const GeoJSONMeta = (props: Props) => {
   const [apiKeyId, setApiKeyId] = useState(primaryApiKeyId);
   const [apiKeyIdAllowedOrigins, setApiKeyIdAllowedOrigins] = useState<string[] | undefined>([]);
 
+  const [userKey, setUserKey] = useState<string | undefined>("");
+
   useEffect(() => {
     const script = document.createElement("script");
     script.src = "https://geolonia.github.io/get-geolonia/app.js";
@@ -206,6 +208,10 @@ const GeoJSONMeta = (props: Props) => {
   useEffect(() => {
     const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, primaryApiKeyId)
     setApiKeyIdAllowedOrigins(allowedOrigins)
+
+    const userKey = getApiKeyIdUserKey(mapKeys, primaryApiKeyId)
+    setUserKey(userKey)
+
   }, [mapKeys, primaryApiKeyId])
 
   // fire save name request
@@ -282,12 +288,18 @@ const GeoJSONMeta = (props: Props) => {
     return mapKeys.find(key => key.keyId === apiKeyId)?.allowedOrigins
   }
 
+  const getApiKeyIdUserKey = (mapKeys: Geolonia.Key[], apiKeyId: string | undefined) => {
+    return mapKeys.find(key => key.keyId === apiKeyId)?.userKey
+  }
+
   const handleSelectApiKey = (event: React.ChangeEvent<{ value: unknown }>) => {
 
-    const savedApiKeyId = event.target.value as string
-    const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, savedApiKeyId)
+    const apiKeyId = event.target.value as string
+    const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, apiKeyId)
+    const userKey = getApiKeyIdUserKey(mapKeys, apiKeyId)
 
-    setApiKeyId(savedApiKeyId);
+    setApiKeyId(apiKeyId);
+    setUserKey(userKey)
     setApiKeyIdAllowedOrigins(allowedOrigins)
   };
 
@@ -295,7 +307,7 @@ const GeoJSONMeta = (props: Props) => {
     '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
     'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
     process.env.REACT_APP_STAGE,
-    apiKeyId
+    userKey
   );
 
   return (
@@ -499,7 +511,7 @@ const GeoJSONMeta = (props: Props) => {
               data-lat="38.592126509927425"
               data-lng="136.8448477633185"
               data-zoom="4"
-              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=${apiKeyId}`}
+              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json`}
             >
               {__("Get HTML")}
             </Button>
