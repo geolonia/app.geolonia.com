@@ -184,7 +184,8 @@ const GeoJSONMeta = (props: Props) => {
   const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
 
-  const [selectApiKey, setSelectApiKey] = React.useState(primaryApiKeyId);
+  const [apiKeyId, setApiKeyId] = useState(primaryApiKeyId);
+  const [apiKeyIdAllowedOrigins, setApiKeyIdAllowedOrigins] = useState<string[] | undefined>([]);
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -198,6 +199,11 @@ const GeoJSONMeta = (props: Props) => {
       setDraftAllowedOrigins(allowedOrigins.join("\n"));
     }
   }, [allowedOrigins]);
+
+  useEffect(() => {
+    const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, primaryApiKeyId)
+    setApiKeyIdAllowedOrigins(allowedOrigins)
+  }, [mapKeys, primaryApiKeyId])
 
   // fire save name request
   const saveHandler = useCallback(async (draftName: string) => {
@@ -232,31 +238,6 @@ const GeoJSONMeta = (props: Props) => {
     saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
   }
 
-  const saveAllowedOrigins = useCallback(async (allowedOriginsSave: string[], keyId: string | undefined) => {
-    try {
-      await fetch(
-        session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
-        {
-          method: "PUT",
-          body: JSON.stringify({
-            isPublic,
-            name,
-            allowedOrigins: allowedOriginsSave,
-            status,
-            primaryApiKeyId: keyId,
-          })
-        }
-      )
-      setSaveStatus("success");
-      setGeoJsonMeta({ primaryApiKeyId: keyId, isPublic, name, allowedOrigins: allowedOriginsSave, status, teamId });
-
-    } catch (error) {
-      setSaveStatus("failure");
-      throw new Error();
-    }
-  }, [geojsonId, isPublic, name, session, setGeoJsonMeta, status, teamId])
-
   const onUpdateClick = useCallback(async () => {
     if (saveDisabled || !session) {
       return Promise.resolve();
@@ -269,26 +250,49 @@ const GeoJSONMeta = (props: Props) => {
       .filter(url => !!url)
       .map(origin => normalizeOrigin(origin));
 
-    await saveAllowedOrigins(normalizedAllowedOrigins, selectApiKey)
+    try {
+      await fetch(
+        session,
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            isPublic,
+            name,
+            allowedOrigins: normalizedAllowedOrigins,
+            status,
+            primaryApiKeyId: apiKeyId,
+          })
+        }
+      )
+      setSaveStatus("success");
+      setGeoJsonMeta({ primaryApiKeyId: apiKeyId, isPublic, name, allowedOrigins: normalizedAllowedOrigins, status, teamId });
 
-  }, [draftAllowedOrigins, saveDisabled, session, saveAllowedOrigins, selectApiKey])
+    } catch (error) {
+      setSaveStatus("failure");
+      throw new Error();
+    }
+
+  }, [draftAllowedOrigins, saveDisabled, apiKeyId, geojsonId, isPublic, name, session, setGeoJsonMeta, status, teamId])
+
+  const getApiKeyIdAllowedOrigins = (mapKeys: Geolonia.Key[], apiKeyId: string | undefined) => {
+    return mapKeys.find(key => key.keyId === apiKeyId)?.allowedOrigins
+  }
 
   const handleSelectApiKey = (event: React.ChangeEvent<{ value: unknown }>) => {
 
-    const savedApiKey = event.target.value as string
-    setSelectApiKey(savedApiKey);
+    const savedApiKeyId = event.target.value as string
+    const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, savedApiKeyId)
 
-    const allowedOrigins = mapKeys.find(key => key.keyId === savedApiKey)?.allowedOrigins
-    if (allowedOrigins) {
-      saveAllowedOrigins(allowedOrigins, savedApiKey)
-    }
+    setApiKeyId(savedApiKeyId);
+    setApiKeyIdAllowedOrigins(allowedOrigins)
   };
 
   const embedCode = sprintf(
     '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
     'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
     process.env.REACT_APP_STAGE,
-    selectApiKey
+    apiKeyId
   );
 
   return (
@@ -381,11 +385,18 @@ const GeoJSONMeta = (props: Props) => {
         {draftIsPublic && (
           <Paper className="geojson-title-description">
             <h3>{__("Access allowed URLs")}</h3>
-            <p>{__("Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.")}</p>
+            <p>{__("If you want to add more URLs to the \"URLs to allow access\" set on the API key page, please use the following settings. (e.g., if you want to use multiple API keys for a single tile, etc.)")}</p>
+            <h4>{__("URLs from API Key page.")}</h4>
+            <TextField
+              multiline={true}
+              fullWidth={true}
+              value={apiKeyIdAllowedOrigins && apiKeyIdAllowedOrigins.join("\n")}
+              disabled
+              variant="outlined"
+            />
+            <h4>{__("Enter URLs to be added.")}</h4>
             <TextField
               id="standard-name"
-              label={__("URLs")}
-              margin="normal"
               multiline={true}
               rows={5}
               placeholder="https://example.com"
@@ -393,32 +404,8 @@ const GeoJSONMeta = (props: Props) => {
               value={draftAllowedOrigins}
               onChange={e => setDraftAllowedOrigins(e.target.value)}
               disabled={saveStatus === "requesting"}
+              variant="outlined"
             />
-            <Help>
-              <Typography component="p">
-                {__(
-                  "Only requests that come from the URLs specified here will be allowed."
-                )}
-              </Typography>
-              <ul>
-                <li>
-                  {__("Any page in a specific URL:")}{" "}
-                  <strong>https://www.example.com</strong>
-                </li>
-                <li>
-                  {__("Any subdomain:")} <strong>https://*.example.com</strong>
-                </li>
-                <li>
-                  {__("A URL with a non-standard port:")}{" "}
-                  <strong>https://example.com:*</strong>
-                </li>
-              </ul>
-              <p>
-                {__(
-                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
-                )}
-              </p>
-            </Help>
             <Save
               onClick={onUpdateClick}
               onError={onRequestError}
@@ -441,7 +428,7 @@ const GeoJSONMeta = (props: Props) => {
             <Select
               labelId="api-key-select-label"
               id="api-key-select"
-              value={selectApiKey}
+              value={apiKeyId}
               onChange={handleSelectApiKey}
             >
               <MenuItem value="">
@@ -500,7 +487,7 @@ const GeoJSONMeta = (props: Props) => {
               data-lat="38.592126509927425"
               data-lng="136.8448477633185"
               data-zoom="4"
-              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=${selectApiKey}`}
+              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=${apiKeyId}`}
             >
               {__("Get HTML")}
             </Button>
