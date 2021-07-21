@@ -17,7 +17,12 @@ code {
   padding: 16px;
 }
 
-a
-{
-  color: #007bff;
+a {color: #EB5C0B;}
+.MuiTypography-colorPrimary{
+  color: #EB5C0B !important;
+}
+
+.MuiButton-containedPrimary {
+  color: #fff;
+  background-color: #E8AF2B !important;
 }
