@@ -232,7 +232,7 @@ const GeoJSONMeta = (props: Props) => {
     saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
   }
 
-  const saveAllowedOrigins = useCallback(async (allowedOriginsSave: string[], apiKey: string | undefined) => {
+  const saveAllowedOrigins = useCallback(async (allowedOriginsSave: string[], keyId: string | undefined) => {
     try {
       await fetch(
         session,
@@ -244,12 +244,12 @@ const GeoJSONMeta = (props: Props) => {
             name,
             allowedOrigins: allowedOriginsSave,
             status,
-            primaryApiKeyId: apiKey,
+            primaryApiKeyId: keyId,
           })
         }
       )
       setSaveStatus("success");
-      setGeoJsonMeta({ primaryApiKeyId: apiKey, isPublic, name, allowedOrigins: allowedOriginsSave, status, teamId });
+      setGeoJsonMeta({ primaryApiKeyId: keyId, isPublic, name, allowedOrigins: allowedOriginsSave, status, teamId });
 
     } catch (error) {
       setSaveStatus("failure");
