@@ -4,7 +4,7 @@ import { MapStylesAPI } from '../../constants'
 
 type Props = {
   setStyle: Function;
-  style: string;
+  style?: string;
 };
 
 const Content = (props: Props) => {

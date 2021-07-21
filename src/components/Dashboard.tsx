@@ -52,11 +52,6 @@ const Dashboard = (props: Props) => {
   return (
     <div id="dashboard">
       <Paper className="getting-started">
-        <Hidden smDown>
-          <div className="box-icon">
-            <img src={iconPlane} alt="" className="icon" />
-          </div>
-        </Hidden>
         <div className="box-content">
           <h2>{sprintf(__("Welcome, %s"), displayName)}</h2>
           <ul>

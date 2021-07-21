@@ -1,0 +1,32 @@
+header{
+  &.MuiPaper-root{
+    background-color: #fff !important;
+    padding: 7px !important;
+  }
+  .iconButtonAvatar{
+    border: 1px solid #EB5C0B;
+    margin-right: 10px;
+    svg{
+      fill: #EB5C0B;
+    }
+  }
+  .iconButtonlogo{
+    width: 40px;
+    .logo{
+      width: 100%;
+    }
+  }
+  .MuiSvgIcon-root{
+    fill: #EB5C0B;
+  }
+}
+
+.headerProfilemenu{
+  .MuiPopover-paper{
+    top: 62px !important;
+    box-shadow: none !important;
+    padding: 10px !important;
+    font-size: 14px;
+    border-radius: inherit !important;
+  }
+}
