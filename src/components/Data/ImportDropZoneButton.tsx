@@ -55,7 +55,7 @@ const Content = (props: Props) => {
     <>
       <button className="btn" onClick={() => setStateImporter(true)}>
         <CloudUploadIcon fontSize="small" />
-        <span className="label">{__("Import GeoJSON")}</span>
+        <span className="label">{__("Upload Data (GeoJSON / CSV)")}</span>
       </button>
       {stateImporter ? (
         <div className="geojson-importer geojson-dropzone-button" style={styleOuter} onClick={close}>
@@ -67,7 +67,7 @@ const Content = (props: Props) => {
               isPaidTeam={props.isPaidTeam}
               getTileStatus={props.getTileStatus}
               setTileStatus={props.setTileStatus}
-              customMessage={<p>{__("GeoJSON that has already been uploaded will be overwritten.")}</p>}
+              customMessage={__("Data that has already been uploaded will be overwritten.")}
             />
           </div>
         </div>
