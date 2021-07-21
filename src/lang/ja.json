@@ -20,7 +20,7 @@
       ],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
-      "Adding your data to the map...": ["データを地図に追加しています。"],
+      "API services": ["API サービス"],
       "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON and CSV files.": [
         "ここでは位置情報をアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSONまたはCSVファイルを対応しております。"
       ],
@@ -33,8 +33,10 @@
       "Please type delete to confirm.": [
         "確認のために delete と入力してください。"
       ],
+      "Uploading now..": ["データをアップロードしています。"],
+      "Processing data..": ["データを処理しています。"],
+      "Adding your data to the map...": ["データを地図に追加しています。"],
       "Home": ["Home"],
-      "API services": ["API サービス"],
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
@@ -102,6 +104,9 @@
       ],
       "My dataset": ["データセット"],
       "Network Error.": ["通信エラー。"],
+      "Error: We currently support GeoJSON and CSV files. Please try uploading again.": [
+        "エラー: 現在 GeoJSON または CSV ファイルのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
+      ],
       "Error: The file you selected was too big. Please upload a file less than %d MB.": [
         "エラー: %d MB 以下のファイルをアップロードしてください。"
       ],
@@ -122,9 +127,6 @@
       ],
       "Error: Can not upload multiple files.": [
         "複数のファイルをアップロードできません。"
-      ],
-      "Error: We currently support GeoJSON and CSV files. Please try uploading again.": [
-        "エラー: 現在 GeoJSON または CSV ファイルのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
       ],
       "Upload Data (GeoJSON / CSV)": ["データのアップロード (GeoJSON / CSV)"],
       "Data that has already been uploaded will be overwritten.": [

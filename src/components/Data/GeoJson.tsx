@@ -51,7 +51,7 @@ const getStepProgress = (): { [key in GVPStep]: { text: string, progress: number
     started: { text: "", progress: 0 },
     uploading: { text: __("Uploading now.."), progress: 20 },
     processing: { text: __("Processing data.."), progress: 60 },
-    done: { text: __("Processing completed."), progress: 100 },
+    done: { text: __("Adding your data to the map..."), progress: 90 },
   }
 }
 

@@ -11,29 +11,29 @@ msgstr ""
 msgid "Your invitation has been outdated."
 msgstr ""
 
-#: src/components/Dashboard.tsx:61
+#: src/components/Dashboard.tsx:56
 msgid "Welcome, %s"
 msgstr ""
 
-#: src/components/Dashboard.tsx:65
+#: src/components/Dashboard.tsx:60
 msgid "Get API key"
 msgstr ""
 
-#: src/components/Dashboard.tsx:67
+#: src/components/Dashboard.tsx:62
 msgid "Get API key then create your map!"
 msgstr ""
 
-#: src/components/Dashboard.tsx:71
-#: src/components/Data/GeoJson.tsx:99
-#: src/components/Navigator.tsx:168
+#: src/components/Dashboard.tsx:66
+#: src/components/Data/GeoJson.tsx:107
+#: src/components/Navigator.tsx:174
 msgid "GeoJSON API"
 msgstr ""
 
-#: src/components/Dashboard.tsx:73
+#: src/components/Dashboard.tsx:68
 msgid "Manage and style your GeoJSON."
 msgstr ""
 
-#: src/components/Dashboard.tsx:79
+#: src/components/Dashboard.tsx:74
 msgid "Developer's Blog"
 msgstr ""
 
@@ -41,42 +41,50 @@ msgstr ""
 msgid "Download GeoJSON"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:174
-msgid "Adding your data to the map..."
+#: src/components/Data/GeoJson.tsx:103
+#: src/components/Data/GeoJsons.tsx:95
+msgid "API services"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:205
+#: src/components/Data/GeoJson.tsx:220
 msgid ""
 "Upload your location data here to display it on a map. Once the data has "
 "been uploaded, HTML code will be generated so you can embed it in your "
 "site. We currently support uploading GeoJSON and CSV files."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:245
+#: src/components/Data/GeoJson.tsx:261
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:250
+#: src/components/Data/GeoJson.tsx:266
 msgid "Are you sure you want to delete this Dataset?"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:251
+#: src/components/Data/GeoJson.tsx:267
 #: src/components/Data/fields.tsx:70
 #: src/components/Maps/APIKey.tsx:275
 msgid "Please type delete to confirm."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:91
+#: src/components/Data/GeoJson.tsx:52
+msgid "Uploading now.."
+msgstr ""
+
+#: src/components/Data/GeoJson.tsx:53
+msgid "Processing data.."
+msgstr ""
+
+#: src/components/Data/GeoJson.tsx:54
+msgid "Adding your data to the map..."
+msgstr ""
+
+#: src/components/Data/GeoJson.tsx:99
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:113
 #: src/components/Maps/APIKeys.tsx:35
 #: src/components/Team/Billing.tsx:173
 msgid "Home"
-msgstr ""
-
-#: src/components/Data/GeoJson.tsx:95
-#: src/components/Data/GeoJsons.tsx:95
-msgid "API services"
 msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:100
@@ -93,7 +101,7 @@ msgid "Import GeoJSON from your computer."
 msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:110
-#: src/components/Data/ImportDropZone.tsx:127
+#: src/components/Data/ImportDropZone.tsx:141
 msgid "Maximum upload file size: %d MB"
 msgstr ""
 
@@ -112,7 +120,7 @@ msgstr ""
 #: src/components/Data/GeoJsonMeta.tsx:273
 #: src/components/Data/fields.tsx:26
 #: src/components/Maps/APIKey.tsx:214
-#: src/components/Navigator.tsx:320
+#: src/components/Navigator.tsx:330
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
@@ -254,49 +262,49 @@ msgstr ""
 msgid "Network Error."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:103
-msgid ""
-"Error: The file you selected was too big. Please upload a file less than %d "
-"MB."
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:122
-msgid "Drop file to add your map."
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:126
-msgid "Upload a file from your computer."
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:130
-msgid "Drag and drop a file here to add your map, or click to choose your file."
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:76
-msgid "Failed to add your data. Your GeoJSON might be invalid format."
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:84
-msgid ""
-"Error: Can not upload file. Please contact to customer support at "
-"https://geolonia.com/contact/"
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:89
-msgid "Error: Can not upload multiple files."
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:98
+#: src/components/Data/ImportDropZone.tsx:101
 msgid ""
 "Error: We currently support GeoJSON and CSV files. Please try uploading "
 "again."
 msgstr ""
 
-#: src/components/Data/ImportDropZoneButton.tsx:58
+#: src/components/Data/ImportDropZone.tsx:106
+msgid ""
+"Error: The file you selected was too big. Please upload a file less than %d "
+"MB."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:136
+msgid "Drop file to add your map."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:140
+msgid "Upload a file from your computer."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:144
+msgid "Drag and drop a file here to add your map, or click to choose your file."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:79
+msgid "Failed to add your data. Your GeoJSON might be invalid format."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:87
+msgid ""
+"Error: Can not upload file. Please contact to customer support at "
+"https://geolonia.com/contact/"
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:92
+msgid "Error: Can not upload multiple files."
+msgstr ""
+
+#: src/components/Data/ImportDropZoneButton.tsx:59
 msgid "Upload Data (GeoJSON / CSV)"
 msgstr ""
 
-#: src/components/Data/ImportDropZoneButton.tsx:70
+#: src/components/Data/ImportDropZoneButton.tsx:72
 msgid "Data that has already been uploaded will be overwritten."
 msgstr ""
 
@@ -374,17 +382,17 @@ msgstr ""
 msgid "Send password reset email"
 msgstr ""
 
-#: src/components/Header.tsx:137
+#: src/components/Header.tsx:141
 msgid "Profile"
 msgstr ""
 
-#: src/components/Header.tsx:139
+#: src/components/Header.tsx:143
 msgid "Logout"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:117
 #: src/components/Maps/APIKeys.tsx:69
-#: src/components/Navigator.tsx:153
+#: src/components/Navigator.tsx:157
 msgid "API keys"
 msgstr ""
 
@@ -436,66 +444,66 @@ msgstr ""
 msgid "My API"
 msgstr ""
 
-#: src/components/Navigator.tsx:109
+#: src/components/Navigator.tsx:113
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:129
+#: src/components/Navigator.tsx:133
 #: src/components/Team/general/index.tsx:41
 msgid "General"
 msgstr ""
 
-#: src/components/Navigator.tsx:135
+#: src/components/Navigator.tsx:139
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:144
+#: src/components/Navigator.tsx:148
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:156
+#: src/components/Navigator.tsx:161
 msgid "Manage API keys"
 msgstr ""
 
-#: src/components/Navigator.tsx:165
+#: src/components/Navigator.tsx:170
 msgid "API Services"
 msgstr ""
 
-#: src/components/Navigator.tsx:177
+#: src/components/Navigator.tsx:183
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:181
+#: src/components/Navigator.tsx:188
 msgid "Documentation"
 msgstr ""
 
-#: src/components/Navigator.tsx:184
+#: src/components/Navigator.tsx:192
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:265
+#: src/components/Navigator.tsx:273
 msgid "Dashboard"
 msgstr ""
 
-#: src/components/Navigator.tsx:310
+#: src/components/Navigator.tsx:320
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:314
+#: src/components/Navigator.tsx:324
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:328
+#: src/components/Navigator.tsx:338
 #: src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:335
+#: src/components/Navigator.tsx:345
 #: src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr ""
 
-#: src/components/Paperbase.tsx:155
+#: src/components/Paperbase.tsx:159
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
