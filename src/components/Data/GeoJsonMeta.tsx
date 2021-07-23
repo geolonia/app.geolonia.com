@@ -96,7 +96,7 @@ const usePublic = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic: draftIsPublic, allowedOrigins, name, status, primaryApiKeyId })
+          body: JSON.stringify({ isPublic: draftIsPublic })
         }
       );
       if (rawResp.status >= 400) {
@@ -147,7 +147,7 @@ const useStatus = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic, name, allowedOrigins, status: draftStatus, primaryApiKeyId })
+          body: JSON.stringify({status: draftStatus})
         }
       );
 
@@ -232,21 +232,25 @@ const GeoJSONMeta = (props: Props) => {
       buildApiUrl(`/geojsons/${geojsonId}`),
       {
         method: "PUT",
-        body: JSON.stringify({
-          name: draftName,
-          isPublic,
-          allowedOrigins,
-          status,
-          primaryApiKeyId
-        })
+        body: JSON.stringify({name: draftName})
       }
     );
+
     if (rawResp.status >= 400) {
-      throw new Error();
+      throw new Error(`HTTP error`);
     }
-    // const resp = await rawResp.json();
-    setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status, teamId, primaryApiKeyId });
-  }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status, teamId, primaryApiKeyId]);
+
+    const resp = await rawResp.json();
+    setGeoJsonMeta({
+      isPublic: resp.body._source.isPublic,
+      name: resp.body._source.name,
+      allowedOrigins: resp.body._source.allowedOrigins,
+      status: resp.body._source.status,
+      gvp_status: resp.body._source.gvp_status,
+      teamId: resp.body._source.teamId,
+      primaryApiKeyId: resp.body._source.primaryApiKeyId,
+    });
+  }, [geojsonId, session, setGeoJsonMeta]);
 
   let saveDisabled = false
 
@@ -266,58 +270,64 @@ const GeoJSONMeta = (props: Props) => {
       .filter(url => !!url)
       .map(origin => normalizeOrigin(origin));
 
-    try {
-      await fetch(
-        session,
-        buildApiUrl(`/geojsons/${geojsonId}`),
-        {
-          method: "PUT",
-          body: JSON.stringify({
-            isPublic,
-            name,
-            allowedOrigins: normalizedAllowedOrigins,
-            status,
-            primaryApiKeyId: apiKeyId,
-          })
-        }
-      )
-      setSaveStatus("success");
-      setGeoJsonMeta({ primaryApiKeyId: apiKeyId, isPublic, name, allowedOrigins: normalizedAllowedOrigins, status, teamId });
+    const rawResp = await fetch(
+      session,
+      buildApiUrl(`/geojsons/${geojsonId}`),
+      {
+        method: "PUT",
+        body: JSON.stringify({allowedOrigins: normalizedAllowedOrigins})
+      }
+    )
 
-    } catch (error) {
+    if (rawResp.status >= 400) {
       setSaveStatus("failure");
-      throw new Error();
+      throw new Error(`HTTP error`);
     }
 
-  }, [draftAllowedOrigins, saveDisabled, apiKeyId, geojsonId, isPublic, name, session, setGeoJsonMeta, status, teamId])
+    setSaveStatus("success");
+    const resp = await rawResp.json();
+    setGeoJsonMeta({
+      isPublic: resp.body._source.isPublic,
+      name: resp.body._source.name,
+      allowedOrigins: resp.body._source.allowedOrigins,
+      status: resp.body._source.status,
+      gvp_status: resp.body._source.gvp_status,
+      teamId: resp.body._source.teamId,
+      primaryApiKeyId: resp.body._source.primaryApiKeyId,
+    });
+
+  }, [draftAllowedOrigins, saveDisabled, geojsonId, session, setGeoJsonMeta])
 
   const savePrimaryApiKeyId = useCallback(async (apiKeyId: string) => {
     if (!session) {
       return;
     }
 
-    try {
-      await fetch(
-        session,
-        buildApiUrl(`/geojsons/${geojsonId}`),
-        {
-          method: "PUT",
-          body: JSON.stringify({
-            name,
-            isPublic,
-            allowedOrigins,
-            status,
-            primaryApiKeyId: apiKeyId
-          })
-        }
-      );
-    } catch (error) {
-      throw new Error();
+    const rawResp = await fetch(
+      session,
+      buildApiUrl(`/geojsons/${geojsonId}`),
+      {
+        method: "PUT",
+        body: JSON.stringify({primaryApiKeyId: apiKeyId})
+      }
+    );
+
+    if (rawResp.status >= 400) {
+      throw new Error(`HTTP error`);
     }
 
-    setGeoJsonMeta({ isPublic, name, allowedOrigins, status, teamId, primaryApiKeyId: apiKeyId });
+    const resp = await rawResp.json();
+    setGeoJsonMeta({
+      isPublic: resp.body._source.isPublic,
+      name: resp.body._source.name,
+      allowedOrigins: resp.body._source.allowedOrigins,
+      status: resp.body._source.status,
+      gvp_status: resp.body._source.gvp_status,
+      teamId: resp.body._source.teamId,
+      primaryApiKeyId: resp.body._source.primaryApiKeyId,
+    });
 
-  }, [allowedOrigins, geojsonId, isPublic, name, session, setGeoJsonMeta, status, teamId]);
+  }, [geojsonId, session, setGeoJsonMeta]);
 
   const handleSelectApiKey = useCallback((event: React.ChangeEvent<{ value: unknown }>) => {
 
@@ -426,7 +436,7 @@ const GeoJSONMeta = (props: Props) => {
             </p> */}
           </div>
         </Paper>
-        {apiKeyIdAllowedOrigins && (
+        {draftIsPublic && (
           <Accordion className="geojson-title-description geojson-advanced-settings">
             <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -437,10 +447,14 @@ const GeoJSONMeta = (props: Props) => {
               <Grid>
                 <h4>{__("Access allowed URLs")}</h4>
                 <p>{__("If you want to add more URLs to the \"URLs to allow access\" set on the API key page, please use the following settings. (e.g., if you want to use multiple API keys for a single tile, etc.)")}</p>
-                <h5>{__("URLs from API Key page.")}</h5>
-                <ul className={"geojson-api-key-allowed-url"}>
-                  {apiKeyIdAllowedOrigins && apiKeyIdAllowedOrigins.map((allowedOrigin, index) => <li key={index}><code>{allowedOrigin}</code></li>)}
-                </ul>
+                {apiKeyId &&
+                  <>
+                    <h5>{__("URLs from API Key page.")}</h5>
+                    <ul className={"geojson-api-key-allowed-url"}>
+                      {apiKeyIdAllowedOrigins && apiKeyIdAllowedOrigins.map((allowedOrigin, index) => <li key={index}><code>{allowedOrigin}</code></li>)}
+                    </ul>
+                  </>
+                }
                 <h5>{__("Enter URLs to be added.")}</h5>
                 <TextField
                   id="standard-name"
