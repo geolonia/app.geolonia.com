@@ -167,7 +167,7 @@ const useStatus = (
       });
     })();
   }, [
-    draftStatus, geojsonId, isPublic, allowedOrigins, name, session, setGeoJsonMeta, status, primaryApiKeyId
+    draftStatus, geojsonId, session, setGeoJsonMeta, status
   ]);
 
   return [ draftStatus, setDraftStatus ];
