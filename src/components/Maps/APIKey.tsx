@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from "react";
-import * as clipboard from "clipboard-polyfill";
 
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
-import Button from "@material-ui/core/Button";
 
-import { sprintf, __ } from "@wordpress/i18n";
-import Interweave from "interweave";
+import { __ } from "@wordpress/i18n";
 
 import Code from "../custom/Code";
 import Save from "../custom/Save";
@@ -95,16 +92,6 @@ const Content = (props: Props) => {
   };
 
   const apiKey = props.mapKey.userKey;
-  const embedCode = sprintf(
-    '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
-    'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
-    process.env.REACT_APP_STAGE,
-    apiKey
-  );
-  const embedCSS = `.geolonia {
-  width: 100%;
-  height: 400px;
-}`;
 
   const { keyId } = props.mapKey;
 
@@ -119,22 +106,9 @@ const Content = (props: Props) => {
     }
   ];
 
-  const styleH3: React.CSSProperties = {
-    marginTop: "1em"
-  };
-
   const sidebarStyle: React.CSSProperties = {
     marginBottom: "2em",
     overflowWrap: "break-word"
-  };
-
-  const styleTextarea: React.CSSProperties = {
-    width: "100%",
-    color: "#555555",
-    fontFamily: "monospace",
-    resize: "none",
-    height: "5rem",
-    padding: "8px"
   };
 
   const saveDisabled =
@@ -189,14 +163,6 @@ const Content = (props: Props) => {
         }, messageDisplayDuration);
       }
     });
-  };
-
-  const copyToClipBoard = (cssSelector: string) => {
-    const input = document.querySelector(cssSelector) as HTMLInputElement;
-    if (input) {
-      input.select();
-      clipboard.writeText(input.value);
-    }
   };
 
   return (
@@ -291,78 +257,6 @@ const Content = (props: Props) => {
               {__("Your API Key")}
             </Typography>
             <Code>{apiKey}</Code>
-          </Paper>
-          <Paper style={sidebarStyle}>
-            <Typography component="h2" className="module-title">
-              {__("Add the map to your site")}
-            </Typography>
-            <Typography component="h3" style={styleH3}>
-              {__("Step 1")}
-            </Typography>
-            <p>
-              <Interweave
-                content={__(
-                  "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file."
-                )}
-              />
-            </p>
-            <textarea
-              className="api-key-embed-code"
-              style={styleTextarea}
-              value={embedCode}
-              readOnly={true}
-            ></textarea>
-            <p>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                style={{ width: "100%" }}
-                onClick={() => copyToClipBoard(".api-key-embed-code")}
-              >
-                {__("Copy to Clipboard")}
-              </Button>
-            </p>
-            <Typography component="h3" style={styleH3}>
-              {__("Step 2")}
-            </Typography>
-            <p>
-              {__(
-                "Click following button and get HTML code where you want to place the map."
-              )}
-            </p>
-            <p>
-              <Button
-                className="launch-get-geolonia"
-                variant="contained"
-                color="primary"
-                size="large"
-                style={{ width: "100%" }}
-              >
-                {__("Get HTML")}
-              </Button>
-            </p>
-            <Typography component="h3" style={styleH3}>
-              {__("Step 3")}
-            </Typography>
-            <p>{__("Adjust the element size.")}</p>
-            <textarea
-              className="api-key-embed-css"
-              style={styleTextarea}
-              value={embedCSS}
-              readOnly={true}
-            ></textarea>
-            <p>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                style={{ width: "100%" }}
-                onClick={() => copyToClipBoard(".api-key-embed-css")}
-              >
-                {__("Copy to Clipboard")}
-              </Button>
-            </p>
           </Paper>
         </Grid>
       </Grid>
