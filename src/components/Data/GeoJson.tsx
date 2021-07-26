@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useMemo, useCallback, useEffect, useState } from "react";
 
 import fetch from "../../lib/fetch";
 
@@ -138,7 +138,7 @@ const GeoJson: React.FC<Props> = (props: Props) => {
       });
   }, [session, teamId, geojsonId, history])
 
-  const stepProgress = useCallback(getStepProgress, [])()
+  const stepProgress = useMemo(getStepProgress, [])
 
   const getTileStatus = useCallback(async () => {
     let status = "progress"
