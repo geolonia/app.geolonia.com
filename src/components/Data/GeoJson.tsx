@@ -233,6 +233,7 @@ const GeoJson = (props: Props) => {
             isPublic={geoJsonMeta.isPublic}
             allowedOrigins={geoJsonMeta.allowedOrigins}
             teamId={geoJsonMeta.teamId}
+            primaryApiKeyId={geoJsonMeta.primaryApiKeyId}
             status={geoJsonMeta.status}
             setGeoJsonMeta={setGeoJsonMeta}
             style={style}

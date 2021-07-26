@@ -124,6 +124,17 @@
         width: 100%;
       }
     }
+    .MuiAccordion-root:before
+    {
+      content: none;
+    }
+    .geojson-advanced-settings
+    {
+      h3
+      {
+        margin: 0;
+      }
+    }
   }
 
   .props

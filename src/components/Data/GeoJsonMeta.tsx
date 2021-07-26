@@ -10,11 +10,19 @@ import DoneIcon from "@material-ui/icons/Done";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import * as clipboard from "clipboard-polyfill";
 import { __, sprintf } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Save from "../custom/Save";
-import Help from "../custom/Help";
 import fetch from "../../lib/fetch";
 import normalizeOrigin from "../../lib/normalize-origin";
 import { buildApiUrl } from "../../lib/api";
@@ -33,18 +41,13 @@ type OwnProps = {
   setGeoJsonMeta: GeoJsonMetaSetter;
 
   isPaidTeam: boolean;
+  primaryApiKeyId: string | undefined;
   style?: string;
 };
 
-type StateProps = { session: Geolonia.Session };
+type StateProps = { session: Geolonia.Session, mapKeys: Geolonia.Key[] };
 type Props = OwnProps & StateProps;
 
-const embedCode = sprintf(
-  '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
-  'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
-  process.env.REACT_APP_STAGE,
-  'YOUR-API-KEY'
-);
 const embedCSS = `.geolonia {
 width: 100%;
 height: 400px;
@@ -79,7 +82,7 @@ const copyToClipBoard = (cssSelector: string) => {
 const usePublic = (
   props: Props
 ): [boolean, (nextIsPublic: boolean) => void] => {
-  const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
+  const { session, geojsonId, isPublic, allowedOrigins, name, status, primaryApiKeyId, setGeoJsonMeta } = props;
   const [draftIsPublic, setDraftIsPublic] = useState(props.isPublic);
 
   useEffect(() => {
@@ -93,7 +96,7 @@ const usePublic = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic: draftIsPublic, allowedOrigins, name, status })
+          body: JSON.stringify({ isPublic: draftIsPublic })
         }
       );
       if (rawResp.status >= 400) {
@@ -109,6 +112,7 @@ const usePublic = (
         status: resp.body._source.status,
         gvp_status: resp.body._source.gvp_status,
         teamId: resp.body._source.teamId,
+        primaryApiKeyId: resp.body._source.primaryApiKeyId,
       });
     })();
   }, [
@@ -119,7 +123,8 @@ const usePublic = (
     name,
     session,
     setGeoJsonMeta,
-    status
+    status,
+    primaryApiKeyId
   ]);
 
   return [draftIsPublic, setDraftIsPublic];
@@ -128,7 +133,7 @@ const usePublic = (
 const useStatus = (
   props: Props & StateProps
 ): [string, (nextStatus: string) => void] => {
-  const { session, geojsonId, isPublic, allowedOrigins, name, status, setGeoJsonMeta } = props;
+  const { session, geojsonId, isPublic, allowedOrigins, name, status, primaryApiKeyId, setGeoJsonMeta } = props;
   const [ draftStatus, setDraftStatus ] = useState(props.status);
 
   useEffect(() => {
@@ -142,7 +147,7 @@ const useStatus = (
         buildApiUrl(`/geojsons/${geojsonId}`),
         {
           method: "PUT",
-          body: JSON.stringify({ isPublic, name, allowedOrigins, status: draftStatus })
+          body: JSON.stringify({status: draftStatus})
         }
       );
 
@@ -158,18 +163,27 @@ const useStatus = (
         status: resp.body._source.status,
         gvp_status: resp.body._source.gvp_status,
         teamId: resp.body._source.teamId,
+        primaryApiKeyId: resp.body._source.primaryApiKeyId,
       });
     })();
   }, [
-    draftStatus, geojsonId, isPublic, allowedOrigins, name, session, setGeoJsonMeta, status
+    draftStatus, geojsonId, session, setGeoJsonMeta, status
   ]);
 
   return [ draftStatus, setDraftStatus ];
 };
 
+const getApiKeyIdAllowedOrigins = (mapKeys: Geolonia.Key[], apiKeyId: string | undefined) => {
+  return mapKeys.find(key => key.keyId === apiKeyId)?.allowedOrigins
+}
+
+const getApiKeyIdUserKey = (mapKeys: Geolonia.Key[], apiKeyId: string | undefined) => {
+  return mapKeys.find(key => key.keyId === apiKeyId)?.userKey
+}
+
 const GeoJSONMeta = (props: Props) => {
   // サーバーから取得してあるデータ
-  const { geojsonId, name, isPublic, allowedOrigins, status, teamId } = props;
+  const { geojsonId, name, isPublic, allowedOrigins, status, teamId, mapKeys, primaryApiKeyId } = props;
   const { session, setGeoJsonMeta } = props;
 
   // UI上での変更をリクエスト前まで保持しておくための State
@@ -180,6 +194,10 @@ const GeoJSONMeta = (props: Props) => {
 
   const [saveStatus, setSaveStatus] = useState<false | "requesting" | "success" | "failure">(false);
   const onRequestError = () => setSaveStatus("failure");
+
+  const [apiKeyId, setApiKeyId] = useState(primaryApiKeyId);
+  const [apiKeyIdAllowedOrigins, setApiKeyIdAllowedOrigins] = useState<string[] | undefined>([]);
+  const [userKey, setUserKey] = useState<string | undefined>("");
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -194,6 +212,15 @@ const GeoJSONMeta = (props: Props) => {
     }
   }, [allowedOrigins]);
 
+  useEffect(() => {
+    const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, primaryApiKeyId)
+    setApiKeyIdAllowedOrigins(allowedOrigins)
+
+    const userKey = getApiKeyIdUserKey(mapKeys, primaryApiKeyId)
+    setUserKey(userKey)
+
+  }, [mapKeys, primaryApiKeyId])
+
   // fire save name request
   const saveHandler = useCallback(async (draftName: string) => {
     if (!session) {
@@ -205,20 +232,25 @@ const GeoJSONMeta = (props: Props) => {
       buildApiUrl(`/geojsons/${geojsonId}`),
       {
         method: "PUT",
-        body: JSON.stringify({
-          name: draftName,
-          isPublic,
-          allowedOrigins,
-          status
-        })
+        body: JSON.stringify({name: draftName})
       }
     );
+
     if (rawResp.status >= 400) {
-      throw new Error();
+      throw new Error(`HTTP error`);
     }
-    // const resp = await rawResp.json();
-    setGeoJsonMeta({ isPublic, name: draftName, allowedOrigins, status, teamId });
-  }, [allowedOrigins, geojsonId, isPublic, session, setGeoJsonMeta, status, teamId]);
+
+    const resp = await rawResp.json();
+    setGeoJsonMeta({
+      isPublic: resp.body._source.isPublic,
+      name: resp.body._source.name,
+      allowedOrigins: resp.body._source.allowedOrigins,
+      status: resp.body._source.status,
+      gvp_status: resp.body._source.gvp_status,
+      teamId: resp.body._source.teamId,
+      primaryApiKeyId: resp.body._source.primaryApiKeyId,
+    });
+  }, [geojsonId, session, setGeoJsonMeta]);
 
   let saveDisabled = false
 
@@ -226,9 +258,9 @@ const GeoJSONMeta = (props: Props) => {
     saveDisabled = draftAllowedOrigins === allowedOrigins.join("\n")
   }
 
-  const onUpdateClick = useCallback(() => {
+  const onUpdateClick = useCallback(async () => {
     if (saveDisabled || !session) {
-      return Promise.resolve();
+      return
     }
 
     setSaveStatus("requesting");
@@ -238,33 +270,84 @@ const GeoJSONMeta = (props: Props) => {
       .filter(url => !!url)
       .map(origin => normalizeOrigin(origin));
 
-    return fetch(
+    const rawResp = await fetch(
       session,
-      `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
+      buildApiUrl(`/geojsons/${geojsonId}`),
       {
         method: "PUT",
-        body: JSON.stringify({
-          isPublic,
-          name,
-          allowedOrigins: normalizedAllowedOrigins,
-          status
-        })
+        body: JSON.stringify({allowedOrigins: normalizedAllowedOrigins})
       }
     )
-      .then(res => {
-        if (res.status < 400) {
-          return res.json();
-        } else {
-          // will be caught at <Save />
-          setSaveStatus("failure");
-          throw new Error();
-        }
-      })
-      .then(() => {
-        setSaveStatus("success");
-        setGeoJsonMeta({ isPublic, name, allowedOrigins: normalizedAllowedOrigins, status, teamId });
-      });
-  }, [draftAllowedOrigins, geojsonId, isPublic, name, saveDisabled, session, status, setGeoJsonMeta, teamId])
+
+    if (rawResp.status >= 400) {
+      setSaveStatus("failure");
+      throw new Error(`HTTP error`);
+    }
+
+    setSaveStatus("success");
+    const resp = await rawResp.json();
+    setGeoJsonMeta({
+      isPublic: resp.body._source.isPublic,
+      name: resp.body._source.name,
+      allowedOrigins: resp.body._source.allowedOrigins,
+      status: resp.body._source.status,
+      gvp_status: resp.body._source.gvp_status,
+      teamId: resp.body._source.teamId,
+      primaryApiKeyId: resp.body._source.primaryApiKeyId,
+    });
+
+  }, [draftAllowedOrigins, saveDisabled, geojsonId, session, setGeoJsonMeta])
+
+  const savePrimaryApiKeyId = useCallback(async (apiKeyId: string) => {
+    if (!session) {
+      return;
+    }
+
+    const rawResp = await fetch(
+      session,
+      buildApiUrl(`/geojsons/${geojsonId}`),
+      {
+        method: "PUT",
+        body: JSON.stringify({primaryApiKeyId: apiKeyId})
+      }
+    );
+
+    if (rawResp.status >= 400) {
+      throw new Error(`HTTP error`);
+    }
+
+    const resp = await rawResp.json();
+    setGeoJsonMeta({
+      isPublic: resp.body._source.isPublic,
+      name: resp.body._source.name,
+      allowedOrigins: resp.body._source.allowedOrigins,
+      status: resp.body._source.status,
+      gvp_status: resp.body._source.gvp_status,
+      teamId: resp.body._source.teamId,
+      primaryApiKeyId: resp.body._source.primaryApiKeyId,
+    });
+
+  }, [geojsonId, session, setGeoJsonMeta]);
+
+  const handleSelectApiKey = useCallback((event: React.ChangeEvent<{ value: unknown }>) => {
+
+    const primaryApiKeyId = event.target.value as string
+    const allowedOrigins = getApiKeyIdAllowedOrigins(mapKeys, primaryApiKeyId)
+    const userKey = getApiKeyIdUserKey(mapKeys, primaryApiKeyId)
+
+    savePrimaryApiKeyId(primaryApiKeyId)
+
+    setApiKeyId(primaryApiKeyId);
+    setUserKey(userKey)
+    setApiKeyIdAllowedOrigins(allowedOrigins)
+  },[mapKeys, savePrimaryApiKeyId]);
+
+  const embedCode = sprintf(
+    '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
+    'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
+    process.env.REACT_APP_STAGE,
+    userKey
+  );
 
   return (
     <Grid className="geojson-meta" container spacing={2}>
@@ -276,7 +359,6 @@ const GeoJSONMeta = (props: Props) => {
             value={draftName}
             onChange={e => setDraftName(e.currentTarget.value)}
           />
-
           <Save
             onClick={() => saveHandler(draftName)}
             disabled={draftName === name}
@@ -355,52 +437,44 @@ const GeoJSONMeta = (props: Props) => {
           </div>
         </Paper>
         {draftIsPublic && (
-          <Paper className="geojson-title-description">
-            <h3>{__("Access allowed URLs")}</h3>
-            <p>{__("Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.")}</p>
-            <TextField
-              id="standard-name"
-              label={__("URLs")}
-              margin="normal"
-              multiline={true}
-              rows={5}
-              placeholder="https://example.com"
-              fullWidth={true}
-              value={draftAllowedOrigins}
-              onChange={e => setDraftAllowedOrigins(e.target.value)}
-              disabled={saveStatus === "requesting"}
-            />
-            <Help>
-              <Typography component="p">
-                {__(
-                  "Only requests that come from the URLs specified here will be allowed."
-                )}
-              </Typography>
-              <ul>
-                <li>
-                  {__("Any page in a specific URL:")}{" "}
-                  <strong>https://www.example.com</strong>
-                </li>
-                <li>
-                  {__("Any subdomain:")} <strong>https://*.example.com</strong>
-                </li>
-                <li>
-                  {__("A URL with a non-standard port:")}{" "}
-                  <strong>https://example.com:*</strong>
-                </li>
-              </ul>
-              <p>
-                {__(
-                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
-                )}
-              </p>
-            </Help>
-            <Save
-              onClick={onUpdateClick}
-              onError={onRequestError}
-              disabled={saveDisabled}
-            />
-          </Paper>
+          <Accordion className="geojson-title-description geojson-advanced-settings">
+            <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            >
+              <h3>{__("Advanced Settings")}</h3>
+            </AccordionSummary>
+            <AccordionDetails>
+              <Grid>
+                <h4>{__("Access allowed URLs")}</h4>
+                <p>{__("If you want to add more URLs to the \"URLs to allow access\" set on the API key page, please use the following settings. (e.g., if you want to use multiple API keys for a single tile, etc.)")}</p>
+                {apiKeyId &&
+                  <>
+                    <h5>{__("URLs from API Key page.")}</h5>
+                    <ul className={"geojson-api-key-allowed-url"}>
+                      {apiKeyIdAllowedOrigins && apiKeyIdAllowedOrigins.map((allowedOrigin, index) => <li key={index}><code>{allowedOrigin}</code></li>)}
+                    </ul>
+                  </>
+                }
+                <h5>{__("Enter URLs to be added.")}</h5>
+                <TextField
+                  id="standard-name"
+                  multiline={true}
+                  rows={5}
+                  placeholder="https://example.com"
+                  fullWidth={true}
+                  value={draftAllowedOrigins}
+                  onChange={e => setDraftAllowedOrigins(e.target.value)}
+                  disabled={saveStatus === "requesting"}
+                  variant="outlined"
+                />
+                <Save
+                  onClick={onUpdateClick}
+                  onError={onRequestError}
+                  disabled={saveDisabled}
+                />
+              </Grid>
+            </AccordionDetails>
+          </Accordion>
         )}
       </Grid>
       <Grid item sm={8} xs={12}>
@@ -411,10 +485,33 @@ const GeoJSONMeta = (props: Props) => {
           <Typography component="h3" style={styleH3}>
             {__("Step 1")}
           </Typography>
+          <p>{__("Please select API key.")}</p>
+          <FormControl fullWidth={true}>
+            <InputLabel id="api-key-select-label">API Key</InputLabel>
+            <Select
+              labelId="api-key-select-label"
+              id="api-key-select"
+              value={apiKeyId || ""}
+              onChange={handleSelectApiKey}
+            >
+              <MenuItem value="">
+                <em>None</em>
+              </MenuItem>
+              {mapKeys.map((key) => <MenuItem key={key.keyId} value={key.keyId}>{key.name}</MenuItem>)}
+            </Select>
+          <FormHelperText>
+              <Interweave
+                content={__("If you don't have one, create it from <a href='#/api-keys'>API Keys</a>.")}
+              />
+          </FormHelperText>
+        </FormControl>
+          <Typography component="h3" style={styleH3}>
+            {__("Step 2")}
+          </Typography>
           <p>
             <Interweave
               content={__(
-                "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file. <br/> Please replace YOUR-API-KEY to your API key. If you don't have one, create it from <a href='#/api-keys'>API keys</a> page."
+                "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file."
               )}
             />
           </p>
@@ -436,7 +533,7 @@ const GeoJSONMeta = (props: Props) => {
             </Button>
           </p>
           <Typography component="h3" style={styleH3}>
-            {__("Step 2")}
+            {__("Step 3")}
           </Typography>
           <p>
             {__(
@@ -453,13 +550,13 @@ const GeoJSONMeta = (props: Props) => {
               data-lat="38.592126509927425"
               data-lng="136.8448477633185"
               data-zoom="4"
-              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`}
+              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json`}
             >
               {__("Get HTML")}
             </Button>
           </p>
           <Typography component="h3" style={styleH3}>
-            {__("Step 3")}
+            {__("Step 4")}
           </Typography>
           <p>{__("Adjust the element size.")}</p>
           <textarea
@@ -487,7 +584,10 @@ const GeoJSONMeta = (props: Props) => {
 
 export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const { session } = state.authSupport;
-  return { session };
+  const { data: teams, selectedIndex } = state.team;
+  const teamId = teams[selectedIndex] && teams[selectedIndex].teamId;
+  const { data: mapKeys = [] } = state.mapKey[teamId] || {};
+  return { session, mapKeys };
 };
 
 export default connect(mapStateToProps)(GeoJSONMeta);
