@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useMemo, useCallback, useEffect, useState } from "react";
 
 import fetch from "../../lib/fetch";
 
@@ -8,15 +8,17 @@ import DangerZone from "../custom/danger-zone";
 
 import Title from "../custom/Title";
 import ImportDropZoneButton from "./ImportDropZoneButton";
-import ImportDropZone from "./ImportDropZone"
+import ImportDropZone from "./ImportDropZone";
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from "./GeoJsonMeta";
 import StyleSelector from "./StyleSelector";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress, LinearProgress } from "@material-ui/core";
+import CheckIcon from "@material-ui/icons/Check";
 
 // lib
 import { connect } from "react-redux";
 import { __ } from "@wordpress/i18n";
+import { sleep } from "../../lib/sleep";
 
 // hooks
 import useGeoJSON from "./GeoJson/hooks/use-geojson";
@@ -43,9 +45,14 @@ type RouterProps = {
 type Props = OwnProps & RouterProps & StateProps;
 
 export type TileStatus = null | undefined | "progress" | "created" | "failure";
-
-const sleep = (msec: number) => {
-  return new Promise(resolve => setTimeout(resolve, msec));
+export type GVPStep = 'started' | 'uploading' | 'processing' | 'done';
+const getStepProgress = (): { [key in GVPStep]: { text: string, progress: number } } => {
+  return {
+    started: { text: "", progress: 0 },
+    uploading: { text: __("Uploading now.."), progress: 20 },
+    processing: { text: __("Processing data.."), progress: 60 },
+    done: { text: __("Adding your data to the map..."), progress: 90 },
+  }
 }
 
 const mapEditorStyle: React.CSSProperties = {
@@ -57,7 +64,7 @@ const mapEditorStyle: React.CSSProperties = {
   flexDirection: "column"
 }
 
-const GeoJson = (props: Props) => {
+const GeoJson: React.FC<Props> = (props: Props) => {
     const {
     session,
     teamId,
@@ -70,6 +77,7 @@ const GeoJson = (props: Props) => {
   const [style, setStyle] = useState<string | undefined>();
   const [tileStatus, setTileStatus] = useState<TileStatus>(null);
   const [prevTeamId] = useState(teamId);
+  const [gvpStep, setGvpStep] = useState<GVPStep>('started')
 
   // custom hooks
   const {
@@ -130,6 +138,8 @@ const GeoJson = (props: Props) => {
       });
   }, [session, teamId, geojsonId, history])
 
+  const stepProgress = useMemo(getStepProgress, [])
+
   const getTileStatus = useCallback(async () => {
     let status = "progress"
     while (status !== "created" && status !== "failure") {
@@ -164,15 +174,19 @@ const GeoJson = (props: Props) => {
     return null;
   }
 
+  const stepper: React.ReactNode = <div style={{ width: '80%', height: '20px' }}>
+    <p style={{ textAlign: 'center' }}>{stepProgress[gvpStep].text}</p>
+    <LinearProgress variant="determinate" value={stepProgress[gvpStep].progress} />
+  </div>
+
   let mapEditorElement: JSX.Element | null = null;
   if (tileStatus === null) {
     mapEditorElement = <div style={mapEditorStyle}>
-      <CircularProgress />
+      {stepper}
     </div>;
   } else if (tileStatus === "progress") {
     mapEditorElement = <div style={mapEditorStyle}>
-      <p>{__("Adding your data to the map...")}</p>
-      <CircularProgress />
+      {stepper}
     </div>;
   } else if (tileStatus === undefined || tileStatus === 'failure') {
     mapEditorElement = <ImportDropZone
@@ -183,6 +197,7 @@ const GeoJson = (props: Props) => {
       tileStatus={tileStatus}
       getTileStatus={getTileStatus}
       setTileStatus={setTileStatus}
+      setGvpStep={setGvpStep}
     />
   } else if (tileStatus === "created") {
     mapEditorElement = <MapEditor
@@ -218,6 +233,7 @@ const GeoJson = (props: Props) => {
             isPaidTeam={isPaidTeam}
             getTileStatus={getTileStatus}
             setTileStatus={setTileStatus}
+            setGvpStep={setGvpStep}
           />
         </div>
       )}

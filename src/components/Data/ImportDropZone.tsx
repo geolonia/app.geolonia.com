@@ -6,7 +6,8 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from "@wordpress/i18n";
 import fetch from "../../api/custom-fetch";
 import "./ImportDropZone.scss"
-import { TileStatus } from './GeoJson';
+import { TileStatus, GVPStep } from './GeoJson';
+import { sleep } from '../../lib/sleep';
 const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
 type GeoJSONLinksResp = {
@@ -51,6 +52,7 @@ const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: 
 type Props = {
   getTileStatus: () => Promise<TileStatus>,
   setTileStatus: (value: TileStatus) => void,
+  setGvpStep: (value: GVPStep) => void,
   session: Geolonia.Session,
   isPaidTeam: boolean,
   teamId?: string,
@@ -67,6 +69,7 @@ const Content = (props: Props) => {
     geojsonId,
     customMessage,
     setTileStatus,
+    setGvpStep,
     getTileStatus,
     tileStatus,
   } = props;
@@ -105,12 +108,23 @@ const Content = (props: Props) => {
     }
     setError(null);
     setTileStatus("progress"); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
-    await uploadGeoJson(acceptedFiles[0], session, teamId, geojsonId);
+    await sleep(50) // Just waiting for the visual effect of GVPProgress
+    setGvpStep('uploading')
+    try {
+      await uploadGeoJson(acceptedFiles[0], session, teamId, geojsonId);
+    } catch (error) {
+      setGvpStep('started')
+      throw error
+    }
 
+    setGvpStep('processing')
     const status = await getTileStatus();
+    setGvpStep('done')
+    status === 'created' && await sleep(1500) // Just waiting for the visual effect of GVPProgress
     setTileStatus(status);
+    setTimeout(() => setGvpStep('started'), 200) // // Just waiting and reset for the visual effect of GVPProgress
 
-  }, [geojsonId, getTileStatus, maxUploadSize, session, setTileStatus, teamId]);
+  }, [geojsonId, getTileStatus, maxUploadSize, session, setGvpStep, setTileStatus, teamId]);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
   const mouseOverStyle = { background: isDragActive ? 'rgb(245, 245, 245)' : 'inherit' }

@@ -3,11 +3,12 @@ import ImportDropZone from "./ImportDropZone"
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
 import { __ } from "@wordpress/i18n"
 import "./ImportDropZoneButton.scss"
-import { TileStatus } from "./GeoJson"
+import { TileStatus, GVPStep } from "./GeoJson"
 
 type Props = {
   getTileStatus: () => Promise<TileStatus>,
   setTileStatus: (value: TileStatus) => void,
+  setGvpStep: (value: GVPStep) => void,
   session: Geolonia.Session,
   isPaidTeam: boolean,
   teamId?: string,
@@ -67,6 +68,7 @@ const Content = (props: Props) => {
               isPaidTeam={props.isPaidTeam}
               getTileStatus={props.getTileStatus}
               setTileStatus={props.setTileStatus}
+              setGvpStep={props.setGvpStep}
               customMessage={__("Data that has already been uploaded will be overwritten.")}
             />
           </div>
