@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import clsx from "clsx";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
@@ -109,6 +109,15 @@ type DispatchProps = {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
+interface TeamSettingChild {
+  id: string;
+  icon: JSX.Element;
+  href: string;
+  active: boolean;
+  target?: string;
+  rel?: string;
+}
+
 const Navigator: React.FC<Props> = (props: Props) => {
   const initialValueForNewTeamName = __("My team");
 
@@ -128,24 +137,18 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
   const selectedTeam: Geolonia.Team | undefined = teams[selectedTeamIndex];
 
-  const navigatorDefault = {
-    active: false,
-    target: "_self",
-    rel: "",
-  }
-
-  const teamSettingsChildren = [
+  const teamSettingsChildren: TeamSettingChild[] = [
     {
       id: __("General"),
       icon: <ViewListIcon />,
       href: "#/team/general",
-      ...navigatorDefault
+      active: false,
     },
     {
       id: __("Members"),
       icon: <GroupIcon />,
       href: "#/team/members",
-      ...navigatorDefault
+      active: false,
     },
   ];
 
@@ -154,7 +157,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
       id: __("Billing"),
       icon: <PaymentIcon />,
       href: "#/team/billing",
-      ...navigatorDefault
+      active: false,
     });
   }
 
@@ -167,7 +170,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __("Manage API keys"),
           icon: <CodeIcon />,
           href: "#/api-keys",
-          ...navigatorDefault
+          active: false,
         }
         // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
       ]
@@ -180,7 +183,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __("GeoJSON API"),
           icon: <RoomIcon />,
           href: "#/data/geojson",
-          ...navigatorDefault
+          active: false,
         }
         // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
       ]
