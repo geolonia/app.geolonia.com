@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
@@ -142,13 +142,13 @@ const Navigator: React.FC<Props> = (props: Props) => {
       id: __("General"),
       icon: <ViewListIcon />,
       href: "#/team/general",
-      active: false,
+      active: false
     },
     {
       id: __("Members"),
       icon: <GroupIcon />,
       href: "#/team/members",
-      active: false,
+      active: false
     },
   ];
 
@@ -157,7 +157,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
       id: __("Billing"),
       icon: <PaymentIcon />,
       href: "#/team/billing",
-      active: false,
+      active: false
     });
   }
 
@@ -170,7 +170,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __("Manage API keys"),
           icon: <CodeIcon />,
           href: "#/api-keys",
-          active: false,
+          active: false
         }
         // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
       ]
@@ -183,7 +183,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __("GeoJSON API"),
           icon: <RoomIcon />,
           href: "#/data/geojson",
-          active: false,
+          active: false
         }
         // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
       ]
