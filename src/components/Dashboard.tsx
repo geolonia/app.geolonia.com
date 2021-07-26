@@ -53,19 +53,25 @@ const Dashboard = (props: Props) => {
     <div id="dashboard">
       <Paper className="getting-started">
         <div className="box-content">
-          <h2>{sprintf(__("Welcome, %s"), displayName)}</h2>
+          <h2>{__("Get started with Geolonia map")}</h2>
           <ul>
             <li>
               <Link href="#/api-keys" color="inherit" underline="always">
-                {__("Get API key")}
+                {__("Display a map")}
               </Link>{" "}
-              - {__("Get API key then create your map!")}
+              - {__("Get API key then add the map to your web site")}
             </li>
             <li>
               <Link href="#/data/geojson" color="inherit" underline="always">
-                {__("GeoJSON API")}
+                {__("Upload your data")}
               </Link>{" "}
-              - {__("Manage and style your GeoJSON.")}
+              - {__("Upload CSV or GeoJSON to display in your map")}
+            </li>
+            <li>
+              <Link href="https://docs.geolonia.com/" color="inherit" underline="always" target="_blank" rel="noopener noreferrer">
+                {__("Build a custom map")}
+              </Link>{" "}
+              - {__("Browse developer docs")}
             </li>
           </ul>
         </div>

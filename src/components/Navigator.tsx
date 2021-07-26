@@ -198,7 +198,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
       icon: <DescriptionOutlinedIcon />,
       children: [
         {
-          id: __("Official Documents"),
+          id: __("Developer Documents"),
           icon: <DescriptionIcon />,
           href: "https://docs.geolonia.com/",
           active: false,
