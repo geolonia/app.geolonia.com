@@ -109,6 +109,15 @@ type DispatchProps = {
 
 type Props = OwnProps & StateProps & DispatchProps;
 
+interface TeamSettingChild {
+  id: string;
+  icon: JSX.Element;
+  href: string;
+  active: boolean;
+  target?: string;
+  rel?: string;
+}
+
 const Navigator: React.FC<Props> = (props: Props) => {
   const initialValueForNewTeamName = __("My team");
 
@@ -128,7 +137,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
   const selectedTeam: Geolonia.Team | undefined = teams[selectedTeamIndex];
 
-  const teamSettingsChildren = [
+  const teamSettingsChildren: TeamSettingChild[] = [
     {
       id: __("General"),
       icon: <ViewListIcon />,
@@ -148,7 +157,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
       id: __("Billing"),
       icon: <PaymentIcon />,
       href: "#/team/billing",
-      active: false,
+      active: false
     });
   }
 
@@ -192,7 +201,9 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __("Official Documents"),
           icon: <DescriptionIcon />,
           href: "https://docs.geolonia.com/",
-          active: false
+          active: false,
+          target: "_blank",
+          rel: "noopener noreferrer",
         }
       ]
     }
@@ -287,11 +298,13 @@ const Navigator: React.FC<Props> = (props: Props) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, active, href }) => (
+            {children.map(({ id: childId, active, href, target, rel }) => (
               <ListItem
                 button
                 component="a"
                 href={href}
+                target={target}
+                rel={rel}
                 key={childId}
                 className={`categoryItemcontent ${clsx(classes.item, active && classes.itemActiveItem)}`}
               >
