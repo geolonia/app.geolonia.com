@@ -128,18 +128,24 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
   const selectedTeam: Geolonia.Team | undefined = teams[selectedTeamIndex];
 
+  const navigatorDefault = {
+    active: false,
+    target: "_self",
+    rel: "",
+  }
+
   const teamSettingsChildren = [
     {
       id: __("General"),
       icon: <ViewListIcon />,
       href: "#/team/general",
-      active: false
+      ...navigatorDefault
     },
     {
       id: __("Members"),
       icon: <GroupIcon />,
       href: "#/team/members",
-      active: false
+      ...navigatorDefault
     },
   ];
 
@@ -148,7 +154,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
       id: __("Billing"),
       icon: <PaymentIcon />,
       href: "#/team/billing",
-      active: false,
+      ...navigatorDefault
     });
   }
 
@@ -161,7 +167,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __("Manage API keys"),
           icon: <CodeIcon />,
           href: "#/api-keys",
-          active: false
+          ...navigatorDefault
         }
         // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
       ]
@@ -174,7 +180,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __("GeoJSON API"),
           icon: <RoomIcon />,
           href: "#/data/geojson",
-          active: false
+          ...navigatorDefault
         }
         // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
       ]
@@ -192,7 +198,9 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __("Official Documents"),
           icon: <DescriptionIcon />,
           href: "https://docs.geolonia.com/",
-          active: false
+          active: false,
+          target: "_blank",
+          rel: "noopener noreferrer",
         }
       ]
     }
@@ -287,11 +295,13 @@ const Navigator: React.FC<Props> = (props: Props) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, active, href }) => (
+            {children.map(({ id: childId, active, href, target, rel }) => (
               <ListItem
                 button
                 component="a"
                 href={href}
+                target={target}
+                rel={rel}
                 key={childId}
                 className={`categoryItemcontent ${clsx(classes.item, active && classes.itemActiveItem)}`}
               >
