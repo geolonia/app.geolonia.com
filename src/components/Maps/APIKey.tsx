@@ -27,7 +27,7 @@ import { connect } from "react-redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
 
 // libs
-import normalizeOrigin from "../../lib/normalize-origin";
+import normalizeOrigins from "../../lib/normalize-origin";
 
 // constants
 import { messageDisplayDuration } from "../../constants";
@@ -77,7 +77,8 @@ const Content = (props: Props) => {
   // effects
   useEffect(() => {
     setName(propName);
-    setAllowedOrigins(propOrigins.join("\n"));
+    const normalizedOrigin = normalizeOrigins(propOrigins.join('\n'))
+    setAllowedOrigins(normalizedOrigin.join("\n"));
 
     const script = document.createElement("script");
     script.src = "https://geolonia.github.io/get-geolonia/app.js";
@@ -148,11 +149,7 @@ const Content = (props: Props) => {
 
     setStatus("requesting");
 
-    const normalizedAllowedOrigins = allowedOrigins
-      .split("\n")
-      .filter(url => !!url)
-      .map(origin => normalizeOrigin(origin));
-
+    const normalizedAllowedOrigins = normalizeOrigins(allowedOrigins)
     const nextKey = {
       name,
       allowedOrigins: normalizedAllowedOrigins

@@ -265,10 +265,7 @@ const GeoJSONMeta = (props: Props) => {
 
     setSaveStatus("requesting");
 
-    const normalizedAllowedOrigins = draftAllowedOrigins
-      .split("\n")
-      .filter(url => !!url)
-      .map(origin => normalizeOrigin(origin));
+    const normalizedAllowedOrigins = normalizeOrigin(draftAllowedOrigins)
 
     const rawResp = await fetch(
       session,
