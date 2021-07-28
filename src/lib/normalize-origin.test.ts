@@ -1,41 +1,93 @@
 import normalizeOrigin from "./normalize-origin";
 
-test("should be normalized", () => {
-  const url = "  https://example.com  ";
-  expect(normalizeOrigin(url)).toEqual("https://example.com");
-});
+describe('allowed origin normalizer', () => {
+  it('should normalize multimatch keyword', () => {
+    const input = ['*']
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual(['*']);
+  })
 
-test("should be normalized slashed url", () => {
-  const url = "https://example.com/";
-  expect(normalizeOrigin(url)).toEqual("https://example.com");
-});
+  it('should normalize URL with trailing slash', () => {
+    const input = ['https://example.com/']
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual(['https://example.com']);
+  })
 
-test("should normalize localhost", () => {
-  const url = "https://localhost:12345/";
-  expect(normalizeOrigin(url)).toEqual("https://localhost:12345");
-});
+  it('should normalize URL with heading and trailing whitespaces', () => {
+    const input = ['     https://example.com   ']
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual(['https://example.com']);
+  })
 
-test("should normalize ip address", () => {
-  const url = "https://1.2.3.4:5678/";
-  expect(normalizeOrigin(url)).toEqual("https://1.2.3.4:5678");
-});
+  it('should normalize URL of subdomain', () => {
+    const input = ['https://www.a.b.c.d.e.f.example.com']
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual(['https://www.a.b.c.d.e.f.example.com']);
+  })
 
-test("should not be normalized slashed url", () => {
-  const url = "https://example.com";
-  expect(normalizeOrigin(url)).toEqual("https://example.com");
-});
+  it('should normalize URL with unicode domain', () => {
+    const input = ['https://www.ジオロニア.com']
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual(['https://www.ジオロニア.com']);
+  })
 
-test("should not normalize localhost", () => {
-  const url = "https://localhost:12345";
-  expect(normalizeOrigin(url)).toEqual("https://localhost:12345");
-});
+  it('should normalize URL with port, dirctory, querystring and hash.', () => {
+    const input = ['https://example.com:8000/hello/world?query=hello#aaaaa']
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual(['https://example.com:8000/hello/world?query=hello#aaaaa']);
+  })
 
-test("should not normalize ip address", () => {
-  const url = "https://1.2.3.4:5678";
-  expect(normalizeOrigin(url)).toEqual("https://1.2.3.4:5678");
-});
+  it('should normalize localhost', () => {
+    const input = [
+      'http://localhost:1234',
+      'http://127.0.0.1:8080',
+    ];
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual([
+      'http://localhost:1234',
+      'http://127.0.0.1:8080',
+    ]);
+  })
 
-test("should not be normalized if not matched", () => {
-  const url = "invalid string";
-  expect(normalizeOrigin(url)).toEqual("invalid string");
-});
+  it('should remove duplicate entries', () => {
+    const input = ['https://example.com/', 'https://example.com'];
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual(['https://example.com']);
+  });
+
+  it('should remove invalid origin', () => {
+    const input = ['foo', 'https://example.com'];
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual(['https://example.com']);
+  });
+
+  it('should normalize URLs with asterisk', () => {
+    const input = [
+      'https://*.example.com/',
+      'http://127.0.0.1:*',
+      'http://localhost:*',
+    ];
+    const output = normalizeOrigin(input);
+    // @ts-ignore
+    expect(output.values).toEqual([
+      'https://*.example.com',
+      'http://127.0.0.1:*',
+      'http://localhost:*',
+    ]);
+  });
+
+  it('should normalize empty array', () => {
+    const input: any = [];
+    const output = normalizeOrigin(input);
+    expect(output).toBeNull();
+  });
+})
