@@ -140,7 +140,8 @@ const Content = () => {
                 passwordAgain === "" ||
                 password !== passwordAgain ||
                 status === "requesting" ||
-                status === "success"
+                status === "success" ||
+                !code.match(/^[0-9]{6}$/g)
               }
               type={"submit"}
             >
