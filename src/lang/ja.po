@@ -217,7 +217,7 @@ msgid ""
 "Include the following code before closing tag of the <code>&lt;body /&gt;</"
 "code> in your HTML file."
 msgstr ""
-"<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
+"地図を表示したいWebサイトの <code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
 
 #: src/components/Data/GeoJsonMeta.tsx:536 src/components/Maps/APIKey.tsx:346
 msgid "Step 3"

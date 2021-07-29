@@ -9,18 +9,21 @@
       },
       "Your invitation has been validated.": ["招待が有効化されました。"],
       "Your invitation has been outdated.": ["この招待は無効です。"],
-      "Welcome, %s": ["ようこそ %s さん"],
-      "Get API key": ["API キーを取得"],
-      "Get API key then create your map!": [
-        "API キーを取得して新しい地図を作成しましょう。"
+      "Get started with Geolonia map": ["Geoloniaの地図を使ってみる"],
+      "Display a map": ["地図の表示"],
+      "Get API key then add the map to your web site": [
+        "ウェブサイトに地図を追加しましょう"
       ],
-      "GeoJSON API": ["GeoJSON API"],
-      "Manage and style your GeoJSON.": [
-        "GeoJSON を登録してスタイルをカスタマイズしましょう。"
+      "Upload your data": ["データをアップロード"],
+      "Upload CSV or GeoJSON to display in your map": [
+        "CSV / GeoJSON を地図に表示するためにアップロード"
       ],
+      "Build a custom map": ["カスタムマップを作成"],
+      "Browse developer docs": [""],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
       "API services": ["API サービス"],
+      "GeoJSON API": ["GeoJSON API"],
       "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON and CSV files.": [
         "ここでは位置情報をアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSONまたはCSVファイルを対応しております。"
       ],
@@ -66,30 +69,26 @@
       "Datasets are published now.": ["データセットは公開されています。"],
       "Datasets status are draft now.": ["データセットは下書きの状態です。"],
       "Access allowed URLs": ["アクセスを許可したURL"],
-      "Please enter a URL to allow access to the map. To specify multiple URLs, insert a new line after each URL.": [
-        "地図の表示を許可するURLを入力してください。複数のURLを指定するには、各URLの後に改行を挿入してください。"
+      "If you want to add more URLs to the \"URLs to allow access\" set on the API key page, please use the following settings. (e.g., if you want to use multiple API keys for a single tile, etc.)": [
+        ""
       ],
-      "URLs": ["URL のリスト"],
-      "Only requests that come from the URLs specified here will be allowed.": [
-        "ここで指定したURLからのリクエストのみが許可されます。"
-      ],
-      "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
-      "Any subdomain:": ["すべてのサブドメイン:"],
-      "A URL with a non-standard port:": ["一般的ではないポート:"],
-      "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
-        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
-      ],
+      "URLs from API Key page.": [""],
+      "Enter URLs to be added.": [""],
       "Add the map to your site": ["ウェブサイトに地図を追加しましょう"],
       "Step 1": ["ステップ 1"],
-      "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file. <br/> Please replace YOUR-API-KEY to your API key. If you don't have one, create it from <a href='#/api-keys'>API keys</a> page.": [
-        "<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。<code>YOUR-API-KEY</code> はご自身のAPIキーに置き換えてください。APIキーを未作成の場合は、<a href='#/api-keys'>API keys</a> より作成して下さい。"
+      "Please select API key.": ["API キーを選択してください"],
+      "If you don't have one, create it from <a href='#/api-keys'>API Keys</a>.": [
+        ""
       ],
       "Step 2": ["ステップ 2"],
+      "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file.": [
+        "地図を表示したいWebサイトの <code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
+      ],
+      "Step 3": ["ステップ 3"],
       "Click following button and get HTML code where you want to place the map.": [
         "以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
       ],
       "Get HTML": ["HTML を取得"],
-      "Step 3": ["ステップ 3"],
       "Adjust the element size.": [
         "地図を表示する要素のサイズを調整して下さい。"
       ],
@@ -133,6 +132,7 @@
         "既にアップロードされているデータが上書きされます。"
       ],
       "Description": ["説明"],
+      "URLs": ["URL のリスト"],
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
@@ -164,6 +164,12 @@
       "Configure access control for your API key and Get the HTML code for your map.": [
         "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを取得しましょう。"
       ],
+      "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
+      "Any subdomain:": ["すべてのサブドメイン:"],
+      "A URL with a non-standard port:": ["一般的ではないポート:"],
+      "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
+        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
+      ],
       "Once you delete an API, there is no going back. Please be certain.": [
         "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してください。"
       ],
@@ -171,16 +177,13 @@
         "この API キーを本当に削除しますか？"
       ],
       "Your API Key": ["あなたの API キー"],
-      "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file.": [
-        "<code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
-      ],
       "(No date)": ["(データなし)"],
       "You need an API key to display map. Get an API key.": [
         "地図を表示するには API キーが必要です。 API キーを取得してください。"
       ],
       "Create a new API key": ["新しい API キーを作成"],
       "Please enter the name of new API key.": [
-        "新しいチームの名前を入力してください。"
+        "新しい API キーの名前を入力してください。"
       ],
       "My API": ["API キー"],
       "My team": ["My team"],
@@ -191,7 +194,6 @@
       "API Services": ["API サービス"],
       "Team Settings": ["チーム設定"],
       "Documentation": ["ドキュメント"],
-      "Official Documents": ["公式ドキュメント"],
       "Dashboard": ["ダッシュボード"],
       "Create a new team": ["新しいチームを作成"],
       "Please enter the name of new team.": [
