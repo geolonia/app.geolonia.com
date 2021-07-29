@@ -399,7 +399,7 @@ const GeoJSONMeta = (props: Props) => {
             </p>
             {/* ) : (
               <p>
-                {__("You can restrict the URLs that can use this GeoJSON API.")}
+                {__("You can restrict the URLs that can use this Location Data.")}
               </p>
             )} */}
 

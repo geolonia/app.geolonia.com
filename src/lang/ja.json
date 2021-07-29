@@ -22,10 +22,10 @@
       "Browse developer docs": [""],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
-      "API services": ["API サービス"],
-      "GeoJSON API": ["GeoJSON API"],
+      "Map": ["地図"],
+      "Location Data": ["位置情報データ"],
       "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON and CSV files.": [
-        "ここでは位置情報をアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSONまたはCSVファイルを対応しております。"
+        "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSONまたはCSVファイルに対応しています。"
       ],
       "Once you delete an Dataset, there is no going back. Please be certain.": [
         "一度データセットを削除するともとに戻すことはできません。"
@@ -94,8 +94,8 @@
       ],
       "Copy to Clipboard": ["クリップボードにコピー"],
       "Network error.": ["通信エラー。"],
-      "GeoJSON API is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have.": [
-        "GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
+      "Location Data is an service for hosting location data. Register various location information data such as stores and real estate information that you have.": [
+        "位置情報データをホスティングするサービスです。 みなさんがお持ちの店舗情報や不動産情報などのデータを登録しましょう。"
       ],
       "Create a new dataset": ["データセットを作成"],
       "Please enter the name of the new dataset.": [
@@ -191,7 +191,6 @@
       "Members": ["メンバー"],
       "Billing": ["支払い"],
       "Manage API keys": ["API キー の管理"],
-      "API Services": ["API サービス"],
       "Team Settings": ["チーム設定"],
       "Documentation": ["ドキュメント"],
       "Dashboard": ["ダッシュボード"],

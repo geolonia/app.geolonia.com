@@ -59,12 +59,14 @@ msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GeoJson.tsx:103 src/components/Data/GeoJsons.tsx:95
-msgid "API services"
-msgstr "API サービス"
+#: src/components/Navigator.tsx:179
+msgid "Map"
+msgstr "地図"
 
-#: src/components/Data/GeoJson.tsx:107 src/components/Navigator.tsx:183
-msgid "GeoJSON API"
-msgstr "GeoJSON API"
+#: src/components/Data/GeoJson.tsx:107 src/components/Data/GeoJsons.tsx:125
+#: src/components/Navigator.tsx:183
+msgid "Location Data"
+msgstr "位置情報データ"
 
 #: src/components/Data/GeoJson.tsx:220
 msgid ""
@@ -72,9 +74,9 @@ msgid ""
 "been uploaded, HTML code will be generated so you can embed it in your site. "
 "We currently support uploading GeoJSON and CSV files."
 msgstr ""
-"ここでは位置情報をアップロードすることができます。またWebサイトに地図を追加す"
-"るための埋め込み用HTMLコードも入手できます。現在、GeoJSONまたはCSVファイルを"
-"対応しております。"
+"ここでは位置情報データをアップロードすることができます。またWebサイトに地図を"
+"追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSONまたはCSVファ"
+"イルに対応しています。"
 
 #: src/components/Data/GeoJson.tsx:262
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
@@ -217,7 +219,8 @@ msgid ""
 "Include the following code before closing tag of the <code>&lt;body /&gt;</"
 "code> in your HTML file."
 msgstr ""
-"地図を表示したいWebサイトの <code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
+"地図を表示したいWebサイトの <code>&lt;body /&gt;</code> の終了タグ直前に以下"
+"のコードを挿入してください。"
 
 #: src/components/Data/GeoJsonMeta.tsx:536 src/components/Maps/APIKey.tsx:346
 msgid "Step 3"
@@ -252,12 +255,12 @@ msgstr "通信エラー。"
 
 #: src/components/Data/GeoJsons.tsx:126
 msgid ""
-"GeoJSON API is an API service specialized for location data. Register "
-"various location information data such as stores and real estate "
-"informations that you have."
+"Location Data is an service for hosting location data. Register various "
+"location information data such as stores and real estate information that "
+"you have."
 msgstr ""
-"GeoJSON API は、位置情報に特化した API サービスです。 みなさんがお持ちの店舗"
-"情報や不動産情報などのデータを登録しましょう。"
+"位置情報データをホスティングするサービスです。 みなさんがお持ちの店舗情報や不"
+"動産情報などのデータを登録しましょう。"
 
 #: src/components/Data/GeoJsons.tsx:132
 msgid "Create a new dataset"
@@ -504,10 +507,6 @@ msgstr "支払い"
 #: src/components/Navigator.tsx:170
 msgid "Manage API keys"
 msgstr "API キー の管理"
-
-#: src/components/Navigator.tsx:179
-msgid "API Services"
-msgstr "API サービス"
 
 #: src/components/Navigator.tsx:192
 msgid "Team Settings"
@@ -1204,6 +1203,12 @@ msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
 
+#~ msgid "API services"
+#~ msgstr "API サービス"
+
+#~ msgid "API Services"
+#~ msgstr "API サービス"
+
 #~ msgid "Welcome, %s"
 #~ msgstr "ようこそ %s さん"
 
@@ -1265,10 +1270,10 @@ msgstr "6"
 
 #~ msgid ""
 #~ "You can manage and style features in your GeoJSON, and get the the access "
-#~ "point URL of GeoJSON API."
+#~ "point URL of Location Data."
 #~ msgstr ""
 #~ "GeoJSON 内の地物の管理をしたりスタイルを変更することができます。さらに、"
-#~ "GeoJSON API のアクセスポイントの URL を取得できます。"
+#~ "Location Data のアクセスポイントの URL を取得できます。"
 
 #~ msgid "Update required"
 #~ msgstr "更新が必要です"
@@ -1372,11 +1377,11 @@ msgstr "6"
 #~ "現在はプライベートβ版です。招待されたユーザーのみがアカウントを作成できま"
 #~ "す。"
 
-#~ msgid "Anyone can access this GeoJSON API."
-#~ msgstr "誰でもこの GeoJSON API にアクセスすることができます。"
+#~ msgid "Anyone can access this Location Data."
+#~ msgstr "誰でもこの Location Data にアクセスすることができます。"
 
-#~ msgid "You can restrict the URLs that can use this GeoJSON API."
-#~ msgstr "この GeoJSON API を利用できる URL を制限することができます。"
+#~ msgid "You can restrict the URLs that can use this Location Data."
+#~ msgstr "この Location Data を利用できる URL を制限することができます。"
 
 #~ msgid "Upgrade to Geolonia Team"
 #~ msgstr "チーム機能をアップグレード"
@@ -1425,21 +1430,18 @@ msgstr "6"
 
 #~ msgid ""
 #~ "URLs will be used for an HTTP referrer to restrict the URLs that can use "
-#~ "this GeoJSON API."
+#~ "this Location Data."
 #~ msgstr ""
-#~ "URL のリストは、この GeoJSON API が意図しない URL から使用されないように制"
-#~ "限するために、HTTP リファラーに対して使用されます。"
+#~ "URL のリストは、この Location Data が意図しない URL から使用されないように"
+#~ "制限するために、HTTP リファラーに対して使用されます。"
 
 #~ msgid "Become a Pro"
 #~ msgstr "Pro メンバーになる"
 
-#~ msgid "You can change privacy of this GeoJSON API as a Pro."
+#~ msgid "You can change privacy of this Location Data as a Pro."
 #~ msgstr ""
-#~ "Pro メンバーになると、この GeoJSON API のプライバシー設定を変更することが"
-#~ "できます。"
-
-#~ msgid "Maps"
-#~ msgstr "地図"
+#~ "Pro メンバーになると、この Location Data のプライバシー設定を変更すること"
+#~ "ができます。"
 
 #~ msgid "Cost per user/month"
 #~ msgstr "ユーザーあたりの月額コスト"

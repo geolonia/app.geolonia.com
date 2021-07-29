@@ -49,12 +49,14 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:103
 #: src/components/Data/GeoJsons.tsx:95
-msgid "API services"
+#: src/components/Navigator.tsx:179
+msgid "Map"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:107
+#: src/components/Data/GeoJsons.tsx:125
 #: src/components/Navigator.tsx:183
-msgid "GeoJSON API"
+msgid "Location Data"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:220
@@ -246,9 +248,9 @@ msgstr ""
 
 #: src/components/Data/GeoJsons.tsx:126
 msgid ""
-"GeoJSON API is an API service specialized for location data. Register "
-"various location information data such as stores and real estate "
-"informations that you have."
+"Location Data is an service for hosting location data. Register various "
+"location information data such as stores and real estate information that "
+"you have."
 msgstr ""
 
 #: src/components/Data/GeoJsons.tsx:132
@@ -483,10 +485,6 @@ msgstr ""
 
 #: src/components/Navigator.tsx:170
 msgid "Manage API keys"
-msgstr ""
-
-#: src/components/Navigator.tsx:179
-msgid "API Services"
 msgstr ""
 
 #: src/components/Navigator.tsx:192
