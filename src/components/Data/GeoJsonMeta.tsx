@@ -363,7 +363,7 @@ const GeoJSONMeta = (props: Props) => {
             onClick={() => saveHandler(draftName)}
             disabled={draftName === name}
           />
-          <p>{__("Name of public GeoJSON will be displayed in public.")}</p>
+          <p>{__("This data name will be displayed externally when it is published.")}</p>
         </Paper>
         <Paper className="geojson-title-description">
           <div>
@@ -487,7 +487,7 @@ const GeoJSONMeta = (props: Props) => {
           </Typography>
           <p>{__("Please select API key.")}</p>
           <FormControl fullWidth={true}>
-            <InputLabel id="api-key-select-label">API Key</InputLabel>
+            <InputLabel id="api-key-select-label">{__("API key")}</InputLabel>
             <Select
               labelId="api-key-select-label"
               id="api-key-select"
@@ -495,7 +495,7 @@ const GeoJSONMeta = (props: Props) => {
               onChange={handleSelectApiKey}
             >
               <MenuItem value="">
-                <em>None</em>
+                <em>{__("None")}</em>
               </MenuItem>
               {mapKeys.map((key) => <MenuItem key={key.keyId} value={key.keyId}>{key.name}</MenuItem>)}
             </Select>

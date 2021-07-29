@@ -11,15 +11,13 @@
       "Your invitation has been outdated.": ["この招待は無効です。"],
       "Get started with Geolonia map": ["Geoloniaの地図を使ってみる"],
       "Display a map": ["地図の表示"],
-      "Get API key then add the map to your web site": [
-        "ウェブサイトに地図を追加しましょう"
+      "Create API key then add the map to your web site": [
+        "API キーを作成してWebサイトに地図を追加"
       ],
       "Upload your data": ["データをアップロード"],
-      "Upload CSV or GeoJSON to display in your map": [
-        "CSV / GeoJSON を地図に表示するためにアップロード"
-      ],
+      "Display CSV or GeoJSON in your map": ["CSV / GeoJSON を地図に表示"],
       "Build a custom map": ["カスタムマップを作成"],
-      "Browse developer docs": [""],
+      "Browse developer docs": ["開発者ドキュメントを参照"],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
       "Map": ["地図"],
@@ -60,25 +58,28 @@
         "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要があります。"
       ],
       "Name": ["名前"],
-      "Name of public GeoJSON will be displayed in public.": [
-        "公開されているGeoJSONの名前が表示されます。"
+      "This data name will be displayed externally when it is published.": [
+        "このデータ名は公開時に外部に表示されます。"
       ],
       "Public features will be displayed publicly and anyone can download this features without API key.": [
         "Public のデータは一般に公開され、だれでも API キー無しでダウンロードすることができます。"
       ],
       "Datasets are published now.": ["データセットは公開されています。"],
       "Datasets status are draft now.": ["データセットは下書きの状態です。"],
+      "Advanced Settings": ["高度な設定"],
       "Access allowed URLs": ["アクセスを許可したURL"],
       "If you want to add more URLs to the \"URLs to allow access\" set on the API key page, please use the following settings. (e.g., if you want to use multiple API keys for a single tile, etc.)": [
-        ""
+        "APIキーページで設定した「アクセスを許可するURL」に、URLを追加したい場合は、以下より設定して下さい。(例：ひとつのタイルに複数のAPIキーを使用する場合)"
       ],
-      "URLs from API Key page.": [""],
-      "Enter URLs to be added.": [""],
+      "URLs from API Key page.": ["API キーページで設定した URL"],
+      "Enter URLs to be added.": ["追加する URL を入力して下さい"],
       "Add the map to your site": ["ウェブサイトに地図を追加しましょう"],
       "Step 1": ["ステップ 1"],
       "Please select API key.": ["API キーを選択してください"],
+      "API key": ["API キー"],
+      "None": ["未選択"],
       "If you don't have one, create it from <a href='#/api-keys'>API Keys</a>.": [
-        ""
+        "API キーをお持ちでない場合は <a href='#/api-keys'>API Keys</a> から作成して下さい。"
       ],
       "Step 2": ["ステップ 2"],
       "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file.": [
@@ -89,6 +90,7 @@
         "以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
       ],
       "Get HTML": ["HTML を取得"],
+      "Step 4": ["ステップ 4"],
       "Adjust the element size.": [
         "地図を表示する要素のサイズを調整して下さい。"
       ],
@@ -118,8 +120,8 @@
       "Drag and drop a file here to add your map, or click to choose your file.": [
         "地図に追加するファイルをドラッグ&ドロップしてください。クリックするとファイルを選択してアップロードすることが出来ます。"
       ],
-      "Failed to add your data. Your GeoJSON might be invalid format.": [
-        "データの追加に失敗しました。GeoJSONが無効なフォーマットである可能性があります。"
+      "Failed to add your data. Your data might be invalid format.": [
+        "データの追加に失敗しました。データが無効なフォーマットである可能性があります。"
       ],
       "Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/": [
         "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタマーサポートに連絡してください。"
@@ -136,7 +138,7 @@
       "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.": [
         "URL のリストは、API キーが意図しない URL から使用されないように制限するために、HTTP リファラーに対して使用されます。"
       ],
-      "Danger Zone": ["危険"],
+      "Danger Zone": ["注意"],
       "Once you delete a API key, there is no going back. Please be certain.": [
         "一度 API キーを削除するともとに戻すことはできません。よく確認してから実行してください。"
       ],
@@ -193,6 +195,7 @@
       "Manage API keys": ["API キー の管理"],
       "Team Settings": ["チーム設定"],
       "Documentation": ["ドキュメント"],
+      "Developer Documents": ["開発者ドキュメント"],
       "Dashboard": ["ダッシュボード"],
       "Create a new team": ["新しいチームを作成"],
       "Please enter the name of new team.": [
@@ -285,7 +288,7 @@
       "Cancel": ["キャンセル"],
       "Delete": ["削除"],
       "Once you delete a team, there is no going back. Please be certain. ": [
-        "一度チームを削除するともとに戻すことはできません。"
+        "一度チームを削除すると元に戻すことはできません。"
       ],
       "URL": ["URL"],
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [

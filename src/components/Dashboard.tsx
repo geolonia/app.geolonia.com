@@ -59,13 +59,13 @@ const Dashboard = (props: Props) => {
               <Link href="#/api-keys" color="inherit" underline="always">
                 {__("Display a map")}
               </Link>{" "}
-              - {__("Get API key then add the map to your web site")}
+              - {__("Create API key then add the map to your web site")}
             </li>
             <li>
               <Link href="#/data/geojson" color="inherit" underline="always">
                 {__("Upload your data")}
               </Link>{" "}
-              - {__("Upload CSV or GeoJSON to display in your map")}
+              - {__("Display CSV or GeoJSON in your map")}
             </li>
             <li>
               <Link href="https://docs.geolonia.com/" color="inherit" underline="always" target="_blank" rel="noopener noreferrer">

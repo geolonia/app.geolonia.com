@@ -20,7 +20,7 @@ msgid "Display a map"
 msgstr ""
 
 #: src/components/Dashboard.tsx:62
-msgid "Get API key then add the map to your web site"
+msgid "Create API key then add the map to your web site"
 msgstr ""
 
 #: src/components/Dashboard.tsx:66
@@ -28,7 +28,7 @@ msgid "Upload your data"
 msgstr ""
 
 #: src/components/Dashboard.tsx:68
-msgid "Upload CSV or GeoJSON to display in your map"
+msgid "Display CSV or GeoJSON in your map"
 msgstr ""
 
 #: src/components/Dashboard.tsx:72
@@ -142,7 +142,7 @@ msgid "Name"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:366
-msgid "Name of public GeoJSON will be displayed in public."
+msgid "This data name will be displayed externally when it is published."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:396
@@ -194,6 +194,14 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:488
 msgid "Please select API key."
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:490
+msgid "API key"
+msgstr ""
+
+#: src/components/Data/GeoJsonMeta.tsx:498
+msgid "None"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:504
@@ -294,7 +302,7 @@ msgid "Drag and drop a file here to add your map, or click to choose your file."
 msgstr ""
 
 #: src/components/Data/ImportDropZone.tsx:79
-msgid "Failed to add your data. Your GeoJSON might be invalid format."
+msgid "Failed to add your data. Your data might be invalid format."
 msgstr ""
 
 #: src/components/Data/ImportDropZone.tsx:87
