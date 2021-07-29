@@ -548,6 +548,7 @@ const GeoJSONMeta = (props: Props) => {
               data-lat=""
               data-lng=""
               data-zoom=""
+              data-marker="off"
               data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json`}
             >
               {__("Get HTML")}
