@@ -37,11 +37,10 @@ type State = {
 };
 
 const ProfileImageStyle: React.CSSProperties = {
-  width: "100%",
-  maxWidth: "250px",
-  height: "auto",
+  width: "250px",
+  height: "250px",
   fill: "#dedede",
-  margin: "auto"
+  margin: "auto",
 };
 
 export class AvatarSection extends React.Component<Props, State> {
