@@ -281,7 +281,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
               primary: classes.itemPrimary
             }}
           >
-            {__("Dashboard")}
+            {__("Home")}
           </ListItemText>
         </ListItem>
         {categories.map(({ id, icon, children }) => (

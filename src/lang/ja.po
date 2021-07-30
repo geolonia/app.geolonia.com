@@ -105,9 +105,9 @@ msgstr "データを地図に追加しています。"
 
 #: src/components/Data/GeoJson.tsx:99 src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:113 src/components/Maps/APIKeys.tsx:35
-#: src/components/Team/Billing.tsx:173
+#: src/components/Navigator.tsx:284 src/components/Team/Billing.tsx:173
 msgid "Home"
-msgstr "Home"
+msgstr "ホーム"
 
 #: src/components/Data/GeoJsonImporter.tsx:100
 msgid "Error: Please upload GeoJSON file less than %d MB."
@@ -149,11 +149,7 @@ msgstr ""
 msgid "Name"
 msgstr "名前"
 
-#: src/components/Data/GeoJsonMeta.tsx:366
-msgid "This data name will be displayed externally when it is published."
-msgstr "このデータ名は公開時に外部に表示されます。"
-
-#: src/components/Data/GeoJsonMeta.tsx:396
+#: src/components/Data/GeoJsonMeta.tsx:395
 msgid ""
 "Public features will be displayed publicly and anyone can download this "
 "features without API key."
@@ -161,23 +157,23 @@ msgstr ""
 "Public のデータは一般に公開され、だれでも API キー無しでダウンロードすること"
 "ができます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:429
+#: src/components/Data/GeoJsonMeta.tsx:428
 msgid "Datasets are published now."
 msgstr "データセットは公開されています。"
 
-#: src/components/Data/GeoJsonMeta.tsx:431
+#: src/components/Data/GeoJsonMeta.tsx:430
 msgid "Datasets status are draft now."
 msgstr "データセットは下書きの状態です。"
 
-#: src/components/Data/GeoJsonMeta.tsx:444
+#: src/components/Data/GeoJsonMeta.tsx:443
 msgid "Advanced Settings"
 msgstr "高度な設定"
 
-#: src/components/Data/GeoJsonMeta.tsx:448
+#: src/components/Data/GeoJsonMeta.tsx:447
 msgid "Access allowed URLs"
 msgstr "アクセスを許可したURL"
 
-#: src/components/Data/GeoJsonMeta.tsx:449
+#: src/components/Data/GeoJsonMeta.tsx:448
 msgid ""
 "If you want to add more URLs to the \"URLs to allow access\" set on the API "
 "key page, please use the following settings. (e.g., if you want to use "
@@ -186,76 +182,76 @@ msgstr ""
 "APIキーページで設定した「アクセスを許可するURL」に、URLを追加したい場合は、以"
 "下より設定して下さい。(例：ひとつのタイルに複数のAPIキーを使用する場合)"
 
-#: src/components/Data/GeoJsonMeta.tsx:452
+#: src/components/Data/GeoJsonMeta.tsx:451
 msgid "URLs from API Key page."
 msgstr "API キーページで設定した URL"
 
-#: src/components/Data/GeoJsonMeta.tsx:458
+#: src/components/Data/GeoJsonMeta.tsx:457
 msgid "Enter URLs to be added."
 msgstr "追加する URL を入力して下さい"
 
-#: src/components/Data/GeoJsonMeta.tsx:483 src/components/Maps/APIKey.tsx:297
+#: src/components/Data/GeoJsonMeta.tsx:482 src/components/Maps/APIKey.tsx:297
 msgid "Add the map to your site"
 msgstr "ウェブサイトに地図を追加しましょう"
 
-#: src/components/Data/GeoJsonMeta.tsx:486 src/components/Maps/APIKey.tsx:300
+#: src/components/Data/GeoJsonMeta.tsx:485 src/components/Maps/APIKey.tsx:300
 msgid "Step 1"
 msgstr "ステップ 1"
 
-#: src/components/Data/GeoJsonMeta.tsx:488
+#: src/components/Data/GeoJsonMeta.tsx:487
 msgid "Please select API key."
 msgstr "API キーを選択してください"
 
-#: src/components/Data/GeoJsonMeta.tsx:490
+#: src/components/Data/GeoJsonMeta.tsx:489
 msgid "API key"
 msgstr "API キー"
 
-#: src/components/Data/GeoJsonMeta.tsx:498
+#: src/components/Data/GeoJsonMeta.tsx:497
 msgid "None"
 msgstr "未選択"
 
-#: src/components/Data/GeoJsonMeta.tsx:504
+#: src/components/Data/GeoJsonMeta.tsx:503
 msgid ""
 "If you don't have one, create it from <a href='#/api-keys'>API Keys</a>."
 msgstr ""
 "API キーをお持ちでない場合は <a href='#/api-keys'>API Keys</a> から作成して下"
 "さい。"
 
-#: src/components/Data/GeoJsonMeta.tsx:509 src/components/Maps/APIKey.tsx:327
+#: src/components/Data/GeoJsonMeta.tsx:508 src/components/Maps/APIKey.tsx:327
 msgid "Step 2"
 msgstr "ステップ 2"
 
-#: src/components/Data/GeoJsonMeta.tsx:513 src/components/Maps/APIKey.tsx:304
+#: src/components/Data/GeoJsonMeta.tsx:512 src/components/Maps/APIKey.tsx:304
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body /&gt;</"
 "code> in your HTML file."
 msgstr ""
 "地図を表示したいWebサイトの <code>&lt;body /&gt;</code> の終了タグ直前に以下"
-"のコードを挿入してください。"
+"のコードを挿入してください。API キーはすでに埋め込まれているのでそのままコピーして貼り付けできます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:536 src/components/Maps/APIKey.tsx:346
+#: src/components/Data/GeoJsonMeta.tsx:535 src/components/Maps/APIKey.tsx:346
 msgid "Step 3"
 msgstr "ステップ 3"
 
-#: src/components/Data/GeoJsonMeta.tsx:539 src/components/Maps/APIKey.tsx:330
+#: src/components/Data/GeoJsonMeta.tsx:538 src/components/Maps/APIKey.tsx:330
 msgid ""
 "Click following button and get HTML code where you want to place the map."
 msgstr ""
-"以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
+"以下のボタンをクリックして地図を表示したい場所の HTML を取得、Webサイトで地図を表示したい場所に挿入してください。"
 
-#: src/components/Data/GeoJsonMeta.tsx:555 src/components/Maps/APIKey.tsx:342
+#: src/components/Data/GeoJsonMeta.tsx:554 src/components/Maps/APIKey.tsx:342
 msgid "Get HTML"
 msgstr "HTML を取得"
 
-#: src/components/Data/GeoJsonMeta.tsx:559
+#: src/components/Data/GeoJsonMeta.tsx:558
 msgid "Step 4"
 msgstr "ステップ 4"
 
-#: src/components/Data/GeoJsonMeta.tsx:561 src/components/Maps/APIKey.tsx:348
+#: src/components/Data/GeoJsonMeta.tsx:560 src/components/Maps/APIKey.tsx:348
 msgid "Adjust the element size."
-msgstr "地図を表示する要素のサイズを調整して下さい。"
+msgstr "下記のCSSをWebサイトに追加して、地図を表示する要素のサイズを調整して下さい。"
 
-#: src/components/Data/GeoJsonMeta.tsx:576 src/components/Maps/APIKey.tsx:363
+#: src/components/Data/GeoJsonMeta.tsx:575 src/components/Maps/APIKey.tsx:363
 msgid "Copy to Clipboard"
 msgstr "クリップボードにコピー"
 
@@ -443,8 +439,7 @@ msgstr "API キーの設定"
 msgid ""
 "Configure access control for your API key and Get the HTML code for your map."
 msgstr ""
-"API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを"
-"取得しましょう。"
+"地図を設置するサイトの登録や地図を設置するためのHTMLコード取得ができます"
 
 #: src/components/Maps/APIKey.tsx:244
 msgid "Any page in a specific URL:"
@@ -484,7 +479,7 @@ msgstr "(データなし)"
 
 #: src/components/Maps/APIKeys.tsx:71
 msgid "You need an API key to display map. Get an API key."
-msgstr "地図を表示するには API キーが必要です。 API キーを取得してください。"
+msgstr "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成してください。"
 
 #: src/components/Maps/APIKeys.tsx:75
 msgid "Create a new API key"
@@ -492,7 +487,7 @@ msgstr "新しい API キーを作成"
 
 #: src/components/Maps/APIKeys.tsx:76
 msgid "Please enter the name of new API key."
-msgstr "新しい API キーの名前を入力してください。"
+msgstr "新しいAPI キーの名前を入力して保存してください。"
 
 #: src/components/Maps/APIKeys.tsx:77
 msgid "My API"
@@ -528,11 +523,7 @@ msgstr "ドキュメント"
 
 #: src/components/Navigator.tsx:201
 msgid "Developer Documents"
-msgstr "開発者ドキュメント"
-
-#: src/components/Navigator.tsx:284
-msgid "Dashboard"
-msgstr "ダッシュボード"
+msgstr "マニュアル"
 
 #: src/components/Navigator.tsx:333
 msgid "Create a new team"
@@ -702,7 +693,7 @@ msgstr "支払い方法"
 
 #: src/components/Team/Billing.tsx:237
 msgid "ending in **%1$s"
-msgstr "末尾の番号 **%1$s"
+msgstr "クレジットカード（末尾の番号 **%1$s）"
 
 #: src/components/Team/Billing.tsx:247
 msgid "Change payment method"
@@ -770,7 +761,7 @@ msgstr "プランの変更に伴う差額が請求または残高としてチャ
 #: src/components/Team/general/avatar.tsx:123
 #: src/components/User/avatar.tsx:127
 msgid "Upload new picture"
-msgstr "新しい写真をアップロード"
+msgstr "新しい画像をアップロード"
 
 #: src/components/Team/general/avatar.tsx:63 src/components/User/avatar.tsx:74
 msgid "Upload failed. The avatar image size cannot be larger than %d MB."
@@ -1211,6 +1202,12 @@ msgstr ""
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Dashboard"
+#~ msgstr "ダッシュボード"
+
+#~ msgid "This data name will be displayed externally when it is published."
+#~ msgstr "このデータ名は公開時に外部に表示されます。"
 
 #~ msgid "API services"
 #~ msgstr "API サービス"

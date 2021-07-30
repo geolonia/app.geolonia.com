@@ -363,7 +363,6 @@ const GeoJSONMeta = (props: Props) => {
             onClick={() => saveHandler(draftName)}
             disabled={draftName === name}
           />
-          <p>{__("This data name will be displayed externally when it is published.")}</p>
         </Paper>
         <Paper className="geojson-title-description">
           <div>

@@ -96,6 +96,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:113
 #: src/components/Maps/APIKeys.tsx:35
+#: src/components/Navigator.tsx:284
 #: src/components/Team/Billing.tsx:173
 msgid "Home"
 msgstr ""
@@ -141,110 +142,106 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:366
-msgid "This data name will be displayed externally when it is published."
-msgstr ""
-
-#: src/components/Data/GeoJsonMeta.tsx:396
+#: src/components/Data/GeoJsonMeta.tsx:395
 msgid ""
 "Public features will be displayed publicly and anyone can download this "
 "features without API key."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:429
+#: src/components/Data/GeoJsonMeta.tsx:428
 msgid "Datasets are published now."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:431
+#: src/components/Data/GeoJsonMeta.tsx:430
 msgid "Datasets status are draft now."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:444
+#: src/components/Data/GeoJsonMeta.tsx:443
 msgid "Advanced Settings"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:448
+#: src/components/Data/GeoJsonMeta.tsx:447
 msgid "Access allowed URLs"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:449
+#: src/components/Data/GeoJsonMeta.tsx:448
 msgid ""
 "If you want to add more URLs to the \"URLs to allow access\" set on the API "
 "key page, please use the following settings. (e.g., if you want to use "
 "multiple API keys for a single tile, etc.)"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:452
+#: src/components/Data/GeoJsonMeta.tsx:451
 msgid "URLs from API Key page."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:458
+#: src/components/Data/GeoJsonMeta.tsx:457
 msgid "Enter URLs to be added."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:483
+#: src/components/Data/GeoJsonMeta.tsx:482
 #: src/components/Maps/APIKey.tsx:297
 msgid "Add the map to your site"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:486
+#: src/components/Data/GeoJsonMeta.tsx:485
 #: src/components/Maps/APIKey.tsx:300
 msgid "Step 1"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:488
+#: src/components/Data/GeoJsonMeta.tsx:487
 msgid "Please select API key."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:490
+#: src/components/Data/GeoJsonMeta.tsx:489
 msgid "API key"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:498
+#: src/components/Data/GeoJsonMeta.tsx:497
 msgid "None"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:504
+#: src/components/Data/GeoJsonMeta.tsx:503
 msgid "If you don't have one, create it from <a href='#/api-keys'>API Keys</a>."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:509
+#: src/components/Data/GeoJsonMeta.tsx:508
 #: src/components/Maps/APIKey.tsx:327
 msgid "Step 2"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:513
+#: src/components/Data/GeoJsonMeta.tsx:512
 #: src/components/Maps/APIKey.tsx:304
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body "
 "/&gt;</code> in your HTML file."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:536
+#: src/components/Data/GeoJsonMeta.tsx:535
 #: src/components/Maps/APIKey.tsx:346
 msgid "Step 3"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:539
+#: src/components/Data/GeoJsonMeta.tsx:538
 #: src/components/Maps/APIKey.tsx:330
 msgid "Click following button and get HTML code where you want to place the map."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:555
+#: src/components/Data/GeoJsonMeta.tsx:554
 #: src/components/Maps/APIKey.tsx:342
 msgid "Get HTML"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:559
+#: src/components/Data/GeoJsonMeta.tsx:558
 msgid "Step 4"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:561
+#: src/components/Data/GeoJsonMeta.tsx:560
 #: src/components/Maps/APIKey.tsx:348
 msgid "Adjust the element size."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:576
+#: src/components/Data/GeoJsonMeta.tsx:575
 #: src/components/Maps/APIKey.tsx:363
 msgid "Copy to Clipboard"
 msgstr ""
@@ -505,10 +502,6 @@ msgstr ""
 
 #: src/components/Navigator.tsx:201
 msgid "Developer Documents"
-msgstr ""
-
-#: src/components/Navigator.tsx:284
-msgid "Dashboard"
 msgstr ""
 
 #: src/components/Navigator.tsx:333

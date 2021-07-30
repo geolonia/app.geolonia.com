@@ -37,7 +37,7 @@
       "Uploading now..": ["データをアップロードしています。"],
       "Processing data..": ["データを処理しています。"],
       "Adding your data to the map...": ["データを地図に追加しています。"],
-      "Home": ["Home"],
+      "Home": ["ホーム"],
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
@@ -58,9 +58,6 @@
         "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要があります。"
       ],
       "Name": ["名前"],
-      "This data name will be displayed externally when it is published.": [
-        "このデータ名は公開時に外部に表示されます。"
-      ],
       "Public features will be displayed publicly and anyone can download this features without API key.": [
         "Public のデータは一般に公開され、だれでも API キー無しでダウンロードすることができます。"
       ],
@@ -83,16 +80,16 @@
       ],
       "Step 2": ["ステップ 2"],
       "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file.": [
-        "地図を表示したいWebサイトの <code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。"
+        "地図を表示したいWebサイトの <code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。API キーはすでに埋め込まれているのでそのままコピーして貼り付けできます。"
       ],
       "Step 3": ["ステップ 3"],
       "Click following button and get HTML code where you want to place the map.": [
-        "以下のボタンをクリックして地図を表示したい場所の HTML を取得してください。"
+        "以下のボタンをクリックして地図を表示したい場所の HTML を取得、Webサイトで地図を表示したい場所に挿入してください。"
       ],
       "Get HTML": ["HTML を取得"],
       "Step 4": ["ステップ 4"],
       "Adjust the element size.": [
-        "地図を表示する要素のサイズを調整して下さい。"
+        "下記のCSSをWebサイトに追加して、地図を表示する要素のサイズを調整して下さい。"
       ],
       "Copy to Clipboard": ["クリップボードにコピー"],
       "Network error.": ["通信エラー。"],
@@ -164,7 +161,7 @@
       "API keys": ["API キー"],
       "API key settings": ["API キーの設定"],
       "Configure access control for your API key and Get the HTML code for your map.": [
-        "API キーのアクセスコントロールを設定して、地図を設置するための HTML コードを取得しましょう。"
+        "地図を設置するサイトの登録や地図を設置するためのHTMLコード取得ができます"
       ],
       "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
       "Any subdomain:": ["すべてのサブドメイン:"],
@@ -181,11 +178,11 @@
       "Your API Key": ["あなたの API キー"],
       "(No date)": ["(データなし)"],
       "You need an API key to display map. Get an API key.": [
-        "地図を表示するには API キーが必要です。 API キーを取得してください。"
+        "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成してください。"
       ],
       "Create a new API key": ["新しい API キーを作成"],
       "Please enter the name of new API key.": [
-        "新しい API キーの名前を入力してください。"
+        "新しいAPI キーの名前を入力して保存してください。"
       ],
       "My API": ["API キー"],
       "My team": ["My team"],
@@ -195,8 +192,7 @@
       "Manage API keys": ["API キー の管理"],
       "Team Settings": ["チーム設定"],
       "Documentation": ["ドキュメント"],
-      "Developer Documents": ["開発者ドキュメント"],
-      "Dashboard": ["ダッシュボード"],
+      "Developer Documents": ["マニュアル"],
       "Create a new team": ["新しいチームを作成"],
       "Please enter the name of new team.": [
         "新しいチームの名前を入力してください。"
@@ -255,7 +251,7 @@
       ],
       "Payment information": ["支払い情報"],
       "Payment method:": ["支払い方法"],
-      "ending in **%1$s": ["末尾の番号 **%1$s"],
+      "ending in **%1$s": ["クレジットカード（末尾の番号 **%1$s）"],
       "Change payment method": ["支払い方法を変更"],
       "Current Plan": ["現在のプラン"],
       "Scheduled to expire on %1$s": ["%1$s にキャンセルされます"],
@@ -277,7 +273,7 @@
       "The difference between the plan changes will be charged or charged as a balance.": [
         "プランの変更に伴う差額が請求または残高としてチャージされます。"
       ],
-      "Upload new picture": ["新しい写真をアップロード"],
+      "Upload new picture": ["新しい画像をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [
         "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
       ],
