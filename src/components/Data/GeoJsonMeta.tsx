@@ -543,9 +543,11 @@ const GeoJSONMeta = (props: Props) => {
               color="primary"
               size="large"
               style={{ width: "100%" }}
-              data-lat="38.592126509927425"
-              data-lng="136.8448477633185"
-              data-zoom="4"
+              // data-simple-vector fits the bounds
+              data-lat=""
+              data-lng=""
+              data-zoom=""
+              data-marker="off"
               data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json`}
             >
               {__("Get HTML")}
