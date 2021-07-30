@@ -100,11 +100,11 @@ const GeoJson: React.FC<Props> = (props: Props) => {
       href: "#/"
     },
     {
-      title: __("API services"),
+      title: __("Map"),
       href: null
     },
     {
-      title: __("GeoJSON API"),
+      title: __("Location Data"),
       href: "#/data/geojson"
     }
   ];

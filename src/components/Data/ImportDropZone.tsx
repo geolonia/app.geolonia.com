@@ -76,7 +76,7 @@ const Content = (props: Props) => {
 
   useEffect(() => {
     if (tileStatus === 'failure') {
-      setError(__('Failed to add your data. Your GeoJSON might be invalid format.'))
+      setError(__('Failed to add your data. Your data might be invalid format.'))
     }
   }, [tileStatus])
 

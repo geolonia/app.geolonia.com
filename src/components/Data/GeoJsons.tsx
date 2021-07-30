@@ -92,7 +92,7 @@ function Content(props: Props) {
       href: "#/"
     },
     {
-      title: __("API services"),
+      title: __("Map"),
       href: null
     }
   ];
@@ -122,9 +122,9 @@ function Content(props: Props) {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title="GeoJSON API">
+      <Title breadcrumb={breadcrumbItems} title={__("Location Data")}>
         {__(
-          "GeoJSON API is an API service specialized for location data. Register various location information data such as stores and real estate informations that you have."
+          "Location Data is an service for hosting location data. Register various location information data such as stores and real estate information that you have."
         )}
       </Title>
 
