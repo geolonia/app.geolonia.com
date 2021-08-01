@@ -31,7 +31,7 @@ import Save from "./custom/Save";
 
 import "./Navigator.scss";
 import defaultTeamIcon from "./custom/team.svg";
-import { Link } from "@material-ui/core";
+import { colors, Link } from "@material-ui/core";
 
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
@@ -48,19 +48,19 @@ const styles = (theme: Theme) => ({
     paddingBottom: theme.spacing(2)
   },
   categoryHeaderPrimary: {
-    color: theme.palette.common.black
+    color: theme.palette.common.white
   },
   item: {
     paddingTop: 1,
     paddingBottom: 1,
-    color: "rgb(51 51 51)",
+    color: "rgba(255, 255, 255, 0.7)",
     "&:hover,&:focus": {
       backgroundColor: "rgba(255, 255, 255, 0.08)"
     }
   },
   itemCategory: {
-    backgroundColor: "#F4F4F4",
-    color:"#333333",
+    backgroundColor: "#232f3e",
+    boxShadow: "0 -1px 0 #404854 inset",
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2)
   },
