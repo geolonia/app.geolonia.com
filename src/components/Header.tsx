@@ -143,21 +143,6 @@ const Header = (props: Props) => {
                 <MenuItem onClick={handleSignout}>{__("Logout")}</MenuItem>
               </Menu>
             </Grid>
-
-
-
-            <Grid item>
-              <IconButton
-                className="iconButtonlogo"
-                href="https://geolonia.com/"
-                target="_blank"
-              >
-                <img src={Logo} alt="" className="logo" />
-              </IconButton>
-            </Grid>
-
-
-
           </Grid>
         </Toolbar>
       </AppBar>
