@@ -1,0 +1,11 @@
+// get-geolonia の不要なリンクを消す
+// Fix: https://github.com/geolonia/get-geolonia/issues/24
+#geolonia-map-outer-container
+{
+  div.code-container
+  {
+    a {
+      display: none;
+    }
+  }
+}

@@ -28,6 +28,7 @@ import normalizeOrigin from "../../lib/normalize-origin";
 import { buildApiUrl } from "../../lib/api";
 import { GeoJsonMetaSetter } from "./GeoJson/hooks/use-geojson";
 import Interweave from "interweave";
+import "./GeoJsonMeta.scss";
 
 const { REACT_APP_STAGE, REACT_APP_TILE_SERVER } = process.env;
 
