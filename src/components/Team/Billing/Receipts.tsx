@@ -102,12 +102,12 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
   // const formattedTotal = new Intl.NumberFormat(props.language, {
   //   style: "currency",
   //   currency
-  // }).format(Math.abs(total) / 100);
+  // }).format(Math.abs(total));
   const value =
-    (total - (ending_balance || 0) + starting_balance) / 100;
+    (total - (ending_balance || 0) + starting_balance);
   const formattedActualPayment = formatter(currency).format(value);
   // const formattedBalanced = formatter(currency).format(
-  //   ((ending_balance || 0) - starting_balance) / 100
+  //   ((ending_balance || 0) - starting_balance)
   // );
 
   const charge = charges.find(charge => charge.invoice === id);
