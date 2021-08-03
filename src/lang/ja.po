@@ -28,7 +28,8 @@ msgid ""
 "currently not accessible due to functional modifications. If you need to "
 "download the data, please <a href=\"https://golonia.com/contact/\">contact "
 "us</a>."
-msgstr "ダッシュボードのリニューアルを行いました。以前提供していた GeoJSON API は機能改修を行っており現在アクセスできません。データのダウンロードが必要な場合は<a href=\"https://golonia.com/contact/\">にご連絡ください。</a>"
+msgstr "ダッシュボードのリニューアルを行いました。以前提供していた GeoJSON API は機能改修を行っており、管理画面は現在アクセスできません。データのダウンロードが必要な場合、<a href=\"https://golonia.com/contact/\">ご連絡ください</a>。"
+
 
 #: src/components/Dashboard.tsx:70
 msgid "Get started with Geolonia map"
