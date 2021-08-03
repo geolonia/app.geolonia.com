@@ -81,7 +81,7 @@ function ApiKeys(props: Props) {
         buttonLabel={__('New')}
         onClick={async () => {
           const today = moment().format('YYYY-MM-DD')
-          const newKeyName = sprintf(__('API キー(%1$s が %2$s に作成)'), username, today)
+          const newKeyName = sprintf(__('API Key (created by %1$s on %2$s)'), username, today)
           return handler(newKeyName).then((key) => push(`/api-keys/${key.keyId}`))
         }}
         successMessage={__('A new API key has been created.')}
