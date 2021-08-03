@@ -52,10 +52,11 @@ export const Tutorials: React.FC = () => {
     {
       turotialContents.map((post) => <Grid item lg={4} md={6} xs={12} key={post.title}>
         <Card className={classes.root}>
-          <CardActionArea onClick={() => window.location.href = post.url}>
+          <CardActionArea onClick={() => window.open(post.url, '_blank')}>
             <CardContent>
             <Typography gutterBottom variant="h5" component="h2">{post.title}</Typography>
-            <Typography variant="body2" color="textSecondary" component="p">{post.excerpt}</Typography>            </CardContent>
+              <Typography variant="body2" color="textSecondary" component="p">{post.excerpt}</Typography>
+            </CardContent>
           </CardActionArea>
         </Card>
       </Grid>)
