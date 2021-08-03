@@ -3,6 +3,8 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
+import Button from "@material-ui/core/Button";
+
 import Hidden from "@material-ui/core/Hidden";
 import { sprintf, __ } from "@wordpress/i18n";
 import moment from "moment";
@@ -55,7 +57,7 @@ const Dashboard = (props: Props) => {
       <Paper className="getting-started">
         <div className="box-content">
           <h2>{__("Get started with Geolonia map")}</h2>
-          <ul>
+          {/* <ul>
             <li>
               <Link href="#/api-keys" color="inherit" underline="always">
                 {__("Display a map")}
@@ -74,7 +76,9 @@ const Dashboard = (props: Props) => {
               </Link>{" "}
               - {__("Browse developer docs")}
             </li>
-          </ul>
+          </ul> */}
+          <p>まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。<br/> そのあと生成された HTML コードスニペットをあなたの Webサイトに追加すると、作成した地図が表示されます。</p>
+          <Button className="create-new" variant="contained" size="large">{__("地図を作成する")}</Button>
         </div>
       </Paper>
 
