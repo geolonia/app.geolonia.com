@@ -159,9 +159,14 @@
       "Profile": ["プロフィール"],
       "Logout": ["ログアウト"],
       "API keys": ["API キー"],
-      "API key settings": ["API キーの設定"],
       "Configure access control for your API key and Get the HTML code for your map.": [
         "地図を設置するサイトの登録や地図を設置するためのHTMLコード取得ができます"
+      ],
+      "Your API Key": ["あなたの API キー"],
+      "Settings": ["設定"],
+      "Name for managing API keys": ["APIキー管理用の名前"],
+      "List of URLs that are allowed to display the map": [
+        "地図の表示を許可するURLのリスト"
       ],
       "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
       "Any subdomain:": ["すべてのサブドメイン:"],
@@ -175,7 +180,6 @@
       "Are you sure you want to delete this API key?": [
         "この API キーを本当に削除しますか？"
       ],
-      "Your API Key": ["あなたの API キー"],
       "(No date)": ["(データなし)"],
       "You need an API key to display map. Get an API key.": [
         "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成してください。"

@@ -223,12 +223,12 @@ const Content = (props: Props) => {
           <Paper>
 
             <Typography component="h2" className="module-title">
-              {__("設定")}
+              {__("Settings")}
             </Typography>
 
             <TextField
               id="standard-name"
-              label={__("APIキー管理用の名前")}
+              label={__("Name for managing API keys")}
               margin="normal"
               fullWidth={true}
               value={name}
@@ -239,7 +239,7 @@ const Content = (props: Props) => {
 
             <TextField
               id="standard-name"
-              label={__("地図の表示を許可するURLのリスト")}
+              label={__("List of URLs that are allowed to display the map")}
               margin="normal"
               multiline={true}
               rows={5}
