@@ -11,39 +11,31 @@ msgstr ""
 msgid "Your invitation has been outdated."
 msgstr ""
 
-#: src/components/Dashboard.tsx:57
+#: src/components/Dashboard.tsx:55
 msgid "Get started with Geolonia map"
 msgstr ""
 
+#: src/components/Dashboard.tsx:56
+msgid ""
+"First, you need to obtain an API key and set up the initial settings for "
+"the map design and display position."
+msgstr ""
+
+#: src/components/Dashboard.tsx:56
+msgid ""
+"After that, add the generated HTML code snippet to your website to display "
+"the map you have created."
+msgstr ""
+
+#: src/components/Dashboard.tsx:57
+msgid "Create map"
+msgstr ""
+
 #: src/components/Dashboard.tsx:61
-msgid "Display a map"
-msgstr ""
-
-#: src/components/Dashboard.tsx:63
-msgid "Create API key then add the map to your web site"
-msgstr ""
-
-#: src/components/Dashboard.tsx:67
-msgid "Upload your data"
-msgstr ""
-
-#: src/components/Dashboard.tsx:69
-msgid "Display CSV or GeoJSON in your map"
-msgstr ""
-
-#: src/components/Dashboard.tsx:73
-msgid "Build a custom map"
-msgstr ""
-
-#: src/components/Dashboard.tsx:75
-msgid "Browse developer docs"
-msgstr ""
-
-#: src/components/Dashboard.tsx:81
 msgid "Tutorials"
 msgstr ""
 
-#: src/components/Dashboard.tsx:84
+#: src/components/Dashboard.tsx:64
 msgid "Developer's Blog"
 msgstr ""
 
@@ -99,7 +91,7 @@ msgstr ""
 #: src/components/Data/GeoJson.tsx:99
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:114
-#: src/components/Maps/APIKeys.tsx:35
+#: src/components/Maps/APIKeys.tsx:38
 #: src/components/Navigator.tsx:265
 #: src/components/Team/Billing.tsx:173
 msgid "Home"
@@ -412,7 +404,7 @@ msgid "Logout"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:118
-#: src/components/Maps/APIKeys.tsx:69
+#: src/components/Maps/APIKeys.tsx:81
 #: src/components/Navigator.tsx:153
 msgid "API keys"
 msgstr ""
@@ -455,24 +447,24 @@ msgstr ""
 msgid "Your API Key"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:63
+#: src/components/Maps/APIKeys.tsx:66
 msgid "(No date)"
 msgstr ""
 
 #: src/components/Maps/APIKeys.tsx:71
-msgid "You need an API key to display map. Get an API key."
-msgstr ""
-
-#: src/components/Maps/APIKeys.tsx:75
 msgid "Create a new API key"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:76
+#: src/components/Maps/APIKeys.tsx:72
 msgid "Please enter the name of new API key."
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:77
+#: src/components/Maps/APIKeys.tsx:73
 msgid "My API"
+msgstr ""
+
+#: src/components/Maps/APIKeys.tsx:84
+msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
 #: src/components/Navigator.tsx:109

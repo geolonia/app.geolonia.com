@@ -53,8 +53,8 @@ const Dashboard = (props: Props) => {
       <Paper className="getting-started">
         <div className="box-content">
           <h2>{__("Get started with Geolonia map")}</h2>
-          <p>まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。<br/> そのあと生成された HTML コードスニペットをあなたの Webサイトに追加すると、作成した地図が表示されます。</p>
-          <Button className="create-new" variant="contained" size="large" onClick={() => window.location.href = '/#/api-keys'}>{__("地図を作成する")}</Button>
+          <p>{__("First, you need to obtain an API key and set up the initial settings for the map design and display position.")}<br/>{__("After that, add the generated HTML code snippet to your website to display the map you have created.")}</p>
+          <Button className="create-new" variant="contained" size="large" onClick={() => window.location.href = '/#/api-keys'}>{__("Create map")}</Button>
         </div>
       </Paper>
 

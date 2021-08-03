@@ -10,14 +10,13 @@
       "Your invitation has been validated.": ["招待が有効化されました。"],
       "Your invitation has been outdated.": ["この招待は無効です。"],
       "Get started with Geolonia map": ["Geoloniaの地図を使ってみる"],
-      "Display a map": ["地図の表示"],
-      "Create API key then add the map to your web site": [
-        "API キーを作成してWebサイトに地図を追加"
+      "First, you need to obtain an API key and set up the initial settings for the map design and display position.": [
+        "まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"
       ],
-      "Upload your data": ["データをアップロード"],
-      "Display CSV or GeoJSON in your map": ["CSV / GeoJSON を地図に表示"],
-      "Build a custom map": ["カスタムマップを作成"],
-      "Browse developer docs": ["開発者ドキュメントを参照"],
+      "After that, add the generated HTML code snippet to your website to display the map you have created.": [
+        "そのあと生成された HTML コードスニペットをあなたの Webサイトに追加すると、作成した地図が表示されます。"
+      ],
+      "Create map": ["地図を作成する"],
       "Tutorials": ["チュートリアル"],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
@@ -178,14 +177,14 @@
       ],
       "Your API Key": ["あなたの API キー"],
       "(No date)": ["(データなし)"],
-      "You need an API key to display map. Get an API key.": [
-        "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成してください。"
-      ],
       "Create a new API key": ["新しい API キーを作成"],
       "Please enter the name of new API key.": [
         "新しいAPI キーの名前を入力して保存してください。"
       ],
       "My API": ["API キー"],
+      "You need an API key to display map. Get an API key.": [
+        "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成してください。"
+      ],
       "My team": ["My team"],
       "General": ["一般"],
       "Members": ["メンバー"],

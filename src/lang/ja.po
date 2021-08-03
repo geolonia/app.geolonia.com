@@ -22,39 +22,34 @@ msgstr "招待が有効化されました。"
 msgid "Your invitation has been outdated."
 msgstr "この招待は無効です。"
 
-#: src/components/Dashboard.tsx:57
+#: src/components/Dashboard.tsx:55
 msgid "Get started with Geolonia map"
 msgstr "Geoloniaの地図を使ってみる"
 
+#: src/components/Dashboard.tsx:56
+msgid ""
+"First, you need to obtain an API key and set up the initial settings for the "
+"map design and display position."
+msgstr ""
+"まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"
+
+#: src/components/Dashboard.tsx:56
+msgid ""
+"After that, add the generated HTML code snippet to your website to display "
+"the map you have created."
+msgstr ""
+"そのあと生成された HTML コードスニペットをあなたの Webサイトに追加すると、作"
+"成した地図が表示されます。"
+
+#: src/components/Dashboard.tsx:57
+msgid "Create map"
+msgstr "地図を作成する"
+
 #: src/components/Dashboard.tsx:61
-msgid "Display a map"
-msgstr "地図の表示"
-
-#: src/components/Dashboard.tsx:63
-msgid "Create API key then add the map to your web site"
-msgstr "API キーを作成してWebサイトに地図を追加"
-
-#: src/components/Dashboard.tsx:67
-msgid "Upload your data"
-msgstr "データをアップロード"
-
-#: src/components/Dashboard.tsx:69
-msgid "Display CSV or GeoJSON in your map"
-msgstr "CSV / GeoJSON を地図に表示"
-
-#: src/components/Dashboard.tsx:73
-msgid "Build a custom map"
-msgstr "カスタムマップを作成"
-
-#: src/components/Dashboard.tsx:75
-msgid "Browse developer docs"
-msgstr "開発者ドキュメントを参照"
-
-#: src/components/Dashboard.tsx:81
 msgid "Tutorials"
 msgstr "チュートリアル"
 
-#: src/components/Dashboard.tsx:84
+#: src/components/Dashboard.tsx:64
 msgid "Developer's Blog"
 msgstr "Developer's Blog"
 
@@ -108,7 +103,7 @@ msgid "Adding your data to the map..."
 msgstr "データを地図に追加しています。"
 
 #: src/components/Data/GeoJson.tsx:99 src/components/Data/GeoJsons.tsx:91
-#: src/components/Maps/APIKey.tsx:114 src/components/Maps/APIKeys.tsx:35
+#: src/components/Maps/APIKey.tsx:114 src/components/Maps/APIKeys.tsx:38
 #: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:173
 msgid "Home"
 msgstr "ホーム"
@@ -433,7 +428,7 @@ msgstr "プロフィール"
 msgid "Logout"
 msgstr "ログアウト"
 
-#: src/components/Maps/APIKey.tsx:118 src/components/Maps/APIKeys.tsx:69
+#: src/components/Maps/APIKey.tsx:118 src/components/Maps/APIKeys.tsx:81
 #: src/components/Navigator.tsx:153
 msgid "API keys"
 msgstr "API キー"
@@ -480,27 +475,27 @@ msgstr "この API キーを本当に削除しますか？"
 msgid "Your API Key"
 msgstr "あなたの API キー"
 
-#: src/components/Maps/APIKeys.tsx:63
+#: src/components/Maps/APIKeys.tsx:66
 msgid "(No date)"
 msgstr "(データなし)"
 
 #: src/components/Maps/APIKeys.tsx:71
+msgid "Create a new API key"
+msgstr "新しい API キーを作成"
+
+#: src/components/Maps/APIKeys.tsx:72
+msgid "Please enter the name of new API key."
+msgstr "新しいAPI キーの名前を入力して保存してください。"
+
+#: src/components/Maps/APIKeys.tsx:73
+msgid "My API"
+msgstr "API キー"
+
+#: src/components/Maps/APIKeys.tsx:84
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成して"
 "ください。"
-
-#: src/components/Maps/APIKeys.tsx:75
-msgid "Create a new API key"
-msgstr "新しい API キーを作成"
-
-#: src/components/Maps/APIKeys.tsx:76
-msgid "Please enter the name of new API key."
-msgstr "新しいAPI キーの名前を入力して保存してください。"
-
-#: src/components/Maps/APIKeys.tsx:77
-msgid "My API"
-msgstr "API キー"
 
 #: src/components/Navigator.tsx:109
 msgid "My team"
@@ -957,7 +952,8 @@ msgstr "Get Started"
 
 #: src/components/Turorials.tsx:15
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
-msgstr "ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
+msgstr ""
+"ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
 
 #: src/components/Turorials.tsx:19
 msgid "Embed API"
@@ -965,7 +961,9 @@ msgstr "Embed API"
 
 #: src/components/Turorials.tsx:20
 msgid "The Embed API allows you to set up a map with just a simple HTML code."
-msgstr "Embed API を使用すると、簡単な HTML を記述するだけで地図を設置することが可能です。"
+msgstr ""
+"Embed API を使用すると、簡単な HTML を記述するだけで地図を設置することが可能"
+"です。"
 
 #: src/components/Turorials.tsx:24
 msgid "JavaScript API"
@@ -974,7 +972,8 @@ msgstr "JavaScript API"
 #: src/components/Turorials.tsx:25
 msgid ""
 "Learn how to develop a professional map application using the JavaScript API."
-msgstr "JavaScript API を使った本格的な地図アプリの開発方法についてご紹介します。"
+msgstr ""
+"JavaScript API を使った本格的な地図アプリの開発方法についてご紹介します。"
 
 #: src/components/Turorials.tsx:29
 msgid "Custom Style"
@@ -1248,6 +1247,24 @@ msgstr ""
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Display a map"
+#~ msgstr "地図の表示"
+
+#~ msgid "Create API key then add the map to your web site"
+#~ msgstr "API キーを作成してWebサイトに地図を追加"
+
+#~ msgid "Upload your data"
+#~ msgstr "データをアップロード"
+
+#~ msgid "Display CSV or GeoJSON in your map"
+#~ msgstr "CSV / GeoJSON を地図に表示"
+
+#~ msgid "Build a custom map"
+#~ msgstr "カスタムマップを作成"
+
+#~ msgid "Browse developer docs"
+#~ msgstr "開発者ドキュメントを参照"
 
 #~ msgid "Developer Documents"
 #~ msgstr "マニュアル"
