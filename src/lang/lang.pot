@@ -923,7 +923,7 @@ msgid "The following members will be suspended:"
 msgstr ""
 
 #: src/components/Turorials.tsx:14
-msgid "Get Started"
+msgid "How to use the Dashboard"
 msgstr ""
 
 #: src/components/Turorials.tsx:15
@@ -961,8 +961,9 @@ msgid "Support"
 msgstr ""
 
 #: src/components/Turorials.tsx:35
-#: src/components/custom/Support.tsx:22
-msgid "Contact Geolonia"
+msgid ""
+"Please contact us if you have any questions about how to use the admin "
+"panel or if you need technical support (which may be paid)."
 msgstr ""
 
 #: src/components/User/User.tsx:24
@@ -1067,6 +1068,10 @@ msgstr ""
 
 #: src/components/custom/Support.tsx:18
 msgid "Privacy"
+msgstr ""
+
+#: src/components/custom/Support.tsx:22
+msgid "Contact"
 msgstr ""
 
 #: src/components/custom/coming-soon.tsx:30

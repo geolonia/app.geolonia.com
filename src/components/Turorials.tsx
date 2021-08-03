@@ -11,37 +11,49 @@ import Typography from '@material-ui/core/Typography';
 const getTutorialContents = () => {
   return [
     {
-      title: __('Get Started'),
+      title: __('How to use the Dashboard'),
       excerpt: __('Learn about the easiest way to embed a Geolonia map in your website.'),
-      url: 'https://docs.geolonia.com/tutorial/'
+      url: 'https://docs.geolonia.com/tutorial/',
     },
     {
       title: __('Embed API'),
       excerpt: __('The Embed API allows you to set up a map with just a simple HTML code.'),
-      url: 'https://docs.geolonia.com/embed-api/'
+      url: 'https://docs.geolonia.com/embed-api/',
     },
     {
       title: __('JavaScript API'),
       excerpt: __('Learn how to develop a professional map application using the JavaScript API.'),
-      url: 'https://docs.geolonia.com/javascript-api/'
+      url: 'https://docs.geolonia.com/javascript-api/',
     },
     {
       title: __('Custom Style'),
       excerpt: __('Learn how to customize the style of your map.'),
-      url: 'https://docs.geolonia.com/custom-style/'
+      url: 'https://docs.geolonia.com/custom-style/',
     },
     {
       title: __('Support'),
-      excerpt: __('Contact Geolonia'),
-      url: 'https://geolonia.com/contact/'
+      excerpt: __('Please contact us if you have any questions about how to use the admin panel or if you need technical support (which may be paid).'),
+      url: 'https://geolonia.com/contact/',
     },
   ]
 }
 
 const useStyles = makeStyles({
   root: {
-    height: "100%",
+    backgroundColor: '#fcf8e3',
+    height: '200px',
   },
+  animationArea: {
+    height: '100%',
+  },
+  content: {
+    height: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between'
+  },
+  title: {},
+  excerpt: {},
 })
 
 export const Tutorials: React.FC = () => {
@@ -52,10 +64,12 @@ export const Tutorials: React.FC = () => {
     {
       turotialContents.map((post) => <Grid item lg={4} md={6} xs={12} key={post.title}>
         <Card className={classes.root}>
-          <CardActionArea onClick={() => window.open(post.url, '_blank')}>
-            <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">{post.title}</Typography>
-              <Typography variant="body2" color="textSecondary" component="p">{post.excerpt}</Typography>
+          <CardActionArea className={classes.animationArea} onClick={() => window.open(post.url, '_blank')}>
+            <CardContent  className={classes.content}>
+              <div>
+                <Typography gutterBottom variant="h5" component="h2" className={classes.title}>{post.title}</Typography>
+                <Typography variant="body2" color="textSecondary" component="p" className={classes.excerpt}>{post.excerpt}</Typography>
+              </div>
             </CardContent>
           </CardActionArea>
         </Card>

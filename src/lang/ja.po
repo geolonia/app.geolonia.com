@@ -952,12 +952,13 @@ msgid "The following members will be suspended:"
 msgstr "以下のメンバーによる操作が一時停止されます。"
 
 #: src/components/Turorials.tsx:14
-msgid "Get Started"
-msgstr "Get Started"
+msgid "How to use the Dashboard"
+msgstr "管理画面の使い方"
 
 #: src/components/Turorials.tsx:15
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
-msgstr "ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
+msgstr ""
+"ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
 
 #: src/components/Turorials.tsx:19
 msgid "Embed API"
@@ -965,7 +966,9 @@ msgstr "Embed API"
 
 #: src/components/Turorials.tsx:20
 msgid "The Embed API allows you to set up a map with just a simple HTML code."
-msgstr "Embed API を使用すると、簡単な HTML を記述するだけで地図を設置することが可能です。"
+msgstr ""
+"Embed API を使用すると、簡単な HTML を記述するだけで地図を設置することが可能"
+"です。"
 
 #: src/components/Turorials.tsx:24
 msgid "JavaScript API"
@@ -974,7 +977,8 @@ msgstr "JavaScript API"
 #: src/components/Turorials.tsx:25
 msgid ""
 "Learn how to develop a professional map application using the JavaScript API."
-msgstr "JavaScript API を使った本格的な地図アプリの開発方法についてご紹介します。"
+msgstr ""
+"JavaScript API を使った本格的な地図アプリの開発方法についてご紹介します。"
 
 #: src/components/Turorials.tsx:29
 msgid "Custom Style"
@@ -988,9 +992,13 @@ msgstr "地図のスタイルをカスタマイズする方法についてご紹
 msgid "Support"
 msgstr "サポート"
 
-#: src/components/Turorials.tsx:35 src/components/custom/Support.tsx:22
-msgid "Contact Geolonia"
-msgstr "Geolonia へのお問い合わせ"
+#: src/components/Turorials.tsx:35
+msgid ""
+"Please contact us if you have any questions about how to use the admin panel "
+"or if you need technical support (which may be paid)."
+msgstr ""
+"管理画面の使い方についての質問や、技術支援（有償の場合があります）が必要な方"
+"はご連絡ください。"
 
 #: src/components/User/User.tsx:24
 msgid "Your profile"
@@ -1091,6 +1099,10 @@ msgstr "利用規約"
 #: src/components/custom/Support.tsx:18
 msgid "Privacy"
 msgstr "プライバシー"
+
+#: src/components/custom/Support.tsx:22
+msgid "Contact"
+msgstr "お問い合わせ"
 
 #: src/components/custom/coming-soon.tsx:30
 msgid "Coming soon"
@@ -1248,6 +1260,12 @@ msgstr ""
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Contact Geolonia"
+#~ msgstr "Geolonia へのお問い合わせ"
+
+#~ msgid "Get Started"
+#~ msgstr "Get Started"
 
 #~ msgid "Developer Documents"
 #~ msgstr "マニュアル"
@@ -1446,9 +1464,6 @@ msgstr "6"
 
 #~ msgid "Geolonia Appliance"
 #~ msgstr "Geolonia アプライアンス"
-
-#~ msgid "Contact us"
-#~ msgstr "お問い合わせ下さい"
 
 #~ msgid "Cost per 1,000 map loads/month"
 #~ msgstr "地図 1,000ロードあたりのコスト"
