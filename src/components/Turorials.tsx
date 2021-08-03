@@ -33,7 +33,7 @@ const getTutorialContents = () => {
     {
       title: __('Support'),
       excerpt: __('Contact Geolonia'),
-      url: 'https://geolonia.com/'
+      url: 'https://geolonia.com/contact/'
     },
   ]
 }
