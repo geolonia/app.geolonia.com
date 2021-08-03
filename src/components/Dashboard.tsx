@@ -13,7 +13,7 @@ import iconPlane from "./custom/plane.svg";
 import "./Dashboard.scss";
 import { connect } from "react-redux";
 
-import Tutorials from './Turorials'
+import Tutorials from "./Turorials";
 import DeveloperBlog from "./DeveloperBlog";
 
 const styles = (theme: Theme) => ({});
@@ -54,9 +54,10 @@ const Dashboard = (props: Props) => {
 
   return (
     <div id="dashboard">
-
       <Alert Icon={InfoIcon}>
-        {__('The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href="https://golonia.com/contact/">contact us</a>.')}
+        {__(
+          'The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href="https://geolonia.com/contact/">contact us</a>.'
+        )}
       </Alert>
 
       <Paper className="getting-started">
@@ -82,7 +83,13 @@ const Dashboard = (props: Props) => {
               - {__("Display CSV or GeoJSON in your map")}
             </li>
             <li>
-              <Link href="https://docs.geolonia.com/" color="inherit" underline="always" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://docs.geolonia.com/"
+                color="inherit"
+                underline="always"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {__("Build a custom map")}
               </Link>{" "}
               - {__("Browse developer docs")}

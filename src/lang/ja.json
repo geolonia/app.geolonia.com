@@ -9,8 +9,8 @@
       },
       "Your invitation has been validated.": ["招待が有効化されました。"],
       "Your invitation has been outdated.": ["この招待は無効です。"],
-      "The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href=\"https://golonia.com/contact/\">contact us</a>.": [
-        "ダッシュボードのリニューアルを行いました。以前提供していた GeoJSON API は機能改修を行っており、管理画面は現在アクセスできません。データのダウンロードが必要な場合、<a href=\"https://golonia.com/contact/\">ご連絡ください</a>。"
+      "The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href=\"https://geolonia.com/contact/\">contact us</a>.": [
+        "ダッシュボードのリニューアルを行いました。以前提供していた GeoJSON API は機能改修を行っており、管理画面は現在アクセスできません。データのダウンロードが必要な場合、<a href=\"https://geolonia.com/contact/\">ご連絡ください</a>。"
       ],
       "Get started with Geolonia map": ["Geoloniaの地図を使ってみる"],
       "Display a map": ["地図の表示"],

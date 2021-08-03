@@ -15,7 +15,7 @@ msgstr ""
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
-"download the data, please <a href=\"https://golonia.com/contact/\">contact "
+"download the data, please <a href=\"https://geolonia.com/contact/\">contact "
 "us</a>."
 msgstr ""
 
