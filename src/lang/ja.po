@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: 2021-07-21 09:58+0900\n"
+"PO-Revision-Date: 2021-08-03 17:48+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -63,12 +63,12 @@ msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GeoJson.tsx:103 src/components/Data/GeoJsons.tsx:95
-#: src/components/Navigator.tsx:165
+#: src/components/Navigator.tsx:175
 msgid "Map"
 msgstr "地図"
 
 #: src/components/Data/GeoJson.tsx:107 src/components/Data/GeoJsons.tsx:125
-#: src/components/Navigator.tsx:168
+#: src/components/Navigator.tsx:154
 msgid "Location Data"
 msgstr "位置情報データ"
 
@@ -109,7 +109,7 @@ msgstr "データを地図に追加しています。"
 
 #: src/components/Data/GeoJson.tsx:99 src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:114 src/components/Maps/APIKeys.tsx:35
-#: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:173
+#: src/components/Navigator.tsx:268 src/components/Team/Billing.tsx:173
 msgid "Home"
 msgstr "ホーム"
 
@@ -146,7 +146,7 @@ msgstr ""
 "す。"
 
 #: src/components/Data/GeoJsonMeta.tsx:354 src/components/Data/fields.tsx:26
-#: src/components/Maps/APIKey.tsx:211 src/components/Navigator.tsx:320
+#: src/components/Maps/APIKey.tsx:211 src/components/Navigator.tsx:323
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129 src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:121
@@ -346,7 +346,7 @@ msgstr "データのアップロード (GeoJSON / CSV)"
 msgid "Data that has already been uploaded will be overwritten."
 msgstr "既にアップロードされているデータが上書きされます。"
 
-#: src/components/Data/fields.tsx:32 src/components/Team/general/fields.tsx:94
+#: src/components/Data/fields.tsx:32
 msgid "Description"
 msgstr "説明"
 
@@ -434,7 +434,7 @@ msgid "Logout"
 msgstr "ログアウト"
 
 #: src/components/Maps/APIKey.tsx:118 src/components/Maps/APIKeys.tsx:69
-#: src/components/Navigator.tsx:153
+#: src/components/Navigator.tsx:163
 msgid "API keys"
 msgstr "API キー"
 
@@ -518,35 +518,35 @@ msgstr "メンバー"
 msgid "Billing"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:156
+#: src/components/Navigator.tsx:166
 msgid "Manage API keys"
 msgstr "API キー の管理"
 
-#: src/components/Navigator.tsx:177
+#: src/components/Navigator.tsx:180
 msgid "Team Settings"
 msgstr "チーム設定"
 
-#: src/components/Navigator.tsx:181
+#: src/components/Navigator.tsx:184
 msgid "Documentation"
 msgstr "ドキュメント"
 
-#: src/components/Navigator.tsx:184
+#: src/components/Navigator.tsx:187
 msgid "Official Documents"
 msgstr "公式ドキュメント"
 
-#: src/components/Navigator.tsx:310
+#: src/components/Navigator.tsx:313
 msgid "Create a new team"
 msgstr "新しいチームを作成"
 
-#: src/components/Navigator.tsx:314
+#: src/components/Navigator.tsx:317
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Navigator.tsx:328 src/components/Team/general/fields.tsx:116
+#: src/components/Navigator.tsx:331 src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:335 src/components/Team/general/fields.tsx:138
+#: src/components/Navigator.tsx:338 src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr "指定したメールに請求情報を送信します。"
 
@@ -745,7 +745,7 @@ msgid "Card information"
 msgstr "クレジットカード情報"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:148
-#: src/components/Team/Billing/plan-modal.tsx:166
+#: src/components/Team/Billing/plan-modal.tsx:172
 msgid "Update"
 msgstr "更新"
 
@@ -753,19 +753,29 @@ msgstr "更新"
 msgid "Unknown Error."
 msgstr "不明なエラー。"
 
-#: src/components/Team/Billing/plan-modal.tsx:112
+#: src/components/Team/Billing/plan-modal.tsx:118
 msgid "Your plan"
 msgstr "あなたのプラン"
 
-#: src/components/Team/Billing/plan-modal.tsx:56
+#: src/components/Team/Billing/plan-modal.tsx:57
 msgid "Your subscription will be canceled."
 msgstr "サブスクリプションはキャンセルされます。"
 
-#: src/components/Team/Billing/plan-modal.tsx:58
+#: src/components/Team/Billing/plan-modal.tsx:59
 msgid ""
 "The difference between the plan changes will be charged or charged as a "
 "balance."
 msgstr "プランの変更に伴う差額が請求または残高としてチャージされます。"
+
+#: src/components/Team/Billing/plan-modal.tsx:98
+msgid ""
+"The plan could not be changed. If you are trying to downgrade your team to a "
+"team that supports fewer members, please remove the extra members before "
+"downgrading your team. If you still get this error, please contact us."
+msgstr ""
+"料金プランを変更できませんでした。チームメンバーが1人になるように調整してから"
+"料金プランの変更を行ってください。それでもこのエラーが発生する場合は、お問い"
+"合わせください。"
 
 #: src/components/Team/general/avatar.tsx:123
 #: src/components/User/avatar.tsx:126
@@ -806,10 +816,6 @@ msgstr "削除"
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr "一度チームを削除すると元に戻すことはできません。"
 
-#: src/components/Team/general/fields.tsx:107
-msgid "URL"
-msgstr "URL"
-
 #: src/components/Team/general/index.tsx:42
 msgid ""
 "All users on the Geolonia service belong to one of the teams, and a team "
@@ -821,7 +827,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:284
+#: src/components/Team/members/index.tsx:280
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -839,7 +845,7 @@ msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:206
+#: src/components/Team/members/index.tsx:202
 msgid "Owner"
 msgstr "オーナー"
 
@@ -869,11 +875,11 @@ msgstr "APIキーを含むチームの全てのリソースを管理できます
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Team/members/index.tsx:150
+#: src/components/Team/members/index.tsx:144
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
 
-#: src/components/Team/members/index.tsx:154
+#: src/components/Team/members/index.tsx:148
 msgid ""
 "You currently can not invite any new members. To invite more than one member "
 "to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
@@ -881,20 +887,20 @@ msgstr ""
 "現在、新しいメンバーを招待することはできません。メンバーをチームに招待するに"
 "は、Geolonia Pro（2～5ユーザー）プランにアップグレードしてください。"
 
-#: src/components/Team/members/index.tsx:208
+#: src/components/Team/members/index.tsx:204
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:246
+#: src/components/Team/members/index.tsx:242
 #: src/components/custom/AsyncTable.tsx:139 src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:288
+#: src/components/Team/members/index.tsx:284
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:292
+#: src/components/Team/members/index.tsx:288
 msgid "Remove from team"
 msgstr "チームから削除"
 
@@ -1266,6 +1272,9 @@ msgstr "6"
 
 #~ msgid "Get Started"
 #~ msgstr "Get Started"
+
+#~ msgid "URL"
+#~ msgstr "URL"
 
 #~ msgid "Developer Documents"
 #~ msgstr "マニュアル"
