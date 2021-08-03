@@ -990,7 +990,7 @@ msgstr "サポート"
 
 #: src/components/Turorials.tsx:35 src/components/custom/Support.tsx:22
 msgid "Contact Geolonia"
-msgstr "お問い合わせ"
+msgstr "Geolonia へのお問い合わせ"
 
 #: src/components/User/User.tsx:24
 msgid "Your profile"
