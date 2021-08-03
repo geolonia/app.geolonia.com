@@ -142,6 +142,10 @@ const Content = (props: Props) => {
     marginBottom: "10px",
   };
 
+  const apiKeySettings: React.CSSProperties = {
+    marginBottom: "10px",
+  };
+
   const saveDisabled =
     name.trim() === "" ||
     (name === propName && allowedOrigins === propOrigins.join("\n"));
@@ -209,19 +213,16 @@ const Content = (props: Props) => {
       </Title>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} md={8}>
+        <Grid item>
 
           <Paper style={apiKeyArea}>
-
             <Typography component="h2" className="module-title">
               {__("Your API Key")}
             </Typography>
             <Code>{apiKey}</Code>
-
           </Paper>
 
-          <Paper>
-
+          <Paper style={apiKeySettings}>
             <Typography component="h2" className="module-title">
               {__("Settings")}
             </Typography>
@@ -281,30 +282,8 @@ const Content = (props: Props) => {
                 )}
               </p>
             </Help>
-
           </Paper>
 
-          <DangerZone
-            whyDanger={__(
-              "Once you delete an API, there is no going back. Please be certain."
-            )}
-          >
-            <Delete
-              text1={__("Are you sure you want to delete this API key?")}
-              text2={__("Please type delete to confirm.")}
-              errorMessage={message}
-              onClick={onDeleteClick}
-              onFailure={onRequestError}
-              // disable buttons before page move on success
-              disableCancel={status => status === "success"}
-              disableDelete={(input, status) => {
-                return input !== "delete" || status === "success";
-              }}
-            />
-          </DangerZone>
-        </Grid>
-
-        <Grid item xs={12} md={4}>
           <Paper style={sidebarStyle}>
             <Typography component="h2" className="module-title">
               {__("Add the map to your site")}
@@ -377,6 +356,25 @@ const Content = (props: Props) => {
               </Button>
             </p>
           </Paper>
+
+          <DangerZone
+            whyDanger={__(
+              "Once you delete an API, there is no going back. Please be certain."
+            )}
+          >
+            <Delete
+              text1={__("Are you sure you want to delete this API key?")}
+              text2={__("Please type delete to confirm.")}
+              errorMessage={message}
+              onClick={onDeleteClick}
+              onFailure={onRequestError}
+              // disable buttons before page move on success
+              disableCancel={status => status === "success"}
+              disableDelete={(input, status) => {
+                return input !== "delete" || status === "success";
+              }}
+            />
+          </DangerZone>
         </Grid>
       </Grid>
     </div>
