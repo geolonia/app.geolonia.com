@@ -46,10 +46,12 @@ p.description {
 }
 
 .snackbar-saved.success .MuiSnackbarContent-root {
-  background-color: #009be5;
+  color: #fff;
+  background-color: #e8af2b;
 }
 
 .snackbar-saved.failure .MuiSnackbarContent-root {
+  color: #000;
   background-color: hsl(19, 100%, 45%);
 }
 
