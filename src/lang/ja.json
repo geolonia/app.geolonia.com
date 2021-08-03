@@ -273,6 +273,9 @@
       "The difference between the plan changes will be charged or charged as a balance.": [
         "プランの変更に伴う差額が請求または残高としてチャージされます。"
       ],
+      "The plan could not be changed. If you are trying to downgrade your team to a team that supports fewer members, please remove the extra members before downgrading your team. If you still get this error, please contact us.": [
+        "料金プランを変更できませんでした。チームメンバーが1人になるように調整してから料金プランの変更を行ってください。それでもこのエラーが発生する場合は、お問い合わせください。"
+      ],
       "Upload new picture": ["新しい画像をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [
         "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
@@ -286,7 +289,6 @@
       "Once you delete a team, there is no going back. Please be certain. ": [
         "一度チームを削除すると元に戻すことはできません。"
       ],
-      "URL": ["URL"],
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [
         "すべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザー名と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバーの左上にあるプルダウンで行うことができます。"
       ],

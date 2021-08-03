@@ -49,13 +49,13 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:103
 #: src/components/Data/GeoJsons.tsx:95
-#: src/components/Navigator.tsx:165
+#: src/components/Navigator.tsx:175
 msgid "Map"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:107
 #: src/components/Data/GeoJsons.tsx:125
-#: src/components/Navigator.tsx:168
+#: src/components/Navigator.tsx:154
 msgid "Location Data"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:114
 #: src/components/Maps/APIKeys.tsx:35
-#: src/components/Navigator.tsx:265
+#: src/components/Navigator.tsx:268
 #: src/components/Team/Billing.tsx:173
 msgid "Home"
 msgstr ""
@@ -131,10 +131,10 @@ msgstr ""
 msgid "Error: The `id` of each `fueature` must be unique in the GeoJSON."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:353
+#: src/components/Data/GeoJsonMeta.tsx:354
 #: src/components/Data/fields.tsx:26
 #: src/components/Maps/APIKey.tsx:211
-#: src/components/Navigator.tsx:320
+#: src/components/Navigator.tsx:323
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
@@ -142,106 +142,106 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:392
+#: src/components/Data/GeoJsonMeta.tsx:393
 msgid ""
 "Public features will be displayed publicly and anyone can download this "
 "features without API key."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:425
+#: src/components/Data/GeoJsonMeta.tsx:426
 msgid "Datasets are published now."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:427
+#: src/components/Data/GeoJsonMeta.tsx:428
 msgid "Datasets status are draft now."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:440
+#: src/components/Data/GeoJsonMeta.tsx:441
 msgid "Advanced Settings"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:444
+#: src/components/Data/GeoJsonMeta.tsx:445
 msgid "Access allowed URLs"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:445
+#: src/components/Data/GeoJsonMeta.tsx:446
 msgid ""
 "If you want to add more URLs to the \"URLs to allow access\" set on the API "
 "key page, please use the following settings. (e.g., if you want to use "
 "multiple API keys for a single tile, etc.)"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:448
+#: src/components/Data/GeoJsonMeta.tsx:449
 msgid "URLs from API Key page."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:454
+#: src/components/Data/GeoJsonMeta.tsx:455
 msgid "Enter URLs to be added."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:479
+#: src/components/Data/GeoJsonMeta.tsx:480
 #: src/components/Maps/APIKey.tsx:294
 msgid "Add the map to your site"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:482
+#: src/components/Data/GeoJsonMeta.tsx:483
 #: src/components/Maps/APIKey.tsx:297
 msgid "Step 1"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:484
+#: src/components/Data/GeoJsonMeta.tsx:485
 msgid "Please select API key."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:486
+#: src/components/Data/GeoJsonMeta.tsx:487
 msgid "API key"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:494
+#: src/components/Data/GeoJsonMeta.tsx:495
 msgid "None"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:500
+#: src/components/Data/GeoJsonMeta.tsx:501
 msgid "If you don't have one, create it from <a href='#/api-keys'>API Keys</a>."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:505
+#: src/components/Data/GeoJsonMeta.tsx:506
 #: src/components/Maps/APIKey.tsx:324
 msgid "Step 2"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:509
+#: src/components/Data/GeoJsonMeta.tsx:510
 #: src/components/Maps/APIKey.tsx:301
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body "
 "/&gt;</code> in your HTML file."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:532
+#: src/components/Data/GeoJsonMeta.tsx:533
 #: src/components/Maps/APIKey.tsx:343
 msgid "Step 3"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:535
+#: src/components/Data/GeoJsonMeta.tsx:536
 #: src/components/Maps/APIKey.tsx:327
 msgid "Click following button and get HTML code where you want to place the map."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:553
+#: src/components/Data/GeoJsonMeta.tsx:554
 #: src/components/Maps/APIKey.tsx:339
 msgid "Get HTML"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:557
+#: src/components/Data/GeoJsonMeta.tsx:558
 msgid "Step 4"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:559
+#: src/components/Data/GeoJsonMeta.tsx:560
 #: src/components/Maps/APIKey.tsx:345
 msgid "Adjust the element size."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:574
+#: src/components/Data/GeoJsonMeta.tsx:575
 #: src/components/Maps/APIKey.tsx:360
 msgid "Copy to Clipboard"
 msgstr ""
@@ -321,7 +321,6 @@ msgid "Data that has already been uploaded will be overwritten."
 msgstr ""
 
 #: src/components/Data/fields.tsx:32
-#: src/components/Team/general/fields.tsx:94
 msgid "Description"
 msgstr ""
 
@@ -409,7 +408,7 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:118
 #: src/components/Maps/APIKeys.tsx:69
-#: src/components/Navigator.tsx:153
+#: src/components/Navigator.tsx:163
 msgid "API keys"
 msgstr ""
 
@@ -488,36 +487,36 @@ msgstr ""
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:156
+#: src/components/Navigator.tsx:166
 msgid "Manage API keys"
 msgstr ""
 
-#: src/components/Navigator.tsx:177
+#: src/components/Navigator.tsx:180
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:181
+#: src/components/Navigator.tsx:184
 msgid "Documentation"
 msgstr ""
 
-#: src/components/Navigator.tsx:184
+#: src/components/Navigator.tsx:187
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:310
+#: src/components/Navigator.tsx:313
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:314
+#: src/components/Navigator.tsx:317
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:328
+#: src/components/Navigator.tsx:331
 #: src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:335
+#: src/components/Navigator.tsx:338
 #: src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr ""
@@ -718,7 +717,7 @@ msgid "Card information"
 msgstr ""
 
 #: src/components/Team/Billing/payment-method-modal.tsx:148
-#: src/components/Team/Billing/plan-modal.tsx:166
+#: src/components/Team/Billing/plan-modal.tsx:171
 msgid "Update"
 msgstr ""
 
@@ -726,18 +725,25 @@ msgstr ""
 msgid "Unknown Error."
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:112
+#: src/components/Team/Billing/plan-modal.tsx:117
 msgid "Your plan"
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:56
+#: src/components/Team/Billing/plan-modal.tsx:57
 msgid "Your subscription will be canceled."
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:58
+#: src/components/Team/Billing/plan-modal.tsx:59
 msgid ""
 "The difference between the plan changes will be charged or charged as a "
 "balance."
+msgstr ""
+
+#: src/components/Team/Billing/plan-modal.tsx:97
+msgid ""
+"The plan could not be changed. If you are trying to downgrade your team to "
+"a team that supports fewer members, please remove the extra members before "
+"downgrading your team. If you still get this error, please contact us."
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:123
@@ -777,10 +783,6 @@ msgstr ""
 
 #: src/components/Team/general/delete.tsx:80
 msgid "Once you delete a team, there is no going back. Please be certain. "
-msgstr ""
-
-#: src/components/Team/general/fields.tsx:107
-msgid "URL"
 msgstr ""
 
 #: src/components/Team/general/index.tsx:42
