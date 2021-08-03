@@ -6,15 +6,19 @@ import Interweave from "interweave";
 type Props = {
   children: string;
   type?: "success" | "danger" | "warning";
+  Icon?: React.FC<any>,
 };
 
 const Alert = (props: Props) => {
-  const { type = "success", children } = props;
+  const { type = "success", children, Icon } = props;
 
   return (
     <div className="alert">
       <div className={type}>
-        <Interweave content={children}></Interweave>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          {Icon && <span style={{ marginRight: '.5em' }}><Icon /></span>}
+          <Interweave content={children}></Interweave>
+        </div>
       </div>
     </div>
   );
