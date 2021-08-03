@@ -1,13 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useContext } from "react";
+
+import { context as NotificationContext} from '../../contexts/notification'
 
 // Components
 import Button from "@material-ui/core/Button";
 import AddIcon from "@material-ui/icons/Add";
 import CheckIcon from "@material-ui/icons/Check";
 import { CircularProgress } from "@material-ui/core";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
 // Utils
 import { __ } from "@wordpress/i18n";
 
@@ -26,6 +25,7 @@ type Props = {
  */
 export const AddNew: React.FC<Props> = (props) => {
   const { disabled, onClick, buttonLabel, successMessage, errorMessage } = props;
+  const { updateState: updateNotificationState } = useContext(NotificationContext)
 
   const [status, setStatus] = useState<
     false | "working" | "success" | "failure"
@@ -43,9 +43,14 @@ export const AddNew: React.FC<Props> = (props) => {
         color="primary"
         onClick={async () => {
           setStatus('working')
-          await onClick()
-          setStatus('success')
-          setTimeout(() => setStatus(false), 3000)
+          try {
+            await onClick()
+            updateNotificationState({ open: true, message: successMessage, type: 'success' })
+            setStatus(false)
+          } catch (error) {
+            updateNotificationState({ open: true, message: errorMessage, type: 'failure' })
+            setStatus('failure')
+          }
         }}
         disabled={disabled || status === 'working'}
       >
@@ -55,34 +60,6 @@ export const AddNew: React.FC<Props> = (props) => {
           status === 'success' ? <CheckIcon /> : <AddIcon />}
          {buttonLabel}
       </Button>
-      <Snackbar
-        className={`snackbar-saved ${status}`}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
-        }}
-        open={status === 'success' || status === 'failure'}
-        autoHideDuration={6000}
-        onClose={() => setStatus(false)}
-        ContentProps={{
-          "aria-describedby": "message-id"
-        }}
-        message={
-          <span id="message-id">
-            {status === "success" ? successMessage : errorMessage}
-          </span>
-        }
-        action={[
-          <IconButton
-            key="close"
-            aria-label="close"
-            color="inherit"
-            onClick={() => setStatus(false)}
-          >
-            <CloseIcon />
-          </IconButton>
-        ]}
-      />
     </p>
   );
 };

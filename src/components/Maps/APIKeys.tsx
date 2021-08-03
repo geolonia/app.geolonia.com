@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 
 import Table from "../custom/Table";
-import AddNew from "../custom/AddNew";
 import AddNew2 from "../custom/AddNew2";
 import Title from "../custom/Title";
 
@@ -83,7 +82,7 @@ function ApiKeys(props: Props) {
         onClick={async () => {
           const today = moment().format('YYYY-MM-DD')
           const newKeyName = sprintf(__('API キー(%1$s が %2$s に作成)'), username, today)
-          return handler(newKeyName)
+          return handler(newKeyName).then((key) => push(`/api-keys/${key.keyId}`))
         }}
         successMessage={__('A new API key has been created.')}
         errorMessage={message}
