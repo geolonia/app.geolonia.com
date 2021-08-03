@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Table from "../custom/Table";
 import AddNew from "../custom/AddNew";
 import Title from "../custom/Title";
+import Paper from '@material-ui/core/Paper';
 
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
@@ -14,6 +15,8 @@ import createKey from "../../api/keys/create";
 import Redux from "redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
 import dateParse from "../../lib/date-parse";
+
+import "./APIKeys.scss";
 
 type OwnProps = Record<string, never>;
 type StateProps = {
@@ -64,21 +67,26 @@ function Content(props: Props) {
     };
   });
 
+  const newAPIButton = <AddNew
+    label={__("Create a new API key")}
+    description={__("Please enter the name of new API key.")}
+    defaultValue={__("My API")}
+    onClick={handler}
+    onError={() => void 0}
+    errorMessage={message}
+  />
+
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title={__("API keys")}>
-        {mapKeys.length === 0 &&
-          __("You need an API key to display map. Get an API key.")}
-      </Title>
+      <Title breadcrumb={breadcrumbItems} title={__("API keys")}/>
 
-      <AddNew
-        label={__("Create a new API key")}
-        description={__("Please enter the name of new API key.")}
-        defaultValue={__("My API")}
-        onClick={handler}
-        onError={() => void 0}
-        errorMessage={message}
-      />
+      {mapKeys.length === 0 ? <div className={"tutorial-create-api-key"}>
+          <h3>{__("You need an API key to display map. Get an API key.")}</h3>
+          {newAPIButton}
+      </div>
+      :
+        newAPIButton
+      }
 
       <Table rows={rows} rowsPerPage={10} permalink="/api-keys/%s" />
     </div>

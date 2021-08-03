@@ -2,13 +2,9 @@ import React from "react";
 
 import Paper from "@material-ui/core/Paper";
 import { withStyles, Theme } from "@material-ui/core/styles";
-import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
-
-import Hidden from "@material-ui/core/Hidden";
-import { sprintf, __ } from "@wordpress/i18n";
+import { __ } from "@wordpress/i18n";
 import moment from "moment";
-import iconPlane from "./custom/plane.svg";
 
 import "./Dashboard.scss";
 import { connect } from "react-redux";
@@ -57,28 +53,8 @@ const Dashboard = (props: Props) => {
       <Paper className="getting-started">
         <div className="box-content">
           <h2>{__("Get started with Geolonia map")}</h2>
-          {/* <ul>
-            <li>
-              <Link href="#/api-keys" color="inherit" underline="always">
-                {__("Display a map")}
-              </Link>{" "}
-              - {__("Create API key then add the map to your web site")}
-            </li>
-            <li>
-              <Link href="#/data/geojson" color="inherit" underline="always">
-                {__("Upload your data")}
-              </Link>{" "}
-              - {__("Display CSV or GeoJSON in your map")}
-            </li>
-            <li>
-              <Link href="https://docs.geolonia.com/" color="inherit" underline="always" target="_blank" rel="noopener noreferrer">
-                {__("Build a custom map")}
-              </Link>{" "}
-              - {__("Browse developer docs")}
-            </li>
-          </ul> */}
           <p>まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。<br/> そのあと生成された HTML コードスニペットをあなたの Webサイトに追加すると、作成した地図が表示されます。</p>
-          <Button className="create-new" variant="contained" size="large">{__("地図を作成する")}</Button>
+          <Button className="create-new" variant="contained" size="large" onClick={() => window.location.href = '/#/api-keys'}>{__("地図を作成する")}</Button>
         </div>
       </Paper>
 
