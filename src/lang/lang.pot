@@ -718,7 +718,7 @@ msgid "Card information"
 msgstr ""
 
 #: src/components/Team/Billing/payment-method-modal.tsx:148
-#: src/components/Team/Billing/plan-modal.tsx:166
+#: src/components/Team/Billing/plan-modal.tsx:172
 msgid "Update"
 msgstr ""
 
@@ -726,18 +726,25 @@ msgstr ""
 msgid "Unknown Error."
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:112
+#: src/components/Team/Billing/plan-modal.tsx:118
 msgid "Your plan"
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:56
+#: src/components/Team/Billing/plan-modal.tsx:57
 msgid "Your subscription will be canceled."
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:58
+#: src/components/Team/Billing/plan-modal.tsx:59
 msgid ""
 "The difference between the plan changes will be charged or charged as a "
 "balance."
+msgstr ""
+
+#: src/components/Team/Billing/plan-modal.tsx:98
+msgid ""
+"The plan could not be changed. If you are trying to downgrade your team to "
+"a team that supports fewer members, please remove the extra members before "
+"downgrading your team. If you still get this error, please contact us."
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:123
@@ -787,7 +794,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:284
+#: src/components/Team/members/index.tsx:280
 msgid "Change role"
 msgstr ""
 
@@ -802,7 +809,7 @@ msgid "Select a new role of %s."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:206
+#: src/components/Team/members/index.tsx:202
 msgid "Owner"
 msgstr ""
 
@@ -833,31 +840,31 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:150
+#: src/components/Team/members/index.tsx:144
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:154
+#: src/components/Team/members/index.tsx:148
 msgid ""
 "You currently can not invite any new members. To invite more than one "
 "member to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:208
+#: src/components/Team/members/index.tsx:204
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:246
+#: src/components/Team/members/index.tsx:242
 #: src/components/custom/AsyncTable.tsx:139
 #: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:288
+#: src/components/Team/members/index.tsx:284
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:292
+#: src/components/Team/members/index.tsx:288
 msgid "Remove from team"
 msgstr ""
 

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: 2021-07-21 09:58+0900\n"
+"PO-Revision-Date: 2021-08-03 17:48+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -741,7 +741,7 @@ msgid "Card information"
 msgstr "クレジットカード情報"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:148
-#: src/components/Team/Billing/plan-modal.tsx:166
+#: src/components/Team/Billing/plan-modal.tsx:172
 msgid "Update"
 msgstr "更新"
 
@@ -749,19 +749,29 @@ msgstr "更新"
 msgid "Unknown Error."
 msgstr "不明なエラー。"
 
-#: src/components/Team/Billing/plan-modal.tsx:112
+#: src/components/Team/Billing/plan-modal.tsx:118
 msgid "Your plan"
 msgstr "あなたのプラン"
 
-#: src/components/Team/Billing/plan-modal.tsx:56
+#: src/components/Team/Billing/plan-modal.tsx:57
 msgid "Your subscription will be canceled."
 msgstr "サブスクリプションはキャンセルされます。"
 
-#: src/components/Team/Billing/plan-modal.tsx:58
+#: src/components/Team/Billing/plan-modal.tsx:59
 msgid ""
 "The difference between the plan changes will be charged or charged as a "
 "balance."
 msgstr "プランの変更に伴う差額が請求または残高としてチャージされます。"
+
+#: src/components/Team/Billing/plan-modal.tsx:98
+msgid ""
+"The plan could not be changed. If you are trying to downgrade your team to a "
+"team that supports fewer members, please remove the extra members before "
+"downgrading your team. If you still get this error, please contact us."
+msgstr ""
+"料金プランを変更できませんでした。チームメンバーが1人になるように調整してから"
+"料金プランの変更を行ってください。それでもこのエラーが発生する場合は、お問い"
+"合わせください。"
 
 #: src/components/Team/general/avatar.tsx:123
 #: src/components/User/avatar.tsx:126
@@ -813,7 +823,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:284
+#: src/components/Team/members/index.tsx:280
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -831,7 +841,7 @@ msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:206
+#: src/components/Team/members/index.tsx:202
 msgid "Owner"
 msgstr "オーナー"
 
@@ -861,11 +871,11 @@ msgstr "APIキーを含むチームの全てのリソースを管理できます
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Team/members/index.tsx:150
+#: src/components/Team/members/index.tsx:144
 msgid "You can manage members in your team."
 msgstr "チームメンバーの管理ができます。"
 
-#: src/components/Team/members/index.tsx:154
+#: src/components/Team/members/index.tsx:148
 msgid ""
 "You currently can not invite any new members. To invite more than one member "
 "to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
@@ -873,20 +883,20 @@ msgstr ""
 "現在、新しいメンバーを招待することはできません。メンバーをチームに招待するに"
 "は、Geolonia Pro（2～5ユーザー）プランにアップグレードしてください。"
 
-#: src/components/Team/members/index.tsx:208
+#: src/components/Team/members/index.tsx:204
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:246
+#: src/components/Team/members/index.tsx:242
 #: src/components/custom/AsyncTable.tsx:139 src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:288
+#: src/components/Team/members/index.tsx:284
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:292
+#: src/components/Team/members/index.tsx:288
 msgid "Remove from team"
 msgstr "チームから削除"
 
