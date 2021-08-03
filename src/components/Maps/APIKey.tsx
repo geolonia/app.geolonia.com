@@ -138,6 +138,10 @@ const Content = (props: Props) => {
     padding: "8px"
   };
 
+  const apiKeyArea: React.CSSProperties = {
+    marginBottom: "10px",
+  };
+
   const saveDisabled =
     name.trim() === "" ||
     (name === propName && allowedOrigins === propOrigins.join("\n"));
@@ -198,7 +202,7 @@ const Content = (props: Props) => {
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title={__("API key settings")}>
+      <Title breadcrumb={breadcrumbItems} title={__("API key")}>
         {__(
           "Configure access control for your API key and Get the HTML code for your map."
         )}
@@ -206,61 +210,79 @@ const Content = (props: Props) => {
 
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
-          <TextField
-            id="standard-name"
-            label={__("Name")}
-            margin="normal"
-            fullWidth={true}
-            value={name}
-            onChange={e => setName(e.target.value)}
-            disabled={status === "requesting"}
-            onBlur={onNameBlur}
-          />
 
-          <TextField
-            id="standard-name"
-            label={__("URLs")}
-            margin="normal"
-            multiline={true}
-            rows={5}
-            placeholder="https://example.com"
-            fullWidth={true}
-            value={allowedOrigins}
-            onChange={e => setAllowedOrigins(e.target.value)}
-            disabled={status === "requesting"}
-          />
+          <Paper style={apiKeyArea}>
 
-          <Help>
-            <Typography component="p">
-              {__(
-                "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key."
-              )}
+            <Typography component="h2" className="module-title">
+              {__("Your API Key")}
             </Typography>
-            <ul>
-              <li>
-                {__("Any page in a specific URL:")}{" "}
-                <strong>https://www.example.com</strong>
-              </li>
-              <li>
-                {__("Any subdomain:")} <strong>https://*.example.com</strong>
-              </li>
-              <li>
-                {__("A URL with a non-standard port:")}{" "}
-                <strong>https://example.com:*</strong>
-              </li>
-            </ul>
-            <p>
-              {__(
-                'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
-              )}
-            </p>
-          </Help>
+            <Code>{apiKey}</Code>
 
-          <Save
-            onClick={onUpdateClick}
-            onError={onRequestError}
-            disabled={saveDisabled}
-          />
+          </Paper>
+
+          <Paper>
+
+            <Typography component="h2" className="module-title">
+              {__("設定")}
+            </Typography>
+
+            <TextField
+              id="standard-name"
+              label={__("APIキー管理用の名前")}
+              margin="normal"
+              fullWidth={true}
+              value={name}
+              onChange={e => setName(e.target.value)}
+              disabled={status === "requesting"}
+              onBlur={onNameBlur}
+            />
+
+            <TextField
+              id="standard-name"
+              label={__("地図の表示を許可するURLのリスト")}
+              margin="normal"
+              multiline={true}
+              rows={5}
+              placeholder="https://example.com"
+              fullWidth={true}
+              value={allowedOrigins}
+              onChange={e => setAllowedOrigins(e.target.value)}
+              disabled={status === "requesting"}
+            />
+
+            <Save
+              onClick={onUpdateClick}
+              onError={onRequestError}
+              disabled={saveDisabled}
+            />
+
+            <Help>
+              <Typography component="p">
+                {__(
+                  "URLs will be used for an HTTP referrer to restrict the URLs that can use an API key."
+                )}
+              </Typography>
+              <ul>
+                <li>
+                  {__("Any page in a specific URL:")}{" "}
+                  <strong>https://www.example.com</strong>
+                </li>
+                <li>
+                  {__("Any subdomain:")} <strong>https://*.example.com</strong>
+                </li>
+                <li>
+                  {__("A URL with a non-standard port:")}{" "}
+                  <strong>https://example.com:*</strong>
+                </li>
+              </ul>
+              <p>
+                {__(
+                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".'
+                )}
+              </p>
+            </Help>
+
+          </Paper>
 
           <DangerZone
             whyDanger={__(
@@ -283,12 +305,6 @@ const Content = (props: Props) => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <Paper style={sidebarStyle}>
-            <Typography component="h2" className="module-title">
-              {__("Your API Key")}
-            </Typography>
-            <Code>{apiKey}</Code>
-          </Paper>
           <Paper style={sidebarStyle}>
             <Typography component="h2" className="module-title">
               {__("Add the map to your site")}
