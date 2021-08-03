@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: 2021-08-03 17:48+0900\n"
+"PO-Revision-Date: 2021-08-04 09:08+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -741,7 +741,7 @@ msgid "Card information"
 msgstr "クレジットカード情報"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:148
-#: src/components/Team/Billing/plan-modal.tsx:171
+#: src/components/Team/Billing/plan-modal.tsx:172
 msgid "Update"
 msgstr "更新"
 
@@ -749,7 +749,7 @@ msgstr "更新"
 msgid "Unknown Error."
 msgstr "不明なエラー。"
 
-#: src/components/Team/Billing/plan-modal.tsx:117
+#: src/components/Team/Billing/plan-modal.tsx:118
 msgid "Your plan"
 msgstr "あなたのプラン"
 
@@ -763,7 +763,7 @@ msgid ""
 "balance."
 msgstr "プランの変更に伴う差額が請求または残高としてチャージされます。"
 
-#: src/components/Team/Billing/plan-modal.tsx:97
+#: src/components/Team/Billing/plan-modal.tsx:98
 msgid ""
 "The plan could not be changed. If you are trying to downgrade your team to a "
 "team that supports fewer members, please remove the extra members before "
@@ -823,7 +823,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:284
+#: src/components/Team/members/index.tsx:280
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -841,7 +841,7 @@ msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:206
+#: src/components/Team/members/index.tsx:202
 msgid "Owner"
 msgstr "オーナー"
 
@@ -871,11 +871,14 @@ msgstr "APIキーを含むチームの全てのリソースを管理できます
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Team/members/index.tsx:150
+#: src/components/Team/members/index.tsx:144
 msgid "You can manage members in your team."
-msgstr "チームメンバーの管理ができます。"
+msgstr ""
+"チームメンバーの管理ができます。チームの参加者には「オーナー」と「メンバー」"
+"の2つの権限があります。オーナーは他のメンバーの招待、権限変更、一時停止、削除"
+"が可能です。"
 
-#: src/components/Team/members/index.tsx:154
+#: src/components/Team/members/index.tsx:148
 msgid ""
 "You currently can not invite any new members. To invite more than one member "
 "to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
@@ -883,57 +886,69 @@ msgstr ""
 "現在、新しいメンバーを招待することはできません。メンバーをチームに招待するに"
 "は、Geolonia Pro（2～5ユーザー）プランにアップグレードしてください。"
 
-#: src/components/Team/members/index.tsx:208
+#: src/components/Team/members/index.tsx:204
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:246
+#: src/components/Team/members/index.tsx:242
 #: src/components/custom/AsyncTable.tsx:139 src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:288
+#: src/components/Team/members/index.tsx:284
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:292
+#: src/components/Team/members/index.tsx:288
 msgid "Remove from team"
 msgstr "チームから削除"
 
-#: src/components/Team/members/invite.tsx:106
+#: src/components/Team/members/invite.tsx:109
 msgid "Successfully send invitation."
 msgstr "チームへの招待が送信されました。"
 
-#: src/components/Team/members/invite.tsx:108
+#: src/components/Team/members/invite.tsx:111
 msgid "Failed to send invitation."
 msgstr "招待の送信に失敗しました。"
 
-#: src/components/Team/members/invite.tsx:38
+#: src/components/Team/members/invite.tsx:39
 msgid "That user is already a member of this team."
 msgstr "すでにメンバーになっています。"
 
-#: src/components/Team/members/invite.tsx:60
+#: src/components/Team/members/invite.tsx:61
 msgid "The maximum number of members has been reached."
 msgstr "メンバー数が上限に達しました。"
 
-#: src/components/Team/members/invite.tsx:64
+#: src/components/Team/members/invite.tsx:65
 msgid "You cannot use this email address for invitation."
 msgstr "このメールアドレスは招待に使用できません。"
 
-#: src/components/Team/members/invite.tsx:76
+#: src/components/Team/members/invite.tsx:79
 msgid "Invite"
 msgstr "招待"
 
-#: src/components/Team/members/invite.tsx:77
+#: src/components/Team/members/invite.tsx:80
 msgid "Send an invitation"
 msgstr "招待する"
 
-#: src/components/Team/members/invite.tsx:83
-#: src/components/User/profile.tsx:117
-msgid "Email"
-msgstr "メールアドレス"
+#: src/components/Team/members/invite.tsx:82
+msgid ""
+"Please enter the email address of the person you want to invite to \"%s\". "
+"Please note that the user must <a href=\"/#/signup\" target=\"_blank"
+"\">create a Geolonia account</a> first before you can send the invitation."
+msgstr ""
+"チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n"
+"<br>\n"
+"※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が完"
+"了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps にまだ"
+"登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユーザー登録</"
+"a>を済ませてから招待を送信してください。"
 
-#: src/components/Team/members/invite.tsx:89
+#: src/components/Team/members/invite.tsx:86
+msgid "Receipient's email address"
+msgstr "招待するユーザーの Geolonia 登録メールアドレス"
+
+#: src/components/Team/members/invite.tsx:92
 msgid "Send"
 msgstr "送信"
 
@@ -960,6 +975,10 @@ msgstr "プロフィール"
 #: src/components/User/User.tsx:25
 msgid "You can update your profile and security."
 msgstr "プロフィールとセキュリティを設定できます。"
+
+#: src/components/User/profile.tsx:117
+msgid "Email"
+msgstr "メールアドレス"
 
 #: src/components/User/profile.tsx:138
 msgid "Language"

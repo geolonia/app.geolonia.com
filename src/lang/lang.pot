@@ -717,7 +717,7 @@ msgid "Card information"
 msgstr ""
 
 #: src/components/Team/Billing/payment-method-modal.tsx:148
-#: src/components/Team/Billing/plan-modal.tsx:171
+#: src/components/Team/Billing/plan-modal.tsx:172
 msgid "Update"
 msgstr ""
 
@@ -725,7 +725,7 @@ msgstr ""
 msgid "Unknown Error."
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:117
+#: src/components/Team/Billing/plan-modal.tsx:118
 msgid "Your plan"
 msgstr ""
 
@@ -739,7 +739,7 @@ msgid ""
 "balance."
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:97
+#: src/components/Team/Billing/plan-modal.tsx:98
 msgid ""
 "The plan could not be changed. If you are trying to downgrade your team to "
 "a team that supports fewer members, please remove the extra members before "
@@ -793,7 +793,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:284
+#: src/components/Team/members/index.tsx:280
 msgid "Change role"
 msgstr ""
 
@@ -808,7 +808,7 @@ msgid "Select a new role of %s."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:206
+#: src/components/Team/members/index.tsx:202
 msgid "Owner"
 msgstr ""
 
@@ -839,68 +839,75 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:150
+#: src/components/Team/members/index.tsx:144
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:154
+#: src/components/Team/members/index.tsx:148
 msgid ""
 "You currently can not invite any new members. To invite more than one "
 "member to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:208
+#: src/components/Team/members/index.tsx:204
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:246
+#: src/components/Team/members/index.tsx:242
 #: src/components/custom/AsyncTable.tsx:139
 #: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:288
+#: src/components/Team/members/index.tsx:284
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:292
+#: src/components/Team/members/index.tsx:288
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:106
+#: src/components/Team/members/invite.tsx:109
 msgid "Successfully send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:108
+#: src/components/Team/members/invite.tsx:111
 msgid "Failed to send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:38
+#: src/components/Team/members/invite.tsx:39
 msgid "That user is already a member of this team."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:60
+#: src/components/Team/members/invite.tsx:61
 msgid "The maximum number of members has been reached."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:64
+#: src/components/Team/members/invite.tsx:65
 msgid "You cannot use this email address for invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:76
+#: src/components/Team/members/invite.tsx:79
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:77
+#: src/components/Team/members/invite.tsx:80
 msgid "Send an invitation"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:83
-#: src/components/User/profile.tsx:117
-msgid "Email"
+#: src/components/Team/members/invite.tsx:82
+msgid ""
+"Please enter the email address of the person you want to invite to \"%s\". "
+"Please note that the user must <a href=\"/#/signup\" "
+"target=\"_blank\">create a Geolonia account</a> first before you can send "
+"the invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:89
+#: src/components/Team/members/invite.tsx:86
+msgid "Receipient's email address"
+msgstr ""
+
+#: src/components/Team/members/invite.tsx:92
 msgid "Send"
 msgstr ""
 
@@ -926,6 +933,10 @@ msgstr ""
 
 #: src/components/User/User.tsx:25
 msgid "You can update your profile and security."
+msgstr ""
+
+#: src/components/User/profile.tsx:117
+msgid "Email"
 msgstr ""
 
 #: src/components/User/profile.tsx:138
