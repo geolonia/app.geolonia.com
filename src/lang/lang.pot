@@ -11,35 +11,39 @@ msgstr ""
 msgid "Your invitation has been outdated."
 msgstr ""
 
-#: src/components/Dashboard.tsx:56
+#: src/components/Dashboard.tsx:57
 msgid "Get started with Geolonia map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:60
+#: src/components/Dashboard.tsx:61
 msgid "Display a map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:62
+#: src/components/Dashboard.tsx:63
 msgid "Create API key then add the map to your web site"
 msgstr ""
 
-#: src/components/Dashboard.tsx:66
+#: src/components/Dashboard.tsx:67
 msgid "Upload your data"
 msgstr ""
 
-#: src/components/Dashboard.tsx:68
+#: src/components/Dashboard.tsx:69
 msgid "Display CSV or GeoJSON in your map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:72
+#: src/components/Dashboard.tsx:73
 msgid "Build a custom map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:74
+#: src/components/Dashboard.tsx:75
 msgid "Browse developer docs"
 msgstr ""
 
-#: src/components/Dashboard.tsx:80
+#: src/components/Dashboard.tsx:81
+msgid "Tutorials"
+msgstr ""
+
+#: src/components/Dashboard.tsx:84
 msgid "Developer's Blog"
 msgstr ""
 
@@ -131,7 +135,7 @@ msgstr ""
 msgid "Error: The `id` of each `fueature` must be unique in the GeoJSON."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:353
+#: src/components/Data/GeoJsonMeta.tsx:354
 #: src/components/Data/fields.tsx:26
 #: src/components/Maps/APIKey.tsx:211
 #: src/components/Navigator.tsx:320
@@ -142,106 +146,106 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:392
+#: src/components/Data/GeoJsonMeta.tsx:393
 msgid ""
 "Public features will be displayed publicly and anyone can download this "
 "features without API key."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:425
+#: src/components/Data/GeoJsonMeta.tsx:426
 msgid "Datasets are published now."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:427
+#: src/components/Data/GeoJsonMeta.tsx:428
 msgid "Datasets status are draft now."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:440
+#: src/components/Data/GeoJsonMeta.tsx:441
 msgid "Advanced Settings"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:444
+#: src/components/Data/GeoJsonMeta.tsx:445
 msgid "Access allowed URLs"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:445
+#: src/components/Data/GeoJsonMeta.tsx:446
 msgid ""
 "If you want to add more URLs to the \"URLs to allow access\" set on the API "
 "key page, please use the following settings. (e.g., if you want to use "
 "multiple API keys for a single tile, etc.)"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:448
+#: src/components/Data/GeoJsonMeta.tsx:449
 msgid "URLs from API Key page."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:454
+#: src/components/Data/GeoJsonMeta.tsx:455
 msgid "Enter URLs to be added."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:479
+#: src/components/Data/GeoJsonMeta.tsx:480
 #: src/components/Maps/APIKey.tsx:294
 msgid "Add the map to your site"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:482
+#: src/components/Data/GeoJsonMeta.tsx:483
 #: src/components/Maps/APIKey.tsx:297
 msgid "Step 1"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:484
+#: src/components/Data/GeoJsonMeta.tsx:485
 msgid "Please select API key."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:486
+#: src/components/Data/GeoJsonMeta.tsx:487
 msgid "API key"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:494
+#: src/components/Data/GeoJsonMeta.tsx:495
 msgid "None"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:500
+#: src/components/Data/GeoJsonMeta.tsx:501
 msgid "If you don't have one, create it from <a href='#/api-keys'>API Keys</a>."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:505
+#: src/components/Data/GeoJsonMeta.tsx:506
 #: src/components/Maps/APIKey.tsx:324
 msgid "Step 2"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:509
+#: src/components/Data/GeoJsonMeta.tsx:510
 #: src/components/Maps/APIKey.tsx:301
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body "
 "/&gt;</code> in your HTML file."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:532
+#: src/components/Data/GeoJsonMeta.tsx:533
 #: src/components/Maps/APIKey.tsx:343
 msgid "Step 3"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:535
+#: src/components/Data/GeoJsonMeta.tsx:536
 #: src/components/Maps/APIKey.tsx:327
 msgid "Click following button and get HTML code where you want to place the map."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:553
+#: src/components/Data/GeoJsonMeta.tsx:554
 #: src/components/Maps/APIKey.tsx:339
 msgid "Get HTML"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:557
+#: src/components/Data/GeoJsonMeta.tsx:558
 msgid "Step 4"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:559
+#: src/components/Data/GeoJsonMeta.tsx:560
 #: src/components/Maps/APIKey.tsx:345
 msgid "Adjust the element size."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:574
+#: src/components/Data/GeoJsonMeta.tsx:575
 #: src/components/Maps/APIKey.tsx:360
 msgid "Copy to Clipboard"
 msgstr ""
@@ -918,6 +922,49 @@ msgstr ""
 msgid "The following members will be suspended:"
 msgstr ""
 
+#: src/components/Turorials.tsx:14
+msgid "Get Started"
+msgstr ""
+
+#: src/components/Turorials.tsx:15
+msgid "Learn about the easiest way to embed a Geolonia map in your website."
+msgstr ""
+
+#: src/components/Turorials.tsx:19
+msgid "Embed API"
+msgstr ""
+
+#: src/components/Turorials.tsx:20
+msgid "The Embed API allows you to set up a map with just a simple HTML code."
+msgstr ""
+
+#: src/components/Turorials.tsx:24
+msgid "JavaScript API"
+msgstr ""
+
+#: src/components/Turorials.tsx:25
+msgid ""
+"Learn how to develop a professional map application using the JavaScript "
+"API."
+msgstr ""
+
+#: src/components/Turorials.tsx:29
+msgid "Custom Style"
+msgstr ""
+
+#: src/components/Turorials.tsx:30
+msgid "Learn how to customize the style of your map."
+msgstr ""
+
+#: src/components/Turorials.tsx:34
+msgid "Support"
+msgstr ""
+
+#: src/components/Turorials.tsx:35
+#: src/components/custom/Support.tsx:22
+msgid "Contact Geolonia"
+msgstr ""
+
 #: src/components/User/User.tsx:24
 msgid "Your profile"
 msgstr ""
@@ -1020,10 +1067,6 @@ msgstr ""
 
 #: src/components/custom/Support.tsx:18
 msgid "Privacy"
-msgstr ""
-
-#: src/components/custom/Support.tsx:22
-msgid "Contact Geolonia"
 msgstr ""
 
 #: src/components/custom/coming-soon.tsx:30

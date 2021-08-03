@@ -13,6 +13,7 @@ import iconPlane from "./custom/plane.svg";
 import "./Dashboard.scss";
 import { connect } from "react-redux";
 
+import Tutorials from './Turorials'
 import DeveloperBlog from "./DeveloperBlog";
 
 const styles = (theme: Theme) => ({});
@@ -90,8 +91,10 @@ const Dashboard = (props: Props) => {
         </div>
       </Paper>
 
-      <h2 style={{ marginTop: "32px" }}>{__("Developer's Blog")}</h2>
+      <h2 style={{ marginTop: "32px" }}>{__("Tutorials")}</h2>
+      <Tutorials></Tutorials>
 
+      <h2 style={{ marginTop: "32px" }}>{__("Developer's Blog")}</h2>
       <DeveloperBlog />
     </div>
   );
