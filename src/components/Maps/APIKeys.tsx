@@ -15,6 +15,7 @@ import createKey from "../../api/keys/create";
 import Redux from "redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
 import dateParse from "../../lib/date-parse";
+import mixpanel from "mixpanel-browser";
 
 type OwnProps = Record<string, never>;
 type StateProps = {
@@ -47,17 +48,16 @@ function ApiKeys(props: Props) {
     }
   ];
 
-  const handler = useCallback((name: string) => {
-    return createKey(session, teamId, name).then(result => {
-      if (result.error) {
-        setMessage(result.message);
-        throw new Error(result.code);
-      } else {
-        const data = dateParse(result.data);
-        addKey(teamId, data);
-        return result.data
-      }
-    });
+  const handler = useCallback(async (name: string) => {
+    const result = await createKey(session, teamId, name);
+    if (result.error) {
+      setMessage(result.message);
+      throw new Error(result.code);
+    }
+    const data = dateParse(result.data);
+    addKey(teamId, data);
+    mixpanel.track('Create API key', { apiKeyId: result.data.keyId });
+    return result.data;
   }, [addKey, session, teamId]);
 
   const rows = mapKeys.map(key => {
@@ -80,9 +80,10 @@ function ApiKeys(props: Props) {
       <AddNew2
         buttonLabel={__('New')}
         onClick={async () => {
-          const today = moment().format('YYYY-MM-DD')
-          const newKeyName = sprintf(__('API Key (created by %1$s on %2$s)'), username, today)
-          return handler(newKeyName).then((key) => push(`/api-keys/${key.keyId}`))
+          const today = moment().format('YYYY-MM-DD');
+          const newKeyName = sprintf(__('API Key (created by %1$s on %2$s)'), username, today);
+          const key = await handler(newKeyName);
+          push(`/api-keys/${key.keyId}`);
         }}
         successMessage={__('A new API key has been created.')}
         errorMessage={message}
