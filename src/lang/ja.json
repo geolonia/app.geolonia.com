@@ -291,6 +291,9 @@
       ],
       "Cancel": ["キャンセル"],
       "Delete": ["削除"],
+      "You must have at least one team to use Geolonia Maps. If you have only one team, please create a new one, and then delete the team.": [
+        "Geolonia Mapsの利用には最低1つのチームが必要です。削除したいチームが1つしかない場合は、新規にチームを作成してから該当のチームを削除してください。"
+      ],
       "Once you delete a team, there is no going back. Please be certain. ": [
         "一度チームを削除すると元に戻すことはできません。"
       ],
@@ -382,6 +385,7 @@
       "Time zone": ["タイムゾーン"],
       "Update password": ["パスワードを更新"],
       "I forgot my password": ["パスワードをお忘れですか？"],
+      "Password changed successfully.": ["パスワードを変更しました。"],
       "Failed to change password.": ["パスワードの変更に失敗しました。"],
       "Security": ["セキュリティ"],
       "Old password": ["古いパスワード"],

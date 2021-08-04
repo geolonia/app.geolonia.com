@@ -356,7 +356,7 @@ msgstr ""
 "URL のリストは、API キーが意図しない URL から使用されないように制限するため"
 "に、HTTP リファラーに対して使用されます。"
 
-#: src/components/Data/fields.tsx:58 src/components/Team/general/delete.tsx:77
+#: src/components/Data/fields.tsx:58 src/components/Team/general/delete.tsx:78
 #: src/components/custom/danger-zone.tsx:20
 msgid "Danger Zone"
 msgstr "注意"
@@ -799,11 +799,11 @@ msgstr "新しい画像をアップロード"
 msgid "Upload failed. The avatar image size cannot be larger than %d MB."
 msgstr "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
 
-#: src/components/Team/general/delete.tsx:101
+#: src/components/Team/general/delete.tsx:109
 msgid "Confirm deletion"
 msgstr "削除を確認"
 
-#: src/components/Team/general/delete.tsx:108
+#: src/components/Team/general/delete.tsx:116
 msgid ""
 "Please enter <code>delete</code> if you really want to delete the team "
 "<strong>%1$s</strong>."
@@ -811,7 +811,7 @@ msgstr ""
 "<strong>%1$s</strong> のチームを削除する場合は <code>delete</code> と入力して"
 "ください。"
 
-#: src/components/Team/general/delete.tsx:137
+#: src/components/Team/general/delete.tsx:145
 #: src/components/Team/members/change-role.tsx:160
 #: src/components/Team/members/remove-member.tsx:89
 #: src/components/Team/members/suspend.tsx:112
@@ -820,12 +820,20 @@ msgstr ""
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: src/components/Team/general/delete.tsx:156
+#: src/components/Team/general/delete.tsx:164
 #: src/components/custom/Delete.tsx:158
 msgid "Delete"
 msgstr "削除"
 
-#: src/components/Team/general/delete.tsx:80
+#: src/components/Team/general/delete.tsx:83
+msgid ""
+"You must have at least one team to use Geolonia Maps. If you have only one "
+"team, please create a new one, and then delete the team."
+msgstr ""
+"Geolonia Mapsの利用には最低1つのチームが必要です。削除したいチームが1つしかな"
+"い場合は、新規にチームを作成してから該当のチームを削除してください。"
+
+#: src/components/Team/general/delete.tsx:86
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr "一度チームを削除すると元に戻すことはできません。"
 
@@ -1069,7 +1077,6 @@ msgid "I forgot my password"
 msgstr "パスワードをお忘れですか？"
 
 #: src/components/User/security.tsx:130
-#, fuzzy
 msgid "Password changed successfully."
 msgstr "パスワードを変更しました。"
 

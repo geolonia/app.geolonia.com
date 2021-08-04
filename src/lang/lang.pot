@@ -332,7 +332,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Data/fields.tsx:58
-#: src/components/Team/general/delete.tsx:77
+#: src/components/Team/general/delete.tsx:78
 #: src/components/custom/danger-zone.tsx:20
 msgid "Danger Zone"
 msgstr ""
@@ -767,17 +767,17 @@ msgstr ""
 msgid "Upload failed. The avatar image size cannot be larger than %d MB."
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:101
+#: src/components/Team/general/delete.tsx:109
 msgid "Confirm deletion"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:108
+#: src/components/Team/general/delete.tsx:116
 msgid ""
 "Please enter <code>delete</code> if you really want to delete the team "
 "<strong>%1$s</strong>."
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:137
+#: src/components/Team/general/delete.tsx:145
 #: src/components/Team/members/change-role.tsx:160
 #: src/components/Team/members/remove-member.tsx:89
 #: src/components/Team/members/suspend.tsx:112
@@ -787,12 +787,18 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:156
+#: src/components/Team/general/delete.tsx:164
 #: src/components/custom/Delete.tsx:158
 msgid "Delete"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:80
+#: src/components/Team/general/delete.tsx:83
+msgid ""
+"You must have at least one team to use Geolonia Maps. If you have only one "
+"team, please create a new one, and then delete the team."
+msgstr ""
+
+#: src/components/Team/general/delete.tsx:86
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr ""
 
