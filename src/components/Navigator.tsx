@@ -160,7 +160,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
 
   const categories = [
     {
-      id: __("API keys"),
+      id: __("Map"),
       children: [
         {
           id: __("Manage API keys"),
