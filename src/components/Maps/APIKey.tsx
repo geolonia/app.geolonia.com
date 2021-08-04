@@ -31,6 +31,8 @@ import normalizeOrigins from "../../lib/normalize-origin";
 
 // constants
 import { messageDisplayDuration } from "../../constants";
+import { sleep } from "../../lib/sleep";
+import mixpanel from "mixpanel-browser";
 
 type OwnProps = Record<string, never>;
 type StateProps = {
@@ -146,9 +148,9 @@ const Content = (props: Props) => {
     name.trim() === "" ||
     (name === propName && allowedOrigins === propOrigins.join("\n"));
 
-  const onUpdateClick = () => {
+  const onUpdateClick = async () => {
     if (saveDisabled) {
-      return Promise.resolve();
+      return;
     }
 
     setStatus("requesting");
@@ -159,37 +161,36 @@ const Content = (props: Props) => {
       allowedOrigins: normalizedAllowedOrigins
     };
 
-    return updateKey(props.session, props.teamId, keyId, nextKey).then(
-      result => {
-        if (result.error) {
-          setStatus("failure");
-          setMessage(result.message);
-          throw new Error(result.code);
-        } else {
-          setStatus("success");
-          props.updateKey(props.teamId, keyId, nextKey);
-        }
-      }
-    );
+    const result = await updateKey(props.session, props.teamId, keyId, nextKey);
+    if (result.error) {
+      setStatus("failure");
+      setMessage(result.message);
+      throw new Error(result.code);
+    }
+    mixpanel.track('Update API key', {
+      apiKeyId: keyId,
+      originCount: normalizedAllowedOrigins.length
+    });
+    setStatus("success");
+    props.updateKey(props.teamId, keyId, nextKey);
   };
 
   const onRequestError = () => setStatus("failure");
 
-  const onDeleteClick = () => {
+  const onDeleteClick = async () => {
     setStatus("requesting");
-    return deleteKey(props.session, props.teamId, keyId).then(result => {
-      if (result.error) {
-        setStatus("failure");
-        setMessage(result.message);
-        throw new Error(result.code);
-      } else {
-        setStatus("success");
-        setTimeout(() => {
-          props.history.push("/api-keys");
-          props.deleteKey(props.teamId, keyId);
-        }, messageDisplayDuration);
-      }
-    });
+    const result = await deleteKey(props.session, props.teamId, keyId);
+    if (result.error) {
+      setStatus("failure");
+      setMessage(result.message);
+      throw new Error(result.code);
+    }
+    setStatus("success");
+    mixpanel.track('Delete API key', { apiKeyId: keyId });
+    await sleep(messageDisplayDuration);
+
+    props.history.push("/api-keys");
+    props.deleteKey(props.teamId, keyId);
   };
 
   const copyToClipBoard = (cssSelector: string) => {

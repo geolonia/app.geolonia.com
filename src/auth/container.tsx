@@ -33,6 +33,7 @@ import { createActions as createTeamMemberActions } from "../redux/actions/team-
 import Redux from "redux";
 import { SELECTED_TEAM_ID_KEY } from "../redux/middlewares/local-storage";
 import Moment from "moment";
+import mixpanel from "mixpanel-browser";
 
 type OwnProps = { children: React.ReactElement };
 type StateProps = { session: Geolonia.Session };
@@ -102,6 +103,12 @@ export class AuthContainer extends React.Component<Props, State> {
       setLocaleData(loadLocale(estimateLanguage()));
       return this.props.ready();
     }
+
+    const idTokenPayload = session.getIdToken().payload;
+    mixpanel.identify(idTokenPayload.sub);
+    mixpanel.alias(idTokenPayload['cognito:username']);
+    mixpanel.people.set('$name', idTokenPayload['cognito:username']);
+    mixpanel.people.set('$email', idTokenPayload.email);
 
     try {
       const { user, teams } = (await fundamentalAPILoads(

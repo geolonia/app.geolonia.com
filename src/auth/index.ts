@@ -3,6 +3,7 @@
 import "isomorphic-fetch";
 import * as CognitoIdentity from "amazon-cognito-identity-js";
 import estimateLanguage from "../lib/estimate-language";
+import * as mixpanel from "mixpanel-browser";
 
 const {
   REACT_APP_COGNITO_USERPOOL_ID: UserPoolId,
@@ -17,12 +18,13 @@ const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 export const signUp = (username: string, email: string, password: string) =>
   new Promise<CognitoIdentity.ISignUpResult>((resolve, reject) => {
     // NOTE: if we have more language option, let's extend
+    const locale = estimateLanguage();
     const attributeList = [
       new CognitoIdentity.CognitoUserAttribute({ Name: "email", Value: email }),
       new CognitoIdentity.CognitoUserAttribute({
         Name: "locale",
         // 今使っている言語を送信する
-        Value: estimateLanguage()
+        Value: locale,
       })
     ];
 
@@ -30,7 +32,7 @@ export const signUp = (username: string, email: string, password: string) =>
       if (err || !result) {
         return reject(err);
       }
-      resolve(result)
+      resolve(result);
     });
   });
 
@@ -173,6 +175,8 @@ export const signout: () => Promise<void> = () =>
     if (cognitoUser) {
       cognitoUser.signOut();
     }
+
+    mixpanel.reset();
 
     // Persists `geolonia__persisted*` items
     // e.g. `geolonia__persisted_language` will be used at signin page without session
