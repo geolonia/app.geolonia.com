@@ -5,7 +5,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -71,12 +70,12 @@ const useStyles = makeStyles({
 })
 
 export const Tutorials: React.FC = () => {
-  const turotialContents = useMemo(getTutorialContents, [])
+  const tutorialContents = useMemo(getTutorialContents, [])
   const classes = useStyles()
 
   return <Grid container spacing={2}>
     {
-      turotialContents.map((post) => <Grid item lg={4} md={6} xs={12} key={post.title}>
+      tutorialContents.map((post) => <Grid item lg={4} md={6} xs={12} key={post.title}>
         <Card className={classes.root} variant="outlined" >
           <CardActionArea className={classes.animationArea} onClick={() => window.open(post.url, '_blank')}>
             <CardContent  className={classes.content}>

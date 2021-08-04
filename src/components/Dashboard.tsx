@@ -10,7 +10,7 @@ import moment from "moment";
 import "./Dashboard.scss";
 import { connect } from "react-redux";
 
-import Tutorials from './Turorials'
+import Tutorials from './Tutorials'
 import DeveloperBlog from "./DeveloperBlog";
 
 const styles = (theme: Theme) => ({});

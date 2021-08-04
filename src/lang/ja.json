@@ -367,10 +367,12 @@
       "Learn how to customize the style of your map.": [
         "地図のスタイルをカスタマイズする方法についてご紹介します。"
       ],
+      "Read More": ["続きを読む"],
       "Support": ["サポート"],
       "Please contact us if you have any questions about how to use the admin panel or if you need technical support (which may be paid).": [
         "管理画面の使い方の質問や、有償の技術サポートはこちらからお問い合わせください。"
       ],
+      "Contact support": ["問い合わせる"],
       "Your profile": ["プロフィール"],
       "You can update your profile and security.": [
         "プロフィールとセキュリティを設定できます。"
@@ -380,7 +382,6 @@
       "Time zone": ["タイムゾーン"],
       "Update password": ["パスワードを更新"],
       "I forgot my password": ["パスワードをお忘れですか？"],
-      "Password changed successfuly.": ["パスワードを変更しました。"],
       "Failed to change password.": ["パスワードの変更に失敗しました。"],
       "Security": ["セキュリティ"],
       "Old password": ["古いパスワード"],

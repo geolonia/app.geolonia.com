@@ -127,7 +127,7 @@ export class Security extends React.Component<Props, State> {
           </Link>
         </Typography>
         {status === "success" && (
-          <Alert type="success">{__("Password changed successfuly.")}</Alert>
+          <Alert type="success">{__("Password changed successfully.")}</Alert>
         )}
         {status === "failure" && (
           <Alert type="warning">{__("Failed to change password.")}</Alert>
