@@ -196,7 +196,7 @@
       "Documentation": ["ドキュメント"],
       "Official Documents": ["公式ドキュメント"],
       "The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href=\"https://geolonia.com/contact/\" target=\"_blank\">contact us</a>.": [
-        "ダッシュボードのリニューアルを行いました。以前提供していた GeoJSON API は機能改修を行っており、管理画面は現在アクセスできません。データのダウンロードが必要な場合、<a href=\"https://geolonia.com/contact/\" target=\"_blank\">ご連絡ください</a>。"
+        "8月5日にダッシュボードの正式版を公開しました。ベータ版で提供していたGeoJSON APIは、近日中に公開予定です。ベータ版で作成したデータはそのままお使いいただけますが、ダウンロードが必要な場合はお手数ですが別途 <a href=\"https://geolonia.com/contact/\" target=\"_blank\">ご連絡</a>をお願いします。"
       ],
       "Create a new team": ["新しいチームを作成"],
       "Please enter the name of new team.": [
