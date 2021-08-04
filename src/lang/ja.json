@@ -309,7 +309,7 @@
       ],
       "Save": ["保存"],
       "You can manage members in your team.": [
-        "チームメンバーの管理ができます。"
+        "チームメンバーの管理ができます。チームの参加者には「オーナー」と「メンバー」の2つの権限があります。オーナーは他のメンバーの招待、権限変更、一時停止、削除が可能です。"
       ],
       "You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan.": [
         "現在、新しいメンバーを招待することはできません。メンバーをチームに招待するには、Geolonia Pro（2～5ユーザー）プランにアップグレードしてください。"
@@ -331,7 +331,12 @@
       ],
       "Invite": ["招待"],
       "Send an invitation": ["招待する"],
-      "Email": ["メールアドレス"],
+      "Please enter the email address of the person you want to invite to \"%s\". Please note that the user must <a href=\"/#/signup\" target=\"_blank\">create a Geolonia account</a> first before you can send the invitation.": [
+        "チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n<br>\n※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が完了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps にまだ登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユーザー登録</a>を済ませてから招待を送信してください。"
+      ],
+      "Receipient's email address": [
+        "招待するユーザーの Geolonia 登録メールアドレス"
+      ],
       "Send": ["送信"],
       "The following members will be removed:": [
         "以下のメンバーがチームから削除されます。"
@@ -345,6 +350,7 @@
       "You can update your profile and security.": [
         "プロフィールとセキュリティを設定できます。"
       ],
+      "Email": ["メールアドレス"],
       "Language": ["言語"],
       "Time zone": ["タイムゾーン"],
       "Update password": ["パスワードを更新"],
