@@ -3,15 +3,14 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
-import Hidden from "@material-ui/core/Hidden";
-import { sprintf, __ } from "@wordpress/i18n";
+import InfoIcon from "@material-ui/icons/Info";
+import { __ } from "@wordpress/i18n";
 import moment from "moment";
-import iconPlane from "./custom/plane.svg";
 
 import "./Dashboard.scss";
 import { connect } from "react-redux";
 
-import Tutorials from './Turorials'
+import Tutorials from "./Turorials";
 import DeveloperBlog from "./DeveloperBlog";
 
 const styles = (theme: Theme) => ({});
@@ -52,6 +51,7 @@ const Dashboard = (props: Props) => {
 
   return (
     <div id="dashboard">
+
       <Paper className="getting-started">
         <div className="box-content">
           <h2>{__("Get started with Geolonia map")}</h2>
@@ -69,7 +69,13 @@ const Dashboard = (props: Props) => {
               - {__("Display CSV or GeoJSON in your map")}
             </li>
             <li>
-              <Link href="https://docs.geolonia.com/" color="inherit" underline="always" target="_blank" rel="noopener noreferrer">
+              <Link
+                href="https://docs.geolonia.com/"
+                color="inherit"
+                underline="always"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {__("Build a custom map")}
               </Link>{" "}
               - {__("Browse developer docs")}

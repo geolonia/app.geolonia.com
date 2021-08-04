@@ -22,39 +22,47 @@ msgstr "招待が有効化されました。"
 msgid "Your invitation has been outdated."
 msgstr "この招待は無効です。"
 
-#: src/components/Dashboard.tsx:57
+#: src/components/Dashboard.tsx:56
+msgid ""
+"The dashboard has been renewed. The GeoJSON API that we used to provide is "
+"currently not accessible due to functional modifications. If you need to "
+"download the data, please <a href=\"https://geolonia.com/contact/\" target="
+"\"_blank\">contact us</a>."
+msgstr "ダッシュボードのリニューアルを行いました。以前提供していた GeoJSON API は機能改修を行っており、管理画面は現在アクセスできません。データのダウンロードが必要な場合、<a href=\"https://geolonia.com/contact/\" target=\"_blank\">ご連絡ください</a>。"
+
+#: src/components/Dashboard.tsx:63
 msgid "Get started with Geolonia map"
 msgstr "Geoloniaの地図を使ってみる"
 
-#: src/components/Dashboard.tsx:61
+#: src/components/Dashboard.tsx:67
 msgid "Display a map"
 msgstr "地図の表示"
 
-#: src/components/Dashboard.tsx:63
+#: src/components/Dashboard.tsx:69
 msgid "Create API key then add the map to your web site"
 msgstr "API キーを作成してWebサイトに地図を追加"
 
-#: src/components/Dashboard.tsx:67
+#: src/components/Dashboard.tsx:73
 msgid "Upload your data"
 msgstr "データをアップロード"
 
-#: src/components/Dashboard.tsx:69
+#: src/components/Dashboard.tsx:75
 msgid "Display CSV or GeoJSON in your map"
 msgstr "CSV / GeoJSON を地図に表示"
 
-#: src/components/Dashboard.tsx:73
+#: src/components/Dashboard.tsx:85
 msgid "Build a custom map"
 msgstr "カスタムマップを作成"
 
-#: src/components/Dashboard.tsx:75
+#: src/components/Dashboard.tsx:87
 msgid "Browse developer docs"
 msgstr "開発者ドキュメントを参照"
 
-#: src/components/Dashboard.tsx:81
+#: src/components/Dashboard.tsx:93
 msgid "Tutorials"
 msgstr "チュートリアル"
 
-#: src/components/Dashboard.tsx:84
+#: src/components/Dashboard.tsx:96
 msgid "Developer's Blog"
 msgstr "Developer's Blog"
 

@@ -11,39 +11,47 @@ msgstr ""
 msgid "Your invitation has been outdated."
 msgstr ""
 
-#: src/components/Dashboard.tsx:57
-msgid "Get started with Geolonia map"
-msgstr ""
-
-#: src/components/Dashboard.tsx:61
-msgid "Display a map"
+#: src/components/Dashboard.tsx:56
+msgid ""
+"The dashboard has been renewed. The GeoJSON API that we used to provide is "
+"currently not accessible due to functional modifications. If you need to "
+"download the data, please <a href=\"https://geolonia.com/contact/\" "
+"target=\"_blank\">contact us</a>."
 msgstr ""
 
 #: src/components/Dashboard.tsx:63
-msgid "Create API key then add the map to your web site"
+msgid "Get started with Geolonia map"
 msgstr ""
 
 #: src/components/Dashboard.tsx:67
-msgid "Upload your data"
+msgid "Display a map"
 msgstr ""
 
 #: src/components/Dashboard.tsx:69
-msgid "Display CSV or GeoJSON in your map"
+msgid "Create API key then add the map to your web site"
 msgstr ""
 
 #: src/components/Dashboard.tsx:73
-msgid "Build a custom map"
+msgid "Upload your data"
 msgstr ""
 
 #: src/components/Dashboard.tsx:75
+msgid "Display CSV or GeoJSON in your map"
+msgstr ""
+
+#: src/components/Dashboard.tsx:85
+msgid "Build a custom map"
+msgstr ""
+
+#: src/components/Dashboard.tsx:87
 msgid "Browse developer docs"
 msgstr ""
 
-#: src/components/Dashboard.tsx:81
+#: src/components/Dashboard.tsx:93
 msgid "Tutorials"
 msgstr ""
 
-#: src/components/Dashboard.tsx:84
+#: src/components/Dashboard.tsx:96
 msgid "Developer's Blog"
 msgstr ""
 
