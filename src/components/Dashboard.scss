@@ -54,7 +54,7 @@
     margin-bottom: 1em;
     border: none !important;
     box-shadow: none !important;
-    padding: 30px;
+    padding: 40px 35px;
     border: 6px solid #fff !important;
 
     .box-icon
@@ -75,9 +75,12 @@
     {
       h2
       {
-        margin: 0;
-        font-weight: normal;
+        margin: 10px 0;
+        font-weight: 900;
         letter-spacing: 0.04em;
+        color: #333333;
+        line-height: 32px;
+        font-size: 30px;
       }
 
       ul
