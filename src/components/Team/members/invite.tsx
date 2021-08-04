@@ -7,12 +7,13 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
 // Util
-import { __ } from "@wordpress/i18n";
+import { sprintf, __ } from "@wordpress/i18n";
 import fetch from "../../../lib/fetch";
 
 // redux
 import { connect } from "react-redux";
 import { buildApiAppUrl } from "../../../lib/api";
+import Interweave from "interweave";
 
 type OwnProps = {
   disabled?: boolean;
@@ -69,18 +70,20 @@ export const Invite = (props: Props) => {
     }
   };
 
+  const teamName = props.team && props.team.name;
+
   return (
     <>
       <AddNew
         disabled={props.disabled}
         buttonLabel={__("Invite")}
         label={__("Send an invitation")}
-        description={"" /*__(
-          "We automatically update your billing as your invitation is accepted."
-        )*/}
+        description={<Interweave content={
+          sprintf(__("Please enter the email address of the person you want to invite to \"%s\". Please note that the user must <a href=\"/#/signup\" target=\"_blank\">create a Geolonia account</a> first before you can send the invitation."), teamName)
+        } />}
         defaultValue=""
         fieldName="email"
-        fieldLabel={__("Email")}
+        fieldLabel={__("Receipient's email address")}
         fieldType="email"
         errorMessage={message}
         onClick={inviteHandler}

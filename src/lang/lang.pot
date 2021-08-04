@@ -99,7 +99,7 @@ msgstr ""
 #: src/components/Data/GeoJson.tsx:99
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:114
-#: src/components/Maps/APIKeys.tsx:35
+#: src/components/Maps/APIKeys.tsx:41
 #: src/components/Navigator.tsx:268
 #: src/components/Team/Billing.tsx:173
 msgid "Home"
@@ -411,8 +411,7 @@ msgid "Logout"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:118
-#: src/components/Maps/APIKeys.tsx:69
-#: src/components/Navigator.tsx:163
+#: src/components/Maps/APIKeys.tsx:75
 msgid "API keys"
 msgstr ""
 
@@ -454,24 +453,25 @@ msgstr ""
 msgid "Your API Key"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:63
+#: src/components/Maps/APIKeys.tsx:69
 msgid "(No date)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:71
+#: src/components/Maps/APIKeys.tsx:77
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:75
-msgid "Create a new API key"
+#: src/components/Maps/APIKeys.tsx:81
+#: src/components/custom/AddNew.tsx:35
+msgid "New"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:76
-msgid "Please enter the name of new API key."
+#: src/components/Maps/APIKeys.tsx:84
+msgid "API Key (created by %1$s on %2$s)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:77
-msgid "My API"
+#: src/components/Maps/APIKeys.tsx:87
+msgid "A new API key has been created."
 msgstr ""
 
 #: src/components/Navigator.tsx:109
@@ -525,7 +525,7 @@ msgstr ""
 msgid "We'll send you an email receipt."
 msgstr ""
 
-#: src/components/Paperbase.tsx:159
+#: src/components/Paperbase.tsx:160
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
@@ -871,40 +871,47 @@ msgstr ""
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:106
+#: src/components/Team/members/invite.tsx:109
 msgid "Successfully send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:108
+#: src/components/Team/members/invite.tsx:111
 msgid "Failed to send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:38
+#: src/components/Team/members/invite.tsx:39
 msgid "That user is already a member of this team."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:60
+#: src/components/Team/members/invite.tsx:61
 msgid "The maximum number of members has been reached."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:64
+#: src/components/Team/members/invite.tsx:65
 msgid "You cannot use this email address for invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:76
+#: src/components/Team/members/invite.tsx:79
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:77
+#: src/components/Team/members/invite.tsx:80
 msgid "Send an invitation"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:83
-#: src/components/User/profile.tsx:117
-msgid "Email"
+#: src/components/Team/members/invite.tsx:82
+msgid ""
+"Please enter the email address of the person you want to invite to \"%s\". "
+"Please note that the user must <a href=\"/#/signup\" "
+"target=\"_blank\">create a Geolonia account</a> first before you can send "
+"the invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:89
+#: src/components/Team/members/invite.tsx:86
+msgid "Receipient's email address"
+msgstr ""
+
+#: src/components/Team/members/invite.tsx:92
 msgid "Send"
 msgstr ""
 
@@ -976,6 +983,10 @@ msgstr ""
 msgid "You can update your profile and security."
 msgstr ""
 
+#: src/components/User/profile.tsx:117
+msgid "Email"
+msgstr ""
+
 #: src/components/User/profile.tsx:138
 msgid "Language"
 msgstr ""
@@ -1006,10 +1017,6 @@ msgstr ""
 
 #: src/components/User/security.tsx:88
 msgid "Old password"
-msgstr ""
-
-#: src/components/custom/AddNew.tsx:35
-msgid "New"
 msgstr ""
 
 #: src/components/custom/AddNew.tsx:36

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: 2021-08-03 17:48+0900\n"
+"PO-Revision-Date: 2021-08-04 09:08+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -108,7 +108,7 @@ msgid "Adding your data to the map..."
 msgstr "データを地図に追加しています。"
 
 #: src/components/Data/GeoJson.tsx:99 src/components/Data/GeoJsons.tsx:91
-#: src/components/Maps/APIKey.tsx:114 src/components/Maps/APIKeys.tsx:35
+#: src/components/Maps/APIKey.tsx:114 src/components/Maps/APIKeys.tsx:41
 #: src/components/Navigator.tsx:268 src/components/Team/Billing.tsx:173
 msgid "Home"
 msgstr "ホーム"
@@ -433,8 +433,7 @@ msgstr "プロフィール"
 msgid "Logout"
 msgstr "ログアウト"
 
-#: src/components/Maps/APIKey.tsx:118 src/components/Maps/APIKeys.tsx:69
-#: src/components/Navigator.tsx:163
+#: src/components/Maps/APIKey.tsx:118 src/components/Maps/APIKeys.tsx:75
 msgid "API keys"
 msgstr "API キー"
 
@@ -480,27 +479,27 @@ msgstr "この API キーを本当に削除しますか？"
 msgid "Your API Key"
 msgstr "あなたの API キー"
 
-#: src/components/Maps/APIKeys.tsx:63
+#: src/components/Maps/APIKeys.tsx:69
 msgid "(No date)"
 msgstr "(データなし)"
 
-#: src/components/Maps/APIKeys.tsx:71
+#: src/components/Maps/APIKeys.tsx:77
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成して"
 "ください。"
 
-#: src/components/Maps/APIKeys.tsx:75
-msgid "Create a new API key"
-msgstr "新しい API キーを作成"
+#: src/components/Maps/APIKeys.tsx:81 src/components/custom/AddNew.tsx:35
+msgid "New"
+msgstr "新規作成"
 
-#: src/components/Maps/APIKeys.tsx:76
-msgid "Please enter the name of new API key."
-msgstr "新しいAPI キーの名前を入力して保存してください。"
+#: src/components/Maps/APIKeys.tsx:84
+msgid "API Key (created by %1$s on %2$s)"
+msgstr "API キー (%1$s が %2$s に作成)"
 
-#: src/components/Maps/APIKeys.tsx:77
-msgid "My API"
-msgstr "API キー"
+#: src/components/Maps/APIKeys.tsx:87
+msgid "A new API key has been created."
+msgstr "新しい API キーが作成されました。"
 
 #: src/components/Navigator.tsx:109
 msgid "My team"
@@ -550,7 +549,7 @@ msgstr "支払い"
 msgid "We'll send you an email receipt."
 msgstr "指定したメールに請求情報を送信します。"
 
-#: src/components/Paperbase.tsx:159
+#: src/components/Paperbase.tsx:160
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
@@ -877,7 +876,10 @@ msgstr "保存"
 
 #: src/components/Team/members/index.tsx:144
 msgid "You can manage members in your team."
-msgstr "チームメンバーの管理ができます。"
+msgstr ""
+"チームメンバーの管理ができます。チームの参加者には「オーナー」と「メンバー」"
+"の2つの権限があります。オーナーは他のメンバーの招待、権限変更、一時停止、削除"
+"が可能です。"
 
 #: src/components/Team/members/index.tsx:148
 msgid ""
@@ -904,40 +906,52 @@ msgstr "一時停止"
 msgid "Remove from team"
 msgstr "チームから削除"
 
-#: src/components/Team/members/invite.tsx:106
+#: src/components/Team/members/invite.tsx:109
 msgid "Successfully send invitation."
 msgstr "チームへの招待が送信されました。"
 
-#: src/components/Team/members/invite.tsx:108
+#: src/components/Team/members/invite.tsx:111
 msgid "Failed to send invitation."
 msgstr "招待の送信に失敗しました。"
 
-#: src/components/Team/members/invite.tsx:38
+#: src/components/Team/members/invite.tsx:39
 msgid "That user is already a member of this team."
 msgstr "すでにメンバーになっています。"
 
-#: src/components/Team/members/invite.tsx:60
+#: src/components/Team/members/invite.tsx:61
 msgid "The maximum number of members has been reached."
 msgstr "メンバー数が上限に達しました。"
 
-#: src/components/Team/members/invite.tsx:64
+#: src/components/Team/members/invite.tsx:65
 msgid "You cannot use this email address for invitation."
 msgstr "このメールアドレスは招待に使用できません。"
 
-#: src/components/Team/members/invite.tsx:76
+#: src/components/Team/members/invite.tsx:79
 msgid "Invite"
 msgstr "招待"
 
-#: src/components/Team/members/invite.tsx:77
+#: src/components/Team/members/invite.tsx:80
 msgid "Send an invitation"
 msgstr "招待する"
 
-#: src/components/Team/members/invite.tsx:83
-#: src/components/User/profile.tsx:117
-msgid "Email"
-msgstr "メールアドレス"
+#: src/components/Team/members/invite.tsx:82
+msgid ""
+"Please enter the email address of the person you want to invite to \"%s\". "
+"Please note that the user must <a href=\"/#/signup\" target=\"_blank"
+"\">create a Geolonia account</a> first before you can send the invitation."
+msgstr ""
+"チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n"
+"<br>\n"
+"※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が完"
+"了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps にまだ"
+"登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユーザー登録</"
+"a>を済ませてから招待を送信してください。"
 
-#: src/components/Team/members/invite.tsx:89
+#: src/components/Team/members/invite.tsx:86
+msgid "Receipient's email address"
+msgstr "招待するユーザーの Geolonia 登録メールアドレス"
+
+#: src/components/Team/members/invite.tsx:92
 msgid "Send"
 msgstr "送信"
 
@@ -1014,6 +1028,10 @@ msgstr "プロフィール"
 msgid "You can update your profile and security."
 msgstr "プロフィールとセキュリティを設定できます。"
 
+#: src/components/User/profile.tsx:117
+msgid "Email"
+msgstr "メールアドレス"
+
 #: src/components/User/profile.tsx:138
 msgid "Language"
 msgstr "言語"
@@ -1045,10 +1063,6 @@ msgstr "セキュリティ"
 #: src/components/User/security.tsx:88
 msgid "Old password"
 msgstr "古いパスワード"
-
-#: src/components/custom/AddNew.tsx:35
-msgid "New"
-msgstr "新規作成"
 
 #: src/components/custom/AddNew.tsx:36
 msgid "name"
@@ -1267,11 +1281,17 @@ msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
 
-#~ msgid "Contact Geolonia"
-#~ msgstr "Geolonia へのお問い合わせ"
-
 #~ msgid "Get Started"
 #~ msgstr "Get Started"
+
+#~ msgid "Create a new API key"
+#~ msgstr "新しい API キーを作成"
+
+#~ msgid "Please enter the name of new API key."
+#~ msgstr "新しいAPI キーの名前を入力して保存してください。"
+
+#~ msgid "My API"
+#~ msgstr "API キー"
 
 #~ msgid "URL"
 #~ msgstr "URL"
@@ -1296,9 +1316,6 @@ msgstr "6"
 
 #~ msgid "Get API key"
 #~ msgstr "API キーを取得"
-
-#~ msgid "Get API key then create your map!"
-#~ msgstr "API キーを取得して新しい地図を作成しましょう。"
 
 #~ msgid "Manage and style your GeoJSON."
 #~ msgstr "GeoJSON を登録してスタイルをカスタマイズしましょう。"
