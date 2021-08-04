@@ -151,7 +151,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
   const mapChildren = []
   if (selectedTeam?.featureFlags?.prereleaseGeojsonApi) {
     mapChildren.push({
-      id: __("Manage Location Data"),
+      id: __("Location Data"),
       icon: <RoomIcon />,
       href: "#/data/geojson",
       active: false
@@ -172,7 +172,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
       ]
     },
     {
-      id: __("Location Data"),
+      id: __("Map"),
       children: mapChildren,
         // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
     },
