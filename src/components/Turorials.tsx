@@ -17,26 +17,31 @@ const getTutorialContents = () => {
       title: __('How to use the Dashboard'),
       excerpt: __('Learn about the easiest way to embed a Geolonia map in your website.'),
       url: 'https://docs.geolonia.com/tutorial/',
+      btnText: __('Read More')
     },
     {
       title: __('Embed API'),
       excerpt: __('The Embed API allows you to set up a map with just a simple HTML code.'),
-      url: 'https://docs.geolonia.com/embed-api/'
+      url: 'https://docs.geolonia.com/embed-api/',
+      btnText: __('Read More')
     },
     {
       title: __('JavaScript API'),
       excerpt: __('Learn how to develop a professional map application using the JavaScript API.'),
-      url: 'https://docs.geolonia.com/javascript-api/'
+      url: 'https://docs.geolonia.com/javascript-api/',
+      btnText: __('Read More')
     },
     {
       title: __('Custom Style'),
       excerpt: __('Learn how to customize the style of your map.'),
       url: 'https://docs.geolonia.com/custom-style/',
+      btnText: __('Read More')
     },
     {
       title: __('Support'),
       excerpt: __('Please contact us if you have any questions about how to use the admin panel or if you need technical support (which may be paid).'),
       url: 'https://geolonia.com/contact/',
+      btnText: __('Contact support')
     },
   ]
 }
@@ -60,7 +65,8 @@ const useStyles = makeStyles({
   },
   excerpt: {},
   button: {
-    color: '#EB5C0B'
+    color: '#EB5C0B',
+    marginLeft: '13px'
   }
 })
 
@@ -82,12 +88,8 @@ export const Tutorials: React.FC = () => {
                 <Typography variant="body2" color="textSecondary" component="p" className={classes.excerpt}>{post.excerpt}</Typography>
               </div>
             </CardContent>
+            <Button className={classes.button} size="small">{post.btnText}</Button>
           </CardActionArea>
-          <CardActions>
-            <Button className={classes.button} size="small">
-              Learn More
-            </Button>
-          </CardActions>
         </Card>
       </Grid>)
     }
