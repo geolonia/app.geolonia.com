@@ -985,54 +985,51 @@ msgstr "メンバーの一時停止"
 msgid "The following members will be suspended:"
 msgstr "以下のメンバーによる操作が一時停止されます。"
 
-#: src/components/Turorials.tsx:14
+#: src/components/Turorials.tsx:17
 msgid "How to use the Dashboard"
 msgstr "管理画面の使い方"
 
-#: src/components/Turorials.tsx:15
+#: src/components/Turorials.tsx:18
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
 msgstr ""
 "ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
 
-#: src/components/Turorials.tsx:19
+#: src/components/Turorials.tsx:22
 msgid "Embed API"
 msgstr "Embed API"
 
-#: src/components/Turorials.tsx:20
+#: src/components/Turorials.tsx:23
 msgid "The Embed API allows you to set up a map with just a simple HTML code."
-msgstr ""
-"Embed API を使用すると、簡単な HTML を記述するだけで地図を設置することが可能"
-"です。"
+msgstr "Embed API を使用すると、簡単な HTML を書くだけで地図を設置出来ます。"
 
-#: src/components/Turorials.tsx:24
+#: src/components/Turorials.tsx:27
 msgid "JavaScript API"
 msgstr "JavaScript API"
 
-#: src/components/Turorials.tsx:25
+#: src/components/Turorials.tsx:28
 msgid ""
 "Learn how to develop a professional map application using the JavaScript API."
 msgstr ""
 "JavaScript API を使った本格的な地図アプリの開発方法についてご紹介します。"
 
-#: src/components/Turorials.tsx:29
+#: src/components/Turorials.tsx:32
 msgid "Custom Style"
 msgstr "カスタムスタイル"
 
-#: src/components/Turorials.tsx:30
+#: src/components/Turorials.tsx:33
 msgid "Learn how to customize the style of your map."
 msgstr "地図のスタイルをカスタマイズする方法についてご紹介します。"
 
-#: src/components/Turorials.tsx:34
+#: src/components/Turorials.tsx:37
 msgid "Support"
 msgstr "サポート"
 
-#: src/components/Turorials.tsx:35
+#: src/components/Turorials.tsx:38
 msgid ""
 "Please contact us if you have any questions about how to use the admin panel "
 "or if you need technical support (which may be paid)."
 msgstr ""
-"管理画面の使い方についての質問や、技術支援（有償の場合があります）が必要な方"
-"はご連絡ください。"
+"管理画面の使い方の質問や、有償の技術サポートはこちらからお問い合わせください。"
 
 #: src/components/User/User.tsx:24
 msgid "Your profile"

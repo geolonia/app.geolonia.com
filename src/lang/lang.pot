@@ -938,45 +938,45 @@ msgstr ""
 msgid "The following members will be suspended:"
 msgstr ""
 
-#: src/components/Turorials.tsx:14
+#: src/components/Turorials.tsx:17
 msgid "How to use the Dashboard"
 msgstr ""
 
-#: src/components/Turorials.tsx:15
+#: src/components/Turorials.tsx:18
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
 msgstr ""
 
-#: src/components/Turorials.tsx:19
+#: src/components/Turorials.tsx:22
 msgid "Embed API"
 msgstr ""
 
-#: src/components/Turorials.tsx:20
+#: src/components/Turorials.tsx:23
 msgid "The Embed API allows you to set up a map with just a simple HTML code."
 msgstr ""
 
-#: src/components/Turorials.tsx:24
+#: src/components/Turorials.tsx:27
 msgid "JavaScript API"
 msgstr ""
 
-#: src/components/Turorials.tsx:25
+#: src/components/Turorials.tsx:28
 msgid ""
 "Learn how to develop a professional map application using the JavaScript "
 "API."
 msgstr ""
 
-#: src/components/Turorials.tsx:29
+#: src/components/Turorials.tsx:32
 msgid "Custom Style"
 msgstr ""
 
-#: src/components/Turorials.tsx:30
+#: src/components/Turorials.tsx:33
 msgid "Learn how to customize the style of your map."
 msgstr ""
 
-#: src/components/Turorials.tsx:34
+#: src/components/Turorials.tsx:37
 msgid "Support"
 msgstr ""
 
-#: src/components/Turorials.tsx:35
+#: src/components/Turorials.tsx:38
 msgid ""
 "Please contact us if you have any questions about how to use the admin "
 "panel or if you need technical support (which may be paid)."
