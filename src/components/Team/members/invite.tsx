@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import AddNew from "../../custom/AddNew";
@@ -7,11 +7,13 @@ import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 
 // Util
-import { __ } from "@wordpress/i18n";
+import { sprintf, __ } from "@wordpress/i18n";
 import fetch from "../../../lib/fetch";
 
 // redux
 import { connect } from "react-redux";
+import { buildApiAppUrl } from "../../../lib/api";
+import Interweave from "interweave";
 
 type OwnProps = {
   disabled?: boolean;
@@ -25,24 +27,24 @@ type StateProps = {
 type Props = OwnProps & StateProps;
 
 export const Invite = (props: Props) => {
-  const [message, setMessage] = React.useState("");
-  const [status, setStatus] = React.useState<
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState<
     false | "requesting" | "success" | "failure"
   >(false);
 
-  const inviteHandler = (email: string) => {
+  const inviteHandler = async (email: string) => {
     const { session, team, members } = props;
 
     if (members.find(member => member.email === email)) {
-      setMessage(__("They is already a member of this team."));
-      return Promise.reject("They are already a member of the team.");
+      setMessage(__("That user is already a member of this team."));
+      return Promise.reject("That user is already a member of the team.");
     }
 
     if (team) {
       setStatus("requesting");
-      return fetch(
+      const res = await fetch(
         session,
-        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${team.teamId}/invitation`,
+        buildApiAppUrl(`/teams/${team.teamId}/invitation`),
         {
           method: "POST",
           headers: {
@@ -50,24 +52,25 @@ export const Invite = (props: Props) => {
           },
           body: JSON.stringify({ email })
         }
-      ).then(res => {
-        if (res.status < 400) {
-          setStatus("success");
-          return res.json();
-        } else if (res.status === 402) {
-          setStatus("failure");
-          setMessage(__("The maximum number of members has been reached."));
-          throw new Error();
-        } else {
-          setStatus("failure");
-          setMessage(__("You cannot use this email address for invitation."));
-          throw new Error();
-        }
-      });
+      );
+      if (res.status < 400) {
+        setStatus("success");
+        return res.json();
+      } else if (res.status === 402) {
+        setStatus("failure");
+        setMessage(__("The maximum number of members has been reached."));
+        throw new Error();
+      } else {
+        setStatus("failure");
+        setMessage(__("You cannot use this email address for invitation."));
+        throw new Error();
+      }
     } else {
       return Promise.reject("No team");
     }
   };
+
+  const teamName = props.team && props.team.name;
 
   return (
     <>
@@ -75,12 +78,12 @@ export const Invite = (props: Props) => {
         disabled={props.disabled}
         buttonLabel={__("Invite")}
         label={__("Send an invitation")}
-        description={__(
-          "We automatically update your billing as your invitation is accepted."
-        )}
+        description={<Interweave content={
+          sprintf(__("Please enter the email address of the person you want to invite to \"%s\". Please note that the user must <a href=\"/#/signup\" target=\"_blank\">create a Geolonia account</a> first before you can send the invitation."), teamName)
+        } />}
         defaultValue=""
         fieldName="email"
-        fieldLabel={__("Email")}
+        fieldLabel={__("Receipient's email address")}
         fieldType="email"
         errorMessage={message}
         onClick={inviteHandler}

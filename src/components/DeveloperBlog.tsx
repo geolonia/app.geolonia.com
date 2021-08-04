@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 });
 
 const Content = (props: Props) => {
-  const [blogItems, setBlogItems] = React.useState<BlogPost[]>([])
+  const [blogItems, setBlogItems] = useState<BlogPost[]>([])
   const classes = useStyles();
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const Content = (props: Props) => {
         return (
           <Grid item lg={4} md={6} xs={12} key={index}>
             <Card className={classes.root}>
-              <CardActionArea onClick={() => window.location.href = post.url}>
+              <CardActionArea onClick={() => window.open(post.url, '_blank')}>
                 <CardMedia
                   className={classes.media}
                   image={post.thumbnail + '-/resize/800x/-/format/auto/-/quality/lightest/'}

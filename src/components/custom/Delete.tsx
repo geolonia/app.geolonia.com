@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import Typography from "@material-ui/core/Typography";
@@ -38,9 +38,9 @@ export const Delete: React.FC<Props> = (props) => {
   const { disableCancel, disableDelete } = props;
   const { text1, text2 } = getTexts(props);
 
-  const [open, setOpen] = React.useState(false);
-  const [confirmation, setConfirmation] = React.useState("");
-  const [status, setStatus] = React.useState<Status>(false);
+  const [open, setOpen] = useState(false);
+  const [confirmation, setConfirmation] = useState("");
+  const [status, setStatus] = useState<Status>(false);
 
   const isCancelDisabled =
     typeof disableCancel === "function"

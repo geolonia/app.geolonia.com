@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
 
@@ -7,6 +7,8 @@ import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import { SELECTED_TEAM_ID_KEY } from "../redux/middlewares/local-storage";
 
+import { buildApiAppUrl } from "../lib/api";
+
 type OwnProps = { isReady: boolean };
 type RouterProps = {
   match: { params: { invitationToken: string; teamId: string } };
@@ -14,7 +16,7 @@ type RouterProps = {
 type Props = OwnProps & RouterProps;
 
 const useInvitationAcceptRequest = (props: Props) => {
-  const [status, setStatus] = React.useState<
+  const [status, setStatus] = useState<
     false | "success" | "failure" | "requesting"
   >(false);
 
@@ -25,11 +27,11 @@ const useInvitationAcceptRequest = (props: Props) => {
     }
   } = props;
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (isReady && status === false) {
       setStatus("requesting");
       fetch(
-        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/accept-invitation`,
+        buildApiAppUrl('/accept-invitation'),
         {
           method: "POST",
           headers: { "Content-Type": "Application/json" },

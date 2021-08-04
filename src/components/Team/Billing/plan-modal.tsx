@@ -13,6 +13,8 @@ import {
   Radio
 } from "@material-ui/core";
 import { parsePlanLabel } from "../Billing";
+import { buildApiAppUrl } from "../../../lib/api";
+import Alert from "../../custom/Alert";
 
 type PlanId = string | null | undefined;
 
@@ -67,6 +69,7 @@ const PlanModal = (props: Props) => {
   const [loading, setLoading] = useState(false);
   const [planId, setPlanId] = useState<PlanId>(void 0);
   const message = useMessage(currentPlanId, planId);
+  const [ alertMessage, setAlertMessage ] = useState<string | undefined>();
 
   const handleSubmit = useCallback(async () => {
     if (!teamId) {
@@ -75,7 +78,7 @@ const PlanModal = (props: Props) => {
     setLoading(true);
     const res = await fetch(
       session,
-      `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/plan`,
+      buildApiAppUrl(`/teams/${teamId}/plan`),
       {
         method: "PUT",
         headers: {
@@ -86,9 +89,13 @@ const PlanModal = (props: Props) => {
     );
 
     try {
+      const resp = await res.json()
       if (res.status < 400) {
         handleClose();
         window.location.reload();
+      } else if (res.status === 402 && resp.message === "Payment required for this action.") {
+        // something happened with changing the plan
+        setAlertMessage(__("The plan could not be changed. If you are trying to downgrade your team to a team that supports fewer members, please remove the extra members before downgrading your team. If you still get this error, please contact us."));
       } else {
         throw new Error();
       }
@@ -99,6 +106,11 @@ const PlanModal = (props: Props) => {
       setLoading(false);
     }
   }, [ session, teamId, planId, setLoading, handleClose ]);
+
+  const currencyFormatter = new Intl.NumberFormat('ja-JP', {
+    style: 'currency',
+    currency: 'JPY',
+  });
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -118,7 +130,13 @@ const PlanModal = (props: Props) => {
                     onChange={e => setPlanId(plan.planId)}
                   />
                 }
-                label={parsePlanLabel(plans, plan.planId)}
+                label={<>
+                  {parsePlanLabel(plans, plan.planId)}
+                  {typeof plan.price !== 'undefined' && <>
+                    &nbsp;-&nbsp;
+                    {currencyFormatter.format(plan.price)}/月
+                  </> }
+                </>}
               />
               {/* <DialogContentText>
             <ul>
@@ -154,6 +172,9 @@ const PlanModal = (props: Props) => {
             {__("Update")}
           </Button>
           <p>{message}</p>
+          { typeof alertMessage !== 'undefined' && <Alert>
+           {alertMessage}
+          </Alert>}
         </div>
       </div>
     </Modal>

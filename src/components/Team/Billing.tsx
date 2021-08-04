@@ -29,6 +29,7 @@ import moment from "moment";
 
 import customFetch from "../../lib/fetch";
 import { Redirect } from "react-router";
+import { buildApiAppUrl } from "../../lib/api";
 
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
@@ -97,26 +98,11 @@ export const parsePlanLabel = (
   plans: GeoloniaPlan[],
   planId: PossiblePlanId
 ) => {
-  let currentPlanName = "";
-  let currentDuration: "" | Duration = "";
   if (planId === null) {
-    currentPlanName = __("Free plan");
-  } else {
-    const currentPlan = plans
-      .filter(plan => !isAppliancePlan(plan))
-      .find(plan => (plan as GeoloniaConstantPlan).planId === planId);
-    if (currentPlan && currentPlan.name === "Pro") {
-      currentPlanName = __("Pro plan");
-      currentDuration = (currentPlan as GeoloniaConstantPlan).duration;
-    }
+    return __("Free plan");
   }
-
-  if (currentDuration === "month") {
-    currentPlanName += " " + __("monthly");
-  } else if (currentDuration === "year") {
-    currentPlanName += " " + __("yearly");
-  }
-  return currentPlanName;
+  const plan = plans.find(plan => (plan as GeoloniaConstantPlan).planId === planId);
+  return plan?.name;
 };
 
 const usePlan = (props: StateProps) => {
@@ -139,7 +125,7 @@ const usePlan = (props: StateProps) => {
         contactRequired: void 0
       };
 
-      const res = await fetch(`https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/plans`);
+      const res = await fetch(buildApiAppUrl('/plans'));
       const data = await res.json();
       setPlans([freePlan, ...data]);
     })();
@@ -161,7 +147,7 @@ const usePlan = (props: StateProps) => {
       setLoaded(true);
       const res = await customFetch(
         session,
-        `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${teamId}/plan`
+        buildApiAppUrl(`/teams/${teamId}/plan`),
       );
       const data = await res.json();
       setPlanId(data.planId);
@@ -201,7 +187,7 @@ const Billing = (props: StateProps) => {
     setResumeSubLoading(true);
     const res = await customFetch(
       session,
-      `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${teamId}/plan`,
+      buildApiAppUrl(`/teams/${teamId}/plan`),
       {
         method: "PUT",
         headers: {
@@ -338,7 +324,7 @@ const Billing = (props: StateProps) => {
         </Table>
       </div>
       <p style={{ textAlign: "right" }}>
-        <a href="https://geolonia.com/pricing">
+        <a href="https://geolonia.com/pricing" target="_blank" rel="noreferrer">
           {__("Learn more about plans on the pricing page.")}
         </a>
       </p>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import Button from "@material-ui/core/Button";
@@ -44,16 +44,16 @@ type Props = OwnProps & StateProps;
 
 const Content = (props: Props) => {
   const { members } = props;
-  const [currentMember, setCurrentMember] = React.useState<
+  const [currentMember, setCurrentMember] = useState<
     false | Geolonia.Member
   >(false);
 
   // Dialogs open
-  const [openChangeRole, setOpenChangeRole] = React.useState(false);
-  const [openSuspend, setOpenSuspend] = React.useState(false);
-  const [openRemoveMember, setOpenRemoveMember] = React.useState(false);
+  const [openChangeRole, setOpenChangeRole] = useState(false);
+  const [openSuspend, setOpenSuspend] = useState(false);
+  const [openRemoveMember, setOpenRemoveMember] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     handleClose();
   }, [openChangeRole, openRemoveMember]);
   const rows: Row[] = members.map(member => {
@@ -101,7 +101,7 @@ const Content = (props: Props) => {
 
   const onClick = (e: any) => {};
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const index = parseInt(event.currentTarget.value);
@@ -129,32 +129,32 @@ const Content = (props: Props) => {
 
   const { team } = props;
   let isOwner = false;
-  // let isPaidTeam = false;
+  let isPaidTeam = false;
   if (team) {
     isOwner = team.role === Roles.Owner;
-    // isPaidTeam = team.isPaidTeam;
+    isPaidTeam = team.isPaidTeam;
   }
 
-  const inviteDisabled = true;
-  // NOTE: Payment feature and currently disabled
-  // !team || // Not ready
-  // !isOwner ||
-  // !isPaidTeam ||
-  // team.maxMemberLength <= members.length ||
-  // members.length === 0;
+  const inviteDisabled =
+    !isOwner || !isPaidTeam || !( team && (team.maxMemberLength > members.length));
 
   return (
     <div>
       <Title title="Members" breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
-        <Alert type="danger">
-          {__(
-            "We are in public beta version. Member features will be added soon."
-          )}
-        </Alert>
+
+        { isOwner && inviteDisabled &&
+          <Alert type="danger">
+            {__(
+              "You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
+            )}
+          </Alert>
+        }
       </Title>
 
-      <Invite disabled={inviteDisabled} />
+      { isOwner &&
+        <Invite disabled={inviteDisabled} />
+      }
 
       {/* each member management */}
       {currentMember && (

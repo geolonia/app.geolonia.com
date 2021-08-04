@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 
 // Components
 import Button from "@material-ui/core/Button";
@@ -17,7 +17,7 @@ import { __ } from "@wordpress/i18n";
 type Props = {
   disabled?: boolean;
   label: string;
-  description: string;
+  description: string | JSX.Element;
   defaultValue: string;
   onClick: (value: string) => Promise<any>;
   // optionals
@@ -40,7 +40,7 @@ const getTexts = (props: Props) => ({
   saveButtonLabel: props.saveButtonLabel || __("Save")
 });
 
-export const AddNew = (props: Props) => {
+export const AddNew: React.FC<Props> = (props) => {
   const { defaultValue, label, description, disabled } = props;
   const {
     buttonLabel,
@@ -51,48 +51,55 @@ export const AddNew = (props: Props) => {
     saveButtonLabel
   } = getTexts(props);
 
-  const [text, setText] = React.useState(defaultValue);
-  const [open, setOpen] = React.useState(false);
-  const [status, setStatus] = React.useState<
+  const [text, setText] = useState(defaultValue);
+  const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState<
     false | "working" | "success" | "failure"
   >(false);
+
+  const {
+    onClick,
+    onSuccess,
+    onError,
+  } = props;
 
   const buttonStyle: React.CSSProperties = {
     textAlign: "right",
     margin: 0
   };
 
-  function handleClickOpen() {
+  const handleClickOpen = useCallback(() => {
     setOpen(true);
-  }
+  }, []);
 
-  function handleClose() {
+  const handleClose = useCallback(() => {
     setOpen(false);
     // hide state change on hiding animation
     setTimeout(() => {
       setStatus(false);
       setText(defaultValue);
     }, 200);
-  }
+  }, [defaultValue]);
 
-  const onSaveClick = () => {
+  const saveHandler = useCallback<React.FormEventHandler>(async (e) => {
+    e.preventDefault();
     setStatus("working");
-    props
-      .onClick(text)
-      .then(() => {
-        setStatus("success");
-        handleClose();
-        if (typeof props.onSuccess === "function") {
-          props.onSuccess();
-        }
-      })
-      .catch(err => {
-        setStatus("failure");
-        if (typeof props.onError === "function") {
-          props.onError(err);
-        }
-      });
-  };
+
+    try {
+      await onClick(text);
+    } catch (err) {
+      setStatus("failure");
+      if (typeof onError === "function") {
+        onError(err);
+      }
+    }
+
+    setStatus("success");
+    handleClose();
+    if (typeof onSuccess === "function") {
+      onSuccess();
+    }
+  }, [handleClose, onClick, onSuccess, onError, text]);
 
   const isButtonsDisabled = status === "working" || status === "success";
 
@@ -108,33 +115,33 @@ export const AddNew = (props: Props) => {
           <AddIcon /> {buttonLabel}
         </Button>
       </p>
-      <form>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          fullWidth={true}
-          disableBackdropClick={isButtonsDisabled}
-          aria-labelledby="form-dialog-title"
-        >
-          <DialogTitle id="form-dialog-title">{label}</DialogTitle>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        fullWidth={true}
+        disableBackdropClick={isButtonsDisabled}
+        aria-labelledby="form-dialog-title"
+      >
+        <DialogTitle id="form-dialog-title">{label}</DialogTitle>
+        <form onSubmit={saveHandler}>
           <DialogContent>
-            <DialogContentText>{description}</DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              name={fieldName}
-              label={fieldLabel}
-              type={fieldType}
-              value={text}
-              onChange={e => {
-                setStatus(false);
-                setText(e.target.value);
-              }}
-              fullWidth
-            />
-            {status === "failure" && (
-              <DialogContentText>{errorMessage}</DialogContentText>
-            )}
+              <DialogContentText>{description}</DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                name={fieldName}
+                label={fieldLabel}
+                type={fieldType}
+                value={text}
+                onChange={e => {
+                  setStatus(false);
+                  setText(e.target.value);
+                }}
+                fullWidth
+              />
+              {status === "failure" && (
+                <DialogContentText>{errorMessage}</DialogContentText>
+              )}
           </DialogContent>
           <DialogActions>
             <Button
@@ -145,7 +152,6 @@ export const AddNew = (props: Props) => {
               {__("Cancel")}
             </Button>
             <Button
-              onClick={onSaveClick}
               disabled={isButtonsDisabled}
               color="primary"
               type="submit"
@@ -156,8 +162,8 @@ export const AddNew = (props: Props) => {
               {saveButtonLabel}
             </Button>
           </DialogActions>
-        </Dialog>
-      </form>
+        </form>
+      </Dialog>
     </div>
   );
 };

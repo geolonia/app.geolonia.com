@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import Typography from "@material-ui/core/Typography";
@@ -34,19 +34,20 @@ type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
   team: Geolonia.Team;
+  teamLength: number;
 };
 type Props = OwnProps & StateProps;
 
-const Content = (props: Props) => {
+const TeamDeletion = (props: Props) => {
   // state
-  const [open, setOpen] = React.useState(false);
-  const [confirmation, setConfirmation] = React.useState("");
-  const [status, setStatus] = React.useState<
+  const [open, setOpen] = useState(false);
+  const [confirmation, setConfirmation] = useState("");
+  const [status, setStatus] = useState<
     false | "requesting" | "success" | "failure"
   >(false);
 
   // props
-  const { team } = props;
+  const { team, teamLength } = props;
 
   const saveHandler = () => {
     if (confirmation.toUpperCase() === "DELETE") {
@@ -77,14 +78,21 @@ const Content = (props: Props) => {
         {__("Danger Zone")}
       </Typography>
       <p>
-        {__(
-          "Once you delete a team, there is no going back. Please be certain. "
-        )}
+        {
+          teamLength < 2 ?
+            __(
+              "You must have at least one team to use Geolonia Maps. If you have only one team, please create a new one, and then delete the team."
+            ) :
+            __(
+            "Once you delete a team, there is no going back. Please be certain. "
+            )
+        }
       </p>
       <Button
         variant="contained"
         color="secondary"
         onClick={() => setOpen(true)}
+        disabled={teamLength < 2}
       >
         {__("Delete")}
       </Button>
@@ -165,8 +173,9 @@ const Content = (props: Props) => {
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   return {
     session: state.authSupport.session,
-    team: state.team.data[state.team.selectedIndex]
+    team: state.team.data[state.team.selectedIndex],
+    teamLength: state.team.data.length,
   };
 };
 
-export default connect(mapStateToProps)(Content);
+export default connect(mapStateToProps)(TeamDeletion);

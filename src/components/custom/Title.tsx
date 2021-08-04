@@ -13,7 +13,7 @@ type breadcrumbItems = {
 
 type Props = {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   breadcrumb: Array<breadcrumbItems>;
 };
 

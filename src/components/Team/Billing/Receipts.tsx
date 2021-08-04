@@ -8,6 +8,7 @@ import TableRow from "@material-ui/core/TableRow";
 import IconLaunch from "@material-ui/icons/Launch";
 import moment from "moment";
 import { __ } from "@wordpress/i18n";
+import { buildApiAppUrl } from "../../../lib/api";
 
 type OwnProps = {};
 type StateProps = {
@@ -38,7 +39,7 @@ const useInvoices = (props: Props) => {
         method: "GET",
         headers: { "Content-Type": "application/json" }
       };
-      const urlBase = `https://api.app.geolonia.com/${process.env.REACT_APP_STAGE}/teams/${teamId}`;
+      const urlBase = buildApiAppUrl(`/teams/${teamId}`);
 
       const loadInvoices = async () => {
         const resp = await fetch(session, `${urlBase}/invoices`, headers)
@@ -101,12 +102,12 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
   // const formattedTotal = new Intl.NumberFormat(props.language, {
   //   style: "currency",
   //   currency
-  // }).format(Math.abs(total) / 100);
+  // }).format(Math.abs(total));
   const value =
-    (total - (ending_balance || 0) + starting_balance) / 100;
+    (total - (ending_balance || 0) + starting_balance);
   const formattedActualPayment = formatter(currency).format(value);
   // const formattedBalanced = formatter(currency).format(
-  //   ((ending_balance || 0) - starting_balance) / 100
+  //   ((ending_balance || 0) - starting_balance)
   // );
 
   const charge = charges.find(charge => charge.invoice === id);

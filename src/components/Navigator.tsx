@@ -24,6 +24,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Cancel from "./custom/Cancel";
 import Save from "./custom/Save";
+import Alert from "./custom/Alert";
 
 import "./Navigator.scss";
 import defaultTeamIcon from "./custom/team.svg";
@@ -148,30 +149,29 @@ const Navigator: React.FC<Props> = (props: Props) => {
     });
   }
 
+  const mapChildren = [
+    {
+      id: __("Manage API keys"),
+      icon: <CodeIcon />,
+      href: "#/api-keys",
+      active: false
+    },
+    // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
+    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
+  ]
+  if (selectedTeam?.featureFlags?.prereleaseGeojsonApi) {
+    mapChildren.push({
+      id: __("Location Data"),
+      icon: <RoomIcon />,
+      href: "#/data/geojson",
+      active: false
+    })
+  }
+
   const categories = [
     {
-      id: __("API keys"),
-      children: [
-        {
-          id: __("Manage API keys"),
-          icon: <CodeIcon />,
-          href: "#/api-keys",
-          active: false
-        }
-        // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
-      ]
-    },
-    {
-      id: __("API Services"),
-      children: [
-        {
-          id: __("GeoJSON API"),
-          icon: <RoomIcon />,
-          href: "#/data/geojson",
-          active: false
-        }
-        // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
-      ]
+      id: __("Map"),
+      children: mapChildren,
     },
     {
       id: __("Team Settings"),
@@ -262,11 +262,11 @@ const Navigator: React.FC<Props> = (props: Props) => {
               primary: classes.itemPrimary
             }}
           >
-            {__("Dashboard")}
+            {__("Home")}
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
-          <React.Fragment key={id}>
+          children.length > 0 && <React.Fragment key={id}>
             <ListItem className={classes.categoryHeader}>
               <ListItemText
                 classes={{
@@ -276,11 +276,25 @@ const Navigator: React.FC<Props> = (props: Props) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active, href }) => (
-              <ListItem
+            {children.map(({ id: childId, icon, active, href }) => {
+              let target = undefined
+              let rel = undefined
+              try {
+                const targetHost = new URL(href).host
+                const currentHost = new URL(window.location.href).host
+                if (targetHost && targetHost !== currentHost) {
+                  target = "_blank"
+                  rel = "noopener noreferrer"
+                }
+              } catch (error) {
+                // nothing to do
+              }
+              return <ListItem
                 button
                 component="a"
                 href={href}
+                target={target}
+                rel={rel}
                 key={childId}
                 className={clsx(classes.item, active && classes.itemActiveItem)}
               >
@@ -293,11 +307,17 @@ const Navigator: React.FC<Props> = (props: Props) => {
                   {childId}
                 </ListItemText>
               </ListItem>
-            ))}
+            })}
             <Divider className={classes.divider} />
           </React.Fragment>
         ))}
       </List>
+
+      <Alert type={'custom-outlined'}>
+        {__(
+          'The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href="https://geolonia.com/contact/" target="_blank">contact us</a>.'
+        )}
+      </Alert>
 
       <form>
         <Dialog

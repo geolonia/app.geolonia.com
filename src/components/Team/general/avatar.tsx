@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 
 // Components
 import Typography from "@material-ui/core/Typography";
@@ -41,16 +41,16 @@ const ProfileImageStyle: React.CSSProperties = {
 
 const Content = (props: Props) => {
   // states
-  const [status, setStatus] = React.useState<
+  const [status, setStatus] = useState<
     false | "requesting" | "success" | "failure"
   >(false);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
   // props
   const { team } = props;
 
   // refs
-  const refContainer = React.useRef<HTMLInputElement | null>(null);
+  const refContainer = useRef<HTMLInputElement | null>(null);
 
   const onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {

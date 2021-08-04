@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Modal from "@material-ui/core/Modal";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -10,6 +10,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { __ } from "@wordpress/i18n";
 import fetch from "../../../lib/fetch";
 import { connect } from "react-redux";
+import { buildApiAppUrl } from "../../../lib/api";
 
 type OwnProps = {
   open: boolean;
@@ -35,8 +36,8 @@ const { REACT_APP_STAGE } = process.env;
 
 const PaymentMethodModal: React.FC<Props> = (props) => {
   const { open, handleClose, session, teamId } = props;
-  const [loading, setLoading] = React.useState(false);
-  const [message, setMessage] = React.useState("");
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const stripe = useStripe();
   const elements = useElements();
 
@@ -74,7 +75,7 @@ const PaymentMethodModal: React.FC<Props> = (props) => {
     try {
       const res = await fetch(
         session,
-        `https://api.app.geolonia.com/${REACT_APP_STAGE}/teams/${teamId}/payment`,
+        buildApiAppUrl(`/teams/${teamId}/payment`),
         {
           method: "POST",
           headers: {

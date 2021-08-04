@@ -1,13 +1,13 @@
 import React from "react";
+const { REACT_APP_TILE_SERVER } = process.env;
 
 type Toggle = "on" | "off";
 
 type Props = {
+  geojsonId: string;
   width: string;
   height: string;
   gestureHandling: Toggle;
-  lat: number;
-  lng: number;
   marker: Toggle;
   zoom: number;
   navigationControl: Toggle;
@@ -15,6 +15,7 @@ type Props = {
   geolocateControl: Toggle;
   bounds: mapboxgl.LngLatBoundsLike | undefined;
   onAfterLoad: (map: mapboxgl.Map) => void;
+  initialMapOptions?: { [key: string]: any };
 };
 
 type State = {
@@ -36,23 +37,25 @@ class Map extends React.Component<Props, State> {
     width: "100%",
     height: "200px",
     gestureHandling: "on",
-    lat: 0,
-    lng: 0,
     marker: "on",
     zoom: 0,
     fullscreenControl: "off",
     geolocateControl: "off",
     navigationControl: "off",
     style: null,
-    onAfterLoad: () => {}
+    simpleVector: null,
+    onAfterLoad: () => {},
+    initialMapOptions: {},
   };
 
   componentDidMount() {
     // @ts-ignore
     const { geolonia } = window;
-    const map = new geolonia.Map(this.container.current);
+    const map = new geolonia.Map({
+      container: this.container.current,
+      ...this.props.initialMapOptions,
+    });
     this.props.onAfterLoad(map);
-
     this.setState({map: map})
   }
 
@@ -71,13 +74,12 @@ class Map extends React.Component<Props, State> {
         ref={this.container}
         style={this.style}
         data-gesture-handling={this.props.gestureHandling}
-        data-lat={this.props.lat.toString()}
-        data-lng={this.props.lng.toString()}
         data-marker={this.props.marker}
         data-zoom={this.props.zoom}
         data-navigation-control={this.props.navigationControl}
         data-fullscreen-control={this.props.fullscreenControl}
         data-geolocate-control={this.props.geolocateControl}
+        data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${this.props.geojsonId}/tiles.json?key=YOUR-API-KEY`}
       />
     );
   }

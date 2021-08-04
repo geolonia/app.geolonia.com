@@ -11,12 +11,15 @@ import Toolbar from "@material-ui/core/Toolbar";
 import { withStyles, Theme } from "@material-ui/core/styles";
 
 import PersonIcon from "@material-ui/icons/Person";
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import MenuIcon from "@material-ui/icons/Menu";
 import { signout } from "../auth";
 
 import { __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
 import Avatar from "@material-ui/core/Avatar";
+import "./Header.scss";
+import Logo from "./custom/logo.svg";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -119,12 +122,12 @@ const Header = (props: Props) => {
               <IconButton
                 onClick={handleClick}
                 color="inherit"
-                className={classes.iconButtonAvatar}
+                className={`iconButtonAvatar ${(classes.iconButtonAvatar)}`}
               >
                 {props.userAvatar ? (
                   <Avatar src={props.userAvatar} style={avatarStyle} />
                 ) : (
-                  <PersonIcon style={avatarStyle} />
+                  <PersonOutlineIcon style={avatarStyle} />
                 )}
               </IconButton>
               <Menu
@@ -132,6 +135,7 @@ const Header = (props: Props) => {
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
+                className={'headerProfilemenu'}
               >
                 <MenuItem onClick={handleProfileClick}>
                   {__("Profile")}

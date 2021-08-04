@@ -3,14 +3,32 @@
   REACT_APP_COGNITO_APP_CLIENT_ID = "6qq07b80cimmd9d5033k7je42a"
   REACT_APP_API_BASE = "https://api.geolonia.com"
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
+  REACT_APP_TILE_SERVER="https://tileserver.geolonia.com"
+  REACT_APP_SENTRY_DSN="https://6e0597420997498988d7929549a28fc1@o526716.ingest.sentry.io/5784973"
   REACT_APP_STAGE = "v1"
+  REACT_APP_MIXPANEL_TOKEN = "012def15980f6899b0c457ea325bef5f"
+
+[context.develop.environment]
+  REACT_APP_COGNITO_USERPOOL_ID = "us-east-1_0C5yMqsfC"
+  REACT_APP_COGNITO_APP_CLIENT_ID = "6ingkpu2h114sajpbdu31ikeke"
+  REACT_APP_API_BASE = "https://api.geolonia.com"
+  REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
+  REACT_APP_STRIPE_PUBLISHABLE_KEY = "pk_test_6GhUQ1viPKrXjeJxG5RWGHpX00f61FfRHZ"
+  REACT_APP_TILE_SERVER="https://tileserver-dev.geolonia.com"
+  REACT_APP_SENTRY_DSN="https://6e0597420997498988d7929549a28fc1@o526716.ingest.sentry.io/5784973"
+  REACT_APP_STAGE = "dev"
+  REACT_APP_MIXPANEL_TOKEN = "7a365e861ed4ee35992a503f79c25701"
+
 [context.deploy-preview.environment]
   REACT_APP_COGNITO_USERPOOL_ID = "us-east-1_0C5yMqsfC"
   REACT_APP_COGNITO_APP_CLIENT_ID = "6ingkpu2h114sajpbdu31ikeke"
   REACT_APP_API_BASE = "https://api.geolonia.com"
   REACT_APP_APP_API_BASE = "https://api.app.geolonia.com"
   REACT_APP_STRIPE_PUBLISHABLE_KEY = "pk_test_6GhUQ1viPKrXjeJxG5RWGHpX00f61FfRHZ"
+  REACT_APP_TILE_SERVER="https://tileserver-dev.geolonia.com"
+  REACT_APP_SENTRY_DSN="https://6e0597420997498988d7929549a28fc1@o526716.ingest.sentry.io/5784973"
   REACT_APP_STAGE = "dev"
+  REACT_APP_MIXPANEL_TOKEN = "7a365e861ed4ee35992a503f79c25701"
 
 [[headers]]
   for = "/static/*"

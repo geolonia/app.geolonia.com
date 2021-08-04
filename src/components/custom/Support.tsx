@@ -12,14 +12,14 @@ const Content = (props: Props) => {
     <div className="support-menu">
       <ul>
         <li>
-          <Link href="https://geolonia.com/terms">{__("Terms")}</Link>
+          <Link href="https://geolonia.com/terms" target="_blank">{__("Terms")}</Link>
         </li>
         <li>
-          <Link href="https://geolonia.com/privacy">{__("Privacy")}</Link>
+          <Link href="https://geolonia.com/privacy" target="_blank">{__("Privacy")}</Link>
         </li>
         <li>
-          <Link href="https://geolonia.com/contact">
-            {__("Contact Geolonia")}
+          <Link href="https://geolonia.com/contact" target="_blank">
+            {__("Contact")}
           </Link>
         </li>
       </ul>

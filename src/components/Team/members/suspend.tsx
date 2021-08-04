@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -45,15 +45,15 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 const Suspend = (props: Props) => {
   const { currentMember, open, toggle, updateMemberRoleState } = props;
-  const [role, setRole] = React.useState<false | Geolonia.Role>(
+  const [role, setRole] = useState<false | Geolonia.Role>(
     currentMember.role
   );
-  const [status, setStatus] = React.useState<
+  const [status, setStatus] = useState<
     false | "requesting" | "success" | "failure"
   >(false);
-  const [message, setMessage] = React.useState("");
+  const [message, setMessage] = useState("");
 
-  React.useEffect(() => {
+  useEffect(() => {
     setRole(currentMember.role);
   }, [currentMember]);
 

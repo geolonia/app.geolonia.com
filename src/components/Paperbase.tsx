@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { withStyles, createStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -6,7 +6,8 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Grid from "@material-ui/core/Grid";
 import Hidden from "@material-ui/core/Hidden";
 import { CircularProgress } from "@material-ui/core";
-import { HashRouter, Route, Switch } from "react-router-dom";
+import type { Location } from "history";
+import { Route, Switch, useHistory } from "react-router-dom";
 
 import RouteController from "./route-controller";
 import Navigator from "./Navigator";
@@ -20,6 +21,7 @@ import Signin from "./Signin";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import AcceptInvitation from "./AcceptInvitation";
+import CommonNotification from './CommonNotification'
 
 import { theme } from "../assets/mui-theme";
 
@@ -29,6 +31,7 @@ import Alert from "./custom/Alert";
 import { __ } from "@wordpress/i18n";
 
 import { Roles } from "../constants";
+import mixpanel from "mixpanel-browser";
 
 const drawerWidth = 256;
 const styles = createStyles({
@@ -41,6 +44,9 @@ const styles = createStyles({
       width: drawerWidth,
       flexShrink: 0
     }
+  },
+  headerColor: {
+    color: '#ffffff',
   },
   appContent: {
     flex: 1,
@@ -58,7 +64,7 @@ const styles = createStyles({
   mainContent: {
     flex: 1,
     padding: "48px 36px 48px",
-    background: "#ffffff"
+    background: "#ececec"
   }
 });
 
@@ -66,6 +72,7 @@ type OwnProps = {
   classes: {
     root: string;
     drawer: string;
+    headerColor: string;
     appContent: string;
     notificationContent: string;
     warningContent: string;
@@ -83,13 +90,26 @@ type StateProps = {
 type Props = OwnProps & StateProps;
 
 export const Paperbase: React.FC<Props> = (props: Props) => {
+  const history = useHistory();
   const { classes, isReady, session, currentRole } = props;
 
   const isLoggedIn = isReady && !!session;
 
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+
+  useEffect(() => {
+    if (!history) return;
+    const trackLocation = (location: Location) => {
+      mixpanel.track('Pageview', { path: location.pathname });
+    };
+    trackLocation(history.location);
+    const unregister = history.listen(trackLocation);
+    return () => {
+      unregister();
+    }
+  }, [ history ]);
 
   if (!isReady) {
     return (
@@ -114,7 +134,6 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
-        <HashRouter>
           <Route
             path="/"
             render={(props: any) => {
@@ -134,7 +153,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
               component={AcceptInvitation}
             />
             <Route exact>
-              <nav className={classes.drawer}>
+              <nav className={`${classes.drawer} ${classes.headerColor}`}>
                 <Hidden smUp implementation="js">
                   <Navigator
                     PaperProps={{ style: { width: drawerWidth } }}
@@ -161,8 +180,8 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
               </div>
             </Route>
           </Switch>
-        </HashRouter>
       </div>
+      <CommonNotification />
     </ThemeProvider>
   );
 };

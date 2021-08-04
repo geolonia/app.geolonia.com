@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Components
 import TextField from "@material-ui/core/TextField";
@@ -39,7 +39,7 @@ const Content = (props: Props) => {
   const { session, team, members, selectedIndex, updateTeamState } = props;
   const { teamId, name, description, url, billingEmail } = team;
   // state
-  const [draft, setDraft] = React.useState<Partial<Geolonia.Team>>({});
+  const [draft, setDraft] = useState<Partial<Geolonia.Team>>({});
 
   const onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const name = e.currentTarget.value;
@@ -48,7 +48,7 @@ const Content = (props: Props) => {
 
   // effects
   //// clear draft on Team change
-  React.useEffect(() => setDraft({}), [selectedIndex]);
+  useEffect(() => setDraft({}), [selectedIndex]);
 
   const onSaveClick = () => {
     // update server side
@@ -89,7 +89,7 @@ const Content = (props: Props) => {
         disabled={isOwner !== true}
         onBlur={onNameBlur}
       />
-      <TextField
+      {/* <TextField
         id="team-description"
         label={__("Description")}
         margin="normal"
@@ -110,7 +110,7 @@ const Content = (props: Props) => {
         value={(draft.url === void 0 ? url : draft.url) || ""}
         onChange={e => setDraft({ ...draft, url: e.target.value })}
         disabled={isOwner !== true}
-      />
+      /> */}
 
       <FormControl fullWidth={true} style={selectStyle}>
         <InputLabel htmlFor="billing-email">{__("Billing email")}</InputLabel>
