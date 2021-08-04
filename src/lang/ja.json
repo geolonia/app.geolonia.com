@@ -18,6 +18,7 @@
       "Display CSV or GeoJSON in your map": ["CSV / GeoJSON を地図に表示"],
       "Build a custom map": ["カスタムマップを作成"],
       "Browse developer docs": ["開発者ドキュメントを参照"],
+      "Tutorials": ["チュートリアル"],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
       "Map": ["地図"],
@@ -344,6 +345,26 @@
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
       ],
+      "How to use the Dashboard": ["管理画面の使い方"],
+      "Learn about the easiest way to embed a Geolonia map in your website.": [
+        "ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
+      ],
+      "Embed API": ["Embed API"],
+      "The Embed API allows you to set up a map with just a simple HTML code.": [
+        "Embed API を使用すると、簡単な HTML を記述するだけで地図を設置することが可能です。"
+      ],
+      "JavaScript API": ["JavaScript API"],
+      "Learn how to develop a professional map application using the JavaScript API.": [
+        "JavaScript API を使った本格的な地図アプリの開発方法についてご紹介します。"
+      ],
+      "Custom Style": ["カスタムスタイル"],
+      "Learn how to customize the style of your map.": [
+        "地図のスタイルをカスタマイズする方法についてご紹介します。"
+      ],
+      "Support": ["サポート"],
+      "Please contact us if you have any questions about how to use the admin panel or if you need technical support (which may be paid).": [
+        "管理画面の使い方についての質問や、技術支援（有償の場合があります）が必要な方はご連絡ください。"
+      ],
       "Your profile": ["プロフィール"],
       "You can update your profile and security.": [
         "プロフィールとセキュリティを設定できます。"
@@ -375,7 +396,7 @@
       "Failed to save.": ["保存できませんでした。"],
       "Terms": ["利用規約"],
       "Privacy": ["プライバシー"],
-      "Contact Geolonia": ["お問い合わせ"],
+      "Contact": ["お問い合わせ"],
       "Coming soon": ["準備中"],
       "Japanese": ["日本語"],
       "English": ["英語"],

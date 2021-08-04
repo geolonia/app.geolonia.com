@@ -19,7 +19,7 @@ const Content = (props: Props) => {
         </li>
         <li>
           <Link href="https://geolonia.com/contact">
-            {__("Contact Geolonia")}
+            {__("Contact")}
           </Link>
         </li>
       </ul>
