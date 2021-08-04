@@ -159,9 +159,14 @@
       "Profile": ["プロフィール"],
       "Logout": ["ログアウト"],
       "API keys": ["API キー"],
-      "API key settings": ["API キーの設定"],
       "Configure access control for your API key and Get the HTML code for your map.": [
         "地図を設置するサイトの登録や地図を設置するためのHTMLコード取得ができます"
+      ],
+      "Your API Key": ["あなたの API キー"],
+      "Settings": ["設定"],
+      "Name for managing API keys": ["APIキー管理用の名前"],
+      "List of URLs that are allowed to display the map": [
+        "地図の表示を許可するURLのリスト"
       ],
       "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
       "Any subdomain:": ["すべてのサブドメイン:"],
@@ -175,13 +180,10 @@
       "Are you sure you want to delete this API key?": [
         "この API キーを本当に削除しますか？"
       ],
-      "Your API Key": ["あなたの API キー"],
       "(No date)": ["(データなし)"],
-      "Create a new API key": ["新しい API キーを作成"],
-      "Please enter the name of new API key.": [
-        "新しいAPI キーの名前を入力して保存してください。"
-      ],
-      "My API": ["API キー"],
+      "New": ["新規作成"],
+      "API Key (created by %1$s on %2$s)": ["API キー (%1$s が %2$s に作成)"],
+      "A new API key has been created.": ["新しい API キーが作成されました。"],
       "You need an API key to display map. Get an API key.": [
         "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成してください。"
       ],
@@ -193,6 +195,9 @@
       "Team Settings": ["チーム設定"],
       "Documentation": ["ドキュメント"],
       "Official Documents": ["公式ドキュメント"],
+      "The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href=\"https://geolonia.com/contact/\" target=\"_blank\">contact us</a>.": [
+        "ダッシュボードのリニューアルを行いました。以前提供していた GeoJSON API は機能改修を行っており、管理画面は現在アクセスできません。データのダウンロードが必要な場合、<a href=\"https://geolonia.com/contact/\" target=\"_blank\">ご連絡ください</a>。"
+      ],
       "Create a new team": ["新しいチームを作成"],
       "Please enter the name of new team.": [
         "新しいチームの名前を入力してください。"
@@ -273,6 +278,9 @@
       "The difference between the plan changes will be charged or charged as a balance.": [
         "プランの変更に伴う差額が請求または残高としてチャージされます。"
       ],
+      "The plan could not be changed. If you are trying to downgrade your team to a team that supports fewer members, please remove the extra members before downgrading your team. If you still get this error, please contact us.": [
+        "料金プランを変更できませんでした。チームメンバーが1人になるように調整してから料金プランの変更を行ってください。それでもこのエラーが発生する場合は、お問い合わせください。"
+      ],
       "Upload new picture": ["新しい画像をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [
         "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
@@ -286,7 +294,6 @@
       "Once you delete a team, there is no going back. Please be certain. ": [
         "一度チームを削除すると元に戻すことはできません。"
       ],
-      "URL": ["URL"],
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [
         "すべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザー名と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバーの左上にあるプルダウンで行うことができます。"
       ],
@@ -307,7 +314,7 @@
       ],
       "Save": ["保存"],
       "You can manage members in your team.": [
-        "チームメンバーの管理ができます。"
+        "チームメンバーの管理ができます。チームの参加者には「オーナー」と「メンバー」の2つの権限があります。オーナーは他のメンバーの招待、権限変更、一時停止、削除が可能です。"
       ],
       "You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan.": [
         "現在、新しいメンバーを招待することはできません。メンバーをチームに招待するには、Geolonia Pro（2～5ユーザー）プランにアップグレードしてください。"
@@ -329,7 +336,12 @@
       ],
       "Invite": ["招待"],
       "Send an invitation": ["招待する"],
-      "Email": ["メールアドレス"],
+      "Please enter the email address of the person you want to invite to \"%s\". Please note that the user must <a href=\"/#/signup\" target=\"_blank\">create a Geolonia account</a> first before you can send the invitation.": [
+        "チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n<br>\n※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が完了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps にまだ登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユーザー登録</a>を済ませてから招待を送信してください。"
+      ],
+      "Receipient's email address": [
+        "招待するユーザーの Geolonia 登録メールアドレス"
+      ],
       "Send": ["送信"],
       "The following members will be removed:": [
         "以下のメンバーがチームから削除されます。"
@@ -339,7 +351,7 @@
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
       ],
-      "Get Started": ["Get Started"],
+      "How to use the Dashboard": ["管理画面の使い方"],
       "Learn about the easiest way to embed a Geolonia map in your website.": [
         "ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
       ],
@@ -356,11 +368,14 @@
         "地図のスタイルをカスタマイズする方法についてご紹介します。"
       ],
       "Support": ["サポート"],
-      "Contact Geolonia": ["お問い合わせ"],
+      "Please contact us if you have any questions about how to use the admin panel or if you need technical support (which may be paid).": [
+        "管理画面の使い方についての質問や、技術支援（有償の場合があります）が必要な方はご連絡ください。"
+      ],
       "Your profile": ["プロフィール"],
       "You can update your profile and security.": [
         "プロフィールとセキュリティを設定できます。"
       ],
+      "Email": ["メールアドレス"],
       "Language": ["言語"],
       "Time zone": ["タイムゾーン"],
       "Update password": ["パスワードを更新"],
@@ -369,7 +384,6 @@
       "Failed to change password.": ["パスワードの変更に失敗しました。"],
       "Security": ["セキュリティ"],
       "Old password": ["古いパスワード"],
-      "New": ["新規作成"],
       "name": ["ユーザー名"],
       "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],
@@ -388,6 +402,7 @@
       "Failed to save.": ["保存できませんでした。"],
       "Terms": ["利用規約"],
       "Privacy": ["プライバシー"],
+      "Contact": ["お問い合わせ"],
       "Coming soon": ["準備中"],
       "Japanese": ["日本語"],
       "English": ["英語"],

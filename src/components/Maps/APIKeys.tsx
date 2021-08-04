@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 
 import Table from "../custom/Table";
-import AddNew from "../custom/AddNew";
+import AddNew2 from "../custom/AddNew2";
 import Title from "../custom/Title";
-import Paper from '@material-ui/core/Paper';
 
-import { __ } from "@wordpress/i18n";
+import { sprintf, __ } from "@wordpress/i18n";
 import { connect } from "react-redux";
+import moment from 'moment'
 
 // api
 import createKey from "../../api/keys/create";
@@ -24,13 +24,18 @@ type StateProps = {
   mapKeys: Geolonia.Key[];
   error: boolean;
   teamId: string;
+  username: string;
 };
 type DispatchProps = {
   addKey: (teamId: string, key: Geolonia.Key) => void;
 };
-type Props = OwnProps & StateProps & DispatchProps;
+type RouterProps = {
+  history: { push: (path: string) => void };
+};
+type Props = OwnProps & StateProps & DispatchProps & RouterProps;
 
-function Content(props: Props) {
+function ApiKeys(props: Props) {
+  const { mapKeys, username, addKey, session, teamId, history: { push } } = props;
   const [message, setMessage] = useState("");
 
   const breadcrumbItems = [
@@ -44,19 +49,19 @@ function Content(props: Props) {
     }
   ];
 
-  const handler = (name: string) => {
-    return createKey(props.session, props.teamId, name).then(result => {
+  const handler = useCallback((name: string) => {
+    return createKey(session, teamId, name).then(result => {
       if (result.error) {
         setMessage(result.message);
         throw new Error(result.code);
       } else {
         const data = dateParse(result.data);
-        props.addKey(props.teamId, data);
+        addKey(teamId, data);
+        return result.data
       }
     });
-  };
+  }, [addKey, session, teamId]);
 
-  const { mapKeys } = props;
   const rows = mapKeys.map(key => {
     return {
       id: key.keyId,
@@ -67,12 +72,14 @@ function Content(props: Props) {
     };
   });
 
-  const newAPIButton = <AddNew
-    label={__("Create a new API key")}
-    description={__("Please enter the name of new API key.")}
-    defaultValue={__("My API")}
-    onClick={handler}
-    onError={() => void 0}
+  const newAPIButton = <AddNew2
+    buttonLabel={__('New')}
+    onClick={async () => {
+      const today = moment().format('YYYY-MM-DD')
+      const newKeyName = sprintf(__('API Key (created by %1$s on %2$s)'), username, today)
+      return handler(newKeyName).then((key) => push(`/api-keys/${key.keyId}`))
+    }}
+    successMessage={__('A new API key has been created.')}
     errorMessage={message}
   />
 
@@ -87,7 +94,6 @@ function Content(props: Props) {
       :
         newAPIButton
       }
-
       <Table rows={rows} rowsPerPage={10} permalink="/api-keys/%s" />
     </div>
   );
@@ -98,8 +104,9 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const { data: teams, selectedIndex } = state.team;
   const teamId = teams[selectedIndex] && teams[selectedIndex].teamId;
   const { data: mapKeys = [], error = false } = state.mapKey[teamId] || {};
+  const username = state.userMeta.name
 
-  return { session, mapKeys, error, teamId };
+  return { session, mapKeys, error, teamId, username };
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
@@ -109,4 +116,4 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(mapStateToProps, mapDispatchToProps)(ApiKeys);

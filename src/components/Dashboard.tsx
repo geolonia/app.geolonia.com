@@ -3,6 +3,7 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 import { __ } from "@wordpress/i18n";
 import moment from "moment";
 
@@ -50,6 +51,7 @@ const Dashboard = (props: Props) => {
 
   return (
     <div id="dashboard">
+
       <Paper className="getting-started">
         <div className="box-content">
           <h2>{__("Get started with Geolonia map")}</h2>

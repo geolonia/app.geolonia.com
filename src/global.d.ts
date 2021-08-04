@@ -81,6 +81,7 @@ declare namespace Geolonia {
     isPaidTeam: boolean;
     maxMemberLength: number;
     billingMode: TeamBillingMethod;
+    featureFlags: { [key: string]: boolean };
   };
   type Key = {
     keyId: string;

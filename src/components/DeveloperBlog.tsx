@@ -53,7 +53,7 @@ const Content = (props: Props) => {
         return (
           <Grid item lg={4} md={6} xs={12} key={index}>
             <Card className={classes.root}>
-              <CardActionArea onClick={() => window.location.href = post.url}>
+              <CardActionArea onClick={() => window.open(post.url, '_blank')}>
                 <CardMedia
                   className={classes.media}
                   image={post.thumbnail + '-/resize/800x/-/format/auto/-/quality/lightest/'}
