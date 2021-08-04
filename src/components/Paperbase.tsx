@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { withStyles, createStyles } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
@@ -20,6 +20,7 @@ import Signin from "./Signin";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
 import AcceptInvitation from "./AcceptInvitation";
+import CommonNotification from './CommonNotification'
 
 import { theme } from "../assets/mui-theme";
 
@@ -167,6 +168,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
           </Switch>
         </HashRouter>
       </div>
+      <CommonNotification />
     </ThemeProvider>
   );
 };

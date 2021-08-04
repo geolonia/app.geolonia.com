@@ -17,7 +17,7 @@ import { __ } from "@wordpress/i18n";
 type Props = {
   disabled?: boolean;
   label: string;
-  description: string;
+  description: string | JSX.Element;
   defaultValue: string;
   onClick: (value: string) => Promise<any>;
   // optionals

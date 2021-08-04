@@ -89,7 +89,7 @@ const Content = (props: Props) => {
         disabled={isOwner !== true}
         onBlur={onNameBlur}
       />
-      <TextField
+      {/* <TextField
         id="team-description"
         label={__("Description")}
         margin="normal"
@@ -110,7 +110,7 @@ const Content = (props: Props) => {
         value={(draft.url === void 0 ? url : draft.url) || ""}
         onChange={e => setDraft({ ...draft, url: e.target.value })}
         disabled={isOwner !== true}
-      />
+      /> */}
 
       <FormControl fullWidth={true} style={selectStyle}>
         <InputLabel htmlFor="billing-email">{__("Billing email")}</InputLabel>

@@ -49,13 +49,13 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:103
 #: src/components/Data/GeoJsons.tsx:95
-#: src/components/Navigator.tsx:165
+#: src/components/Navigator.tsx:175
 msgid "Map"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:107
 #: src/components/Data/GeoJsons.tsx:125
-#: src/components/Navigator.tsx:168
+#: src/components/Navigator.tsx:154
 msgid "Location Data"
 msgstr ""
 
@@ -95,8 +95,8 @@ msgstr ""
 #: src/components/Data/GeoJson.tsx:99
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:114
-#: src/components/Maps/APIKeys.tsx:35
-#: src/components/Navigator.tsx:265
+#: src/components/Maps/APIKeys.tsx:41
+#: src/components/Navigator.tsx:268
 #: src/components/Team/Billing.tsx:173
 msgid "Home"
 msgstr ""
@@ -134,7 +134,8 @@ msgstr ""
 #: src/components/Data/GeoJsonMeta.tsx:354
 #: src/components/Data/fields.tsx:26
 #: src/components/Navigator.tsx:320
-#: src/components/Team/general/fields.tsx:84
+#: src/components/Maps/APIKey.tsx:211
+¥#: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:121
@@ -321,7 +322,6 @@ msgid "Data that has already been uploaded will be overwritten."
 msgstr ""
 
 #: src/components/Data/fields.tsx:32
-#: src/components/Team/general/fields.tsx:94
 msgid "Description"
 msgstr ""
 
@@ -407,8 +407,8 @@ msgid "Logout"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:118
-#: src/components/Maps/APIKeys.tsx:69
-#: src/components/Navigator.tsx:153
+#: src/components/Maps/APIKeys.tsx:75
+#: src/components/Navigator.tsx:163
 msgid "API keys"
 msgstr ""
 
@@ -459,23 +459,28 @@ msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
 #: src/components/Maps/APIKeys.tsx:63
+msgid "Your API Key"
+msgstr ""
+
+#: src/components/Maps/APIKeys.tsx:69
 msgid "(No date)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:71
+#: src/components/Maps/APIKeys.tsx:77
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:75
-msgid "Create a new API key"
+#: src/components/Maps/APIKeys.tsx:81
+#: src/components/custom/AddNew.tsx:35
+msgid "New"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:76
-msgid "Please enter the name of new API key."
+#: src/components/Maps/APIKeys.tsx:84
+msgid "API Key (created by %1$s on %2$s)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:77
-msgid "My API"
+#: src/components/Maps/APIKeys.tsx:87
+msgid "A new API key has been created."
 msgstr ""
 
 #: src/components/Navigator.tsx:109
@@ -495,41 +500,41 @@ msgstr ""
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:156
+#: src/components/Navigator.tsx:166
 msgid "Manage API keys"
 msgstr ""
 
-#: src/components/Navigator.tsx:177
+#: src/components/Navigator.tsx:180
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:181
+#: src/components/Navigator.tsx:184
 msgid "Documentation"
 msgstr ""
 
-#: src/components/Navigator.tsx:184
+#: src/components/Navigator.tsx:187
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:310
+#: src/components/Navigator.tsx:313
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:314
+#: src/components/Navigator.tsx:317
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:328
+#: src/components/Navigator.tsx:331
 #: src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:335
+#: src/components/Navigator.tsx:338
 #: src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr ""
 
-#: src/components/Paperbase.tsx:159
+#: src/components/Paperbase.tsx:160
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
@@ -725,7 +730,7 @@ msgid "Card information"
 msgstr ""
 
 #: src/components/Team/Billing/payment-method-modal.tsx:148
-#: src/components/Team/Billing/plan-modal.tsx:166
+#: src/components/Team/Billing/plan-modal.tsx:172
 msgid "Update"
 msgstr ""
 
@@ -733,18 +738,25 @@ msgstr ""
 msgid "Unknown Error."
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:112
+#: src/components/Team/Billing/plan-modal.tsx:118
 msgid "Your plan"
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:56
+#: src/components/Team/Billing/plan-modal.tsx:57
 msgid "Your subscription will be canceled."
 msgstr ""
 
-#: src/components/Team/Billing/plan-modal.tsx:58
+#: src/components/Team/Billing/plan-modal.tsx:59
 msgid ""
 "The difference between the plan changes will be charged or charged as a "
 "balance."
+msgstr ""
+
+#: src/components/Team/Billing/plan-modal.tsx:98
+msgid ""
+"The plan could not be changed. If you are trying to downgrade your team to "
+"a team that supports fewer members, please remove the extra members before "
+"downgrading your team. If you still get this error, please contact us."
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:123
@@ -786,10 +798,6 @@ msgstr ""
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr ""
 
-#: src/components/Team/general/fields.tsx:107
-msgid "URL"
-msgstr ""
-
 #: src/components/Team/general/index.tsx:42
 msgid ""
 "All users on the Geolonia service belong to one of the teams, and a team "
@@ -798,7 +806,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:284
+#: src/components/Team/members/index.tsx:280
 msgid "Change role"
 msgstr ""
 
@@ -813,7 +821,7 @@ msgid "Select a new role of %s."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:206
+#: src/components/Team/members/index.tsx:202
 msgid "Owner"
 msgstr ""
 
@@ -844,68 +852,75 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:150
+#: src/components/Team/members/index.tsx:144
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:154
+#: src/components/Team/members/index.tsx:148
 msgid ""
 "You currently can not invite any new members. To invite more than one "
 "member to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:208
+#: src/components/Team/members/index.tsx:204
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:246
+#: src/components/Team/members/index.tsx:242
 #: src/components/custom/AsyncTable.tsx:139
 #: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:288
+#: src/components/Team/members/index.tsx:284
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:292
+#: src/components/Team/members/index.tsx:288
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:106
+#: src/components/Team/members/invite.tsx:109
 msgid "Successfully send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:108
+#: src/components/Team/members/invite.tsx:111
 msgid "Failed to send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:38
+#: src/components/Team/members/invite.tsx:39
 msgid "That user is already a member of this team."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:60
+#: src/components/Team/members/invite.tsx:61
 msgid "The maximum number of members has been reached."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:64
+#: src/components/Team/members/invite.tsx:65
 msgid "You cannot use this email address for invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:76
+#: src/components/Team/members/invite.tsx:79
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:77
+#: src/components/Team/members/invite.tsx:80
 msgid "Send an invitation"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:83
-#: src/components/User/profile.tsx:117
-msgid "Email"
+#: src/components/Team/members/invite.tsx:82
+msgid ""
+"Please enter the email address of the person you want to invite to \"%s\". "
+"Please note that the user must <a href=\"/#/signup\" "
+"target=\"_blank\">create a Geolonia account</a> first before you can send "
+"the invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:89
+#: src/components/Team/members/invite.tsx:86
+msgid "Receipient's email address"
+msgstr ""
+
+#: src/components/Team/members/invite.tsx:92
 msgid "Send"
 msgstr ""
 
@@ -931,6 +946,10 @@ msgstr ""
 
 #: src/components/User/User.tsx:25
 msgid "You can update your profile and security."
+msgstr ""
+
+#: src/components/User/profile.tsx:117
+msgid "Email"
 msgstr ""
 
 #: src/components/User/profile.tsx:138
@@ -963,10 +982,6 @@ msgstr ""
 
 #: src/components/User/security.tsx:88
 msgid "Old password"
-msgstr ""
-
-#: src/components/custom/AddNew.tsx:35
-msgid "New"
 msgstr ""
 
 #: src/components/custom/AddNew.tsx:36

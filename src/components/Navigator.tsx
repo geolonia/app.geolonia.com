@@ -148,9 +148,19 @@ const Navigator: React.FC<Props> = (props: Props) => {
     });
   }
 
+  const mapChildren = []
+  if (selectedTeam?.featureFlags?.prereleaseGeojsonApi) {
+    mapChildren.push({
+      id: __("Location Data"),
+      icon: <RoomIcon />,
+      href: "#/data/geojson",
+      active: false
+    })
+  }
+
   const categories = [
     {
-      id: __("API keys"),
+      id: __("Map"),
       children: [
         {
           id: __("Manage API keys"),
@@ -163,15 +173,8 @@ const Navigator: React.FC<Props> = (props: Props) => {
     },
     {
       id: __("Map"),
-      children: [
-        {
-          id: __("Location Data"),
-          icon: <RoomIcon />,
-          href: "#/data/geojson",
-          active: false
-        }
+      children: mapChildren,
         // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
-      ]
     },
     {
       id: __("Team Settings"),
@@ -266,7 +269,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
           </ListItemText>
         </ListItem>
         {categories.map(({ id, children }) => (
-          <React.Fragment key={id}>
+          children.length > 0 && <React.Fragment key={id}>
             <ListItem className={classes.categoryHeader}>
               <ListItemText
                 classes={{
