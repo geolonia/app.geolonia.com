@@ -180,11 +180,9 @@
       "You need an API key to display map. Get an API key.": [
         "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成してください。"
       ],
-      "Create a new API key": ["新しい API キーを作成"],
-      "Please enter the name of new API key.": [
-        "新しいAPI キーの名前を入力して保存してください。"
-      ],
-      "My API": ["API キー"],
+      "New": ["新規作成"],
+      "API Key (created by %1$s on %2$s)": ["API キー (%1$s が %2$s に作成)"],
+      "A new API key has been created.": ["新しい API キーが作成されました。"],
       "My team": ["My team"],
       "General": ["一般"],
       "Members": ["メンバー"],
@@ -359,7 +357,6 @@
       "Failed to change password.": ["パスワードの変更に失敗しました。"],
       "Security": ["セキュリティ"],
       "Old password": ["古いパスワード"],
-      "New": ["新規作成"],
       "name": ["ユーザー名"],
       "text": ["テキスト"],
       "Some error.": ["何かのエラーです。"],
