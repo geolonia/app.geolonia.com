@@ -24,6 +24,7 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Cancel from "./custom/Cancel";
 import Save from "./custom/Save";
+import Alert from "./custom/Alert";
 
 import "./Navigator.scss";
 import defaultTeamIcon from "./custom/team.svg";
@@ -301,6 +302,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
           </React.Fragment>
         ))}
       </List>
+
+      <Alert type={'custom-outlined'}>
+        {__(
+          'The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href="https://geolonia.com/contact/" target="_blank">contact us</a>.'
+        )}
+      </Alert>
 
       <form>
         <Dialog

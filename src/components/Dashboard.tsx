@@ -3,7 +3,6 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
-import Alert from "./custom/Alert";
 import InfoIcon from "@material-ui/icons/Info";
 import { __ } from "@wordpress/i18n";
 import moment from "moment";
@@ -52,11 +51,6 @@ const Dashboard = (props: Props) => {
 
   return (
     <div id="dashboard">
-      <Alert Icon={InfoIcon}>
-        {__(
-          'The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href="https://geolonia.com/contact/" target="_blank">contact us</a>.'
-        )}
-      </Alert>
 
       <Paper className="getting-started">
         <div className="box-content">

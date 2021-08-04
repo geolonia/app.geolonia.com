@@ -5,7 +5,7 @@ import Interweave from "interweave";
 
 type Props = {
   children: string;
-  type?: "success" | "danger" | "warning";
+  type?: "success" | "danger" | "warning" | "custom-outlined";
   Icon?: React.FC<any>,
 };
 
