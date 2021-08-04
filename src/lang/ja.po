@@ -679,13 +679,13 @@ msgstr "サインアップ"
 #: src/components/Signup.tsx:161
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
-"terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
-"class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy"
-"\">Privacy policy</a>."
+"terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">Terms of "
+"service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://"
+"geolonia.com/privacy\" target=\"_blank\">Privacy policy</a>."
 msgstr ""
-"サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" "
+"サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" target=\"_blank\" "
 "class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class="
-"\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバ"
+"\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">プライバ"
 "シーポリシー</a> に同意したものとさせていただきます。"
 
 #: src/components/Team/Billing.tsx:102

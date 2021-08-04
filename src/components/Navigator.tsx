@@ -276,11 +276,25 @@ const Navigator: React.FC<Props> = (props: Props) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active, href }) => (
-              <ListItem
+            {children.map(({ id: childId, icon, active, href }) => {
+              let target = undefined
+              let rel = undefined
+              try {
+                const targetHost = new URL(href).host
+                const currentHost = new URL(window.location.href).host
+                if (targetHost && targetHost !== currentHost) {
+                  target = "_blank"
+                  rel = "noopener noreferrer"
+                }
+              } catch (error) {
+                // nothing to do
+              }
+              return <ListItem
                 button
                 component="a"
                 href={href}
+                target={target}
+                rel={rel}
                 key={childId}
                 className={clsx(classes.item, active && classes.itemActiveItem)}
               >
@@ -293,7 +307,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
                   {childId}
                 </ListItemText>
               </ListItem>
-            ))}
+            })}
             <Divider className={classes.divider} />
           </React.Fragment>
         ))}

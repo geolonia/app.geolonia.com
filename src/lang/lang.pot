@@ -651,10 +651,10 @@ msgstr ""
 #: src/components/Signup.tsx:161
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
-"href=\"https://geolonia.com/terms\" "
+"href=\"https://geolonia.com/terms\" target=\"_blank\" "
 "class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
-"class=\"MuiTypography-colorPrimary\" "
-"href=\"https://geolonia.com/privacy\">Privacy policy</a>."
+"class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" "
+"target=\"_blank\">Privacy policy</a>."
 msgstr ""
 
 #: src/components/Team/Billing.tsx:102

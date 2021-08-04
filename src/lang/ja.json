@@ -245,8 +245,8 @@
       ],
       "Email address": ["Email アドレス"],
       "Sign up": ["サインアップ"],
-      "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">Privacy policy</a>.": [
-        "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\">プライバシーポリシー</a> に同意したものとさせていただきます。"
+      "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">Privacy policy</a>.": [
+        "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">プライバシーポリシー</a> に同意したものとさせていただきます。"
       ],
       "Free plan": ["Free プラン"],
       "Free Plan": ["Free プラン"],

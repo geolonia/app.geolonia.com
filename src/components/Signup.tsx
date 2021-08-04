@@ -159,7 +159,7 @@ const Signup = (props: Props) => {
           <p className="message">
             <Interweave
               content={__(
-                'By signing up to Geolonia, you agree to our <a href="https://geolonia.com/terms" class="MuiTypography-colorPrimary">Terms of service</a> and <a class="MuiTypography-colorPrimary" href="https://geolonia.com/privacy">Privacy policy</a>.'
+                'By signing up to Geolonia, you agree to our <a href="https://geolonia.com/terms" target="_blank" class="MuiTypography-colorPrimary">Terms of service</a> and <a class="MuiTypography-colorPrimary" href="https://geolonia.com/privacy" target="_blank">Privacy policy</a>.'
               )}
             />
           </p>
