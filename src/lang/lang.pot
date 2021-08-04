@@ -133,9 +133,8 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:354
 #: src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:320
-#: src/components/Maps/APIKey.tsx:211
-¥#: src/components/Team/general/fields.tsx:84
+#: src/components/Navigator.tsx:323
+#: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:121
@@ -408,7 +407,6 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:118
 #: src/components/Maps/APIKeys.tsx:75
-#: src/components/Navigator.tsx:163
 msgid "API keys"
 msgstr ""
 
@@ -456,10 +454,6 @@ msgstr ""
 
 #: src/components/Maps/APIKey.tsx:293
 msgid "Are you sure you want to delete this API key?"
-msgstr ""
-
-#: src/components/Maps/APIKeys.tsx:63
-msgid "Your API Key"
 msgstr ""
 
 #: src/components/Maps/APIKeys.tsx:69
