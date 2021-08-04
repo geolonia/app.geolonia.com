@@ -11,35 +11,39 @@ msgstr ""
 msgid "Your invitation has been outdated."
 msgstr ""
 
-#: src/components/Dashboard.tsx:56
+#: src/components/Dashboard.tsx:57
 msgid "Get started with Geolonia map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:60
+#: src/components/Dashboard.tsx:61
 msgid "Display a map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:62
+#: src/components/Dashboard.tsx:63
 msgid "Create API key then add the map to your web site"
 msgstr ""
 
-#: src/components/Dashboard.tsx:66
+#: src/components/Dashboard.tsx:67
 msgid "Upload your data"
 msgstr ""
 
-#: src/components/Dashboard.tsx:68
+#: src/components/Dashboard.tsx:69
 msgid "Display CSV or GeoJSON in your map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:72
+#: src/components/Dashboard.tsx:73
 msgid "Build a custom map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:74
+#: src/components/Dashboard.tsx:75
 msgid "Browse developer docs"
 msgstr ""
 
-#: src/components/Dashboard.tsx:80
+#: src/components/Dashboard.tsx:81
+msgid "Tutorials"
+msgstr ""
+
+#: src/components/Dashboard.tsx:84
 msgid "Developer's Blog"
 msgstr ""
 
@@ -934,6 +938,50 @@ msgstr ""
 msgid "The following members will be suspended:"
 msgstr ""
 
+#: src/components/Turorials.tsx:14
+msgid "How to use the Dashboard"
+msgstr ""
+
+#: src/components/Turorials.tsx:15
+msgid "Learn about the easiest way to embed a Geolonia map in your website."
+msgstr ""
+
+#: src/components/Turorials.tsx:19
+msgid "Embed API"
+msgstr ""
+
+#: src/components/Turorials.tsx:20
+msgid "The Embed API allows you to set up a map with just a simple HTML code."
+msgstr ""
+
+#: src/components/Turorials.tsx:24
+msgid "JavaScript API"
+msgstr ""
+
+#: src/components/Turorials.tsx:25
+msgid ""
+"Learn how to develop a professional map application using the JavaScript "
+"API."
+msgstr ""
+
+#: src/components/Turorials.tsx:29
+msgid "Custom Style"
+msgstr ""
+
+#: src/components/Turorials.tsx:30
+msgid "Learn how to customize the style of your map."
+msgstr ""
+
+#: src/components/Turorials.tsx:34
+msgid "Support"
+msgstr ""
+
+#: src/components/Turorials.tsx:35
+msgid ""
+"Please contact us if you have any questions about how to use the admin "
+"panel or if you need technical support (which may be paid)."
+msgstr ""
+
 #: src/components/User/User.tsx:24
 msgid "Your profile"
 msgstr ""
@@ -1039,7 +1087,7 @@ msgid "Privacy"
 msgstr ""
 
 #: src/components/custom/Support.tsx:22
-msgid "Contact Geolonia"
+msgid "Contact"
 msgstr ""
 
 #: src/components/custom/coming-soon.tsx:30
