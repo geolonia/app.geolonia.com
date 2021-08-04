@@ -2,15 +2,15 @@ import React from "react";
 
 import Paper from "@material-ui/core/Paper";
 import { withStyles, Theme } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
-import InfoIcon from "@material-ui/icons/Info";
 import { __ } from "@wordpress/i18n";
 import moment from "moment";
 
 import "./Dashboard.scss";
 import { connect } from "react-redux";
 
-import Tutorials from "./Turorials";
+import Tutorials from './Tutorials'
 import DeveloperBlog from "./DeveloperBlog";
 
 const styles = (theme: Theme) => ({});
@@ -55,32 +55,8 @@ const Dashboard = (props: Props) => {
       <Paper className="getting-started">
         <div className="box-content">
           <h2>{__("Get started with Geolonia map")}</h2>
-          <ul>
-            <li>
-              <Link href="#/api-keys" color="inherit" underline="always">
-                {__("Display a map")}
-              </Link>{" "}
-              - {__("Create API key then add the map to your web site")}
-            </li>
-            <li>
-              <Link href="#/data/geojson" color="inherit" underline="always">
-                {__("Upload your data")}
-              </Link>{" "}
-              - {__("Display CSV or GeoJSON in your map")}
-            </li>
-            <li>
-              <Link
-                href="https://docs.geolonia.com/"
-                color="inherit"
-                underline="always"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {__("Build a custom map")}
-              </Link>{" "}
-              - {__("Browse developer docs")}
-            </li>
-          </ul>
+          <p>{__("First, you need to obtain an API key and set up the initial settings for the map design and display position.")}<br/>{__("After that, add the generated HTML code snippet to your website to display the map you have created.")}</p>
+          <Button className="create-new" variant="contained" size="large" onClick={() => window.location.href = '/#/api-keys'}>{__("Create map")}</Button>
         </div>
       </Paper>
 

@@ -11,47 +11,31 @@ msgstr ""
 msgid "Your invitation has been outdated."
 msgstr ""
 
-#: src/components/Dashboard.tsx:56
-msgid ""
-"The dashboard has been renewed. The GeoJSON API that we used to provide is "
-"currently not accessible due to functional modifications. If you need to "
-"download the data, please <a href=\"https://geolonia.com/contact/\" "
-"target=\"_blank\">contact us</a>."
-msgstr ""
-
-#: src/components/Dashboard.tsx:63
+#: src/components/Dashboard.tsx:57
 msgid "Get started with Geolonia map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:67
-msgid "Display a map"
+#: src/components/Dashboard.tsx:58
+msgid ""
+"First, you need to obtain an API key and set up the initial settings for "
+"the map design and display position."
 msgstr ""
 
-#: src/components/Dashboard.tsx:69
-msgid "Create API key then add the map to your web site"
+#: src/components/Dashboard.tsx:58
+msgid ""
+"After that, add the generated HTML code snippet to your website to display "
+"the map you have created."
 msgstr ""
 
-#: src/components/Dashboard.tsx:73
-msgid "Upload your data"
+#: src/components/Dashboard.tsx:59
+msgid "Create map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:75
-msgid "Display CSV or GeoJSON in your map"
-msgstr ""
-
-#: src/components/Dashboard.tsx:85
-msgid "Build a custom map"
-msgstr ""
-
-#: src/components/Dashboard.tsx:87
-msgid "Browse developer docs"
-msgstr ""
-
-#: src/components/Dashboard.tsx:93
+#: src/components/Dashboard.tsx:63
 msgid "Tutorials"
 msgstr ""
 
-#: src/components/Dashboard.tsx:96
+#: src/components/Dashboard.tsx:66
 msgid "Developer's Blog"
 msgstr ""
 
@@ -61,13 +45,13 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:103
 #: src/components/Data/GeoJsons.tsx:95
-#: src/components/Navigator.tsx:175
+#: src/components/Navigator.tsx:173
 msgid "Map"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:107
 #: src/components/Data/GeoJsons.tsx:125
-#: src/components/Navigator.tsx:154
+#: src/components/Navigator.tsx:164
 msgid "Location Data"
 msgstr ""
 
@@ -88,7 +72,7 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:268
 #: src/components/Data/fields.tsx:70
-#: src/components/Maps/APIKey.tsx:294
+#: src/components/Maps/APIKey.tsx:295
 msgid "Please type delete to confirm."
 msgstr ""
 
@@ -106,9 +90,9 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:99
 #: src/components/Data/GeoJsons.tsx:91
-#: src/components/Maps/APIKey.tsx:114
-#: src/components/Maps/APIKeys.tsx:41
-#: src/components/Navigator.tsx:268
+#: src/components/Maps/APIKey.tsx:116
+#: src/components/Maps/APIKeys.tsx:44
+#: src/components/Navigator.tsx:265
 #: src/components/Team/Billing.tsx:173
 msgid "Home"
 msgstr ""
@@ -145,7 +129,7 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:354
 #: src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:323
+#: src/components/Navigator.tsx:326
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
@@ -191,12 +175,12 @@ msgid "Enter URLs to be added."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:480
-#: src/components/Maps/APIKey.tsx:310
+#: src/components/Maps/APIKey.tsx:311
 msgid "Add the map to your site"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:483
-#: src/components/Maps/APIKey.tsx:313
+#: src/components/Maps/APIKey.tsx:314
 msgid "Step 1"
 msgstr ""
 
@@ -205,7 +189,7 @@ msgid "Please select API key."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:487
-#: src/components/Maps/APIKey.tsx:205
+#: src/components/Maps/APIKey.tsx:206
 msgid "API key"
 msgstr ""
 
@@ -218,29 +202,29 @@ msgid "If you don't have one, create it from <a href='#/api-keys'>API Keys</a>."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:506
-#: src/components/Maps/APIKey.tsx:340
+#: src/components/Maps/APIKey.tsx:341
 msgid "Step 2"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:510
-#: src/components/Maps/APIKey.tsx:317
+#: src/components/Maps/APIKey.tsx:318
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body "
 "/&gt;</code> in your HTML file."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:533
-#: src/components/Maps/APIKey.tsx:359
+#: src/components/Maps/APIKey.tsx:360
 msgid "Step 3"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:536
-#: src/components/Maps/APIKey.tsx:343
+#: src/components/Maps/APIKey.tsx:344
 msgid "Click following button and get HTML code where you want to place the map."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:554
-#: src/components/Maps/APIKey.tsx:355
+#: src/components/Maps/APIKey.tsx:356
 msgid "Get HTML"
 msgstr ""
 
@@ -249,12 +233,12 @@ msgid "Step 4"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:560
-#: src/components/Maps/APIKey.tsx:361
+#: src/components/Maps/APIKey.tsx:362
 msgid "Adjust the element size."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:575
-#: src/components/Maps/APIKey.tsx:376
+#: src/components/Maps/APIKey.tsx:377
 msgid "Copy to Clipboard"
 msgstr ""
 
@@ -341,7 +325,7 @@ msgid "URLs"
 msgstr ""
 
 #: src/components/Data/fields.tsx:50
-#: src/components/Maps/APIKey.tsx:261
+#: src/components/Maps/APIKey.tsx:262
 msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use an "
 "API key."
@@ -417,130 +401,138 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:118
-#: src/components/Maps/APIKeys.tsx:75
+#: src/components/Maps/APIKey.tsx:120
+#: src/components/Maps/APIKeys.tsx:88
 msgid "API keys"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:206
+#: src/components/Maps/APIKey.tsx:207
 msgid ""
 "Configure access control for your API key and Get the HTML code for your "
 "map."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:217
+#: src/components/Maps/APIKey.tsx:218
 msgid "Your API Key"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:226
+#: src/components/Maps/APIKey.tsx:227
 msgid "Settings"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:231
+#: src/components/Maps/APIKey.tsx:232
 msgid "Name for managing API keys"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:242
+#: src/components/Maps/APIKey.tsx:243
 msgid "List of URLs that are allowed to display the map"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:267
+#: src/components/Maps/APIKey.tsx:268
 msgid "Any page in a specific URL:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:271
+#: src/components/Maps/APIKey.tsx:272
 msgid "Any subdomain:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:274
+#: src/components/Maps/APIKey.tsx:275
 msgid "A URL with a non-standard port:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:279
+#: src/components/Maps/APIKey.tsx:280
 msgid "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\"."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:288
+#: src/components/Maps/APIKey.tsx:289
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:293
+#: src/components/Maps/APIKey.tsx:294
 msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:69
+#: src/components/Maps/APIKeys.tsx:71
 msgid "(No date)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:77
-msgid "You need an API key to display map. Get an API key."
-msgstr ""
-
-#: src/components/Maps/APIKeys.tsx:81
+#: src/components/Maps/APIKeys.tsx:76
 #: src/components/custom/AddNew.tsx:35
 msgid "New"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:84
+#: src/components/Maps/APIKeys.tsx:79
 msgid "API Key (created by %1$s on %2$s)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:87
+#: src/components/Maps/APIKeys.tsx:82
 msgid "A new API key has been created."
 msgstr ""
 
-#: src/components/Navigator.tsx:109
+#: src/components/Maps/APIKeys.tsx:91
+msgid "You need an API key to display map. Get an API key."
+msgstr ""
+
+#: src/components/Navigator.tsx:110
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:129
+#: src/components/Navigator.tsx:130
 #: src/components/Team/general/index.tsx:41
 msgid "General"
 msgstr ""
 
-#: src/components/Navigator.tsx:135
+#: src/components/Navigator.tsx:136
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:144
+#: src/components/Navigator.tsx:145
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:166
+#: src/components/Navigator.tsx:154
 msgid "Manage API keys"
 msgstr ""
 
-#: src/components/Navigator.tsx:180
+#: src/components/Navigator.tsx:177
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:184
+#: src/components/Navigator.tsx:181
 msgid "Documentation"
 msgstr ""
 
-#: src/components/Navigator.tsx:187
+#: src/components/Navigator.tsx:184
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:313
+#: src/components/Navigator.tsx:303
+msgid ""
+"The dashboard has been renewed. The GeoJSON API that we used to provide is "
+"currently not accessible due to functional modifications. If you need to "
+"download the data, please <a href=\"https://geolonia.com/contact/\" "
+"target=\"_blank\">contact us</a>."
+msgstr ""
+
+#: src/components/Navigator.tsx:316
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:317
+#: src/components/Navigator.tsx:320
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:331
+#: src/components/Navigator.tsx:334
 #: src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:338
+#: src/components/Navigator.tsx:341
 #: src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr ""
 
-#: src/components/Paperbase.tsx:160
+#: src/components/Paperbase.tsx:174
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
@@ -946,48 +938,56 @@ msgstr ""
 msgid "The following members will be suspended:"
 msgstr ""
 
-#: src/components/Turorials.tsx:14
+#: src/components/Turorials.tsx:17
 msgid "How to use the Dashboard"
 msgstr ""
 
-#: src/components/Turorials.tsx:15
+#: src/components/Turorials.tsx:18
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
 msgstr ""
 
-#: src/components/Turorials.tsx:19
+#: src/components/Turorials.tsx:23
 msgid "Embed API"
 msgstr ""
 
-#: src/components/Turorials.tsx:20
+#: src/components/Turorials.tsx:24
 msgid "The Embed API allows you to set up a map with just a simple HTML code."
 msgstr ""
 
-#: src/components/Turorials.tsx:24
+#: src/components/Turorials.tsx:29
 msgid "JavaScript API"
 msgstr ""
 
-#: src/components/Turorials.tsx:25
+#: src/components/Turorials.tsx:30
 msgid ""
 "Learn how to develop a professional map application using the JavaScript "
 "API."
 msgstr ""
 
-#: src/components/Turorials.tsx:29
+#: src/components/Turorials.tsx:35
 msgid "Custom Style"
 msgstr ""
 
-#: src/components/Turorials.tsx:30
+#: src/components/Turorials.tsx:36
 msgid "Learn how to customize the style of your map."
 msgstr ""
 
-#: src/components/Turorials.tsx:34
+#: src/components/Turorials.tsx:38
+msgid "Read More"
+msgstr ""
+
+#: src/components/Turorials.tsx:41
 msgid "Support"
 msgstr ""
 
-#: src/components/Turorials.tsx:35
+#: src/components/Turorials.tsx:42
 msgid ""
 "Please contact us if you have any questions about how to use the admin "
 "panel or if you need technical support (which may be paid)."
+msgstr ""
+
+#: src/components/Turorials.tsx:44
+msgid "Contact support"
 msgstr ""
 
 #: src/components/User/User.tsx:24
@@ -1019,7 +1019,7 @@ msgid "I forgot my password"
 msgstr ""
 
 #: src/components/User/security.tsx:130
-msgid "Password changed successfuly."
+msgid "Password changed successfully."
 msgstr ""
 
 #: src/components/User/security.tsx:133

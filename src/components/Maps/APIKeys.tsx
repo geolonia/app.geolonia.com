@@ -17,6 +17,8 @@ import { createActions as createMapKeyActions } from "../../redux/actions/map-ke
 import dateParse from "../../lib/date-parse";
 import mixpanel from "mixpanel-browser";
 
+import "./APIKeys.scss";
+
 type OwnProps = Record<string, never>;
 type StateProps = {
   session: Geolonia.Session;
@@ -70,24 +72,28 @@ function ApiKeys(props: Props) {
     };
   });
 
+  const newAPIButton = <AddNew2
+    buttonLabel={__('New')}
+    onClick={async () => {
+      const today = moment().format('YYYY-MM-DD')
+      const newKeyName = sprintf(__('API Key (created by %1$s on %2$s)'), username, today)
+      return handler(newKeyName).then((key) => push(`/api-keys/${key.keyId}`))
+    }}
+    successMessage={__('A new API key has been created.')}
+    errorMessage={message}
+  />
+
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title={__("API keys")}>
-        {mapKeys.length === 0 &&
-          __("You need an API key to display map. Get an API key.")}
-      </Title>
+      <Title breadcrumb={breadcrumbItems} title={__("API keys")}/>
 
-      <AddNew2
-        buttonLabel={__('New')}
-        onClick={async () => {
-          const today = moment().format('YYYY-MM-DD');
-          const newKeyName = sprintf(__('API Key (created by %1$s on %2$s)'), username, today);
-          const key = await handler(newKeyName);
-          push(`/api-keys/${key.keyId}`);
-        }}
-        successMessage={__('A new API key has been created.')}
-        errorMessage={message}
-      />
+      {mapKeys.length === 0 ? <div className={"tutorial-create-api-key"}>
+          <h3>{__("You need an API key to display map. Get an API key.")}</h3>
+          {newAPIButton}
+      </div>
+      :
+        newAPIButton
+      }
 
       <Table rows={rows} rowsPerPage={10} permalink="/api-keys/%s" />
     </div>

@@ -22,47 +22,34 @@ msgstr "招待が有効化されました。"
 msgid "Your invitation has been outdated."
 msgstr "この招待は無効です。"
 
-#: src/components/Dashboard.tsx:56
-msgid ""
-"The dashboard has been renewed. The GeoJSON API that we used to provide is "
-"currently not accessible due to functional modifications. If you need to "
-"download the data, please <a href=\"https://geolonia.com/contact/\" target="
-"\"_blank\">contact us</a>."
-msgstr "ダッシュボードのリニューアルを行いました。以前提供していた GeoJSON API は機能改修を行っており、管理画面は現在アクセスできません。データのダウンロードが必要な場合、<a href=\"https://geolonia.com/contact/\" target=\"_blank\">ご連絡ください</a>。"
-
-#: src/components/Dashboard.tsx:63
+#: src/components/Dashboard.tsx:57
 msgid "Get started with Geolonia map"
 msgstr "Geoloniaの地図を使ってみる"
 
-#: src/components/Dashboard.tsx:67
-msgid "Display a map"
-msgstr "地図の表示"
+#: src/components/Dashboard.tsx:58
+msgid ""
+"First, you need to obtain an API key and set up the initial settings for the "
+"map design and display position."
+msgstr ""
+"まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"
 
-#: src/components/Dashboard.tsx:69
-msgid "Create API key then add the map to your web site"
-msgstr "API キーを作成してWebサイトに地図を追加"
+#: src/components/Dashboard.tsx:58
+msgid ""
+"After that, add the generated HTML code snippet to your website to display "
+"the map you have created."
+msgstr ""
+"その後、生成された HTML コードスニペットをあなたの Webサイトに追加すると、作"
+"成した地図が表示されます。"
 
-#: src/components/Dashboard.tsx:73
-msgid "Upload your data"
-msgstr "データをアップロード"
+#: src/components/Dashboard.tsx:59
+msgid "Create map"
+msgstr "地図を作成する"
 
-#: src/components/Dashboard.tsx:75
-msgid "Display CSV or GeoJSON in your map"
-msgstr "CSV / GeoJSON を地図に表示"
-
-#: src/components/Dashboard.tsx:85
-msgid "Build a custom map"
-msgstr "カスタムマップを作成"
-
-#: src/components/Dashboard.tsx:87
-msgid "Browse developer docs"
-msgstr "開発者ドキュメントを参照"
-
-#: src/components/Dashboard.tsx:93
+#: src/components/Dashboard.tsx:63
 msgid "Tutorials"
 msgstr "チュートリアル"
 
-#: src/components/Dashboard.tsx:96
+#: src/components/Dashboard.tsx:66
 msgid "Developer's Blog"
 msgstr "Developer's Blog"
 
@@ -71,12 +58,12 @@ msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GeoJson.tsx:103 src/components/Data/GeoJsons.tsx:95
-#: src/components/Navigator.tsx:175
+#: src/components/Navigator.tsx:173
 msgid "Map"
 msgstr "地図"
 
 #: src/components/Data/GeoJson.tsx:107 src/components/Data/GeoJsons.tsx:125
-#: src/components/Navigator.tsx:154
+#: src/components/Navigator.tsx:164
 msgid "Location Data"
 msgstr "位置情報データ"
 
@@ -99,7 +86,7 @@ msgid "Are you sure you want to delete this Dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
 #: src/components/Data/GeoJson.tsx:268 src/components/Data/fields.tsx:70
-#: src/components/Maps/APIKey.tsx:294
+#: src/components/Maps/APIKey.tsx:295
 msgid "Please type delete to confirm."
 msgstr "確認のために delete と入力してください。"
 
@@ -116,8 +103,8 @@ msgid "Adding your data to the map..."
 msgstr "データを地図に追加しています。"
 
 #: src/components/Data/GeoJson.tsx:99 src/components/Data/GeoJsons.tsx:91
-#: src/components/Maps/APIKey.tsx:114 src/components/Maps/APIKeys.tsx:41
-#: src/components/Navigator.tsx:268 src/components/Team/Billing.tsx:173
+#: src/components/Maps/APIKey.tsx:116 src/components/Maps/APIKeys.tsx:44
+#: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:173
 msgid "Home"
 msgstr "ホーム"
 
@@ -154,7 +141,7 @@ msgstr ""
 "す。"
 
 #: src/components/Data/GeoJsonMeta.tsx:354 src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:323 src/components/Team/general/fields.tsx:84
+#: src/components/Navigator.tsx:326 src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129 src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:121
 msgid "Name"
@@ -201,11 +188,11 @@ msgstr "API キーページで設定した URL"
 msgid "Enter URLs to be added."
 msgstr "追加する URL を入力して下さい"
 
-#: src/components/Data/GeoJsonMeta.tsx:480 src/components/Maps/APIKey.tsx:310
+#: src/components/Data/GeoJsonMeta.tsx:480 src/components/Maps/APIKey.tsx:311
 msgid "Add the map to your site"
 msgstr "ウェブサイトに地図を追加しましょう"
 
-#: src/components/Data/GeoJsonMeta.tsx:483 src/components/Maps/APIKey.tsx:313
+#: src/components/Data/GeoJsonMeta.tsx:483 src/components/Maps/APIKey.tsx:314
 msgid "Step 1"
 msgstr "ステップ 1"
 
@@ -213,7 +200,7 @@ msgstr "ステップ 1"
 msgid "Please select API key."
 msgstr "API キーを選択してください"
 
-#: src/components/Data/GeoJsonMeta.tsx:487 src/components/Maps/APIKey.tsx:205
+#: src/components/Data/GeoJsonMeta.tsx:487 src/components/Maps/APIKey.tsx:206
 msgid "API key"
 msgstr "API キー"
 
@@ -228,11 +215,11 @@ msgstr ""
 "API キーをお持ちでない場合は <a href='#/api-keys'>API Keys</a> から作成して下"
 "さい。"
 
-#: src/components/Data/GeoJsonMeta.tsx:506 src/components/Maps/APIKey.tsx:340
+#: src/components/Data/GeoJsonMeta.tsx:506 src/components/Maps/APIKey.tsx:341
 msgid "Step 2"
 msgstr "ステップ 2"
 
-#: src/components/Data/GeoJsonMeta.tsx:510 src/components/Maps/APIKey.tsx:317
+#: src/components/Data/GeoJsonMeta.tsx:510 src/components/Maps/APIKey.tsx:318
 msgid ""
 "Include the following code before closing tag of the <code>&lt;body /&gt;</"
 "code> in your HTML file."
@@ -241,18 +228,18 @@ msgstr ""
 "のコードを挿入してください。API キーはすでに埋め込まれているのでそのままコ"
 "ピーして貼り付けできます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:533 src/components/Maps/APIKey.tsx:359
+#: src/components/Data/GeoJsonMeta.tsx:533 src/components/Maps/APIKey.tsx:360
 msgid "Step 3"
 msgstr "ステップ 3"
 
-#: src/components/Data/GeoJsonMeta.tsx:536 src/components/Maps/APIKey.tsx:343
+#: src/components/Data/GeoJsonMeta.tsx:536 src/components/Maps/APIKey.tsx:344
 msgid ""
 "Click following button and get HTML code where you want to place the map."
 msgstr ""
 "以下のボタンをクリックして地図を表示したい場所の HTML を取得、Webサイトで地図"
 "を表示したい場所に挿入してください。"
 
-#: src/components/Data/GeoJsonMeta.tsx:554 src/components/Maps/APIKey.tsx:355
+#: src/components/Data/GeoJsonMeta.tsx:554 src/components/Maps/APIKey.tsx:356
 msgid "Get HTML"
 msgstr "HTML を取得"
 
@@ -260,12 +247,12 @@ msgstr "HTML を取得"
 msgid "Step 4"
 msgstr "ステップ 4"
 
-#: src/components/Data/GeoJsonMeta.tsx:560 src/components/Maps/APIKey.tsx:361
+#: src/components/Data/GeoJsonMeta.tsx:560 src/components/Maps/APIKey.tsx:362
 msgid "Adjust the element size."
 msgstr ""
 "下記のCSSをWebサイトに追加して、地図を表示する要素のサイズを調整して下さい。"
 
-#: src/components/Data/GeoJsonMeta.tsx:575 src/components/Maps/APIKey.tsx:376
+#: src/components/Data/GeoJsonMeta.tsx:575 src/components/Maps/APIKey.tsx:377
 msgid "Copy to Clipboard"
 msgstr "クリップボードにコピー"
 
@@ -361,7 +348,7 @@ msgstr "説明"
 msgid "URLs"
 msgstr "URL のリスト"
 
-#: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:261
+#: src/components/Data/fields.tsx:50 src/components/Maps/APIKey.tsx:262
 msgid ""
 "URLs will be used for an HTTP referrer to restrict the URLs that can use an "
 "API key."
@@ -440,131 +427,143 @@ msgstr "プロフィール"
 msgid "Logout"
 msgstr "ログアウト"
 
-#: src/components/Maps/APIKey.tsx:118 src/components/Maps/APIKeys.tsx:75
+#: src/components/Maps/APIKey.tsx:120 src/components/Maps/APIKeys.tsx:88
 msgid "API keys"
 msgstr "API キー"
 
-#: src/components/Maps/APIKey.tsx:206
+#: src/components/Maps/APIKey.tsx:207
 msgid ""
 "Configure access control for your API key and Get the HTML code for your map."
 msgstr ""
 "地図を設置するサイトの登録や地図を設置するためのHTMLコード取得ができます"
 
-#: src/components/Maps/APIKey.tsx:217
+#: src/components/Maps/APIKey.tsx:218
 msgid "Your API Key"
 msgstr "あなたの API キー"
 
-#: src/components/Maps/APIKey.tsx:226
+#: src/components/Maps/APIKey.tsx:227
 msgid "Settings"
 msgstr "設定"
 
-#: src/components/Maps/APIKey.tsx:231
+#: src/components/Maps/APIKey.tsx:232
 msgid "Name for managing API keys"
 msgstr "APIキー管理用の名前"
 
-#: src/components/Maps/APIKey.tsx:242
+#: src/components/Maps/APIKey.tsx:243
 msgid "List of URLs that are allowed to display the map"
 msgstr "地図の表示を許可するURLのリスト"
 
-#: src/components/Maps/APIKey.tsx:267
+#: src/components/Maps/APIKey.tsx:268
 msgid "Any page in a specific URL:"
 msgstr "指定された URL 以下のすべてのページ:"
 
-#: src/components/Maps/APIKey.tsx:271
+#: src/components/Maps/APIKey.tsx:272
 msgid "Any subdomain:"
 msgstr "すべてのサブドメイン:"
 
-#: src/components/Maps/APIKey.tsx:274
+#: src/components/Maps/APIKey.tsx:275
 msgid "A URL with a non-standard port:"
 msgstr "一般的ではないポート:"
 
-#: src/components/Maps/APIKey.tsx:279
+#: src/components/Maps/APIKey.tsx:280
 msgid "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\"."
 msgstr ""
 "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致しま"
 "す。"
 
-#: src/components/Maps/APIKey.tsx:288
+#: src/components/Maps/APIKey.tsx:289
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してくだ"
 "さい。"
 
-#: src/components/Maps/APIKey.tsx:293
+#: src/components/Maps/APIKey.tsx:294
 msgid "Are you sure you want to delete this API key?"
 msgstr "この API キーを本当に削除しますか？"
 
-#: src/components/Maps/APIKeys.tsx:69
+#: src/components/Maps/APIKeys.tsx:71
 msgid "(No date)"
 msgstr "(データなし)"
 
-#: src/components/Maps/APIKeys.tsx:77
+#: src/components/Maps/APIKeys.tsx:76 src/components/custom/AddNew.tsx:35
+msgid "New"
+msgstr "新規作成"
+
+#: src/components/Maps/APIKeys.tsx:79
+msgid "API Key (created by %1$s on %2$s)"
+msgstr "API キー (%1$s が %2$s に作成)"
+
+#: src/components/Maps/APIKeys.tsx:82
+msgid "A new API key has been created."
+msgstr "新しい API キーが作成されました。"
+
+#: src/components/Maps/APIKeys.tsx:91
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成して"
 "ください。"
 
-#: src/components/Maps/APIKeys.tsx:81 src/components/custom/AddNew.tsx:35
-msgid "New"
-msgstr "新規作成"
-
-#: src/components/Maps/APIKeys.tsx:84
-msgid "API Key (created by %1$s on %2$s)"
-msgstr "API キー (%1$s が %2$s に作成)"
-
-#: src/components/Maps/APIKeys.tsx:87
-msgid "A new API key has been created."
-msgstr "新しい API キーが作成されました。"
-
-#: src/components/Navigator.tsx:109
+#: src/components/Navigator.tsx:110
 msgid "My team"
 msgstr "My team"
 
-#: src/components/Navigator.tsx:129 src/components/Team/general/index.tsx:41
+#: src/components/Navigator.tsx:130 src/components/Team/general/index.tsx:41
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:135
+#: src/components/Navigator.tsx:136
 msgid "Members"
 msgstr "メンバー"
 
-#: src/components/Navigator.tsx:144
+#: src/components/Navigator.tsx:145
 msgid "Billing"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:166
+#: src/components/Navigator.tsx:154
 msgid "Manage API keys"
 msgstr "API キー の管理"
 
-#: src/components/Navigator.tsx:180
+#: src/components/Navigator.tsx:177
 msgid "Team Settings"
 msgstr "チーム設定"
 
-#: src/components/Navigator.tsx:184
+#: src/components/Navigator.tsx:181
 msgid "Documentation"
 msgstr "ドキュメント"
 
-#: src/components/Navigator.tsx:187
+#: src/components/Navigator.tsx:184
 msgid "Official Documents"
 msgstr "公式ドキュメント"
 
-#: src/components/Navigator.tsx:313
+#: src/components/Navigator.tsx:303
+msgid ""
+"The dashboard has been renewed. The GeoJSON API that we used to provide is "
+"currently not accessible due to functional modifications. If you need to "
+"download the data, please <a href=\"https://geolonia.com/contact/\" target="
+"\"_blank\">contact us</a>."
+msgstr ""
+"ダッシュボードのリニューアルを行いました。以前提供していた GeoJSON API は機能"
+"改修を行っており、管理画面は現在アクセスできません。データのダウンロードが必"
+"要な場合、<a href=\"https://geolonia.com/contact/\" target=\"_blank\">ご連絡"
+"ください</a>。"
+
+#: src/components/Navigator.tsx:316
 msgid "Create a new team"
 msgstr "新しいチームを作成"
 
-#: src/components/Navigator.tsx:317
+#: src/components/Navigator.tsx:320
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Navigator.tsx:331 src/components/Team/general/fields.tsx:116
+#: src/components/Navigator.tsx:334 src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:338 src/components/Team/general/fields.tsx:138
+#: src/components/Navigator.tsx:341 src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr "指定したメールに請求情報を送信します。"
 
-#: src/components/Paperbase.tsx:160
+#: src/components/Paperbase.tsx:174
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
@@ -986,54 +985,60 @@ msgstr "メンバーの一時停止"
 msgid "The following members will be suspended:"
 msgstr "以下のメンバーによる操作が一時停止されます。"
 
-#: src/components/Turorials.tsx:14
+#: src/components/Turorials.tsx:17
 msgid "How to use the Dashboard"
 msgstr "管理画面の使い方"
 
-#: src/components/Turorials.tsx:15
+#: src/components/Turorials.tsx:18
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
 msgstr ""
 "ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
 
-#: src/components/Turorials.tsx:19
+#: src/components/Turorials.tsx:23
 msgid "Embed API"
 msgstr "Embed API"
 
-#: src/components/Turorials.tsx:20
-msgid "The Embed API allows you to set up a map with just a simple HTML code."
-msgstr ""
-"Embed API を使用すると、簡単な HTML を記述するだけで地図を設置することが可能"
-"です。"
-
 #: src/components/Turorials.tsx:24
+msgid "The Embed API allows you to set up a map with just a simple HTML code."
+msgstr "Embed API を使用すると、簡単な HTML を書くだけで地図を設置出来ます。"
+
+#: src/components/Turorials.tsx:29
 msgid "JavaScript API"
 msgstr "JavaScript API"
 
-#: src/components/Turorials.tsx:25
+#: src/components/Turorials.tsx:30
 msgid ""
 "Learn how to develop a professional map application using the JavaScript API."
 msgstr ""
 "JavaScript API を使った本格的な地図アプリの開発方法についてご紹介します。"
 
-#: src/components/Turorials.tsx:29
+#: src/components/Turorials.tsx:35
 msgid "Custom Style"
 msgstr "カスタムスタイル"
 
-#: src/components/Turorials.tsx:30
+#: src/components/Turorials.tsx:36
 msgid "Learn how to customize the style of your map."
 msgstr "地図のスタイルをカスタマイズする方法についてご紹介します。"
 
-#: src/components/Turorials.tsx:34
+#: src/components/Turorials.tsx:38
+msgid "Read More"
+msgstr "続きを読む"
+
+#: src/components/Turorials.tsx:41
 msgid "Support"
 msgstr "サポート"
 
-#: src/components/Turorials.tsx:35
+#: src/components/Turorials.tsx:42
 msgid ""
 "Please contact us if you have any questions about how to use the admin panel "
 "or if you need technical support (which may be paid)."
 msgstr ""
-"管理画面の使い方についての質問や、技術支援（有償の場合があります）が必要な方"
-"はご連絡ください。"
+"管理画面の使い方の質問や、有償の技術サポートはこちらからお問い合わせくださ"
+"い。"
+
+#: src/components/Turorials.tsx:44
+msgid "Contact support"
+msgstr "問い合わせる"
 
 #: src/components/User/User.tsx:24
 msgid "Your profile"
@@ -1064,7 +1069,8 @@ msgid "I forgot my password"
 msgstr "パスワードをお忘れですか？"
 
 #: src/components/User/security.tsx:130
-msgid "Password changed successfuly."
+#, fuzzy
+msgid "Password changed successfully."
 msgstr "パスワードを変更しました。"
 
 #: src/components/User/security.tsx:133
@@ -1296,11 +1302,23 @@ msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
 
-#~ msgid "API key settings"
-#~ msgstr "API キーの設定"
+#~ msgid "Display a map"
+#~ msgstr "地図の表示"
 
-#~ msgid "Get Started"
-#~ msgstr "Get Started"
+#~ msgid "Create API key then add the map to your web site"
+#~ msgstr "API キーを作成してWebサイトに地図を追加"
+
+#~ msgid "Upload your data"
+#~ msgstr "データをアップロード"
+
+#~ msgid "Display CSV or GeoJSON in your map"
+#~ msgstr "CSV / GeoJSON を地図に表示"
+
+#~ msgid "Build a custom map"
+#~ msgstr "カスタムマップを作成"
+
+#~ msgid "Browse developer docs"
+#~ msgstr "開発者ドキュメントを参照"
 
 #~ msgid "Create a new API key"
 #~ msgstr "新しい API キーを作成"
@@ -1310,6 +1328,12 @@ msgstr "6"
 
 #~ msgid "My API"
 #~ msgstr "API キー"
+
+#~ msgid "API key settings"
+#~ msgstr "API キーの設定"
+
+#~ msgid "Get Started"
+#~ msgstr "Get Started"
 
 #~ msgid "URL"
 #~ msgstr "URL"
