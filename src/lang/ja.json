@@ -14,7 +14,7 @@
         "まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"
       ],
       "After that, add the generated HTML code snippet to your website to display the map you have created.": [
-        "そのあと生成された HTML コードスニペットをあなたの Webサイトに追加すると、作成した地図が表示されます。"
+        "その後、生成された HTML コードスニペットをあなたの Webサイトに追加すると、作成した地図が表示されます。"
       ],
       "Create map": ["地図を作成する"],
       "Tutorials": ["チュートリアル"],

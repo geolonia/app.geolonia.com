@@ -38,7 +38,7 @@ msgid ""
 "After that, add the generated HTML code snippet to your website to display "
 "the map you have created."
 msgstr ""
-"そのあと生成された HTML コードスニペットをあなたの Webサイトに追加すると、作"
+"その後、生成された HTML コードスニペットをあなたの Webサイトに追加すると、作"
 "成した地図が表示されます。"
 
 #: src/components/Dashboard.tsx:57
