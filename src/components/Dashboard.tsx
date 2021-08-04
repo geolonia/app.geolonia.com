@@ -54,7 +54,7 @@ const Dashboard = (props: Props) => {
     <div id="dashboard">
       <Alert Icon={InfoIcon}>
         {__(
-          'The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href="https://geolonia.com/contact/">contact us</a>.'
+          'The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href="https://geolonia.com/contact/" target="_blank">contact us</a>.'
         )}
       </Alert>
 
