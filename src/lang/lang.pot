@@ -651,10 +651,10 @@ msgstr ""
 #: src/components/Signup.tsx:161
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
-"href=\"https://geolonia.com/terms\" "
+"href=\"https://geolonia.com/terms\" target=\"_blank\" "
 "class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
-"class=\"MuiTypography-colorPrimary\" "
-"href=\"https://geolonia.com/privacy\">Privacy policy</a>."
+"class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" "
+"target=\"_blank\">Privacy policy</a>."
 msgstr ""
 
 #: src/components/Team/Billing.tsx:102
@@ -938,55 +938,55 @@ msgstr ""
 msgid "The following members will be suspended:"
 msgstr ""
 
-#: src/components/Turorials.tsx:17
+#: src/components/Tutorials.tsx:16
 msgid "How to use the Dashboard"
 msgstr ""
 
-#: src/components/Turorials.tsx:18
+#: src/components/Tutorials.tsx:17
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
 msgstr ""
 
-#: src/components/Turorials.tsx:23
+#: src/components/Tutorials.tsx:22
 msgid "Embed API"
 msgstr ""
 
-#: src/components/Turorials.tsx:24
+#: src/components/Tutorials.tsx:23
 msgid "The Embed API allows you to set up a map with just a simple HTML code."
 msgstr ""
 
-#: src/components/Turorials.tsx:29
+#: src/components/Tutorials.tsx:28
 msgid "JavaScript API"
 msgstr ""
 
-#: src/components/Turorials.tsx:30
+#: src/components/Tutorials.tsx:29
 msgid ""
 "Learn how to develop a professional map application using the JavaScript "
 "API."
 msgstr ""
 
-#: src/components/Turorials.tsx:35
+#: src/components/Tutorials.tsx:34
 msgid "Custom Style"
 msgstr ""
 
-#: src/components/Turorials.tsx:36
+#: src/components/Tutorials.tsx:35
 msgid "Learn how to customize the style of your map."
 msgstr ""
 
-#: src/components/Turorials.tsx:38
+#: src/components/Tutorials.tsx:37
 msgid "Read More"
 msgstr ""
 
-#: src/components/Turorials.tsx:41
+#: src/components/Tutorials.tsx:40
 msgid "Support"
 msgstr ""
 
-#: src/components/Turorials.tsx:42
+#: src/components/Tutorials.tsx:41
 msgid ""
 "Please contact us if you have any questions about how to use the admin "
 "panel or if you need technical support (which may be paid)."
 msgstr ""
 
-#: src/components/Turorials.tsx:44
+#: src/components/Tutorials.tsx:43
 msgid "Contact support"
 msgstr ""
 
