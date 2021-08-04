@@ -15,6 +15,7 @@ import createKey from "../../api/keys/create";
 import Redux from "redux";
 import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
 import dateParse from "../../lib/date-parse";
+import mixpanel from "mixpanel-browser";
 
 import "./APIKeys.scss";
 
@@ -49,17 +50,16 @@ function ApiKeys(props: Props) {
     }
   ];
 
-  const handler = useCallback((name: string) => {
-    return createKey(session, teamId, name).then(result => {
-      if (result.error) {
-        setMessage(result.message);
-        throw new Error(result.code);
-      } else {
-        const data = dateParse(result.data);
-        addKey(teamId, data);
-        return result.data
-      }
-    });
+  const handler = useCallback(async (name: string) => {
+    const result = await createKey(session, teamId, name);
+    if (result.error) {
+      setMessage(result.message);
+      throw new Error(result.code);
+    }
+    const data = dateParse(result.data);
+    addKey(teamId, data);
+    mixpanel.track('Create API key', { apiKeyId: result.data.keyId });
+    return result.data;
   }, [addKey, session, teamId]);
 
   const rows = mapKeys.map(key => {
@@ -94,6 +94,7 @@ function ApiKeys(props: Props) {
       :
         newAPIButton
       }
+
       <Table rows={rows} rowsPerPage={10} permalink="/api-keys/%s" />
     </div>
   );

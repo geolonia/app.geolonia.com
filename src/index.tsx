@@ -5,6 +5,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
+import mixpanel from 'mixpanel-browser';
 
 if (process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({
@@ -16,6 +17,10 @@ if (process.env.REACT_APP_SENTRY_DSN) {
     // We recommend adjusting this value in production
     tracesSampleRate: 1.0,
   });
+}
+
+if (process.env.REACT_APP_MIXPANEL_TOKEN) {
+  mixpanel.init(process.env.REACT_APP_MIXPANEL_TOKEN);
 }
 
 ReactDOM.render(<App />, document.getElementById("root"));
