@@ -10,14 +10,13 @@
       "Your invitation has been validated.": ["招待が有効化されました。"],
       "Your invitation has been outdated.": ["この招待は無効です。"],
       "Get started with Geolonia map": ["Geoloniaの地図を使ってみる"],
-      "Display a map": ["地図の表示"],
-      "Create API key then add the map to your web site": [
-        "API キーを作成してWebサイトに地図を追加"
+      "First, you need to obtain an API key and set up the initial settings for the map design and display position.": [
+        "まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"
       ],
-      "Upload your data": ["データをアップロード"],
-      "Display CSV or GeoJSON in your map": ["CSV / GeoJSON を地図に表示"],
-      "Build a custom map": ["カスタムマップを作成"],
-      "Browse developer docs": ["開発者ドキュメントを参照"],
+      "After that, add the generated HTML code snippet to your website to display the map you have created.": [
+        "その後、生成された HTML コードスニペットをあなたの Webサイトに追加すると、作成した地図が表示されます。"
+      ],
+      "Create map": ["地図を作成する"],
       "Tutorials": ["チュートリアル"],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
@@ -182,12 +181,12 @@
         "この API キーを本当に削除しますか？"
       ],
       "(No date)": ["(データなし)"],
-      "You need an API key to display map. Get an API key.": [
-        "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成してください。"
-      ],
       "New": ["新規作成"],
       "API Key (created by %1$s on %2$s)": ["API キー (%1$s が %2$s に作成)"],
       "A new API key has been created.": ["新しい API キーが作成されました。"],
+      "You need an API key to display map. Get an API key.": [
+        "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成してください。"
+      ],
       "My team": ["My team"],
       "General": ["一般"],
       "Members": ["メンバー"],
@@ -361,7 +360,7 @@
       ],
       "Embed API": ["Embed API"],
       "The Embed API allows you to set up a map with just a simple HTML code.": [
-        "Embed API を使用すると、簡単な HTML を記述するだけで地図を設置することが可能です。"
+        "Embed API を使用すると、簡単な HTML を書くだけで地図を設置出来ます。"
       ],
       "JavaScript API": ["JavaScript API"],
       "Learn how to develop a professional map application using the JavaScript API.": [
@@ -371,10 +370,12 @@
       "Learn how to customize the style of your map.": [
         "地図のスタイルをカスタマイズする方法についてご紹介します。"
       ],
+      "Read More": ["続きを読む"],
       "Support": ["サポート"],
       "Please contact us if you have any questions about how to use the admin panel or if you need technical support (which may be paid).": [
-        "管理画面の使い方についての質問や、技術支援（有償の場合があります）が必要な方はご連絡ください。"
+        "管理画面の使い方の質問や、有償の技術サポートはこちらからお問い合わせください。"
       ],
+      "Contact support": ["問い合わせる"],
       "Your profile": ["プロフィール"],
       "You can update your profile and security.": [
         "プロフィールとセキュリティを設定できます。"
@@ -384,7 +385,7 @@
       "Time zone": ["タイムゾーン"],
       "Update password": ["パスワードを更新"],
       "I forgot my password": ["パスワードをお忘れですか？"],
-      "Password changed successfuly.": ["パスワードを変更しました。"],
+      "Password changed successfully.": ["パスワードを変更しました。"],
       "Failed to change password.": ["パスワードの変更に失敗しました。"],
       "Security": ["セキュリティ"],
       "Old password": ["古いパスワード"],
