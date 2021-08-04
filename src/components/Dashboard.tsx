@@ -5,6 +5,7 @@ import { withStyles, Theme } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
 import Alert from "./custom/Alert";
 import InfoIcon from "@material-ui/icons/Info";
+import { __ } from "@wordpress/i18n";
 import moment from "moment";
 
 import "./Dashboard.scss";
