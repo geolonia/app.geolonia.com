@@ -3,12 +3,9 @@ import React from "react";
 import Paper from "@material-ui/core/Paper";
 import { withStyles, Theme } from "@material-ui/core/styles";
 import Link from "@material-ui/core/Link";
-import Hidden from "@material-ui/core/Hidden";
 import Alert from "./custom/Alert";
 import InfoIcon from "@material-ui/icons/Info";
-import { sprintf, __ } from "@wordpress/i18n";
 import moment from "moment";
-import iconPlane from "./custom/plane.svg";
 
 import "./Dashboard.scss";
 import { connect } from "react-redux";
@@ -61,12 +58,6 @@ const Dashboard = (props: Props) => {
       </Alert>
 
       <Paper className="getting-started">
-        <Hidden smDown>
-          <div className="box-icon">
-            <img src={iconPlane} alt="" className="icon" />
-          </div>
-        </Hidden>
-
         <div className="box-content">
           <h2>{__("Get started with Geolonia map")}</h2>
           <ul>
