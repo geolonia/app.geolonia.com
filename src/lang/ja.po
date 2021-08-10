@@ -105,6 +105,8 @@ msgstr "データを地図に追加しています。"
 #: src/components/Data/GeoJson.tsx:99 src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:116 src/components/Maps/APIKeys.tsx:44
 #: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:173
+#: src/components/Team/general/index.tsx:28
+#: src/components/Team/members/index.tsx:121 src/components/User/User.tsx:13
 msgid "Home"
 msgstr "ホーム"
 
@@ -141,7 +143,7 @@ msgstr ""
 "す。"
 
 #: src/components/Data/GeoJsonMeta.tsx:354 src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:326 src/components/Team/general/fields.tsx:84
+#: src/components/Navigator.tsx:340 src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129 src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:121
 msgid "Name"
@@ -511,11 +513,11 @@ msgstr "My team"
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:136
+#: src/components/Navigator.tsx:136 src/components/Team/members/index.tsx:143
 msgid "Members"
 msgstr "メンバー"
 
-#: src/components/Navigator.tsx:145
+#: src/components/Navigator.tsx:145 src/components/Team/Billing.tsx:221
 msgid "Billing"
 msgstr "支払い"
 
@@ -535,31 +537,31 @@ msgstr "ドキュメント"
 msgid "Official Documents"
 msgstr "公式ドキュメント"
 
-#: src/components/Navigator.tsx:303
+#: src/components/Navigator.tsx:317
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
 "download the data, please <a href=\"https://geolonia.com/contact/\" target="
 "\"_blank\">contact us</a>."
 msgstr ""
-"8月5日にダッシュボードの正式版を公開しました。ベータ"
-"版で提供していたGeoJSON APIは、近日中に公開予定です。ベータ版で作成したデータはそのままお使いいただけま"
-"すが、ダウンロードが必要な場合はお手数ですが別途 <a href=\"https://geolonia."
-"com/contact/\" target=\"_blank\">ご連絡</a>をお願いします。"
+"8月5日にダッシュボードの正式版を公開しました。ベータ版で提供していたGeoJSON "
+"APIは、近日中に公開予定です。ベータ版で作成したデータはそのままお使いいただけ"
+"ますが、ダウンロードが必要な場合はお手数ですが別途 <a href=\"https://"
+"geolonia.com/contact/\" target=\"_blank\">ご連絡</a>をお願いします。"
 
-#: src/components/Navigator.tsx:316
+#: src/components/Navigator.tsx:330
 msgid "Create a new team"
 msgstr "新しいチームを作成"
 
-#: src/components/Navigator.tsx:320
+#: src/components/Navigator.tsx:334
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Navigator.tsx:334 src/components/Team/general/fields.tsx:116
+#: src/components/Navigator.tsx:348 src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:341 src/components/Team/general/fields.tsx:138
+#: src/components/Navigator.tsx:355 src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr "指定したメールに請求情報を送信します。"
 
@@ -683,10 +685,11 @@ msgid ""
 "service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://"
 "geolonia.com/privacy\" target=\"_blank\">Privacy policy</a>."
 msgstr ""
-"サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" target=\"_blank\" "
-"class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class="
-"\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">プライバ"
-"シーポリシー</a> に同意したものとさせていただきます。"
+"サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" "
+"target=\"_blank\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a "
+"class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" "
+"target=\"_blank\">プライバシーポリシー</a> に同意したものとさせていただきま"
+"す。"
 
 #: src/components/Team/Billing.tsx:102
 msgid "Free plan"
@@ -995,7 +998,7 @@ msgstr "以下のメンバーによる操作が一時停止されます。"
 
 #: src/components/Tutorials.tsx:16
 msgid "How to use the Dashboard"
-msgstr "管理画面の使い方"
+msgstr "ダッシュボードの使い方"
 
 #: src/components/Tutorials.tsx:17
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
@@ -1041,8 +1044,8 @@ msgid ""
 "Please contact us if you have any questions about how to use the admin panel "
 "or if you need technical support (which may be paid)."
 msgstr ""
-"管理画面の使い方の質問や、有償の技術サポートはこちらからお問い合わせくださ"
-"い。"
+"ダッシュボードの使い方の質問や、有償の技術サポートはこちらからお問い合わせく"
+"ださい。"
 
 #: src/components/Tutorials.tsx:43
 msgid "Contact support"

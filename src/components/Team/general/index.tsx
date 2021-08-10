@@ -20,12 +20,12 @@ type OwnProps = Record<string, never>;
 type StateProps = { role?: Geolonia.Role };
 type Props = OwnProps & StateProps;
 
-const Content = (props: Props) => {
+const General = (props: Props) => {
   const { role } = props;
 
   const breadcrumbItems = [
     {
-      title: "Home",
+      title: __("Home"),
       href: "#/"
     },
     {
@@ -69,4 +69,4 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   return { role };
 };
 
-export default connect(mapStateToProps)(Content);
+export default connect(mapStateToProps)(General);

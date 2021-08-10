@@ -42,7 +42,7 @@ type StateProps = {
 
 type Props = OwnProps & StateProps;
 
-const Content = (props: Props) => {
+const Members = (props: Props) => {
   const { members } = props;
   const [currentMember, setCurrentMember] = useState<
     false | Geolonia.Member
@@ -118,7 +118,7 @@ const Content = (props: Props) => {
 
   const breadcrumbItems = [
     {
-      title: "Home",
+      title: __("Home"),
       href: "#/"
     },
     {
@@ -140,7 +140,7 @@ const Content = (props: Props) => {
 
   return (
     <div>
-      <Title title="Members" breadcrumb={breadcrumbItems}>
+      <Title title={__("Members")} breadcrumb={breadcrumbItems}>
         {__("You can manage members in your team.")}
 
         { isOwner && inviteDisabled &&
@@ -308,4 +308,4 @@ export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   return { team, members };
 };
 
-export default connect(mapStateToProps)(Content);
+export default connect(mapStateToProps)(Members);
