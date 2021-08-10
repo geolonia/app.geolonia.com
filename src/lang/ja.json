@@ -272,6 +272,9 @@
       "Update": ["更新"],
       "Unknown Error.": ["不明なエラー。"],
       "Your plan": ["あなたのプラン"],
+      "All prices include a 10% Japanese Consumption Tax": [
+        "※ 上記の価格はすべて税込表示です"
+      ],
       "Your subscription will be canceled.": [
         "サブスクリプションはキャンセルされます。"
       ],
