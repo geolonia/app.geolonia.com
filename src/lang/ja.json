@@ -359,8 +359,8 @@
         "ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
       ],
       "Embed API": ["Embed API"],
-      "The Embed API allows you to set up a map with just a simple HTML code.": [
-        "Embed API を使用すると、簡単な HTML を書くだけで地図を設置出来ます。"
+      "Learn about the Embed API, which enables you to set up a map with a simple HTML code.": [
+        "簡単な HTML を書くだけで地図を設置できる Embed API について紹介します。"
       ],
       "JavaScript API": ["JavaScript API"],
       "Learn how to develop a professional map application using the JavaScript API.": [

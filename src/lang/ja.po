@@ -1010,8 +1010,8 @@ msgid "Embed API"
 msgstr "Embed API"
 
 #: src/components/Tutorials.tsx:23
-msgid "The Embed API allows you to set up a map with just a simple HTML code."
-msgstr "Embed API を使用すると、簡単な HTML を書くだけで地図を設置出来ます。"
+msgid "Learn about the Embed API, which enables you to set up a map with a simple HTML code."
+msgstr "簡単な HTML を書くだけで地図を設置できる Embed API について紹介します。"
 
 #: src/components/Tutorials.tsx:28
 msgid "JavaScript API"

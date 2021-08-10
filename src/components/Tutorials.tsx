@@ -20,7 +20,7 @@ const getTutorialContents = () => {
     },
     {
       title: __('Embed API'),
-      excerpt: __('The Embed API allows you to set up a map with just a simple HTML code.'),
+      excerpt: __('Learn about the Embed API, which enables you to set up a map with a simple HTML code.'),
       url: 'https://docs.geolonia.com/embed-api/',
       btnText: __('Read More')
     },

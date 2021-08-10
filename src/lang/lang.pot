@@ -962,7 +962,9 @@ msgid "Embed API"
 msgstr ""
 
 #: src/components/Tutorials.tsx:23
-msgid "The Embed API allows you to set up a map with just a simple HTML code."
+msgid ""
+"Learn about the Embed API, which enables you to set up a map with a simple "
+"HTML code."
 msgstr ""
 
 #: src/components/Tutorials.tsx:28
