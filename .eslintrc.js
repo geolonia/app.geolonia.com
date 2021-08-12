@@ -1,6 +1,9 @@
 module.exports = {
-  extends: ['@geolonia', 'react-app', 'plugin:react/recommended'],
-  plugins: ['react'],
+  extends: [
+    '@geolonia',
+    'react-app',
+    'plugin:react/recommended',
+  ],
   env: {
     browser: true,
     jest: true,
