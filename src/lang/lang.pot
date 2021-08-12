@@ -94,6 +94,9 @@ msgstr ""
 #: src/components/Maps/APIKeys.tsx:44
 #: src/components/Navigator.tsx:265
 #: src/components/Team/Billing.tsx:173
+#: src/components/Team/general/index.tsx:28
+#: src/components/Team/members/index.tsx:121
+#: src/components/User/User.tsx:13
 msgid "Home"
 msgstr ""
 
@@ -483,10 +486,12 @@ msgid "General"
 msgstr ""
 
 #: src/components/Navigator.tsx:136
+#: src/components/Team/members/index.tsx:143
 msgid "Members"
 msgstr ""
 
 #: src/components/Navigator.tsx:145
+#: src/components/Team/Billing.tsx:221
 msgid "Billing"
 msgstr ""
 
@@ -961,7 +966,9 @@ msgid "Embed API"
 msgstr ""
 
 #: src/components/Tutorials.tsx:23
-msgid "The Embed API allows you to set up a map with just a simple HTML code."
+msgid ""
+"Learn about the Embed API, which enables you to set up a map with a simple "
+"HTML code."
 msgstr ""
 
 #: src/components/Tutorials.tsx:28

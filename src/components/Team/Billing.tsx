@@ -218,7 +218,7 @@ const Billing = (props: StateProps) => {
   return (
     <StripeContainer>
       <div className="billing">
-        <Title title="Billing" breadcrumb={breadcrumbItems}>
+        <Title title={__("Billing")} breadcrumb={breadcrumbItems}>
           {__("You can see subscriptions for this team in this month.")}
         </Title>
 

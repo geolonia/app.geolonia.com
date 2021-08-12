@@ -105,6 +105,8 @@ msgstr "データを地図に追加しています。"
 #: src/components/Data/GeoJson.tsx:99 src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:116 src/components/Maps/APIKeys.tsx:44
 #: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:173
+#: src/components/Team/general/index.tsx:28
+#: src/components/Team/members/index.tsx:121 src/components/User/User.tsx:13
 msgid "Home"
 msgstr "ホーム"
 
@@ -511,11 +513,11 @@ msgstr "My team"
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:136
+#: src/components/Navigator.tsx:136 src/components/Team/members/index.tsx:143
 msgid "Members"
 msgstr "メンバー"
 
-#: src/components/Navigator.tsx:145
+#: src/components/Navigator.tsx:145 src/components/Team/Billing.tsx:221
 msgid "Billing"
 msgstr "支払い"
 
@@ -1000,7 +1002,7 @@ msgstr "以下のメンバーによる操作が一時停止されます。"
 
 #: src/components/Tutorials.tsx:16
 msgid "How to use the Dashboard"
-msgstr "管理画面の使い方"
+msgstr "ダッシュボードの使い方"
 
 #: src/components/Tutorials.tsx:17
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
@@ -1012,8 +1014,8 @@ msgid "Embed API"
 msgstr "Embed API"
 
 #: src/components/Tutorials.tsx:23
-msgid "The Embed API allows you to set up a map with just a simple HTML code."
-msgstr "Embed API を使用すると、簡単な HTML を書くだけで地図を設置出来ます。"
+msgid "Learn about the Embed API, which enables you to set up a map with a simple HTML code."
+msgstr "簡単な HTML を書くだけで地図を設置できる Embed API についてご紹介します。"
 
 #: src/components/Tutorials.tsx:28
 msgid "JavaScript API"
@@ -1046,8 +1048,8 @@ msgid ""
 "Please contact us if you have any questions about how to use the admin panel "
 "or if you need technical support (which may be paid)."
 msgstr ""
-"管理画面の使い方の質問や、有償の技術サポートはこちらからお問い合わせくださ"
-"い。"
+"ダッシュボードの使い方の質問や、有償の技術サポートはこちらからお問い合わせく"
+"ださい。"
 
 #: src/components/Tutorials.tsx:43
 msgid "Contact support"
