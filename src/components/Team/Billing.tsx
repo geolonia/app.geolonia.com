@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 
 import Typography from "@material-ui/core/Typography";
 import Table from "@material-ui/core/Table";
@@ -46,6 +46,7 @@ type StateProps = {
   isOwner?: boolean;
   memberCount?: number;
   team?: Geolonia.Team;
+  language: string;
 };
 
 type StripeTier = {
@@ -94,6 +95,11 @@ interface SubscriptionDetails {
   current_period_end: number;
 }
 
+interface CustomerDetails {
+  balance: number
+  currency: string
+}
+
 export const parsePlanLabel = (
   plans: GeoloniaPlan[],
   planId: PossiblePlanId
@@ -113,6 +119,7 @@ const usePlan = (props: StateProps) => {
   // planId === void 0 リクエスト中
   const [planId, setPlanId] = useState<string | null | undefined>(void 0);
   const [subscription, setSubscription] = useState<SubscriptionDetails | undefined>(undefined);
+  const [customer, setCustomer] = useState<CustomerDetails | undefined>(undefined);
   const [loaded, setLoaded] = useState(false);
 
   // 全てのプランを取得
@@ -152,21 +159,37 @@ const usePlan = (props: StateProps) => {
       const data = await res.json();
       setPlanId(data.planId);
       setSubscription(data.subscription);
+      setCustomer(data.customer);
     })();
-  }, [ loaded, session, teamId, setPlanId, setSubscription ]);
+  }, [ loaded, session, teamId ]);
 
   const currentPlanName = parsePlanLabel(plans, planId);
 
-  return { plans, name: currentPlanName, planId, subscription };
+  return {
+    plans,
+    name: currentPlanName,
+    planId,
+    subscription,
+    customer,
+  };
 };
 
 const Billing = (props: StateProps) => {
-  const { session, team } = props
+  const { session, team, language } = props
   const teamId = team?.teamId;
   const [openPayment, setOpenPayment] = useState(false);
   const [openPlan, setOpenPlan] = useState(false);
-  const { plans, name, planId, subscription } = usePlan(props);
+  const { plans, name, planId, subscription, customer } = usePlan(props);
   const [ resumeSubLoading, setResumeSubLoading ] = useState(false);
+
+  const currency = customer?.currency
+
+  const currencyFormatter = useMemo(() => {
+    return new Intl.NumberFormat(language, {
+      style: "currency",
+      currency: (currency || "jpy"),
+    });
+  }, [currency, language]);
 
   const breadcrumbItems = [
     {
@@ -228,30 +251,41 @@ const Billing = (props: StateProps) => {
         <Table className="payment-info">
           <TableBody>
             {props.isOwner && (
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  {__("Payment method:")}
-                </TableCell>
-                <TableCell>
-                  {props.last2
-                    ? sprintf(__("ending in **%1$s"), props.last2)
-                    : ""}
-                </TableCell>
-                <TableCell align="right">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => setOpenPayment(true)}
-                    type={"button"}
-                  >
-                    {__("Change payment method")}
-                  </Button>
-                  <PaymentMethodModal
-                    open={openPayment}
-                    handleClose={() => setOpenPayment(false)}
-                  />
-                </TableCell>
-              </TableRow>
+              <>
+                { customer && customer.balance < 0 && <TableRow>
+                  <TableCell component="th" scope="row">
+                    {__("Current account credit:")}
+                  </TableCell>
+                  <TableCell colSpan={2}>
+                    {currencyFormatter.format(Math.abs(customer.balance))}<br />
+                    {__("While this account has credits available, payments will deduct from account credit instead of the registered credit card.")}
+                  </TableCell>
+                </TableRow> }
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    {__("Payment method:")}
+                  </TableCell>
+                  <TableCell>
+                    {props.last2
+                      ? sprintf(__("ending in **%1$s"), props.last2)
+                      : ""}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={() => setOpenPayment(true)}
+                      type={"button"}
+                    >
+                      {__("Change payment method")}
+                    </Button>
+                    <PaymentMethodModal
+                      open={openPayment}
+                      handleClose={() => setOpenPayment(false)}
+                    />
+                  </TableCell>
+                </TableRow>
+              </>
             )}
             <TableRow>
               <TableCell component="th" scope="row">
@@ -352,6 +386,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
       state.teamMember[team.teamId] &&
       state.teamMember[team.teamId].data.length,
     team: team,
+    language: state.userMeta.language,
   };
 };
 
