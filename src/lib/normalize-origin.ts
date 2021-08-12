@@ -4,23 +4,23 @@
  * @returns
  */
 const normalizeOrigins = (lineDelimetedAllowedOrigins: string) => {
-  const allowedOrigins = lineDelimetedAllowedOrigins.split('\n')
-  if (!Array.isArray(allowedOrigins) || 0 === allowedOrigins.length) {
+  const allowedOrigins = lineDelimetedAllowedOrigins.split('\n');
+  if (!Array.isArray(allowedOrigins) || allowedOrigins.length === 0) {
     return [];
   }
   const filteredOrigins = allowedOrigins.reduce<Set<string>>((prev, rawOrigin) => {
-    const urlPattern = /^(?<protocol>https?):\/\/(?<hostAndPort>[^/]+)(?<directory>(\/.*)?(\?.*)?(#.*)?)$/g
-    if (rawOrigin && 'string' === typeof rawOrigin) {
-      const origin = rawOrigin.trim()
-      if ('*' === origin) {
+    const urlPattern = /^(?<protocol>https?):\/\/(?<hostAndPort>[^/]+)(?<directory>(\/.*)?(\?.*)?(#.*)?)$/g;
+    if (rawOrigin && typeof rawOrigin === 'string') {
+      const origin = rawOrigin.trim();
+      if (origin === '*') {
         prev.add(origin);
       } else {
         try {
-          const { groups: { protocol, hostAndPort, directory } } = (urlPattern.exec(origin) || {}) as { groups: { protocol: any, hostAndPort: any, directory: any } }
+          const { groups: { protocol, hostAndPort, directory } } = (urlPattern.exec(origin) || {}) as { groups: { protocol: any, hostAndPort: any, directory: any } };
           if (protocol && hostAndPort) {
             let origin = `${protocol}://${hostAndPort}`;
-            if (directory && '/' !== directory) {
-              origin += directory
+            if (directory && directory !== '/') {
+              origin += directory;
             }
             prev.add(origin);
           }
@@ -32,7 +32,7 @@ const normalizeOrigins = (lineDelimetedAllowedOrigins: string) => {
     return prev;
   }, new Set([]));
 
-  if (0 < filteredOrigins.size) {
+  if (filteredOrigins.size > 0) {
     return Array.from(filteredOrigins);
   } else {
     return [];

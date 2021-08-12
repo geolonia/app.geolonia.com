@@ -1,20 +1,20 @@
-import React from "react";
-import { withStyles, Theme } from "@material-ui/core/styles";
-import { HashRouter, Route } from "react-router-dom";
+import React from 'react';
+import { withStyles, Theme } from '@material-ui/core/styles';
+import { HashRouter, Route } from 'react-router-dom';
 
-import Dashboard from "./Dashboard";
+import Dashboard from './Dashboard';
 
-import APIKeys from "./Maps/APIKeys";
-import APIKey from "./Maps/APIKey";
+import APIKeys from './Maps/APIKeys';
+import APIKey from './Maps/APIKey';
 
-import GeoJsons from "./Data/GeoJsons";
-import GeoJson from "./Data/GeoJson";
+import GeoJsons from './Data/GeoJsons';
+import GeoJson from './Data/GeoJson';
 
-import General from "./Team/general";
-import Members from "./Team/members";
-import Billing from "./Team/Billing";
+import General from './Team/general';
+import Members from './Team/members';
+import Billing from './Team/Billing';
 
-import User from "./User/User";
+import User from './User/User';
 
 const styles = (theme: Theme) => ({});
 

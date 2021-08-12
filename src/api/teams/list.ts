@@ -1,8 +1,8 @@
-import fetch from "../custom-fetch";
+import fetch from '../custom-fetch';
 
 const listTeams = (session: Geolonia.Session) => {
-  return fetch<Geolonia.Team[]>(session, `/teams`, {
-    method: "GET"
+  return fetch<Geolonia.Team[]>(session, '/teams', {
+    method: 'GET',
   });
 };
 

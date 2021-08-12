@@ -1,27 +1,27 @@
-import React from "react";
+import React from 'react';
 
-import Grid from "@material-ui/core/Grid";
-import Security from "./security";
-import Profile from "./profile";
-import Avatar from "./avatar";
-import Title from "../custom/Title";
-import { __ } from "@wordpress/i18n";
+import Grid from '@material-ui/core/Grid';
+import Security from './security';
+import Profile from './profile';
+import Avatar from './avatar';
+import Title from '../custom/Title';
+import { __ } from '@wordpress/i18n';
 
 const User = () => {
   const breadcrumbItems = [
     {
-      title: __("Home"),
-      href: "#/"
+      title: __('Home'),
+      href: '#/',
     },
     {
-      title: __("Your profile"),
-      href: null
-    }
+      title: __('Your profile'),
+      href: null,
+    },
   ];
 
   return (
     <div>
-      <Title title={__("Your profile")} breadcrumb={breadcrumbItems}>
+      <Title title={__('Your profile')} breadcrumb={breadcrumbItems}>
         {__('You can update your profile and security.')}
       </Title>
 

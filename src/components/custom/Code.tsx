@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type Props = {
   children: string;
@@ -8,12 +8,12 @@ type Props = {
 
 const Code = (props: Props) => {
   const style: React.CSSProperties = {
-    padding: "16px",
+    padding: '16px',
     backgroundColor: props.backgroundColor,
-    whiteSpace: "pre-wrap",
+    whiteSpace: 'pre-wrap',
     color: props.color,
-    fontSize: "12px"
-  }
+    fontSize: '12px',
+  };
 
   const click = (event: any) => {
     const range = document.createRange();
@@ -32,8 +32,8 @@ const Code = (props: Props) => {
 };
 
 Code.defaultProps = {
-  backgroundColor: "#444444",
-  color: "#ffffff"
+  backgroundColor: '#444444',
+  color: '#ffffff',
 };
 
 export default Code;

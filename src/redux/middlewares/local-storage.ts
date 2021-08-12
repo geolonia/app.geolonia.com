@@ -1,9 +1,9 @@
-import { Middleware } from "redux";
-import { isSelectAction } from "../actions/team";
+import { Middleware } from 'redux';
+import { isSelectAction } from '../actions/team';
 
-export const SELECTED_TEAM_ID_KEY = "geolonia__persisted_selectedTeamId";
+export const SELECTED_TEAM_ID_KEY = 'geolonia__persisted_selectedTeamId';
 
-const localStorageMiddleware: Middleware = store => next => action => {
+const localStorageMiddleware: Middleware = (store) => (next) => (action) => {
   if (isSelectAction(action)) {
     const selecttingTeamIndex = action.payload.index;
     const nextTeam = (store.getState() as Geolonia.Redux.AppState).team.data[

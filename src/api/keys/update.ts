@@ -1,24 +1,24 @@
-import fetch from "../custom-fetch";
+import fetch from '../custom-fetch';
 
 type KeyUpdateParams = Partial<
-  Omit<
-    Geolonia.Key,
-    "teamId" | "keyId" | "userKey" | "updateAt" | "createAt" | "forceDisabled"
-  >
+Omit<
+Geolonia.Key,
+'teamId' | 'keyId' | 'userKey' | 'updateAt' | 'createAt' | 'forceDisabled'
+>
 >;
 
 const updateTeam = (
   session: Geolonia.Session,
   teamId: string,
   mapKey: string,
-  key: KeyUpdateParams
+  key: KeyUpdateParams,
 ) => {
   return fetch(session, `/teams/${teamId}/keys/${mapKey}`, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(key)
+    body: JSON.stringify(key),
   });
 };
 

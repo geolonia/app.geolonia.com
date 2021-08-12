@@ -1,48 +1,46 @@
-import React from "react";
-import AppBar from "@material-ui/core/AppBar";
-import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
+import React from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
-import Toolbar from "@material-ui/core/Toolbar";
+import Toolbar from '@material-ui/core/Toolbar';
 // import Tooltip from '@material-ui/core/Tooltip';
-import { withStyles, Theme } from "@material-ui/core/styles";
+import { withStyles, Theme } from '@material-ui/core/styles';
 
-import PersonIcon from "@material-ui/icons/Person";
 import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-import MenuIcon from "@material-ui/icons/Menu";
-import { signout } from "../auth";
+import MenuIcon from '@material-ui/icons/Menu';
+import { signout } from '../auth';
 
-import { __ } from "@wordpress/i18n";
-import { connect } from "react-redux";
-import Avatar from "@material-ui/core/Avatar";
-import "./Header.scss";
-import Logo from "./custom/logo.svg";
+import { __ } from '@wordpress/i18n';
+import { connect } from 'react-redux';
+import Avatar from '@material-ui/core/Avatar';
+import './Header.scss';
 
-const lightColor = "rgba(255, 255, 255, 0.7)";
+const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 const styles = (theme: Theme) => ({
   secondaryBar: {
-    zIndex: 0
+    zIndex: 0,
   },
   menuButton: {
-    marginLeft: -theme.spacing(1)
+    marginLeft: -theme.spacing(1),
   },
   iconButtonAvatar: {
-    padding: 4
+    padding: 4,
   },
   link: {
-    textDecoration: "none",
+    textDecoration: 'none',
     color: lightColor,
-    "&:hover": {
-      color: theme.palette.common.white
-    }
+    '&:hover': {
+      color: theme.palette.common.white,
+    },
   },
   button: {
-    borderColor: lightColor
-  }
+    borderColor: lightColor,
+  },
 });
 
 type OwnProps = {
@@ -61,12 +59,12 @@ const Header = (props: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const headerStyle: React.CSSProperties = {
-    backgroundColor: "#EE5F28"
+    backgroundColor: '#EE5F28',
   };
 
   const avatarStyle: React.CSSProperties = {
-    width: "24px",
-    height: "24px"
+    width: '24px',
+    height: '24px',
   };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -78,14 +76,14 @@ const Header = (props: Props) => {
   };
 
   const handleProfileClick = () => {
-    window.location.hash = "/user";
+    window.location.hash = '/user';
     handleClose();
   };
 
   const handleSignout = () => {
     handleClose();
     signout().then(() => {
-      window.location.href = "/";
+      window.location.href = '/';
     });
   };
   return (
@@ -138,9 +136,9 @@ const Header = (props: Props) => {
                 className={'headerProfilemenu'}
               >
                 <MenuItem onClick={handleProfileClick}>
-                  {__("Profile")}
+                  {__('Profile')}
                 </MenuItem>
-                <MenuItem onClick={handleSignout}>{__("Logout")}</MenuItem>
+                <MenuItem onClick={handleSignout}>{__('Logout')}</MenuItem>
               </Menu>
             </Grid>
           </Grid>
@@ -152,7 +150,7 @@ const Header = (props: Props) => {
 
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   return {
-    userAvatar: state.userMeta.avatarImage
+    userAvatar: state.userMeta.avatarImage,
   };
 };
 const ConnectedHeader = connect(mapStateToProps)(Header);

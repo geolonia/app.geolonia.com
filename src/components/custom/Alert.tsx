@@ -1,16 +1,16 @@
-import React from "react";
+import React from 'react';
 
-import "./Alert.scss";
-import Interweave from "interweave";
+import './Alert.scss';
+import Interweave from 'interweave';
 
 type Props = {
   children: string;
-  type?: "success" | "danger" | "warning" | "custom-outlined";
+  type?: 'success' | 'danger' | 'warning' | 'custom-outlined';
   Icon?: React.FC<any>,
 };
 
 const Alert = (props: Props) => {
-  const { type = "success", children, Icon } = props;
+  const { type = 'success', children, Icon } = props;
 
   return (
     <div className="alert">

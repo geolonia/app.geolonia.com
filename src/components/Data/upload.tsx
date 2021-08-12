@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import CloudUploadIcon from "@material-ui/icons/CloudUpload";
-import Button from "@material-ui/core/Button";
-import { readFile } from "../../lib/read-file";
-import { sprintf, __, _n } from "@wordpress/i18n";
-import mergeGeoJSON from "../../lib/merge-geojson";
+import React, { useState } from 'react';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import Button from '@material-ui/core/Button';
+import { readFile } from '../../lib/read-file';
+import { sprintf, __, _n } from '@wordpress/i18n';
+import mergeGeoJSON from '../../lib/merge-geojson';
 
 type Props = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
-  setGeoJSON: (geojson: Props["geoJSON"]) => void;
+  setGeoJSON: (geojson: Props['geoJSON']) => void;
   prevGeoJSON: GeoJSON.FeatureCollection | undefined;
-  setPrevGeoJSON: (prev: Props["prevGeoJSON"]) => void;
+  setPrevGeoJSON: (prev: Props['prevGeoJSON']) => void;
 };
 
 export const Upload = (props: Props) => {
@@ -19,7 +19,7 @@ export const Upload = (props: Props) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
-      readFile(file).then(result => {
+      readFile(file).then((result) => {
         let nextGeoJSON;
         try {
           const prevGeoJSON = JSON.parse(result);
@@ -52,16 +52,16 @@ export const Upload = (props: Props) => {
           accept="application/JSON"
           onChange={onChange}
         />
-        {error && <p>{__("Invalid JSON.")}</p>}
+        {error && <p>{__('Invalid JSON.')}</p>}
         {props.prevGeoJSON && props.prevGeoJSON.features && (
           <p>
             {sprintf(
               _n(
-                "%s feature has been added.",
-                "%s features have been added.",
-                props.prevGeoJSON.features.length
+                '%s feature has been added.',
+                '%s features have been added.',
+                props.prevGeoJSON.features.length,
               ),
-              props.prevGeoJSON.features.length
+              props.prevGeoJSON.features.length,
             )}
           </p>
         )}

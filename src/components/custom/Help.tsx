@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
-import Icon from "@material-ui/icons/Help";
+import Icon from '@material-ui/icons/Help';
 
-import "./Help.scss";
+import './Help.scss';
 
 type Props = {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ const Help = (props: Props) => {
 };
 
 Help.defaultProps = {
-  icon: Icon
+  icon: Icon,
 };
 
 export default Help;

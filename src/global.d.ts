@@ -1,6 +1,6 @@
 declare namespace Geolonia {
-  import * as AmazonCognitoIdentity from "amazon-cognito-identity-js";
-  import Moment from "moment";
+  import * as AmazonCognitoIdentity from 'amazon-cognito-identity-js';
+  import Moment from 'moment';
 
   namespace Redux {
     /**
@@ -50,7 +50,7 @@ declare namespace Geolonia {
    */
   type Session = AmazonCognitoIdentity.CognitoUserSession | null | undefined;
 
-  type TeamBillingMethod = "STRIPE" | "INVOICE" | "DISABLED";
+  type TeamBillingMethod = 'STRIPE' | 'INVOICE' | 'DISABLED';
 
   type User = {
     name: string;
@@ -69,7 +69,7 @@ declare namespace Geolonia {
     name: string;
     description: string;
     url: string;
-    role: Member["role"];
+    role: Member['role'];
     billingEmail: string;
     isDeleted?: boolean;
     links: {
@@ -94,20 +94,20 @@ declare namespace Geolonia {
     createAt: Moment.Moment | void;
     updateAt?: Moment.Moment | void;
   };
-  type Role = "Owner" | "Member" | "Suspended";
-  type Member = Omit<Geolonia.User, "links"> & {
+  type Role = 'Owner' | 'Member' | 'Suspended';
+  type Member = Omit<Geolonia.User, 'links'> & {
     userSub: string;
     role: Role;
     links: { getAvatar: string };
   };
 
-  type ErrorCodes = "UnAuthorized" | "Network" | "Unknown";
+  type ErrorCodes = 'UnAuthorized' | 'Network' | 'Unknown';
 
   type APIResult<T> =
     | { data: T; error: false }
     | { error: true; code: ErrorCodes; message: string };
 
-  type DateStringify<T> = Omit<T, "createAt" | "updateAt"> & {
+  type DateStringify<T> = Omit<T, 'createAt' | 'updateAt'> & {
     createAt?: string;
     updateAt?: string;
   };

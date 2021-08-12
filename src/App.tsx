@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { context as NotificationContext, NotificationState, initialNotificationState } from "./contexts/notification";
+import React, { useState } from 'react';
+import { context as NotificationContext, NotificationState, initialNotificationState } from './contexts/notification';
 
-import "./App.scss";
-import Paperbase from "./components/Paperbase";
-import AuthContainer from "./auth/container";
-import { Provider } from "react-redux";
-import store from "./redux/store";
-import { HashRouter } from "react-router-dom";
+import './App.scss';
+import Paperbase from './components/Paperbase';
+import AuthContainer from './auth/container';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import { HashRouter } from 'react-router-dom';
 
 const App: React.FC = () => {
-  const [notification, setNotification] = useState<NotificationState>(initialNotificationState)
+  const [notification, setNotification] = useState<NotificationState>(initialNotificationState);
 
   return (
     <Provider store={store}>
@@ -17,7 +17,7 @@ const App: React.FC = () => {
         <NotificationContext.Provider value={
           {
             state: notification,
-            updateState: ((nextState: any) => setNotification(nextState)) as any
+            updateState: ((nextState: any) => setNotification(nextState)) as any,
           }
         }>
           <HashRouter>

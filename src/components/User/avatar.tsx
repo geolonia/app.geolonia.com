@@ -1,26 +1,26 @@
-import React from "react";
+import React from 'react';
 
 // components
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import PersonIcon from "@material-ui/icons/Person";
-import Avatar from "@material-ui/core/Avatar";
-import { CircularProgress } from "@material-ui/core";
-import Alert from "../custom/Alert";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import PersonIcon from '@material-ui/icons/Person';
+import Avatar from '@material-ui/core/Avatar';
+import { CircularProgress } from '@material-ui/core';
+import Alert from '../custom/Alert';
 
 // redux
-import { connect } from "react-redux";
-import Redux from "redux";
-import { createActions as createUserMetaActions } from "../../redux/actions/user-meta";
+import { connect } from 'react-redux';
+import Redux from 'redux';
+import { createActions as createUserMetaActions } from '../../redux/actions/user-meta';
 
 // utils
-import { __, sprintf } from "@wordpress/i18n";
+import { __, sprintf } from '@wordpress/i18n';
 
 // API
-import putAvatar from "../../api/users/put-avatar";
+import putAvatar from '../../api/users/put-avatar';
 
 // constants
-import { avatarLimitSize } from "../../constants";
+import { avatarLimitSize } from '../../constants';
 
 type OwnProps = Record<string, never>;
 type StateProps = {
@@ -32,15 +32,15 @@ type DispatchProps = {
 };
 type Props = OwnProps & StateProps & DispatchProps;
 type State = {
-  status: false | "requesting" | "success" | "failure";
+  status: false | 'requesting' | 'success' | 'failure';
   errorMessage: string;
 };
 
 const ProfileImageStyle: React.CSSProperties = {
-  width: "250px",
-  height: "250px",
-  fill: "#dedede",
-  margin: "auto",
+  width: '250px',
+  height: '250px',
+  fill: '#dedede',
+  margin: 'auto',
 };
 
 export class AvatarSection extends React.Component<Props, State> {
@@ -51,12 +51,12 @@ export class AvatarSection extends React.Component<Props, State> {
     this.inputFileRef = null;
     this.state = {
       status: false,
-      errorMessage: ""
+      errorMessage: '',
     };
   }
 
   onUploadClick = () => {
-    this.setState({ status: false, errorMessage: "" });
+    this.setState({ status: false, errorMessage: '' });
     if (this.inputFileRef) {
       this.inputFileRef.click();
     }
@@ -68,28 +68,28 @@ export class AvatarSection extends React.Component<Props, State> {
 
       if (file.size > avatarLimitSize * 1024 * 1024) {
         this.setState({
-          status: "failure",
+          status: 'failure',
           errorMessage: sprintf(
             __(
-              "Upload failed. The avatar image size cannot be larger than %d MB."
+              'Upload failed. The avatar image size cannot be larger than %d MB.',
             ),
-            avatarLimitSize
-          )
+            avatarLimitSize,
+          ),
         });
         return;
       }
 
       const avatarUrl = URL.createObjectURL(file);
       const prevAvatarUrl = this.props.userMeta.avatarImage;
-      this.setState({ status: "requesting" });
+      this.setState({ status: 'requesting' });
 
-      putAvatar(this.props.session, file).then(result => {
+      putAvatar(this.props.session, file).then((result) => {
         if (result.error) {
           this.props.setAvatar(prevAvatarUrl); // roleback
-          this.setState({ status: "failure", errorMessage: result.message });
+          this.setState({ status: 'failure', errorMessage: result.message });
         } else {
           this.props.setAvatar(avatarUrl);
-          this.setState({ status: "success" });
+          this.setState({ status: 'success' });
         }
       });
     }
@@ -98,7 +98,7 @@ export class AvatarSection extends React.Component<Props, State> {
   render() {
     const { errorMessage, status } = this.state;
     const {
-      userMeta: { avatarImage }
+      userMeta: { avatarImage },
     } = this.props;
 
     return (
@@ -108,7 +108,7 @@ export class AvatarSection extends React.Component<Props, State> {
             src={avatarImage}
             style={{
               ...ProfileImageStyle,
-              opacity: this.state.status === "requesting" ? 0.6 : 1
+              opacity: this.state.status === 'requesting' ? 0.6 : 1,
             }}
           ></Avatar>
         ) : (
@@ -120,21 +120,21 @@ export class AvatarSection extends React.Component<Props, State> {
           color="default"
           onClick={this.onUploadClick}
         >
-          {this.state.status === "requesting" && (
+          {this.state.status === 'requesting' && (
             <CircularProgress size={16} style={{ marginRight: 8 }} />
           )}
-          {__("Upload new picture")}
+          {__('Upload new picture')}
         </Button>
         <input
-          ref={ref => (this.inputFileRef = ref)}
+          ref={(ref) => (this.inputFileRef = ref)}
           accept="image/*"
-          style={{ display: "none" }}
+          style={{ display: 'none' }}
           id="avatar-file"
           type="file"
           onChange={this.onFileSelected}
         />
         <br />
-        {status === "failure" && errorMessage && (
+        {status === 'failure' && errorMessage && (
           <Alert type="danger">{errorMessage}</Alert>
         )}
       </Typography>
@@ -144,11 +144,11 @@ export class AvatarSection extends React.Component<Props, State> {
 
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
   session: state.authSupport.session,
-  userMeta: state.userMeta
+  userMeta: state.userMeta,
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setAvatar: blobUrl => dispatch(createUserMetaActions.setAvatar(blobUrl))
+  setAvatar: (blobUrl) => dispatch(createUserMetaActions.setAvatar(blobUrl)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AvatarSection);

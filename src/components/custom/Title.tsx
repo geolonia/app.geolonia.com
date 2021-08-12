@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
+import Breadcrumbs from '@material-ui/core/Breadcrumbs';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
 
-import "./Title.scss";
+import './Title.scss';
 
 type breadcrumbItems = {
   title: string;

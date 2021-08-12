@@ -1,10 +1,10 @@
-import byCreateAt from "../../lib/by-create-at";
+import byCreateAt from '../../lib/by-create-at';
 
-const SET = "MAP_KEY/SET";
-const MARK_ERROR = "MAP_KEY/MARK_ERROR";
-const ADD = "MAP_KEY/ADD";
-const UPDATE = "MAP_KEY/UPDATE";
-const DELETE = "MAP_KEY/DELETE";
+const SET = 'MAP_KEY/SET';
+const MARK_ERROR = 'MAP_KEY/MARK_ERROR';
+const ADD = 'MAP_KEY/ADD';
+const UPDATE = 'MAP_KEY/UPDATE';
+const DELETE = 'MAP_KEY/DELETE';
 
 type State = Geolonia.Redux.State.MapKey;
 
@@ -41,28 +41,28 @@ type MapKeyAction =
 export const createActions = {
   set: (teamId: string, keys: Geolonia.Key[]): SetAction => ({
     type: SET,
-    payload: { teamId, keys }
+    payload: { teamId, keys },
   }),
   markError: (teamId: string): MarkErrorAction => ({
     type: MARK_ERROR,
-    payload: { teamId }
+    payload: { teamId },
   }),
   add: (teamId: string, key: Geolonia.Key): AddAction => ({
     type: ADD,
-    payload: { teamId, key }
+    payload: { teamId, key },
   }),
   update: (
     teamId: string,
     keyId: string,
-    key: Partial<Geolonia.Key>
+    key: Partial<Geolonia.Key>,
   ): UpdateAction => ({
     type: UPDATE,
-    payload: { teamId, keyId, key }
+    payload: { teamId, keyId, key },
   }),
   delete: (teamId: string, keyId: string): DeleteAction => ({
     type: DELETE,
-    payload: { teamId, keyId }
-  })
+    payload: { teamId, keyId },
+  }),
 };
 
 const isSetAction = (action: MapKeyAction): action is SetAction =>
@@ -88,16 +88,16 @@ export const reducer = (state: State = initialState, action: MapKeyAction) => {
       ...state,
       [action.payload.teamId]: {
         ...state[action.payload.teamId],
-        data: keys
-      }
+        data: keys,
+      },
     };
   } else if (isMarkErrorAction(action)) {
     return {
       ...state,
       [action.payload.teamId]: {
         ...state[action.payload.teamId],
-        error: true
-      }
+        error: true,
+      },
     };
   } else if (isAddAction(action)) {
     const { teamId, key } = action.payload;
@@ -108,30 +108,30 @@ export const reducer = (state: State = initialState, action: MapKeyAction) => {
       ...state,
       [teamId]: {
         ...mapKeyObject,
-        data: keys
-      }
+        data: keys,
+      },
     };
   } else if (isUpdateAction(action)) {
     const { teamId, keyId } = action.payload;
     const mapKeyObject = state[teamId] || { data: [] };
-    const nextKeyIndex = mapKeyObject.data.map(key => key.keyId).indexOf(keyId);
+    const nextKeyIndex = mapKeyObject.data.map((key) => key.keyId).indexOf(keyId);
     const nextKeys = [...mapKeyObject.data];
     nextKeys[nextKeyIndex] = {
       ...nextKeys[nextKeyIndex],
-      ...action.payload.key
+      ...action.payload.key,
     };
 
     return {
       ...state,
       [teamId]: {
         ...state[teamId],
-        data: nextKeys
-      }
+        data: nextKeys,
+      },
     };
   } else if (isDeleteAction(action)) {
     const { teamId, keyId } = action.payload;
     const mapKeyObject = state[teamId] || { data: [] };
-    const nextKeyIndex = mapKeyObject.data.map(key => key.keyId).indexOf(keyId);
+    const nextKeyIndex = mapKeyObject.data.map((key) => key.keyId).indexOf(keyId);
     const nextKeys = [...mapKeyObject.data];
     nextKeys.splice(nextKeyIndex, 1);
 
@@ -139,8 +139,8 @@ export const reducer = (state: State = initialState, action: MapKeyAction) => {
       ...state,
       [teamId]: {
         ...state[teamId],
-        data: nextKeys
-      }
+        data: nextKeys,
+      },
     };
   } else {
     return state;

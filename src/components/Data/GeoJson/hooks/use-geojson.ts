@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 // @ts-ignore
-import geojsonExtent from "@mapbox/geojson-extent";
-import fetch from "../../../../lib/fetch";
+import geojsonExtent from '@mapbox/geojson-extent';
+import fetch from '../../../../lib/fetch';
 
 const { REACT_APP_STAGE } = process.env;
 
@@ -12,7 +12,7 @@ type GeoJSONMeta = {
   allowedOrigins: string[];
   status: string;
   teamId: string;
-  gvp_status?: "progress" | "created" | "failure";
+  gvp_status?: 'progress' | 'created' | 'failure';
   primaryApiKeyId?: string;
 };
 
@@ -20,16 +20,16 @@ export type GeoJsonMetaSetter = React.Dispatch<React.SetStateAction<GeoJSONMeta 
 
 export default function useGeoJSON(
   session: Geolonia.Session,
-  geojsonId: string | void
+  geojsonId: string | void,
 ) {
   const [geoJsonMeta, setGeoJsonMeta] = useState<GeoJSONMeta | null>(
-    null
+    null,
   );
   const [geoJSON, setGeoJSON] = useState<
-    GeoJSON.FeatureCollection | undefined
+  GeoJSON.FeatureCollection | undefined
   >(void 0);
   const [bounds, setBounds] = useState<
-    mapboxgl.LngLatBoundsLike | undefined
+  mapboxgl.LngLatBoundsLike | undefined
   >(undefined);
   const [error, setError] = useState(false);
 
@@ -38,18 +38,18 @@ export default function useGeoJSON(
       // get GeoJSON meta
       fetch(
         session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}`,
       )
-        .then(res => {
+        .then((res) => {
           if (res.status < 400) {
             return res.json();
           } else {
             throw new Error();
           }
         })
-        .then(json => {
+        .then((json) => {
           const allowedOrigins =
-            typeof json.allowedOrigins !== "undefined" ? json.allowedOrigins : [];
+            typeof json.allowedOrigins !== 'undefined' ? json.allowedOrigins : [];
           setGeoJsonMeta({ ...json, allowedOrigins });
         })
         .catch(() => setError(true));
@@ -57,19 +57,19 @@ export default function useGeoJSON(
       // get Features
       fetch(
         session,
-        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}/features`
+        `https://api.geolonia.com/${REACT_APP_STAGE}/geojsons/${geojsonId}/features`,
       )
-        .then(res => {
+        .then((res) => {
           if (res.status < 400) {
             return res.json();
           } else {
             throw new Error();
           }
         })
-        .then(json => {
+        .then((json) => {
           const geojson = {
-            type: "FeatureCollection",
-            features: json.features
+            type: 'FeatureCollection',
+            features: json.features,
           } as GeoJSON.FeatureCollection;
           setGeoJSON(geojson);
           setBounds(geojsonExtent(geojson));
@@ -85,6 +85,6 @@ export default function useGeoJSON(
     setGeoJSON,
     setBounds,
     setGeoJsonMeta,
-    error
+    error,
   };
 }

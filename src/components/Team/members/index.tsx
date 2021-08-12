@@ -1,30 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 // Components
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableFooter from "@material-ui/core/TableFooter";
-import TablePagination from "@material-ui/core/TablePagination";
-import TableRow from "@material-ui/core/TableRow";
-import BrightnessLowIcon from "@material-ui/icons/BrightnessLow";
-import PersonIcon from "@material-ui/icons/Person";
-import Title from "../../custom/Title";
-import { connect } from "react-redux";
-import Invite from "./invite";
-import ChangeRole from "./change-role";
-import Suspend from "./suspend";
-import RemoveMember from "./remove-member";
-import { Chip, Avatar } from "@material-ui/core";
-import Alert from "../../custom/Alert";
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableFooter from '@material-ui/core/TableFooter';
+import TablePagination from '@material-ui/core/TablePagination';
+import TableRow from '@material-ui/core/TableRow';
+import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
+import PersonIcon from '@material-ui/icons/Person';
+import Title from '../../custom/Title';
+import { connect } from 'react-redux';
+import Invite from './invite';
+import ChangeRole from './change-role';
+import Suspend from './suspend';
+import RemoveMember from './remove-member';
+import { Chip, Avatar } from '@material-ui/core';
+import Alert from '../../custom/Alert';
 
 // utils
-import { __ } from "@wordpress/i18n";
+import { __ } from '@wordpress/i18n';
 
-import { Roles } from "../../../constants";
+import { Roles } from '../../../constants';
 
 type Row = {
   id: number | string;
@@ -56,35 +56,35 @@ const Members = (props: Props) => {
   useEffect(() => {
     handleClose();
   }, [openChangeRole, openRemoveMember]);
-  const rows: Row[] = members.map(member => {
+  const rows: Row[] = members.map((member) => {
     return {
       id: member.userSub,
       avatar: member.avatarImage,
       name: member.name,
       username: member.username,
-      role: member.role
+      role: member.role,
     };
   });
 
   let numOwners = 0;
   for (let i = 0; i < rows.length; i++) {
-    if ("Owner" === rows[i]["role"]) {
+    if (rows[i]['role'] === 'Owner') {
       numOwners = numOwners + 1;
     }
   }
 
   const firstCellStyle: React.CSSProperties = {
-    width: "56px",
-    padding: "8px 0 3px 8px"
+    width: '56px',
+    padding: '8px 0 3px 8px',
   };
 
   const iconStyle: React.CSSProperties = {
-    fontSize: "16px"
+    fontSize: '16px',
   };
 
   const avatarStyle: React.CSSProperties = {
-    width: "24px",
-    height: "24px"
+    width: '24px',
+    height: '24px',
   };
 
   const handleChangePage = () => {};
@@ -92,11 +92,11 @@ const Members = (props: Props) => {
   const handleChangeRowsPerPage = () => {};
 
   const onMouseOver = (e: any) => {
-    e.currentTarget.className = "mouseover";
+    e.currentTarget.className = 'mouseover';
   };
 
   const onMouseOut = (e: any) => {
-    e.currentTarget.className = "";
+    e.currentTarget.className = '';
   };
 
   const onClick = (e: any) => {};
@@ -118,13 +118,13 @@ const Members = (props: Props) => {
 
   const breadcrumbItems = [
     {
-      title: __("Home"),
-      href: "#/"
+      title: __('Home'),
+      href: '#/',
     },
     {
-      title: __("Team settings"),
-      href: "#/team/general"
-    }
+      title: __('Team settings'),
+      href: '#/team/general',
+    },
   ];
 
   const { team } = props;
@@ -140,13 +140,13 @@ const Members = (props: Props) => {
 
   return (
     <div>
-      <Title title={__("Members")} breadcrumb={breadcrumbItems}>
-        {__("You can manage members in your team.")}
+      <Title title={__('Members')} breadcrumb={breadcrumbItems}>
+        {__('You can manage members in your team.')}
 
         { isOwner && inviteDisabled &&
           <Alert type="danger">
             {__(
-              "You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan."
+              'You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan.',
             )}
           </Alert>
         }
@@ -199,15 +199,15 @@ const Members = (props: Props) => {
               </TableCell>
               <TableCell align="center">
                 {row.role === Roles.Owner ? (
-                  <Chip label={__("Owner")} />
+                  <Chip label={__('Owner')} />
                 ) : row.role === Roles.Suspended ? (
-                  <Chip label={__("Suspended")} color={"secondary"} />
+                  <Chip label={__('Suspended')} color={'secondary'} />
                 ) : null}
               </TableCell>
               <TableCell align="right">
                 {(() => {
                   if (
-                    (2 > numOwners && "Owner" === row.role) ||
+                    (numOwners < 2 && row.role === 'Owner') ||
                     isOwner === false
                   ) {
                     // There is only one owner and the row is owner, so nothing to return.
@@ -239,8 +239,8 @@ const Members = (props: Props) => {
               rowsPerPage={20}
               page={0}
               SelectProps={{
-                inputProps: { "aria-label": __("rows per page") },
-                native: true
+                inputProps: { 'aria-label': __('rows per page') },
+                native: true,
               }}
               onChangePage={handleChangePage}
               onChangeRowsPerPage={handleChangeRowsPerPage}
@@ -257,14 +257,14 @@ const Members = (props: Props) => {
         if (currentMember.role === Roles.Owner) {
           return (
             <Menu
-              id={"simple-menu"}
+              id={'simple-menu'}
               anchorEl={anchorEl}
               keepMounted
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
               <MenuItem onClick={() => setOpenChangeRole(true)}>
-                {__("Change role")}
+                {__('Change role')}
               </MenuItem>
             </Menu>
           );
@@ -277,15 +277,15 @@ const Members = (props: Props) => {
               onClose={handleClose}
             >
               <MenuItem onClick={() => setOpenChangeRole(true)}>
-                {__("Change role")}
+                {__('Change role')}
               </MenuItem>
               {currentMember.role === Roles.Suspended || (
                 <MenuItem onClick={() => setOpenSuspend(true)}>
-                  {__("Suspend")}
+                  {__('Suspend')}
                 </MenuItem>
               )}
               <MenuItem onClick={() => setOpenRemoveMember(true)}>
-                {__("Remove from team")}
+                {__('Remove from team')}
               </MenuItem>
             </Menu>
           );

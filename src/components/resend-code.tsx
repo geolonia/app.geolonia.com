@@ -1,28 +1,28 @@
-import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
 
-import Support from "./custom/Support";
-import Logo from "./custom/logo.svg";
-import Alert from "./custom/Alert";
-import { requestVerificationCode } from "../auth";
-import StatusIndication from "./custom/status-indication";
-import delay from "../lib/promise-delay";
+import Support from './custom/Support';
+import Logo from './custom/logo.svg';
+import Alert from './custom/Alert';
+import { requestVerificationCode } from '../auth';
+import StatusIndication from './custom/status-indication';
+import delay from '../lib/promise-delay';
 
-import { __ } from "@wordpress/i18n";
-import estimateLanguage from "../lib/estimate-language";
-import { pageTransitionInterval } from "../constants";
-import { parseResendError as parseCognitoResendError } from "../lib/cognito/parse-error";
-import queryString from "query-string";
+import { __ } from '@wordpress/i18n';
+import estimateLanguage from '../lib/estimate-language';
+import { pageTransitionInterval } from '../constants';
+import { parseResendError as parseCognitoResendError } from '../lib/cognito/parse-error';
+import queryString from 'query-string';
 
 const ResendCode = () => {
   const parsed = queryString.parse(window.location.search);
   const qsusername = parsed.username as string;
 
-  const [username, setUsername] = useState(qsusername || "");
+  const [username, setUsername] = useState(qsusername || '');
   const [status, setStatus] = useState<
-    null | "requesting" | "success" | "warning"
+    null | 'requesting' | 'success' | 'warning'
   >(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -30,22 +30,22 @@ const ResendCode = () => {
   };
 
   const handleRequestResend = (
-    e: React.MouseEvent<HTMLButtonElement> | void
+    e: React.MouseEvent<HTMLButtonElement> | void,
   ) => {
     e && e.preventDefault();
-    setStatus("requesting");
+    setStatus('requesting');
     delay(requestVerificationCode(username), 500)
       .then(() => {
-        setStatus("success");
+        setStatus('success');
         setTimeout(() => {
           window.location.href = `/?lang=${estimateLanguage()}&&username=${encodeURIComponent(
-            username
+            username,
           )}#/verify`;
         }, pageTransitionInterval);
       })
-      .catch(err => {
+      .catch((err) => {
         setMessage(parseCognitoResendError(err));
-        setStatus("warning");
+        setStatus('warning');
       });
   };
 
@@ -53,14 +53,14 @@ const ResendCode = () => {
     <div className="signup">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
-        <h1>{__("Request a new verification code")}</h1>
-        {status === "warning" && <Alert type={status}>{message}</Alert>}
+        <h1>{__('Request a new verification code')}</h1>
+        {status === 'warning' && <Alert type={status}>{message}</Alert>}
         <form className="form">
           <label className="username">
-            <h3>{__("Username")}</h3>
+            <h3>{__('Username')}</h3>
             <input
-              id={"username"}
-              type={"text"}
+              id={'username'}
+              type={'text'}
               value={username}
               onChange={onUsernameChange}
             />
@@ -71,10 +71,10 @@ const ResendCode = () => {
               variant="contained"
               color="primary"
               onClick={handleRequestResend}
-              disabled={username.trim() === ""}
-              type={"submit"}
+              disabled={username.trim() === ''}
+              type={'submit'}
             >
-              {__("request send")}
+              {__('request send')}
             </Button>
           </p>
           <StatusIndication status={status}></StatusIndication>

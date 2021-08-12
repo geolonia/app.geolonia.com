@@ -46,9 +46,6 @@
     "i18n": "npm run makepot && npm run msgmerge",
     "format": "prettier './src/**/*.ts' './src/**/*.tsx' --write"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -66,6 +63,7 @@
     "@babel/core": "^7.7.2",
     "@babel/preset-react": "^7.14.5",
     "@babel/preset-typescript": "^7.7.2",
+    "@geolonia/eslint-config": "https://github.com/geolonia/eslint-config",
     "@testing-library/react": "^9.3.2",
     "@types/geojson": "^7946.0.7",
     "@types/jest": "^26.0.7",
@@ -80,12 +78,9 @@
     "@types/react-tabs": "^2.3.2",
     "@types/styled-components": "^5.1.1",
     "@types/uuid": "^8.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.0.0",
-    "@typescript-eslint/parser": "^4.0.0",
     "@wordpress/babel-plugin-makepot": "^3.7.0",
     "@wordpress/i18n": "^3.14.0",
     "eslint-config-prettier": "^8.0.0",
-    "eslint-config-react": "^1.1.7",
     "eslint-plugin-prettier": "^3.1.1",
     "node-sass": "^4.14.1",
     "po2json": "^1.0.0-alpha",

@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 // Components
-import TextField from "@material-ui/core/TextField";
-import Save from "../../custom/Save";
+import TextField from '@material-ui/core/TextField';
+import Save from '../../custom/Save';
 
 // Redux
-import Redux from "redux";
-import { connect } from "react-redux";
-import { createActions as createTeamActions } from "../../../redux/actions/team";
+import Redux from 'redux';
+import { connect } from 'react-redux';
+import { createActions as createTeamActions } from '../../../redux/actions/team';
 
 // API
-import updateTeam from "../../../api/teams/update";
+import updateTeam from '../../../api/teams/update';
 
 // utils
-import { __ } from "@wordpress/i18n";
-import { Roles } from "../../../constants";
-import { FormControl, InputLabel, Select, MenuItem } from "@material-ui/core";
+import { __ } from '@wordpress/i18n';
+import { Roles } from '../../../constants';
+import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 
 type OwnProps = Record<string, never>;
 type StateProps = {
@@ -30,14 +30,14 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const selectStyle: React.CSSProperties = {
-  marginTop: "16px",
-  marginBottom: "8px"
+  marginTop: '16px',
+  marginBottom: '8px',
 };
 
 const Content = (props: Props) => {
   // props
   const { session, team, members, selectedIndex, updateTeamState } = props;
-  const { teamId, name, description, url, billingEmail } = team;
+  const { teamId, name, billingEmail } = team;
   // state
   const [draft, setDraft] = useState<Partial<Geolonia.Team>>({});
 
@@ -52,7 +52,7 @@ const Content = (props: Props) => {
 
   const onSaveClick = () => {
     // update server side
-    return updateTeam(session, teamId, draft).then(result => {
+    return updateTeam(session, teamId, draft).then((result) => {
       if (result.error) {
         throw new Error(result.code);
       } else {
@@ -67,25 +67,25 @@ const Content = (props: Props) => {
   const isOwner = team.role === Roles.Owner;
 
   let saveDisabled = !draftExists || !isOwner;
-  if (typeof draft.name === "string") {
-    if (draft.name.trim() === "") {
+  if (typeof draft.name === 'string') {
+    if (draft.name.trim() === '') {
       saveDisabled = true;
     }
   }
 
   const ownersEmail = members
-    .filter(member => member.role === Roles.Owner)
-    .map(member => member.email);
+    .filter((member) => member.role === Roles.Owner)
+    .map((member) => member.email);
 
   return (
     <>
       <TextField
         id="team-name"
-        label={__("Name")}
+        label={__('Name')}
         margin="normal"
         fullWidth={true}
-        value={(draft.name === void 0 ? name : draft.name) || ""}
-        onChange={e => setDraft({ ...draft, name: e.target.value })}
+        value={(draft.name === void 0 ? name : draft.name) || ''}
+        onChange={(e) => setDraft({ ...draft, name: e.target.value })}
         disabled={isOwner !== true}
         onBlur={onNameBlur}
       />
@@ -113,7 +113,7 @@ const Content = (props: Props) => {
       /> */}
 
       <FormControl fullWidth={true} style={selectStyle}>
-        <InputLabel htmlFor="billing-email">{__("Billing email")}</InputLabel>
+        <InputLabel htmlFor="billing-email">{__('Billing email')}</InputLabel>
         <Select
           id="billing-email"
           fullWidth={true}
@@ -121,13 +121,13 @@ const Content = (props: Props) => {
           value={
             (draft.billingEmail === void 0 && ownersEmail.includes(billingEmail)
               ? billingEmail
-              : draft.billingEmail) || ""
+              : draft.billingEmail) || ''
           }
           onChange={(e: any) =>
             setDraft({ ...draft, billingEmail: e.target.value })
           }
         >
-          {ownersEmail.map(email => (
+          {ownersEmail.map((email) => (
             <MenuItem value={email} key={email}>
               {email}
             </MenuItem>
@@ -135,7 +135,7 @@ const Content = (props: Props) => {
         </Select>
       </FormControl>
 
-      <p className="mute">{__("We'll send you an email receipt.")}</p>
+      <p className="mute">{__('We\'ll send you an email receipt.')}</p>
 
       <Save onClick={onSaveClick} disabled={saveDisabled} />
     </>
@@ -150,14 +150,14 @@ const mapStateToProps = (state: Geolonia.Redux.AppState) => {
     session: state.authSupport.session,
     selectedIndex,
     team,
-    members
+    members,
   };
 };
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
   return {
     updateTeamState: (index: number, team: Partial<Geolonia.Team>) =>
-      dispatch(createTeamActions.update(index, team))
+      dispatch(createTeamActions.update(index, team)),
   };
 };
 

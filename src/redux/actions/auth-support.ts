@@ -1,8 +1,8 @@
-const SET_CURRENT_USER_ACTION = "AUTH_SUPPORT/SET_CURRENT_USER_ACTION";
-const SET_SESSION_ACTION = "AUTH_SUPPORT/SET_SESSION";
-const SET_ACCESS_TOKEN = "AUTH_SUPPORT/SET_ACCESS_TOKEN";
-const GET_IN_TROUBLE_ACTION = "AUTH_SUPORT/GET_IN_TROUBLE";
-const READY_ACTION = "AUTH_SUPPORT/READY";
+const SET_CURRENT_USER_ACTION = 'AUTH_SUPPORT/SET_CURRENT_USER_ACTION';
+const SET_SESSION_ACTION = 'AUTH_SUPPORT/SET_SESSION';
+const SET_ACCESS_TOKEN = 'AUTH_SUPPORT/SET_ACCESS_TOKEN';
+const GET_IN_TROUBLE_ACTION = 'AUTH_SUPORT/GET_IN_TROUBLE';
+const READY_ACTION = 'AUTH_SUPPORT/READY';
 
 type State = Geolonia.Redux.State.AuthSupport;
 
@@ -12,7 +12,7 @@ const initialState: State = {
   accessToken: void 0,
   hasTrouble: false,
   isReady: false,
-  isVerified: false
+  isVerified: false,
 };
 
 type SetCognitoUserAction = {
@@ -50,33 +50,33 @@ type AuthSupportAction =
 export const createActions = {
   setCurrentUser: (currentUser: string) => ({
     type: SET_CURRENT_USER_ACTION,
-    payload: { currentUser }
+    payload: { currentUser },
   }),
   setSession: (session: Geolonia.Session) => ({
     type: SET_SESSION_ACTION,
-    payload: { session }
+    payload: { session },
   }),
   setAccessToken: (accessToken: string) => ({
     type: SET_ACCESS_TOKEN,
-    payload: { accessToken }
+    payload: { accessToken },
   }),
   encounterTrouble: () => ({ type: GET_IN_TROUBLE_ACTION, payload: {} }),
-  ready: () => ({ type: READY_ACTION, payload: {} })
+  ready: () => ({ type: READY_ACTION, payload: {} }),
 };
 const isSetCurrentUserAction = (
-  action: AuthSupportAction
+  action: AuthSupportAction,
 ): action is SetCognitoUserAction => action.type === SET_CURRENT_USER_ACTION;
 
 const isSetSessionAction = (
-  action: AuthSupportAction
+  action: AuthSupportAction,
 ): action is SetSessionAction => action.type === SET_SESSION_ACTION;
 
 const isSetAccessTokenAction = (
-  action: AuthSupportAction
+  action: AuthSupportAction,
 ): action is SetAccessTokenAction => action.type === SET_ACCESS_TOKEN;
 
 const isGetInTroubleAction = (
-  action: AuthSupportAction
+  action: AuthSupportAction,
 ): action is GetInTroubleAction => action.type === GET_IN_TROUBLE_ACTION;
 
 const isReadyAction = (action: AuthSupportAction): action is ReadyAction =>
@@ -84,7 +84,7 @@ const isReadyAction = (action: AuthSupportAction): action is ReadyAction =>
 
 export const reducer = (
   state: State = initialState,
-  action: AuthSupportAction
+  action: AuthSupportAction,
 ) => {
   if (isSetCurrentUserAction(action)) {
     return { ...state, currentUser: action.payload.currentUser };

@@ -1,17 +1,17 @@
-import fetch from "../custom-fetch";
+import fetch from '../custom-fetch';
 
 const updateMember = (
   session: Geolonia.Session,
   teamId: string,
   memberSub: string,
-  role: Geolonia.Role
+  role: Geolonia.Role,
 ) => {
   return fetch<any>(session, `/teams/${teamId}/members/${memberSub}`, {
-    method: "PUT",
+    method: 'PUT',
     body: JSON.stringify({ role }),
     headers: {
-      "Content-Type": "Application/json"
-    }
+      'Content-Type': 'Application/json',
+    },
   });
 };
 
