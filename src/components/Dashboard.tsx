@@ -35,7 +35,7 @@ const Dashboard = (props: Props) => {
   const labels = [];
 
   for (let i = 1; i <= lastDay; i++) {
-    if (1 === i || 0 === i % 5 || i === lastDay) {
+    if (i === 1 || i % 5 === 0 || i === lastDay) {
       labels.push(i);
     } else {
       labels.push('');

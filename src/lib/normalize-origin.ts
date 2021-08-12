@@ -5,14 +5,14 @@
  */
 const normalizeOrigins = (lineDelimetedAllowedOrigins: string) => {
   const allowedOrigins = lineDelimetedAllowedOrigins.split('\n');
-  if (!Array.isArray(allowedOrigins) || 0 === allowedOrigins.length) {
+  if (!Array.isArray(allowedOrigins) || allowedOrigins.length === 0) {
     return [];
   }
   const filteredOrigins = allowedOrigins.reduce<Set<string>>((prev, rawOrigin) => {
     const urlPattern = /^(?<protocol>https?):\/\/(?<hostAndPort>[^/]+)(?<directory>(\/.*)?(\?.*)?(#.*)?)$/g;
-    if (rawOrigin && 'string' === typeof rawOrigin) {
+    if (rawOrigin && typeof rawOrigin === 'string') {
       const origin = rawOrigin.trim();
-      if ('*' === origin) {
+      if (origin === '*') {
         prev.add(origin);
       } else {
         try {

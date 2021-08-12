@@ -86,15 +86,15 @@ const Importer: React.FC<Props> = (props) => {
               uniquieIds[geojson.features[i].id as string] = true;
             }
           }
-          if ('undefined' === typeof geojson.features[i].properties) {
+          if (typeof geojson.features[i].properties === 'undefined') {
             geojson.features[i].properties = {};
           }
         }
         GeoJsonImporter(geojson);
       } catch (e) {
-        if ('invalid-case-of-identifier' === e.message) {
+        if (e.message === 'invalid-case-of-identifier') {
           setError(__('Error: The name of identifier `id` must be lower case.'));
-        } else if ('invalid-identifier' === e.message) {
+        } else if (e.message === 'invalid-identifier') {
           setError(__('Error: The `id` of each `fueature` must be unique in the GeoJSON.'));
         } else {
           setError(sprintf(__('Error: Please upload GeoJSON file less than %d MB.'), GeoJsonMaxUploadSize / 1000000));

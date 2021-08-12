@@ -68,7 +68,7 @@ const Members = (props: Props) => {
 
   let numOwners = 0;
   for (let i = 0; i < rows.length; i++) {
-    if ('Owner' === rows[i]['role']) {
+    if (rows[i]['role'] === 'Owner') {
       numOwners = numOwners + 1;
     }
   }
@@ -207,7 +207,7 @@ const Members = (props: Props) => {
               <TableCell align="right">
                 {(() => {
                   if (
-                    (2 > numOwners && 'Owner' === row.role) ||
+                    (numOwners < 2 && row.role === 'Owner') ||
                     isOwner === false
                   ) {
                     // There is only one owner and the row is owner, so nothing to return.
