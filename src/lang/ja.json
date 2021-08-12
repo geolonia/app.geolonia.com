@@ -255,6 +255,10 @@
         "このチームの今月のサブスクリプションを確認することができます。"
       ],
       "Payment information": ["支払い情報"],
+      "Current account credit:": ["クレジット残高"],
+      "While this account has credits available, payments will deduct from account credit instead of the registered credit card.": [
+        "現在、クレジットが適用されています。クレジット残高が残っている場合、請求はクレジット残高から支払われます。"
+      ],
       "Payment method:": ["支払い方法"],
       "ending in **%1$s": ["クレジットカード（末尾の番号 **%1$s）"],
       "Change payment method": ["支払い方法を変更"],
