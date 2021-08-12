@@ -139,19 +139,22 @@ const PlanModal = (props: Props) => {
                 </>}
               />
               {/* <DialogContentText>
-            <ul>
-              <li>{__("can invite another team member.")}</li>
-              <li>{__("can designate another owner.")}</li>
-              <li>{__("can suspend another member.")}</li>
-              <li>
-                {__(
-                  "Can manage all resources in the team, including API Keys."
-                )}
-              </li>
-            </ul>
-          </DialogContentText> */}
+                <ul>
+                  <li>{__("can invite another team member.")}</li>
+                  <li>{__("can designate another owner.")}</li>
+                  <li>{__("can suspend another member.")}</li>
+                  <li>
+                    {__(
+                      "Can manage all resources in the team, including API Keys."
+                    )}
+                  </li>
+                </ul>
+              </DialogContentText> */}
             </RadioGroup>
           ))}
+          <Typography component="p" style={{ marginTop: "0.5em", marginBottom: "1em" }}>
+            {__("All prices include a 10% Japanese Consumption Tax")}
+          </Typography>
           <Button
             variant="contained"
             color="primary"

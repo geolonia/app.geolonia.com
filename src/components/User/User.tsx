@@ -7,10 +7,10 @@ import Avatar from "./avatar";
 import Title from "../custom/Title";
 import { __ } from "@wordpress/i18n";
 
-const Content = () => {
+const User = () => {
   const breadcrumbItems = [
     {
-      title: "Home",
+      title: __("Home"),
       href: "#/"
     },
     {
@@ -39,4 +39,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default User;

@@ -94,6 +94,9 @@ msgstr ""
 #: src/components/Maps/APIKeys.tsx:44
 #: src/components/Navigator.tsx:265
 #: src/components/Team/Billing.tsx:173
+#: src/components/Team/general/index.tsx:28
+#: src/components/Team/members/index.tsx:121
+#: src/components/User/User.tsx:13
 msgid "Home"
 msgstr ""
 
@@ -129,7 +132,7 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:354
 #: src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:326
+#: src/components/Navigator.tsx:340
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
@@ -483,10 +486,12 @@ msgid "General"
 msgstr ""
 
 #: src/components/Navigator.tsx:136
+#: src/components/Team/members/index.tsx:143
 msgid "Members"
 msgstr ""
 
 #: src/components/Navigator.tsx:145
+#: src/components/Team/Billing.tsx:221
 msgid "Billing"
 msgstr ""
 
@@ -506,7 +511,7 @@ msgstr ""
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:303
+#: src/components/Navigator.tsx:317
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
@@ -514,20 +519,20 @@ msgid ""
 "target=\"_blank\">contact us</a>."
 msgstr ""
 
-#: src/components/Navigator.tsx:316
+#: src/components/Navigator.tsx:330
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:320
+#: src/components/Navigator.tsx:334
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:334
+#: src/components/Navigator.tsx:348
 #: src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:341
+#: src/components/Navigator.tsx:355
 #: src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr ""
@@ -728,7 +733,7 @@ msgid "Card information"
 msgstr ""
 
 #: src/components/Team/Billing/payment-method-modal.tsx:148
-#: src/components/Team/Billing/plan-modal.tsx:172
+#: src/components/Team/Billing/plan-modal.tsx:175
 msgid "Update"
 msgstr ""
 
@@ -738,6 +743,10 @@ msgstr ""
 
 #: src/components/Team/Billing/plan-modal.tsx:118
 msgid "Your plan"
+msgstr ""
+
+#: src/components/Team/Billing/plan-modal.tsx:156
+msgid "All prices include a 10% Japanese Consumption Tax"
 msgstr ""
 
 #: src/components/Team/Billing/plan-modal.tsx:57
@@ -957,7 +966,9 @@ msgid "Embed API"
 msgstr ""
 
 #: src/components/Tutorials.tsx:23
-msgid "The Embed API allows you to set up a map with just a simple HTML code."
+msgid ""
+"Learn about the Embed API, which enables you to set up a map with a simple "
+"HTML code."
 msgstr ""
 
 #: src/components/Tutorials.tsx:28
