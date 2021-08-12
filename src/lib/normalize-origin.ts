@@ -19,7 +19,7 @@ const normalizeOrigins = (lineDelimetedAllowedOrigins: string) => {
           const { groups: { protocol, hostAndPort, directory } } = (urlPattern.exec(origin) || {}) as { groups: { protocol: any, hostAndPort: any, directory: any } };
           if (protocol && hostAndPort) {
             let origin = `${protocol}://${hostAndPort}`;
-            if (directory && '/' !== directory) {
+            if (directory && directory !== '/') {
               origin += directory;
             }
             prev.add(origin);
@@ -32,7 +32,7 @@ const normalizeOrigins = (lineDelimetedAllowedOrigins: string) => {
     return prev;
   }, new Set([]));
 
-  if (0 < filteredOrigins.size) {
+  if (filteredOrigins.size > 0) {
     return Array.from(filteredOrigins);
   } else {
     return [];

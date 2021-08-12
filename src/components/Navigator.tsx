@@ -234,7 +234,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
             className="team"
             value={selectedTeamIndex}
             onChange={(e: any) => {
-              '__not_selectable' !== e.target.value &&
+              e.target.value !== '__not_selectable' &&
                 props.selectTeam(e.target.value);
             }}
           >
