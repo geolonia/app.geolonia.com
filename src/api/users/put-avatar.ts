@@ -1,4 +1,4 @@
-import fetch from "../custom-fetch";
+import fetch from '../custom-fetch';
 
 const putAvatar = (session: Geolonia.Session, file: File) => {
   const userSub = session && session.getIdToken().decodePayload().sub;
@@ -6,8 +6,8 @@ const putAvatar = (session: Geolonia.Session, file: File) => {
   return fetch<{ links: { putAvatar: string } }>(
     session,
     `/users/${userSub}/avatar/links`,
-    { method: "GET" }
-  ).then(result => {
+    { method: 'GET' },
+  ).then((result) => {
     if (result.error) {
       return Promise.resolve(result);
     } else {
@@ -16,13 +16,13 @@ const putAvatar = (session: Geolonia.Session, file: File) => {
         session,
         signedURL,
         {
-          method: "PUT",
+          method: 'PUT',
           headers: {
-            "Content-Type": file.type
+            'Content-Type': file.type,
           },
-          body: file
+          body: file,
         },
-        { absPath: true, noAuth: true, decode: "text" }
+        { absPath: true, noAuth: true, decode: 'text' },
       );
     }
   });

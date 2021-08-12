@@ -1,4 +1,4 @@
-import moment from "moment";
+import moment from 'moment';
 
 type DateInclusive = {
   updateAt?: string;
@@ -15,7 +15,7 @@ export const dateParse = <A extends DateInclusive>(data: A) => {
   return {
     ...data,
     createAt,
-    updateAt
+    updateAt,
   };
 };
 

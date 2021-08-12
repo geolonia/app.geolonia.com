@@ -1,71 +1,71 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import { withStyles, createStyles } from "@material-ui/core/styles";
-import { ThemeProvider } from "@material-ui/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Grid from "@material-ui/core/Grid";
-import Hidden from "@material-ui/core/Hidden";
-import { CircularProgress } from "@material-ui/core";
-import type { Location } from "history";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { withStyles, createStyles } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Grid from '@material-ui/core/Grid';
+import Hidden from '@material-ui/core/Hidden';
+import { CircularProgress } from '@material-ui/core';
+import type { Location } from 'history';
+import { Route, Switch, useHistory } from 'react-router-dom';
 
-import RouteController from "./route-controller";
-import Navigator from "./Navigator";
-import Router from "./Router";
-import Header from "./Header";
-import Footer from "./Footer";
-import Signup from "./Signup";
-import Verify from "./verify";
-import ResendCode from "./resend-code";
-import Signin from "./Signin";
-import ForgotPassword from "./ForgotPassword";
-import ResetPassword from "./ResetPassword";
-import AcceptInvitation from "./AcceptInvitation";
-import CommonNotification from './CommonNotification'
+import RouteController from './route-controller';
+import Navigator from './Navigator';
+import Router from './Router';
+import Header from './Header';
+import Footer from './Footer';
+import Signup from './Signup';
+import Verify from './verify';
+import ResendCode from './resend-code';
+import Signin from './Signin';
+import ForgotPassword from './ForgotPassword';
+import ResetPassword from './ResetPassword';
+import AcceptInvitation from './AcceptInvitation';
+import CommonNotification from './CommonNotification';
 
-import { theme } from "../assets/mui-theme";
+import { theme } from '../assets/mui-theme';
 
 // redux
-import { connect } from "react-redux";
-import Alert from "./custom/Alert";
-import { __ } from "@wordpress/i18n";
+import { connect } from 'react-redux';
+import Alert from './custom/Alert';
+import { __ } from '@wordpress/i18n';
 
-import { Roles } from "../constants";
-import mixpanel from "mixpanel-browser";
+import { Roles } from '../constants';
+import mixpanel from 'mixpanel-browser';
 
 const drawerWidth = 256;
 const styles = createStyles({
   root: {
-    display: "flex",
-    minHeight: "100vh"
+    display: 'flex',
+    minHeight: '100vh',
   },
   drawer: {
-    [theme.breakpoints.up("sm")]: {
+    [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
-      flexShrink: 0
-    }
+      flexShrink: 0,
+    },
   },
   headerColor: {
     color: '#ffffff',
   },
   appContent: {
     flex: 1,
-    display: "flex",
-    flexDirection: "column"
+    display: 'flex',
+    flexDirection: 'column',
   },
   notificationContent: {
-    padding: "48px 36px 48px",
-    background: "#ffffff"
+    padding: '48px 36px 48px',
+    background: '#ffffff',
   },
   warningContent: {
-    padding: "48px 36px 48px",
-    border: "1px solid #ff0000"
+    padding: '48px 36px 48px',
+    border: '1px solid #ff0000',
   },
   mainContent: {
     flex: 1,
-    padding: "48px 36px 48px",
-    background: "#ececec"
-  }
+    padding: '48px 36px 48px',
+    background: '#ececec',
+  },
 });
 
 type OwnProps = {
@@ -108,7 +108,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
     const unregister = history.listen(trackLocation);
     return () => {
       unregister();
-    }
+    };
   }, [ history ]);
 
   if (!isReady) {
@@ -120,7 +120,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
           direction="column"
           alignItems="center"
           justify="center"
-          style={{ minHeight: "100vh" }}
+          style={{ minHeight: '100vh' }}
         >
           <Grid item xs={3}>
             <CircularProgress></CircularProgress>
@@ -134,52 +134,52 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
     <ThemeProvider theme={theme}>
       <div className={classes.root}>
         <CssBaseline />
+        <Route
+          path="/"
+          render={(props: any) => {
+            return <RouteController {...props} isLoggedIn={isLoggedIn} />;
+          }}
+        />
+        <Switch>
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/verify" component={Verify} />
+          <Route exact path="/resend" component={ResendCode} />
+          <Route exact path="/signin" component={Signin} />
+          <Route exact path="/forgot-password" component={ForgotPassword} />
+          <Route exact path="/reset-password" component={ResetPassword} />
           <Route
-            path="/"
-            render={(props: any) => {
-              return <RouteController {...props} isLoggedIn={isLoggedIn} />;
-            }}
+            exact
+            path="/accept-invitation/:invitationToken/:teamId"
+            component={AcceptInvitation}
           />
-          <Switch>
-            <Route exact path="/signup" component={Signup} />
-            <Route exact path="/verify" component={Verify} />
-            <Route exact path="/resend" component={ResendCode} />
-            <Route exact path="/signin" component={Signin} />
-            <Route exact path="/forgot-password" component={ForgotPassword} />
-            <Route exact path="/reset-password" component={ResetPassword} />
-            <Route
-              exact
-              path="/accept-invitation/:invitationToken/:teamId"
-              component={AcceptInvitation}
-            />
-            <Route exact>
-              <nav className={`${classes.drawer} ${classes.headerColor}`}>
-                <Hidden smUp implementation="js">
-                  <Navigator
-                    PaperProps={{ style: { width: drawerWidth } }}
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={handleDrawerToggle}
-                  />
-                </Hidden>
-                <Hidden xsDown implementation="css">
-                  <Navigator PaperProps={{ style: { width: drawerWidth } }} />
-                </Hidden>
-              </nav>
-              <div className={classes.appContent}>
-                <Header onDrawerToggle={handleDrawerToggle} />
-                <main className={classes.mainContent}>
-                  {currentRole === Roles.Suspended && (
-                    <Alert type={"warning"}>
-                      {__("You are suspended. Please contact the team owner.")}
-                    </Alert>
-                  )}
-                  <Router />
-                </main>
-                <Footer />
-              </div>
-            </Route>
-          </Switch>
+          <Route exact>
+            <nav className={`${classes.drawer} ${classes.headerColor}`}>
+              <Hidden smUp implementation="js">
+                <Navigator
+                  PaperProps={{ style: { width: drawerWidth } }}
+                  variant="temporary"
+                  open={mobileOpen}
+                  onClose={handleDrawerToggle}
+                />
+              </Hidden>
+              <Hidden xsDown implementation="css">
+                <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+              </Hidden>
+            </nav>
+            <div className={classes.appContent}>
+              <Header onDrawerToggle={handleDrawerToggle} />
+              <main className={classes.mainContent}>
+                {currentRole === Roles.Suspended && (
+                  <Alert type={'warning'}>
+                    {__('You are suspended. Please contact the team owner.')}
+                  </Alert>
+                )}
+                <Router />
+              </main>
+              <Footer />
+            </div>
+          </Route>
+        </Switch>
       </div>
       <CommonNotification />
     </ThemeProvider>
@@ -204,7 +204,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
     teams,
     currentTeam,
     currentRole,
-    userMeta
+    userMeta,
   };
 };
 

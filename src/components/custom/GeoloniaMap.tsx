@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 const { REACT_APP_TILE_SERVER } = process.env;
 
-type Toggle = "on" | "off";
+type Toggle = 'on' | 'off';
 
 type Props = {
   geojsonId: string;
@@ -34,14 +34,14 @@ class Map extends React.Component<Props, State> {
   }
 
   static defaultProps = {
-    width: "100%",
-    height: "200px",
-    gestureHandling: "on",
-    marker: "on",
+    width: '100%',
+    height: '200px',
+    gestureHandling: 'on',
+    marker: 'on',
     zoom: 0,
-    fullscreenControl: "off",
-    geolocateControl: "off",
-    navigationControl: "off",
+    fullscreenControl: 'off',
+    geolocateControl: 'off',
+    navigationControl: 'off',
     style: null,
     simpleVector: null,
     onAfterLoad: () => {},
@@ -56,7 +56,7 @@ class Map extends React.Component<Props, State> {
       ...this.props.initialMapOptions,
     });
     this.props.onAfterLoad(map);
-    this.setState({map: map})
+    this.setState({map: map});
   }
 
   componentDidUpdate() {
@@ -64,7 +64,7 @@ class Map extends React.Component<Props, State> {
       this.state.map.fitBounds(this.props.bounds, {
         padding: 20,
         maxZoom: 16,
-      })
+      });
     }
   }
 

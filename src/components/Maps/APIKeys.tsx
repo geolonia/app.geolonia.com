@@ -1,23 +1,23 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback } from 'react';
 
-import Table from "../custom/Table";
-import AddNew2 from "../custom/AddNew2";
-import Title from "../custom/Title";
+import Table from '../custom/Table';
+import AddNew2 from '../custom/AddNew2';
+import Title from '../custom/Title';
 
-import { sprintf, __ } from "@wordpress/i18n";
-import { connect } from "react-redux";
-import moment from 'moment'
+import { sprintf, __ } from '@wordpress/i18n';
+import { connect } from 'react-redux';
+import moment from 'moment';
 
 // api
-import createKey from "../../api/keys/create";
+import createKey from '../../api/keys/create';
 
 // redux
-import Redux from "redux";
-import { createActions as createMapKeyActions } from "../../redux/actions/map-key";
-import dateParse from "../../lib/date-parse";
-import mixpanel from "mixpanel-browser";
+import Redux from 'redux';
+import { createActions as createMapKeyActions } from '../../redux/actions/map-key';
+import dateParse from '../../lib/date-parse';
+import mixpanel from 'mixpanel-browser';
 
-import "./APIKeys.scss";
+import './APIKeys.scss';
 
 type OwnProps = Record<string, never>;
 type StateProps = {
@@ -37,17 +37,17 @@ type Props = OwnProps & StateProps & DispatchProps & RouterProps;
 
 function ApiKeys(props: Props) {
   const { mapKeys, username, addKey, session, teamId, history: { push } } = props;
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const breadcrumbItems = [
     {
-      title: __("Home"),
-      href: "#/"
+      title: __('Home'),
+      href: '#/',
     },
     {
-      title: __("API keys"),
-      href: null
-    }
+      title: __('API keys'),
+      href: null,
+    },
   ];
 
   const handler = useCallback(async (name: string) => {
@@ -62,36 +62,36 @@ function ApiKeys(props: Props) {
     return result.data;
   }, [addKey, session, teamId]);
 
-  const rows = mapKeys.map(key => {
+  const rows = mapKeys.map((key) => {
     return {
       id: key.keyId,
       name: key.name,
       updated: key.createAt
-        ? key.createAt.format("YYYY/MM/DD hh:mm:ss")
-        : __("(No date)")
+        ? key.createAt.format('YYYY/MM/DD hh:mm:ss')
+        : __('(No date)'),
     };
   });
 
   const newAPIButton = <AddNew2
     buttonLabel={__('New')}
     onClick={async () => {
-      const today = moment().format('YYYY-MM-DD')
-      const newKeyName = sprintf(__('API Key (created by %1$s on %2$s)'), username, today)
-      return handler(newKeyName).then((key) => push(`/api-keys/${key.keyId}`))
+      const today = moment().format('YYYY-MM-DD');
+      const newKeyName = sprintf(__('API Key (created by %1$s on %2$s)'), username, today);
+      return handler(newKeyName).then((key) => push(`/api-keys/${key.keyId}`));
     }}
     successMessage={__('A new API key has been created.')}
     errorMessage={message}
-  />
+  />;
 
   return (
     <div>
-      <Title breadcrumb={breadcrumbItems} title={__("API keys")}/>
+      <Title breadcrumb={breadcrumbItems} title={__('API keys')}/>
 
-      {mapKeys.length === 0 ? <div className={"tutorial-create-api-key"}>
-          <h3>{__("You need an API key to display map. Get an API key.")}</h3>
-          {newAPIButton}
+      {mapKeys.length === 0 ? <div className={'tutorial-create-api-key'}>
+        <h3>{__('You need an API key to display map. Get an API key.')}</h3>
+        {newAPIButton}
       </div>
-      :
+        :
         newAPIButton
       }
 
@@ -105,7 +105,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const { data: teams, selectedIndex } = state.team;
   const teamId = teams[selectedIndex] && teams[selectedIndex].teamId;
   const { data: mapKeys = [], error = false } = state.mapKey[teamId] || {};
-  const username = state.userMeta.name
+  const username = state.userMeta.name;
 
   return { session, mapKeys, error, teamId, username };
 };
@@ -113,7 +113,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
   return {
     addKey: (teamId: string, key: Geolonia.Key) =>
-      dispatch(createMapKeyActions.add(teamId, key))
+      dispatch(createMapKeyActions.add(teamId, key)),
   };
 };
 

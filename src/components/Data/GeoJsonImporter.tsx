@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { GeoJsonMaxUploadSize } from "../../constants";
-import './GeoJsonImporter.scss'
-import { __, sprintf } from "@wordpress/i18n";
+import { GeoJsonMaxUploadSize } from '../../constants';
+import './GeoJsonImporter.scss';
+import { __, sprintf } from '@wordpress/i18n';
 
 type Props = {
   state: boolean;
@@ -28,88 +28,88 @@ const styleOuterDefault: React.CSSProperties = {
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'left',
-}
+};
 
 const Importer: React.FC<Props> = (props) => {
   const {state, onClose, GeoJsonImporter} = props;
-  const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault)
-  const [error, setError] = useState<string | null>(null)
+  const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const style = {...styleOuterDefault}
+    const style = {...styleOuterDefault};
     if (state) {
-      style.display = 'flex'
+      style.display = 'flex';
     } else {
-      style.display = 'none'
+      style.display = 'none';
     }
-    setStyleOuter(style)
-  }, [state])
+    setStyleOuter(style);
+  }, [state]);
 
   const close = () => {
-    onClose()
-  }
+    onClose();
+  };
 
   const preventClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    event.stopPropagation()
-  }
+    event.stopPropagation();
+  };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setError(null)
-    const files = event.currentTarget.files
+    setError(null);
+    const files = event.currentTarget.files;
     if (files) {
       if (GeoJsonMaxUploadSize > files[0].size) {
-        const filereader = new FileReader()
-        filereader.onloadend = handleFileRead
-        filereader.readAsText(files[0])
+        const filereader = new FileReader();
+        filereader.onloadend = handleFileRead;
+        filereader.readAsText(files[0]);
       } else {
-        setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 1000000))
+        setError(sprintf(__('Error: Please upload GeoJSON file less than %d MB.'), GeoJsonMaxUploadSize / 1000000));
       }
     }
-  }
+  };
 
   const handleFileRead = (event: Event) => {
-    const target = event.target as FileReader
+    const target = event.target as FileReader;
     if (target && target.result) {
       try {
-        const geojson = JSON.parse(target.result as string) as GeoJSON.FeatureCollection
-        const uniquieIds = {} as TypeUniqueIds
+        const geojson = JSON.parse(target.result as string) as GeoJSON.FeatureCollection;
+        const uniquieIds = {} as TypeUniqueIds;
         // Mapbox GL Draw needs `properties`, so it should be added.
         for (let i = 0; i < geojson.features.length; i++ ) {
           // @ts-ignore
           if (geojson.features[i].ID || geojson.features[i].Id || geojson.features[i].iD) {
-            throw new Error('invalid-case-of-identifier')
+            throw new Error('invalid-case-of-identifier');
           }
           if (geojson.features[i].id) {
             if (uniquieIds[geojson.features[i].id as string]) {
-              throw new Error('invalid-identifier')
+              throw new Error('invalid-identifier');
             } else {
-              uniquieIds[geojson.features[i].id as string] = true
+              uniquieIds[geojson.features[i].id as string] = true;
             }
           }
           if ('undefined' === typeof geojson.features[i].properties) {
-            geojson.features[i].properties = {}
+            geojson.features[i].properties = {};
           }
         }
-        GeoJsonImporter(geojson)
+        GeoJsonImporter(geojson);
       } catch (e) {
         if ('invalid-case-of-identifier' === e.message) {
-          setError(__('Error: The name of identifier `id` must be lower case.'))
+          setError(__('Error: The name of identifier `id` must be lower case.'));
         } else if ('invalid-identifier' === e.message) {
-          setError(__("Error: The `id` of each `fueature` must be unique in the GeoJSON."))
+          setError(__('Error: The `id` of each `fueature` must be unique in the GeoJSON.'));
         } else {
-          setError(sprintf(__("Error: Please upload GeoJSON file less than %d MB."), GeoJsonMaxUploadSize / 1000000))
+          setError(sprintf(__('Error: Please upload GeoJSON file less than %d MB.'), GeoJsonMaxUploadSize / 1000000));
         }
       }
     }
-  }
+  };
 
   return (
     <div className="geojson-importer" style={styleOuter} onClick={close}>
       <div className="inner" onClick={preventClose}>
-        <h2><CloudUploadIcon fontSize="large" /> {__("Import GeoJSON")}</h2>
-  <p>{__("Import GeoJSON from your computer.")}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
+        <h2><CloudUploadIcon fontSize="large" /> {__('Import GeoJSON')}</h2>
+        <p>{__('Import GeoJSON from your computer.')}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
-        <p>{__("Existing feature that has same `id` will be updated.")}</p>
+        <p>{__('Existing feature that has same `id` will be updated.')}</p>
         {error && <div className="error">{error}</div>}
       </div>
     </div>

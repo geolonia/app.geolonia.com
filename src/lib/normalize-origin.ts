@@ -4,23 +4,23 @@
  * @returns
  */
 const normalizeOrigins = (lineDelimetedAllowedOrigins: string) => {
-  const allowedOrigins = lineDelimetedAllowedOrigins.split('\n')
+  const allowedOrigins = lineDelimetedAllowedOrigins.split('\n');
   if (!Array.isArray(allowedOrigins) || 0 === allowedOrigins.length) {
     return [];
   }
   const filteredOrigins = allowedOrigins.reduce<Set<string>>((prev, rawOrigin) => {
-    const urlPattern = /^(?<protocol>https?):\/\/(?<hostAndPort>[^/]+)(?<directory>(\/.*)?(\?.*)?(#.*)?)$/g
+    const urlPattern = /^(?<protocol>https?):\/\/(?<hostAndPort>[^/]+)(?<directory>(\/.*)?(\?.*)?(#.*)?)$/g;
     if (rawOrigin && 'string' === typeof rawOrigin) {
-      const origin = rawOrigin.trim()
+      const origin = rawOrigin.trim();
       if ('*' === origin) {
         prev.add(origin);
       } else {
         try {
-          const { groups: { protocol, hostAndPort, directory } } = (urlPattern.exec(origin) || {}) as { groups: { protocol: any, hostAndPort: any, directory: any } }
+          const { groups: { protocol, hostAndPort, directory } } = (urlPattern.exec(origin) || {}) as { groups: { protocol: any, hostAndPort: any, directory: any } };
           if (protocol && hostAndPort) {
             let origin = `${protocol}://${hostAndPort}`;
             if (directory && '/' !== directory) {
-              origin += directory
+              origin += directory;
             }
             prev.add(origin);
           }

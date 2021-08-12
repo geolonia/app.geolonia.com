@@ -1,10 +1,10 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./App";
-import * as serviceWorker from "./serviceWorker";
-import * as Sentry from "@sentry/react";
-import { Integrations } from "@sentry/tracing";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import * as Sentry from '@sentry/react';
+import { Integrations } from '@sentry/tracing';
 import mixpanel from 'mixpanel-browser';
 
 if (process.env.REACT_APP_SENTRY_DSN) {
@@ -21,7 +21,7 @@ if (process.env.REACT_APP_SENTRY_DSN) {
 
 mixpanel.init(process.env.REACT_APP_MIXPANEL_TOKEN as string);
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

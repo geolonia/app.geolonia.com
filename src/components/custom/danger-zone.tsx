@@ -1,6 +1,6 @@
-import React from "react";
-import Typography from "@material-ui/core/Typography";
-import { __ } from "@wordpress/i18n";
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import { __ } from '@wordpress/i18n';
 
 type Props = {
   whyDanger: string;
@@ -8,16 +8,16 @@ type Props = {
 };
 
 const styleDangerZone: React.CSSProperties = {
-  border: "1px solid #ff0000",
-  marginTop: "10em",
-  padding: "16px 24px"
+  border: '1px solid #ff0000',
+  marginTop: '10em',
+  padding: '16px 24px',
 };
 
 export const DangerZone = (props: Props) => {
   return (
     <div style={styleDangerZone}>
       <Typography component="h3" color="secondary">
-        {__("Danger Zone")}
+        {__('Danger Zone')}
       </Typography>
       <p>{props.whyDanger}</p>
       {props.children}

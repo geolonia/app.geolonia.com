@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import GeoloniaMap from "../custom/GeoloniaMap";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import GeoloniaMap from '../custom/GeoloniaMap';
 
-import { _x } from "@wordpress/i18n";
-import fullscreen from "./fullscreenMap";
+import { _x } from '@wordpress/i18n';
+import fullscreen from './fullscreenMap';
 
-import { refreshSession } from "../../auth";
+import { refreshSession } from '../../auth';
 
 type OwnProps = {
   geojsonId: string | undefined;
@@ -16,10 +16,10 @@ type OwnProps = {
 type Props = OwnProps;
 
 const mapStyle: React.CSSProperties = {
-  width: "100%",
-  height: "100%",
-  border: "1px solid #dedede",
-  margin: "0 0 1em 0"
+  width: '100%',
+  height: '100%',
+  border: '1px solid #dedede',
+  margin: '0 0 1em 0',
 };
 
 export const MapEditor = (props: Props) => {
@@ -37,7 +37,7 @@ export const MapEditor = (props: Props) => {
   }, [style]);
 
   const handleOnAfterLoad = useCallback(async (map: mapboxgl.Map) => {
-    map.addControl(new fullscreen(".gis-panel .editor"), "top-right");
+    map.addControl(new fullscreen('.gis-panel .editor'), 'top-right');
     // @ts-ignore
     map.addControl(new window.geolonia.NavigationControl());
 
@@ -50,12 +50,12 @@ export const MapEditor = (props: Props) => {
       return {
         url,
         headers: {
-          Authorization: idToken
-        }
-      }
+          Authorization: idToken,
+        },
+      };
     }
     return { url };
-  }, [])
+  }, []);
 
   useEffect(() => {
     let updateTimer: number | undefined;
@@ -74,7 +74,7 @@ export const MapEditor = (props: Props) => {
       if (updateTimer) {
         clearTimeout(updateTimer);
       }
-    }
+    };
   }, [ session ]);
 
   if (!sessionIsValid || !geojsonId) {
@@ -87,11 +87,11 @@ export const MapEditor = (props: Props) => {
         width="100%"
         height="100%"
         gestureHandling="off"
-        marker={"off"}
-        zoom={parseFloat(_x("0", "Default value of zoom level of map"))}
-        geolocateControl={"off"}
-        fullscreenControl={"off"}
-        navigationControl={"off"}
+        marker={'off'}
+        zoom={parseFloat(_x('0', 'Default value of zoom level of map'))}
+        geolocateControl={'off'}
+        fullscreenControl={'off'}
+        navigationControl={'off'}
         onAfterLoad={handleOnAfterLoad}
         bounds={bounds}
         geojsonId={geojsonId}

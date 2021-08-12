@@ -1,5 +1,5 @@
-const SET_ACTION = "USER_META/SET";
-const SET_AVATAR_ACTION = "USER_META/SET_AVATAR";
+const SET_ACTION = 'USER_META/SET';
+const SET_AVATAR_ACTION = 'USER_META/SET_AVATAR';
 
 type State = Geolonia.Redux.State.UserMeta;
 
@@ -8,7 +8,7 @@ export const isUserMeta = (user: any): user is State => {
     return false;
   } else if (!user.username) {
     return false;
-  } else if (!(user.links && typeof user.links.getAvatar === "string")) {
+  } else if (!(user.links && typeof user.links.getAvatar === 'string')) {
     return false;
   } else {
     return true;
@@ -16,16 +16,16 @@ export const isUserMeta = (user: any): user is State => {
 };
 
 export const initialState: State = {
-  name: "",
-  email: "",
-  username: "",
-  language: "ja",
-  timezone: "",
+  name: '',
+  email: '',
+  username: '',
+  language: 'ja',
+  timezone: '',
   links: {
-    getAvatar: "",
-    putAvatar: ""
+    getAvatar: '',
+    putAvatar: '',
   },
-  avatarImage: undefined
+  avatarImage: undefined,
 };
 
 type SetAction = {
@@ -43,16 +43,16 @@ type UserMetaAction = SetAction | SetAvatarAction;
 export const createActions = {
   set: (userMeta: State) => ({
     type: SET_ACTION,
-    payload: userMeta
+    payload: userMeta,
   }),
   setAvatar: (avatarImage: string | void) => {
     return {
       type: SET_AVATAR_ACTION,
       payload: {
-        avatarImage
-      }
+        avatarImage,
+      },
     };
-  }
+  },
 };
 
 const isSetAction = (action: UserMetaAction): action is SetAction =>
@@ -63,7 +63,7 @@ const isSetAvatarAction = (action: UserMetaAction): action is SetAvatarAction =>
 
 export const reducer = (
   state: State = initialState,
-  action: UserMetaAction
+  action: UserMetaAction,
 ) => {
   if (isSetAction(action)) {
     return { ...state, ...action.payload };

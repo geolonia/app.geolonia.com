@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 
 // Components
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import TextField from "@material-ui/core/TextField";
-import { CircularProgress } from "@material-ui/core";
-import CheckIcon from "@material-ui/icons/Check";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import TextField from '@material-ui/core/TextField';
+import { CircularProgress } from '@material-ui/core';
+import CheckIcon from '@material-ui/icons/Check';
 
 // Utils
-import { __ } from "@wordpress/i18n";
+import { __ } from '@wordpress/i18n';
 
-type Status = false | "working" | "success" | "failure";
+type Status = false | 'working' | 'success' | 'failure';
 
 type Props = {
   text1?: string;
@@ -29,9 +29,9 @@ type Props = {
 };
 
 const getTexts = (props: Props) => ({
-  text1: props.text1 || __("Are you sure you want to delete this item?"),
-  text2: props.text2 || __("Please type as <code>delete</code> to confirm."),
-  answer: props.answer || "delete"
+  text1: props.text1 || __('Are you sure you want to delete this item?'),
+  text2: props.text2 || __('Please type as <code>delete</code> to confirm.'),
+  answer: props.answer || 'delete',
 });
 
 export const Delete: React.FC<Props> = (props) => {
@@ -39,22 +39,22 @@ export const Delete: React.FC<Props> = (props) => {
   const { text1, text2 } = getTexts(props);
 
   const [open, setOpen] = useState(false);
-  const [confirmation, setConfirmation] = useState("");
+  const [confirmation, setConfirmation] = useState('');
   const [status, setStatus] = useState<Status>(false);
 
   const isCancelDisabled =
-    typeof disableCancel === "function"
+    typeof disableCancel === 'function'
       ? disableCancel(status)
       : !!disableCancel;
 
   const isDeleteDisabled =
-    typeof disableDelete === "function"
+    typeof disableDelete === 'function'
       ? disableDelete(confirmation, status)
       : !!disableDelete;
 
   const style = {
-    marginTop: "1em",
-    width: "100%"
+    marginTop: '1em',
+    width: '100%',
   } as React.CSSProperties;
 
   function handleClickOpen() {
@@ -62,7 +62,7 @@ export const Delete: React.FC<Props> = (props) => {
   }
 
   function handleClose() {
-    setConfirmation("");
+    setConfirmation('');
     setOpen(false);
   }
 
@@ -74,14 +74,14 @@ export const Delete: React.FC<Props> = (props) => {
 
   const onButtonClick = () => {
     if (!isDeleteDisabled) {
-      setStatus("working");
+      setStatus('working');
       props
         .onClick()
         .then(() => {
-          setStatus("success");
+          setStatus('success');
         })
         .catch(() => {
-          setStatus("failure");
+          setStatus('failure');
           if (props.onFailure) props.onFailure();
         });
     }
@@ -96,17 +96,17 @@ export const Delete: React.FC<Props> = (props) => {
             color="secondary"
             onClick={handleClickOpen}
           >
-            {__("Delete")}
+            {__('Delete')}
           </Button>
         </Typography>
         <Dialog
           open={open}
           onClose={handleClose}
-          disableBackdropClick={isCancelDisabled || status === "working"}
+          disableBackdropClick={isCancelDisabled || status === 'working'}
           fullWidth={true}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">{__("Delete")}</DialogTitle>
+          <DialogTitle id="form-dialog-title">{__('Delete')}</DialogTitle>
           <DialogContent>
             <DialogContentText>
               {text1}
@@ -118,13 +118,13 @@ export const Delete: React.FC<Props> = (props) => {
               error
               margin="dense"
               name="name"
-              label={__("Name")}
+              label={__('Name')}
               type="text"
               value={confirmation}
-              onChange={e => setConfirmation(e.target.value)}
+              onChange={(e) => setConfirmation(e.target.value)}
               fullWidth
             />
-            {status === "failure" && (
+            {status === 'failure' && (
               <DialogContentText>{props.errorMessage}</DialogContentText>
             )}
           </DialogContent>
@@ -132,30 +132,30 @@ export const Delete: React.FC<Props> = (props) => {
             <Button
               color="inherit"
               onClick={onCancelClick}
-              disabled={isCancelDisabled || status === "working"}
+              disabled={isCancelDisabled || status === 'working'}
             >
-              {__("Cancel")}
+              {__('Cancel')}
             </Button>
             <Button
               color="secondary"
               onClick={onButtonClick}
               type="submit"
               disabled={
-                confirmation !== "delete" ||
+                confirmation !== 'delete' ||
                 isDeleteDisabled ||
-                status === "working"
+                status === 'working'
               }
             >
-              {status === "working" ? (
+              {status === 'working' ? (
                 <CircularProgress
                   size={16}
                   style={{ marginRight: 8 }}
-                  color={"secondary"}
+                  color={'secondary'}
                 />
-              ) : status === "success" ? (
-                <CheckIcon fontSize={"default"} color={"secondary"} />
+              ) : status === 'success' ? (
+                <CheckIcon fontSize={'default'} color={'secondary'} />
               ) : null}
-              {__("Delete")}
+              {__('Delete')}
             </Button>
           </DialogActions>
         </Dialog>

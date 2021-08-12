@@ -1,7 +1,6 @@
-import { getErrorMessage } from "../constants";
-import { refreshSession } from "../auth";
-import { CognitoUserSession } from "amazon-cognito-identity-js";
-import { errorCodes } from "../constants";
+import { getErrorMessage, errorCodes } from '../constants';
+import { refreshSession } from '../auth';
+import { CognitoUserSession } from 'amazon-cognito-identity-js';
 const { REACT_APP_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
 export const customFetch = async <T>(
@@ -11,20 +10,20 @@ export const customFetch = async <T>(
   {
     absPath,
     noAuth,
-    decode
+    decode,
   }: {
     absPath?: boolean;
     noAuth?: boolean;
-    decode?: "text" | "json";
-  } = {}
+    decode?: 'text' | 'json';
+  } = {},
 ): Promise<Geolonia.APIResult<T>> => {
   if (!session) {
     // session should be exists when call those API
     return {
       error: true,
       code: errorCodes.UnAuthorized,
-      message: getErrorMessage(errorCodes.UnAuthorized)
-    }
+      message: getErrorMessage(errorCodes.UnAuthorized),
+    };
   }
 
   const refreshedSession: CognitoUserSession = await refreshSession(session);
@@ -40,8 +39,8 @@ export const customFetch = async <T>(
       ...options,
       headers: {
         ...headers,
-        Authorization: idToken
-      }
+        Authorization: idToken,
+      },
     };
   }
 
@@ -50,34 +49,34 @@ export const customFetch = async <T>(
     : `${REACT_APP_APP_API_BASE}/${REACT_APP_STAGE}${url}`;
 
   return fetch(requestUrl, fetchOptions)
-    .then<Geolonia.APIResult<T>>(res => {
-      if (res.ok) {
-        if (decode === "text") {
-          return res.text().then((data: any) => ({ data, error: false }));
-        } else {
-          return res.json().then((data: T) => ({ data, error: false }));
-        }
-      } else if (res.status === 403) {
-        return {
-          error: true,
-          code: errorCodes.UnAuthorized,
-          message: getErrorMessage(errorCodes.UnAuthorized)
-        };
+    .then<Geolonia.APIResult<T>>((res) => {
+    if (res.ok) {
+      if (decode === 'text') {
+        return res.text().then((data: any) => ({ data, error: false }));
       } else {
-        return {
-          error: true,
-          code: errorCodes.Unknown,
-          message: getErrorMessage(errorCodes.Unknown)
-        };
+        return res.json().then((data: T) => ({ data, error: false }));
       }
-    })
-    .catch<Geolonia.APIResult<T>>(error => {
+    } else if (res.status === 403) {
       return {
         error: true,
-        code: errorCodes.Network,
-        message: getErrorMessage(errorCodes.Network)
+        code: errorCodes.UnAuthorized,
+        message: getErrorMessage(errorCodes.UnAuthorized),
       };
-    });
+    } else {
+      return {
+        error: true,
+        code: errorCodes.Unknown,
+        message: getErrorMessage(errorCodes.Unknown),
+      };
+    }
+  })
+    .catch<Geolonia.APIResult<T>>((error) => {
+    return {
+      error: true,
+      code: errorCodes.Network,
+      message: getErrorMessage(errorCodes.Network),
+    };
+  });
 };
 
 export default customFetch;

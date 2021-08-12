@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from 'react';
 
 type Props = {
   isLoggedIn: boolean;
@@ -10,28 +10,26 @@ type Props = {
   };
 };
 
-type State = {};
-
 export const RouteController = (props: Props) => {
   const {
     isLoggedIn,
     history: {
       location: { pathname },
-      replace
-    }
+      replace,
+    },
   } = props;
 
   useEffect(() => {
     if (
       !isLoggedIn &&
-      pathname !== "/signup" &&
-      pathname !== "/resend" &&
-      pathname !== "/verify" &&
-      pathname !== "/forgot-password" &&
-      pathname !== "/reset-password" &&
-      pathname.indexOf("/accept-invitation") !== 0
+      pathname !== '/signup' &&
+      pathname !== '/resend' &&
+      pathname !== '/verify' &&
+      pathname !== '/forgot-password' &&
+      pathname !== '/reset-password' &&
+      pathname.indexOf('/accept-invitation') !== 0
     ) {
-      replace("/signin");
+      replace('/signin');
     }
   }, [isLoggedIn, pathname, replace]);
 

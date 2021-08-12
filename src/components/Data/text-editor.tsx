@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 
 type Props = {
   geoJSON: GeoJSON.FeatureCollection | undefined;
-  setGeoJSON: (geojson: Props["geoJSON"]) => void;
+  setGeoJSON: (geojson: Props['geoJSON']) => void;
 };
 
 type StyledProps = {
@@ -13,12 +13,12 @@ type StyledProps = {
 const TextArea = styled.textarea<StyledProps>`
   width: 100%;
   height: 100%;
-  ${props => (props.error ? "border: 1px solid red" : "")}
+  ${(props) => (props.error ? 'border: 1px solid red' : '')}
 `;
 
 export const TextEditor = (props: Props) => {
   const { geoJSON, setGeoJSON } = props;
-  const [draft, setDraft] = useState("");
+  const [draft, setDraft] = useState('');
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -31,10 +31,10 @@ export const TextEditor = (props: Props) => {
       value={draft}
       error={error}
       onFocus={() => setError(false)}
-      onChange={e => {
+      onChange={(e) => {
         setDraft(e.target.value);
       }}
-      onKeyDown={e => {
+      onKeyDown={(e) => {
         if (e.keyCode === 13 && e.altKey) {
           e.currentTarget.blur();
         }

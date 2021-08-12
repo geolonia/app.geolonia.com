@@ -1,20 +1,20 @@
-import fetch from "../custom-fetch";
+import fetch from '../custom-fetch';
 
 type TeamUpdateParam = Partial<
-  Omit<Geolonia.Team, "teamId" | "role" | "avatarImage" | "links" | "isDeleted">
+Omit<Geolonia.Team, 'teamId' | 'role' | 'avatarImage' | 'links' | 'isDeleted'>
 >;
 
 const updateTeam = (
   session: Geolonia.Session,
   teamId: string,
-  team: TeamUpdateParam
+  team: TeamUpdateParam,
 ) => {
   return fetch<any>(session, `/teams/${teamId}`, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(team)
+    body: JSON.stringify(team),
   });
 };
 

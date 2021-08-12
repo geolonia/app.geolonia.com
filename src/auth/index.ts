@@ -1,17 +1,17 @@
 // @file Wrapper for Cognito related API
 
-import "isomorphic-fetch";
-import * as CognitoIdentity from "amazon-cognito-identity-js";
-import estimateLanguage from "../lib/estimate-language";
-import * as mixpanel from "mixpanel-browser";
+import 'isomorphic-fetch';
+import * as CognitoIdentity from 'amazon-cognito-identity-js';
+import estimateLanguage from '../lib/estimate-language';
+import * as mixpanel from 'mixpanel-browser';
 
 const {
   REACT_APP_COGNITO_USERPOOL_ID: UserPoolId,
-  REACT_APP_COGNITO_APP_CLIENT_ID: ClientId
+  REACT_APP_COGNITO_APP_CLIENT_ID: ClientId,
 } = process.env;
 const poolData = {
   UserPoolId,
-  ClientId
+  ClientId,
 } as CognitoIdentity.ICognitoUserPoolData;
 const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 
@@ -20,12 +20,12 @@ export const signUp = (username: string, email: string, password: string) =>
     // NOTE: if we have more language option, let's extend
     const locale = estimateLanguage();
     const attributeList = [
-      new CognitoIdentity.CognitoUserAttribute({ Name: "email", Value: email }),
+      new CognitoIdentity.CognitoUserAttribute({ Name: 'email', Value: email }),
       new CognitoIdentity.CognitoUserAttribute({
-        Name: "locale",
+        Name: 'locale',
         // 今使っている言語を送信する
         Value: locale,
-      })
+      }),
     ];
 
     userPool.signUp(username, password, attributeList, [], (err, result) => {
@@ -42,7 +42,7 @@ export const requestVerificationCode = (identity: string) => {
   return new Promise((resolve, reject) => {
     const userData = {
       Username: identity,
-      Pool: userPool
+      Pool: userPool,
     };
 
     const cognitoUser = new CognitoIdentity.CognitoUser(userData);
@@ -60,7 +60,7 @@ export const verify = (username: string, code: string) =>
   new Promise((resolve, reject) => {
     const userData = {
       Username: username,
-      Pool: userPool
+      Pool: userPool,
     };
     const cognitoUser = new CognitoIdentity.CognitoUser(userData);
     cognitoUser.confirmRegistration(code, true, (err, result) => {
@@ -80,14 +80,14 @@ export const signin = (username: string, password: string) =>
   }>((resolve, reject) => {
     const cognitoUser = new CognitoIdentity.CognitoUser({
       Username: username,
-      Pool: userPool
+      Pool: userPool,
     });
     const authenticationDetails = new CognitoIdentity.AuthenticationDetails({
       Username: username,
-      Password: password
+      Password: password,
     });
     cognitoUser.authenticateUser(authenticationDetails, {
-      onSuccess: result => {
+      onSuccess: (result) => {
         const accessToken = result.getIdToken().getJwtToken();
         cognitoUser.getSession(
           (err: any, session: CognitoIdentity.CognitoUserSession) => {
@@ -96,12 +96,12 @@ export const signin = (username: string, password: string) =>
             } else {
               resolve({ cognitoUser, session, accessToken });
             }
-          }
+          },
         );
       },
-      onFailure: err => {
+      onFailure: (err) => {
         reject(err);
-      }
+      },
     });
   });
 
@@ -117,7 +117,7 @@ export const getSession = () =>
           } else {
             resolve(session);
           }
-        }
+        },
       );
     } else {
       resolve(null);
@@ -142,10 +142,10 @@ export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {
           } else {
             resolve(session);
           }
-        }
+        },
       );
     } else {
-      reject(new Error("no session found"));
+      reject(new Error('no session found'));
       return;
     }
 
@@ -164,13 +164,13 @@ export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {
         } else {
           resolve(session);
         }
-      }
+      },
     );
   });
 };
 
 export const signout: () => Promise<void> = () =>
-  new Promise<void>(resolve => {
+  new Promise<void>((resolve) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser) {
       cognitoUser.signOut();
@@ -181,18 +181,18 @@ export const signout: () => Promise<void> = () =>
     // Persists `geolonia__persisted*` items
     // e.g. `geolonia__persisted_language` will be used at signin page without session
     const thePersisted = Object.keys(localStorage)
-      .filter(key => key.indexOf("geolonia__persisted") === 0)
+      .filter((key) => key.indexOf('geolonia__persisted') === 0)
       .reduce<{ [key: string]: string }>((prev, key) => {
-        const value = localStorage.getItem(key);
-        if (value) {
-          prev[key] = value;
-        }
-        return prev;
-      }, {});
+      const value = localStorage.getItem(key);
+      if (value) {
+        prev[key] = value;
+      }
+      return prev;
+    }, {});
 
     localStorage.clear();
 
-    Object.keys(thePersisted).forEach(key => {
+    Object.keys(thePersisted).forEach((key) => {
       const value = thePersisted[key];
       localStorage.setItem(key, value);
     });
@@ -207,14 +207,14 @@ export const sendVerificationEmail: (identity: string) => Promise<boolean> = (id
   new Promise((resolve, reject) => {
     const cognitoUser = new CognitoIdentity.CognitoUser({
       Username: identity,
-      Pool: userPool
+      Pool: userPool,
     });
     if (cognitoUser) {
       cognitoUser.forgotPassword({
         onSuccess: () => resolve(true),
-        onFailure: err => {
+        onFailure: (err) => {
           reject(err);
-        }
+        },
       });
     }
   });
@@ -226,11 +226,11 @@ export const sendVerificationEmail: (identity: string) => Promise<boolean> = (id
 export const resetPassword = (
   identity: string,
   code: string,
-  password: string
+  password: string,
 ) => {
   const cognitoUser = new CognitoIdentity.CognitoUser({
     Username: identity,
-    Pool: userPool
+    Pool: userPool,
   });
   return new Promise((resolve, reject) => {
     cognitoUser.confirmPassword(code, password, {
@@ -239,7 +239,7 @@ export const resetPassword = (
       },
       onSuccess() {
         resolve(true);
-      }
+      },
     });
   });
 };
@@ -251,7 +251,7 @@ export const changePassword = (oldPassword: string, newPassword: string) =>
       const username = cognitoUser.getUsername();
       return signin(username, oldPassword)
         .then(({ cognitoUser }) => {
-          cognitoUser.changePassword(oldPassword, newPassword, err => {
+          cognitoUser.changePassword(oldPassword, newPassword, (err) => {
             if (err) {
               reject(err);
             } else {
@@ -259,9 +259,9 @@ export const changePassword = (oldPassword: string, newPassword: string) =>
             }
           });
         })
-        .catch(err => reject(err));
+        .catch((err) => reject(err));
     } else {
-      reject(new Error("No user found."));
+      reject(new Error('No user found.'));
     }
   });
 
@@ -271,8 +271,8 @@ export const changeEmail = (email: string) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser) {
       const attr: CognitoIdentity.ICognitoUserAttributeData = {
-        Name: "email",
-        Value: email
+        Name: 'email',
+        Value: email,
       };
       cognitoUser.updateAttributes([attr], (err, result) => {
         if (err) {

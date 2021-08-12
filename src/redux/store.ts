@@ -1,18 +1,18 @@
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import { reducer as authSupportReducer } from "./actions/auth-support";
-import { reducer as userMetaReducer } from "./actions/user-meta";
-import { reducer as teamReducer } from "./actions/team";
-import { reducer as mapKeyReducer } from "./actions/map-key";
-import { reducer as teamMemberReducer } from "./actions/team-member";
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { reducer as authSupportReducer } from './actions/auth-support';
+import { reducer as userMetaReducer } from './actions/user-meta';
+import { reducer as teamReducer } from './actions/team';
+import { reducer as mapKeyReducer } from './actions/map-key';
+import { reducer as teamMemberReducer } from './actions/team-member';
 
-import localStorageMiddleware from "./middlewares/local-storage";
+import localStorageMiddleware from './middlewares/local-storage';
 
 const appReducer = combineReducers({
   authSupport: authSupportReducer,
   userMeta: userMetaReducer,
   team: teamReducer,
   mapKey: mapKeyReducer,
-  teamMember: teamMemberReducer
+  teamMember: teamMemberReducer,
 });
 
 // store

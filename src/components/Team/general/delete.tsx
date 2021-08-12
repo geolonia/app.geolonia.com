@@ -1,33 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 
 // Components
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
 import {
+  CircularProgress,
   DialogTitle,
   DialogContent,
   DialogContentText,
   TextField,
-  DialogActions
-} from "@material-ui/core";
-import { CircularProgress } from "@material-ui/core";
-import CheckIcon from "@material-ui/icons/Check";
+  DialogActions,
+} from '@material-ui/core';
+import CheckIcon from '@material-ui/icons/Check';
 
 // utils
-import { __, sprintf } from "@wordpress/i18n";
-import Interweave from "interweave";
+import { __, sprintf } from '@wordpress/i18n';
+import Interweave from 'interweave';
 
 // api
-import deleteTeam from "../../../api/teams/delete";
+import deleteTeam from '../../../api/teams/delete';
 
 // types
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 // parameters
 const styleDangerZone: React.CSSProperties = {
-  border: "1px solid #ff0000",
-  padding: "16px 24px"
+  border: '1px solid #ff0000',
+  padding: '16px 24px',
 };
 
 type OwnProps = Record<string, never>;
@@ -41,33 +41,33 @@ type Props = OwnProps & StateProps;
 const TeamDeletion = (props: Props) => {
   // state
   const [open, setOpen] = useState(false);
-  const [confirmation, setConfirmation] = useState("");
+  const [confirmation, setConfirmation] = useState('');
   const [status, setStatus] = useState<
-    false | "requesting" | "success" | "failure"
+    false | 'requesting' | 'success' | 'failure'
   >(false);
 
   // props
   const { team, teamLength } = props;
 
   const saveHandler = () => {
-    if (confirmation.toUpperCase() === "DELETE") {
+    if (confirmation.toUpperCase() === 'DELETE') {
       const { session } = props;
-      setStatus("requesting");
+      setStatus('requesting');
       deleteTeam(session, team.teamId)
-        .then(result => {
+        .then((result) => {
           if (result.error) {
             throw new Error(result.code);
           } else {
-            setConfirmation("");
-            setStatus("success");
+            setConfirmation('');
+            setStatus('success');
             setTimeout(() => {
-              window.location.href = "/";
+              window.location.href = '/';
             }, 2000);
           }
         })
         .catch(() => {
-          setConfirmation("");
-          setStatus("failure");
+          setConfirmation('');
+          setStatus('failure');
         });
     }
   };
@@ -75,16 +75,16 @@ const TeamDeletion = (props: Props) => {
   return (
     <div style={styleDangerZone}>
       <Typography component="h3" color="secondary">
-        {__("Danger Zone")}
+        {__('Danger Zone')}
       </Typography>
       <p>
         {
           teamLength < 2 ?
             __(
-              "You must have at least one team to use Geolonia Maps. If you have only one team, please create a new one, and then delete the team."
+              'You must have at least one team to use Geolonia Maps. If you have only one team, please create a new one, and then delete the team.',
             ) :
             __(
-            "Once you delete a team, there is no going back. Please be certain. "
+              'Once you delete a team, there is no going back. Please be certain. ',
             )
         }
       </p>
@@ -94,7 +94,7 @@ const TeamDeletion = (props: Props) => {
         onClick={() => setOpen(true)}
         disabled={teamLength < 2}
       >
-        {__("Delete")}
+        {__('Delete')}
       </Button>
 
       <form>
@@ -106,7 +106,7 @@ const TeamDeletion = (props: Props) => {
         >
           <DialogTitle id="form-dialog-title">
             <Typography component="span" color="secondary">
-              {__("Confirm deletion")}
+              {__('Confirm deletion')}
             </Typography>
           </DialogTitle>
           <DialogContent>
@@ -114,9 +114,9 @@ const TeamDeletion = (props: Props) => {
               <Interweave
                 content={sprintf(
                   __(
-                    "Please enter <code>delete</code> if you really want to delete the team <strong>%1$s</strong>."
+                    'Please enter <code>delete</code> if you really want to delete the team <strong>%1$s</strong>.',
                   ),
-                  team.name
+                  team.name,
                 )}
               />
             </DialogContentText>
@@ -126,42 +126,42 @@ const TeamDeletion = (props: Props) => {
               margin="normal"
               name="team-deletion-confirm"
               value={confirmation}
-              onChange={e => setConfirmation(e.target.value)}
+              onChange={(e) => setConfirmation(e.target.value)}
               disabled={status !== false}
               fullWidth
               placeholder="delete"
             />
-            {status === "failure" && <DialogContentText>{}</DialogContentText>}
+            {status === 'failure' && <DialogContentText>{}</DialogContentText>}
           </DialogContent>
           <DialogActions>
             <Button
               onClick={() => {
-                setConfirmation("");
+                setConfirmation('');
                 setOpen(false);
               }}
               color="default"
               disabled={status !== false}
             >
-              {__("Cancel")}
+              {__('Cancel')}
             </Button>
             <Button
               onClick={saveHandler}
               color="secondary"
               type="submit"
               disabled={
-                confirmation.toUpperCase() !== "DELETE" || status !== false
+                confirmation.toUpperCase() !== 'DELETE' || status !== false
               }
             >
-              {status === "requesting" ? (
+              {status === 'requesting' ? (
                 <CircularProgress
                   size={16}
                   style={{ marginRight: 8 }}
-                  color={"secondary"}
+                  color={'secondary'}
                 />
-              ) : status === "success" ? (
-                <CheckIcon fontSize={"default"} color={"secondary"} />
+              ) : status === 'success' ? (
+                <CheckIcon fontSize={'default'} color={'secondary'} />
               ) : null}
-              {__("Delete")}
+              {__('Delete')}
             </Button>
           </DialogActions>
         </Dialog>

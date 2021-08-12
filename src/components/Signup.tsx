@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
+import React, { useState, useEffect } from 'react';
+import Button from '@material-ui/core/Button';
 
-import Support from "./custom/Support";
-import Languages from "./custom/languages";
-import "./Signup.scss";
-import Logo from "./custom/logo.svg";
-import Alert from "./custom/Alert";
-import { signUp } from "../auth";
-import Redux from "redux";
-import { connect } from "react-redux";
-import { createActions } from "../redux/actions/auth-support";
-import StatusIndication from "./custom/status-indication";
-import delay from "../lib/promise-delay";
-import { __ } from "@wordpress/i18n";
-import Interweave from "interweave";
-import { parseSignupError as parseCognitoSignupError } from "../lib/cognito/parse-error";
-import estimateLanguage from "../lib/estimate-language";
-import { pageTransitionInterval } from "../constants";
-import queryString from "query-string";
+import Support from './custom/Support';
+import Languages from './custom/languages';
+import './Signup.scss';
+import Logo from './custom/logo.svg';
+import Alert from './custom/Alert';
+import { signUp } from '../auth';
+import Redux from 'redux';
+import { connect } from 'react-redux';
+import { createActions } from '../redux/actions/auth-support';
+import StatusIndication from './custom/status-indication';
+import delay from '../lib/promise-delay';
+import { __ } from '@wordpress/i18n';
+import Interweave from 'interweave';
+import { parseSignupError as parseCognitoSignupError } from '../lib/cognito/parse-error';
+import estimateLanguage from '../lib/estimate-language';
+import { pageTransitionInterval } from '../constants';
+import queryString from 'query-string';
 
 type OwnProps = Record<string, never>;
 type RouterProps = {
@@ -32,14 +32,14 @@ type DispatchProps = {
 
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
-type Status = null | "requesting" | "success" | "warning";
+type Status = null | 'requesting' | 'success' | 'warning';
 
 const Signup = (props: Props) => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [status, setStatus] = useState<Status>(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -59,28 +59,28 @@ const Signup = (props: Props) => {
 
   const handleSignup = (e: React.MouseEvent | void) => {
     e && e.preventDefault();
-    setStatus("requesting");
+    setStatus('requesting');
     setUsername(username);
     delay(signUp(username, email, password), 500)
-      .then(result => {
-        setStatus("success");
+      .then((result) => {
+        setStatus('success');
         const succeededUsername = result.user.getUsername();
         props.setCurrentUser(succeededUsername);
         setTimeout(() => {
           window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
-            succeededUsername
+            succeededUsername,
           )}#/verify`;
         }, pageTransitionInterval);
       })
-      .catch(err => {
-        setMessage(parseCognitoSignupError(err || { code: "" }));
-        setStatus("warning");
+      .catch((err) => {
+        setMessage(parseCognitoSignupError(err || { code: '' }));
+        setStatus('warning');
       });
   };
 
-  const usernameIsValid = username !== "";
-  const emailIsValid = email !== "";
-  const passwordIsValid = password !== "";
+  const usernameIsValid = username !== '';
+  const emailIsValid = email !== '';
+  const passwordIsValid = password !== '';
   const buttonDisabled = !usernameIsValid || !emailIsValid || !passwordIsValid;
 
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {
@@ -93,53 +93,53 @@ const Signup = (props: Props) => {
     const parsed = queryString.parse(window.location.search);
     parsed.lang = estimateLanguage();
     const newUrl = `/?${queryString.stringify(parsed)}#/signup`;
-    window.history.pushState({ path: newUrl }, "", newUrl);
+    window.history.pushState({ path: newUrl }, '', newUrl);
   }, []);
 
   return (
     <div className="signup">
-      {status === "warning" && <Alert type={status}>{message}</Alert>}
+      {status === 'warning' && <Alert type={status}>{message}</Alert>}
       <div className="container">
         <img src={Logo} alt="" className="logo" />
-        <h1>{__("Welcome to Geolonia")}</h1>
-        <h2>{__("Create your account")}</h2>
+        <h1>{__('Welcome to Geolonia')}</h1>
+        <h2>{__('Create your account')}</h2>
         <form className="form">
           <label className="username">
-            <h3>{__("Username")}</h3>
+            <h3>{__('Username')}</h3>
             <input
-              id={"username"}
-              type={"text"}
+              id={'username'}
+              type={'text'}
               value={username}
               onChange={onUsernameChange}
             />
             <p className="message">
-              {__("Username cannot be modified later.")}
+              {__('Username cannot be modified later.')}
             </p>
           </label>
           <label className="email">
-            <h3>{__("Email address")}</h3>
+            <h3>{__('Email address')}</h3>
             <input
-              id={"email"}
-              type={"text"}
+              id={'email'}
+              type={'text'}
               value={email}
               onChange={onEmailChange}
               onBlur={onEmailBlur}
             />
           </label>
           <label className="password">
-            <h3>{__("Password")}</h3>
+            <h3>{__('Password')}</h3>
             <input
-              id={"password"}
-              type={"password"}
+              id={'password'}
+              type={'password'}
               value={password}
               onChange={onPasswordChange}
               onKeyDown={onPasswordKeyDown}
-              autoComplete={"new-password"}
+              autoComplete={'new-password'}
             />
           </label>
           <p className="message">
             {__(
-              "Make sure at least 8 characters including a number and a lowercase letter."
+              'Make sure at least 8 characters including a number and a lowercase letter.',
             )}
           </p>
 
@@ -149,9 +149,9 @@ const Signup = (props: Props) => {
               color="primary"
               onClick={handleSignup}
               disabled={buttonDisabled}
-              type={"submit"}
+              type={'submit'}
             >
-              {__("Sign up")}
+              {__('Sign up')}
             </Button>
           </p>
           <StatusIndication status={status}></StatusIndication>
@@ -159,7 +159,7 @@ const Signup = (props: Props) => {
           <p className="message">
             <Interweave
               content={__(
-                'By signing up to Geolonia, you agree to our <a href="https://geolonia.com/terms" target="_blank" class="MuiTypography-colorPrimary">Terms of service</a> and <a class="MuiTypography-colorPrimary" href="https://geolonia.com/privacy" target="_blank">Privacy policy</a>.'
+                'By signing up to Geolonia, you agree to our <a href="https://geolonia.com/terms" target="_blank" class="MuiTypography-colorPrimary">Terms of service</a> and <a class="MuiTypography-colorPrimary" href="https://geolonia.com/privacy" target="_blank">Privacy policy</a>.',
               )}
             />
           </p>
@@ -177,10 +177,10 @@ const Signup = (props: Props) => {
 
 const mapStateToProps = (): StateProps => ({});
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setCurrentUser: (user: string) => dispatch(createActions.setCurrentUser(user))
+  setCurrentUser: (user: string) => dispatch(createActions.setCurrentUser(user)),
 });
 
 export default connect<StateProps, DispatchProps>(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Signup);
