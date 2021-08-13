@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: 2021-08-13 09:56+0900\n"
+"PO-Revision-Date: 2021-08-13 10:48+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -710,7 +710,7 @@ msgstr "利用状況"
 
 #: src/components/Team/Billing.tsx:272
 msgid "Map loads this month"
-msgstr "今月の地図の読み込み回数"
+msgstr "今月の地図の表示回数"
 
 #: src/components/Team/Billing.tsx:276
 msgid "%d map load"

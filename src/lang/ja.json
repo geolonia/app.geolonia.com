@@ -252,7 +252,7 @@
       "Free Plan": ["Free プラン"],
       "Team settings": ["チーム設定"],
       "Usage information": ["利用状況"],
-      "Map loads this month": ["今月の地図の読み込み回数"],
+      "Map loads this month": ["今月の地図の表示回数"],
       "%d map load": ["%d 表示"],
       "Last updated %s": ["最終更新 %s"],
       "Payment information": ["支払い情報"],
