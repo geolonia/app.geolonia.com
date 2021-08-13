@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: 2021-08-10 14:04+0900\n"
+"PO-Revision-Date: 2021-08-13 10:48+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -22,18 +22,18 @@ msgstr "招待が有効化されました。"
 msgid "Your invitation has been outdated."
 msgstr "この招待は無効です。"
 
-#: src/components/Dashboard.tsx:57
+#: src/components/Dashboard.tsx:50
 msgid "Get started with Geolonia map"
 msgstr "Geoloniaの地図を使ってみる"
 
-#: src/components/Dashboard.tsx:58
+#: src/components/Dashboard.tsx:51
 msgid ""
 "First, you need to obtain an API key and set up the initial settings for the "
 "map design and display position."
 msgstr ""
 "まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"
 
-#: src/components/Dashboard.tsx:58
+#: src/components/Dashboard.tsx:51
 msgid ""
 "After that, add the generated HTML code snippet to your website to display "
 "the map you have created."
@@ -41,15 +41,15 @@ msgstr ""
 "その後、生成された HTML コードスニペットをあなたの Webサイトに追加すると、作"
 "成した地図が表示されます。"
 
-#: src/components/Dashboard.tsx:59
+#: src/components/Dashboard.tsx:52
 msgid "Create map"
 msgstr "地図を作成する"
 
-#: src/components/Dashboard.tsx:63
+#: src/components/Dashboard.tsx:56
 msgid "Tutorials"
 msgstr "チュートリアル"
 
-#: src/components/Dashboard.tsx:66
+#: src/components/Dashboard.tsx:59
 msgid "Developer's Blog"
 msgstr "Developer's Blog"
 
@@ -57,17 +57,17 @@ msgstr "Developer's Blog"
 msgid "Download GeoJSON"
 msgstr "GeoJSON をダウンロード"
 
-#: src/components/Data/GeoJson.tsx:103 src/components/Data/GeoJsons.tsx:95
+#: src/components/Data/GeoJson.tsx:102 src/components/Data/GeoJsons.tsx:95
 #: src/components/Navigator.tsx:173
 msgid "Map"
 msgstr "地図"
 
-#: src/components/Data/GeoJson.tsx:107 src/components/Data/GeoJsons.tsx:125
+#: src/components/Data/GeoJson.tsx:106 src/components/Data/GeoJsons.tsx:125
 #: src/components/Navigator.tsx:164
 msgid "Location Data"
 msgstr "位置情報データ"
 
-#: src/components/Data/GeoJson.tsx:220
+#: src/components/Data/GeoJson.tsx:216
 msgid ""
 "Upload your location data here to display it on a map. Once the data has "
 "been uploaded, HTML code will be generated so you can embed it in your site. "
@@ -77,34 +77,34 @@ msgstr ""
 "追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSONまたはCSVファ"
 "イルに対応しています。"
 
-#: src/components/Data/GeoJson.tsx:262
+#: src/components/Data/GeoJson.tsx:258
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr "一度データセットを削除するともとに戻すことはできません。"
 
-#: src/components/Data/GeoJson.tsx:267
+#: src/components/Data/GeoJson.tsx:263
 msgid "Are you sure you want to delete this Dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
-#: src/components/Data/GeoJson.tsx:268 src/components/Data/fields.tsx:70
+#: src/components/Data/GeoJson.tsx:264 src/components/Data/fields.tsx:70
 #: src/components/Maps/APIKey.tsx:295
 msgid "Please type delete to confirm."
 msgstr "確認のために delete と入力してください。"
 
-#: src/components/Data/GeoJson.tsx:52
+#: src/components/Data/GeoJson.tsx:51
 msgid "Uploading now.."
 msgstr "データをアップロードしています。"
 
-#: src/components/Data/GeoJson.tsx:53
+#: src/components/Data/GeoJson.tsx:52
 msgid "Processing data.."
 msgstr "データを処理しています。"
 
-#: src/components/Data/GeoJson.tsx:54
+#: src/components/Data/GeoJson.tsx:53
 msgid "Adding your data to the map..."
 msgstr "データを地図に追加しています。"
 
-#: src/components/Data/GeoJson.tsx:99 src/components/Data/GeoJsons.tsx:91
+#: src/components/Data/GeoJson.tsx:98 src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:116 src/components/Maps/APIKeys.tsx:44
-#: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:196
+#: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:200
 #: src/components/Team/general/index.tsx:28
 #: src/components/Team/members/index.tsx:121 src/components/User/User.tsx:13
 msgid "Home"
@@ -421,11 +421,11 @@ msgstr "パスワードをリセットするための検証コードを送付し
 msgid "Send password reset email"
 msgstr "メールを送信"
 
-#: src/components/Header.tsx:141
+#: src/components/Header.tsx:139
 msgid "Profile"
 msgstr "プロフィール"
 
-#: src/components/Header.tsx:143
+#: src/components/Header.tsx:141
 msgid "Logout"
 msgstr "ログアウト"
 
@@ -517,7 +517,7 @@ msgstr "一般"
 msgid "Members"
 msgstr "メンバー"
 
-#: src/components/Navigator.tsx:145 src/components/Team/Billing.tsx:244
+#: src/components/Navigator.tsx:145 src/components/Team/Billing.tsx:410
 msgid "Billing"
 msgstr "支払い"
 
@@ -695,28 +695,41 @@ msgstr ""
 msgid "Free plan"
 msgstr "Free プラン"
 
-#: src/components/Team/Billing.tsx:130
+#: src/components/Team/Billing.tsx:131
 msgid "Free Plan"
 msgstr "Free プラン"
 
-#: src/components/Team/Billing.tsx:200 src/components/Team/general/index.tsx:32
+#: src/components/Team/Billing.tsx:204 src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:245
-msgid "You can see subscriptions for this team in this month."
-msgstr "このチームの今月のサブスクリプションを確認することができます。"
+#: src/components/Team/Billing.tsx:265
+msgid "Usage information"
+msgstr "利用状況"
 
-#: src/components/Team/Billing.tsx:249
+#: src/components/Team/Billing.tsx:272
+msgid "Map loads this month"
+msgstr "今月の地図の表示回数"
+
+#: src/components/Team/Billing.tsx:276
+msgid "%d map load"
+msgid_plural "%d map loads"
+msgstr[0] "%d 表示"
+
+#: src/components/Team/Billing.tsx:285
+msgid "Last updated %s"
+msgstr "最終更新 %s"
+
+#: src/components/Team/Billing.tsx:293
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:257
+#: src/components/Team/Billing.tsx:302
 msgid "Current account credit:"
 msgstr "クレジット残高"
 
-#: src/components/Team/Billing.tsx:261
+#: src/components/Team/Billing.tsx:306
 msgid ""
 "While this account has credits available, payments will deduct from account "
 "credit instead of the registered credit card."
@@ -724,43 +737,47 @@ msgstr ""
 "現在、クレジットが適用されています。クレジット残高が残っている場合、請求はク"
 "レジット残高から支払われます。"
 
-#: src/components/Team/Billing.tsx:266
+#: src/components/Team/Billing.tsx:311
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:270
+#: src/components/Team/Billing.tsx:315
 msgid "ending in **%1$s"
 msgstr "クレジットカード（末尾の番号 **%1$s）"
 
-#: src/components/Team/Billing.tsx:280
+#: src/components/Team/Billing.tsx:325
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:292
+#: src/components/Team/Billing.tsx:337
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:299
+#: src/components/Team/Billing.tsx:344
 msgid "Scheduled to expire on %1$s"
 msgstr "%1$s にキャンセルされます"
 
-#: src/components/Team/Billing.tsx:301
+#: src/components/Team/Billing.tsx:346
 msgid "Will automatically renew on %1$s"
 msgstr "%1$s に自動更新されます"
 
-#: src/components/Team/Billing.tsx:321
+#: src/components/Team/Billing.tsx:366
 msgid "Resume subscription"
 msgstr "自動更新を再開"
 
-#: src/components/Team/Billing.tsx:333
+#: src/components/Team/Billing.tsx:378
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:362
+#: src/components/Team/Billing.tsx:411
+msgid "You can see subscriptions for this team in this month."
+msgstr "このチームの今月のサブスクリプションを確認することができます。"
+
+#: src/components/Team/Billing.tsx:418
 msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
-#: src/components/Team/Billing.tsx:369
+#: src/components/Team/Billing.tsx:425
 msgid "Payment history"
 msgstr "支払い履歴"
 
@@ -768,38 +785,38 @@ msgstr "支払い履歴"
 msgid "No payment history."
 msgstr "支払い履歴はありません。"
 
-#: src/components/Team/Billing/payment-method-modal.tsx:104
+#: src/components/Team/Billing/payment-method-modal.tsx:102
 msgid "Card information"
 msgstr "クレジットカード情報"
 
-#: src/components/Team/Billing/payment-method-modal.tsx:148
-#: src/components/Team/Billing/plan-modal.tsx:175
+#: src/components/Team/Billing/payment-method-modal.tsx:146
+#: src/components/Team/Billing/plan-modal.tsx:172
 msgid "Update"
 msgstr "更新"
 
-#: src/components/Team/Billing/payment-method-modal.tsx:67
+#: src/components/Team/Billing/payment-method-modal.tsx:65
 msgid "Unknown Error."
 msgstr "不明なエラー。"
 
-#: src/components/Team/Billing/plan-modal.tsx:118
+#: src/components/Team/Billing/plan-modal.tsx:115
 msgid "Your plan"
 msgstr "あなたのプラン"
 
-#: src/components/Team/Billing/plan-modal.tsx:156
+#: src/components/Team/Billing/plan-modal.tsx:153
 msgid "All prices include a 10% Japanese Consumption Tax"
 msgstr "※ 上記の価格はすべて税込表示です"
 
-#: src/components/Team/Billing/plan-modal.tsx:57
+#: src/components/Team/Billing/plan-modal.tsx:54
 msgid "Your subscription will be canceled."
 msgstr "サブスクリプションはキャンセルされます。"
 
-#: src/components/Team/Billing/plan-modal.tsx:59
+#: src/components/Team/Billing/plan-modal.tsx:56
 msgid ""
 "The difference between the plan changes will be charged or charged as a "
 "balance."
 msgstr "プランの変更に伴う差額が請求または残高としてチャージされます。"
 
-#: src/components/Team/Billing/plan-modal.tsx:98
+#: src/components/Team/Billing/plan-modal.tsx:95
 msgid ""
 "The plan could not be changed. If you are trying to downgrade your team to a "
 "team that supports fewer members, please remove the extra members before "
@@ -1631,9 +1648,6 @@ msgstr "6"
 
 #~ msgid "Display your points, lines, polygons on your map application."
 #~ msgstr "あなたの地図アプリに、ポイントや線、ポリゴンを表示しましょう。"
-
-#~ msgid "Map loads for this month"
-#~ msgstr "今月の地図のロード回数"
 
 #~ msgid "API loads for this month"
 #~ msgstr "今月の API のロード回数"

@@ -251,9 +251,10 @@
       "Free plan": ["Free プラン"],
       "Free Plan": ["Free プラン"],
       "Team settings": ["チーム設定"],
-      "You can see subscriptions for this team in this month.": [
-        "このチームの今月のサブスクリプションを確認することができます。"
-      ],
+      "Usage information": ["利用状況"],
+      "Map loads this month": ["今月の地図の表示回数"],
+      "%d map load": ["%d 表示"],
+      "Last updated %s": ["最終更新 %s"],
       "Payment information": ["支払い情報"],
       "Current account credit:": ["クレジット残高"],
       "While this account has credits available, payments will deduct from account credit instead of the registered credit card.": [
@@ -267,6 +268,9 @@
       "Will automatically renew on %1$s": ["%1$s に自動更新されます"],
       "Resume subscription": ["自動更新を再開"],
       "Change Plan": ["プランを変更"],
+      "You can see subscriptions for this team in this month.": [
+        "このチームの今月のサブスクリプションを確認することができます。"
+      ],
       "Learn more about plans on the pricing page.": [
         "プラン詳細については、料金ページをご覧ください。"
       ],
