@@ -87,7 +87,7 @@ export const Tutorials: React.FC = () => {
                 <Typography variant="body2" color="textSecondary" component="p" className={classes.excerpt}>{post.excerpt}</Typography>
               </div>
             </CardContent>
-            <Button className={classes.button} size="small">{post.btnText}</Button>
+            <Button component="div" className={classes.button} size="small">{post.btnText}</Button>
           </CardActionArea>
         </Card>
       </Grid>)
