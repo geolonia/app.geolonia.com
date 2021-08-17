@@ -282,7 +282,7 @@ const Billing = (props: StateProps) => {
               )}
               {usage?.updated && <>
                 <br />
-                {sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY-MM-DD HH:MM:ss'))}
+                {sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY-MM-DD HH:mm:ss'))}
               </>}
             </TableCell>
           </TableRow>
