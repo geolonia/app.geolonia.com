@@ -180,6 +180,7 @@ const usePlan = (props: StateProps) => {
 
 const Billing = (props: StateProps) => {
   const { session, team, language } = props;
+  const teamName = team?.name;
   const teamId = team?.teamId;
   const [openPayment, setOpenPayment] = useState(false);
   const [openPlan, setOpenPlan] = useState(false);
@@ -407,8 +408,8 @@ const Billing = (props: StateProps) => {
   return (
     <StripeContainer>
       <div className="billing">
-        <Title title={__('Billing')} breadcrumb={breadcrumbItems}>
-          {__('You can see subscriptions for this team in this month.')}
+        <Title title={__('Plans and Billing')} breadcrumb={breadcrumbItems}>
+          {sprintf(__('You can check and change your current pricing plan and usage status of Team %s.'), teamName)}
         </Title>
 
         { inner }
