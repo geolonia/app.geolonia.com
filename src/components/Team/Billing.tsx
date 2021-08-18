@@ -6,6 +6,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 // import { Line } from "react-chartjs-2";
 // import Save from "../custom/Save";
 import Title from '../custom/Title';
@@ -263,28 +264,59 @@ const Billing = (props: StateProps) => {
         <TableHead>
           <TableRow>
             <TableCell className="module-title" component="th" scope="body" colSpan={3}>
-              {__('Usage information')}
+              {__('今月の利用状況')}
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           <TableRow>
-            <TableCell component="th" scope="row">
-              {__('Map loads this month')}
+            <TableCell colSpan={2}>
+              <TextField
+                disabled
+                id="outlined-basic"
+                label="集計期間"
+                variant="outlined"
+                defaultValue="2021/08/18~2021/09/18"
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
             </TableCell>
             <TableCell colSpan={2}>
-              {sprintf(
-                _n(
-                  '%d map load',
-                  '%d map loads',
-                  usage?.count || 0,
-                ),
-                usage?.count || 0,
-              )}
-              {usage?.updated && <>
-                <br />
-                {sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY-MM-DD HH:mm:ss'))}
-              </>}
+              <TextField
+                disabled
+                id="outlined-basic"
+                label="次回のお支払日"
+                variant="outlined"
+                defaultValue="2021/09/18"
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </TableCell>
+            <TableCell colSpan={2}>
+              <TextField
+                disabled
+                id="outlined-basic"
+                label="今月の地図表示回数"
+                variant="outlined"
+                defaultValue={
+                  sprintf(
+                    _n(
+                      '%d map load',
+                      '%d map loads',
+                      usage?.count || 0,
+                    ),
+                    usage?.count || 0,
+                  )
+                }
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+              {/* {usage?.updated && <> */}
+              {sprintf(__('Last updated 2021-09-18 08:04:12'))}
+              {/* </>} */}
             </TableCell>
           </TableRow>
         </TableBody>
