@@ -261,7 +261,7 @@ const Billing = (props: StateProps) => {
   } else {
 
     inner = <>
-      <Grid container spacing={2} className="usage-info">
+      <Grid container spacing={3} className="usage-info">
         <Grid item xs={12} md={12}>
           <Typography component="h2">
             {__('Usage information for this month')}
@@ -299,10 +299,9 @@ const Billing = (props: StateProps) => {
               )}
               {/* <span className="helper-text">{'回'}</span> */}
             </div>
-            {usage?.updated && <>
-              <br />
-              {sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY-MM-DD HH:mm:ss'))}
-            </>}
+            {/* {usage?.updated && <> */}
+            <div className="updated-at">{sprintf(__('Last updated %s'), moment('2019/09/18').format('YYYY-MM-DD HH:mm:ss'))}</div>
+            {/* </>} */}
           </Paper>
         </Grid>
         <Grid item xs={12} md={3}>

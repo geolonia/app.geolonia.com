@@ -74,6 +74,7 @@
     {
       padding: 30px 24px;
       text-align: center;
+      position: relative;
       h3
       {
         font-size: 14px;
@@ -88,6 +89,15 @@
       {
         font-size: 14px;
         margin: 0 1px;
+      }
+      .updated-at
+      {
+        font-size: 11px;
+        text-align: right;
+        color: #646567bf;
+        position: absolute;
+        bottom: 3px;
+        right: 7px;
       }
     }
   }
