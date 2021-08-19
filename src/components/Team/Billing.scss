@@ -67,8 +67,33 @@
     }
   }
 
+  .usage-info
+  {
+    margin-bottom: 10px;
+    .usage-card
+    {
+      padding: 16px 24px;
+      h3
+      {
+        font-size: 14px;
+        color: #586069;
+      }
+      .usage-card-content
+      {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .helper-text
+      {
+        font-size: 14px;
+        margin: 0 1px;
+      }
+    }
+  }
+
   .payment-info
   {
+    margin-bottom: 20px;
     th
     {
       font-weight: bolder;
