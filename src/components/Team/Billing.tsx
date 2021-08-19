@@ -263,14 +263,14 @@ const Billing = (props: StateProps) => {
     inner = <>
       <Grid container spacing={3} className="usage-info">
         <Grid item xs={12} md={12}>
-          <Typography component="h2">
-            {__('今月の利用状況')}
+          <Typography className="usage-info-title" component="h2">
+            {__('Usage this month')}
           </Typography>
         </Grid>
         <Grid item xs={12} md={3}>
           <Paper className="usage-card">
             <Typography component="h3">
-              {__('集計期間')}
+              {__('Period')}
             </Typography>
             <div className="usage-card-content">{'08/18 ~ 09/18'}</div>
           </Paper>
@@ -278,7 +278,7 @@ const Billing = (props: StateProps) => {
         <Grid item xs={12} md={3}>
           <Paper className="usage-card">
             <Typography component="h3">
-              {__('次回のお支払日')}
+              {__('Next Payment Date')}
             </Typography>
             <div className="usage-card-content">{'09/18'}</div>
           </Paper>
@@ -286,7 +286,7 @@ const Billing = (props: StateProps) => {
         <Grid item xs={12} md={3}>
           <Paper className="usage-card">
             <Typography component="h3">
-              {__('地図表示回数')}
+              {__('Map loads this month')}
             </Typography>
             <div className="usage-card-content">
               {sprintf(
@@ -306,7 +306,7 @@ const Billing = (props: StateProps) => {
         <Grid item xs={12} md={3}>
           <Paper className="usage-card">
             <Typography component="h3">
-              {__('料金')}
+              {__('Charges')}
             </Typography>
             <div className="usage-card-content">{'¥1,000'}</div>
           </Paper>
@@ -443,7 +443,7 @@ const Billing = (props: StateProps) => {
   return (
     <StripeContainer>
       <div className="billing">
-        <Title title={__('料金プランとお支払い')} breadcrumb={breadcrumbItems}>
+        <Title title={__('Billing and Plans')} breadcrumb={breadcrumbItems}>
           {sprintf(__('You can check and change your current pricing plan and usage status of Team %s.'), teamName)}
         </Title>
 

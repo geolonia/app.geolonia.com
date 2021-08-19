@@ -70,6 +70,12 @@
   .usage-info
   {
     margin-bottom: 10px;
+    .usage-info-title
+    {
+      font-weight: 600;
+      color: #555555;
+      padding: 0 15px;
+    }
     .usage-card
     {
       padding: 30px 24px;
