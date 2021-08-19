@@ -125,6 +125,33 @@
     }
   }
 
+  @media (max-width: 960px) {
+    .payment-info
+    {
+      th
+      {
+        max-width: none;
+      }
+      tbody
+      {
+        tr
+        {
+          display: flex;
+          flex-direction: column;
+          padding: 16px 0;
+          &:nth-child(1)
+          {
+            border-bottom: 1px solid rgba(224, 224, 224, 1);
+          }
+          th, td
+          {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+
   .module-title
   {
     padding-top: 16px;

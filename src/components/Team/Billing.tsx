@@ -159,7 +159,6 @@ const usePlan = (props: StateProps) => {
         buildApiAppUrl(`/teams/${teamId}/plan`),
       );
       const data = await res.json();
-      console.log(data);
       setPlanId(data.planId);
       setSubscription(data.subscription);
       setCustomer(data.customer);
@@ -263,30 +262,36 @@ const Billing = (props: StateProps) => {
 
     inner = <>
       <Grid container spacing={3} className="usage-info">
-        <Grid item xs={12} md={12}>
+        <Grid item xs={12}>
           <Typography className="usage-info-title" component="h2">
             {__('Usage this month')}
           </Typography>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6} lg={3}>
           <Paper className="usage-card">
             <Typography component="h3">
               {__('Billing period')}
             </Typography>
-            <div className="usage-card-content">{'08/18 ~ 09/18'}</div>
+            <div className="usage-card-content">
+              {subscription &&
+                <>
+                  {'08/19 ~ '}{moment(subscription.current_period_end * 1000).format('MM/DD')}
+                </>
+              }
+            </div>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6} lg={3}>
           <Paper className="usage-card">
             <Typography component="h3">
               {__('Next Payment Date')}
             </Typography>
             <div className="usage-card-content">
-              {subscription && moment(subscription.current_period_end * 1000).format('YYYY-MM-DD')}
+              {subscription && moment(subscription.current_period_end * 1000).format('YYYY/MM/DD')}
             </div>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6} lg={3}>
           <Paper className="usage-card">
             <Typography component="h3">
               {__('Map loads this month')}
@@ -299,7 +304,7 @@ const Billing = (props: StateProps) => {
             </>}
           </Paper>
         </Grid>
-        <Grid item xs={12} md={3}>
+        <Grid item xs={12} md={6} lg={3}>
           <Paper className="usage-card">
             <Typography component="h3">
               {__('Charges')}
