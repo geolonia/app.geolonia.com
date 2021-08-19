@@ -28,7 +28,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "4.0.3",
     "redux": "^4.0.4",
-    "styled-components": "^4.4.1"
+    "styled-components": "^5.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -82,10 +82,11 @@
     "@wordpress/i18n": "^4.2.1",
     "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "node-sass": "^4.14.1",
+    "node-sass": "^6.0.1",
     "po2json": "^1.0.0-alpha",
     "prettier": "^1.19.1",
     "prettier-cli": "^0.1.0",
+    "react-is": "^17.0",
     "react-test-renderer": "^17.0.2",
     "typescript": "^4.0.0",
     "uuid": "^8.3.2"
