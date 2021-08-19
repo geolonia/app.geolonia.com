@@ -99,6 +99,7 @@
       font-weight: bolder;
       color: #555555;
       max-width: 200px;
+      padding: 0;
     }
 
     .MuiTableCell-body
@@ -109,6 +110,8 @@
 
   .module-title
   {
+    padding-top: 16px;
+    padding-bottom: 16px;
     padding-left: 8px;
     padding-right: 8px;
   }

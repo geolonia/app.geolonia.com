@@ -319,8 +319,10 @@ const Billing = (props: StateProps) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell className="module-title" component="th" scope="body" colSpan={3}>
-                {__('Payment information')}
+              <TableCell component="th" scope="body" colSpan={3}>
+                <Typography component="h2" className="module-title">
+                  {__('Payment information')}
+                </Typography>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -448,18 +450,18 @@ const Billing = (props: StateProps) => {
         </Title>
 
         { inner }
-      </div>
 
-      <Paper>
-        {props.isOwner && (
-          <>
-            <Typography component="h2" className="module-title">
-              {__('Payment history')}
-            </Typography>
-            <Receipts />
-          </>
-        )}
-      </Paper>
+        <Paper>
+          {props.isOwner && (
+            <>
+              <Typography component="h2" className="module-title">
+                {__('Payment history')}
+              </Typography>
+              <Receipts />
+            </>
+          )}
+        </Paper>
+      </div>
     </StripeContainer>
   );
 };
