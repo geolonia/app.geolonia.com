@@ -16,7 +16,7 @@ import PlanModal from './Billing/plan-modal';
 import Receipts from './Billing/Receipts';
 import './Billing.scss';
 
-import { __, sprintf, _n } from '@wordpress/i18n';
+import { __, sprintf} from '@wordpress/i18n';
 import { connect } from 'react-redux';
 
 import {
@@ -159,6 +159,7 @@ const usePlan = (props: StateProps) => {
         buildApiAppUrl(`/teams/${teamId}/plan`),
       );
       const data = await res.json();
+      console.log(data);
       setPlanId(data.planId);
       setSubscription(data.subscription);
       setCustomer(data.customer);
@@ -270,7 +271,7 @@ const Billing = (props: StateProps) => {
         <Grid item xs={12} md={3}>
           <Paper className="usage-card">
             <Typography component="h3">
-              {__('Period')}
+              {__('Billing period')}
             </Typography>
             <div className="usage-card-content">{'08/18 ~ 09/18'}</div>
           </Paper>
@@ -280,7 +281,9 @@ const Billing = (props: StateProps) => {
             <Typography component="h3">
               {__('Next Payment Date')}
             </Typography>
-            <div className="usage-card-content">{'09/18'}</div>
+            <div className="usage-card-content">
+              {subscription && moment(subscription.current_period_end * 1000).format('YYYY-MM-DD')}
+            </div>
           </Paper>
         </Grid>
         <Grid item xs={12} md={3}>
@@ -363,11 +366,7 @@ const Billing = (props: StateProps) => {
                 {name}
                 { subscription && <>
                   <br />
-                  { subscription.cancel_at_period_end ?
-                    sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end * 1000).format('YYYY-MM-DD'))
-                    :
-                    sprintf(__('Will automatically renew on %1$s'), moment(subscription.current_period_end * 1000).format('YYYY-MM-DD'))
-                  }
+                  { subscription.cancel_at_period_end && sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end * 1000).format('YYYY-MM-DD'))}
                 </>}
               </TableCell>
               <TableCell align="right">
