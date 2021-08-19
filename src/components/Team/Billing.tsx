@@ -289,14 +289,7 @@ const Billing = (props: StateProps) => {
               {__('Map loads this month')}
             </Typography>
             <div className="usage-card-content">
-              {sprintf(
-                _n(
-                  '%d map load',
-                  '%d map loads',
-                  usage?.count || 0,
-                ),
-                usage?.count || 0,
-              )}
+              {usage?.count || 0}
             </div>
             {usage?.updated && <>
               <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY-MM-DD HH:mm:ss'))}</div>
