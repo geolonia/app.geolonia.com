@@ -273,10 +273,8 @@ const Billing = (props: StateProps) => {
     let subscriptionEndDate = '-';
 
     if (subscription) {
-      const startDate = new Date(subscription.current_period_start);
-      const startEnd = new Date(subscription.current_period_end);
-      subscriptionStartDate = `${startDate.getMonth() + 1}/${startDate.getDate()}`;
-      subscriptionEndDate = `${startEnd.getMonth() + 1}/${startEnd.getDate()}`;
+      subscriptionStartDate = moment(subscription.current_period_start).format('MM/DD');
+      subscriptionEndDate = moment(subscription.current_period_end).format('MM/DD');
     }
 
     inner = <>
@@ -318,8 +316,9 @@ const Billing = (props: StateProps) => {
             <div className="usage-card-content">
               {usage?.count || 0}
             </div>
-            {usage?.updated && <>
-              <div className="updated-at">{sprintf(__('Last updated %s'), new Date(usage.updated).toLocaleString())}</div>
+            {/* NOTE: 未更新時（1970-01-01T00:00:00Z） は、非表示にする */ }
+            {(usage?.updated && usage.updated !== '1970-01-01T00:00:00Z') && <>
+              <div className="updated-at">{sprintf(__('Last updated %s'), new Date(usage.updated).toLocaleString('ja-JP'))}</div>
             </>}
           </Paper>
         </Grid>
@@ -328,7 +327,9 @@ const Billing = (props: StateProps) => {
             <Typography component="h3">
               {__('Charges')}
             </Typography>
-            <div className="usage-card-content">{'¥1,000'}</div>
+            <div className="usage-card-content">
+              {upcoming?.amount_due ? sprintf(__('¥ %d'), upcoming.amount_due) : 0}
+            </div>
           </Paper>
         </Grid>
       </Grid>
