@@ -297,11 +297,10 @@ const Billing = (props: StateProps) => {
                 ),
                 usage?.count || 0,
               )}
-              {/* <span className="helper-text">{'回'}</span> */}
             </div>
-            {/* {usage?.updated && <> */}
-            <div className="updated-at">{sprintf(__('Last updated %s'), moment('2019/09/18').format('YYYY-MM-DD HH:mm:ss'))}</div>
-            {/* </>} */}
+            {usage?.updated && <>
+              <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY-MM-DD HH:mm:ss'))}</div>
+            </>}
           </Paper>
         </Grid>
         <Grid item xs={12} md={3}>
