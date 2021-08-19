@@ -22,8 +22,8 @@
       "Download GeoJSON": ["GeoJSON をダウンロード"],
       "Map": ["地図"],
       "Location Data": ["位置情報データ"],
-      "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON and CSV files.": [
-        "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSONまたはCSVファイルに対応しています。"
+      "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON, CSV and MBTiles files.": [
+        "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSON・CSV・MBTilesファイルに対応しています。"
       ],
       "Once you delete an Dataset, there is no going back. Please be certain.": [
         "一度データセットを削除するともとに戻すことはできません。"
@@ -102,8 +102,8 @@
       ],
       "My dataset": ["データセット"],
       "Network Error.": ["通信エラー。"],
-      "Error: We currently support GeoJSON and CSV files. Please try uploading again.": [
-        "エラー: 現在 GeoJSON または CSV ファイルのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
+      "Error: We currently support GeoJSON, CSV and MBTiles files. Please try uploading again.": [
+        "エラー: 現在 GeoJSON・CSV・MBTiles ファイルのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
       ],
       "Error: The file you selected was too big. Please upload a file less than %d MB.": [
         "エラー: %d MB 以下のファイルをアップロードしてください。"
@@ -126,7 +126,9 @@
       "Error: Can not upload multiple files.": [
         "複数のファイルをアップロードできません。"
       ],
-      "Upload Data (GeoJSON / CSV)": ["データのアップロード (GeoJSON / CSV)"],
+      "Upload Data (GeoJSON / CSV / MBTiles)": [
+        "データのアップロード (GeoJSON / CSV / MBTiles)"
+      ],
       "Data that has already been uploaded will be overwritten.": [
         "既にアップロードされているデータが上書きされます。"
       ],

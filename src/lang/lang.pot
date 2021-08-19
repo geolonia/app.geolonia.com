@@ -45,13 +45,13 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:102
 #: src/components/Data/GeoJsons.tsx:95
-#: src/components/Navigator.tsx:173
+#: src/components/Navigator.tsx:171
 msgid "Map"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:106
 #: src/components/Data/GeoJsons.tsx:125
-#: src/components/Navigator.tsx:164
+#: src/components/Navigator.tsx:160
 msgid "Location Data"
 msgstr ""
 
@@ -59,7 +59,7 @@ msgstr ""
 msgid ""
 "Upload your location data here to display it on a map. Once the data has "
 "been uploaded, HTML code will be generated so you can embed it in your "
-"site. We currently support uploading GeoJSON and CSV files."
+"site. We currently support uploading GeoJSON, CSV and MBTiles files."
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:258
@@ -92,7 +92,7 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:116
 #: src/components/Maps/APIKeys.tsx:44
-#: src/components/Navigator.tsx:265
+#: src/components/Navigator.tsx:263
 #: src/components/Team/Billing.tsx:200
 #: src/components/Team/general/index.tsx:28
 #: src/components/Team/members/index.tsx:121
@@ -114,7 +114,7 @@ msgid "Import GeoJSON from your computer."
 msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:110
-#: src/components/Data/ImportDropZone.tsx:141
+#: src/components/Data/ImportDropZone.tsx:146
 msgid "Maximum upload file size: %d MB"
 msgstr ""
 
@@ -132,7 +132,7 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:354
 #: src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:340
+#: src/components/Navigator.tsx:338
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
@@ -273,46 +273,46 @@ msgstr ""
 msgid "Network Error."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:101
+#: src/components/Data/ImportDropZone.tsx:106
 msgid ""
-"Error: We currently support GeoJSON and CSV files. Please try uploading "
-"again."
+"Error: We currently support GeoJSON, CSV and MBTiles files. Please try "
+"uploading again."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:106
+#: src/components/Data/ImportDropZone.tsx:111
 msgid ""
 "Error: The file you selected was too big. Please upload a file less than %d "
 "MB."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:136
+#: src/components/Data/ImportDropZone.tsx:141
 msgid "Drop file to add your map."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:140
+#: src/components/Data/ImportDropZone.tsx:145
 msgid "Upload a file from your computer."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:144
+#: src/components/Data/ImportDropZone.tsx:149
 msgid "Drag and drop a file here to add your map, or click to choose your file."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:79
+#: src/components/Data/ImportDropZone.tsx:83
 msgid "Failed to add your data. Your data might be invalid format."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:87
+#: src/components/Data/ImportDropZone.tsx:91
 msgid ""
 "Error: Can not upload file. Please contact to customer support at "
 "https://geolonia.com/contact/"
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:92
+#: src/components/Data/ImportDropZone.tsx:96
 msgid "Error: Can not upload multiple files."
 msgstr ""
 
 #: src/components/Data/ImportDropZoneButton.tsx:59
-msgid "Upload Data (GeoJSON / CSV)"
+msgid "Upload Data (GeoJSON / CSV / MBTiles)"
 msgstr ""
 
 #: src/components/Data/ImportDropZoneButton.tsx:72
@@ -499,19 +499,19 @@ msgstr ""
 msgid "Manage API keys"
 msgstr ""
 
-#: src/components/Navigator.tsx:177
+#: src/components/Navigator.tsx:175
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:181
+#: src/components/Navigator.tsx:179
 msgid "Documentation"
 msgstr ""
 
-#: src/components/Navigator.tsx:184
+#: src/components/Navigator.tsx:182
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:317
+#: src/components/Navigator.tsx:315
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
@@ -519,20 +519,20 @@ msgid ""
 "target=\"_blank\">contact us</a>."
 msgstr ""
 
-#: src/components/Navigator.tsx:330
+#: src/components/Navigator.tsx:328
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:334
+#: src/components/Navigator.tsx:332
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:348
+#: src/components/Navigator.tsx:346
 #: src/components/Team/general/fields.tsx:116
 msgid "Billing email"
 msgstr ""
 
-#: src/components/Navigator.tsx:355
+#: src/components/Navigator.tsx:353
 #: src/components/Team/general/fields.tsx:138
 msgid "We'll send you an email receipt."
 msgstr ""
