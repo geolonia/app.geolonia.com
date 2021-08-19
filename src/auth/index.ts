@@ -108,20 +108,18 @@ export const signin = (username: string, password: string) =>
 export const getSession = () =>
   new Promise<CognitoIdentity.CognitoUserSession | null>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
-    if (cognitoUser !== null) {
-      cognitoUser.getSession(
-        (err: Error, session: CognitoIdentity.CognitoUserSession) => {
-          if (err) {
-            cognitoUser.signOut();
-            reject(err);
-          } else {
-            resolve(session);
-          }
-        },
-      );
-    } else {
-      resolve(null);
+    if (cognitoUser === null) {
+      return resolve(null);
     }
+
+    cognitoUser.getSession((err: Error | null, session: CognitoIdentity.CognitoUserSession | null) => {
+      if (err) {
+        cognitoUser.signOut();
+        reject(err);
+      } else {
+        resolve(session);
+      }
+    });
   });
 
 export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {

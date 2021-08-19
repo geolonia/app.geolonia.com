@@ -242,8 +242,8 @@ const Members = (props: Props) => {
                 inputProps: { 'aria-label': __('rows per page') },
                 native: true,
               }}
-              onChangePage={handleChangePage}
-              onChangeRowsPerPage={handleChangeRowsPerPage}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </TableRow>
         </TableFooter>

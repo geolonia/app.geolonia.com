@@ -139,8 +139,8 @@ export const CustomTable = (props: Props) => {
                 native: true,
               }}
               labelRowsPerPage={ __('rows per page') }
-              onChangePage={(e, newPage) => setOffset(rowsPerPage * newPage)}
-              onChangeRowsPerPage={(e) =>
+              onPageChange={(e, newPage) => setOffset(rowsPerPage * newPage)}
+              onRowsPerPageChange={(e) =>
                 setRowsPerPage(parseInt(e.target.value, 10))
               }
               ActionsComponent={TablePaginationActions}
