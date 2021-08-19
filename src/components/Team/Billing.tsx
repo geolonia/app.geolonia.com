@@ -273,8 +273,10 @@ const Billing = (props: StateProps) => {
     let subscriptionEndDate = '-';
 
     if (subscription) {
-      subscriptionStartDate = `${new Date(subscription.current_period_start).getMonth() + 1}/${new Date(subscription.current_period_start).getDate()}`;
-      subscriptionEndDate = `${new Date(subscription.current_period_end).getMonth() + 1}/${new Date(subscription.current_period_end).getDate()}`;
+      const startDate = new Date(subscription.current_period_start);
+      const startEnd = new Date(subscription.current_period_end);
+      subscriptionStartDate = `${startDate.getMonth() + 1}/${startDate.getDate()}`;
+      subscriptionEndDate = `${startEnd.getMonth() + 1}/${startEnd.getDate()}`;
     }
 
     inner = <>
