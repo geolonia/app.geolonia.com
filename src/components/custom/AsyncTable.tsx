@@ -144,8 +144,8 @@ export const CustomTable = (props: Props) => {
                   return sprintf(__('%1$s - %2$s / %3$s'), from, to, count);
                 }
               }}
-              onChangePage={(e, newPage) => props.onChangePage(newPage)}
-              onChangeRowsPerPage={(e) =>
+              onPageChange={(e, newPage) => props.onChangePage(newPage)}
+              onRowsPerPageChange={(e) =>
                 props.setPerPage(parseInt(e.target.value, 10))
               }
               ActionsComponent={TablePaginationActions}

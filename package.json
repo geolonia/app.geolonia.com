@@ -10,7 +10,7 @@
     "@sentry/tracing": "^6.9.0",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.5.0",
-    "amazon-cognito-identity-js": "^3.2.0",
+    "amazon-cognito-identity-js": "^5.0.6",
     "chart.js": "^2.9.3",
     "clipboard-polyfill": "^2.8.6",
     "interweave": "^11.2.0",
