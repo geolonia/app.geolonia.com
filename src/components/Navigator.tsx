@@ -156,17 +156,15 @@ const Navigator: React.FC<Props> = (props: Props) => {
       href: '#/api-keys',
       active: false,
     },
-    // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
-    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
-  ];
-  if (selectedTeam?.featureFlags?.prereleaseGeojsonApi) {
-    mapChildren.push({
+    {
       id: __('Location Data'),
       icon: <RoomIcon />,
       href: '#/data/geojson',
       active: false,
-    });
-  }
+    },
+    // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
+    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
+  ];
 
   const categories = [
     {
