@@ -264,7 +264,7 @@ const Billing = (props: StateProps) => {
       <Grid container spacing={3} className="usage-info">
         <Grid item xs={12} md={12}>
           <Typography component="h2">
-            {__('Usage information for this month')}
+            {__('今月の利用状況')}
           </Typography>
         </Grid>
         <Grid item xs={12} md={3}>
@@ -443,7 +443,7 @@ const Billing = (props: StateProps) => {
   return (
     <StripeContainer>
       <div className="billing">
-        <Title title={__('Plans and Billing')} breadcrumb={breadcrumbItems}>
+        <Title title={__('料金プランとお支払い')} breadcrumb={breadcrumbItems}>
           {sprintf(__('You can check and change your current pricing plan and usage status of Team %s.'), teamName)}
         </Title>
 
