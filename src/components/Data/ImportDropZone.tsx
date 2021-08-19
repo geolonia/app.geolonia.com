@@ -14,6 +14,7 @@ type GeoJSONLinksResp = {
   links: {
     putGeoJSON: string;
     putCSV: string;
+    putMBTiles: string;
   }
 };
 
@@ -34,6 +35,9 @@ const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: 
   if (geojson.name.endsWith('.csv')) {
     signedURL = result.data.links.putCSV;
     contentType = 'text/csv';
+  } else if (geojson.name.endsWith('.mbtiles')) {
+    signedURL = result.data.links.putMBTiles;
+    contentType = 'application/octet-stream';
   }
   await fetch<any>(
     session,
@@ -96,9 +100,10 @@ const Content = (props: Props) => {
     if (
       !acceptedFiles[0].name.endsWith('.geojson') &&
       !acceptedFiles[0].name.endsWith('.json') &&
-      !acceptedFiles[0].name.endsWith('.csv')
+      !acceptedFiles[0].name.endsWith('.csv') &&
+      !acceptedFiles[0].name.endsWith('.mbtiles')
     ) {
-      setError(__('Error: We currently support GeoJSON and CSV files. Please try uploading again.'));
+      setError(__('Error: We currently support GeoJSON, CSV and MBTiles files. Please try uploading again.'));
       return;
     }
 
@@ -132,7 +137,7 @@ const Content = (props: Props) => {
   return (
     <Paper className={'geojson-dropzone-container'}>
       <div className={'geojson-dropzone'} {...getRootProps()} style={mouseOverStyle}>
-        <input {...getInputProps()} accept='.json,.geojson,.csv' />
+        <input {...getInputProps()} accept='.json,.geojson,.csv,.mbtiles' />
         {isDragActive ? <p>{__('Drop file to add your map.')}</p> : (
           <>
             <CloudUploadIcon fontSize="large" />
