@@ -88,12 +88,18 @@ type PossiblePlanId = string | null | undefined;
 
 interface SubscriptionDetails {
   cancel_at_period_end: boolean;
+  current_period_start: number;
   current_period_end: number;
 }
 
 interface CustomerDetails {
   balance: number
   currency: string
+}
+
+interface UpcomingDetails {
+  amount_due: number
+  next_payment_attempt: string
 }
 
 interface UsageDetails {
@@ -122,6 +128,7 @@ const usePlan = (props: StateProps) => {
   const [planId, setPlanId] = useState<string | null | undefined>(void 0);
   const [subscription, setSubscription] = useState<SubscriptionDetails | undefined>(undefined);
   const [customer, setCustomer] = useState<CustomerDetails | undefined>(undefined);
+  const [upcoming, setUpcoming] = useState<UpcomingDetails | undefined>(undefined);
   const [usage, setUsage] = useState<UsageDetails | undefined>(undefined);
   const [loaded, setLoaded] = useState(false);
 
@@ -162,6 +169,7 @@ const usePlan = (props: StateProps) => {
       setPlanId(data.planId);
       setSubscription(data.subscription);
       setCustomer(data.customer);
+      setUpcoming(data.upcoming);
       setUsage(data.usage);
       setLoaded(true);
     })();
@@ -176,6 +184,7 @@ const usePlan = (props: StateProps) => {
     planId,
     subscription,
     customer,
+    upcoming,
     usage,
   };
 };
@@ -186,7 +195,7 @@ const Billing = (props: StateProps) => {
   const teamId = team?.teamId;
   const [openPayment, setOpenPayment] = useState(false);
   const [openPlan, setOpenPlan] = useState(false);
-  const { loaded, plans, name, planId, subscription, customer, usage } = usePlan(props);
+  const { loaded, plans, name, planId, subscription, customer, upcoming, usage } = usePlan(props);
   const [ resumeSubLoading, setResumeSubLoading ] = useState(false);
 
   const currency = customer?.currency;
@@ -260,6 +269,14 @@ const Billing = (props: StateProps) => {
     </div>;
   } else {
 
+    let subscriptionStartDate = '-';
+    let subscriptionEndDate = '-';
+
+    if (subscription) {
+      subscriptionStartDate = `${new Date(subscription.current_period_start).getMonth() + 1}/${new Date(subscription.current_period_start).getDate()}`;
+      subscriptionEndDate = `${new Date(subscription.current_period_end).getMonth() + 1}/${new Date(subscription.current_period_end).getDate()}`;
+    }
+
     inner = <>
       <Grid container spacing={3} className="usage-info">
         <Grid item xs={12}>
@@ -275,7 +292,7 @@ const Billing = (props: StateProps) => {
             <div className="usage-card-content">
               {subscription &&
                 <>
-                  {'08/19 ~ '}{moment(subscription.current_period_end * 1000).format('MM/DD')}
+                  {`${subscriptionStartDate} ~ ${subscriptionEndDate}`}
                 </>
               }
             </div>
@@ -287,7 +304,7 @@ const Billing = (props: StateProps) => {
               {__('Next Payment Date')}
             </Typography>
             <div className="usage-card-content">
-              {subscription && moment(subscription.current_period_end * 1000).format('YYYY/MM/DD')}
+              {subscriptionEndDate}
             </div>
           </Paper>
         </Grid>
@@ -300,7 +317,7 @@ const Billing = (props: StateProps) => {
               {usage?.count || 0}
             </div>
             {usage?.updated && <>
-              <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY-MM-DD HH:mm:ss'))}</div>
+              <div className="updated-at">{sprintf(__('Last updated %s'), new Date(usage.updated).toLocaleString())}</div>
             </>}
           </Paper>
         </Grid>
