@@ -328,7 +328,7 @@ const Billing = (props: StateProps) => {
               {__('Charges')}
             </Typography>
             <div className="usage-card-content">
-              {upcoming?.amount_due ? currencyFormatter.format(upcoming.amount_due) : 0}
+              {!upcoming || typeof upcoming.amount_due !== 'number' ? '-' : currencyFormatter.format(upcoming.amount_due)}
             </div>
           </Paper>
         </Grid>
