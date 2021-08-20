@@ -316,8 +316,8 @@ const Billing = (props: StateProps) => {
             <div className="usage-card-content">
               {usage?.count || 0}
             </div>
-            {/* NOTE: 未更新時（1970-01-01T00:00:00Z） は、非表示にする */ }
-            {(usage?.updated && usage.updated !== '1970-01-01T00:00:00Z') && <>
+            {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
+            {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
               <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY/MM/DD HH:mm:ss'))}</div>
             </>}
           </Paper>
