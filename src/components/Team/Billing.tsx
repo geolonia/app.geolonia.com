@@ -269,14 +269,6 @@ const Billing = (props: StateProps) => {
     </div>;
   } else {
 
-    let subscriptionStartDate = '-';
-    let subscriptionEndDate = '-';
-
-    if (subscription) {
-      subscriptionStartDate = moment(subscription.current_period_start).format('MM/DD');
-      subscriptionEndDate = moment(subscription.current_period_end).format('MM/DD');
-    }
-
     inner = <>
       <Grid container spacing={3} className="usage-info">
         <Grid item xs={12}>
@@ -290,10 +282,12 @@ const Billing = (props: StateProps) => {
               {__('Billing period')}
             </Typography>
             <div className="usage-card-content">
-              {subscription &&
+              {subscription ?
                 <>
-                  {`${subscriptionStartDate} ~ ${subscriptionEndDate}`}
+                  {`${moment(subscription.current_period_start).format('MM/DD')} ~ ${moment(subscription.current_period_end).format('MM/DD')}`}
                 </>
+                :
+                '-'
               }
             </div>
           </Paper>
@@ -304,7 +298,13 @@ const Billing = (props: StateProps) => {
               {__('Next Payment Date')}
             </Typography>
             <div className="usage-card-content">
-              {subscriptionEndDate}
+              {subscription ?
+                <>
+                  {moment(subscription.current_period_end).format('MM/DD')}
+                </>
+                :
+                '-'
+              }
             </div>
           </Paper>
         </Grid>
