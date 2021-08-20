@@ -254,6 +254,7 @@ const Billing = (props: StateProps) => {
     return <Redirect to="/" />;
   }
 
+
   let inner: JSX.Element;
   if (!loaded) {
     inner = <div
@@ -353,8 +354,8 @@ const Billing = (props: StateProps) => {
                     {__('Current account credit:')}
                   </TableCell>
                   <TableCell colSpan={2}>
-                    {currencyFormatter.format(Math.abs(customer.balance))}<br />
-                    {__('While this account has credits available, payments will deduct from account credit instead of the registered credit card.')}
+                    {currencyFormatter.format(Math.abs(customer.balance))}
+                    {__(' : While this account has credits available, payments will deduct from account credit instead of the registered credit card.')}
                   </TableCell>
                 </TableRow> }
                 <TableRow>
