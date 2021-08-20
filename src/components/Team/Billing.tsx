@@ -88,8 +88,8 @@ type PossiblePlanId = string | null | undefined;
 
 interface SubscriptionDetails {
   cancel_at_period_end: boolean;
-  current_period_start: number;
-  current_period_end: number;
+  current_period_start: string;
+  current_period_end: string;
 }
 
 interface CustomerDetails {
@@ -391,7 +391,7 @@ const Billing = (props: StateProps) => {
                 {name}
                 { subscription && <>
                   <br />
-                  { subscription.cancel_at_period_end && sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end * 1000).format('YYYY-MM-DD'))}
+                  { subscription.cancel_at_period_end && sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end).format('YYYY-MM-DD'))}
                 </>}
               </TableCell>
               <TableCell align="right">
