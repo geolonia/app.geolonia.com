@@ -254,7 +254,6 @@ const Billing = (props: StateProps) => {
     return <Redirect to="/" />;
   }
 
-
   let inner: JSX.Element;
   if (!loaded) {
     inner = <div
@@ -319,7 +318,7 @@ const Billing = (props: StateProps) => {
             </div>
             {/* NOTE: 未更新時（1970-01-01T00:00:00Z） は、非表示にする */ }
             {(usage?.updated && usage.updated !== '1970-01-01T00:00:00Z') && <>
-              <div className="updated-at">{sprintf(__('Last updated %s'), new Date(usage.updated).toLocaleString('ja-JP'))}</div>
+              <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY/MM/DD HH:mm:ss'))}</div>
             </>}
           </Paper>
         </Grid>
@@ -329,7 +328,7 @@ const Billing = (props: StateProps) => {
               {__('Charges')}
             </Typography>
             <div className="usage-card-content">
-              {upcoming?.amount_due ? sprintf(__('¥ %d'), upcoming.amount_due) : 0}
+              {upcoming?.amount_due ? currencyFormatter.format(upcoming.amount_due) : 0}
             </div>
           </Paper>
         </Grid>
