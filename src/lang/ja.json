@@ -251,28 +251,31 @@
       "Free plan": ["Free プラン"],
       "Free Plan": ["Free プラン"],
       "Team settings": ["チーム設定"],
-      "Usage information": ["利用状況"],
+      "Usage this month": ["今月の利用状況"],
+      "Billing period": ["請求対象期間"],
+      "Next Payment Date": ["次回のお支払日"],
       "Map loads this month": ["今月の地図の表示回数"],
-      "%d map load": ["%d 表示"],
-      "Last updated %s": ["最終更新 %s"],
+      "Last updated %s": ["最終更新: %s"],
+      "Charges": ["料金"],
+      "¥ %d": ["¥ %d"],
       "Payment information": ["支払い情報"],
       "Current account credit:": ["クレジット残高"],
-      "While this account has credits available, payments will deduct from account credit instead of the registered credit card.": [
-        "現在、クレジットが適用されています。クレジット残高が残っている場合、請求はクレジット残高から支払われます。"
+      " : While this account has credits available, payments will deduct from account credit instead of the registered credit card.": [
+        "　(現在、クレジットが適用されています。クレジット残高が残っている場合、請求はクレジット残高から支払われます。)"
       ],
       "Payment method:": ["支払い方法"],
       "ending in **%1$s": ["クレジットカード（末尾の番号 **%1$s）"],
       "Change payment method": ["支払い方法を変更"],
       "Current Plan": ["現在のプラン"],
       "Scheduled to expire on %1$s": ["%1$s にキャンセルされます"],
-      "Will automatically renew on %1$s": ["%1$s に自動更新されます"],
       "Resume subscription": ["自動更新を再開"],
       "Change Plan": ["プランを変更"],
-      "You can see subscriptions for this team in this month.": [
-        "このチームの今月のサブスクリプションを確認することができます。"
-      ],
       "Learn more about plans on the pricing page.": [
         "プラン詳細については、料金ページをご覧ください。"
+      ],
+      "Billing and Plans": ["料金プランとお支払い"],
+      "You can check and change your current pricing plan and usage status of Team %s.": [
+        "チーム「%s」の現在の料金プラン・利用状況の確認、変更ができます。"
       ],
       "Payment history": ["支払い履歴"],
       "No payment history.": ["支払い履歴はありません。"],

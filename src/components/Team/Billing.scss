@@ -67,13 +67,56 @@
     }
   }
 
+  .usage-info
+  {
+    margin-bottom: 10px;
+    .usage-info-title
+    {
+      font-weight: 600;
+      color: #555555;
+      padding: 0 15px;
+    }
+    .usage-card
+    {
+      padding: 30px 24px;
+      text-align: center;
+      position: relative;
+      h3
+      {
+        font-size: 14px;
+        color: #586069;
+      }
+      .usage-card-content
+      {
+        font-size: 24px;
+        font-weight: 600;
+      }
+      .helper-text
+      {
+        font-size: 14px;
+        margin: 0 1px;
+      }
+      .updated-at
+      {
+        font-size: 11px;
+        text-align: right;
+        color: #646567bf;
+        position: absolute;
+        bottom: 3px;
+        right: 7px;
+      }
+    }
+  }
+
   .payment-info
   {
+    margin-bottom: 20px;
     th
     {
       font-weight: bolder;
       color: #555555;
       max-width: 200px;
+      padding: 0;
     }
 
     .MuiTableCell-body
@@ -82,8 +125,37 @@
     }
   }
 
+  @media (max-width: 960px) {
+    .payment-info
+    {
+      th
+      {
+        max-width: none;
+      }
+      tbody
+      {
+        tr
+        {
+          display: flex;
+          flex-direction: column;
+          padding: 16px 0;
+          &:nth-child(1)
+          {
+            border-bottom: 1px solid rgba(224, 224, 224, 1);
+          }
+          th, td
+          {
+            border-bottom: none;
+          }
+        }
+      }
+    }
+  }
+
   .module-title
   {
+    padding-top: 16px;
+    padding-bottom: 16px;
     padding-left: 8px;
     padding-right: 8px;
   }
