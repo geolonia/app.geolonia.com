@@ -56,7 +56,7 @@ const Content = (props: Props) => {
     <>
       <button className="btn" onClick={() => setStateImporter(true)}>
         <CloudUploadIcon fontSize="small" />
-        <span className="label">{__('Upload Data (GeoJSON / CSV)')}</span>
+        <span className="label">{__('Upload Data (GeoJSON / CSV / MBTiles)')}</span>
       </button>
       {stateImporter ? (
         <div className="geojson-importer geojson-dropzone-button" style={styleOuter} onClick={close}>
