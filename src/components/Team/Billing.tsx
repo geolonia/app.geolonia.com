@@ -6,6 +6,8 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
 // import { Line } from "react-chartjs-2";
 // import Save from "../custom/Save";
 import Title from '../custom/Title';
@@ -14,7 +16,7 @@ import PlanModal from './Billing/plan-modal';
 import Receipts from './Billing/Receipts';
 import './Billing.scss';
 
-import { __, sprintf, _n } from '@wordpress/i18n';
+import { __, sprintf} from '@wordpress/i18n';
 import { connect } from 'react-redux';
 
 import {
@@ -86,12 +88,18 @@ type PossiblePlanId = string | null | undefined;
 
 interface SubscriptionDetails {
   cancel_at_period_end: boolean;
-  current_period_end: number;
+  current_period_start: string;
+  current_period_end: string;
 }
 
 interface CustomerDetails {
   balance: number
   currency: string
+}
+
+interface UpcomingDetails {
+  amount_due: number
+  next_payment_attempt: string
 }
 
 interface UsageDetails {
@@ -120,6 +128,7 @@ const usePlan = (props: StateProps) => {
   const [planId, setPlanId] = useState<string | null | undefined>(void 0);
   const [subscription, setSubscription] = useState<SubscriptionDetails | undefined>(undefined);
   const [customer, setCustomer] = useState<CustomerDetails | undefined>(undefined);
+  const [upcoming, setUpcoming] = useState<UpcomingDetails | undefined>(undefined);
   const [usage, setUsage] = useState<UsageDetails | undefined>(undefined);
   const [loaded, setLoaded] = useState(false);
 
@@ -160,6 +169,7 @@ const usePlan = (props: StateProps) => {
       setPlanId(data.planId);
       setSubscription(data.subscription);
       setCustomer(data.customer);
+      setUpcoming(data.upcoming);
       setUsage(data.usage);
       setLoaded(true);
     })();
@@ -174,16 +184,18 @@ const usePlan = (props: StateProps) => {
     planId,
     subscription,
     customer,
+    upcoming,
     usage,
   };
 };
 
 const Billing = (props: StateProps) => {
   const { session, team, language } = props;
+  const teamName = team?.name;
   const teamId = team?.teamId;
   const [openPayment, setOpenPayment] = useState(false);
   const [openPlan, setOpenPlan] = useState(false);
-  const { loaded, plans, name, planId, subscription, customer, usage } = usePlan(props);
+  const { loaded, plans, name, planId, subscription, customer, upcoming, usage } = usePlan(props);
   const [ resumeSubLoading, setResumeSubLoading ] = useState(false);
 
   const currency = customer?.currency;
@@ -258,175 +270,213 @@ const Billing = (props: StateProps) => {
   } else {
 
     inner = <>
-      <Table className="payment-info">
-        <TableHead>
-          <TableRow>
-            <TableCell className="module-title" component="th" scope="body" colSpan={3}>
-              {__('Usage information')}
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          <TableRow>
-            <TableCell component="th" scope="row">
-              {__('Map loads this month')}
-            </TableCell>
-            <TableCell colSpan={2}>
-              {sprintf(
-                _n(
-                  '%d map load',
-                  '%d map loads',
-                  usage?.count || 0,
-                ),
-                usage?.count || 0,
-              )}
-              {usage?.updated && <>
-                <br />
-                {sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY-MM-DD HH:mm:ss'))}
-              </>}
-            </TableCell>
-          </TableRow>
-        </TableBody>
-        <TableHead>
-          <TableRow>
-            <TableCell className="module-title" component="th" scope="body" colSpan={3}>
-              {__('Payment information')}
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.isOwner && (
-            <>
-              { customer && customer.balance < 0 && <TableRow>
-                <TableCell component="th" scope="row">
-                  {__('Current account credit:')}
-                </TableCell>
-                <TableCell colSpan={2}>
-                  {currencyFormatter.format(Math.abs(customer.balance))}<br />
-                  {__('While this account has credits available, payments will deduct from account credit instead of the registered credit card.')}
-                </TableCell>
-              </TableRow> }
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  {__('Payment method:')}
-                </TableCell>
-                <TableCell>
-                  {props.last2
-                    ? sprintf(__('ending in **%1$s'), props.last2)
-                    : ''}
-                </TableCell>
-                <TableCell align="right">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => setOpenPayment(true)}
-                    type={'button'}
-                  >
-                    {__('Change payment method')}
-                  </Button>
-                  <PaymentMethodModal
-                    open={openPayment}
-                    handleClose={() => setOpenPayment(false)}
-                  />
-                </TableCell>
-              </TableRow>
-            </>
-          )}
-          <TableRow>
-            <TableCell component="th" scope="row">
-              {__('Current Plan')}
-            </TableCell>
-            <TableCell>
-              {name}
-              { subscription && <>
-                <br />
-                { subscription.cancel_at_period_end ?
-                  sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end * 1000).format('YYYY-MM-DD'))
-                  :
-                  sprintf(__('Will automatically renew on %1$s'), moment(subscription.current_period_end * 1000).format('YYYY-MM-DD'))
-                }
-              </>}
-            </TableCell>
-            <TableCell align="right">
-              { subscription && subscription.cancel_at_period_end === true ?
+      <Grid container spacing={3} className="usage-info">
+        <Grid item xs={12}>
+          <Typography className="usage-info-title" component="h2">
+            {__('Usage this month')}
+          </Typography>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Paper className="usage-card">
+            <Typography component="h3">
+              {__('Billing period')}
+            </Typography>
+            <div className="usage-card-content">
+              {subscription ?
                 <>
-                  { resumeSubLoading ?
-                    <CircularProgress
-                      size={16}
-                      color={'inherit'}
-                    />
-                    :
+                  {`${moment(subscription.current_period_start).format('MM/DD')} ~ ${moment(subscription.current_period_end).format('MM/DD')}`}
+                </>
+                :
+                '-'
+              }
+            </div>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Paper className="usage-card">
+            <Typography component="h3">
+              {__('Next Payment Date')}
+            </Typography>
+            <div className="usage-card-content">
+              {subscription ?
+                <>
+                  {moment(subscription.current_period_end).format('MM/DD')}
+                </>
+                :
+                '-'
+              }
+            </div>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Paper className="usage-card">
+            <Typography component="h3">
+              {__('Map loads this month')}
+            </Typography>
+            <div className="usage-card-content">
+              {!usage || typeof usage.count !== 'number' ? '-' : usage.count}
+            </div>
+            {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
+            {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
+              <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY/MM/DD HH:mm:ss'))}</div>
+            </>}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={6} lg={3}>
+          <Paper className="usage-card">
+            <Typography component="h3">
+              {__('Charges')}
+            </Typography>
+            <div className="usage-card-content">
+              {!upcoming || typeof upcoming.amount_due !== 'number' ? '-' : currencyFormatter.format(upcoming.amount_due)}
+            </div>
+          </Paper>
+        </Grid>
+      </Grid>
+
+      <Paper className="payment-info">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell component="th" scope="body" colSpan={3}>
+                <Typography component="h2" className="module-title">
+                  {__('Payment information')}
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {props.isOwner && (
+              <>
+                { customer && customer.balance < 0 && <TableRow>
+                  <TableCell component="th" scope="row">
+                    {__('Current account credit:')}
+                  </TableCell>
+                  <TableCell colSpan={2}>
+                    {currencyFormatter.format(Math.abs(customer.balance))}
+                    {__(' : While this account has credits available, payments will deduct from account credit instead of the registered credit card.')}
+                  </TableCell>
+                </TableRow> }
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    {__('Payment method:')}
+                  </TableCell>
+                  <TableCell>
+                    {props.last2
+                      ? sprintf(__('ending in **%1$s'), props.last2)
+                      : ''}
+                  </TableCell>
+                  <TableCell align="right">
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={resumeSubscriptionHandler}
+                      onClick={() => setOpenPayment(true)}
                       type={'button'}
-                      disabled={!props.last2 || !props.isOwner}
                     >
-                      {__('Resume subscription')}
+                      {__('Change payment method')}
                     </Button>
-                  }
-                </>
-                :
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => setOpenPlan(true)}
-                  type={'button'}
-                  disabled={!props.last2 || !props.isOwner}
-                >
-                  {__('Change Plan')}
-                </Button>
-              }
-              <PlanModal
-                open={openPlan}
-                handleClose={() => setOpenPlan(false)}
-                plans={
-                  plans.filter(
-                    (plan) => !isAppliancePlan(plan),
-                  ) as GeoloniaConstantPlan[]
+                    <PaymentMethodModal
+                      open={openPayment}
+                      handleClose={() => setOpenPayment(false)}
+                    />
+                  </TableCell>
+                </TableRow>
+              </>
+            )}
+            <TableRow>
+              <TableCell component="th" scope="row">
+                {__('Current Plan')}
+              </TableCell>
+              <TableCell>
+                {name}
+                { subscription && <>
+                  <br />
+                  { subscription.cancel_at_period_end && sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end).format('YYYY-MM-DD'))}
+                </>}
+              </TableCell>
+              <TableCell align="right">
+                { subscription && subscription.cancel_at_period_end === true ?
+                  <>
+                    { resumeSubLoading ?
+                      <CircularProgress
+                        size={16}
+                        color={'inherit'}
+                      />
+                      :
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={resumeSubscriptionHandler}
+                        type={'button'}
+                        disabled={!props.last2 || !props.isOwner}
+                      >
+                        {__('Resume subscription')}
+                      </Button>
+                    }
+                  </>
+                  :
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOpenPlan(true)}
+                    type={'button'}
+                    disabled={!props.last2 || !props.isOwner}
+                  >
+                    {__('Change Plan')}
+                  </Button>
                 }
-                currentPlanId={planId}
-              />
-            </TableCell>
-          </TableRow>
-          {/* <TableRow>
-                <TableCell component="th" scope="row">
-                  {__("Coupon:")}
-                </TableCell>
-                <TableCell>$200.0</TableCell>
-                <TableCell align="right">
-                  <Save label={__("Redeem a coupon")} />
-                </TableCell>
-              </TableRow> */}
-        </TableBody>
-      </Table>
+                <PlanModal
+                  open={openPlan}
+                  handleClose={() => setOpenPlan(false)}
+                  plans={
+                    plans.filter(
+                      (plan) => !isAppliancePlan(plan),
+                    ) as GeoloniaConstantPlan[]
+                  }
+                  currentPlanId={planId}
+                />
+              </TableCell>
+            </TableRow>
+            {/* <TableRow>
+                  <TableCell component="th" scope="row">
+                    {__("Coupon:")}
+                  </TableCell>
+                  <TableCell>$200.0</TableCell>
+                  <TableCell align="right">
+                    <Save label={__("Redeem a coupon")} />
+                  </TableCell>
+                </TableRow> */}
+          </TableBody>
+        </Table>
+        <p style={{ textAlign: 'right' }}>
+          <a href="https://geolonia.com/pricing" target="_blank" rel="noreferrer">
+            {__('Learn more about plans on the pricing page.')}
+          </a>
+        </p>
+      </Paper>
     </>;
   }
 
   return (
     <StripeContainer>
       <div className="billing">
-        <Title title={__('Billing')} breadcrumb={breadcrumbItems}>
-          {__('You can see subscriptions for this team in this month.')}
+        <Title title={__('Billing and Plans')} breadcrumb={breadcrumbItems}>
+          {sprintf(__('You can check and change your current pricing plan and usage status of Team %s.'), teamName)}
         </Title>
 
         { inner }
-      </div>
-      <p style={{ textAlign: 'right' }}>
-        <a href="https://geolonia.com/pricing" target="_blank" rel="noreferrer">
-          {__('Learn more about plans on the pricing page.')}
-        </a>
-      </p>
 
-      {props.isOwner && (
-        <>
-          <Typography component="h2" className="module-title">
-            {__('Payment history')}
-          </Typography>
-          <Receipts />
-        </>
-      )}
+        <Paper>
+          {props.isOwner && (
+            <>
+              <Typography component="h2" className="module-title">
+                {__('Payment history')}
+              </Typography>
+              <Receipts />
+            </>
+          )}
+        </Paper>
+      </div>
     </StripeContainer>
   );
 };

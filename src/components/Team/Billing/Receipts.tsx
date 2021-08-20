@@ -111,7 +111,7 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
   // );
 
   const charge = charges.find((charge) => charge.invoice === id);
-  const date = moment(period_start * 1000).format('YYYY-MM-DD');
+  const date = moment(period_start * 1000).format('YYYY/MM/DD');
   const payment = formattedActualPayment;
   const receipt_url = charge && charge.receipt_url;
 
