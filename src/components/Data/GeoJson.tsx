@@ -12,7 +12,7 @@ import ImportDropZone from './ImportDropZone';
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from './GeoJsonMeta';
 import StyleSelector from './StyleSelector';
-import { LinearProgress, CircularProgress } from '@material-ui/core';
+import { LinearProgress } from '@material-ui/core';
 
 // lib
 import { connect } from 'react-redux';
