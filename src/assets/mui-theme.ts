@@ -1,6 +1,6 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles';
 
-const themeBase = createMuiTheme({
+const themeBase = createTheme({
   palette: {
     primary: {
       light: '#63ccff',
