@@ -144,7 +144,7 @@ const Members = (props: Props) => {
         { isOwner && inviteDisabled &&
           <Alert type="danger">
             {__(
-              'You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan.',
+              'You currently can not invite any new members.',
             )}
           </Alert>
         }
