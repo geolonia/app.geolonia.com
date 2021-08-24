@@ -44,6 +44,7 @@ type RouterProps = {
 type Props = OwnProps & RouterProps & StateProps;
 
 export type TileStatus = null | undefined | 'progress' | 'created' | 'failure';
+
 export type GVPStep = 'started' | 'uploading' | 'processing' | 'done';
 
 const getStepProgress = (): { [key in GVPStep]: { text: string, progress: number } } => {
@@ -212,7 +213,6 @@ const GeoJson: React.FC<Props> = (props: Props) => {
         bounds={bounds}
       />;
     } else {
-      // No Simple Style layer has been detected
       mapEditorElement = <div style={mapEditorStyle}>
         { __('In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.') }
       </div>;
