@@ -68,18 +68,24 @@ export const AddNew: React.FC<Props> = (props) => {
     margin: 0,
   };
 
+  const isButtonsDisabled = status === 'working' || status === 'success';
+
   const handleClickOpen = useCallback(() => {
     setOpen(true);
   }, []);
 
-  const handleClose = useCallback(() => {
+  const handleClose = useCallback((event: any, reason: string) => {
+    if (isButtonsDisabled && (reason === 'escapeKeyDown' || reason === 'backdropClick')) {
+      return;
+    }
+
     setOpen(false);
     // hide state change on hiding animation
     setTimeout(() => {
       setStatus(false);
       setText(defaultValue);
     }, 200);
-  }, [defaultValue]);
+  }, [defaultValue, isButtonsDisabled]);
 
   const saveHandler = useCallback<React.FormEventHandler>(async (e) => {
     e.preventDefault();
@@ -95,13 +101,11 @@ export const AddNew: React.FC<Props> = (props) => {
     }
 
     setStatus('success');
-    handleClose();
+    handleClose(null, 'save');
     if (typeof onSuccess === 'function') {
       onSuccess();
     }
   }, [handleClose, onClick, onSuccess, onError, text]);
-
-  const isButtonsDisabled = status === 'working' || status === 'success';
 
   return (
     <div>
@@ -119,7 +123,6 @@ export const AddNew: React.FC<Props> = (props) => {
         open={open}
         onClose={handleClose}
         fullWidth={true}
-        disableBackdropClick={isButtonsDisabled}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">{label}</DialogTitle>
@@ -145,7 +148,7 @@ export const AddNew: React.FC<Props> = (props) => {
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={handleClose}
+              onClick={(e) => handleClose(e, 'cancel')}
               color="primary"
               disabled={isButtonsDisabled}
             >

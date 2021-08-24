@@ -129,14 +129,12 @@ const Members = (props: Props) => {
 
   const { team } = props;
   let isOwner = false;
-  let isPaidTeam = false;
   if (team) {
     isOwner = team.role === Roles.Owner;
-    isPaidTeam = team.isPaidTeam;
   }
 
   const inviteDisabled =
-    !isOwner || !isPaidTeam || !( team && (team.maxMemberLength > members.length));
+    !isOwner || !( team && (team.maxMemberLength > members.length));
 
   return (
     <div>
@@ -146,7 +144,7 @@ const Members = (props: Props) => {
         { isOwner && inviteDisabled &&
           <Alert type="danger">
             {__(
-              'You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan.',
+              'You currently can not invite any new members.',
             )}
           </Alert>
         }

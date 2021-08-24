@@ -14,7 +14,7 @@ export const StatusIndication = (props: Props) => {
     </div>
   ) : status === 'success' ? (
     <div style={{ marginTop: '.75em' }}>
-      <CheckIcon fontSize={'default'} color={'primary'} />
+      <CheckIcon fontSize={'medium'} color={'primary'} />
     </div>
   ) : null;
 };

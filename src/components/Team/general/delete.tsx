@@ -159,7 +159,7 @@ const TeamDeletion = (props: Props) => {
                   color={'secondary'}
                 />
               ) : status === 'success' ? (
-                <CheckIcon fontSize={'default'} color={'secondary'} />
+                <CheckIcon fontSize={'medium'} color={'secondary'} />
               ) : null}
               {__('Delete')}
             </Button>
