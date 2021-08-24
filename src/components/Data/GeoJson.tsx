@@ -12,7 +12,7 @@ import ImportDropZone from './ImportDropZone';
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from './GeoJsonMeta';
 import StyleSelector from './StyleSelector';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, CircularProgress } from '@material-ui/core';
 
 // lib
 import { connect } from 'react-redux';
@@ -21,6 +21,7 @@ import { sleep } from '../../lib/sleep';
 
 // hooks
 import useGeoJSON from './GeoJson/hooks/use-geojson';
+import useMetadata from './GeoJson/hooks/use-metadata';
 
 import './GeoJson.scss';
 // constants
@@ -44,8 +45,6 @@ type Props = OwnProps & RouterProps & StateProps;
 
 export type TileStatus = null | undefined | 'progress' | 'created' | 'failure';
 export type GVPStep = 'started' | 'uploading' | 'processing' | 'done';
-
-const { REACT_APP_TILE_SERVER } = process.env;
 
 const getStepProgress = (): { [key in GVPStep]: { text: string, progress: number } } => {
   return {
@@ -85,7 +84,8 @@ const GeoJson: React.FC<Props> = (props: Props) => {
     bounds,
     setGeoJsonMeta,
     error,
-  } = useGeoJSON(props.session, props.geojsonId);
+  } = useGeoJSON(session, geojsonId);
+  const { layerNames } = useMetadata(geojsonId);
 
   // move on team change
   useEffect(() => {
@@ -108,12 +108,6 @@ const GeoJson: React.FC<Props> = (props: Props) => {
       href: '#/data/geojson',
     },
   ];
-
-  useEffect(() => {
-    fetch.origin(`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`)
-      .then((res) => res.json())
-      .then(console.log);
-  }, [session, geojsonId]);
 
   const onDeleteClick = useCallback(async () => {
     if (!teamId || !geojsonId) {
@@ -180,6 +174,11 @@ const GeoJson: React.FC<Props> = (props: Props) => {
     return null;
   }
 
+  const isSimpleStyled = (
+    Array.isArray(layerNames) &&
+      layerNames.some((id: string) => id.startsWith('g-simplestyle-'))
+  ) || layerNames === 'error'; // NOTE: fallback
+
   const stepper: React.ReactNode = <div style={{ width: '80%', height: '20px' }}>
     <p style={{ textAlign: 'center' }}>{stepProgress[gvpStep].text}</p>
     <LinearProgress variant="determinate" value={stepProgress[gvpStep].progress} />
@@ -205,12 +204,19 @@ const GeoJson: React.FC<Props> = (props: Props) => {
       setGvpStep={setGvpStep}
     />;
   } else if (tileStatus === 'created') {
-    mapEditorElement = <MapEditor
-      session={session}
-      style={style}
-      geojsonId={geojsonId}
-      bounds={bounds}
-    />;
+    if(isSimpleStyled) {
+      mapEditorElement = <MapEditor
+        session={session}
+        style={style}
+        geojsonId={geojsonId}
+        bounds={bounds}
+      />;
+    } else {
+      // No Simple Style layer has been detected
+      mapEditorElement = <div style={mapEditorStyle}>
+        { __('You will need the style.json that corresponds to the MBTiles you uploaded.') }
+      </div>;
+    }
   }
 
   return (
@@ -226,7 +232,7 @@ const GeoJson: React.FC<Props> = (props: Props) => {
 
       {tileStatus === 'created' && (
         <div className="nav">
-          <StyleSelector style={style} setStyle={setStyle} />
+          {isSimpleStyled && <StyleSelector style={style} setStyle={setStyle} />}
           {/* <ExportButton GeoJsonID={geojsonId} drawObject={drawObject} /> */}
           <ImportDropZoneButton
             session={session}
@@ -239,7 +245,7 @@ const GeoJson: React.FC<Props> = (props: Props) => {
         </div>
       )}
 
-      <div className="editor">
+      <div className={'editor'}>
         {mapEditorElement}
       </div>
 
