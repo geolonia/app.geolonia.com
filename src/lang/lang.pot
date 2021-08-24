@@ -43,52 +43,56 @@ msgstr ""
 msgid "Download GeoJSON"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:100
+#: src/components/Data/GeoJson.tsx:103
 #: src/components/Data/GeoJsons.tsx:95
 #: src/components/Navigator.tsx:171
 msgid "Map"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:104
+#: src/components/Data/GeoJson.tsx:107
 #: src/components/Data/GeoJsons.tsx:125
 #: src/components/Navigator.tsx:160
 msgid "Location Data"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:213
+#: src/components/Data/GeoJson.tsx:217
+msgid "In order to display the map, the style.json corresponding to the MBTiles you uploaded is required."
+msgstr ""
+
+#: src/components/Data/GeoJson.tsx:228
 msgid ""
 "Upload your location data here to display it on a map. Once the data has "
 "been uploaded, HTML code will be generated so you can embed it in your "
 "site. We currently support uploading GeoJSON, CSV and MBTiles files."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:253
+#: src/components/Data/GeoJson.tsx:268
 msgid "Once you delete an Dataset, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:258
+#: src/components/Data/GeoJson.tsx:273
 msgid "Are you sure you want to delete this Dataset?"
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:259
+#: src/components/Data/GeoJson.tsx:274
 #: src/components/Data/fields.tsx:70
 #: src/components/Maps/APIKey.tsx:295
 msgid "Please type delete to confirm."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:50
+#: src/components/Data/GeoJson.tsx:52
 msgid "Uploading now.."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:51
+#: src/components/Data/GeoJson.tsx:53
 msgid "Processing data.."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:52
+#: src/components/Data/GeoJson.tsx:54
 msgid "Adding your data to the map..."
 msgstr ""
 
-#: src/components/Data/GeoJson.tsx:96
+#: src/components/Data/GeoJson.tsx:99
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:116
 #: src/components/Maps/APIKeys.tsx:44
@@ -136,7 +140,7 @@ msgstr ""
 #: src/components/Team/general/fields.tsx:84
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
-#: src/components/custom/Delete.tsx:121
+#: src/components/custom/Delete.tsx:125
 msgid "Name"
 msgstr ""
 
@@ -825,14 +829,14 @@ msgstr ""
 #: src/components/Team/members/change-role.tsx:160
 #: src/components/Team/members/remove-member.tsx:89
 #: src/components/Team/members/suspend.tsx:112
-#: src/components/custom/AddNew.tsx:152
+#: src/components/custom/AddNew.tsx:155
 #: src/components/custom/Cancel.tsx:18
-#: src/components/custom/Delete.tsx:137
+#: src/components/custom/Delete.tsx:141
 msgid "Cancel"
 msgstr ""
 
 #: src/components/Team/general/delete.tsx:164
-#: src/components/custom/Delete.tsx:158
+#: src/components/custom/Delete.tsx:162
 msgid "Delete"
 msgstr ""
 

@@ -214,7 +214,7 @@ const GeoJson: React.FC<Props> = (props: Props) => {
     } else {
       // No Simple Style layer has been detected
       mapEditorElement = <div style={mapEditorStyle}>
-        { __('You will need the style.json that corresponds to the MBTiles you uploaded.') }
+        { __('In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.') }
       </div>;
     }
   }

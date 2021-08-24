@@ -22,6 +22,9 @@
       "Download GeoJSON": ["GeoJSON をダウンロード"],
       "Map": ["地図"],
       "Location Data": ["位置情報データ"],
+      "In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.": [
+        "地図を表示するためにはアップロードしたMBTilesに対応するstyle.json が必要です。"
+      ],
       "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON, CSV and MBTiles files.": [
         "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSON・CSV・MBTilesファイルに対応しています。"
       ],
