@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import { GeoJsonMaxUploadSize } from '../../constants';
+import { GEOJSON_MAX_UPLOAD_SIZE } from '../../constants';
 import './GeoJsonImporter.scss';
 import { __, sprintf } from '@wordpress/i18n';
 
@@ -57,12 +57,12 @@ const Importer: React.FC<Props> = (props) => {
     setError(null);
     const files = event.currentTarget.files;
     if (files) {
-      if (GeoJsonMaxUploadSize > files[0].size) {
+      if (GEOJSON_MAX_UPLOAD_SIZE > files[0].size) {
         const filereader = new FileReader();
         filereader.onloadend = handleFileRead;
         filereader.readAsText(files[0]);
       } else {
-        setError(sprintf(__('Error: Please upload GeoJSON file less than %d MB.'), GeoJsonMaxUploadSize / 1000000));
+        setError(sprintf(__('Error: Please upload GeoJSON file less than %d MB.'), GEOJSON_MAX_UPLOAD_SIZE / 1000000));
       }
     }
   };
@@ -97,7 +97,7 @@ const Importer: React.FC<Props> = (props) => {
         } else if (e.message === 'invalid-identifier') {
           setError(__('Error: The `id` of each `fueature` must be unique in the GeoJSON.'));
         } else {
-          setError(sprintf(__('Error: Please upload GeoJSON file less than %d MB.'), GeoJsonMaxUploadSize / 1000000));
+          setError(sprintf(__('Error: Please upload GeoJSON file less than %d MB.'), GEOJSON_MAX_UPLOAD_SIZE / 1000000));
         }
       }
     }
@@ -107,7 +107,7 @@ const Importer: React.FC<Props> = (props) => {
     <div className="geojson-importer" style={styleOuter} onClick={close}>
       <div className="inner" onClick={preventClose}>
         <h2><CloudUploadIcon fontSize="large" /> {__('Import GeoJSON')}</h2>
-        <p>{__('Import GeoJSON from your computer.')}<br />({sprintf(__('Maximum upload file size: %d MB'), GeoJsonMaxUploadSize / 1000000)})</p>
+        <p>{__('Import GeoJSON from your computer.')}<br />({sprintf(__('Maximum upload file size: %d MB'), GEOJSON_MAX_UPLOAD_SIZE / 1000000)})</p>
         <p><input type="file" accept='.json,.geojson' onChange={handleFileUpload} /></p>
         <p>{__('Existing feature that has same `id` will be updated.')}</p>
         {error && <div className="error">{error}</div>}

@@ -41,7 +41,6 @@ type OwnProps = {
   teamId: string;
   setGeoJsonMeta: GeoJsonMetaSetter;
 
-  isPaidTeam: boolean;
   primaryApiKeyId: string | undefined;
   style?: string;
 };
@@ -370,7 +369,6 @@ const GeoJSONMeta = (props: Props) => {
                 setDraftIsPublic(e.target.checked);
               }}
               // NOTE: Billing feature
-              // disabled={!props.isPaidTeam}
               inputProps={{ 'aria-label': 'primary checkbox' }}
               color="primary"
             />

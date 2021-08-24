@@ -129,14 +129,12 @@ const Members = (props: Props) => {
 
   const { team } = props;
   let isOwner = false;
-  let isPaidTeam = false;
   if (team) {
     isOwner = team.role === Roles.Owner;
-    isPaidTeam = team.isPaidTeam;
   }
 
   const inviteDisabled =
-    !isOwner || !isPaidTeam || !( team && (team.maxMemberLength > members.length));
+    !isOwner || !( team && (team.maxMemberLength > members.length));
 
   return (
     <div>

@@ -10,7 +10,6 @@ type Props = {
   setTileStatus: (value: TileStatus) => void,
   setGvpStep: (value: GVPStep) => void,
   session: Geolonia.Session,
-  isPaidTeam: boolean,
   teamId?: string,
   geojsonId?: string,
 }
@@ -65,7 +64,6 @@ const Content = (props: Props) => {
               session={props.session}
               teamId={props.teamId}
               geojsonId={props.geojsonId}
-              isPaidTeam={props.isPaidTeam}
               getTileStatus={props.getTileStatus}
               setTileStatus={props.setTileStatus}
               setGvpStep={props.setGvpStep}
