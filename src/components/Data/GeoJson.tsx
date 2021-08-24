@@ -33,7 +33,6 @@ type StateProps = {
   session: Geolonia.Session;
   geojsonId?: string;
   teamId?: string;
-  isPaidTeam: boolean;
 };
 
 type RouterProps = {
@@ -71,7 +70,6 @@ const GeoJson: React.FC<Props> = (props: Props) => {
     session,
     teamId,
     geojsonId,
-    isPaidTeam,
     history,
   } = props;
 
@@ -201,7 +199,6 @@ const GeoJson: React.FC<Props> = (props: Props) => {
       session={session}
       teamId={teamId}
       geojsonId={geojsonId}
-      isPaidTeam={isPaidTeam}
       tileStatus={tileStatus}
       getTileStatus={getTileStatus}
       setTileStatus={setTileStatus}
@@ -235,7 +232,6 @@ const GeoJson: React.FC<Props> = (props: Props) => {
             session={session}
             teamId={teamId}
             geojsonId={geojsonId}
-            isPaidTeam={isPaidTeam}
             getTileStatus={getTileStatus}
             setTileStatus={setTileStatus}
             setGvpStep={setGvpStep}
@@ -258,7 +254,6 @@ const GeoJson: React.FC<Props> = (props: Props) => {
           status={geoJsonMeta.status}
           setGeoJsonMeta={setGeoJsonMeta}
           style={style}
-          isPaidTeam={isPaidTeam}
         />
       </div>
       }
@@ -293,10 +288,9 @@ export const mapStateToProps = (
       session,
       teamId,
       geojsonId,
-      isPaidTeam: team.isPaidTeam,
     };
   } else {
-    return { session, isPaidTeam: false };
+    return { session };
   }
 };
 

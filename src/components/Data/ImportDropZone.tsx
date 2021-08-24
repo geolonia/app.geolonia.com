@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {useDropzone} from 'react-dropzone';
 import Paper from '@material-ui/core/Paper';
-import { GeoJsonMaxUploadSize, GeoJsonMaxUploadSizePaid } from '../../constants';
+import { GEOJSON_MAX_UPLOAD_SIZE } from '../../constants';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from '@wordpress/i18n';
 import fetch from '../../api/custom-fetch';
@@ -58,7 +58,6 @@ type Props = {
   setTileStatus: (value: TileStatus) => void,
   setGvpStep: (value: GVPStep) => void,
   session: Geolonia.Session,
-  isPaidTeam: boolean,
   teamId?: string,
   geojsonId?: string,
   customMessage?: string,
@@ -84,7 +83,7 @@ const Content = (props: Props) => {
     }
   }, [tileStatus]);
 
-  const maxUploadSize = props.isPaidTeam ? GeoJsonMaxUploadSizePaid : GeoJsonMaxUploadSize;
+  const maxUploadSize = GEOJSON_MAX_UPLOAD_SIZE;
 
   const onDrop = useCallback( async (acceptedFiles) => {
     if (!session || !teamId || !geojsonId) {

@@ -14,8 +14,10 @@ export const errorCodes = {
 
 export const avatarLimitSize = 10; // Unit: MB
 export const messageDisplayDuration = 3_000; // Unit: milli sec.
-export const GeoJsonMaxUploadSize = 1_000_000; // 1MB
-export const GeoJsonMaxUploadSizePaid = 100_000_000; // 100MB
+
+/** The maximum allowed GeoJSON upload file size. (CSV/GeoJSON/mbtiles). 100 MB */
+export const GEOJSON_MAX_UPLOAD_SIZE = 100_000_000;
+
 export const SpritesEndpoint = 'https://sprites.geolonia.com/basic.json';
 export const pageTransitionInterval = 500;
 

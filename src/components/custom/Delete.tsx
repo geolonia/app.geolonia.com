@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 // Components
 import Typography from '@material-ui/core/Typography';
@@ -35,7 +35,7 @@ const getTexts = (props: Props) => ({
 });
 
 export const Delete: React.FC<Props> = (props) => {
-  const { disableCancel, disableDelete } = props;
+  const { disableCancel, disableDelete, onClick, onFailure } = props;
   const { text1, text2 } = getTexts(props);
 
   const [open, setOpen] = useState(false);
@@ -57,35 +57,40 @@ export const Delete: React.FC<Props> = (props) => {
     width: '100%',
   } as React.CSSProperties;
 
-  function handleClickOpen() {
+  const handleClickOpen = useCallback(() => {
     setOpen(true);
-  }
+  }, []);
 
-  function handleClose() {
+  const handleClose = useCallback((event: any, reason: string) => {
+    if (isCancelDisabled || status === 'working') {
+      return;
+    }
     setConfirmation('');
     setOpen(false);
-  }
+  }, [isCancelDisabled, status]);
 
-  const onCancelClick = () => {
+  const onCancelClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>((event) => {
     if (!isCancelDisabled) {
-      handleClose();
+      handleClose(event, 'cancel');
     }
-  };
+  }, [isCancelDisabled, handleClose]);
 
-  const onButtonClick = () => {
-    if (!isDeleteDisabled) {
-      setStatus('working');
-      props
-        .onClick()
-        .then(() => {
-          setStatus('success');
-        })
-        .catch(() => {
-          setStatus('failure');
-          if (props.onFailure) props.onFailure();
-        });
+  const onButtonClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>((event) => {
+    event.preventDefault();
+    if (isDeleteDisabled) {
+      return;
     }
-  };
+
+    setStatus('working');
+    onClick()
+      .then(() => {
+        setStatus('success');
+      })
+      .catch(() => {
+        setStatus('failure');
+        if (onFailure) onFailure();
+      });
+  }, [isDeleteDisabled, onClick, onFailure]);
 
   return (
     <div>
@@ -102,7 +107,6 @@ export const Delete: React.FC<Props> = (props) => {
         <Dialog
           open={open}
           onClose={handleClose}
-          disableBackdropClick={isCancelDisabled || status === 'working'}
           fullWidth={true}
           aria-labelledby="form-dialog-title"
         >
@@ -153,7 +157,7 @@ export const Delete: React.FC<Props> = (props) => {
                   color={'secondary'}
                 />
               ) : status === 'success' ? (
-                <CheckIcon fontSize={'default'} color={'secondary'} />
+                <CheckIcon fontSize={'medium'} color={'secondary'} />
               ) : null}
               {__('Delete')}
             </Button>
