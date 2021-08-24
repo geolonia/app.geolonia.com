@@ -45,6 +45,9 @@ type Props = OwnProps & RouterProps & StateProps;
 
 export type TileStatus = null | undefined | 'progress' | 'created' | 'failure';
 export type GVPStep = 'started' | 'uploading' | 'processing' | 'done';
+
+const { REACT_APP_TILE_SERVER } = process.env;
+
 const getStepProgress = (): { [key in GVPStep]: { text: string, progress: number } } => {
   return {
     started: { text: '', progress: 0 },
@@ -107,6 +110,12 @@ const GeoJson: React.FC<Props> = (props: Props) => {
       href: '#/data/geojson',
     },
   ];
+
+  useEffect(() => {
+    fetch.origin(`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`)
+      .then((res) => res.json())
+      .then(console.log);
+  }, [session, geojsonId]);
 
   const onDeleteClick = useCallback(async () => {
     if (!teamId || !geojsonId) {

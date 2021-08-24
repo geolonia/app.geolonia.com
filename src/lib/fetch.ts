@@ -28,4 +28,6 @@ export const customFetch = async (
   return fetch(url, fetchOptions);
 };
 
+customFetch.origin = fetch;
+
 export default customFetch;
