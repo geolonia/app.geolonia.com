@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import { Line } from 'react-chartjs-2';
 // import Save from "../custom/Save";
@@ -219,31 +220,20 @@ const Billing = (props: StateProps) => {
     labels: chartLabel,
     datasets: [
       {
-        label: '# of map loads',
+        label: __('Map loads'),
         data: chartData,
         fill: false,
-        backgroundColor: 'rgb(255, 99, 132)',
+        backgroundColor: 'rgb(255, 99, 132)', //TODO: オレンジ rgb(235,92,11)要検討
         borderColor: 'rgba(255, 99, 132, 0.2)',
       },
     ],
-  };
-
-  const options = {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: true,
-          },
-        },
-      ],
-    },
   };
 
   // チーム変えたらロード状態をリセット
   useEffect(() => {
     setChartLabel([]);
     setChartData([]);
+    setApiKey('');
   }, [ teamId ]);
 
   const showApiKeyUsageHandler = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -255,7 +245,13 @@ const Billing = (props: StateProps) => {
 
     if (usage?.details[selectedApiKey]) {
       usage.details[selectedApiKey].forEach((detail) => {
-        label.push(detail.date);
+
+        // 年を削除
+        const monthDay = detail.date.slice(4);
+        const month = monthDay.slice(0,2);
+        const day = monthDay.slice(-2);
+
+        label.push(`${month}/${day}`);
         data.push(detail.count);
       });
     }
@@ -400,23 +396,23 @@ const Billing = (props: StateProps) => {
         </Grid>
       </Grid>
 
-      <Paper className="usage-info">
+      <Paper className="usage-details-info">
         <Typography component="h2" className="module-title">
-          {__('Map loads this month')}
+          {__('Map loads by API key')}
         </Typography>
         <FormControl>
+          <InputLabel>{__('API Key')}</InputLabel>
           <Select
+            id={'select-usage-api-key'}
             value={apiKey}
             onChange={showApiKeyUsageHandler}
-            displayEmpty
           >
-            <MenuItem value={''}>{__('Total')}</MenuItem>
             {
               usage?.details && Object.keys(usage.details).map((detail) => <MenuItem key={detail} value={detail}>{detail}</MenuItem>)
             }
           </Select>
         </FormControl>
-        <Line data={data} options={options} />
+        <Line data={data} id={'chart-usage-api-key'} height={100}/>
       </Paper>
 
       <Paper className="payment-info">
