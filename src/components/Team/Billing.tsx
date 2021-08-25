@@ -179,6 +179,7 @@ const usePlan = (props: StateProps) => {
         buildApiAppUrl(`/teams/${teamId}/plan`),
       );
       const data = await res.json();
+      console.log(data);
       setPlanId(data.planId);
       setSubscription(data.subscription);
       setCustomer(data.customer);
@@ -209,7 +210,7 @@ const Billing = (props: StateProps) => {
   const [openPayment, setOpenPayment] = useState(false);
   const [openPlan, setOpenPlan] = useState(false);
   const { loaded, plans, name, planId, subscription, customer, upcoming, usage } = usePlan(props);
-  const [ resumeSubLoading, setResumeSubLoading ] = useState(false);
+  const [resumeSubLoading, setResumeSubLoading] = useState(false);
   const [apiKey, setApiKey] = useState('');
   const [chartLabel, setChartLabel] = useState<string[]>([]);
   const [chartData, setChartData] = useState<number[]>([]);
@@ -239,14 +240,21 @@ const Billing = (props: StateProps) => {
     },
   };
 
+  // チーム変えたらロード状態をリセット
+  useEffect(() => {
+    setChartLabel([]);
+    setChartData([]);
+  }, [ teamId ]);
+
   const showApiKeyUsageHandler = (event: React.ChangeEvent<{ value: unknown }>) => {
     const label: string[] = [];
     const data: number[] = [];
+    const selectedApiKey = event.target.value as string;
 
-    setApiKey(event.target.value as string);
+    setApiKey(selectedApiKey);
 
-    if (usage?.details[apiKey]) {
-      usage.details[apiKey].forEach((detail) => {
+    if (usage?.details[selectedApiKey]) {
+      usage.details[selectedApiKey].forEach((detail) => {
         label.push(detail.date);
         data.push(detail.count);
       });
@@ -398,8 +406,6 @@ const Billing = (props: StateProps) => {
         </Typography>
         <FormControl>
           <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
             value={apiKey}
             onChange={showApiKeyUsageHandler}
             displayEmpty
