@@ -8,7 +8,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-// import { Line } from "react-chartjs-2";
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { Line } from 'react-chartjs-2';
 // import Save from "../custom/Save";
 import Title from '../custom/Title';
 import PaymentMethodModal from './Billing/payment-method-modal';
@@ -105,7 +108,17 @@ interface UpcomingDetails {
 interface UsageDetails {
   count: number
   lastLoggedRequest: string
-  updated: string
+  updated: string,
+  details: {
+    [s: string]: [
+      {
+        aggregationUnit: string
+        count: number
+        date: string
+        lastLoggedRequest: string
+      }
+    ]
+  }
 }
 
 export const parsePlanLabel = (
@@ -197,6 +210,51 @@ const Billing = (props: StateProps) => {
   const [openPlan, setOpenPlan] = useState(false);
   const { loaded, plans, name, planId, subscription, customer, upcoming, usage } = usePlan(props);
   const [ resumeSubLoading, setResumeSubLoading ] = useState(false);
+  const [apiKey, setApiKey] = useState('');
+  const [chartLabel, setChartLabel] = useState<string[]>([]);
+  const [chartData, setChartData] = useState<number[]>([]);
+
+  const data = {
+    labels: chartLabel,
+    datasets: [
+      {
+        label: '# of map loads',
+        data: chartData,
+        fill: false,
+        backgroundColor: 'rgb(255, 99, 132)',
+        borderColor: 'rgba(255, 99, 132, 0.2)',
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      yAxes: [
+        {
+          ticks: {
+            beginAtZero: true,
+          },
+        },
+      ],
+    },
+  };
+
+  const showApiKeyUsageHandler = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const label: string[] = [];
+    const data: number[] = [];
+
+    setApiKey(event.target.value as string);
+
+    if (usage?.details[apiKey]) {
+      usage.details[apiKey].forEach((detail) => {
+        label.push(detail.date);
+        data.push(detail.count);
+      });
+    }
+
+    setChartLabel(label);
+    setChartData(data);
+  };
 
   const currency = customer?.currency;
 
@@ -333,6 +391,27 @@ const Billing = (props: StateProps) => {
           </Paper>
         </Grid>
       </Grid>
+
+      <Paper className="usage-info">
+        <Typography component="h2" className="module-title">
+          {__('Map loads this month')}
+        </Typography>
+        <FormControl>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={apiKey}
+            onChange={showApiKeyUsageHandler}
+            displayEmpty
+          >
+            <MenuItem value={''}>{__('Total')}</MenuItem>
+            {
+              usage?.details && Object.keys(usage.details).map((detail) => <MenuItem key={detail} value={detail}>{detail}</MenuItem>)
+            }
+          </Select>
+        </FormControl>
+        <Line data={data} options={options} />
+      </Paper>
 
       <Paper className="payment-info">
         <Table>
