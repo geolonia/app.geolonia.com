@@ -11,13 +11,17 @@ import Redux from 'redux';
 import { connect } from 'react-redux';
 import { createActions } from '../redux/actions/auth-support';
 import StatusIndication from './custom/status-indication';
-import delay from '../lib/promise-delay';
 import { __ } from '@wordpress/i18n';
 import Interweave from 'interweave';
 import { parseSignupError as parseCognitoSignupError } from '../lib/cognito/parse-error';
 import estimateLanguage from '../lib/estimate-language';
 import { pageTransitionInterval } from '../constants';
 import queryString from 'query-string';
+import { sleep } from '../lib/sleep';
+
+// types
+import { ISignUpResult } from 'amazon-cognito-identity-js';
+import { acceptInvitation } from '../api/teams/accept-invitation';
 
 type OwnProps = Record<string, never>;
 type RouterProps = {
@@ -40,6 +44,7 @@ const Signup = (props: Props) => {
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState<Status>(null);
   const [message, setMessage] = useState('');
+  const [invitationToken, setInvitationToken] = useState<string | undefined>(undefined);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -57,25 +62,33 @@ const Signup = (props: Props) => {
     setPassword(e.currentTarget.value);
   };
 
-  const handleSignup = (e: React.MouseEvent | void) => {
+  const handleSignup = async (e: React.MouseEvent | void) => {
     e && e.preventDefault();
     setStatus('requesting');
     setUsername(username);
-    delay(signUp(username, email, password), 500)
-      .then((result) => {
-        setStatus('success');
-        const succeededUsername = result.user.getUsername();
-        props.setCurrentUser(succeededUsername);
-        setTimeout(() => {
-          window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
-            succeededUsername,
-          )}#/verify`;
-        }, pageTransitionInterval);
-      })
-      .catch((err) => {
-        setMessage(parseCognitoSignupError(err || { code: '' }));
-        setStatus('warning');
-      });
+
+    let result: ISignUpResult;
+    try {
+      result = await signUp(username, email, password);
+    } catch (err: any) {
+      setMessage(parseCognitoSignupError(err || { code: '' }));
+      setStatus('warning');
+      return;
+    }
+    setStatus('success');
+
+    const succeededUsername = result.user.getUsername();
+    props.setCurrentUser(succeededUsername);
+    if(invitationToken) {
+      await acceptInvitation(invitationToken);
+    }
+    await sleep(pageTransitionInterval);
+
+    const qs = new URLSearchParams({
+      lang: estimateLanguage(),
+      username: encodeURIComponent(succeededUsername),
+    }).toString();
+    window.location.href = `/?${qs}#/verify`;
   };
 
   const usernameIsValid = username !== '';
@@ -94,7 +107,11 @@ const Signup = (props: Props) => {
     parsed.lang = estimateLanguage();
     const newUrl = `/?${queryString.stringify(parsed)}#/signup`;
     window.history.pushState({ path: newUrl }, '', newUrl);
-  }, []);
+
+    if(typeof parsed.invitationToken === 'string') {
+      setInvitationToken(parsed.invitationToken);
+    }
+  }, [setInvitationToken]);
 
   return (
     <div className="signup">

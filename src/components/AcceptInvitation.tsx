@@ -6,8 +6,7 @@ import Button from '@material-ui/core/Button';
 import { __ } from '@wordpress/i18n';
 import { connect } from 'react-redux';
 import { SELECTED_TEAM_ID_KEY } from '../redux/middlewares/local-storage';
-
-import { buildApiAppUrl } from '../lib/api';
+import { acceptInvitation } from '../api/teams/accept-invitation';
 
 type OwnProps = { isReady: boolean };
 type RouterProps = {
@@ -30,14 +29,7 @@ const useInvitationAcceptRequest = (props: Props) => {
   useEffect(() => {
     if (isReady && status === false) {
       setStatus('requesting');
-      fetch(
-        buildApiAppUrl('/accept-invitation'),
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'Application/json' },
-          body: JSON.stringify({ invitationToken }),
-        },
-      )
+      acceptInvitation(invitationToken)
         .then((res) => {
           if (res.status < 400) {
             localStorage.setItem(SELECTED_TEAM_ID_KEY, teamId);
