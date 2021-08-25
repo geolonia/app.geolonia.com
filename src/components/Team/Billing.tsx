@@ -180,7 +180,6 @@ const usePlan = (props: StateProps) => {
         buildApiAppUrl(`/teams/${teamId}/plan`),
       );
       const data = await res.json();
-      console.log(data);
       setPlanId(data.planId);
       setSubscription(data.subscription);
       setCustomer(data.customer);
