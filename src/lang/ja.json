@@ -252,6 +252,7 @@
       ],
       "Free plan": ["Free プラン"],
       "Free Plan": ["Free プラン"],
+      "Map loads": ["地図の表示回数"],
       "Team settings": ["チーム設定"],
       "Usage this month": ["今月の利用状況"],
       "Billing period": ["請求対象期間"],
@@ -259,6 +260,8 @@
       "Map loads this month": ["今月の地図の表示回数"],
       "Last updated %s": ["最終更新: %s"],
       "Charges": ["料金"],
+      "Map loads by API key": ["API キー別の地図の表示回数"],
+      "API Key": ["API キー"],
       "Payment information": ["支払い情報"],
       "Current account credit:": ["クレジット残高"],
       " : While this account has credits available, payments will deduct from account credit instead of the registered credit card.": [
