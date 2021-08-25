@@ -47,7 +47,7 @@ const getTutorialContents = () => {
 
 const useStyles = makeStyles({
   root: {
-
+    height: '100%',
   },
   animationArea: {
 
