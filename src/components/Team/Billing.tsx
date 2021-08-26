@@ -32,6 +32,7 @@ import moment from 'moment';
 import customFetch from '../../lib/fetch';
 import { Redirect } from 'react-router';
 import { buildApiAppUrl } from '../../lib/api';
+import { colorScheme } from '../../lib/colorscheme';
 
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string,
@@ -234,20 +235,22 @@ const Billing = (props: StateProps) => {
 
       if (usage?.details[apiKey]) {
         usage.details[apiKey].forEach((detail) => {
-
           countData.push(detail.count);
         });
       }
 
-      chartData.push(
-        {
-          label: apiKeyName,
-          data: countData,
-          fill: false,
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgba(255, 99, 132, 0.2)',
-        },
-      );
+      if (countData.length > 0) {
+        chartData.push(
+          {
+            label: apiKeyName,
+            data: countData,
+            fill: false,
+            backgroundColor: colorScheme[chartData.length],
+            borderColor: 'rgba(255, 99, 132, 0.2)',
+          },
+        );
+      }
+
     });
 
     setDatasets(chartData);
