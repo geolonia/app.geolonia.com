@@ -53,6 +53,7 @@ type StateProps = {
   memberCount?: number;
   team?: Geolonia.Team;
   language: string;
+  mapKeys: Geolonia.Key[];
 };
 
 type Duration = '' | 'month' | 'year';
@@ -204,7 +205,7 @@ const usePlan = (props: StateProps) => {
 };
 
 const Billing = (props: StateProps) => {
-  const { session, team, language } = props;
+  const { session, team, language, mapKeys } = props;
   const teamName = team?.name;
   const teamId = team?.teamId;
   const [openPayment, setOpenPayment] = useState(false);
@@ -407,7 +408,10 @@ const Billing = (props: StateProps) => {
             onChange={showApiKeyUsageHandler}
           >
             {
-              usage?.details && Object.keys(usage.details).map((detail) => <MenuItem key={detail} value={detail}>{detail}</MenuItem>)
+              usage?.details && Object.keys(usage.details).map((detail) => {
+                const apiKeyName = mapKeys.find((key) => key.userKey === detail);
+                return <MenuItem key={detail} value={detail}>{apiKeyName?.name}</MenuItem>;
+              })
             }
           </Select>
         </FormControl>
@@ -563,6 +567,7 @@ const Billing = (props: StateProps) => {
 
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
+  const { data: mapKeys = [], error = false } = state.mapKey[team.teamId] || {};
   return {
     session: state.authSupport.session,
     last2: team && team.last2,
@@ -573,6 +578,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
       state.teamMember[team.teamId].data.length,
     team: team,
     language: state.userMeta.language,
+    mapKeys,
   };
 };
 
