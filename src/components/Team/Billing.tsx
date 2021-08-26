@@ -567,7 +567,7 @@ const Billing = (props: StateProps) => {
 
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
-  const { data: mapKeys = [], error = false } = state.mapKey[team.teamId] || {};
+  const { data: mapKeys = [] } = state.mapKey[team.teamId] || {};
   return {
     session: state.authSupport.session,
     last2: team && team.last2,
