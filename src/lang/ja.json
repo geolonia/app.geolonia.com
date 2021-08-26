@@ -20,6 +20,7 @@
       "Tutorials": ["チュートリアル"],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
+      "Home": ["ホーム"],
       "Map": ["地図"],
       "Location Data": ["位置情報データ"],
       "In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.": [
@@ -40,7 +41,6 @@
       "Uploading now..": ["データをアップロードしています。"],
       "Processing data..": ["データを処理しています。"],
       "Adding your data to the map...": ["データを地図に追加しています。"],
-      "Home": ["ホーム"],
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
@@ -173,11 +173,20 @@
       "List of URLs that are allowed to display the map": [
         "地図の表示を許可するURLのリスト"
       ],
+      "Enter multiple URLs on new lines.": [
+        "複数 URL を指定する場合、改行で入力してください。"
+      ],
+      "This API key can only be used to display maps on the websites listed above.": [
+        "このAPIキーは上記指定されているウェブサイトからでしか表示できません。"
+      ],
+      "The <a href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6\" target=\"_blank\" rel=\"noopener noreferrer\">websites allowed by <code>YOUR-API-KEY</code></a> are automatically added to this list. Requests from these websites are free, and are not counted towards your map view quota.": [
+        "<a href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6\" target=\"_blank\" rel=\"noopener noreferrer\"><code>YOUR-API-KEY</code> で許可されている</a>ウェブサイトは自動的にこのリストに追加されます。このウェブサイトからのアクセスは課金対象にせず、「地図の表示回数」に反映されません。"
+      ],
       "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
       "Any subdomain:": ["すべてのサブドメイン:"],
       "A URL with a non-standard port:": ["一般的ではないポート:"],
-      "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
-        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
+      "Note: The wildcard character (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\". You may use multiple wildcards in one URL.": [
+        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。同一 URL に複数ワイルドカードを使うことが出来ます。"
       ],
       "Once you delete an API, there is no going back. Please be certain.": [
         "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してください。"
