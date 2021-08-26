@@ -125,8 +125,16 @@ type ChartDatasets = {
   data: number[],
   fill: boolean,
   backgroundColor: string,
-  borderColor: string,
 }[]
+
+const getRangeDate = (startDate:string, endDate:string) => {
+  const date = [];
+  while(moment(startDate) <= moment(endDate)){
+    date.push(startDate);
+    startDate = moment(startDate).add(1, 'days').format('MM/DD');
+  }
+  return date;
+};
 
 export const parsePlanLabel = (
   plans: GeoloniaPlan[],
@@ -218,16 +226,18 @@ const Billing = (props: StateProps) => {
   const { loaded, plans, name, planId, subscription, customer, upcoming, usage } = usePlan(props);
   const [resumeSubLoading, setResumeSubLoading] = useState(false);
   const [datasets, setDatasets] = useState<ChartDatasets>([]);
+  const [labels, setLabels] = useState<string[]>([]);
 
   useEffect(() => {
 
-    if (!usage) {
+    if (!usage || !subscription) {
       return;
     }
 
     const chartData:ChartDatasets = [];
 
-    usage.details && Object.keys(usage.details).map((apiKey) => {
+    // チャートのデータを用意
+    usage.details && Object.keys(usage.details).forEach((apiKey) => {
 
       const countData:number[] = [];
 
@@ -256,16 +266,19 @@ const Billing = (props: StateProps) => {
             data: countData,
             fill: false,
             backgroundColor: colorScheme[colorIndex],
-            borderColor: 'rgba(255, 99, 132, 0.2)',
           },
         );
       }
 
     });
 
-    setDatasets(chartData);
+    // ラベルを用意
+    const labelList = getRangeDate(moment(subscription.current_period_start).format('MM/DD'), moment(subscription.current_period_end).format('MM/DD'));
 
-  }, [usage]);
+    setDatasets(chartData);
+    setLabels(labelList);
+
+  }, [usage, subscription, mapKeys]);
 
   // チーム変えたらロード状態をリセット
   useEffect(() => {
@@ -273,7 +286,7 @@ const Billing = (props: StateProps) => {
   }, [teamId]);
 
   const data = {
-    labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
+    labels: labels,
     datasets: datasets,
   };
 
