@@ -240,12 +240,22 @@ const Billing = (props: StateProps) => {
       }
 
       if (countData.length > 0) {
+
+        // チャートの配色
+        const colorsMaxIndex = colorScheme.length -1;
+        let colorIndex:number = chartData.length;
+
+        // 用意している色数を以上にデータがあった場合
+        if (colorIndex > colorsMaxIndex) {
+          colorIndex= Math.random() * colorsMaxIndex;
+        }
+
         chartData.push(
           {
             label: apiKeyName,
             data: countData,
             fill: false,
-            backgroundColor: colorScheme[chartData.length],
+            backgroundColor: colorScheme[colorIndex],
             borderColor: 'rgba(255, 99, 132, 0.2)',
           },
         );
