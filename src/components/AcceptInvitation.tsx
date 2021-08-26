@@ -8,11 +8,15 @@ import { connect } from 'react-redux';
 import { SELECTED_TEAM_ID_KEY } from '../redux/middlewares/local-storage';
 import { acceptInvitation } from '../api/teams/accept-invitation';
 
-type OwnProps = { isReady: boolean };
+type OwnProps = {};
+type StateProps = {
+  session: Geolonia.Session,
+  isReady: boolean;
+};
 type RouterProps = {
   match: { params: { invitationToken: string; teamId: string } };
 };
-type Props = OwnProps & RouterProps;
+type Props = OwnProps & StateProps & RouterProps;
 
 const useInvitationAcceptRequest = (props: Props) => {
   const [status, setStatus] = useState<
@@ -20,6 +24,7 @@ const useInvitationAcceptRequest = (props: Props) => {
   >(false);
 
   const {
+    session,
     isReady,
     match: {
       params: { invitationToken, teamId },
@@ -27,9 +32,9 @@ const useInvitationAcceptRequest = (props: Props) => {
   } = props;
 
   useEffect(() => {
-    if (isReady && status === false) {
+    if (isReady && session && status === false) {
       setStatus('requesting');
-      acceptInvitation(invitationToken)
+      acceptInvitation(invitationToken, session)
         .then((res) => {
           if (res.status < 400) {
             localStorage.setItem(SELECTED_TEAM_ID_KEY, teamId);
@@ -42,7 +47,7 @@ const useInvitationAcceptRequest = (props: Props) => {
           setStatus('failure');
         });
     }
-  }, [invitationToken, isReady, status, teamId]);
+  }, [invitationToken, isReady, status, teamId, session]);
 
   return { status, proceed: () => (window.location.href = '/') };
 };
@@ -76,8 +81,9 @@ const AcceptInvitation = (props: Props) => {
   );
 };
 
-const mapStateToProps = (appState: Geolonia.Redux.AppState): OwnProps => {
+const mapStateToProps = (appState: Geolonia.Redux.AppState): StateProps => {
   return {
+    session: appState.authSupport.session,
     isReady: appState.authSupport.isReady,
   };
 };
