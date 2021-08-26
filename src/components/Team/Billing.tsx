@@ -8,11 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 // import Save from "../custom/Save";
 import Title from '../custom/Title';
 import PaymentMethodModal from './Billing/payment-method-modal';
@@ -123,6 +119,14 @@ interface UsageDetails {
   }
 }
 
+type ChartDatasets = {
+  label?: string,
+  data: number[],
+  fill: boolean,
+  backgroundColor: string,
+  borderColor: string,
+}[]
+
 export const parsePlanLabel = (
   plans: GeoloniaPlan[],
   planId: PossiblePlanId,
@@ -212,52 +216,64 @@ const Billing = (props: StateProps) => {
   const [openPlan, setOpenPlan] = useState(false);
   const { loaded, plans, name, planId, subscription, customer, upcoming, usage } = usePlan(props);
   const [resumeSubLoading, setResumeSubLoading] = useState(false);
-  const [apiKey, setApiKey] = useState('');
-  const [chartLabel, setChartLabel] = useState<string[]>([]);
-  const [chartData, setChartData] = useState<number[]>([]);
+  const [datasets, setDatasets] = useState<ChartDatasets>([]);
 
-  const data = {
-    labels: chartLabel,
-    datasets: [
-      {
-        label: __('Map loads'),
-        data: chartData,
-        fill: false,
-        backgroundColor: 'rgb(255, 99, 132)', //TODO: オレンジ rgb(235,92,11)要検討
-        borderColor: 'rgba(255, 99, 132, 0.2)',
-      },
-    ],
-  };
+  useEffect(() => {
+
+    if (!usage) {
+      return;
+    }
+
+    const chartData:ChartDatasets = [];
+
+    usage.details && Object.keys(usage.details).map((apiKey) => {
+
+      const countData:number[] = [];
+
+      const apiKeyName = mapKeys.find((key) => key.userKey === apiKey)?.name;
+
+      if (usage?.details[apiKey]) {
+        usage.details[apiKey].forEach((detail) => {
+
+          countData.push(detail.count);
+        });
+      }
+
+      chartData.push(
+        {
+          label: apiKeyName,
+          data: countData,
+          fill: false,
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgba(255, 99, 132, 0.2)',
+        },
+      );
+    });
+
+    setDatasets(chartData);
+
+  }, [usage]);
 
   // チーム変えたらロード状態をリセット
   useEffect(() => {
-    setChartLabel([]);
-    setChartData([]);
-    setApiKey('');
-  }, [ teamId ]);
+    setDatasets([]);
+  }, [teamId]);
 
-  const showApiKeyUsageHandler = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const label: string[] = [];
-    const data: number[] = [];
-    const selectedApiKey = event.target.value as string;
+  const data = {
+    labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16],
+    datasets: datasets,
+  };
 
-    setApiKey(selectedApiKey);
-
-    if (usage?.details[selectedApiKey]) {
-      usage.details[selectedApiKey].forEach((detail) => {
-
-        // 年を削除
-        const monthDay = detail.date.slice(4);
-        const month = monthDay.slice(0,2);
-        const day = monthDay.slice(-2);
-
-        label.push(`${month}/${day}`);
-        data.push(detail.count);
-      });
-    }
-
-    setChartLabel(label);
-    setChartData(data);
+  const options = {
+    responsive: true,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
   };
 
   const currency = customer?.currency;
@@ -400,22 +416,7 @@ const Billing = (props: StateProps) => {
         <Typography component="h2" className="module-title">
           {__('Map loads by API key')}
         </Typography>
-        <FormControl>
-          <InputLabel>{__('API Key')}</InputLabel>
-          <Select
-            id={'select-usage-api-key'}
-            value={apiKey}
-            onChange={showApiKeyUsageHandler}
-          >
-            {
-              usage?.details && Object.keys(usage.details).map((detail) => {
-                const apiKeyName = mapKeys.find((key) => key.userKey === detail);
-                return <MenuItem key={detail} value={detail}>{apiKeyName?.name}</MenuItem>;
-              })
-            }
-          </Select>
-        </FormControl>
-        <Line data={data} id={'chart-usage-api-key'} height={100}/>
+        <Bar data={data} options={options} id={'chart-usage-api-key'} height={100}/>
       </Paper>
 
       <Paper className="payment-info">
