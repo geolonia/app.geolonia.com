@@ -4,7 +4,7 @@
  * @returns
  */
 const normalizeOrigins = (lineDelimetedAllowedOrigins: string) => {
-  const allowedOrigins = lineDelimetedAllowedOrigins.split('\n');
+  const allowedOrigins = lineDelimetedAllowedOrigins.split(/[\n,]/);
   if (!Array.isArray(allowedOrigins) || allowedOrigins.length === 0) {
     return [];
   }
