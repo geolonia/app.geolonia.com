@@ -256,7 +256,9 @@ const Billing = (props: StateProps) => {
       const detailObj = usage.details[apiKey];
       const apiKeyName = mapKeyNames[apiKey];
       const countData = ymdList.map((ymd) => detailObj.find((d) => d.date === ymd)?.count || 0);
-      if (countData.length === 0) continue;
+      const isCountData = countData.filter((count) => count > 0);
+
+      if (isCountData.length === 0) continue;
 
       // チャートの配色
       const colorsMaxIndex = colorScheme.length -1;
