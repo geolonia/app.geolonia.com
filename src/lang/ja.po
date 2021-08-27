@@ -14,11 +14,11 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0\n"
 
-#: src/components/AcceptInvitation.tsx:66
+#: src/components/AcceptInvitation.tsx:69
 msgid "Your invitation has been validated."
 msgstr "招待が有効化されました。"
 
-#: src/components/AcceptInvitation.tsx:69
+#: src/components/AcceptInvitation.tsx:72
 msgid "Your invitation has been outdated."
 msgstr "この招待は無効です。"
 
@@ -610,7 +610,7 @@ msgstr "新しいパスワード"
 msgid "Confirm new password"
 msgstr "新しいパスワードを確認"
 
-#: src/components/ResetPassword.tsx:128 src/components/Signup.tsx:141
+#: src/components/ResetPassword.tsx:128 src/components/Signup.tsx:162
 msgid ""
 "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
@@ -666,7 +666,7 @@ msgstr "おっと、サーバーが正しく応答していないようです。
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:135 src/components/Signup.tsx:130
+#: src/components/Signin.tsx:135 src/components/Signup.tsx:151
 msgid "Password"
 msgstr "パスワード"
 
@@ -686,32 +686,32 @@ msgstr "アカウントをお持ちですか？"
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:104 src/components/verify.tsx:75
+#: src/components/Signup.tsx:125 src/components/verify.tsx:76
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:105
+#: src/components/Signup.tsx:126
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:108 src/components/User/profile.tsx:108
-#: src/components/resend-code.tsx:60 src/components/verify.tsx:87
+#: src/components/Signup.tsx:129 src/components/User/profile.tsx:108
+#: src/components/resend-code.tsx:60 src/components/verify.tsx:88
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/components/Signup.tsx:116
+#: src/components/Signup.tsx:137
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:120
+#: src/components/Signup.tsx:141
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:154
+#: src/components/Signup.tsx:175
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:161
+#: src/components/Signup.tsx:182
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">Terms of "
@@ -723,6 +723,10 @@ msgstr ""
 "class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" "
 "target=\"_blank\">プライバシーポリシー</a> に同意したものとさせていただきま"
 "す。"
+
+#: src/components/Signup.tsx:191
+msgid "Already have an account? If so, please <a href=\"#/sign\">sign in</a>."
+msgstr "すでにアカウントをお持ちですか？その場合は<a href=\"#/sign\">サインイン</a>してください。"
 
 #: src/components/Team/Billing.tsx:146
 msgid "Free plan"
@@ -765,7 +769,7 @@ msgstr "料金"
 msgid "Map loads by API key"
 msgstr "API キー別の地図の表示回数"
 
-#: src/components/Team/Billing.tsx:450
+#: src/components/Team/Billing.tsx:451
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 
@@ -1040,20 +1044,12 @@ msgstr "招待する"
 
 #: src/components/Team/members/invite.tsx:82
 msgid ""
-"Please enter the email address of the person you want to invite to \"%s\". "
-"Please note that the user must <a href=\"/#/signup\" target=\"_blank"
-"\">create a Geolonia account</a> first before you can send the invitation."
-msgstr ""
-"チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n"
-"<br>\n"
-"※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が完"
-"了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps にまだ"
-"登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユーザー登録</"
-"a>を済ませてから招待を送信してください。"
+"Please enter the email address of the person you want to invite to \"%s\"."
+msgstr "チーム「%s」にユーザーを招待してコラボレーションしましょう。"
 
 #: src/components/Team/members/invite.tsx:86
 msgid "Receipient's email address"
-msgstr "招待するユーザーの Geolonia 登録メールアドレス"
+msgstr "招待するユーザーのメールアドレス"
 
 #: src/components/Team/members/invite.tsx:92
 msgid "Send"
@@ -1253,26 +1249,26 @@ msgstr "英語"
 msgid "request send"
 msgstr "再送する"
 
-#: src/components/verify.tsx:114
+#: src/components/verify.tsx:115
 msgid "Verify"
 msgstr "検証する"
 
-#: src/components/verify.tsx:119
+#: src/components/verify.tsx:120
 msgid "Request a new verification code."
 msgstr "検証コードを再送する。"
 
-#: src/components/verify.tsx:76
+#: src/components/verify.tsx:77
 msgid "Verify your account"
 msgstr "アカウントの確認"
 
-#: src/components/verify.tsx:80
+#: src/components/verify.tsx:81
 msgid ""
 "Please check your email and enter the verification code like <code>123456</"
 "code>."
 msgstr ""
 "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
 
-#: src/components/verify.tsx:97
+#: src/components/verify.tsx:98
 msgid "Verification code"
 msgstr "検証コード"
 
@@ -1393,6 +1389,18 @@ msgstr ""
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid ""
+#~ "Please enter the email address of the person you want to invite to \"%s"
+#~ "\". Please note that the user must <a href=\"/#/signup\" target=\"_blank"
+#~ "\">create a Geolonia account</a> first before you can send the invitation."
+#~ msgstr ""
+#~ "チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n"
+#~ "<br>\n"
+#~ "※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が"
+#~ "完了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps "
+#~ "にまだ登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユー"
+#~ "ザー登録</a>を済ませてから招待を送信してください。"
 
 #~ msgid "Map loads"
 #~ msgstr "地図の表示回数"

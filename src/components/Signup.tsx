@@ -11,7 +11,7 @@ import Redux from 'redux';
 import { connect } from 'react-redux';
 import { createActions } from '../redux/actions/auth-support';
 import StatusIndication from './custom/status-indication';
-import { __ } from '@wordpress/i18n';
+import { sprintf, __ } from '@wordpress/i18n';
 import Interweave from 'interweave';
 import { parseSignupError as parseCognitoSignupError } from '../lib/cognito/parse-error';
 import estimateLanguage from '../lib/estimate-language';
@@ -112,7 +112,10 @@ const Signup = (props: Props) => {
     if(typeof parsed.invitationToken === 'string') {
       setInvitationToken(parsed.invitationToken);
     }
-  }, [setInvitationToken]);
+    if(typeof parsed.email === 'string') {
+      setEmail(parsed.email);
+    }
+  }, [setInvitationToken, setEmail]);
 
   return (
     <div className="signup">
@@ -182,6 +185,12 @@ const Signup = (props: Props) => {
             />
           </p>
         </form>
+
+        <p className="message">
+          <Interweave
+            content={__('Already have an account? If so, please <a href="#/sign">sign in</a>.')}
+          />
+        </p>
 
         <div className="support-container">
           <Languages />

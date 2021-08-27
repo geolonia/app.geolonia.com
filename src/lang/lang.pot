@@ -3,11 +3,11 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/AcceptInvitation.tsx:66
+#: src/components/AcceptInvitation.tsx:69
 msgid "Your invitation has been validated."
 msgstr ""
 
-#: src/components/AcceptInvitation.tsx:69
+#: src/components/AcceptInvitation.tsx:72
 msgid "Your invitation has been outdated."
 msgstr ""
 
@@ -576,7 +576,7 @@ msgid "Confirm new password"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:128
-#: src/components/Signup.tsx:141
+#: src/components/Signup.tsx:162
 msgid "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
 
@@ -629,7 +629,7 @@ msgid "Username or email address"
 msgstr ""
 
 #: src/components/Signin.tsx:135
-#: src/components/Signup.tsx:130
+#: src/components/Signup.tsx:151
 msgid "Password"
 msgstr ""
 
@@ -649,41 +649,45 @@ msgstr ""
 msgid "Create an account."
 msgstr ""
 
-#: src/components/Signup.tsx:104
-#: src/components/verify.tsx:75
+#: src/components/Signup.tsx:125
+#: src/components/verify.tsx:76
 msgid "Welcome to Geolonia"
 msgstr ""
 
-#: src/components/Signup.tsx:105
+#: src/components/Signup.tsx:126
 msgid "Create your account"
 msgstr ""
 
-#: src/components/Signup.tsx:108
+#: src/components/Signup.tsx:129
 #: src/components/User/profile.tsx:108
 #: src/components/resend-code.tsx:60
-#: src/components/verify.tsx:87
+#: src/components/verify.tsx:88
 msgid "Username"
 msgstr ""
 
-#: src/components/Signup.tsx:116
+#: src/components/Signup.tsx:137
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:120
+#: src/components/Signup.tsx:141
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:154
+#: src/components/Signup.tsx:175
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:161
+#: src/components/Signup.tsx:182
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" target=\"_blank\" "
 "class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a "
 "class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" "
 "target=\"_blank\">Privacy policy</a>."
+msgstr ""
+
+#: src/components/Signup.tsx:191
+msgid "Already have an account? If so, please <a href=\"#/sign\">sign in</a>."
 msgstr ""
 
 #: src/components/Team/Billing.tsx:146
@@ -728,7 +732,7 @@ msgstr ""
 msgid "Map loads by API key"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:450
+#: src/components/Team/Billing.tsx:451
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr ""
 
@@ -988,11 +992,7 @@ msgid "Send an invitation"
 msgstr ""
 
 #: src/components/Team/members/invite.tsx:82
-msgid ""
-"Please enter the email address of the person you want to invite to \"%s\". "
-"Please note that the user must <a href=\"/#/signup\" "
-"target=\"_blank\">create a Geolonia account</a> first before you can send "
-"the invitation."
+msgid "Please enter the email address of the person you want to invite to \"%s\"."
 msgstr ""
 
 #: src/components/Team/members/invite.tsx:86
@@ -1197,25 +1197,25 @@ msgstr ""
 msgid "request send"
 msgstr ""
 
-#: src/components/verify.tsx:114
+#: src/components/verify.tsx:115
 msgid "Verify"
 msgstr ""
 
-#: src/components/verify.tsx:119
+#: src/components/verify.tsx:120
 msgid "Request a new verification code."
 msgstr ""
 
-#: src/components/verify.tsx:76
+#: src/components/verify.tsx:77
 msgid "Verify your account"
 msgstr ""
 
-#: src/components/verify.tsx:80
+#: src/components/verify.tsx:81
 msgid ""
 "Please check your email and enter the verification code like "
 "<code>123456</code>."
 msgstr ""
 
-#: src/components/verify.tsx:97
+#: src/components/verify.tsx:98
 msgid "Verification code"
 msgstr ""
 

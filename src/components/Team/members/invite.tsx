@@ -79,7 +79,7 @@ export const Invite = (props: Props) => {
         buttonLabel={__('Invite')}
         label={__('Send an invitation')}
         description={<Interweave content={
-          sprintf(__('Please enter the email address of the person you want to invite to "%s". Please note that the user must <a href="/#/signup" target="_blank">create a Geolonia account</a> first before you can send the invitation.'), teamName)
+          sprintf(__('Please enter the email address of the person you want to invite to "%s".'), teamName)
         } />}
         defaultValue=""
         fieldName="email"
