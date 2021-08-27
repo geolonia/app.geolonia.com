@@ -48,7 +48,7 @@ msgstr ""
 #: src/components/Maps/APIKey.tsx:115
 #: src/components/Maps/APIKeys.tsx:44
 #: src/components/Navigator.tsx:263
-#: src/components/Team/Billing.tsx:213
+#: src/components/Team/Billing.tsx:320
 #: src/components/Team/general/index.tsx:28
 #: src/components/Team/members/index.tsx:121
 #: src/components/User/User.tsx:13
@@ -686,101 +686,109 @@ msgid ""
 "target=\"_blank\">Privacy policy</a>."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:117
+#: src/components/Team/Billing.tsx:146
 msgid "Free plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:141
+#: src/components/Team/Billing.tsx:170
 msgid "Free Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:217
+#: src/components/Team/Billing.tsx:324
 #: src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:277
+#: src/components/Team/Billing.tsx:384
 msgid "Usage this month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:283
+#: src/components/Team/Billing.tsx:390
 msgid "Billing period"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:299
+#: src/components/Team/Billing.tsx:406
 msgid "Next Payment Date"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:315
+#: src/components/Team/Billing.tsx:422
 msgid "Map loads this month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:323
+#: src/components/Team/Billing.tsx:430
 msgid "Last updated %s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:330
+#: src/components/Team/Billing.tsx:437
 msgid "Charges"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:345
+#: src/components/Team/Billing.tsx:448
+msgid "Map loads by API key"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:450
+msgid "API keys with no map loads will not be shown in the graph."
+msgstr ""
+
+#: src/components/Team/Billing.tsx:460
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:355
+#: src/components/Team/Billing.tsx:470
 msgid "Current account credit:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:359
+#: src/components/Team/Billing.tsx:474
 msgid ""
 " : While this account has credits available, payments will deduct from "
 "account credit instead of the registered credit card."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:364
+#: src/components/Team/Billing.tsx:479
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:368
+#: src/components/Team/Billing.tsx:483
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:378
+#: src/components/Team/Billing.tsx:493
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:390
+#: src/components/Team/Billing.tsx:505
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:396
+#: src/components/Team/Billing.tsx:511
 msgid "Scheduled to expire on %1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:415
+#: src/components/Team/Billing.tsx:530
 msgid "Resume subscription"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:427
+#: src/components/Team/Billing.tsx:542
 msgid "Change Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:455
+#: src/components/Team/Billing.tsx:570
 msgid "Learn more about plans on the pricing page."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:465
+#: src/components/Team/Billing.tsx:580
 msgid "Billing and Plans"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:466
+#: src/components/Team/Billing.tsx:581
 msgid ""
 "You can check and change your current pricing plan and usage status of Team "
 "%s."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:475
+#: src/components/Team/Billing.tsx:590
 msgid "Payment history"
 msgstr ""
 

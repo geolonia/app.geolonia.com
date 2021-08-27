@@ -113,6 +113,28 @@
     }
   }
 
+  .usage-details-info
+  {
+    margin-bottom: 20px;
+    .MuiFormControl-root
+    {
+      margin: 15px 5px;
+      #select-usage-api-key
+      {
+        padding-left: 8px;
+        width: 290px;
+      }
+    }
+    #chart-usage-api-key
+    {
+      max-width: 100%;
+    }
+    .chart-helper-text
+    {
+      text-align: right;
+    }
+  }
+
   .payment-info
   {
     margin-bottom: 20px;

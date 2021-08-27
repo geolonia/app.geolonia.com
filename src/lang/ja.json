@@ -271,6 +271,10 @@
       "Map loads this month": ["今月の地図の表示回数"],
       "Last updated %s": ["最終更新: %s"],
       "Charges": ["料金"],
+      "Map loads by API key": ["API キー別の地図の表示回数"],
+      "API keys with no map loads will not be shown in the graph.": [
+        "表示回数の無いAPIキーはグラフに表示されません。"
+      ],
       "Payment information": ["支払い情報"],
       "Current account credit:": ["クレジット残高"],
       " : While this account has credits available, payments will deduct from account credit instead of the registered credit card.": [
