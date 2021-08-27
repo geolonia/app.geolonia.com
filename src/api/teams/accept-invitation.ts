@@ -1,18 +1,11 @@
 import { buildApiAppUrl } from '../../lib/api';
-import customFetch from '../../lib/fetch';
 
-export const acceptInvitation = (invitationToken: string, session?: Geolonia.Session) => {
+export const acceptInvitation = (invitationToken: string, email: string) => {
   const fetchOptions = {
     method: 'POST',
     headers: { 'Content-Type': 'Application/json' },
-    body: JSON.stringify({ invitationToken }),
+    body: JSON.stringify({ invitationToken, email }),
   };
-
-  if(session) {
-    const url = buildApiAppUrl('/accept-team-invitation');
-    return customFetch(session, url, fetchOptions);
-  } else {
-    const url = buildApiAppUrl('/accept-invitation');
-    return fetch(url, fetchOptions);
-  }
+  const url = buildApiAppUrl('/accept-invitation');
+  return fetch(url, fetchOptions);
 };

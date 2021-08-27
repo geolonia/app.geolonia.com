@@ -80,14 +80,15 @@ const Signup = (props: Props) => {
     const succeededUsername = result.user.getUsername();
     props.setCurrentUser(succeededUsername);
     if(invitationToken) {
-      await acceptInvitation(invitationToken);
+      await acceptInvitation(invitationToken, email);
     }
-    await sleep(pageTransitionInterval);
-
-    const qs = new URLSearchParams({
+    const query: { [key: string]: string } = {
       lang: estimateLanguage(),
       username: encodeURIComponent(succeededUsername),
-    }).toString();
+    };
+    const qs = new URLSearchParams(query).toString();
+
+    await sleep(pageTransitionInterval);
     window.location.href = `/?${qs}#/verify`;
   };
 

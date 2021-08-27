@@ -10,11 +10,13 @@ import { acceptInvitation } from '../api/teams/accept-invitation';
 
 type OwnProps = {};
 type StateProps = {
+  email: string;
   session: Geolonia.Session,
   isReady: boolean;
 };
 type RouterProps = {
   match: { params: { invitationToken: string; teamId: string } };
+  history: { replace: (path: string) => void };
 };
 type Props = OwnProps & StateProps & RouterProps;
 
@@ -24,17 +26,19 @@ const useInvitationAcceptRequest = (props: Props) => {
   >(false);
 
   const {
+    email,
     session,
     isReady,
     match: {
       params: { invitationToken, teamId },
     },
+    history: { replace },
   } = props;
 
   useEffect(() => {
     if (isReady && session && status === false) {
       setStatus('requesting');
-      acceptInvitation(invitationToken, session)
+      acceptInvitation(invitationToken, email)
         .then((res) => {
           if (res.status < 400) {
             localStorage.setItem(SELECTED_TEAM_ID_KEY, teamId);
@@ -46,8 +50,10 @@ const useInvitationAcceptRequest = (props: Props) => {
         .catch((error) => {
           setStatus('failure');
         });
+    } else if(isReady && !session) {
+      replace('/signin');
     }
-  }, [invitationToken, isReady, status, teamId, session]);
+  }, [invitationToken, isReady, status, teamId, session, replace, email]);
 
   return { status, proceed: () => (window.location.href = '/') };
 };
@@ -83,6 +89,7 @@ const AcceptInvitation = (props: Props) => {
 
 const mapStateToProps = (appState: Geolonia.Redux.AppState): StateProps => {
   return {
+    email: appState.userMeta.email,
     session: appState.authSupport.session,
     isReady: appState.authSupport.isReady,
   };
