@@ -254,7 +254,6 @@ const Billing = (props: StateProps) => {
     for (const apiKey in usage.details) {
       const detailObj = usage.details[apiKey];
       const apiKeyName = mapKeyNames[apiKey];
-      // todo normalize to labelList
       const countData = ymdList.map((ymd) => detailObj.find((d) => d.date === ymd)?.count || 0);
       if (countData.length === 0) continue;
 
