@@ -127,13 +127,14 @@ type ChartDatasets = {
   backgroundColor: string,
 }[]
 
-const getRangeDate = (startDate:string, endDate:string) => {
-  const date = [];
-  while(moment(startDate) <= moment(endDate)){
-    date.push(startDate);
-    startDate = moment(startDate).add(1, 'days').format('MM/DD');
+const getRangeDate = (startDate: moment.Moment, endDate: moment.Moment) => {
+  const dates: moment.Moment[] = [];
+  let currentDate: moment.Moment = startDate;
+  while (currentDate <= endDate) {
+    dates.push(currentDate);
+    currentDate = currentDate.clone().add(1, 'days');
   }
-  return date;
+  return dates;
 };
 
 export const parsePlanLabel = (
@@ -228,57 +229,58 @@ const Billing = (props: StateProps) => {
   const [datasets, setDatasets] = useState<ChartDatasets>([]);
   const [labels, setLabels] = useState<string[]>([]);
 
-  useEffect(() => {
+  const mapKeyNames = useMemo(() => {
+    const out: { [key: string]: string } = {};
+    for (const key of mapKeys) {
+      out[key.userKey] = key.name;
+    }
+    return out;
+  }, [mapKeys]);
 
-    if (!usage || !subscription) {
+  useEffect(() => {
+    if (!usage || !subscription || !usage.details) {
       return;
     }
 
-    const chartData:ChartDatasets = [];
-
-    // チャートのデータを用意
-    usage.details && Object.keys(usage.details).forEach((apiKey) => {
-
-      const countData:number[] = [];
-
-      const apiKeyName = mapKeys.find((key) => key.userKey === apiKey)?.name;
-
-      if (usage?.details[apiKey]) {
-        usage.details[apiKey].forEach((detail) => {
-          countData.push(detail.count);
-        });
-      }
-
-      if (countData.length > 0) {
-
-        // チャートの配色
-        const colorsMaxIndex = colorScheme.length -1;
-        let colorIndex:number = chartData.length;
-
-        // 用意している色数を以上にデータがあった場合
-        if (colorIndex > colorsMaxIndex) {
-          colorIndex= Math.random() * colorsMaxIndex;
-        }
-
-        chartData.push(
-          {
-            label: apiKeyName,
-            data: countData,
-            fill: false,
-            backgroundColor: colorScheme[colorIndex],
-          },
-        );
-      }
-
-    });
-
     // ラベルを用意
-    const labelList = getRangeDate(moment(subscription.current_period_start).format('MM/DD'), moment(subscription.current_period_end).format('MM/DD'));
+    const labelList = getRangeDate(
+      moment(subscription.current_period_start), moment(subscription.current_period_end),
+    );
+
+    const ymdList = labelList.map((d) => d.format('YYYYMMDD'));
+
+    const chartData: ChartDatasets = [];
+
+    for (const apiKey in usage.details) {
+      const detailObj = usage.details[apiKey];
+      const apiKeyName = mapKeyNames[apiKey];
+      // todo normalize to labelList
+      const countData = ymdList.map((ymd) => detailObj.find((d) => d.date === ymd)?.count || 0);
+      if (countData.length === 0) continue;
+
+      // チャートの配色
+      const colorsMaxIndex = colorScheme.length -1;
+      let colorIndex:number = chartData.length;
+
+      // 用意している色数を以上にデータがあった場合
+      if (colorIndex > colorsMaxIndex) {
+        colorIndex = Math.random() * colorsMaxIndex;
+      }
+
+      chartData.push(
+        {
+          label: apiKeyName,
+          data: countData,
+          fill: false,
+          backgroundColor: colorScheme[colorIndex],
+        },
+      );
+    }
 
     setDatasets(chartData);
-    setLabels(labelList);
+    setLabels(labelList.map((x) => x.format('MM/DD')));
 
-  }, [usage, subscription, mapKeys]);
+  }, [usage, subscription, mapKeyNames]);
 
   // チーム変えたらロード状態をリセット
   useEffect(() => {
