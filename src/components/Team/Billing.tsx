@@ -448,6 +448,7 @@ const Billing = (props: StateProps) => {
           {__('Map loads by API key')}
         </Typography>
         <Bar data={data} options={options} id={'chart-usage-api-key'} height={100}/>
+        <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
       </Paper>
 
       <Paper className="payment-info">
