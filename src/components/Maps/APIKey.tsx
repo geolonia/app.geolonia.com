@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import * as clipboard from 'clipboard-polyfill';
 
 import Grid from '@material-ui/core/Grid';
@@ -34,6 +34,11 @@ import { messageDisplayDuration } from '../../constants';
 import { sleep } from '../../lib/sleep';
 import mixpanel from 'mixpanel-browser';
 
+interface ApiKeyFormControlsCollection extends HTMLFormControlsCollection {
+  apiKeyName: HTMLInputElement
+  apiKeyAllowedOrigins: HTMLInputElement
+}
+
 type OwnProps = Record<string, never>;
 type StateProps = {
   mapKey?: Geolonia.Key;
@@ -56,14 +61,27 @@ type RouterProps = {
 type Props = OwnProps & StateProps & DispatchProps & RouterProps;
 
 const Content = (props: Props) => {
+  const {
+    session,
+    updateKey: updateKeyCallback,
+    deleteKey: deleteKeyCallback,
+    teamId,
+    history,
+  } = props;
+  const apiKey = props.mapKey?.userKey;
+  const keyId = props.mapKey?.keyId;
+  // props
+  const propName = (props.mapKey || { name: '' }).name;
+  const propOrigins = (props.mapKey || { allowedOrigins: [] }).allowedOrigins;
+
   // state
-  const [name, setName] = useState('');
-  const [allowedOrigins, setAllowedOrigins] = useState('');
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
   >(false);
   const [message, setMessage] = useState('');
   const [prevIndex] = useState(props.selectedTeamIndex);
+
+  const apiKeyFormRef = useRef<HTMLFormElement | null>(null);
 
   // move on team change
   useEffect(() => {
@@ -72,44 +90,25 @@ const Content = (props: Props) => {
     }
   }, [prevIndex, props.history, props.selectedTeamIndex]);
 
-  // props
-  const propName = (props.mapKey || { name: '' }).name;
-  const propOrigins = (props.mapKey || { allowedOrigins: [] }).allowedOrigins;
-
   // effects
   useEffect(() => {
-    setName(propName);
-    const normalizedOrigin = normalizeOrigins(propOrigins.join('\n'));
-    setAllowedOrigins(normalizedOrigin.join('\n'));
-
     const script = document.createElement('script');
     script.src = 'https://geolonia.github.io/get-geolonia/app.js';
     document.body.appendChild(script);
-  }, [propName, propOrigins]);
+  }, []);
 
-  if (!props.mapKey) {
-    // no key found
-    return null;
-  }
-
-  const onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+  const onNameBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     const name = e.currentTarget.value;
-    setName(name.trim());
-  };
+    e.currentTarget.value = name.trim();
+  }, []);
 
-  const apiKey = props.mapKey.userKey;
   const embedCode = sprintf(
     '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
     'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
     process.env.REACT_APP_STAGE,
     apiKey,
   );
-  const embedCSS = `.geolonia {
-  width: 100%;
-  height: 400px;
-}`;
-
-  const { keyId } = props.mapKey;
+  const embedCSS = '.geolonia {\n  width: 100%;\n  height: 400px;\n}';
 
   const breadcrumbItems = [
     {
@@ -144,24 +143,31 @@ const Content = (props: Props) => {
     marginBottom: '10px',
   };
 
-  const saveDisabled =
-    name.trim() === '' ||
-    (name === propName && allowedOrigins === propOrigins.join('\n'));
-
-  const onUpdateClick = async () => {
-    if (saveDisabled) {
+  const handleApiKeySubmit = useCallback<(event?: React.FormEvent<HTMLFormElement>) => Promise<void>>(async (event) => {
+    if (!keyId || !apiKeyFormRef.current) {
       return;
+    }
+    if (event) {
+      event.preventDefault();
     }
 
     setStatus('requesting');
 
+    const elements = apiKeyFormRef.current.elements as ApiKeyFormControlsCollection;
+    const allowedOrigins = elements['apiKeyAllowedOrigins'].value;
+    const name = elements['apiKeyName'].value;
+
     const normalizedAllowedOrigins = normalizeOrigins(allowedOrigins);
+
+    // Immediate feedback for normalization
+    elements['apiKeyAllowedOrigins'].value = normalizedAllowedOrigins.join('\n');
+
     const nextKey = {
       name,
       allowedOrigins: normalizedAllowedOrigins,
     };
 
-    const result = await updateKey(props.session, props.teamId, keyId, nextKey);
+    const result = await updateKey(session, teamId, keyId, nextKey);
     if (result.error) {
       setStatus('failure');
       setMessage(result.message);
@@ -172,14 +178,20 @@ const Content = (props: Props) => {
       originCount: normalizedAllowedOrigins.length,
     });
     setStatus('success');
-    props.updateKey(props.teamId, keyId, nextKey);
-  };
+    updateKeyCallback(teamId, keyId, nextKey);
+  }, [keyId, session, teamId, updateKeyCallback]);
 
-  const onRequestError = () => setStatus('failure');
+  const onUpdateClick = useCallback<() => Promise<void>>(async () => {
+    await handleApiKeySubmit();
+  }, [handleApiKeySubmit]);
 
-  const onDeleteClick = async () => {
+  const onRequestError = useCallback(() => setStatus('failure'), []);
+
+  const onDeleteClick = useCallback<() => Promise<void>>(async () => {
+    if (!keyId) return;
+
     setStatus('requesting');
-    const result = await deleteKey(props.session, props.teamId, keyId);
+    const result = await deleteKey(session, teamId, keyId);
     if (result.error) {
       setStatus('failure');
       setMessage(result.message);
@@ -189,9 +201,9 @@ const Content = (props: Props) => {
     mixpanel.track('Delete API key', { apiKeyId: keyId });
     await sleep(messageDisplayDuration);
 
-    props.history.push('/api-keys');
-    props.deleteKey(props.teamId, keyId);
-  };
+    history.push('/api-keys');
+    deleteKeyCallback(teamId, keyId);
+  }, [deleteKeyCallback, history, keyId, session, teamId]);
 
   const copyToClipBoard = (cssSelector: string) => {
     const input = document.querySelector(cssSelector) as HTMLInputElement;
@@ -200,6 +212,11 @@ const Content = (props: Props) => {
       clipboard.writeText(input.value);
     }
   };
+
+  if (!props.mapKey || !apiKey) {
+    // no key found
+    return null;
+  }
 
   return (
     <div>
@@ -222,67 +239,72 @@ const Content = (props: Props) => {
           </Paper>
 
           <Paper>
-
-            <Typography component="h2" className="module-title">
-              {__('Settings')}
-            </Typography>
-
-            <TextField
-              id="standard-name"
-              label={__('Name for managing API keys')}
-              margin="normal"
-              fullWidth={true}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              disabled={status === 'requesting'}
-              onBlur={onNameBlur}
-            />
-
-            <TextField
-              id="standard-name"
-              label={__('List of URLs that are allowed to display the map')}
-              margin="normal"
-              multiline={true}
-              rows={5}
-              placeholder="https://example.com"
-              fullWidth={true}
-              value={allowedOrigins}
-              onChange={(e) => setAllowedOrigins(e.target.value)}
-              disabled={status === 'requesting'}
-            />
-
-            <Save
-              onClick={onUpdateClick}
-              onError={onRequestError}
-              disabled={saveDisabled}
-            />
-
-            <Help>
-              <Typography component="p">
-                {__(
-                  'URLs will be used for an HTTP referrer to restrict the URLs that can use an API key.',
-                )}
+            <form onSubmit={handleApiKeySubmit} ref={apiKeyFormRef}>
+              <Typography component="h2" className="module-title">
+                {__('Settings')}
               </Typography>
-              <ul>
-                <li>
-                  {__('Any page in a specific URL:')}{' '}
-                  <strong>https://www.example.com</strong>
-                </li>
-                <li>
-                  {__('Any subdomain:')} <strong>https://*.example.com</strong>
-                </li>
-                <li>
-                  {__('A URL with a non-standard port:')}{' '}
-                  <strong>https://example.com:*</strong>
-                </li>
-              </ul>
-              <p>
-                {__(
-                  'Note: Wild card (*) will be matched to a-z, A-Z, 0-9, "-", "_".',
-                )}
-              </p>
-            </Help>
 
+              <TextField
+                label={__('Name for managing API keys')}
+                name="apiKeyName"
+                margin="normal"
+                fullWidth={true}
+                defaultValue={propName}
+                disabled={status === 'requesting'}
+                onBlur={onNameBlur}
+              />
+
+              <TextField
+                label={__('List of URLs that are allowed to display the map')}
+                name="apiKeyAllowedOrigins"
+                helperText={__('Enter multiple URLs on new lines.')}
+                margin="normal"
+                multiline={true}
+                rows={5}
+                placeholder="https://example.com"
+                fullWidth={true}
+                defaultValue={propOrigins.join('\n')}
+                disabled={status === 'requesting'}
+              />
+
+              <Save
+                onClick={onUpdateClick}
+                onError={onRequestError}
+                disabled={false}
+              />
+
+              <Help>
+                <Typography component="p">
+                  {__(
+                    'This API key can only be used to display maps on the websites listed above.',
+                  )}
+                </Typography>
+                <p>
+                  <Interweave
+                    content={__('The <a href="https://docs.geolonia.com/tutorial/002/#your-api-key-%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6" target="_blank" rel="noopener noreferrer">websites allowed by <code>YOUR-API-KEY</code></a> are automatically added to this list. Requests from these websites are free, and are not counted towards your map view quota.')}
+                  />
+                </p>
+                <ul>
+                  <li>
+                    {__('Any page in a specific URL:')}{' '}
+                    <strong>https://www.example.com</strong>
+                  </li>
+                  <li>
+                    {__('Any subdomain:')} <strong>https://*.example.com</strong>
+                  </li>
+                  <li>
+                    {__('A URL with a non-standard port:')}{' '}
+                    <strong>https://example.com:*</strong>
+                  </li>
+                </ul>
+                <p>
+                  {__(
+                    'Note: The wildcard character (*) will be matched to a-z, A-Z, 0-9, "-", "_". You may use multiple wildcards in one URL.',
+                  )}
+                </p>
+              </Help>
+
+            </form>
           </Paper>
 
           <DangerZone

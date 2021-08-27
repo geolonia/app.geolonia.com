@@ -68,6 +68,7 @@ export type GeoloniaConstantPlan = {
   price: number;
   duration: Duration;
   maxMemberLength: number;
+  baseFreeMapLoadCount: number;
   contactRequired: false;
 };
 
@@ -420,6 +421,7 @@ const Billing = (props: StateProps) => {
             </Typography>
             <div className="usage-card-content">
               {!usage || typeof usage.count !== 'number' ? '-' : usage.count}
+              { team && <small> / { team.baseFreeMapLoadCount.toLocaleString() }回</small> }
             </div>
             {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
             {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>

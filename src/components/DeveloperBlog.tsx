@@ -30,6 +30,17 @@ const useStyles = makeStyles({
   date_published: {
     textAlign: 'right',
     marginTop: '0.5rem',
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+  },
+  title: {
+    lineHeight: '1.4em',
+    fontSize: '15px',
+  },
+  actionArea: {
+    height: '100%',
+    position: 'relative',
   },
 });
 
@@ -51,17 +62,16 @@ const Content = (props: Props) => {
       <Grid container spacing={2}>
         {blogItems.map((post, index) => {
           return (
-            <Grid item lg={4} md={6} xs={12} key={index}>
+            <Grid item lg={3} md={6} xs={12} key={index}>
               <Card className={classes.root}>
-                <CardActionArea onClick={() => window.open(post.url, '_blank')}>
+                <CardActionArea className={classes.actionArea} onClick={() => window.open(post.url, '_blank')}>
                   <CardMedia
                     className={classes.media}
                     image={`${post.thumbnail}-/resize/800x/-/format/auto/-/quality/lightest/`}
                     title={post.title}
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">{post.title}</Typography>
-                    <Typography variant="body2" color="textSecondary" component="p">{post.excerpt}</Typography>
+                    <Typography gutterBottom variant="h5" component="h2" className={classes.title}>{post.title}</Typography>
                     <div className={classes.date_published}>{post.date_published}</div>
                   </CardContent>
                 </CardActionArea>

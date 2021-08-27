@@ -79,6 +79,7 @@ declare namespace Geolonia {
     avatarImage: string | void;
     last2?: string;
     maxMemberLength: number;
+    baseFreeMapLoadCount: number;
     billingMode: TeamBillingMethod;
     featureFlags: { [key: string]: boolean };
   };

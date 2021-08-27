@@ -62,7 +62,9 @@ const useStyles = makeStyles({
   icon: {
     marginRight: '10px',
   },
-  excerpt: {},
+  excerpt: {
+    minHeight: '60px',
+  },
   button: {
     color: '#EB5C0B',
     marginLeft: '13px',

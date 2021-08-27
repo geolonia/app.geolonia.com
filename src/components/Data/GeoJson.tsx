@@ -21,6 +21,7 @@ import { sleep } from '../../lib/sleep';
 
 // hooks
 import useGeoJSON from './GeoJson/hooks/use-geojson';
+import useMetadata from './GeoJson/hooks/use-metadata';
 
 import './GeoJson.scss';
 // constants
@@ -43,7 +44,9 @@ type RouterProps = {
 type Props = OwnProps & RouterProps & StateProps;
 
 export type TileStatus = null | undefined | 'progress' | 'created' | 'failure';
+
 export type GVPStep = 'started' | 'uploading' | 'processing' | 'done';
+
 const getStepProgress = (): { [key in GVPStep]: { text: string, progress: number } } => {
   return {
     started: { text: '', progress: 0 },
@@ -82,7 +85,8 @@ const GeoJson: React.FC<Props> = (props: Props) => {
     bounds,
     setGeoJsonMeta,
     error,
-  } = useGeoJSON(props.session, props.geojsonId);
+  } = useGeoJSON(session, geojsonId);
+  const { layerNames } = useMetadata(geojsonId);
 
   // move on team change
   useEffect(() => {
@@ -171,6 +175,11 @@ const GeoJson: React.FC<Props> = (props: Props) => {
     return null;
   }
 
+  const isSimpleStyled = (
+    Array.isArray(layerNames) &&
+      layerNames.some((id: string) => id.startsWith('g-simplestyle-'))
+  ) || layerNames === 'error'; // NOTE: fallback
+
   const stepper: React.ReactNode = <div style={{ width: '80%', height: '20px' }}>
     <p style={{ textAlign: 'center' }}>{stepProgress[gvpStep].text}</p>
     <LinearProgress variant="determinate" value={stepProgress[gvpStep].progress} />
@@ -196,12 +205,18 @@ const GeoJson: React.FC<Props> = (props: Props) => {
       setGvpStep={setGvpStep}
     />;
   } else if (tileStatus === 'created') {
-    mapEditorElement = <MapEditor
-      session={session}
-      style={style}
-      geojsonId={geojsonId}
-      bounds={bounds}
-    />;
+    if(isSimpleStyled) {
+      mapEditorElement = <MapEditor
+        session={session}
+        style={style}
+        geojsonId={geojsonId}
+        bounds={bounds}
+      />;
+    } else {
+      mapEditorElement = <div style={mapEditorStyle}>
+        { __('In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.') }
+      </div>;
+    }
   }
 
   return (
@@ -217,7 +232,7 @@ const GeoJson: React.FC<Props> = (props: Props) => {
 
       {tileStatus === 'created' && (
         <div className="nav">
-          <StyleSelector style={style} setStyle={setStyle} />
+          {isSimpleStyled && <StyleSelector style={style} setStyle={setStyle} />}
           {/* <ExportButton GeoJsonID={geojsonId} drawObject={drawObject} /> */}
           <ImportDropZoneButton
             session={session}
@@ -230,7 +245,7 @@ const GeoJson: React.FC<Props> = (props: Props) => {
         </div>
       )}
 
-      <div className="editor">
+      <div className={'editor'}>
         {mapEditorElement}
       </div>
 
