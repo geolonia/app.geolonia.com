@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -10,6 +10,7 @@ import { CircularProgress } from '@material-ui/core';
 // utils
 import { __ } from '@wordpress/i18n';
 import { messageDisplayDuration } from '../../constants';
+import { sleep } from '../../lib/sleep';
 
 type Props = {
   label?: string;
@@ -30,7 +31,7 @@ const getDefaultProps = (props: Props) => ({
   disabled: !!props.disabled,
 });
 
-const Save = (props: Props) => {
+const Save: React.FC<Props> = (props) => {
   const { label, style, onClick, onError, disabled } = getDefaultProps(props);
 
   const [open, setOpen] = useState(false);
@@ -45,29 +46,30 @@ const Save = (props: Props) => {
     ...style,
   };
 
-  const handleSave = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
+  const handleSave = useCallback<React.MouseEventHandler<HTMLButtonElement>>((event) => {
     setStatus('working');
     if (typeof onClick === 'undefined') {
       return;
     }
 
-    onClick(event)
-      .then(() => {
+    (async () => {
+      try {
+        await onClick(event);
         setStatus('success');
         setOpen(true);
-        setTimeout(() => setOpen(false), messageDisplayDuration);
-      })
-      .catch((err) => {
+        await sleep(messageDisplayDuration);
+        setOpen(false);
+      } catch (err) {
         setStatus('failure');
         setOpen(true);
         if (typeof onError !== 'undefined') {
           onError(err);
         }
-        setTimeout(() => setOpen(false), messageDisplayDuration);
-      });
-  };
+        await sleep(messageDisplayDuration);
+        setOpen(false);
+      }
+    })();
+  }, [onClick, onError]);
 
   function handleClose(
     event: React.SyntheticEvent | React.MouseEvent,

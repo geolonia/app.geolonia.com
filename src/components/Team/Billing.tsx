@@ -8,7 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-// import { Line } from "react-chartjs-2";
+import { Bar } from 'react-chartjs-2';
 // import Save from "../custom/Save";
 import Title from '../custom/Title';
 import PaymentMethodModal from './Billing/payment-method-modal';
@@ -32,6 +32,7 @@ import moment from 'moment';
 import customFetch from '../../lib/fetch';
 import { Redirect } from 'react-router';
 import { buildApiAppUrl } from '../../lib/api';
+import { colorScheme } from '../../lib/colorscheme';
 
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string,
@@ -49,6 +50,7 @@ type StateProps = {
   memberCount?: number;
   team?: Geolonia.Team;
   language: string;
+  mapKeys: Geolonia.Key[];
 };
 
 type Duration = '' | 'month' | 'year';
@@ -106,8 +108,35 @@ interface UpcomingDetails {
 interface UsageDetails {
   count: number
   lastLoggedRequest: string
-  updated: string
+  updated: string,
+  details: {
+    [s: string]: [
+      {
+        aggregationUnit: string
+        count: number
+        date: string
+        lastLoggedRequest: string
+      }
+    ]
+  }
 }
+
+type ChartDatasets = {
+  label?: string,
+  data: number[],
+  fill: boolean,
+  backgroundColor: string,
+}[]
+
+const getRangeDate = (startDate: moment.Moment, endDate: moment.Moment) => {
+  const dates: moment.Moment[] = [];
+  let currentDate: moment.Moment = startDate;
+  while (currentDate <= endDate) {
+    dates.push(currentDate);
+    currentDate = currentDate.clone().add(1, 'days');
+  }
+  return dates;
+};
 
 export const parsePlanLabel = (
   plans: GeoloniaPlan[],
@@ -191,13 +220,91 @@ const usePlan = (props: StateProps) => {
 };
 
 const Billing = (props: StateProps) => {
-  const { session, team, language } = props;
+  const { session, team, language, mapKeys } = props;
   const teamName = team?.name;
   const teamId = team?.teamId;
   const [openPayment, setOpenPayment] = useState(false);
   const [openPlan, setOpenPlan] = useState(false);
   const { loaded, plans, name, planId, subscription, customer, upcoming, usage } = usePlan(props);
-  const [ resumeSubLoading, setResumeSubLoading ] = useState(false);
+  const [resumeSubLoading, setResumeSubLoading] = useState(false);
+  const [datasets, setDatasets] = useState<ChartDatasets>([]);
+  const [labels, setLabels] = useState<string[]>([]);
+
+  const mapKeyNames = useMemo(() => {
+    const out: { [key: string]: string } = {};
+    for (const key of mapKeys) {
+      out[key.userKey] = key.name;
+    }
+    return out;
+  }, [mapKeys]);
+
+  useEffect(() => {
+    if (!usage || !subscription || !usage.details) {
+      return;
+    }
+
+    // ラベルを用意
+    const labelList = getRangeDate(
+      moment(subscription.current_period_start), moment(subscription.current_period_end),
+    );
+
+    const ymdList = labelList.map((d) => d.format('YYYYMMDD'));
+
+    const chartData: ChartDatasets = [];
+
+    for (const apiKey in usage.details) {
+      const detailObj = usage.details[apiKey];
+      const apiKeyName = mapKeyNames[apiKey];
+      const countData = ymdList.map((ymd) => detailObj.find((d) => d.date === ymd)?.count || 0);
+      const isCountData = countData.filter((count) => count > 0);
+
+      if (isCountData.length === 0) continue;
+
+      // チャートの配色
+      const colorsMaxIndex = colorScheme.length -1;
+      let colorIndex:number = chartData.length;
+
+      // 用意している色数を以上にデータがあった場合
+      if (colorIndex > colorsMaxIndex) {
+        colorIndex = Math.random() * colorsMaxIndex;
+      }
+
+      chartData.push(
+        {
+          label: apiKeyName,
+          data: countData,
+          fill: false,
+          backgroundColor: colorScheme[colorIndex],
+        },
+      );
+    }
+
+    setDatasets(chartData);
+    setLabels(labelList.map((x) => x.format('MM/DD')));
+
+  }, [usage, subscription, mapKeyNames]);
+
+  // チーム変えたらロード状態をリセット
+  useEffect(() => {
+    setDatasets([]);
+  }, [teamId]);
+
+  const data = {
+    labels: labels,
+    datasets: datasets,
+  };
+
+  const options = {
+    responsive: true,
+    scales: {
+      x: {
+        stacked: true,
+      },
+      y: {
+        stacked: true,
+      },
+    },
+  };
 
   const currency = customer?.currency;
 
@@ -316,8 +423,7 @@ const Billing = (props: StateProps) => {
             </Typography>
             <div className="usage-card-content">
               {!usage || typeof usage.count !== 'number' ? '-' : usage.count}
-              { /* baseFreeMapLoadCount はサーバーレスポンスの修正が必要 */ }
-              { team && team.baseFreeMapLoadCount && <small> / { team.baseFreeMapLoadCount.toLocaleString() }回</small> }
+              { (team && team.baseFreeMapLoadCount) && <small> / { team.baseFreeMapLoadCount.toLocaleString() }回</small> }
             </div>
             {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
             {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
@@ -336,6 +442,14 @@ const Billing = (props: StateProps) => {
           </Paper>
         </Grid>
       </Grid>
+
+      <Paper className="usage-details-info">
+        <Typography component="h2" className="module-title">
+          {__('Map loads by API key')}
+        </Typography>
+        <Bar data={data} options={options} id={'chart-usage-api-key'} height={100}/>
+        <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
+      </Paper>
 
       <Paper className="payment-info">
         <Table>
@@ -486,6 +600,7 @@ const Billing = (props: StateProps) => {
 
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
   const team = state.team.data[state.team.selectedIndex];
+  const { data: mapKeys = [] } = state.mapKey[team.teamId] || {};
   return {
     session: state.authSupport.session,
     last2: team && team.last2,
@@ -496,6 +611,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
       state.teamMember[team.teamId].data.length,
     team: team,
     language: state.userMeta.language,
+    mapKeys,
   };
 };
 
