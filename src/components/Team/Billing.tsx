@@ -33,6 +33,7 @@ import customFetch from '../../lib/fetch';
 import { Redirect } from 'react-router';
 import { buildApiAppUrl } from '../../lib/api';
 import { colorScheme } from '../../lib/colorscheme';
+import { externalTooltipHandler } from '../../lib/billing-tooltip';
 
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string,
@@ -269,9 +270,11 @@ const Billing = (props: StateProps) => {
         colorIndex = Math.random() * colorsMaxIndex;
       }
 
+      const totalCount = countData.reduce((accumulator, currentValue) => accumulator + currentValue);
+
       chartData.push(
         {
-          label: `${apiKeyName}: 500`,
+          label: `${apiKeyName} : ${totalCount}`,
           data: countData,
           fill: false,
           backgroundColor: colorScheme[colorIndex],
@@ -295,6 +298,10 @@ const Billing = (props: StateProps) => {
   };
 
   const options = {
+    interaction: {
+      mode: 'index',
+      intersect: false,
+    },
     responsive: true,
     scales: {
       x: {
@@ -302,6 +309,13 @@ const Billing = (props: StateProps) => {
       },
       y: {
         stacked: true,
+      },
+    },
+    plugins: {
+      tooltip: {
+        enabled: false,
+        position: 'nearest',
+        external: externalTooltipHandler,
       },
     },
   };
