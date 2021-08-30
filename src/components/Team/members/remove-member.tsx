@@ -67,7 +67,7 @@ const RemoveMember = (props: Props) => {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            {sprintf('Removing 1 member from %s.', teamName)}
+            {sprintf(__('Removing 1 member from %s.'), teamName)}
           </DialogTitle>
           <DialogContent>
             <DialogContentText>

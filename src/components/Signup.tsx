@@ -11,7 +11,7 @@ import Redux from 'redux';
 import { connect } from 'react-redux';
 import { createActions } from '../redux/actions/auth-support';
 import StatusIndication from './custom/status-indication';
-import { __ } from '@wordpress/i18n';
+import { sprintf, __ } from '@wordpress/i18n';
 import Interweave from 'interweave';
 import { parseSignupError as parseCognitoSignupError } from '../lib/cognito/parse-error';
 import estimateLanguage from '../lib/estimate-language';
@@ -41,6 +41,7 @@ type Status = null | 'requesting' | 'success' | 'warning';
 
 const Signup = (props: Props) => {
   const [username, setUsername] = useState('');
+  const [invitedEmail, setInvitedEmail] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState<Status>(null);
@@ -113,8 +114,9 @@ const Signup = (props: Props) => {
     if(typeof parsed.invitationToken === 'string') {
       setInvitationToken(parsed.invitationToken);
     }
-    if(typeof parsed.email === 'string') {
-      setEmail(parsed.email);
+    if(typeof parsed.invitedEmail === 'string') {
+      setEmail(parsed.invitedEmail);
+      setInvitedEmail(parsed.invitedEmail);
     }
   }, []);
 
@@ -144,6 +146,7 @@ const Signup = (props: Props) => {
               id={'email'}
               type={'text'}
               value={email}
+              disabled={!!invitedEmail}
               onChange={onEmailChange}
               onBlur={onEmailBlur}
             />
@@ -189,7 +192,10 @@ const Signup = (props: Props) => {
 
         <p className="message">
           <Interweave
-            content={__('Already have an account? If so, please <a href="#/sign">sign in</a>.')}
+            content={invitedEmail ?
+              sprintf(__('Are you sure you\'re not %s? If, please <a href="/#/signin">sign in</a>.'), invitedEmail) :
+              __('Already have an account? If so, please <a href="/#/signin">sign in</a>.')
+            }
           />
         </p>
 

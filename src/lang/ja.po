@@ -602,7 +602,7 @@ msgstr "新しいパスワード"
 msgid "Confirm new password"
 msgstr "新しいパスワードを確認"
 
-#: src/components/ResetPassword.tsx:128 src/components/Signup.tsx:162
+#: src/components/ResetPassword.tsx:128 src/components/Signup.tsx:166
 msgid ""
 "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
@@ -632,17 +632,17 @@ msgstr ""
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/Signin.tsx:146
+#: src/components/Signin.tsx:147
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:150
+#: src/components/Signin.tsx:151
 msgid ""
 "Your password has been successfully reset. Please reenter and sign in to the "
 "account."
 msgstr "パスワードがリセットされました。再度入力してサインインしてください。"
 
-#: src/components/Signin.tsx:153
+#: src/components/Signin.tsx:154
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -650,60 +650,60 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:161 src/lib/cognito/parse-error.ts:50
+#: src/components/Signin.tsx:162 src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
-#: src/components/Signin.tsx:166
+#: src/components/Signin.tsx:167
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:177 src/components/Signup.tsx:151
+#: src/components/Signin.tsx:178 src/components/Signup.tsx:155
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/Signin.tsx:190
+#: src/components/Signin.tsx:191
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:203
+#: src/components/Signin.tsx:204
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:210
+#: src/components/Signin.tsx:211
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:212
+#: src/components/Signin.tsx:213
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:125 src/components/verify.tsx:76
+#: src/components/Signup.tsx:128 src/components/verify.tsx:76
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:126
+#: src/components/Signup.tsx:129
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:129 src/components/User/profile.tsx:108
+#: src/components/Signup.tsx:132 src/components/User/profile.tsx:108
 #: src/components/resend-code.tsx:60 src/components/verify.tsx:88
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/components/Signup.tsx:137
+#: src/components/Signup.tsx:140
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:141
+#: src/components/Signup.tsx:144
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:175
+#: src/components/Signup.tsx:179
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:182
+#: src/components/Signup.tsx:186
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">Terms of "
@@ -716,10 +716,18 @@ msgstr ""
 "target=\"_blank\">プライバシーポリシー</a> に同意したものとさせていただきま"
 "す。"
 
-#: src/components/Signup.tsx:191
-msgid "Already have an account? If so, please <a href=\"#/sign\">sign in</a>."
+#: src/components/Signup.tsx:196
+msgid ""
+"Are you sure you're not %s? If, please <a href=\"/#/signin\">sign in</a>."
 msgstr ""
-"すでにアカウントをお持ちですか？その場合は<a href=\"#/sign\">サインイン</a>し"
+"%s ではありませんか？その場合は<a href=\"/#/signin\">サインイン</a>してくださ"
+"い。"
+
+#: src/components/Signup.tsx:197
+msgid ""
+"Already have an account? If so, please <a href=\"/#/signin\">sign in</a>."
+msgstr ""
+"すでにアカウントをお持ちですか？その場合は<a href=\"/#/signin\">サインイン</a>し"
 "てください。"
 
 #: src/components/Team/Billing.tsx:152
@@ -1008,46 +1016,50 @@ msgstr "一時停止"
 msgid "Remove from team"
 msgstr "チームから削除"
 
-#: src/components/Team/members/invite.tsx:109
+#: src/components/Team/members/invite.tsx:108
 msgid "Successfully send invitation."
 msgstr "チームへの招待が送信されました。"
 
-#: src/components/Team/members/invite.tsx:111
+#: src/components/Team/members/invite.tsx:110
 msgid "Failed to send invitation."
 msgstr "招待の送信に失敗しました。"
 
-#: src/components/Team/members/invite.tsx:39
+#: src/components/Team/members/invite.tsx:40
 msgid "That user is already a member of this team."
 msgstr "すでにメンバーになっています。"
 
-#: src/components/Team/members/invite.tsx:61
+#: src/components/Team/members/invite.tsx:60
 msgid "The maximum number of members has been reached."
 msgstr "メンバー数が上限に達しました。"
 
-#: src/components/Team/members/invite.tsx:65
+#: src/components/Team/members/invite.tsx:64
 msgid "You cannot use this email address for invitation."
 msgstr "このメールアドレスは招待に使用できません。"
 
-#: src/components/Team/members/invite.tsx:79
+#: src/components/Team/members/invite.tsx:78
 msgid "Invite"
 msgstr "招待"
 
-#: src/components/Team/members/invite.tsx:80
+#: src/components/Team/members/invite.tsx:79
 msgid "Send an invitation"
 msgstr "招待する"
 
-#: src/components/Team/members/invite.tsx:82
+#: src/components/Team/members/invite.tsx:81
 msgid ""
 "Please enter the email address of the person you want to invite to \"%s\"."
 msgstr "チーム「%s」にユーザーを招待してコラボレーションしましょう。"
 
-#: src/components/Team/members/invite.tsx:86
+#: src/components/Team/members/invite.tsx:85
 msgid "Receipient's email address"
 msgstr "招待するユーザーのメールアドレス"
 
-#: src/components/Team/members/invite.tsx:92
+#: src/components/Team/members/invite.tsx:91
 msgid "Send"
 msgstr "送信"
+
+#: src/components/Team/members/remove-member.tsx:70
+msgid "Removing 1 member from %s."
+msgstr "%s から1人のメンバーを削除します。"
 
 #: src/components/Team/members/remove-member.tsx:74
 msgid "The following members will be removed:"

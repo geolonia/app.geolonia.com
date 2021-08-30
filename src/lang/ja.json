@@ -260,8 +260,11 @@
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">Privacy policy</a>.": [
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">プライバシーポリシー</a> に同意したものとさせていただきます。"
       ],
-      "Already have an account? If so, please <a href=\"#/sign\">sign in</a>.": [
-        "すでにアカウントをお持ちですか？その場合は<a href=\"#/sign\">サインイン</a>してください。"
+      "Are you sure you're not %s? If, please <a href=\"/#/signin\">sign in</a>.": [
+        "%s ではありませんか？その場合は<a href=\"/#/signin\">サインイン</a>してください。"
+      ],
+      "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>.": [
+        "すでにアカウントをお持ちですか？その場合は<a href=\"/#/signin\">サインイン</a>してください。"
       ],
       "Free plan": ["Free プラン"],
       "Free Plan": ["Free プラン"],
@@ -376,6 +379,7 @@
       ],
       "Receipient's email address": ["招待するユーザーのメールアドレス"],
       "Send": ["送信"],
+      "Removing 1 member from %s.": ["%s から1人のメンバーを削除します。"],
       "The following members will be removed:": [
         "以下のメンバーがチームから削除されます。"
       ],
