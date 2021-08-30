@@ -271,7 +271,7 @@ const Billing = (props: StateProps) => {
 
       chartData.push(
         {
-          label: apiKeyName,
+          label: `${apiKeyName}: 500`,
           data: countData,
           fill: false,
           backgroundColor: colorScheme[colorIndex],
