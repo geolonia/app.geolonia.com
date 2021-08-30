@@ -298,10 +298,6 @@ const Billing = (props: StateProps) => {
   };
 
   const options = {
-    interaction: {
-      mode: 'index',
-      intersect: false,
-    },
     responsive: true,
     scales: {
       x: {
