@@ -105,6 +105,11 @@ interface UpcomingDetails {
   next_payment_attempt: string
 }
 
+interface FreePlanDetails {
+  current_period_start: string
+  current_period_end: string
+}
+
 interface UsageDetails {
   count: number
   lastLoggedRequest: string
@@ -159,6 +164,7 @@ const usePlan = (props: StateProps) => {
   const [subscription, setSubscription] = useState<SubscriptionDetails | undefined>(undefined);
   const [customer, setCustomer] = useState<CustomerDetails | undefined>(undefined);
   const [upcoming, setUpcoming] = useState<UpcomingDetails | undefined>(undefined);
+  const [freePlanDetails, setFreePlanDetails] = useState<FreePlanDetails | undefined>(undefined);
   const [usage, setUsage] = useState<UsageDetails | undefined>(undefined);
   const [loaded, setLoaded] = useState(false);
 
@@ -201,6 +207,7 @@ const usePlan = (props: StateProps) => {
       setCustomer(data.customer);
       setUpcoming(data.upcoming);
       setUsage(data.usage);
+      setFreePlanDetails(data.freePlanDetails);
       setLoaded(true);
     })();
   }, [ loaded, session, teamId ]);
@@ -216,6 +223,7 @@ const usePlan = (props: StateProps) => {
     customer,
     upcoming,
     usage,
+    freePlanDetails,
   };
 };
 
@@ -225,7 +233,10 @@ const Billing = (props: StateProps) => {
   const teamId = team?.teamId;
   const [openPayment, setOpenPayment] = useState(false);
   const [openPlan, setOpenPlan] = useState(false);
-  const { loaded, plans, name, planId, subscription, customer, upcoming, usage } = usePlan(props);
+  const {
+    loaded, plans, name, planId, subscription, customer,
+    upcoming, usage, freePlanDetails,
+  } = usePlan(props);
   const [resumeSubLoading, setResumeSubLoading] = useState(false);
   const [datasets, setDatasets] = useState<ChartDatasets>([]);
   const [labels, setLabels] = useState<string[]>([]);
@@ -239,13 +250,14 @@ const Billing = (props: StateProps) => {
   }, [mapKeys]);
 
   useEffect(() => {
-    if (!usage || !subscription || !usage.details) {
+    const subOrFreePlan = subscription || freePlanDetails;
+    if (!usage || !subOrFreePlan || !usage.details) {
       return;
     }
 
     // ラベルを用意
     const labelList = getRangeDate(
-      moment(subscription.current_period_start), moment(subscription.current_period_end),
+      moment(subOrFreePlan.current_period_start), moment(subOrFreePlan.current_period_end),
     );
 
     const ymdList = labelList.map((d) => d.format('YYYYMMDD'));
@@ -282,7 +294,7 @@ const Billing = (props: StateProps) => {
     setDatasets(chartData);
     setLabels(labelList.map((x) => x.format('MM/DD')));
 
-  }, [usage, subscription, mapKeyNames]);
+  }, [usage, subscription, freePlanDetails, mapKeyNames]);
 
   // チーム変えたらロード状態をリセット
   useEffect(() => {
@@ -376,7 +388,7 @@ const Billing = (props: StateProps) => {
       <CircularProgress />
     </div>;
   } else {
-
+    const subOrFreePlan = subscription || freePlanDetails;
     inner = <>
       <Grid container spacing={3} className="usage-info">
         <Grid item xs={12}>
@@ -390,9 +402,9 @@ const Billing = (props: StateProps) => {
               {__('Billing period')}
             </Typography>
             <div className="usage-card-content">
-              {subscription ?
+              {subOrFreePlan ?
                 <>
-                  {`${moment(subscription.current_period_start).format('MM/DD')} ~ ${moment(subscription.current_period_end).format('MM/DD')}`}
+                  {`${moment(subOrFreePlan.current_period_start).format('MM/DD')} ~ ${moment(subOrFreePlan.current_period_end).format('MM/DD')}`}
                 </>
                 :
                 '-'
