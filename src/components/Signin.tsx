@@ -76,6 +76,7 @@ const Signin = (props: Props) => {
   const [usernameGivenFlag, setUsernameGivenFlag] = useState(false);
 
 
+  // NOTE: もし何かリダイレクトの処理を追加する場合、チームを招待するための acceptInvitation() の呼び出しについても考慮する
   useEffect(() => {
     const parsed = queryString.parse(window.location.search);
     if(typeof parsed.invitationToken === 'string') {
