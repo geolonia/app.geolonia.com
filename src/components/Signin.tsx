@@ -9,13 +9,13 @@ import Alert from './custom/Alert';
 import StatusIndication from './custom/status-indication';
 
 // Utils
-import delay from '../lib/promise-delay';
 import queryString from 'query-string';
 import { __ } from '@wordpress/i18n';
 import { parseSigninError as parseCognitoSigninError } from '../lib/cognito/parse-error';
 
 // API
 import { signin } from '../auth';
+import { acceptInvitation } from '../api/teams/accept-invitation';
 
 // Redux
 import Redux from 'redux';
@@ -24,7 +24,10 @@ import { connect } from 'react-redux';
 
 // constants
 import { pageTransitionInterval } from '../constants';
+import { sleep } from '../lib/sleep';
 
+// types
+import { CognitoUser } from 'amazon-cognito-identity-js';
 type OwnProps = Record<string, never>;
 type RouterProps = {
   history: {
@@ -39,6 +42,26 @@ type DispatchProps = {
 };
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
+const getUserEmail = (cognitoUser: CognitoUser | undefined): Promise<string | null> => {
+  if(!cognitoUser) {
+    return Promise.resolve(null);
+  }
+  return new Promise((resolve) => {
+    cognitoUser.getUserAttributes((error, attributes) => {
+      if(error || !attributes) {
+        resolve(null);
+      } else {
+        const emailAttribute = attributes.find((attr) => attr.Name === 'email');
+        if(!emailAttribute) {
+          resolve(null);
+        } else {
+          resolve(emailAttribute.Value);
+        }
+      }
+    });
+  });
+};
+
 const Signin = (props: Props) => {
   const { serverTrouble } = props;
 
@@ -48,19 +71,26 @@ const Signin = (props: Props) => {
     null | 'requesting' | 'success' | 'warning'
   >(null);
   const [message, setMessage] = useState('');
+  const [invitationToken, setInvitationToken] = useState<string | null>(null);
+  const [passwordResetFlag, setPasswordResetFlag] = useState(false);
+  const [usernameGivenFlag, setUsernameGivenFlag] = useState(false);
 
-  const parsed = queryString.parse(window.location.search);
-  const hasQueryStringUsername =
-    !!parsed.username && typeof parsed.username === 'string';
-  const hasPasswordReset = parsed.reset === 'true';
 
   useEffect(() => {
-    if (hasQueryStringUsername && username === '') {
-      setUsername(parsed.username as string);
+    const parsed = queryString.parse(window.location.search);
+    if(typeof parsed.invitationToken === 'string') {
+      setInvitationToken(parsed.invitationToken);
+    }
+    if(typeof parsed.username === 'string') {
+      setUsername(parsed.username);
+      setUsernameGivenFlag(true);
       const passwordInput = document.getElementById('password');
       passwordInput && passwordInput.focus();
     }
-  }, [hasQueryStringUsername, parsed.username, username]);
+    if(parsed.reset === 'true') {
+      setPasswordResetFlag(true);
+    }
+  }, []);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -78,20 +108,32 @@ const Signin = (props: Props) => {
     status === 'success' ||
     status === 'requesting';
 
-  const handleSignin = (e: React.MouseEvent | void) => {
+  const handleSignin = async (e: React.MouseEvent | void) => {
     e && e.preventDefault();
     setStatus('requesting');
-    delay(signin(username, password), 500)
-      .then(() => {
-        setStatus('success');
-        // Force reloadading and use componentDidMount of AuthContainer to get session
-        setTimeout(() => (window.location.href = '/'), pageTransitionInterval);
-      })
-      .catch((error) => {
-        setMessage(parseCognitoSigninError(error));
-        setStatus('warning');
-      });
+
+    let cognitoUser;
+    try {
+      const signinResult = await signin(username, password);
+      cognitoUser = signinResult.cognitoUser;
+    } catch (error: any) {
+      setMessage(parseCognitoSigninError(error));
+      setStatus('warning');
+    }
+
+    if(invitationToken) {
+      const userEmail = await getUserEmail(cognitoUser);
+      if(userEmail) {
+        await acceptInvitation(invitationToken,  userEmail);
+      }
+    }
+
+    setStatus('success');
+    await sleep(pageTransitionInterval);
+    // Force reloadading and use componentDidMount of AuthContainer to get session
+    window.location.href = '/';
   };
+
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {
     // enter
     e.keyCode === 13 && !buttonDisabled && handleSignin();
@@ -102,9 +144,9 @@ const Signin = (props: Props) => {
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__('Sign in to Geolonia')}</h1>
-        {hasQueryStringUsername && status === null && !serverTrouble && (
+        {usernameGivenFlag && status === null && !serverTrouble && (
           <Alert type="success">
-            {hasPasswordReset
+            {passwordResetFlag
               ? __(
                 'Your password has been successfully reset. Please reenter and sign in to the account.',
               )

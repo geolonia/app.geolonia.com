@@ -20,7 +20,6 @@ import ResendCode from './resend-code';
 import Signin from './Signin';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
-import AcceptInvitation from './AcceptInvitation';
 import CommonNotification from './CommonNotification';
 
 import { theme } from '../assets/mui-theme';
@@ -147,11 +146,6 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
           <Route exact path="/signin" component={Signin} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/reset-password" component={ResetPassword} />
-          <Route
-            exact
-            path="/accept-invitation/:invitationToken/:teamId"
-            component={AcceptInvitation}
-          />
           <Route exact>
             <nav className={`${classes.drawer} ${classes.headerColor}`}>
               <Hidden smUp implementation="js">

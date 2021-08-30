@@ -7,8 +7,6 @@
         "plural_forms": "nplurals=1; plural=0;",
         "lang": "ja"
       },
-      "Your invitation has been validated.": ["招待が有効化されました。"],
-      "Your invitation has been outdated.": ["この招待は無効です。"],
       "Get started with Geolonia map": ["Geoloniaの地図を使ってみる"],
       "First, you need to obtain an API key and set up the initial settings for the map design and display position.": [
         "まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"

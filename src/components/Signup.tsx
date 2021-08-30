@@ -19,9 +19,10 @@ import { pageTransitionInterval } from '../constants';
 import queryString from 'query-string';
 import { sleep } from '../lib/sleep';
 
+import { acceptInvitation } from '../api/teams/accept-invitation';
+
 // types
 import { ISignUpResult } from 'amazon-cognito-identity-js';
-import { acceptInvitation } from '../api/teams/accept-invitation';
 
 type OwnProps = Record<string, never>;
 type RouterProps = {
@@ -44,7 +45,7 @@ const Signup = (props: Props) => {
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState<Status>(null);
   const [message, setMessage] = useState('');
-  const [invitationToken, setInvitationToken] = useState<string | undefined>(undefined);
+  const [invitationToken, setInvitationToken] = useState<string | null>(null);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);

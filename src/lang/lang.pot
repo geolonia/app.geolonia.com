@@ -3,14 +3,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/AcceptInvitation.tsx:69
-msgid "Your invitation has been validated."
-msgstr ""
-
-#: src/components/AcceptInvitation.tsx:72
-msgid "Your invitation has been outdated."
-msgstr ""
-
 #: src/components/Dashboard.tsx:50
 msgid "Get started with Geolonia map"
 msgstr ""
@@ -561,7 +553,7 @@ msgstr ""
 msgid "We'll send you an email receipt."
 msgstr ""
 
-#: src/components/Paperbase.tsx:174
+#: src/components/Paperbase.tsx:168
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
@@ -576,7 +568,7 @@ msgid "Confirm new password"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:128
-#: src/components/Signup.tsx:162
+#: src/components/Signup.tsx:163
 msgid "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
 
@@ -603,81 +595,81 @@ msgstr ""
 msgid "Verification Code"
 msgstr ""
 
-#: src/components/Signin.tsx:104
+#: src/components/Signin.tsx:146
 msgid "Sign in to Geolonia"
 msgstr ""
 
-#: src/components/Signin.tsx:108
+#: src/components/Signin.tsx:150
 msgid ""
 "Your password has been successfully reset. Please reenter and sign in to "
 "the account."
 msgstr ""
 
-#: src/components/Signin.tsx:111
+#: src/components/Signin.tsx:153
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
 msgstr ""
 
-#: src/components/Signin.tsx:119
+#: src/components/Signin.tsx:161
 #: src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
-#: src/components/Signin.tsx:124
+#: src/components/Signin.tsx:166
 msgid "Username or email address"
 msgstr ""
 
-#: src/components/Signin.tsx:135
-#: src/components/Signup.tsx:151
+#: src/components/Signin.tsx:177
+#: src/components/Signup.tsx:152
 msgid "Password"
 msgstr ""
 
-#: src/components/Signin.tsx:148
+#: src/components/Signin.tsx:190
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:161
+#: src/components/Signin.tsx:203
 msgid "Sign in"
 msgstr ""
 
-#: src/components/Signin.tsx:168
+#: src/components/Signin.tsx:210
 msgid "New to Geolonia?"
 msgstr ""
 
-#: src/components/Signin.tsx:170
+#: src/components/Signin.tsx:212
 msgid "Create an account."
 msgstr ""
 
-#: src/components/Signup.tsx:125
+#: src/components/Signup.tsx:126
 #: src/components/verify.tsx:76
 msgid "Welcome to Geolonia"
 msgstr ""
 
-#: src/components/Signup.tsx:126
+#: src/components/Signup.tsx:127
 msgid "Create your account"
 msgstr ""
 
-#: src/components/Signup.tsx:129
+#: src/components/Signup.tsx:130
 #: src/components/User/profile.tsx:108
 #: src/components/resend-code.tsx:60
 #: src/components/verify.tsx:88
 msgid "Username"
 msgstr ""
 
-#: src/components/Signup.tsx:137
+#: src/components/Signup.tsx:138
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:141
+#: src/components/Signup.tsx:142
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:175
+#: src/components/Signup.tsx:176
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:182
+#: src/components/Signup.tsx:183
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" target=\"_blank\" "
@@ -686,7 +678,7 @@ msgid ""
 "target=\"_blank\">Privacy policy</a>."
 msgstr ""
 
-#: src/components/Signup.tsx:191
+#: src/components/Signup.tsx:192
 msgid "Already have an account? If so, please <a href=\"#/sign\">sign in</a>."
 msgstr ""
 

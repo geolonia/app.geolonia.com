@@ -14,14 +14,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0\n"
 
-#: src/components/AcceptInvitation.tsx:69
-msgid "Your invitation has been validated."
-msgstr "招待が有効化されました。"
-
-#: src/components/AcceptInvitation.tsx:72
-msgid "Your invitation has been outdated."
-msgstr "この招待は無効です。"
-
 #: src/components/Dashboard.tsx:50
 msgid "Get started with Geolonia map"
 msgstr "Geoloniaの地図を使ってみる"
@@ -598,7 +590,7 @@ msgstr "支払い"
 msgid "We'll send you an email receipt."
 msgstr "指定したメールに請求情報を送信します。"
 
-#: src/components/Paperbase.tsx:174
+#: src/components/Paperbase.tsx:168
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
@@ -640,17 +632,17 @@ msgstr ""
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/Signin.tsx:104
+#: src/components/Signin.tsx:146
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:108
+#: src/components/Signin.tsx:150
 msgid ""
 "Your password has been successfully reset. Please reenter and sign in to the "
 "account."
 msgstr "パスワードがリセットされました。再度入力してサインインしてください。"
 
-#: src/components/Signin.tsx:111
+#: src/components/Signin.tsx:153
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -658,31 +650,31 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:119 src/lib/cognito/parse-error.ts:50
+#: src/components/Signin.tsx:161 src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
-#: src/components/Signin.tsx:124
+#: src/components/Signin.tsx:166
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:135 src/components/Signup.tsx:151
+#: src/components/Signin.tsx:177 src/components/Signup.tsx:151
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/Signin.tsx:148
+#: src/components/Signin.tsx:190
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:161
+#: src/components/Signin.tsx:203
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:168
+#: src/components/Signin.tsx:210
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:170
+#: src/components/Signin.tsx:212
 msgid "Create an account."
 msgstr "アカウントを作成"
 
@@ -1391,6 +1383,12 @@ msgstr ""
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Your invitation has been validated."
+#~ msgstr "招待が有効化されました。"
+
+#~ msgid "Your invitation has been outdated."
+#~ msgstr "この招待は無効です。"
 
 #~ msgid ""
 #~ "Please enter the email address of the person you want to invite to \"%s"
