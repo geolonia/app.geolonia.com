@@ -429,7 +429,7 @@ const Billing = (props: StateProps) => {
         <Grid item xs={12} md={6} lg={3}>
           <Paper className="usage-card">
             <Typography component="h3">
-              {__('Map loads this month')}
+              {__('Map loads')}
             </Typography>
             <div className="usage-card-content">
               {!usage || typeof usage.count !== 'number' ? '-' : usage.count}
