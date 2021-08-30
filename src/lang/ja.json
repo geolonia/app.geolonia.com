@@ -268,7 +268,7 @@
       "Usage this month": ["今月の利用状況"],
       "Billing period": ["請求対象期間"],
       "Next Payment Date": ["次回のお支払日"],
-      "Map loads this month": ["今月の地図の表示回数"],
+      "Map loads": ["地図の表示回数"],
       "Last updated %s": ["最終更新: %s"],
       "Charges": ["料金"],
       "Map loads by API key": ["API キー別の地図の表示回数"],

@@ -33,6 +33,7 @@ import customFetch from '../../lib/fetch';
 import { Redirect } from 'react-router';
 import { buildApiAppUrl } from '../../lib/api';
 import { colorScheme } from '../../lib/colorscheme';
+import { externalTooltipHandler } from '../../lib/billing-tooltip';
 
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string,
@@ -281,9 +282,11 @@ const Billing = (props: StateProps) => {
         colorIndex = Math.random() * colorsMaxIndex;
       }
 
+      const totalCount = countData.reduce((accumulator, currentValue) => accumulator + currentValue);
+
       chartData.push(
         {
-          label: apiKeyName,
+          label: `${apiKeyName} : ${totalCount}`,
           data: countData,
           fill: false,
           backgroundColor: colorScheme[colorIndex],
@@ -314,6 +317,13 @@ const Billing = (props: StateProps) => {
       },
       y: {
         stacked: true,
+      },
+    },
+    plugins: {
+      tooltip: {
+        enabled: false,
+        position: 'nearest',
+        external: externalTooltipHandler,
       },
     },
   };
@@ -431,7 +441,7 @@ const Billing = (props: StateProps) => {
         <Grid item xs={12} md={6} lg={3}>
           <Paper className="usage-card">
             <Typography component="h3">
-              {__('Map loads this month')}
+              {__('Map loads')}
             </Typography>
             <div className="usage-card-content">
               {!usage || typeof usage.count !== 'number' ? '-' : usage.count}
