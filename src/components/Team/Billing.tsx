@@ -137,7 +137,7 @@ type ChartDatasets = {
 const getRangeDate = (startDate: moment.Moment, endDate: moment.Moment) => {
   const dates: moment.Moment[] = [];
   let currentDate: moment.Moment = startDate;
-  while (currentDate <= endDate) {
+  while (currentDate < endDate) {
     dates.push(currentDate);
     currentDate = currentDate.clone().add(1, 'days');
   }
@@ -304,7 +304,7 @@ const Billing = (props: StateProps) => {
     setDatasets([]);
   }, [teamId]);
 
-  const data = {
+  const chartData = {
     labels: labels,
     datasets: datasets,
   };
@@ -471,7 +471,7 @@ const Billing = (props: StateProps) => {
         <Typography component="h2" className="module-title">
           {__('Map loads by API key')}
         </Typography>
-        <Bar data={data} options={options} id={'chart-usage-api-key'} height={100}/>
+        <Bar data={chartData} options={options} id={'chart-usage-api-key'} height={100}/>
         <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
       </Paper>
 
