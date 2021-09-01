@@ -895,7 +895,7 @@ msgstr ""
 "ください。"
 
 #: src/components/Team/general/delete.tsx:145
-#: src/components/Team/members/change-role.tsx:160
+#: src/components/Team/members/change-role.tsx:163
 #: src/components/Team/members/remove-member.tsx:89
 #: src/components/Team/members/suspend.tsx:112
 #: src/components/custom/AddNew.tsx:155 src/components/custom/Cancel.tsx:18
@@ -963,27 +963,35 @@ msgstr "%s の権限を選択して下さい。"
 msgid "Owner"
 msgstr "オーナー"
 
-#: src/components/Team/members/change-role.tsx:131
+#: src/components/Team/members/change-role.tsx:132
+msgid "can manage payment settings."
+msgstr "支払い設定を管理できます。"
+
+#: src/components/Team/members/change-role.tsx:133
 msgid "can invite another team member."
 msgstr "新しいメンバーをチームに招待できます。"
 
-#: src/components/Team/members/change-role.tsx:132
+#: src/components/Team/members/change-role.tsx:134
 msgid "can designate another owner."
 msgstr "新しいチームオーナーを指定できます。"
 
-#: src/components/Team/members/change-role.tsx:133
+#: src/components/Team/members/change-role.tsx:135
 msgid "can suspend another member."
 msgstr "メンバーの権限を一時停止できます。"
 
-#: src/components/Team/members/change-role.tsx:145
+#: src/components/Team/members/change-role.tsx:147
 msgid "Member"
 msgstr "メンバー"
 
-#: src/components/Team/members/change-role.tsx:150
+#: src/components/Team/members/change-role.tsx:151
+msgid "can view API key usage."
+msgstr "API キーの利用状況を閲覧することができます。"
+
+#: src/components/Team/members/change-role.tsx:153
 msgid "Can manage all resources in the team, including API Keys."
 msgstr "APIキーを含むチームの全てのリソースを管理できます。"
 
-#: src/components/Team/members/change-role.tsx:171
+#: src/components/Team/members/change-role.tsx:174
 #: src/components/Team/members/suspend.tsx:118
 #: src/components/custom/AddNew.tsx:40 src/components/custom/Save.tsx:27
 msgid "Save"

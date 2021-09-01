@@ -341,12 +341,16 @@
       ],
       "Select a new role of %s.": ["%s の権限を選択して下さい。"],
       "Owner": ["オーナー"],
+      "can manage payment settings.": ["支払い設定を管理できます。"],
       "can invite another team member.": [
         "新しいメンバーをチームに招待できます。"
       ],
       "can designate another owner.": ["新しいチームオーナーを指定できます。"],
       "can suspend another member.": ["メンバーの権限を一時停止できます。"],
       "Member": ["メンバー"],
+      "can view API key usage.": [
+        "API キーの利用状況を閲覧することができます。"
+      ],
       "Can manage all resources in the team, including API Keys.": [
         "APIキーを含むチームの全てのリソースを管理できます。"
       ],

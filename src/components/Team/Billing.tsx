@@ -400,70 +400,72 @@ const Billing = (props: StateProps) => {
   } else {
     const subOrFreePlan = subscription || freePlanDetails;
     inner = <>
-      <Grid container spacing={3} className="usage-info">
-        <Grid item xs={12}>
-          <Typography className="usage-info-title" component="h2">
-            {__('Usage this month')}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Paper className="usage-card">
-            <Typography component="h3">
-              {__('Billing period')}
+      { props.isOwner && <>
+        <Grid container spacing={3} className="usage-info">
+          <Grid item xs={12}>
+            <Typography className="usage-info-title" component="h2">
+              {__('Usage this month')}
             </Typography>
-            <div className="usage-card-content">
-              {subOrFreePlan ?
-                <>
-                  {`${moment(subOrFreePlan.current_period_start).format('MM/DD')} ~ ${moment(subOrFreePlan.current_period_end).format('MM/DD')}`}
-                </>
-                :
-                '-'
-              }
-            </div>
-          </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Paper className="usage-card">
+              <Typography component="h3">
+                {__('Billing period')}
+              </Typography>
+              <div className="usage-card-content">
+                {subOrFreePlan ?
+                  <>
+                    {`${moment(subOrFreePlan.current_period_start).format('MM/DD')} ~ ${moment(subOrFreePlan.current_period_end).format('MM/DD')}`}
+                  </>
+                  :
+                  '-'
+                }
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Paper className="usage-card">
+              <Typography component="h3">
+                {__('Next Payment Date')}
+              </Typography>
+              <div className="usage-card-content">
+                {subscription ?
+                  <>
+                    {moment(subscription.current_period_end).format('MM/DD')}
+                  </>
+                  :
+                  '-'
+                }
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Paper className="usage-card">
+              <Typography component="h3">
+                {__('Map loads')}
+              </Typography>
+              <div className="usage-card-content">
+                {!usage || typeof usage.count !== 'number' ? '-' : usage.count}
+                { (team && team.baseFreeMapLoadCount) && <small> / { team.baseFreeMapLoadCount.toLocaleString() }回</small> }
+              </div>
+              {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
+              {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
+                <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY/MM/DD HH:mm:ss'))}</div>
+              </>}
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Paper className="usage-card">
+              <Typography component="h3">
+                {__('Charges')}
+              </Typography>
+              <div className="usage-card-content">
+                {!upcoming || typeof upcoming.amount_due !== 'number' ? '-' : currencyFormatter.format(upcoming.amount_due)}
+              </div>
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Paper className="usage-card">
-            <Typography component="h3">
-              {__('Next Payment Date')}
-            </Typography>
-            <div className="usage-card-content">
-              {subscription ?
-                <>
-                  {moment(subscription.current_period_end).format('MM/DD')}
-                </>
-                :
-                '-'
-              }
-            </div>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Paper className="usage-card">
-            <Typography component="h3">
-              {__('Map loads')}
-            </Typography>
-            <div className="usage-card-content">
-              {!usage || typeof usage.count !== 'number' ? '-' : usage.count}
-              { (team && team.baseFreeMapLoadCount) && <small> / { team.baseFreeMapLoadCount.toLocaleString() }回</small> }
-            </div>
-            {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
-            {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
-              <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY/MM/DD HH:mm:ss'))}</div>
-            </>}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Paper className="usage-card">
-            <Typography component="h3">
-              {__('Charges')}
-            </Typography>
-            <div className="usage-card-content">
-              {!upcoming || typeof upcoming.amount_due !== 'number' ? '-' : currencyFormatter.format(upcoming.amount_due)}
-            </div>
-          </Paper>
-        </Grid>
-      </Grid>
+      </> }
 
       <Paper className="usage-details-info">
         <Typography component="h2" className="module-title">
@@ -533,7 +535,7 @@ const Billing = (props: StateProps) => {
                   { subscription.cancel_at_period_end && sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end).format('YYYY-MM-DD'))}
                 </>}
               </TableCell>
-              <TableCell align="right">
+              { props.isOwner && <TableCell align="right">
                 { subscription && subscription.cancel_at_period_end === true ?
                   <>
                     { resumeSubLoading ?
@@ -547,7 +549,7 @@ const Billing = (props: StateProps) => {
                         color="primary"
                         onClick={resumeSubscriptionHandler}
                         type={'button'}
-                        disabled={!props.last2 || !props.isOwner}
+                        disabled={!props.last2}
                       >
                         {__('Resume subscription')}
                       </Button>
@@ -559,7 +561,7 @@ const Billing = (props: StateProps) => {
                     color="primary"
                     onClick={() => setOpenPlan(true)}
                     type={'button'}
-                    disabled={!props.last2 || !props.isOwner}
+                    disabled={!props.last2}
                   >
                     {__('Change Plan')}
                   </Button>
@@ -574,7 +576,7 @@ const Billing = (props: StateProps) => {
                   }
                   currentPlanId={planId}
                 />
-              </TableCell>
+              </TableCell> }
             </TableRow>
             {/* <TableRow>
                   <TableCell component="th" scope="row">
@@ -587,11 +589,11 @@ const Billing = (props: StateProps) => {
                 </TableRow> */}
           </TableBody>
         </Table>
-        <p style={{ textAlign: 'right' }}>
+        { props.isOwner && <p style={{ textAlign: 'right' }}>
           <a href="https://geolonia.com/pricing" target="_blank" rel="noreferrer">
             {__('Learn more about plans on the pricing page.')}
           </a>
-        </p>
+        </p> }
       </Paper>
     </>;
   }
@@ -605,16 +607,12 @@ const Billing = (props: StateProps) => {
 
         { inner }
 
-        <Paper>
-          {props.isOwner && (
-            <>
-              <Typography component="h2" className="module-title">
-                {__('Payment history')}
-              </Typography>
-              <Receipts />
-            </>
-          )}
-        </Paper>
+        { props.isOwner && <Paper>
+          <Typography component="h2" className="module-title">
+            {__('Payment history')}
+          </Typography>
+          <Receipts />
+        </Paper> }
       </div>
     </StripeContainer>
   );
