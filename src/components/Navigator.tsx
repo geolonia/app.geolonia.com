@@ -13,7 +13,7 @@ import HomeIcon from '@material-ui/icons/Home';
 import CodeIcon from '@material-ui/icons/Code';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import DescriptionIcon from '@material-ui/icons/Description';
-import RoomIcon from '@material-ui/icons/Room';
+// import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
 import TextField from '@material-ui/core/TextField';
@@ -156,12 +156,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
       href: '#/api-keys',
       active: false,
     },
-    {
-      id: __('Location Data'),
-      icon: <RoomIcon />,
-      href: '#/data/geojson',
-      active: false,
-    },
+    // {
+    //   id: __('Location Data'),
+    //   icon: <RoomIcon />,
+    //   href: '#/data/geojson',
+    //   active: false,
+    // },
     // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
     // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
   ];
