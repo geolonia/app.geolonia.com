@@ -19,7 +19,8 @@ import { pageTransitionInterval } from '../constants';
 import queryString from 'query-string';
 import { sleep } from '../lib/sleep';
 
-import { acceptInvitation } from '../api/teams/accept-invitation';
+// hooks
+import { useInvitationToken } from '../hooks/invitation-token';
 
 // types
 import { ISignUpResult } from 'amazon-cognito-identity-js';
@@ -41,12 +42,11 @@ type Status = null | 'requesting' | 'success' | 'warning';
 
 const Signup = (props: Props) => {
   const [username, setUsername] = useState('');
-  const [invitedEmail, setInvitedEmail] = useState<string | null>(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState<Status>(null);
   const [message, setMessage] = useState('');
-  const [invitationToken, setInvitationToken] = useState<string | null>(null);
+  const [fetchedEmail, acceptInvitationCallback] = useInvitationToken(window.location.search);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -71,19 +71,24 @@ const Signup = (props: Props) => {
 
     let result: ISignUpResult;
     try {
-      result = await signUp(username, email, password);
+      result = await signUp(username, fetchedEmail || email, password);
     } catch (err: any) {
       setMessage(parseCognitoSignupError(err || { code: '' }));
       setStatus('warning');
       return;
     }
+    try {
+      await acceptInvitationCallback();
+    } catch (error) {
+      // 招待失敗のエラーは無視し、あくまでサインアップを完結してもらう
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
     setStatus('success');
 
     const succeededUsername = result.user.getUsername();
     props.setCurrentUser(succeededUsername);
-    if(invitationToken) {
-      await acceptInvitation(invitationToken, email);
-    }
+
     const query: { [key: string]: string } = {
       lang: estimateLanguage(),
       username: encodeURIComponent(succeededUsername),
@@ -95,7 +100,7 @@ const Signup = (props: Props) => {
   };
 
   const usernameIsValid = username !== '';
-  const emailIsValid = email !== '';
+  const emailIsValid = email !== '' || fetchedEmail !== '';
   const passwordIsValid = password !== '';
   const buttonDisabled = !usernameIsValid || !emailIsValid || !passwordIsValid;
 
@@ -110,14 +115,6 @@ const Signup = (props: Props) => {
     parsed.lang = estimateLanguage();
     const newUrl = `/?${queryString.stringify(parsed)}#/signup`;
     window.history.pushState({ path: newUrl }, '', newUrl);
-
-    if(typeof parsed.invitationToken === 'string') {
-      setInvitationToken(parsed.invitationToken);
-    }
-    if(typeof parsed.invitedEmail === 'string') {
-      setEmail(parsed.invitedEmail);
-      setInvitedEmail(parsed.invitedEmail);
-    }
   }, []);
 
   return (
@@ -145,8 +142,8 @@ const Signup = (props: Props) => {
             <input
               id={'email'}
               type={'text'}
-              value={email}
-              disabled={!!invitedEmail}
+              value={fetchedEmail || email}
+              disabled={!!fetchedEmail}
               onChange={onEmailChange}
               onBlur={onEmailBlur}
             />
@@ -192,8 +189,8 @@ const Signup = (props: Props) => {
 
         <p className="message">
           <Interweave
-            content={invitedEmail ?
-              sprintf(__('Are you sure you\'re not %s? If, please <a href="/#/signin">sign in</a>.'), invitedEmail) :
+            content={fetchedEmail ?
+              sprintf(__('Are you sure you\'re not %s? If, please <a href="/#/signin">sign in</a>.'), fetchedEmail) :
               __('Already have an account? If so, please <a href="/#/signin">sign in</a>.')
             }
           />
