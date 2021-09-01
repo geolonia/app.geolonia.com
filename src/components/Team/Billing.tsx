@@ -102,8 +102,26 @@ interface CustomerDetails {
 }
 
 interface UpcomingDetails {
+  /** クレジットカードに請求する金額。アカウントにクレジットがあるや、割引が適用されているなどの場合、割引が適用されたあとの金額となります。 */
   amount_due: number
+
+  /** 今度支払いが試行される時間。ISO8601 */
   next_payment_attempt: string
+
+  /** 割引 */
+  discounts: {
+    amount: number
+    name: string
+  }[]
+
+  /** 小計 - 割引が入っていない */
+  subtotal: number
+
+  /** 税額 */
+  tax: number
+
+  /** 合計 - アカウントクレジットから支払われる場合は0以上。割引が適用されている場合は割引後の合計となります。 */
+  total: number
 }
 
 interface FreePlanDetails {
