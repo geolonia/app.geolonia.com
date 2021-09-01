@@ -12,10 +12,13 @@ import StatusIndication from './custom/status-indication';
 import queryString from 'query-string';
 import { __ } from '@wordpress/i18n';
 import { parseSigninError as parseCognitoSigninError } from '../lib/cognito/parse-error';
+import { sleep } from '../lib/sleep';
 
 // API
 import { signin } from '../auth';
-import { acceptInvitation } from '../api/teams/accept-invitation';
+
+// Hooks
+import { useInvitationToken } from '../hooks/invitation-token';
 
 // Redux
 import Redux from 'redux';
@@ -24,10 +27,8 @@ import { connect } from 'react-redux';
 
 // constants
 import { pageTransitionInterval } from '../constants';
-import { sleep } from '../lib/sleep';
 
 // types
-import { CognitoUser } from 'amazon-cognito-identity-js';
 type OwnProps = Record<string, never>;
 type RouterProps = {
   history: {
@@ -42,24 +43,9 @@ type DispatchProps = {
 };
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
-const getUserEmail = (cognitoUser: CognitoUser | undefined): Promise<string | null> => {
-  if(!cognitoUser) {
-    return Promise.resolve(null);
-  }
-  return new Promise((resolve) => {
-    cognitoUser.getUserAttributes((error, attributes) => {
-      if(error || !attributes) {
-        resolve(null);
-      } else {
-        const emailAttribute = attributes.find((attr) => attr.Name === 'email');
-        if(!emailAttribute) {
-          resolve(null);
-        } else {
-          resolve(emailAttribute.Value);
-        }
-      }
-    });
-  });
+const focusOn = (id: string) => {
+  const elm = document.getElementById(id);
+  elm && elm.focus();
 };
 
 const Signin = (props: Props) => {
@@ -70,28 +56,24 @@ const Signin = (props: Props) => {
   const [status, setStatus] = useState<
     null | 'requesting' | 'success' | 'warning'
   >(null);
-  const [message, setMessage] = useState('');
-  const [invitationToken, setInvitationToken] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState('');
   const [passwordResetFlag, setPasswordResetFlag] = useState(false);
-  const [usernameGivenFlag, setUsernameGivenFlag] = useState(false);
+  const [postVerifyFlag, setPostVerifyFlag] = useState(false);
+  const [fetchedEmail, acceptInviatationCallback] = useInvitationToken(window.location.search);
 
-
-  // NOTE: もし何かリダイレクトの処理を追加する場合、チームを招待するための acceptInvitation() の呼び出しについても考慮する
   useEffect(() => {
     const parsed = queryString.parse(window.location.search);
-    if(typeof parsed.invitationToken === 'string') {
-      setInvitationToken(parsed.invitationToken);
-    }
     if(typeof parsed.username === 'string') {
       setUsername(parsed.username);
-      setUsernameGivenFlag(true);
-      const passwordInput = document.getElementById('password');
-      passwordInput && passwordInput.focus();
+      setPostVerifyFlag(true);
+      focusOn('password');
+    } else if(fetchedEmail) {
+      focusOn('password');
     }
     if(parsed.reset === 'true') {
       setPasswordResetFlag(true);
     }
-  }, []);
+  }, [fetchedEmail]);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -113,25 +95,24 @@ const Signin = (props: Props) => {
     e && e.preventDefault();
     setStatus('requesting');
 
-    let cognitoUser;
     try {
-      const signinResult = await signin(username, password);
-      cognitoUser = signinResult.cognitoUser;
+      await signin(username, password);
     } catch (error: any) {
-      setMessage(parseCognitoSigninError(error));
+      setErrorMessage(parseCognitoSigninError(error));
       setStatus('warning');
     }
 
-    if(invitationToken) {
-      const userEmail = await getUserEmail(cognitoUser);
-      if(userEmail) {
-        await acceptInvitation(invitationToken,  userEmail);
-      }
+    try {
+      await acceptInviatationCallback();
+    } catch (error) {
+      // チームへの招待失敗のエラーは無視し、あくまでサインインを完結してもらう
+      // eslint-disable-next-line no-console
+      console.error(error);
     }
 
     setStatus('success');
     await sleep(pageTransitionInterval);
-    // Force reloadading and use componentDidMount of AuthContainer to get session
+    // Force reload and use componentDidMount of AuthContainer to get session
     window.location.href = '/';
   };
 
@@ -140,23 +121,21 @@ const Signin = (props: Props) => {
     e.keyCode === 13 && !buttonDisabled && handleSignin();
   };
 
+  let alert: React.ReactNode | null = null;
+  if(status === 'warning') {
+    <Alert type="warning">{errorMessage}</Alert>;
+  } else if (passwordResetFlag) {
+    alert = <Alert type="success">{__('Your password has been successfully reset. Please reenter and sign in to the account.')}</Alert>;
+  } else if (postVerifyFlag) {
+    alert = <Alert type="success">{__('Your account has been successfully verified. Please enter your password again and sign in to your account.')}</Alert>;
+  }
+
   return (
     <div className="signin">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
         <h1>{__('Sign in to Geolonia')}</h1>
-        {usernameGivenFlag && status === null && !serverTrouble && (
-          <Alert type="success">
-            {passwordResetFlag
-              ? __(
-                'Your password has been successfully reset. Please reenter and sign in to the account.',
-              )
-              : __(
-                'Your account has been successfully verified. Please enter your password again and sign in to your account.',
-              )}
-          </Alert>
-        )}
-        {status === 'warning' ? <Alert type="warning">{message}</Alert> : null}
+        {alert}
         {serverTrouble && (
           <Alert type={'warning'}>
             {__('Oops, the server seems not to be responding correctly.')}
@@ -168,8 +147,9 @@ const Signin = (props: Props) => {
             <input
               id={'username'}
               type={'text'}
-              value={username}
+              value={fetchedEmail || username}
               onChange={onUsernameChange}
+              disabled={!!fetchedEmail}
               tabIndex={100}
               autoComplete={'username'}
             />

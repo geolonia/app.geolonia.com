@@ -4,6 +4,10 @@ import { describeInvitation, acceptInvitation } from '../api/teams/accept-invita
 
 type HookResult = [ fetchedEmail: string | null, acceptInvitationCallback: () => Promise<void> ];
 
+/**
+ * Use invitationToken with search string
+ * @param search window.location.search or any search string
+ */
 export const useInvitationToken = (search: string): HookResult => {
   const [invitationToken, setInvitationToken] = useState<null | string>(null);
   const [fetchedEmail, setFetchedEmail] = useState<null | string>(null);

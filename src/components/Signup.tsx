@@ -1,9 +1,9 @@
+import './Signup.scss';
+
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
-
 import Support from './custom/Support';
 import Languages from './custom/languages';
-import './Signup.scss';
 import Logo from './custom/logo.svg';
 import Alert from './custom/Alert';
 import { signUp } from '../auth';
@@ -16,6 +16,8 @@ import Interweave from 'interweave';
 import { parseSignupError as parseCognitoSignupError } from '../lib/cognito/parse-error';
 import estimateLanguage from '../lib/estimate-language';
 import { pageTransitionInterval } from '../constants';
+
+// Utils
 import queryString from 'query-string';
 import { sleep } from '../lib/sleep';
 
@@ -80,7 +82,7 @@ const Signup = (props: Props) => {
     try {
       await acceptInvitationCallback();
     } catch (error) {
-      // 招待失敗のエラーは無視し、あくまでサインアップを完結してもらう
+      // チームへの招待失敗のエラーは無視し、あくまでサインアップを完結してもらう
       // eslint-disable-next-line no-console
       console.error(error);
     }
