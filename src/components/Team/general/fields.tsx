@@ -30,7 +30,7 @@ type Props = OwnProps & StateProps & DispatchProps;
 
 const Content = (props: Props) => {
   // props
-  const { session, team, members, selectedIndex, updateTeamState } = props;
+  const { session, team, selectedIndex, updateTeamState } = props;
   const { teamId, name, billingEmail } = team;
   // state
   const [draft, setDraft] = useState<Partial<Geolonia.Team>>({});
@@ -65,10 +65,6 @@ const Content = (props: Props) => {
       saveDisabled = true;
     }
   }
-
-  const ownersEmail = members
-    .filter((member) => member.role === Roles.Owner)
-    .map((member) => member.email);
 
   return (
     <>
@@ -126,12 +122,10 @@ const Content = (props: Props) => {
 const mapStateToProps = (state: Geolonia.Redux.AppState) => {
   const selectedIndex = state.team.selectedIndex;
   const team = state.team.data[selectedIndex];
-  const members = (state.teamMember[team.teamId] || { data: [] }).data;
   return {
     session: state.authSupport.session,
     selectedIndex,
     team,
-    members,
   };
 };
 
