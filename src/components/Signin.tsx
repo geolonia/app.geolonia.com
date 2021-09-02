@@ -86,7 +86,7 @@ const Signin = (props: Props) => {
   };
 
   const buttonDisabled =
-    username === '' ||
+    (username === '' && !fetchedEmail) ||
     password === '' ||
     status === 'success' ||
     status === 'requesting';
