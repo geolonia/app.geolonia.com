@@ -214,10 +214,6 @@
       "Please enter the name of new team.": [
         "新しいチームの名前を入力してください。"
       ],
-      "Billing email": ["支払い"],
-      "We'll send you an email receipt.": [
-        "指定したメールに請求情報を送信します。"
-      ],
       "You are suspended. Please contact the team owner.": [
         "このユーザーは停止中です。チームの所有者にお問い合わせください。"
       ],
@@ -233,13 +229,13 @@
         "Eメールに記載した <code>123456</code> のような検証コードと新しいパスワードを入力してください。"
       ],
       "Verification Code": ["検証コード"],
-      "Sign in to Geolonia": ["Geolonia にサインイン"],
       "Your password has been successfully reset. Please reenter and sign in to the account.": [
         "パスワードがリセットされました。再度入力してサインインしてください。"
       ],
       "Your account has been successfully verified. Please enter your password again and sign in to your account.": [
         "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてください。"
       ],
+      "Sign in to Geolonia": ["Geolonia にサインイン"],
       "Oops, the server seems not to be responding correctly.": [
         "おっと、サーバーが正しく応答していないようです。"
       ],
@@ -331,6 +327,10 @@
       ],
       "Once you delete a team, there is no going back. Please be certain. ": [
         "一度チームを削除すると元に戻すことはできません。"
+      ],
+      "Billing email": ["支払い"],
+      "Receipts and other billing-related notifications will be sent to this e-mail address.": [
+        "レシートや請求に関する通知がこちらのメールアドレスに送信されます。"
       ],
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [
         "すべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザー名と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバーの左上にあるプルダウンで行うことができます。"

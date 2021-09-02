@@ -340,17 +340,6 @@ const Navigator: React.FC<Props> = (props: Props) => {
               onChange={(e) => setNewTeamName(e.target.value)}
               fullWidth
             />
-
-            <TextField
-              id="team-billing-email"
-              label={__('Billing email')}
-              margin="normal"
-              fullWidth={true}
-              value={ownerEmail}
-              disabled={true}
-            />
-
-            <p className="mute">{__('We\'ll send you an email receipt.')}</p>
           </DialogContent>
           <DialogActions>
             <Cancel handler={handleClose}></Cancel>
