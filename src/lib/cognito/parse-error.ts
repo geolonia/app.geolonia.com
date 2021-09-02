@@ -194,6 +194,8 @@ export const parseResetPasswordError: CognitoErrorParser = (err) => {
     return descriptions.SERVER_TROUBLE;
   } else if (err.code === 'InvalidPasswordException') {
     return descriptions.INSUFFICIENT_PASSWORD_STRENGTH;
+  } else if(err.code === 'CodeMismatchException') {
+    return descriptions.CODE_MISMATCH;
   } else {
     // NOTE: Unhandled case. This message should not be shown.
     // This will be a fallback with the Cognito Specification change
