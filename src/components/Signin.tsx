@@ -59,7 +59,7 @@ const Signin = (props: Props) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordResetFlag, setPasswordResetFlag] = useState(false);
   const [postVerifyFlag, setPostVerifyFlag] = useState(false);
-  const [fetchedEmail, acceptInviatationCallback] = useInvitationToken(window.location.search);
+  const [fetchedEmail, isReady, acceptInviatationCallback] = useInvitationToken(window.location.search);
 
   useEffect(() => {
     const parsed = queryString.parse(window.location.search);
@@ -68,6 +68,7 @@ const Signin = (props: Props) => {
       setPostVerifyFlag(true);
       focusOn('password');
     } else if(fetchedEmail) {
+      setUsername(fetchedEmail);
       focusOn('password');
     }
     if(parsed.reset === 'true') {
@@ -86,7 +87,8 @@ const Signin = (props: Props) => {
   };
 
   const buttonDisabled =
-    (username === '' && !fetchedEmail) ||
+    !isReady ||
+    username === '' ||
     password === '' ||
     status === 'success' ||
     status === 'requesting';
@@ -147,9 +149,9 @@ const Signin = (props: Props) => {
             <input
               id={'username'}
               type={'text'}
-              value={fetchedEmail || username}
+              value={username}
               onChange={onUsernameChange}
-              disabled={!!fetchedEmail}
+              disabled={!!fetchedEmail || !isReady}
               tabIndex={100}
               autoComplete={'username'}
             />
@@ -162,6 +164,7 @@ const Signin = (props: Props) => {
               value={password}
               onChange={onPasswordChange}
               onKeyDown={onPasswordKeyDown}
+              disabled={!isReady}
               tabIndex={200}
               autoComplete={'current-password'}
             />
