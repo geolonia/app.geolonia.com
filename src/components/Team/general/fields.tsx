@@ -21,7 +21,6 @@ type StateProps = {
   session: Geolonia.Session;
   selectedIndex: number;
   team: Geolonia.Team;
-  members: Geolonia.Member[];
 };
 type DispatchProps = {
   updateTeamState: (index: number, team: Partial<Geolonia.Team>) => void;
