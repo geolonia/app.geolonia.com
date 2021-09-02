@@ -42,13 +42,18 @@ type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
 type Status = null | 'requesting' | 'success' | 'warning';
 
+const focusOn = (id: string) => {
+  const elm = document.getElementById(id);
+  elm && elm.focus();
+};
+
 const Signup = (props: Props) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState<Status>(null);
   const [message, setMessage] = useState('');
-  const [fetchedEmail, isReady, acceptInvitationCallback] = useInvitationToken(window.location.search);
+  const { fetchedEmail, isReady, invitationToken } = useInvitationToken(window.location.search);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -66,6 +71,13 @@ const Signup = (props: Props) => {
     setPassword(e.currentTarget.value);
   };
 
+  useEffect(() => {
+    if(fetchedEmail) {
+      setEmail(fetchedEmail);
+      focusOn('username');
+    }
+  }, [fetchedEmail]);
+
   const handleSignup = async (e: React.MouseEvent | void) => {
     e && e.preventDefault();
     setStatus('requesting');
@@ -79,13 +91,7 @@ const Signup = (props: Props) => {
       setStatus('warning');
       return;
     }
-    try {
-      await acceptInvitationCallback();
-    } catch (error) {
-      // チームへの招待失敗のエラーは無視し、あくまでサインアップを完結してもらう
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
+
     setStatus('success');
 
     const succeededUsername = result.user.getUsername();
@@ -95,16 +101,21 @@ const Signup = (props: Props) => {
       lang: estimateLanguage(),
       username: encodeURIComponent(succeededUsername),
     };
+      // Postpone and handle invitation at /verify
+    if(invitationToken) {
+      query.invitationToken = invitationToken;
+    }
     const qs = new URLSearchParams(query).toString();
 
     await sleep(pageTransitionInterval);
     window.location.href = `/?${qs}#/verify`;
   };
 
-  const usernameIsValid = username !== '';
-  const emailIsValid = email !== '' || fetchedEmail !== '';
-  const passwordIsValid = password !== '';
-  const buttonDisabled = !usernameIsValid || !emailIsValid || !passwordIsValid;
+  const buttonDisabled =
+    !isReady ||
+    username === '' ||
+    email === '' ||
+    password === '';
 
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {
     // enter

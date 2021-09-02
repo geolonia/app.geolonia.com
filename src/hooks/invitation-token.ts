@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import queryString from 'query-string';
 import { describeInvitation, acceptInvitation } from '../api/teams/accept-invitation';
 
-type HookResult = [
+type HookResult = {
   fetchedEmail: string | null,
-  ready: boolean,
+  isReady: boolean,
+  invitationToken: string | null,
   acceptInvitationCallback: () => Promise<void>,
-];
+};
 
 /**
  * Use invitationToken with search string
@@ -25,6 +26,7 @@ export const useInvitationToken = (search: string): HookResult => {
         setFetchedEmail(email);
       }
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     } finally {
       setIsReady(true);
@@ -42,15 +44,16 @@ export const useInvitationToken = (search: string): HookResult => {
     }
   }, [search]);
 
-  return [
+  return {
     fetchedEmail,
     isReady,
-    async () => {
+    invitationToken,
+    acceptInvitationCallback: async () => {
       if(invitationToken && fetchedEmail) {
         await acceptInvitation(invitationToken, fetchedEmail);
       } else {
         throw new Error('Invalid invitaton token.');
       }
     },
-  ];
+  };
 };

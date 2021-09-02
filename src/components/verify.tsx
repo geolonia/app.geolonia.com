@@ -15,6 +15,7 @@ import { pageTransitionInterval } from '../constants';
 import { parseVerifyError as parseCognitoVerifyError } from '../lib/cognito/parse-error';
 import { Link } from '@material-ui/core';
 import { sleep } from '../lib/sleep';
+import { useInvitationToken } from '../hooks/invitation-token';
 
 const Verify = () => {
   const [username, setUsername] = useState('');
@@ -23,6 +24,7 @@ const Verify = () => {
     null | 'requesting' | 'success' | 'warning'
   >(null);
   const [message, setMessage] = useState('');
+  const { isReady, acceptInvitationCallback } = useInvitationToken(window.location.search);
 
   const parsed = queryString.parse(window.location.search);
   const hasQueryStringUsername =
@@ -36,7 +38,7 @@ const Verify = () => {
     }
   }, [hasQueryStringUsername, parsed.username, username]);
 
-  const buttonDisabled = username === '' || !/^[0-9]{6}$/g.test(code);
+  const buttonDisabled = !isReady || username === '' || !/^[0-9]{6}$/g.test(code);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -60,6 +62,15 @@ const Verify = () => {
       setStatus('warning');
     }
     setStatus('success');
+
+    try {
+      await acceptInvitationCallback();
+    } catch (error) {
+      // チームへの招待失敗のエラーは無視し、あくまでサインアップ-メールアドレス認証を完結してもらう
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+
     await sleep(pageTransitionInterval);
 
     const qs = new URLSearchParams({
@@ -91,7 +102,7 @@ const Verify = () => {
               type={'text'}
               value={username}
               onChange={onUsernameChange}
-              disabled={hasQueryStringUsername}
+              disabled={hasQueryStringUsername || !isReady}
             />
           </label>
           <label className="text">
@@ -101,6 +112,7 @@ const Verify = () => {
               type={'text'}
               value={code}
               onChange={onCodeChange}
+              disabled={!isReady}
             />
           </label>
 

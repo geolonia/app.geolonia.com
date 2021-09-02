@@ -59,7 +59,7 @@ const Signin = (props: Props) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordResetFlag, setPasswordResetFlag] = useState(false);
   const [postVerifyFlag, setPostVerifyFlag] = useState(false);
-  const [fetchedEmail, isReady, acceptInviatationCallback] = useInvitationToken(window.location.search);
+  const { fetchedEmail, isReady, acceptInvitationCallback } = useInvitationToken(window.location.search);
 
   useEffect(() => {
     const parsed = queryString.parse(window.location.search);
@@ -105,7 +105,7 @@ const Signin = (props: Props) => {
     }
 
     try {
-      await acceptInviatationCallback();
+      await acceptInvitationCallback();
     } catch (error) {
       // チームへの招待失敗のエラーは無視し、あくまでサインインを完結してもらう
       // eslint-disable-next-line no-console
