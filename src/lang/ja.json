@@ -7,8 +7,6 @@
         "plural_forms": "nplurals=1; plural=0;",
         "lang": "ja"
       },
-      "Your invitation has been validated.": ["招待が有効化されました。"],
-      "Your invitation has been outdated.": ["この招待は無効です。"],
       "Get started with Geolonia map": ["Geoloniaの地図を使ってみる"],
       "First, you need to obtain an API key and set up the initial settings for the map design and display position.": [
         "まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"
@@ -262,6 +260,12 @@
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">Privacy policy</a>.": [
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">プライバシーポリシー</a> に同意したものとさせていただきます。"
       ],
+      "Are you sure you're not %s? If, please <a href=\"/#/signin\">sign in</a>.": [
+        "%s ではありませんか？その場合は<a href=\"/#/signin\">サインイン</a>してください。"
+      ],
+      "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>.": [
+        "すでにアカウントをお持ちですか？その場合は<a href=\"/#/signin\">サインイン</a>してください。"
+      ],
       "Free plan": ["Free プラン"],
       "Free Plan": ["Free プラン"],
       "Team settings": ["チーム設定"],
@@ -370,13 +374,12 @@
       ],
       "Invite": ["招待"],
       "Send an invitation": ["招待する"],
-      "Please enter the email address of the person you want to invite to \"%s\". Please note that the user must <a href=\"/#/signup\" target=\"_blank\">create a Geolonia account</a> first before you can send the invitation.": [
-        "チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n<br>\n※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が完了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps にまだ登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユーザー登録</a>を済ませてから招待を送信してください。"
+      "Please enter the email address of the person you want to invite to \"%s\".": [
+        "チーム「%s」にユーザーを招待してコラボレーションしましょう。"
       ],
-      "Receipient's email address": [
-        "招待するユーザーの Geolonia 登録メールアドレス"
-      ],
+      "Receipient's email address": ["招待するユーザーのメールアドレス"],
       "Send": ["送信"],
+      "Removing 1 member from %s.": ["%s から1人のメンバーを削除します。"],
       "The following members will be removed:": [
         "以下のメンバーがチームから削除されます。"
       ],

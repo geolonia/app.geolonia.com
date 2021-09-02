@@ -32,15 +32,14 @@ export const Invite = (props: Props) => {
     false | 'requesting' | 'success' | 'failure'
   >(false);
 
+  const { session, team, members, disabled } = props;
+
   const inviteHandler = async (email: string) => {
-    const { session, team, members } = props;
-
     if (members.find((member) => member.email === email)) {
+      setStatus('failure');
       setMessage(__('That user is already a member of this team.'));
-      return Promise.reject('That user is already a member of the team.');
-    }
-
-    if (team) {
+      throw new Error('That user is already a member of the team.');
+    } else if (team) {
       setStatus('requesting');
       const res = await fetch(
         session,
@@ -70,16 +69,16 @@ export const Invite = (props: Props) => {
     }
   };
 
-  const teamName = props.team && props.team.name;
+  const teamName = team && team.name;
 
   return (
     <>
       <AddNew
-        disabled={props.disabled}
+        disabled={disabled}
         buttonLabel={__('Invite')}
         label={__('Send an invitation')}
         description={<Interweave content={
-          sprintf(__('Please enter the email address of the person you want to invite to "%s". Please note that the user must <a href="/#/signup" target="_blank">create a Geolonia account</a> first before you can send the invitation.'), teamName)
+          sprintf(__('Please enter the email address of the person you want to invite to "%s".'), teamName)
         } />}
         defaultValue=""
         fieldName="email"

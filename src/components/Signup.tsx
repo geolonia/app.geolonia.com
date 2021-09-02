@@ -1,9 +1,9 @@
+import './Signup.scss';
+
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
-
 import Support from './custom/Support';
 import Languages from './custom/languages';
-import './Signup.scss';
 import Logo from './custom/logo.svg';
 import Alert from './custom/Alert';
 import { signUp } from '../auth';
@@ -11,13 +11,21 @@ import Redux from 'redux';
 import { connect } from 'react-redux';
 import { createActions } from '../redux/actions/auth-support';
 import StatusIndication from './custom/status-indication';
-import delay from '../lib/promise-delay';
-import { __ } from '@wordpress/i18n';
+import { sprintf, __ } from '@wordpress/i18n';
 import Interweave from 'interweave';
 import { parseSignupError as parseCognitoSignupError } from '../lib/cognito/parse-error';
 import estimateLanguage from '../lib/estimate-language';
 import { pageTransitionInterval } from '../constants';
+
+// Utils
 import queryString from 'query-string';
+import { sleep } from '../lib/sleep';
+
+// hooks
+import { useInvitationToken } from '../hooks/invitation-token';
+
+// types
+import { ISignUpResult } from 'amazon-cognito-identity-js';
 
 type OwnProps = Record<string, never>;
 type RouterProps = {
@@ -40,6 +48,7 @@ const Signup = (props: Props) => {
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState<Status>(null);
   const [message, setMessage] = useState('');
+  const [fetchedEmail, acceptInvitationCallback] = useInvitationToken(window.location.search);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -57,29 +66,43 @@ const Signup = (props: Props) => {
     setPassword(e.currentTarget.value);
   };
 
-  const handleSignup = (e: React.MouseEvent | void) => {
+  const handleSignup = async (e: React.MouseEvent | void) => {
     e && e.preventDefault();
     setStatus('requesting');
     setUsername(username);
-    delay(signUp(username, email, password), 500)
-      .then((result) => {
-        setStatus('success');
-        const succeededUsername = result.user.getUsername();
-        props.setCurrentUser(succeededUsername);
-        setTimeout(() => {
-          window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
-            succeededUsername,
-          )}#/verify`;
-        }, pageTransitionInterval);
-      })
-      .catch((err) => {
-        setMessage(parseCognitoSignupError(err || { code: '' }));
-        setStatus('warning');
-      });
+
+    let result: ISignUpResult;
+    try {
+      result = await signUp(username, fetchedEmail || email, password);
+    } catch (err: any) {
+      setMessage(parseCognitoSignupError(err || { code: '' }));
+      setStatus('warning');
+      return;
+    }
+    try {
+      await acceptInvitationCallback();
+    } catch (error) {
+      // チームへの招待失敗のエラーは無視し、あくまでサインアップを完結してもらう
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+    setStatus('success');
+
+    const succeededUsername = result.user.getUsername();
+    props.setCurrentUser(succeededUsername);
+
+    const query: { [key: string]: string } = {
+      lang: estimateLanguage(),
+      username: encodeURIComponent(succeededUsername),
+    };
+    const qs = new URLSearchParams(query).toString();
+
+    await sleep(pageTransitionInterval);
+    window.location.href = `/?${qs}#/verify`;
   };
 
   const usernameIsValid = username !== '';
-  const emailIsValid = email !== '';
+  const emailIsValid = email !== '' || fetchedEmail !== '';
   const passwordIsValid = password !== '';
   const buttonDisabled = !usernameIsValid || !emailIsValid || !passwordIsValid;
 
@@ -121,7 +144,8 @@ const Signup = (props: Props) => {
             <input
               id={'email'}
               type={'text'}
-              value={email}
+              value={fetchedEmail || email}
+              disabled={!!fetchedEmail}
               onChange={onEmailChange}
               onBlur={onEmailBlur}
             />
@@ -164,6 +188,15 @@ const Signup = (props: Props) => {
             />
           </p>
         </form>
+
+        <p className="message">
+          <Interweave
+            content={fetchedEmail ?
+              sprintf(__('Are you sure you\'re not %s? If, please <a href="/#/signin">sign in</a>.'), fetchedEmail) :
+              __('Already have an account? If so, please <a href="/#/signin">sign in</a>.')
+            }
+          />
+        </p>
 
         <div className="support-container">
           <Languages />

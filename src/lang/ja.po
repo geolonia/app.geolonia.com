@@ -14,14 +14,6 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0\n"
 
-#: src/components/AcceptInvitation.tsx:66
-msgid "Your invitation has been validated."
-msgstr "招待が有効化されました。"
-
-#: src/components/AcceptInvitation.tsx:69
-msgid "Your invitation has been outdated."
-msgstr "この招待は無効です。"
-
 #: src/components/Dashboard.tsx:50
 msgid "Get started with Geolonia map"
 msgstr "Geoloniaの地図を使ってみる"
@@ -59,7 +51,7 @@ msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GeoJson.tsx:100 src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:115 src/components/Maps/APIKeys.tsx:44
-#: src/components/Navigator.tsx:263 src/components/Team/Billing.tsx:330
+#: src/components/Navigator.tsx:263 src/components/Team/Billing.tsx:342
 #: src/components/Team/general/index.tsx:28
 #: src/components/Team/members/index.tsx:121 src/components/User/User.tsx:13
 msgid "Home"
@@ -598,7 +590,7 @@ msgstr "支払い"
 msgid "We'll send you an email receipt."
 msgstr "指定したメールに請求情報を送信します。"
 
-#: src/components/Paperbase.tsx:174
+#: src/components/Paperbase.tsx:168
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
@@ -610,7 +602,7 @@ msgstr "新しいパスワード"
 msgid "Confirm new password"
 msgstr "新しいパスワードを確認"
 
-#: src/components/ResetPassword.tsx:128 src/components/Signup.tsx:141
+#: src/components/ResetPassword.tsx:128 src/components/Signup.tsx:166
 msgid ""
 "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
@@ -640,17 +632,17 @@ msgstr ""
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/Signin.tsx:104
+#: src/components/Signin.tsx:147
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:108
+#: src/components/Signin.tsx:151
 msgid ""
 "Your password has been successfully reset. Please reenter and sign in to the "
 "account."
 msgstr "パスワードがリセットされました。再度入力してサインインしてください。"
 
-#: src/components/Signin.tsx:111
+#: src/components/Signin.tsx:154
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -658,60 +650,60 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:119 src/lib/cognito/parse-error.ts:50
+#: src/components/Signin.tsx:162 src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
-#: src/components/Signin.tsx:124
+#: src/components/Signin.tsx:167
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:135 src/components/Signup.tsx:130
+#: src/components/Signin.tsx:178 src/components/Signup.tsx:155
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/Signin.tsx:148
+#: src/components/Signin.tsx:191
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:161
+#: src/components/Signin.tsx:204
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:168
+#: src/components/Signin.tsx:211
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:170
+#: src/components/Signin.tsx:213
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:104 src/components/verify.tsx:75
+#: src/components/Signup.tsx:128 src/components/verify.tsx:76
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:105
+#: src/components/Signup.tsx:129
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:108 src/components/User/profile.tsx:108
-#: src/components/resend-code.tsx:60 src/components/verify.tsx:87
+#: src/components/Signup.tsx:132 src/components/User/profile.tsx:108
+#: src/components/resend-code.tsx:60 src/components/verify.tsx:88
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/components/Signup.tsx:116
+#: src/components/Signup.tsx:140
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:120
+#: src/components/Signup.tsx:144
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:154
+#: src/components/Signup.tsx:179
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:161
+#: src/components/Signup.tsx:186
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">Terms of "
@@ -724,60 +716,74 @@ msgstr ""
 "target=\"_blank\">プライバシーポリシー</a> に同意したものとさせていただきま"
 "す。"
 
-#: src/components/Team/Billing.tsx:147
+#: src/components/Signup.tsx:196
+msgid ""
+"Are you sure you're not %s? If, please <a href=\"/#/signin\">sign in</a>."
+msgstr ""
+"%s ではありませんか？その場合は<a href=\"/#/signin\">サインイン</a>してくださ"
+"い。"
+
+#: src/components/Signup.tsx:197
+msgid ""
+"Already have an account? If so, please <a href=\"/#/signin\">sign in</a>."
+msgstr ""
+"すでにアカウントをお持ちですか？その場合は<a href=\"/#/signin\">サインイン</a>し"
+"てください。"
+
+#: src/components/Team/Billing.tsx:152
 msgid "Free plan"
 msgstr "Free プラン"
 
-#: src/components/Team/Billing.tsx:171
+#: src/components/Team/Billing.tsx:177
 msgid "Free Plan"
 msgstr "Free プラン"
 
-#: src/components/Team/Billing.tsx:334 src/components/Team/general/index.tsx:32
+#: src/components/Team/Billing.tsx:346 src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:394
+#: src/components/Team/Billing.tsx:406
 msgid "Usage this month"
 msgstr "今月の利用状況"
 
-#: src/components/Team/Billing.tsx:400
+#: src/components/Team/Billing.tsx:412
 msgid "Billing period"
 msgstr "請求対象期間"
 
-#: src/components/Team/Billing.tsx:416
+#: src/components/Team/Billing.tsx:428
 msgid "Next Payment Date"
 msgstr "次回のお支払日"
 
-#: src/components/Team/Billing.tsx:432
+#: src/components/Team/Billing.tsx:444
 msgid "Map loads"
 msgstr "地図の表示回数"
 
-#: src/components/Team/Billing.tsx:440
+#: src/components/Team/Billing.tsx:452
 msgid "Last updated %s"
 msgstr "最終更新: %s"
 
-#: src/components/Team/Billing.tsx:447
+#: src/components/Team/Billing.tsx:459
 msgid "Charges"
 msgstr "料金"
 
-#: src/components/Team/Billing.tsx:458
+#: src/components/Team/Billing.tsx:470
 msgid "Map loads by API key"
 msgstr "API キー別の地図の表示回数"
 
-#: src/components/Team/Billing.tsx:461
+#: src/components/Team/Billing.tsx:473
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 
-#: src/components/Team/Billing.tsx:470
+#: src/components/Team/Billing.tsx:482
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:480
+#: src/components/Team/Billing.tsx:492
 msgid "Current account credit:"
 msgstr "クレジット残高"
 
-#: src/components/Team/Billing.tsx:484
+#: src/components/Team/Billing.tsx:496
 msgid ""
 " : While this account has credits available, payments will deduct from "
 "account credit instead of the registered credit card."
@@ -785,49 +791,49 @@ msgstr ""
 "　(現在、クレジットが適用されています。クレジット残高が残っている場合、請求は"
 "クレジット残高から支払われます。)"
 
-#: src/components/Team/Billing.tsx:489
+#: src/components/Team/Billing.tsx:501
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:493
+#: src/components/Team/Billing.tsx:505
 msgid "ending in **%1$s"
 msgstr "クレジットカード（末尾の番号 **%1$s）"
 
-#: src/components/Team/Billing.tsx:503
+#: src/components/Team/Billing.tsx:515
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:515
+#: src/components/Team/Billing.tsx:527
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:521
+#: src/components/Team/Billing.tsx:533
 msgid "Scheduled to expire on %1$s"
 msgstr "%1$s にキャンセルされます"
 
-#: src/components/Team/Billing.tsx:540
+#: src/components/Team/Billing.tsx:552
 msgid "Resume subscription"
 msgstr "自動更新を再開"
 
-#: src/components/Team/Billing.tsx:552
+#: src/components/Team/Billing.tsx:564
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:580
+#: src/components/Team/Billing.tsx:592
 msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
-#: src/components/Team/Billing.tsx:590
+#: src/components/Team/Billing.tsx:602
 msgid "Billing and Plans"
 msgstr "料金プランとお支払い"
 
-#: src/components/Team/Billing.tsx:591
+#: src/components/Team/Billing.tsx:603
 msgid ""
 "You can check and change your current pricing plan and usage status of Team "
 "%s."
 msgstr "チーム「%s」の現在の料金プラン・利用状況の確認、変更ができます。"
 
-#: src/components/Team/Billing.tsx:600
+#: src/components/Team/Billing.tsx:612
 msgid "Payment history"
 msgstr "支払い履歴"
 
@@ -1010,54 +1016,50 @@ msgstr "一時停止"
 msgid "Remove from team"
 msgstr "チームから削除"
 
-#: src/components/Team/members/invite.tsx:109
+#: src/components/Team/members/invite.tsx:108
 msgid "Successfully send invitation."
 msgstr "チームへの招待が送信されました。"
 
-#: src/components/Team/members/invite.tsx:111
+#: src/components/Team/members/invite.tsx:110
 msgid "Failed to send invitation."
 msgstr "招待の送信に失敗しました。"
 
-#: src/components/Team/members/invite.tsx:39
+#: src/components/Team/members/invite.tsx:40
 msgid "That user is already a member of this team."
 msgstr "すでにメンバーになっています。"
 
-#: src/components/Team/members/invite.tsx:61
+#: src/components/Team/members/invite.tsx:60
 msgid "The maximum number of members has been reached."
 msgstr "メンバー数が上限に達しました。"
 
-#: src/components/Team/members/invite.tsx:65
+#: src/components/Team/members/invite.tsx:64
 msgid "You cannot use this email address for invitation."
 msgstr "このメールアドレスは招待に使用できません。"
 
-#: src/components/Team/members/invite.tsx:79
+#: src/components/Team/members/invite.tsx:78
 msgid "Invite"
 msgstr "招待"
 
-#: src/components/Team/members/invite.tsx:80
+#: src/components/Team/members/invite.tsx:79
 msgid "Send an invitation"
 msgstr "招待する"
 
-#: src/components/Team/members/invite.tsx:82
+#: src/components/Team/members/invite.tsx:81
 msgid ""
-"Please enter the email address of the person you want to invite to \"%s\". "
-"Please note that the user must <a href=\"/#/signup\" target=\"_blank"
-"\">create a Geolonia account</a> first before you can send the invitation."
-msgstr ""
-"チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n"
-"<br>\n"
-"※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が完"
-"了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps にまだ"
-"登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユーザー登録</"
-"a>を済ませてから招待を送信してください。"
+"Please enter the email address of the person you want to invite to \"%s\"."
+msgstr "チーム「%s」にユーザーを招待してコラボレーションしましょう。"
 
-#: src/components/Team/members/invite.tsx:86
+#: src/components/Team/members/invite.tsx:85
 msgid "Receipient's email address"
-msgstr "招待するユーザーの Geolonia 登録メールアドレス"
+msgstr "招待するユーザーのメールアドレス"
 
-#: src/components/Team/members/invite.tsx:92
+#: src/components/Team/members/invite.tsx:91
 msgid "Send"
 msgstr "送信"
+
+#: src/components/Team/members/remove-member.tsx:70
+msgid "Removing 1 member from %s."
+msgstr "%s から1人のメンバーを削除します。"
 
 #: src/components/Team/members/remove-member.tsx:74
 msgid "The following members will be removed:"
@@ -1253,26 +1255,26 @@ msgstr "英語"
 msgid "request send"
 msgstr "再送する"
 
-#: src/components/verify.tsx:114
+#: src/components/verify.tsx:115
 msgid "Verify"
 msgstr "検証する"
 
-#: src/components/verify.tsx:119
+#: src/components/verify.tsx:120
 msgid "Request a new verification code."
 msgstr "検証コードを再送する。"
 
-#: src/components/verify.tsx:76
+#: src/components/verify.tsx:77
 msgid "Verify your account"
 msgstr "アカウントの確認"
 
-#: src/components/verify.tsx:80
+#: src/components/verify.tsx:81
 msgid ""
 "Please check your email and enter the verification code like <code>123456</"
 "code>."
 msgstr ""
 "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
 
-#: src/components/verify.tsx:97
+#: src/components/verify.tsx:98
 msgid "Verification code"
 msgstr "検証コード"
 
@@ -1393,6 +1395,24 @@ msgstr ""
 msgctxt "Default value of zoom level of map"
 msgid "0"
 msgstr "6"
+
+#~ msgid "Your invitation has been validated."
+#~ msgstr "招待が有効化されました。"
+
+#~ msgid "Your invitation has been outdated."
+#~ msgstr "この招待は無効です。"
+
+#~ msgid ""
+#~ "Please enter the email address of the person you want to invite to \"%s"
+#~ "\". Please note that the user must <a href=\"/#/signup\" target=\"_blank"
+#~ "\">create a Geolonia account</a> first before you can send the invitation."
+#~ msgstr ""
+#~ "チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n"
+#~ "<br>\n"
+#~ "※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が"
+#~ "完了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps "
+#~ "にまだ登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユー"
+#~ "ザー登録</a>を済ませてから招待を送信してください。"
 
 #~ msgid "Map loads this month"
 #~ msgstr "今月の地図の表示回数"

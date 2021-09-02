@@ -7,7 +7,6 @@ import Logo from './custom/logo.svg';
 import Alert from './custom/Alert';
 import { verify } from '../auth';
 import StatusIndication from './custom/status-indication';
-import delay from '../lib/promise-delay';
 
 import { __ } from '@wordpress/i18n';
 import queryString from 'query-string';
@@ -15,8 +14,9 @@ import estimateLanguage from '../lib/estimate-language';
 import { pageTransitionInterval } from '../constants';
 import { parseVerifyError as parseCognitoVerifyError } from '../lib/cognito/parse-error';
 import { Link } from '@material-ui/core';
+import { sleep } from '../lib/sleep';
 
-const Content = () => {
+const Verify = () => {
   const [username, setUsername] = useState('');
   const [code, setCode] = useState('');
   const [status, setStatus] = useState<
@@ -50,22 +50,23 @@ const Content = () => {
     }
   };
 
-  const handleVerify = (e: React.MouseEvent<HTMLButtonElement> | void) => {
+  const handleVerify = async (e: React.MouseEvent<HTMLButtonElement> | void) => {
     e && e.preventDefault();
     setStatus('requesting');
-    delay(verify(username, code), 500)
-      .then(() => {
-        setStatus('success');
-        setTimeout(() => {
-          window.location.href = `/?lang=${estimateLanguage()}&&username=${encodeURIComponent(
-            username,
-          )}#/signin`;
-        }, pageTransitionInterval);
-      })
-      .catch((err) => {
-        setMessage(parseCognitoVerifyError(err));
-        setStatus('warning');
-      });
+    try {
+      await verify(username, code);
+    } catch (error: any) {
+      setMessage(parseCognitoVerifyError(error));
+      setStatus('warning');
+    }
+    setStatus('success');
+    await sleep(pageTransitionInterval);
+
+    const qs = new URLSearchParams({
+      lang: estimateLanguage(),
+      username: encodeURIComponent(username),
+    }).toString();
+    window.location.href = `/?${qs}#/signin`;
   };
 
   return (
@@ -130,4 +131,4 @@ const Content = () => {
   );
 };
 
-export default Content;
+export default Verify;

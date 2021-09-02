@@ -3,14 +3,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/AcceptInvitation.tsx:66
-msgid "Your invitation has been validated."
-msgstr ""
-
-#: src/components/AcceptInvitation.tsx:69
-msgid "Your invitation has been outdated."
-msgstr ""
-
 #: src/components/Dashboard.tsx:50
 msgid "Get started with Geolonia map"
 msgstr ""
@@ -48,7 +40,7 @@ msgstr ""
 #: src/components/Maps/APIKey.tsx:115
 #: src/components/Maps/APIKeys.tsx:44
 #: src/components/Navigator.tsx:263
-#: src/components/Team/Billing.tsx:330
+#: src/components/Team/Billing.tsx:342
 #: src/components/Team/general/index.tsx:28
 #: src/components/Team/members/index.tsx:121
 #: src/components/User/User.tsx:13
@@ -561,7 +553,7 @@ msgstr ""
 msgid "We'll send you an email receipt."
 msgstr ""
 
-#: src/components/Paperbase.tsx:174
+#: src/components/Paperbase.tsx:168
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
@@ -576,7 +568,7 @@ msgid "Confirm new password"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:128
-#: src/components/Signup.tsx:141
+#: src/components/Signup.tsx:166
 msgid "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
 
@@ -603,81 +595,81 @@ msgstr ""
 msgid "Verification Code"
 msgstr ""
 
-#: src/components/Signin.tsx:104
+#: src/components/Signin.tsx:147
 msgid "Sign in to Geolonia"
 msgstr ""
 
-#: src/components/Signin.tsx:108
+#: src/components/Signin.tsx:151
 msgid ""
 "Your password has been successfully reset. Please reenter and sign in to "
 "the account."
 msgstr ""
 
-#: src/components/Signin.tsx:111
+#: src/components/Signin.tsx:154
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
 msgstr ""
 
-#: src/components/Signin.tsx:119
+#: src/components/Signin.tsx:162
 #: src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
-#: src/components/Signin.tsx:124
+#: src/components/Signin.tsx:167
 msgid "Username or email address"
 msgstr ""
 
-#: src/components/Signin.tsx:135
-#: src/components/Signup.tsx:130
+#: src/components/Signin.tsx:178
+#: src/components/Signup.tsx:155
 msgid "Password"
 msgstr ""
 
-#: src/components/Signin.tsx:148
+#: src/components/Signin.tsx:191
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:161
+#: src/components/Signin.tsx:204
 msgid "Sign in"
 msgstr ""
 
-#: src/components/Signin.tsx:168
+#: src/components/Signin.tsx:211
 msgid "New to Geolonia?"
 msgstr ""
 
-#: src/components/Signin.tsx:170
+#: src/components/Signin.tsx:213
 msgid "Create an account."
 msgstr ""
 
-#: src/components/Signup.tsx:104
-#: src/components/verify.tsx:75
+#: src/components/Signup.tsx:128
+#: src/components/verify.tsx:76
 msgid "Welcome to Geolonia"
 msgstr ""
 
-#: src/components/Signup.tsx:105
+#: src/components/Signup.tsx:129
 msgid "Create your account"
 msgstr ""
 
-#: src/components/Signup.tsx:108
+#: src/components/Signup.tsx:132
 #: src/components/User/profile.tsx:108
 #: src/components/resend-code.tsx:60
-#: src/components/verify.tsx:87
+#: src/components/verify.tsx:88
 msgid "Username"
 msgstr ""
 
-#: src/components/Signup.tsx:116
+#: src/components/Signup.tsx:140
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:120
+#: src/components/Signup.tsx:144
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:154
+#: src/components/Signup.tsx:179
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:161
+#: src/components/Signup.tsx:186
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" target=\"_blank\" "
@@ -686,109 +678,117 @@ msgid ""
 "target=\"_blank\">Privacy policy</a>."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:147
+#: src/components/Signup.tsx:196
+msgid "Are you sure you're not %s? If, please <a href=\"/#/signin\">sign in</a>."
+msgstr ""
+
+#: src/components/Signup.tsx:197
+msgid "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>."
+msgstr ""
+
+#: src/components/Team/Billing.tsx:152
 msgid "Free plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:171
+#: src/components/Team/Billing.tsx:177
 msgid "Free Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:334
+#: src/components/Team/Billing.tsx:346
 #: src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:394
+#: src/components/Team/Billing.tsx:406
 msgid "Usage this month"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:400
+#: src/components/Team/Billing.tsx:412
 msgid "Billing period"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:416
+#: src/components/Team/Billing.tsx:428
 msgid "Next Payment Date"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:432
+#: src/components/Team/Billing.tsx:444
 msgid "Map loads"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:440
+#: src/components/Team/Billing.tsx:452
 msgid "Last updated %s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:447
+#: src/components/Team/Billing.tsx:459
 msgid "Charges"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:458
+#: src/components/Team/Billing.tsx:470
 msgid "Map loads by API key"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:461
+#: src/components/Team/Billing.tsx:473
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:470
+#: src/components/Team/Billing.tsx:482
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:480
+#: src/components/Team/Billing.tsx:492
 msgid "Current account credit:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:484
+#: src/components/Team/Billing.tsx:496
 msgid ""
 " : While this account has credits available, payments will deduct from "
 "account credit instead of the registered credit card."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:489
+#: src/components/Team/Billing.tsx:501
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:493
+#: src/components/Team/Billing.tsx:505
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:503
+#: src/components/Team/Billing.tsx:515
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:515
+#: src/components/Team/Billing.tsx:527
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:521
+#: src/components/Team/Billing.tsx:533
 msgid "Scheduled to expire on %1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:540
+#: src/components/Team/Billing.tsx:552
 msgid "Resume subscription"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:552
+#: src/components/Team/Billing.tsx:564
 msgid "Change Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:580
+#: src/components/Team/Billing.tsx:592
 msgid "Learn more about plans on the pricing page."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:590
+#: src/components/Team/Billing.tsx:602
 msgid "Billing and Plans"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:591
+#: src/components/Team/Billing.tsx:603
 msgid ""
 "You can check and change your current pricing plan and usage status of Team "
 "%s."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:600
+#: src/components/Team/Billing.tsx:612
 msgid "Payment history"
 msgstr ""
 
@@ -959,48 +959,48 @@ msgstr ""
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:109
+#: src/components/Team/members/invite.tsx:108
 msgid "Successfully send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:111
+#: src/components/Team/members/invite.tsx:110
 msgid "Failed to send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:39
+#: src/components/Team/members/invite.tsx:40
 msgid "That user is already a member of this team."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:61
+#: src/components/Team/members/invite.tsx:60
 msgid "The maximum number of members has been reached."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:65
+#: src/components/Team/members/invite.tsx:64
 msgid "You cannot use this email address for invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:79
+#: src/components/Team/members/invite.tsx:78
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:80
+#: src/components/Team/members/invite.tsx:79
 msgid "Send an invitation"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:82
-msgid ""
-"Please enter the email address of the person you want to invite to \"%s\". "
-"Please note that the user must <a href=\"/#/signup\" "
-"target=\"_blank\">create a Geolonia account</a> first before you can send "
-"the invitation."
+#: src/components/Team/members/invite.tsx:81
+msgid "Please enter the email address of the person you want to invite to \"%s\"."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:86
+#: src/components/Team/members/invite.tsx:85
 msgid "Receipient's email address"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:92
+#: src/components/Team/members/invite.tsx:91
 msgid "Send"
+msgstr ""
+
+#: src/components/Team/members/remove-member.tsx:70
+msgid "Removing 1 member from %s."
 msgstr ""
 
 #: src/components/Team/members/remove-member.tsx:74
@@ -1197,25 +1197,25 @@ msgstr ""
 msgid "request send"
 msgstr ""
 
-#: src/components/verify.tsx:114
+#: src/components/verify.tsx:115
 msgid "Verify"
 msgstr ""
 
-#: src/components/verify.tsx:119
+#: src/components/verify.tsx:120
 msgid "Request a new verification code."
 msgstr ""
 
-#: src/components/verify.tsx:76
+#: src/components/verify.tsx:77
 msgid "Verify your account"
 msgstr ""
 
-#: src/components/verify.tsx:80
+#: src/components/verify.tsx:81
 msgid ""
 "Please check your email and enter the verification code like "
 "<code>123456</code>."
 msgstr ""
 
-#: src/components/verify.tsx:97
+#: src/components/verify.tsx:98
 msgid "Verification code"
 msgstr ""
 
