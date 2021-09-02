@@ -55,7 +55,6 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:108
 #: src/components/Data/GeoJsons.tsx:125
-#: src/components/Navigator.tsx:160
 msgid "Location Data"
 msgstr ""
 
@@ -131,7 +130,7 @@ msgstr ""
 #: src/components/Data/GeoJsonMeta.tsx:353
 #: src/components/Data/fields.tsx:26
 #: src/components/Navigator.tsx:338
-#: src/components/Team/general/fields.tsx:84
+#: src/components/Team/general/fields.tsx:77
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:125
@@ -543,16 +542,6 @@ msgstr ""
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Navigator.tsx:346
-#: src/components/Team/general/fields.tsx:116
-msgid "Billing email"
-msgstr ""
-
-#: src/components/Navigator.tsx:353
-#: src/components/Team/general/fields.tsx:138
-msgid "We'll send you an email receipt."
-msgstr ""
-
 #: src/components/Paperbase.tsx:168
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
@@ -568,7 +557,7 @@ msgid "Confirm new password"
 msgstr ""
 
 #: src/components/ResetPassword.tsx:128
-#: src/components/Signup.tsx:166
+#: src/components/Signup.tsx:165
 msgid "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
 
@@ -595,81 +584,81 @@ msgstr ""
 msgid "Verification Code"
 msgstr ""
 
-#: src/components/Signin.tsx:147
-msgid "Sign in to Geolonia"
-msgstr ""
-
-#: src/components/Signin.tsx:151
+#: src/components/Signin.tsx:128
 msgid ""
 "Your password has been successfully reset. Please reenter and sign in to "
 "the account."
 msgstr ""
 
-#: src/components/Signin.tsx:154
+#: src/components/Signin.tsx:130
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
 msgstr ""
 
-#: src/components/Signin.tsx:162
+#: src/components/Signin.tsx:137
+msgid "Sign in to Geolonia"
+msgstr ""
+
+#: src/components/Signin.tsx:141
 #: src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
-#: src/components/Signin.tsx:167
+#: src/components/Signin.tsx:146
 msgid "Username or email address"
 msgstr ""
 
-#: src/components/Signin.tsx:178
-#: src/components/Signup.tsx:155
+#: src/components/Signin.tsx:158
+#: src/components/Signup.tsx:154
 msgid "Password"
 msgstr ""
 
-#: src/components/Signin.tsx:191
+#: src/components/Signin.tsx:171
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:204
+#: src/components/Signin.tsx:184
 msgid "Sign in"
 msgstr ""
 
-#: src/components/Signin.tsx:211
+#: src/components/Signin.tsx:191
 msgid "New to Geolonia?"
 msgstr ""
 
-#: src/components/Signin.tsx:213
+#: src/components/Signin.tsx:193
 msgid "Create an account."
 msgstr ""
 
-#: src/components/Signup.tsx:128
+#: src/components/Signup.tsx:127
 #: src/components/verify.tsx:76
 msgid "Welcome to Geolonia"
 msgstr ""
 
-#: src/components/Signup.tsx:129
+#: src/components/Signup.tsx:128
 msgid "Create your account"
 msgstr ""
 
-#: src/components/Signup.tsx:132
+#: src/components/Signup.tsx:131
 #: src/components/User/profile.tsx:108
 #: src/components/resend-code.tsx:60
 #: src/components/verify.tsx:88
 msgid "Username"
 msgstr ""
 
-#: src/components/Signup.tsx:140
+#: src/components/Signup.tsx:139
 msgid "Username cannot be modified later."
 msgstr ""
 
-#: src/components/Signup.tsx:144
+#: src/components/Signup.tsx:143
 msgid "Email address"
 msgstr ""
 
-#: src/components/Signup.tsx:179
+#: src/components/Signup.tsx:178
 msgid "Sign up"
 msgstr ""
 
-#: src/components/Signup.tsx:186
+#: src/components/Signup.tsx:185
 msgid ""
 "By signing up to Geolonia, you agree to our <a "
 "href=\"https://geolonia.com/terms\" target=\"_blank\" "
@@ -678,11 +667,11 @@ msgid ""
 "target=\"_blank\">Privacy policy</a>."
 msgstr ""
 
-#: src/components/Signup.tsx:196
+#: src/components/Signup.tsx:195
 msgid "Are you sure you're not %s? If, please <a href=\"/#/signin\">sign in</a>."
 msgstr ""
 
-#: src/components/Signup.tsx:197
+#: src/components/Signup.tsx:196
 msgid "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>."
 msgstr ""
 
@@ -877,6 +866,16 @@ msgstr ""
 
 #: src/components/Team/general/delete.tsx:86
 msgid "Once you delete a team, there is no going back. Please be certain. "
+msgstr ""
+
+#: src/components/Team/general/fields.tsx:110
+msgid "Billing email"
+msgstr ""
+
+#: src/components/Team/general/fields.tsx:119
+msgid ""
+"Receipts and other billing-related notifications will be sent to this "
+"e-mail address."
 msgstr ""
 
 #: src/components/Team/general/index.tsx:42
