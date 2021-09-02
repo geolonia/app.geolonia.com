@@ -102,8 +102,26 @@ interface CustomerDetails {
 }
 
 interface UpcomingDetails {
+  /** クレジットカードに請求する金額。アカウントにクレジットがあるや、割引が適用されているなどの場合、割引が適用されたあとの金額となります。 */
   amount_due: number
+
+  /** 今度支払いが試行される時間。ISO8601 */
   next_payment_attempt: string
+
+  /** 割引 */
+  discounts: {
+    amount: number
+    name: string
+  }[]
+
+  /** 小計 - 割引が入っていない */
+  subtotal: number
+
+  /** 税額 */
+  tax: number
+
+  /** 合計 - アカウントクレジットから支払われる場合は0以上。割引が適用されている場合は割引後の合計となります。 */
+  total: number
 }
 
 interface FreePlanDetails {
@@ -137,7 +155,7 @@ type ChartDatasets = {
 const getRangeDate = (startDate: moment.Moment, endDate: moment.Moment) => {
   const dates: moment.Moment[] = [];
   let currentDate: moment.Moment = startDate;
-  while (currentDate <= endDate) {
+  while (currentDate < endDate) {
     dates.push(currentDate);
     currentDate = currentDate.clone().add(1, 'days');
   }
@@ -304,7 +322,7 @@ const Billing = (props: StateProps) => {
     setDatasets([]);
   }, [teamId]);
 
-  const data = {
+  const chartData = {
     labels: labels,
     datasets: datasets,
   };
@@ -400,76 +418,78 @@ const Billing = (props: StateProps) => {
   } else {
     const subOrFreePlan = subscription || freePlanDetails;
     inner = <>
-      <Grid container spacing={3} className="usage-info">
-        <Grid item xs={12}>
-          <Typography className="usage-info-title" component="h2">
-            {__('Usage this month')}
-          </Typography>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Paper className="usage-card">
-            <Typography component="h3">
-              {__('Billing period')}
+      { props.isOwner && <>
+        <Grid container spacing={3} className="usage-info">
+          <Grid item xs={12}>
+            <Typography className="usage-info-title" component="h2">
+              {__('Usage this month')}
             </Typography>
-            <div className="usage-card-content">
-              {subOrFreePlan ?
-                <>
-                  {`${moment(subOrFreePlan.current_period_start).format('MM/DD')} ~ ${moment(subOrFreePlan.current_period_end).format('MM/DD')}`}
-                </>
-                :
-                '-'
-              }
-            </div>
-          </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Paper className="usage-card">
+              <Typography component="h3">
+                {__('Billing period')}
+              </Typography>
+              <div className="usage-card-content">
+                {subOrFreePlan ?
+                  <>
+                    {`${moment(subOrFreePlan.current_period_start).format('MM/DD')} ~ ${moment(subOrFreePlan.current_period_end).format('MM/DD')}`}
+                  </>
+                  :
+                  '-'
+                }
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Paper className="usage-card">
+              <Typography component="h3">
+                {__('Next Payment Date')}
+              </Typography>
+              <div className="usage-card-content">
+                {subscription ?
+                  <>
+                    {moment(subscription.current_period_end).format('MM/DD')}
+                  </>
+                  :
+                  '-'
+                }
+              </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Paper className="usage-card">
+              <Typography component="h3">
+                {__('Map loads')}
+              </Typography>
+              <div className="usage-card-content">
+                {!usage || typeof usage.count !== 'number' ? '-' : usage.count}
+                { (team && team.baseFreeMapLoadCount) && <small> / { team.baseFreeMapLoadCount.toLocaleString() }回</small> }
+              </div>
+              {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
+              {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
+                <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY/MM/DD HH:mm:ss'))}</div>
+              </>}
+            </Paper>
+          </Grid>
+          <Grid item xs={12} md={6} lg={3}>
+            <Paper className="usage-card">
+              <Typography component="h3">
+                {__('Charges')}
+              </Typography>
+              <div className="usage-card-content">
+                {!upcoming || typeof upcoming.amount_due !== 'number' ? '-' : currencyFormatter.format(upcoming.amount_due)}
+              </div>
+            </Paper>
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Paper className="usage-card">
-            <Typography component="h3">
-              {__('Next Payment Date')}
-            </Typography>
-            <div className="usage-card-content">
-              {subscription ?
-                <>
-                  {moment(subscription.current_period_end).format('MM/DD')}
-                </>
-                :
-                '-'
-              }
-            </div>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Paper className="usage-card">
-            <Typography component="h3">
-              {__('Map loads')}
-            </Typography>
-            <div className="usage-card-content">
-              {!usage || typeof usage.count !== 'number' ? '-' : usage.count}
-              { (team && team.baseFreeMapLoadCount) && <small> / { team.baseFreeMapLoadCount.toLocaleString() }回</small> }
-            </div>
-            {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
-            {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
-              <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY/MM/DD HH:mm:ss'))}</div>
-            </>}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={6} lg={3}>
-          <Paper className="usage-card">
-            <Typography component="h3">
-              {__('Charges')}
-            </Typography>
-            <div className="usage-card-content">
-              {!upcoming || typeof upcoming.amount_due !== 'number' ? '-' : currencyFormatter.format(upcoming.amount_due)}
-            </div>
-          </Paper>
-        </Grid>
-      </Grid>
+      </> }
 
       <Paper className="usage-details-info">
         <Typography component="h2" className="module-title">
           {__('Map loads by API key')}
         </Typography>
-        <Bar data={data} options={options} id={'chart-usage-api-key'} height={100}/>
+        <Bar data={chartData} options={options} id={'chart-usage-api-key'} height={100}/>
         <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
       </Paper>
 
@@ -533,7 +553,7 @@ const Billing = (props: StateProps) => {
                   { subscription.cancel_at_period_end && sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end).format('YYYY-MM-DD'))}
                 </>}
               </TableCell>
-              <TableCell align="right">
+              { props.isOwner && <TableCell align="right">
                 { subscription && subscription.cancel_at_period_end === true ?
                   <>
                     { resumeSubLoading ?
@@ -547,7 +567,7 @@ const Billing = (props: StateProps) => {
                         color="primary"
                         onClick={resumeSubscriptionHandler}
                         type={'button'}
-                        disabled={!props.last2 || !props.isOwner}
+                        disabled={!props.last2}
                       >
                         {__('Resume subscription')}
                       </Button>
@@ -559,7 +579,7 @@ const Billing = (props: StateProps) => {
                     color="primary"
                     onClick={() => setOpenPlan(true)}
                     type={'button'}
-                    disabled={!props.last2 || !props.isOwner}
+                    disabled={!props.last2}
                   >
                     {__('Change Plan')}
                   </Button>
@@ -574,7 +594,7 @@ const Billing = (props: StateProps) => {
                   }
                   currentPlanId={planId}
                 />
-              </TableCell>
+              </TableCell> }
             </TableRow>
             {/* <TableRow>
                   <TableCell component="th" scope="row">
@@ -587,11 +607,11 @@ const Billing = (props: StateProps) => {
                 </TableRow> */}
           </TableBody>
         </Table>
-        <p style={{ textAlign: 'right' }}>
+        { props.isOwner && <p style={{ textAlign: 'right' }}>
           <a href="https://geolonia.com/pricing" target="_blank" rel="noreferrer">
             {__('Learn more about plans on the pricing page.')}
           </a>
-        </p>
+        </p> }
       </Paper>
     </>;
   }
@@ -605,16 +625,12 @@ const Billing = (props: StateProps) => {
 
         { inner }
 
-        <Paper>
-          {props.isOwner && (
-            <>
-              <Typography component="h2" className="module-title">
-                {__('Payment history')}
-              </Typography>
-              <Receipts />
-            </>
-          )}
-        </Paper>
+        { props.isOwner && <Paper>
+          <Typography component="h2" className="module-title">
+            {__('Payment history')}
+          </Typography>
+          <Receipts />
+        </Paper> }
       </div>
     </StripeContainer>
   );

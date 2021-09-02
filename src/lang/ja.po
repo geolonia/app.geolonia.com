@@ -51,7 +51,7 @@ msgstr "GeoJSON をダウンロード"
 
 #: src/components/Data/GeoJson.tsx:100 src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:115 src/components/Maps/APIKeys.tsx:44
-#: src/components/Navigator.tsx:263 src/components/Team/Billing.tsx:342
+#: src/components/Navigator.tsx:263 src/components/Team/Billing.tsx:360
 #: src/components/Team/general/index.tsx:28
 #: src/components/Team/members/index.tsx:121 src/components/User/User.tsx:13
 msgid "Home"
@@ -142,7 +142,7 @@ msgstr ""
 "す。"
 
 #: src/components/Data/GeoJsonMeta.tsx:353 src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:338 src/components/Team/general/fields.tsx:77
+#: src/components/Navigator.tsx:338 src/components/Team/general/fields.tsx:72
 #: src/components/User/profile.tsx:129 src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:125
 msgid "Name"
@@ -593,7 +593,7 @@ msgstr "新しいパスワード"
 msgid "Confirm new password"
 msgstr "新しいパスワードを確認"
 
-#: src/components/ResetPassword.tsx:128 src/components/Signup.tsx:165
+#: src/components/ResetPassword.tsx:128 src/components/Signup.tsx:176
 msgid ""
 "Make sure at least 8 characters including a number and a lowercase letter."
 msgstr ""
@@ -623,13 +623,13 @@ msgstr ""
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/Signin.tsx:128
+#: src/components/Signin.tsx:130
 msgid ""
 "Your password has been successfully reset. Please reenter and sign in to the "
 "account."
 msgstr "パスワードがリセットされました。再度入力してサインインしてください。"
 
-#: src/components/Signin.tsx:130
+#: src/components/Signin.tsx:132
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -637,64 +637,64 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:137
+#: src/components/Signin.tsx:139
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:141 src/lib/cognito/parse-error.ts:50
+#: src/components/Signin.tsx:143 src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
-#: src/components/Signin.tsx:146
+#: src/components/Signin.tsx:148
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:158 src/components/Signup.tsx:154
+#: src/components/Signin.tsx:160 src/components/Signup.tsx:165
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/Signin.tsx:171
+#: src/components/Signin.tsx:174
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:184
+#: src/components/Signin.tsx:187
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:191
+#: src/components/Signin.tsx:194
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:193
+#: src/components/Signin.tsx:196
 msgid "Create an account."
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:127 src/components/verify.tsx:76
+#: src/components/Signup.tsx:138 src/components/verify.tsx:87
 msgid "Welcome to Geolonia"
 msgstr "Geolonia へようこそ"
 
-#: src/components/Signup.tsx:128
+#: src/components/Signup.tsx:139
 msgid "Create your account"
 msgstr "アカウントを作成"
 
-#: src/components/Signup.tsx:131 src/components/User/profile.tsx:108
-#: src/components/resend-code.tsx:60 src/components/verify.tsx:88
+#: src/components/Signup.tsx:142 src/components/User/profile.tsx:108
+#: src/components/resend-code.tsx:60 src/components/verify.tsx:99
 msgid "Username"
 msgstr "ユーザー名"
 
-#: src/components/Signup.tsx:139
+#: src/components/Signup.tsx:150
 msgid "Username cannot be modified later."
 msgstr "ユーザー名は後から変更できません。"
 
-#: src/components/Signup.tsx:143
+#: src/components/Signup.tsx:154
 msgid "Email address"
 msgstr "Email アドレス"
 
-#: src/components/Signup.tsx:178
+#: src/components/Signup.tsx:189
 msgid "Sign up"
 msgstr "サインアップ"
 
-#: src/components/Signup.tsx:185
+#: src/components/Signup.tsx:196
 msgid ""
 "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/"
 "terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">Terms of "
@@ -707,74 +707,74 @@ msgstr ""
 "target=\"_blank\">プライバシーポリシー</a> に同意したものとさせていただきま"
 "す。"
 
-#: src/components/Signup.tsx:195
+#: src/components/Signup.tsx:206
 msgid ""
 "Are you sure you're not %s? If, please <a href=\"/#/signin\">sign in</a>."
 msgstr ""
 "%s ではありませんか？その場合は<a href=\"/#/signin\">サインイン</a>してくださ"
 "い。"
 
-#: src/components/Signup.tsx:196
+#: src/components/Signup.tsx:207
 msgid ""
 "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>."
 msgstr ""
 "すでにアカウントをお持ちですか？その場合は<a href=\"/#/signin\">サインイン</"
 "a>してください。"
 
-#: src/components/Team/Billing.tsx:152
+#: src/components/Team/Billing.tsx:170
 msgid "Free plan"
 msgstr "Free プラン"
 
-#: src/components/Team/Billing.tsx:177
+#: src/components/Team/Billing.tsx:195
 msgid "Free Plan"
 msgstr "Free プラン"
 
-#: src/components/Team/Billing.tsx:346 src/components/Team/general/index.tsx:32
+#: src/components/Team/Billing.tsx:364 src/components/Team/general/index.tsx:32
 #: src/components/Team/members/index.tsx:125
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:406
+#: src/components/Team/Billing.tsx:425
 msgid "Usage this month"
 msgstr "今月の利用状況"
 
-#: src/components/Team/Billing.tsx:412
+#: src/components/Team/Billing.tsx:431
 msgid "Billing period"
 msgstr "請求対象期間"
 
-#: src/components/Team/Billing.tsx:428
+#: src/components/Team/Billing.tsx:447
 msgid "Next Payment Date"
 msgstr "次回のお支払日"
 
-#: src/components/Team/Billing.tsx:444
+#: src/components/Team/Billing.tsx:463
 msgid "Map loads"
 msgstr "地図の表示回数"
 
-#: src/components/Team/Billing.tsx:452
+#: src/components/Team/Billing.tsx:471
 msgid "Last updated %s"
 msgstr "最終更新: %s"
 
-#: src/components/Team/Billing.tsx:459
+#: src/components/Team/Billing.tsx:478
 msgid "Charges"
 msgstr "料金"
 
-#: src/components/Team/Billing.tsx:470
+#: src/components/Team/Billing.tsx:490
 msgid "Map loads by API key"
 msgstr "API キー別の地図の表示回数"
 
-#: src/components/Team/Billing.tsx:473
+#: src/components/Team/Billing.tsx:493
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 
-#: src/components/Team/Billing.tsx:482
+#: src/components/Team/Billing.tsx:502
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:492
+#: src/components/Team/Billing.tsx:512
 msgid "Current account credit:"
 msgstr "クレジット残高"
 
-#: src/components/Team/Billing.tsx:496
+#: src/components/Team/Billing.tsx:516
 msgid ""
 " : While this account has credits available, payments will deduct from "
 "account credit instead of the registered credit card."
@@ -782,49 +782,49 @@ msgstr ""
 "　(現在、クレジットが適用されています。クレジット残高が残っている場合、請求は"
 "クレジット残高から支払われます。)"
 
-#: src/components/Team/Billing.tsx:501
+#: src/components/Team/Billing.tsx:521
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:505
+#: src/components/Team/Billing.tsx:525
 msgid "ending in **%1$s"
 msgstr "クレジットカード（末尾の番号 **%1$s）"
 
-#: src/components/Team/Billing.tsx:515
+#: src/components/Team/Billing.tsx:535
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:527
+#: src/components/Team/Billing.tsx:547
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:533
+#: src/components/Team/Billing.tsx:553
 msgid "Scheduled to expire on %1$s"
 msgstr "%1$s にキャンセルされます"
 
-#: src/components/Team/Billing.tsx:552
+#: src/components/Team/Billing.tsx:572
 msgid "Resume subscription"
 msgstr "自動更新を再開"
 
-#: src/components/Team/Billing.tsx:564
+#: src/components/Team/Billing.tsx:584
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:592
+#: src/components/Team/Billing.tsx:612
 msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
-#: src/components/Team/Billing.tsx:602
+#: src/components/Team/Billing.tsx:622
 msgid "Billing and Plans"
 msgstr "料金プランとお支払い"
 
-#: src/components/Team/Billing.tsx:603
+#: src/components/Team/Billing.tsx:623
 msgid ""
 "You can check and change your current pricing plan and usage status of Team "
 "%s."
 msgstr "チーム「%s」の現在の料金プラン・利用状況の確認、変更ができます。"
 
-#: src/components/Team/Billing.tsx:612
+#: src/components/Team/Billing.tsx:630
 msgid "Payment history"
 msgstr "支払い履歴"
 
@@ -895,7 +895,7 @@ msgstr ""
 "ください。"
 
 #: src/components/Team/general/delete.tsx:145
-#: src/components/Team/members/change-role.tsx:160
+#: src/components/Team/members/change-role.tsx:163
 #: src/components/Team/members/remove-member.tsx:89
 #: src/components/Team/members/suspend.tsx:112
 #: src/components/custom/AddNew.tsx:155 src/components/custom/Cancel.tsx:18
@@ -920,11 +920,11 @@ msgstr ""
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr "一度チームを削除すると元に戻すことはできません。"
 
-#: src/components/Team/general/fields.tsx:110
+#: src/components/Team/general/fields.tsx:105
 msgid "Billing email"
 msgstr "支払い"
 
-#: src/components/Team/general/fields.tsx:119
+#: src/components/Team/general/fields.tsx:114
 msgid ""
 "Receipts and other billing-related notifications will be sent to this e-mail "
 "address."
@@ -963,27 +963,35 @@ msgstr "%s の権限を選択して下さい。"
 msgid "Owner"
 msgstr "オーナー"
 
-#: src/components/Team/members/change-role.tsx:131
+#: src/components/Team/members/change-role.tsx:132
+msgid "can manage payment settings."
+msgstr "支払い設定を管理できます。"
+
+#: src/components/Team/members/change-role.tsx:133
 msgid "can invite another team member."
 msgstr "新しいメンバーをチームに招待できます。"
 
-#: src/components/Team/members/change-role.tsx:132
+#: src/components/Team/members/change-role.tsx:134
 msgid "can designate another owner."
 msgstr "新しいチームオーナーを指定できます。"
 
-#: src/components/Team/members/change-role.tsx:133
+#: src/components/Team/members/change-role.tsx:135
 msgid "can suspend another member."
 msgstr "メンバーの権限を一時停止できます。"
 
-#: src/components/Team/members/change-role.tsx:145
+#: src/components/Team/members/change-role.tsx:147
 msgid "Member"
 msgstr "メンバー"
 
-#: src/components/Team/members/change-role.tsx:150
+#: src/components/Team/members/change-role.tsx:151
+msgid "can view API key usage."
+msgstr "API キーの利用状況を閲覧することができます。"
+
+#: src/components/Team/members/change-role.tsx:153
 msgid "Can manage all resources in the team, including API Keys."
 msgstr "APIキーを含むチームの全てのリソースを管理できます。"
 
-#: src/components/Team/members/change-role.tsx:171
+#: src/components/Team/members/change-role.tsx:174
 #: src/components/Team/members/suspend.tsx:118
 #: src/components/custom/AddNew.tsx:40 src/components/custom/Save.tsx:27
 msgid "Save"
@@ -1256,28 +1264,28 @@ msgstr "英語"
 msgid "request send"
 msgstr "再送する"
 
-#: src/components/verify.tsx:115
+#: src/components/verify.tsx:109
+msgid "Verification code"
+msgstr "検証コード"
+
+#: src/components/verify.tsx:127
 msgid "Verify"
 msgstr "検証する"
 
-#: src/components/verify.tsx:120
+#: src/components/verify.tsx:132
 msgid "Request a new verification code."
 msgstr "検証コードを再送する。"
 
-#: src/components/verify.tsx:77
+#: src/components/verify.tsx:88
 msgid "Verify your account"
 msgstr "アカウントの確認"
 
-#: src/components/verify.tsx:81
+#: src/components/verify.tsx:92
 msgid ""
 "Please check your email and enter the verification code like <code>123456</"
 "code>."
 msgstr ""
 "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
-
-#: src/components/verify.tsx:98
-msgid "Verification code"
-msgstr "検証コード"
 
 #: src/constants.ts:29
 msgid "You are not authorized to do this operation."

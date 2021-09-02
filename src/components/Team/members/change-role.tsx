@@ -128,6 +128,8 @@ const ChangeRole = (props: Props) => {
               />
               <DialogContentText>
                 <ul>
+                  <li>{__('can view API key usage.')}</li>
+                  <li>{__('can manage payment settings.')}</li>
                   <li>{__('can invite another team member.')}</li>
                   <li>{__('can designate another owner.')}</li>
                   <li>{__('can suspend another member.')}</li>
@@ -146,6 +148,7 @@ const ChangeRole = (props: Props) => {
               />
               <DialogContentText>
                 <ul>
+                  <li>{__('can view API key usage.')}</li>
                   <li>
                     {__(
                       'Can manage all resources in the team, including API Keys.',
