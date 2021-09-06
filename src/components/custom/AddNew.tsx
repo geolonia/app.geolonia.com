@@ -1,18 +1,18 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState } from 'react';
 
 // Components
-import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import AddIcon from "@material-ui/icons/Add";
-import { CircularProgress } from "@material-ui/core";
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import AddIcon from '@material-ui/icons/Add';
+import { CircularProgress } from '@material-ui/core';
 
 // Utils
-import { __ } from "@wordpress/i18n";
+import { __ } from '@wordpress/i18n';
 
 type Props = {
   disabled?: boolean;
@@ -32,12 +32,12 @@ type Props = {
 };
 
 const getTexts = (props: Props) => ({
-  buttonLabel: props.buttonLabel || __("New"),
-  fieldName: props.fieldName || __("name"),
-  fieldLabel: props.fieldLabel || __("Name"),
-  fieldType: props.fieldType || __("text"),
-  errorMessage: props.errorMessage || __("Some error."),
-  saveButtonLabel: props.saveButtonLabel || __("Save")
+  buttonLabel: props.buttonLabel || __('New'),
+  fieldName: props.fieldName || __('name'),
+  fieldLabel: props.fieldLabel || __('Name'),
+  fieldType: props.fieldType || __('text'),
+  errorMessage: props.errorMessage || __('Some error.'),
+  saveButtonLabel: props.saveButtonLabel || __('Save'),
 });
 
 export const AddNew: React.FC<Props> = (props) => {
@@ -48,13 +48,13 @@ export const AddNew: React.FC<Props> = (props) => {
     fieldLabel,
     fieldType,
     errorMessage,
-    saveButtonLabel
+    saveButtonLabel,
   } = getTexts(props);
 
   const [text, setText] = useState(defaultValue);
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<
-    false | "working" | "success" | "failure"
+    false | 'working' | 'success' | 'failure'
   >(false);
 
   const {
@@ -64,44 +64,48 @@ export const AddNew: React.FC<Props> = (props) => {
   } = props;
 
   const buttonStyle: React.CSSProperties = {
-    textAlign: "right",
-    margin: 0
+    textAlign: 'right',
+    margin: 0,
   };
+
+  const isButtonsDisabled = status === 'working' || status === 'success';
 
   const handleClickOpen = useCallback(() => {
     setOpen(true);
   }, []);
 
-  const handleClose = useCallback(() => {
+  const handleClose = useCallback((event: any, reason: string) => {
+    if (isButtonsDisabled && (reason === 'escapeKeyDown' || reason === 'backdropClick')) {
+      return;
+    }
+
     setOpen(false);
     // hide state change on hiding animation
     setTimeout(() => {
       setStatus(false);
       setText(defaultValue);
     }, 200);
-  }, [defaultValue]);
+  }, [defaultValue, isButtonsDisabled]);
 
   const saveHandler = useCallback<React.FormEventHandler>(async (e) => {
     e.preventDefault();
-    setStatus("working");
+    setStatus('working');
 
     try {
       await onClick(text);
     } catch (err) {
-      setStatus("failure");
-      if (typeof onError === "function") {
+      setStatus('failure');
+      if (typeof onError === 'function') {
         onError(err);
       }
     }
 
-    setStatus("success");
-    handleClose();
-    if (typeof onSuccess === "function") {
+    setStatus('success');
+    handleClose(null, 'save');
+    if (typeof onSuccess === 'function') {
       onSuccess();
     }
   }, [handleClose, onClick, onSuccess, onError, text]);
-
-  const isButtonsDisabled = status === "working" || status === "success";
 
   return (
     <div>
@@ -119,44 +123,43 @@ export const AddNew: React.FC<Props> = (props) => {
         open={open}
         onClose={handleClose}
         fullWidth={true}
-        disableBackdropClick={isButtonsDisabled}
         aria-labelledby="form-dialog-title"
       >
         <DialogTitle id="form-dialog-title">{label}</DialogTitle>
         <form onSubmit={saveHandler}>
           <DialogContent>
-              <DialogContentText>{description}</DialogContentText>
-              <TextField
-                autoFocus
-                margin="dense"
-                name={fieldName}
-                label={fieldLabel}
-                type={fieldType}
-                value={text}
-                onChange={e => {
-                  setStatus(false);
-                  setText(e.target.value);
-                }}
-                fullWidth
-              />
-              {status === "failure" && (
-                <DialogContentText>{errorMessage}</DialogContentText>
-              )}
+            <DialogContentText>{description}</DialogContentText>
+            <TextField
+              autoFocus
+              margin="dense"
+              name={fieldName}
+              label={fieldLabel}
+              type={fieldType}
+              value={text}
+              onChange={(e) => {
+                setStatus(false);
+                setText(e.target.value);
+              }}
+              fullWidth
+            />
+            {status === 'failure' && (
+              <DialogContentText>{errorMessage}</DialogContentText>
+            )}
           </DialogContent>
           <DialogActions>
             <Button
-              onClick={handleClose}
+              onClick={(e) => handleClose(e, 'cancel')}
               color="primary"
               disabled={isButtonsDisabled}
             >
-              {__("Cancel")}
+              {__('Cancel')}
             </Button>
             <Button
               disabled={isButtonsDisabled}
               color="primary"
               type="submit"
             >
-              {status === "working" && (
+              {status === 'working' && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
               )}
               {saveButtonLabel}

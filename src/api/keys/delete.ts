@@ -1,15 +1,15 @@
-import fetch from "../custom-fetch";
+import fetch from '../custom-fetch';
 
 const deleteKey = (
   session: Geolonia.Session,
   teamId: string,
-  apiKey: string
+  apiKey: string,
 ) => {
   return fetch<any>(session, `/teams/${teamId}/keys/${apiKey}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "application/json"
-    }
+      'Content-Type': 'application/json',
+    },
   });
 };
 

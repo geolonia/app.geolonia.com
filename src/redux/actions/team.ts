@@ -10,11 +10,11 @@ export const isTeam = (team: any): team is Geolonia.Team => {
 
 const initialState: State = { data: [], selectedIndex: 0 };
 
-const SET_ACTION = "TEAM/SET";
-const SELECT_ACTION = "TEAM/SELECT";
-const ADD_ACTION = "TEAM/ADD";
-const UPDATE_ACTION = "TEAM/UPDATE";
-const SET_AVATAR_ACTION = "TEAM/SET_AVATAR";
+const SET_ACTION = 'TEAM/SET';
+const SELECT_ACTION = 'TEAM/SELECT';
+const ADD_ACTION = 'TEAM/ADD';
+const UPDATE_ACTION = 'TEAM/UPDATE';
+const SET_AVATAR_ACTION = 'TEAM/SET_AVATAR';
 
 type SetAction = {
   type: typeof SET_ACTION;
@@ -61,12 +61,12 @@ export const createActions = {
   add: (team: Geolonia.Team) => ({ type: ADD_ACTION, payload: { team } }),
   update: (index: number, team: Partial<Geolonia.Team>) => ({
     type: UPDATE_ACTION,
-    payload: { index, team }
+    payload: { index, team },
   }),
   setAvatar: (index: number, avatarImage: string | void) => ({
     type: SET_AVATAR_ACTION,
-    payload: { index, avatarImage }
-  })
+    payload: { index, avatarImage },
+  }),
 };
 
 export const reducer = (state: State = initialState, action: TeamAction) => {
@@ -81,14 +81,14 @@ export const reducer = (state: State = initialState, action: TeamAction) => {
     const nextTeams = [...state.data];
     nextTeams[action.payload.index] = {
       ...nextTeams[action.payload.index],
-      ...action.payload.team
+      ...action.payload.team,
     };
     return { ...state, data: nextTeams };
   } else if (isSetAvatarAction(action)) {
     const nextTeams = [...state.data];
     nextTeams[action.payload.index] = {
       ...nextTeams[action.payload.index],
-      avatarImage: action.payload.avatarImage
+      avatarImage: action.payload.avatarImage,
     };
     return { ...state, data: nextTeams };
   } else {

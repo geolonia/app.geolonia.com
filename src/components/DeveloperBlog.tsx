@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -22,53 +22,63 @@ type Props = {
 
 const useStyles = makeStyles({
   root: {
-    height: "100%",
+    height: '100%',
   },
   media: {
     height: 140,
   },
   date_published: {
-    textAlign: "right",
-    marginTop: "0.5rem",
+    textAlign: 'right',
+    marginTop: '0.5rem',
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+  },
+  title: {
+    lineHeight: '1.4em',
+    fontSize: '15px',
+  },
+  actionArea: {
+    height: '100%',
+    position: 'relative',
   },
 });
 
 const Content = (props: Props) => {
-  const [blogItems, setBlogItems] = useState<BlogPost[]>([])
+  const [blogItems, setBlogItems] = useState<BlogPost[]>([]);
   const classes = useStyles();
 
   useEffect(() => {
-    const endpoint = "https://blog.geolonia.com/feed.json"
+    const endpoint = 'https://blog.geolonia.com/feed.json';
     fetch(endpoint)
-      .then(res => res.json())
-      .then(json => {
-        setBlogItems(json.items)
+      .then((res) => res.json())
+      .then((json) => {
+        setBlogItems(json.items);
       });
-  }, [])
+  }, []);
 
   return (
     <>
       <Grid container spacing={2}>
-      {blogItems.map((post, index) => {
-        return (
-          <Grid item lg={4} md={6} xs={12} key={index}>
-            <Card className={classes.root}>
-              <CardActionArea onClick={() => window.open(post.url, '_blank')}>
-                <CardMedia
-                  className={classes.media}
-                  image={post.thumbnail + '-/resize/800x/-/format/auto/-/quality/lightest/'}
-                  title={post.title}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">{post.title}</Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">{post.excerpt}</Typography>
-                  <div className={classes.date_published}>{post.date_published}</div>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        )
-      })}
+        {blogItems.map((post, index) => {
+          return (
+            <Grid item lg={3} md={6} xs={12} key={index}>
+              <Card className={classes.root}>
+                <CardActionArea className={classes.actionArea} onClick={() => window.open(post.url, '_blank')}>
+                  <CardMedia
+                    className={classes.media}
+                    image={`${post.thumbnail}-/resize/800x/-/format/auto/-/quality/lightest/`}
+                    title={post.title}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2" className={classes.title}>{post.title}</Typography>
+                    <div className={classes.date_published}>{post.date_published}</div>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          );
+        })}
       </Grid>
     </>
   );

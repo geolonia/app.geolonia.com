@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 
 // Components
-import AddNew from "../../custom/AddNew";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
+import AddNew from '../../custom/AddNew';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 
 // Util
-import { sprintf, __ } from "@wordpress/i18n";
-import fetch from "../../../lib/fetch";
+import { sprintf, __ } from '@wordpress/i18n';
+import fetch from '../../../lib/fetch';
 
 // redux
-import { connect } from "react-redux";
-import { buildApiAppUrl } from "../../../lib/api";
-import Interweave from "interweave";
+import { connect } from 'react-redux';
+import { buildApiAppUrl } from '../../../lib/api';
+import Interweave from 'interweave';
 
 type OwnProps = {
   disabled?: boolean;
@@ -27,89 +27,88 @@ type StateProps = {
 type Props = OwnProps & StateProps;
 
 export const Invite = (props: Props) => {
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
   const [status, setStatus] = useState<
-    false | "requesting" | "success" | "failure"
+    false | 'requesting' | 'success' | 'failure'
   >(false);
 
+  const { session, team, members, disabled } = props;
+
   const inviteHandler = async (email: string) => {
-    const { session, team, members } = props;
-
-    if (members.find(member => member.email === email)) {
-      setMessage(__("That user is already a member of this team."));
-      return Promise.reject("That user is already a member of the team.");
-    }
-
-    if (team) {
-      setStatus("requesting");
+    if (members.find((member) => member.email === email)) {
+      setStatus('failure');
+      setMessage(__('That user is already a member of this team.'));
+      throw new Error('That user is already a member of the team.');
+    } else if (team) {
+      setStatus('requesting');
       const res = await fetch(
         session,
         buildApiAppUrl(`/teams/${team.teamId}/invitation`),
         {
-          method: "POST",
+          method: 'POST',
           headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ email })
-        }
+          body: JSON.stringify({ email }),
+        },
       );
       if (res.status < 400) {
-        setStatus("success");
+        setStatus('success');
         return res.json();
       } else if (res.status === 402) {
-        setStatus("failure");
-        setMessage(__("The maximum number of members has been reached."));
+        setStatus('failure');
+        setMessage(__('The maximum number of members has been reached.'));
         throw new Error();
       } else {
-        setStatus("failure");
-        setMessage(__("You cannot use this email address for invitation."));
+        setStatus('failure');
+        setMessage(__('You cannot use this email address for invitation.'));
         throw new Error();
       }
     } else {
-      return Promise.reject("No team");
+      return Promise.reject('No team');
     }
   };
 
-  const teamName = props.team && props.team.name;
+  const teamName = team && team.name;
 
   return (
     <>
       <AddNew
-        disabled={props.disabled}
-        buttonLabel={__("Invite")}
-        label={__("Send an invitation")}
+        disabled={disabled}
+        buttonLabel={__('Invite')}
+        label={__('Send an invitation')}
         description={<Interweave content={
-          sprintf(__("Please enter the email address of the person you want to invite to \"%s\". Please note that the user must <a href=\"/#/signup\" target=\"_blank\">create a Geolonia account</a> first before you can send the invitation."), teamName)
+          sprintf(__('Please enter the email address of the person you want to invite to "%s".'), teamName)
         } />}
         defaultValue=""
         fieldName="email"
-        fieldLabel={__("Receipient's email address")}
+        fieldLabel={__('Receipient\'s email address')}
         fieldType="email"
         errorMessage={message}
         onClick={inviteHandler}
         onError={() => {}}
         onSuccess={() => {}}
-        saveButtonLabel={__("Send")}
+        saveButtonLabel={__('Send')}
       />
       <Snackbar
         className={`snackbar-saved ${status}`}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
-        open={status === "success" || status === "failure"}
+        open={status === 'success' || status === 'failure'}
         autoHideDuration={6000}
         onClose={() => setStatus(false)}
         ContentProps={{
-          "aria-describedby": "message-id"
+          'aria-describedby': 'message-id',
         }}
         message={
           <span id="message-id">
-            {status === "success"
-              ? __("Successfully send invitation.")
-              : status === "failure"
-              ? __("Failed to send invitation.")
-              : ""}
+            {status === 'success'
+              ? __('Successfully send invitation.')
+              : status === 'failure'
+                ? __('Failed to send invitation.')
+                : ''}
           </span>
         }
         action={[
@@ -120,7 +119,7 @@ export const Invite = (props: Props) => {
             onClick={() => setStatus(false)}
           >
             <CloseIcon />
-          </IconButton>
+          </IconButton>,
         ]}
       />
     </>

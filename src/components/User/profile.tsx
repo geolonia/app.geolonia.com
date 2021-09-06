@@ -1,24 +1,24 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Save from "../custom/Save";
+import React from 'react';
+import TextField from '@material-ui/core/TextField';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Save from '../custom/Save';
 
 // API
-import updateUser from "../../api/users/update";
+import updateUser from '../../api/users/update';
 
 // utils
-import { __ } from "@wordpress/i18n";
-import momentTimeZone from "moment-timezone";
+import { __ } from '@wordpress/i18n';
+import momentTimeZone from 'moment-timezone';
 
 // Redux
-import { connect } from "react-redux";
-import { createActions as createUserActions } from "../../redux/actions/user-meta";
+import { connect } from 'react-redux';
+import { createActions as createUserActions } from '../../redux/actions/user-meta';
 
 // types
-import { Dispatch } from "redux";
+import { Dispatch } from 'redux';
 
 type OwnProps = Record<string, never>;
 type StateProps = { session: Geolonia.Session; user: Geolonia.User };
@@ -28,14 +28,14 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 type State = {
-  user: Pick<Geolonia.User, "name" | "language" | "timezone">;
+  user: Pick<Geolonia.User, 'name' | 'language' | 'timezone'>;
   email: string;
   username: string;
 };
 
 const selectStyle: React.CSSProperties = {
-  marginTop: "16px",
-  marginBottom: "8px"
+  marginTop: '16px',
+  marginBottom: '8px',
 };
 
 export class Profile extends React.Component<Props, State> {
@@ -45,40 +45,40 @@ export class Profile extends React.Component<Props, State> {
       user: {
         name: props.user.name,
         language: props.user.language,
-        timezone: props.user.timezone || momentTimeZone.tz.guess()
+        timezone: props.user.timezone || momentTimeZone.tz.guess(),
       },
       username: props.user.username,
-      email: props.user.email
+      email: props.user.email,
     };
   }
 
   _setUserMeta = (key: keyof Geolonia.User, value: string) => {
     this.setState({
-      user: { ...this.state.user, [key]: value }
+      user: { ...this.state.user, [key]: value },
     });
   };
 
   onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this._setUserMeta("name", e.currentTarget.value);
+    this._setUserMeta('name', e.currentTarget.value);
   };
 
   onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
     const name = e.currentTarget.value;
-    this._setUserMeta("name", name.trim());
+    this._setUserMeta('name', name.trim());
   };
 
   onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     this.setState({ email: e.target.value });
 
-  onLanguageChange = (e: any) => this._setUserMeta("language", e.target.value);
-  onTimezoneChange = (e: any) => this._setUserMeta("timezone", e.target.value);
+  onLanguageChange = (e: any) => this._setUserMeta('language', e.target.value);
+  onTimezoneChange = (e: any) => this._setUserMeta('timezone', e.target.value);
 
   onSaveClick = (e: any) => {
     const { session, user } = this.props;
     const nextUser = { ...user, ...this.state.user };
 
     // Error Handling
-    return updateUser(session, nextUser).then(result => {
+    return updateUser(session, nextUser).then((result) => {
       if (result.error) {
         throw new Error(result.code);
       }
@@ -96,16 +96,16 @@ export class Profile extends React.Component<Props, State> {
     const {
       user: { name, language, timezone },
       email,
-      username
+      username,
     } = this.state;
 
-    const saveDisabled = name === "";
+    const saveDisabled = name === '';
 
     return (
       <>
         <TextField
           id="username"
-          label={__("Username")}
+          label={__('Username')}
           margin="normal"
           value={username}
           fullWidth={true}
@@ -114,7 +114,7 @@ export class Profile extends React.Component<Props, State> {
 
         <TextField
           id="email"
-          label={__("Email")}
+          label={__('Email')}
           margin="normal"
           value={email}
           onChange={this.onEmailChange}
@@ -126,7 +126,7 @@ export class Profile extends React.Component<Props, State> {
 
         <TextField
           id="display-name"
-          label={__("Name")}
+          label={__('Name')}
           margin="normal"
           value={name}
           onChange={this.onNameChange}
@@ -135,7 +135,7 @@ export class Profile extends React.Component<Props, State> {
         />
 
         <FormControl fullWidth={true} style={selectStyle}>
-          <InputLabel htmlFor="select-language">{__("Language")}</InputLabel>
+          <InputLabel htmlFor="select-language">{__('Language')}</InputLabel>
           <Select
             id="select-language"
             fullWidth={true}
@@ -148,7 +148,7 @@ export class Profile extends React.Component<Props, State> {
         </FormControl>
 
         <FormControl fullWidth={true} style={selectStyle}>
-          <InputLabel htmlFor="select-timezone">{__("Time zone")}</InputLabel>
+          <InputLabel htmlFor="select-timezone">{__('Time zone')}</InputLabel>
           <Select
             id="select-timezone"
             fullWidth={true}
@@ -170,12 +170,12 @@ export class Profile extends React.Component<Props, State> {
 
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
   session: state.authSupport.session,
-  user: state.userMeta
+  user: state.userMeta,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   updateUser: (nextUser: Geolonia.User) =>
-    dispatch(createUserActions.set(nextUser))
+    dispatch(createUserActions.set(nextUser)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

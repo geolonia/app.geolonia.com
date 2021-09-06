@@ -4,16 +4,16 @@ export const isUsernameValid = (username: string) =>
 
 export const isEmailValid = (email: string) =>
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(
-    email
+    email,
   );
 
 export const isPasswordValid = (password: string) => {
   if (password.length > 7) {
-    const chars = password.split("");
+    const chars = password.split('');
     if (
-      chars.some(char => /^[0-9]$/.test(char)) &&
-      chars.some(char => /^[a-z]$/.test(char)) &&
-      chars.some(char => /^[A-Z]$/.test(char))
+      chars.some((char) => /^[0-9]$/.test(char)) &&
+      chars.some((char) => /^[a-z]$/.test(char)) &&
+      chars.some((char) => /^[A-Z]$/.test(char))
     ) {
       return true;
     } else {

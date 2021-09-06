@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext } from 'react';
 
 export type NotificationState = {
   open: boolean;
@@ -8,14 +8,14 @@ export type NotificationState = {
 
 export const initialNotificationState: NotificationState = {
   open: false,
-  message: "",
+  message: '',
   type: 'success',
-}
+};
 export const initialContext = {
   state: initialNotificationState,
   updateState: (state: NotificationState) => state,
-}
+};
 
-const NotificationContext = createContext(initialContext)
+const NotificationContext = createContext(initialContext);
 
-export const context = NotificationContext
+export const context = NotificationContext;

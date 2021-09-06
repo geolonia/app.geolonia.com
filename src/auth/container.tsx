@@ -1,39 +1,39 @@
-import React from "react";
+import React from 'react';
 
 // i18n
-import { loadLocale } from "../lib/load-locale";
-import { setLocaleData } from "@wordpress/i18n";
+import { loadLocale } from '../lib/load-locale';
+import { setLocaleData } from '@wordpress/i18n';
 
 // API
-import { getSession } from "./";
-import getUser from "../api/users/get";
-import listTeams from "../api/teams/list";
-import listKeys from "../api/keys/list";
-import listTeamMembers from "../api/members/list";
+import { getSession } from './';
+import getUser from '../api/users/get';
+import listTeams from '../api/teams/list';
+import listKeys from '../api/keys/list';
+import listTeamMembers from '../api/members/list';
 
 // Utils
-import dateParse from "../lib/date-parse";
-import estimateLanguage from "../lib/estimate-language";
+import dateParse from '../lib/date-parse';
+import estimateLanguage from '../lib/estimate-language';
 
 // redux
-import { connect } from "react-redux";
-import { createActions as createAuthSupportActions } from "../redux/actions/auth-support";
+import { connect } from 'react-redux';
+import { createActions as createAuthSupportActions } from '../redux/actions/auth-support';
 import {
   createActions as createUserMetaActions,
-  isUserMeta
-} from "../redux/actions/user-meta";
+  isUserMeta,
+} from '../redux/actions/user-meta';
 import {
   createActions as createTeamActions,
-  isTeam
-} from "../redux/actions/team";
-import { createActions as createMapKeyActions } from "../redux/actions/map-key";
-import { createActions as createTeamMemberActions } from "../redux/actions/team-member";
+  isTeam,
+} from '../redux/actions/team';
+import { createActions as createMapKeyActions } from '../redux/actions/map-key';
+import { createActions as createTeamMemberActions } from '../redux/actions/team-member';
 
 // Types
-import Redux from "redux";
-import { SELECTED_TEAM_ID_KEY } from "../redux/middlewares/local-storage";
-import Moment from "moment";
-import mixpanel from "mixpanel-browser";
+import Redux from 'redux';
+import { SELECTED_TEAM_ID_KEY } from '../redux/middlewares/local-storage';
+import Moment from 'moment';
+import mixpanel from 'mixpanel-browser';
 
 type OwnProps = { children: React.ReactElement };
 type StateProps = { session: Geolonia.Session };
@@ -67,11 +67,11 @@ type FundamentalAPIResult = {
 
 const fundamentalAPILoads = (session: Geolonia.Session) => {
   if (!session) {
-    return Promise.reject("nosession");
+    return Promise.reject('nosession');
   }
   return Promise.all([
     getUser(session),
-    listTeams(session)
+    listTeams(session),
     /*more API loads here*/
   ]).then(([userResult, teamsResult]) => {
     const user = userResult.error
@@ -80,14 +80,14 @@ const fundamentalAPILoads = (session: Geolonia.Session) => {
     const teams = teamsResult.error ? void 0 : teamsResult.data;
     return {
       user,
-      teams
+      teams,
     };
   });
 };
 
 const getTeamIdToSelect = async (teams: Geolonia.Team[]) => {
-  const prevTeamId = localStorage.getItem(SELECTED_TEAM_ID_KEY) || "";
-  const teamIndex = teams.map(team => team.teamId).indexOf(prevTeamId);
+  const prevTeamId = localStorage.getItem(SELECTED_TEAM_ID_KEY) || '';
+  const teamIndex = teams.map((team) => team.teamId).indexOf(prevTeamId);
   if (teamIndex > -1) {
     return teamIndex;
   } else {
@@ -112,24 +112,24 @@ export class AuthContainer extends React.Component<Props, State> {
 
     try {
       const { user, teams } = (await fundamentalAPILoads(
-        session
+        session,
       )) as FundamentalAPIResult;
       if (!isUserMeta(user)) {
-        throw new Error("invalid user meta response");
+        throw new Error('invalid user meta response');
       }
 
       // ログイン時に毎回ユーザーの言語をローカルストレージに保存しておく。
       // ログアウトしたときの多言語化で使うため
       if (user.language) {
-        localStorage.setItem("geolonia__persisted_language", user.language);
+        localStorage.setItem('geolonia__persisted_language', user.language);
       }
 
-      if (teams.some(team => !isTeam(team))) {
-        throw new Error("invalid team response");
+      if (teams.some((team) => !isTeam(team))) {
+        throw new Error('invalid team response');
       }
 
       const teamsWithoutDeleted = (Array.isArray(teams) ? teams : []).filter(
-        team => !team.isDeleted
+        (team) => !team.isDeleted,
       );
       this.props.setSession(session);
       this.props.setUserMeta(user);
@@ -143,9 +143,9 @@ export class AuthContainer extends React.Component<Props, State> {
       Moment.locale(language);
       Moment.tz.setDefault(timezone);
       // NOTE: We can localize datetime format here
-      Moment.defaultFormat = "YYYY-MM-DD HH:mm:ss";
+      Moment.defaultFormat = 'YYYY-MM-DD HH:mm:ss';
 
-      const teamIds = teamsWithoutDeleted.map(team => team.teamId);
+      const teamIds = teamsWithoutDeleted.map((team) => team.teamId);
 
       await getTeamIdToSelect(teamsWithoutDeleted).then(this.props.selectTeam);
 
@@ -164,7 +164,7 @@ export class AuthContainer extends React.Component<Props, State> {
     if (res.ok) {
       return res.blob().then(URL.createObjectURL);
     } else {
-      throw new Error("Request failed");
+      throw new Error('Request failed');
     }
   };
 
@@ -172,24 +172,24 @@ export class AuthContainer extends React.Component<Props, State> {
     return Promise.all([
       userMeta.links.getAvatar
         ? fetch(userMeta.links.getAvatar)
-            .then(this._handleAvatarResponse)
-            .catch(err => {
-              return void 0;
-            })
+          .then(this._handleAvatarResponse)
+          .catch((err) => {
+            return void 0;
+          })
         : void 0,
-      ...teams.map(team =>
+      ...teams.map((team) =>
         team.links.getAvatar
           ? fetch(team.links.getAvatar)
-              .then(this._handleAvatarResponse)
-              .catch(err => {
-                return void 0;
-              })
-          : void 0
-      )
+            .then(this._handleAvatarResponse)
+            .catch((err) => {
+              return void 0;
+            })
+          : void 0,
+      ),
     ]).then(([userAvatarImage, ...teamAvatarImages]) => {
       this.props.setUserAvatar(userAvatarImage);
       teamAvatarImages.map((teamAvatarImage, index) =>
-        this.props.setTeamAvatar(index, teamAvatarImage)
+        this.props.setTeamAvatar(index, teamAvatarImage),
       );
     });
   };
@@ -197,25 +197,25 @@ export class AuthContainer extends React.Component<Props, State> {
   loadMapKeys = (session: Geolonia.Session, teamIds: string[]) => {
     const handleListKeys = (teamId: string) => {
       return listKeys(session, teamId)
-        .then(result => {
+        .then((result) => {
           if (result.error) {
             throw result.error;
           } else {
-            const data = result.data.map(x => dateParse(x));
+            const data = result.data.map((x) => dateParse(x));
             this.props.setMapKeys(teamId, data);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           this.props.markMapKeyError(teamId);
         });
     };
 
-    return Promise.all(teamIds.map(teamId => handleListKeys(teamId)));
+    return Promise.all(teamIds.map((teamId) => handleListKeys(teamId)));
   };
 
   loadTeamMembers = (session: Geolonia.Session, teamIds: string[]) => {
     const handleListTeamMembersRequest = (teamId: string) => {
-      return listTeamMembers(session, teamId).then(result => {
+      return listTeamMembers(session, teamId).then((result) => {
         if (result.error) {
           throw new Error(result.code);
         } else {
@@ -227,26 +227,26 @@ export class AuthContainer extends React.Component<Props, State> {
     };
 
     return Promise.all(
-      teamIds.map(teamId =>
-        handleListTeamMembersRequest(teamId).then(members => {
+      teamIds.map((teamId) =>
+        handleListTeamMembersRequest(teamId).then((members) => {
           return Promise.all(
-            members.map(member =>
+            members.map((member) =>
               member.links.getAvatar
                 ? fetch(member.links.getAvatar)
-                    .then(this._handleAvatarResponse)
-                : void 0
-            )
-          ).then(teamMemberAvatarImages => {
+                  .then(this._handleAvatarResponse)
+                : void 0,
+            ),
+          ).then((teamMemberAvatarImages) => {
             teamMemberAvatarImages.map((avatarImage, index) => {
               return this.props.setTeamMemberAvatar(
                 teamId,
                 members[index].userSub,
-                avatarImage
+                avatarImage,
               );
             });
           });
-        })
-      )
+        }),
+      ),
     );
   };
 
@@ -257,20 +257,20 @@ export class AuthContainer extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-  session: state.authSupport.session
+  session: state.authSupport.session,
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setSession: session =>
+  setSession: (session) =>
     session && dispatch(createAuthSupportActions.setSession(session)),
-  setAccessToken: accessToken =>
+  setAccessToken: (accessToken) =>
     dispatch(createAuthSupportActions.setAccessToken(accessToken)),
   serverTrouble: () => dispatch(createAuthSupportActions.encounterTrouble()),
   ready: () => dispatch(createAuthSupportActions.ready()),
-  setUserMeta: userMeta => dispatch(createUserMetaActions.set(userMeta)),
-  setTeams: teams => dispatch(createTeamActions.set(teams)),
-  selectTeam: index => dispatch(createTeamActions.select(index)),
-  setUserAvatar: avatarImage =>
+  setUserMeta: (userMeta) => dispatch(createUserMetaActions.set(userMeta)),
+  setTeams: (teams) => dispatch(createTeamActions.set(teams)),
+  selectTeam: (index) => dispatch(createTeamActions.select(index)),
+  setUserAvatar: (avatarImage) =>
     dispatch(createUserMetaActions.setAvatar(avatarImage)),
   setTeamAvatar: (teamIndex, avatarImage) =>
     dispatch(createTeamActions.setAvatar(teamIndex, avatarImage)),
@@ -279,7 +279,7 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   setMapKeys: (teamId, keys) => dispatch(createMapKeyActions.set(teamId, keys)),
   setTeamMembers: (teamId, members) =>
     dispatch(createTeamMemberActions.set(teamId, members)),
-  markMapKeyError: teamId => dispatch(createMapKeyActions.markError(teamId))
+  markMapKeyError: (teamId) => dispatch(createMapKeyActions.markError(teamId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer);

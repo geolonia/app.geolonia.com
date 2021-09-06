@@ -1,16 +1,16 @@
-import fetch from "../custom-fetch";
+import fetch from '../custom-fetch';
 
 const createTeam = (
   session: Geolonia.Session,
   name: string,
-  billingEmail: string
+  billingEmail: string,
 ) => {
-  return fetch<Geolonia.Team>(session, "/teams", {
-    method: "POST",
+  return fetch<Geolonia.Team>(session, '/teams', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ name, billingEmail })
+    body: JSON.stringify({ name, billingEmail }),
   });
 };
 

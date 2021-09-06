@@ -1,16 +1,15 @@
-import React, { useState, useEffect } from "react"
-import ImportDropZone from "./ImportDropZone"
-import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-import { __ } from "@wordpress/i18n"
-import "./ImportDropZoneButton.scss"
-import { TileStatus, GVPStep } from "./GeoJson"
+import React, { useState, useEffect } from 'react';
+import ImportDropZone from './ImportDropZone';
+import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import { __ } from '@wordpress/i18n';
+import './ImportDropZoneButton.scss';
+import { TileStatus, GVPStep } from './GeoJson';
 
 type Props = {
   getTileStatus: () => Promise<TileStatus>,
   setTileStatus: (value: TileStatus) => void,
   setGvpStep: (value: GVPStep) => void,
   session: Geolonia.Session,
-  isPaidTeam: boolean,
   teamId?: string,
   geojsonId?: string,
 }
@@ -28,35 +27,35 @@ const styleOuterDefault: React.CSSProperties = {
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'left',
-}
+};
 
 const Content = (props: Props) => {
-  const [stateImporter, setStateImporter] = useState<boolean>(false)
-  const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault)
+  const [stateImporter, setStateImporter] = useState<boolean>(false);
+  const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault);
 
   useEffect(() => {
-    const style = {...styleOuterDefault}
+    const style = {...styleOuterDefault};
     if (stateImporter) {
-      style.display = 'flex'
+      style.display = 'flex';
     } else {
-      style.display = 'none'
+      style.display = 'none';
     }
-    setStyleOuter(style)
-  }, [stateImporter])
+    setStyleOuter(style);
+  }, [stateImporter]);
 
   const close = () => {
-    setStateImporter(false)
-  }
+    setStateImporter(false);
+  };
 
   const preventClose = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    event.stopPropagation()
-  }
+    event.stopPropagation();
+  };
 
   return (
     <>
       <button className="btn" onClick={() => setStateImporter(true)}>
         <CloudUploadIcon fontSize="small" />
-        <span className="label">{__("Upload Data (GeoJSON / CSV)")}</span>
+        <span className="label">{__('Upload Data (GeoJSON / CSV / MBTiles)')}</span>
       </button>
       {stateImporter ? (
         <div className="geojson-importer geojson-dropzone-button" style={styleOuter} onClick={close}>
@@ -65,11 +64,10 @@ const Content = (props: Props) => {
               session={props.session}
               teamId={props.teamId}
               geojsonId={props.geojsonId}
-              isPaidTeam={props.isPaidTeam}
               getTileStatus={props.getTileStatus}
               setTileStatus={props.setTileStatus}
               setGvpStep={props.setGvpStep}
-              customMessage={__("Data that has already been uploaded will be overwritten.")}
+              customMessage={__('Data that has already been uploaded will be overwritten.')}
             />
           </div>
         </div>

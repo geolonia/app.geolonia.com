@@ -1,14 +1,14 @@
-import fetch from "../custom-fetch";
+import fetch from '../custom-fetch';
 
 const updateUser = (session: Geolonia.Session, user: Geolonia.User) => {
   const userSub = session && session.getIdToken().decodePayload().sub;
 
   return fetch<any>(session, `/users/${userSub}`, {
-    method: "PUT",
+    method: 'PUT',
     headers: {
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(user)
+    body: JSON.stringify(user),
   });
 };
 

@@ -1,39 +1,39 @@
-import "./ResetPassword.scss";
+import './ResetPassword.scss';
 
-import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import Support from "./custom/Support";
-import Logo from "./custom/logo.svg";
-import { Link } from "@material-ui/core";
-import Alert from "./custom/Alert";
-import { parseResetPasswordError as parseCognitoResetPasswordError } from "../lib/cognito/parse-error";
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import Support from './custom/Support';
+import Logo from './custom/logo.svg';
+import { Link } from '@material-ui/core';
+import Alert from './custom/Alert';
+import { parseResetPasswordError as parseCognitoResetPasswordError } from '../lib/cognito/parse-error';
 
 // API
-import { resetPassword } from "../auth";
+import { resetPassword } from '../auth';
 
 // Utils
-import { __ } from "@wordpress/i18n";
-import { connect } from "react-redux";
-import queryString from "query-string";
-import delay from "../lib/promise-delay";
+import { __ } from '@wordpress/i18n';
+import { connect } from 'react-redux';
+import queryString from 'query-string';
+import delay from '../lib/promise-delay';
 
 // Types
-import { pageTransitionInterval } from "../constants";
-import estimateLanguage from "../lib/estimate-language";
-import StatusIndication from "./custom/status-indication";
+import { pageTransitionInterval } from '../constants';
+import estimateLanguage from '../lib/estimate-language';
+import StatusIndication from './custom/status-indication';
 
 const Content = () => {
   const parsed = queryString.parse(window.location.search);
   const qsusername = parsed.username as string;
 
-  const [code, setCode] = useState("");
-  const [username, setUsername] = useState(qsusername || "");
-  const [password, setPassword] = useState("");
-  const [passwordAgain, setPasswordAgain] = useState("");
+  const [code, setCode] = useState('');
+  const [username, setUsername] = useState(qsusername || '');
+  const [password, setPassword] = useState('');
+  const [passwordAgain, setPasswordAgain] = useState('');
   const [status, setStatus] = useState<
-    null | "requesting" | "success" | "warning"
+    null | 'requesting' | 'success' | 'warning'
   >(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const onCodeChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -57,16 +57,16 @@ const Content = () => {
     setStatus(null);
     delay(resetPassword(username, code, password), 500)
       .then(() => {
-        setStatus("success");
+        setStatus('success');
         setTimeout(() => {
           window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
-            username
+            username,
           )}&reset=true#/signin`;
         }, pageTransitionInterval);
       })
-      .catch(error => {
+      .catch((error) => {
         setMessage(parseCognitoResetPasswordError(error));
-        setStatus("warning");
+        setStatus('warning');
       });
   };
 
@@ -74,59 +74,59 @@ const Content = () => {
     <div className="signup">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
-        <h1>{__("Change your password")}</h1>
-        {!!qsusername && status !== "warning" && (
+        <h1>{__('Change your password')}</h1>
+        {!!qsusername && status !== 'warning' && (
           <Alert type="success">
             {__(
-              "Please check your email and enter the verification code like <code>123456</code> with new password."
+              'Please check your email and enter the verification code like <code>123456</code> with new password.',
             )}
           </Alert>
         )}
-        {status === "warning" && <Alert type="warning">{message}</Alert>}
+        {status === 'warning' && <Alert type="warning">{message}</Alert>}
 
         <form className="form">
           <label className="code">
-            <h3>{__("Verification Code")}</h3>
+            <h3>{__('Verification Code')}</h3>
             <input
-              id={"code"}
-              type={"text"}
+              id={'code'}
+              type={'text'}
               value={code}
               onChange={onCodeChange}
             />
           </label>
           <label className="username">
-            <h3>{__("Username or email")}</h3>
+            <h3>{__('Username or email')}</h3>
             <input
-              id={"username"}
-              type={"text"}
+              id={'username'}
+              type={'text'}
               value={username}
               onChange={onUsernameChange}
               disabled={!!qsusername}
             />
           </label>
           <label className="password">
-            <h3>{__("New password")}</h3>
+            <h3>{__('New password')}</h3>
             <input
-              id={"password"}
-              type={"password"}
+              id={'password'}
+              type={'password'}
               value={password}
               onChange={onPasswordChange}
-              autoComplete={"new-password"}
+              autoComplete={'new-password'}
             />
           </label>
           <label className="confirm-password">
-            <h3>{__("Confirm new password")}</h3>
+            <h3>{__('Confirm new password')}</h3>
             <input
-              id={"confirm-password"}
-              type={"password"}
+              id={'confirm-password'}
+              type={'password'}
               value={passwordAgain}
               onChange={onPasswordAgainChange}
-              autoComplete={"new-password"}
+              autoComplete={'new-password'}
             />
           </label>
           <p className="message">
             {__(
-              "Make sure at least 8 characters including a number and a lowercase letter."
+              'Make sure at least 8 characters including a number and a lowercase letter.',
             )}
           </p>
           <p>
@@ -135,17 +135,17 @@ const Content = () => {
               color="primary"
               onClick={handler}
               disabled={
-                password === "" ||
-                username === "" ||
-                passwordAgain === "" ||
+                password === '' ||
+                username === '' ||
+                passwordAgain === '' ||
                 password !== passwordAgain ||
-                status === "requesting" ||
-                status === "success" ||
+                status === 'requesting' ||
+                status === 'success' ||
                 !code.match(/^[0-9]{6}$/g)
               }
-              type={"submit"}
+              type={'submit'}
             >
-              {__("Change password")}
+              {__('Change password')}
             </Button>
           </p>
           <p>
@@ -153,7 +153,7 @@ const Content = () => {
               href={`/?lang=${estimateLanguage()}#/forgot-password`}
               tabIndex={400}
             >
-              {__("Request a new verification code")}
+              {__('Request a new verification code')}
             </Link>
           </p>
           <StatusIndication status={status}></StatusIndication>
@@ -168,7 +168,7 @@ const Content = () => {
 };
 
 const mapStateToProps = (state: Geolonia.Redux.AppState) => ({
-  currentUser: state.authSupport.currentUser || ""
+  currentUser: state.authSupport.currentUser || '',
 });
 
 export default connect(mapStateToProps)(Content);

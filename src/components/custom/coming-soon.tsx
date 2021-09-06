@@ -1,6 +1,6 @@
-import React from "react";
-import styled from "styled-components";
-import { __ } from "@wordpress/i18n";
+import React from 'react';
+import styled from 'styled-components';
+import { __ } from '@wordpress/i18n';
 
 type Props = {
   children: React.ReactNode;
@@ -27,7 +27,7 @@ const Screen = styled.div`
 `;
 
 export const ComingSoon = (props: Props) => {
-  const label = props.label || __("Coming soon");
+  const label = props.label || __('Coming soon');
   return (
     <Container style={props.style}>
       {props.children}

@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 // utils
-import { __ } from "@wordpress/i18n";
+import { __ } from '@wordpress/i18n';
 
 type Props = {
   label?: string;
@@ -15,19 +15,19 @@ type Props = {
 
 const getDefaultProps = (props: Props) => ({
   ...props,
-  label: props.label || __("Cancel"),
+  label: props.label || __('Cancel'),
   style: props.style || {},
-  disabled: !!props.disabled
+  disabled: !!props.disabled,
 });
 
 const Cancel = (props: Props) => {
   const { label, style, handler, disabled } = getDefaultProps(props);
 
   const typographyStyle: React.CSSProperties = {
-    marginTop: "1em",
+    marginTop: '1em',
     marginBottom: 0,
-    width: "100%",
-    ...style
+    width: '100%',
+    ...style,
   };
 
   return (

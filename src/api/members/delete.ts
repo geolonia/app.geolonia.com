@@ -1,15 +1,15 @@
-import fetch from "../custom-fetch";
+import fetch from '../custom-fetch';
 
 const updateMember = (
   session: Geolonia.Session,
   teamId: string,
-  memberSub: string
+  memberSub: string,
 ) => {
   return fetch<any>(session, `/teams/${teamId}/members/${memberSub}`, {
-    method: "DELETE",
+    method: 'DELETE',
     headers: {
-      "Content-Type": "Application/json"
-    }
+      'Content-Type': 'Application/json',
+    },
   });
 };
 

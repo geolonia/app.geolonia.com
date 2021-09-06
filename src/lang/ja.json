@@ -7,8 +7,6 @@
         "plural_forms": "nplurals=1; plural=0;",
         "lang": "ja"
       },
-      "Your invitation has been validated.": ["招待が有効化されました。"],
-      "Your invitation has been outdated.": ["この招待は無効です。"],
       "Get started with Geolonia map": ["Geoloniaの地図を使ってみる"],
       "First, you need to obtain an API key and set up the initial settings for the map design and display position.": [
         "まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"
@@ -20,10 +18,14 @@
       "Tutorials": ["チュートリアル"],
       "Developer's Blog": ["Developer's Blog"],
       "Download GeoJSON": ["GeoJSON をダウンロード"],
+      "Home": ["ホーム"],
       "Map": ["地図"],
       "Location Data": ["位置情報データ"],
-      "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON and CSV files.": [
-        "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSONまたはCSVファイルに対応しています。"
+      "In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.": [
+        "地図を表示するためにはアップロードしたMBTilesに対応するstyle.json が必要です。"
+      ],
+      "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON, CSV and MBTiles files.": [
+        "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSON・CSV・MBTilesファイルに対応しています。"
       ],
       "Once you delete an Dataset, there is no going back. Please be certain.": [
         "一度データセットを削除するともとに戻すことはできません。"
@@ -37,7 +39,6 @@
       "Uploading now..": ["データをアップロードしています。"],
       "Processing data..": ["データを処理しています。"],
       "Adding your data to the map...": ["データを地図に追加しています。"],
-      "Home": ["ホーム"],
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],
@@ -102,8 +103,8 @@
       ],
       "My dataset": ["データセット"],
       "Network Error.": ["通信エラー。"],
-      "Error: We currently support GeoJSON and CSV files. Please try uploading again.": [
-        "エラー: 現在 GeoJSON または CSV ファイルのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
+      "Error: We currently support GeoJSON, CSV and MBTiles files. Please try uploading again.": [
+        "エラー: 現在 GeoJSON・CSV・MBTiles ファイルのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
       ],
       "Error: The file you selected was too big. Please upload a file less than %d MB.": [
         "エラー: %d MB 以下のファイルをアップロードしてください。"
@@ -126,7 +127,9 @@
       "Error: Can not upload multiple files.": [
         "複数のファイルをアップロードできません。"
       ],
-      "Upload Data (GeoJSON / CSV)": ["データのアップロード (GeoJSON / CSV)"],
+      "Upload Data (GeoJSON / CSV / MBTiles)": [
+        "データのアップロード (GeoJSON / CSV / MBTiles)"
+      ],
       "Data that has already been uploaded will be overwritten.": [
         "既にアップロードされているデータが上書きされます。"
       ],
@@ -168,11 +171,20 @@
       "List of URLs that are allowed to display the map": [
         "地図の表示を許可するURLのリスト"
       ],
+      "Enter multiple URLs on new lines.": [
+        "複数 URL を指定する場合、改行で入力してください。"
+      ],
+      "This API key can only be used to display maps on the websites listed above.": [
+        "このAPIキーは上記指定されているウェブサイトからでしか表示できません。"
+      ],
+      "The <a href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6\" target=\"_blank\" rel=\"noopener noreferrer\">websites allowed by <code>YOUR-API-KEY</code></a> are automatically added to this list. Requests from these websites are free, and are not counted towards your map view quota.": [
+        "<a href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6\" target=\"_blank\" rel=\"noopener noreferrer\"><code>YOUR-API-KEY</code> で許可されている</a>ウェブサイトは自動的にこのリストに追加されます。このウェブサイトからのアクセスは課金対象にせず、「地図の表示回数」に反映されません。"
+      ],
       "Any page in a specific URL:": ["指定された URL 以下のすべてのページ:"],
       "Any subdomain:": ["すべてのサブドメイン:"],
       "A URL with a non-standard port:": ["一般的ではないポート:"],
-      "Note: Wild card (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\".": [
-        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。"
+      "Note: The wildcard character (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_\". You may use multiple wildcards in one URL.": [
+        "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致します。同一 URL に複数ワイルドカードを使うことが出来ます。"
       ],
       "Once you delete an API, there is no going back. Please be certain.": [
         "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してください。"
@@ -202,10 +214,6 @@
       "Please enter the name of new team.": [
         "新しいチームの名前を入力してください。"
       ],
-      "Billing email": ["支払い"],
-      "We'll send you an email receipt.": [
-        "指定したメールに請求情報を送信します。"
-      ],
       "You are suspended. Please contact the team owner.": [
         "このユーザーは停止中です。チームの所有者にお問い合わせください。"
       ],
@@ -221,13 +229,13 @@
         "Eメールに記載した <code>123456</code> のような検証コードと新しいパスワードを入力してください。"
       ],
       "Verification Code": ["検証コード"],
-      "Sign in to Geolonia": ["Geolonia にサインイン"],
       "Your password has been successfully reset. Please reenter and sign in to the account.": [
         "パスワードがリセットされました。再度入力してサインインしてください。"
       ],
       "Your account has been successfully verified. Please enter your password again and sign in to your account.": [
         "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてください。"
       ],
+      "Sign in to Geolonia": ["Geolonia にサインイン"],
       "Oops, the server seems not to be responding correctly.": [
         "おっと、サーバーが正しく応答していないようです。"
       ],
@@ -248,23 +256,43 @@
       "By signing up to Geolonia, you agree to our <a href=\"https://geolonia.com/terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">Terms of service</a> and <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">Privacy policy</a>.": [
         "サインアップすることで、私たちの <a href=\"https://geolonia.com/terms\" target=\"_blank\" class=\"MuiTypography-colorPrimary\">利用規約</a> 及び <a class=\"MuiTypography-colorPrimary\" href=\"https://geolonia.com/privacy\" target=\"_blank\">プライバシーポリシー</a> に同意したものとさせていただきます。"
       ],
+      "Are you sure you're not %s? If, please <a href=\"/#/signin\">sign in</a>.": [
+        "%s ではありませんか？その場合は<a href=\"/#/signin\">サインイン</a>してください。"
+      ],
+      "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>.": [
+        "すでにアカウントをお持ちですか？その場合は<a href=\"/#/signin\">サインイン</a>してください。"
+      ],
       "Free plan": ["Free プラン"],
       "Free Plan": ["Free プラン"],
       "Team settings": ["チーム設定"],
-      "You can see subscriptions for this team in this month.": [
-        "このチームの今月のサブスクリプションを確認することができます。"
+      "Usage this month": ["今月の利用状況"],
+      "Billing period": ["請求対象期間"],
+      "Next Payment Date": ["次回のお支払日"],
+      "Map loads": ["地図の表示回数"],
+      "Last updated %s": ["最終更新: %s"],
+      "Charges": ["料金"],
+      "Map loads by API key": ["API キー別の地図の表示回数"],
+      "API keys with no map loads will not be shown in the graph.": [
+        "表示回数の無いAPIキーはグラフに表示されません。"
       ],
       "Payment information": ["支払い情報"],
+      "Current account credit:": ["クレジット残高"],
+      " : While this account has credits available, payments will deduct from account credit instead of the registered credit card.": [
+        "　(現在、クレジットが適用されています。クレジット残高が残っている場合、請求はクレジット残高から支払われます。)"
+      ],
       "Payment method:": ["支払い方法"],
       "ending in **%1$s": ["クレジットカード（末尾の番号 **%1$s）"],
       "Change payment method": ["支払い方法を変更"],
       "Current Plan": ["現在のプラン"],
       "Scheduled to expire on %1$s": ["%1$s にキャンセルされます"],
-      "Will automatically renew on %1$s": ["%1$s に自動更新されます"],
       "Resume subscription": ["自動更新を再開"],
       "Change Plan": ["プランを変更"],
       "Learn more about plans on the pricing page.": [
         "プラン詳細については、料金ページをご覧ください。"
+      ],
+      "Billing and Plans": ["料金プランとお支払い"],
+      "You can check and change your current pricing plan and usage status of Team %s.": [
+        "チーム「%s」の現在の料金プラン・利用状況の確認、変更ができます。"
       ],
       "Payment history": ["支払い履歴"],
       "No payment history.": ["支払い履歴はありません。"],
@@ -272,6 +300,9 @@
       "Update": ["更新"],
       "Unknown Error.": ["不明なエラー。"],
       "Your plan": ["あなたのプラン"],
+      "All prices include a 10% Japanese Consumption Tax": [
+        "※ 上記の価格はすべて税込表示です"
+      ],
       "Your subscription will be canceled.": [
         "サブスクリプションはキャンセルされます。"
       ],
@@ -297,6 +328,10 @@
       "Once you delete a team, there is no going back. Please be certain. ": [
         "一度チームを削除すると元に戻すことはできません。"
       ],
+      "Billing email": ["支払い"],
+      "Receipts and other billing-related notifications will be sent to this e-mail address.": [
+        "レシートや請求に関する通知がこちらのメールアドレスに送信されます。"
+      ],
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [
         "すべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザー名と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバーの左上にあるプルダウンで行うことができます。"
       ],
@@ -306,12 +341,16 @@
       ],
       "Select a new role of %s.": ["%s の権限を選択して下さい。"],
       "Owner": ["オーナー"],
+      "can manage payment settings.": ["支払い設定を管理できます。"],
       "can invite another team member.": [
         "新しいメンバーをチームに招待できます。"
       ],
       "can designate another owner.": ["新しいチームオーナーを指定できます。"],
       "can suspend another member.": ["メンバーの権限を一時停止できます。"],
       "Member": ["メンバー"],
+      "can view API key usage.": [
+        "API キーの利用状況を閲覧することができます。"
+      ],
       "Can manage all resources in the team, including API Keys.": [
         "APIキーを含むチームの全てのリソースを管理できます。"
       ],
@@ -319,8 +358,8 @@
       "You can manage members in your team.": [
         "チームメンバーの管理ができます。チームの参加者には「オーナー」と「メンバー」の2つの権限があります。オーナーは他のメンバーの招待、権限変更、一時停止、削除が可能です。"
       ],
-      "You currently can not invite any new members. To invite more than one member to your team, please upgrade to the Geolonia Pro (2-5 users) plan.": [
-        "現在、新しいメンバーを招待することはできません。メンバーをチームに招待するには、Geolonia Pro（2～5ユーザー）プランにアップグレードしてください。"
+      "You currently can not invite any new members.": [
+        "現在、新しいメンバーをチームに招待出来ません。"
       ],
       "Suspended": ["一時停止"],
       "rows per page": ["表示する個数"],
@@ -339,13 +378,12 @@
       ],
       "Invite": ["招待"],
       "Send an invitation": ["招待する"],
-      "Please enter the email address of the person you want to invite to \"%s\". Please note that the user must <a href=\"/#/signup\" target=\"_blank\">create a Geolonia account</a> first before you can send the invitation.": [
-        "チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n<br>\n※注意：現在のことろ、チームに招待できるのは Geolonia Maps のユーザー登録が完了しているメールアドレスのみとなります。招待したい宛先が Geolonia Maps にまだ登録していない場合は、<a href=\"/#/signup\" target=\"_blank\">ユーザー登録</a>を済ませてから招待を送信してください。"
+      "Please enter the email address of the person you want to invite to \"%s\".": [
+        "チーム「%s」にユーザーを招待してコラボレーションしましょう。"
       ],
-      "Receipient's email address": [
-        "招待するユーザーの Geolonia 登録メールアドレス"
-      ],
+      "Receipient's email address": ["招待するユーザーのメールアドレス"],
       "Send": ["送信"],
+      "Removing 1 member from %s.": ["%s から1人のメンバーを削除します。"],
       "The following members will be removed:": [
         "以下のメンバーがチームから削除されます。"
       ],
@@ -354,13 +392,13 @@
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
       ],
-      "How to use the Dashboard": ["管理画面の使い方"],
+      "How to use the Dashboard": ["ダッシュボードの使い方"],
       "Learn about the easiest way to embed a Geolonia map in your website.": [
         "ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"
       ],
       "Embed API": ["Embed API"],
-      "The Embed API allows you to set up a map with just a simple HTML code.": [
-        "Embed API を使用すると、簡単な HTML を書くだけで地図を設置出来ます。"
+      "Learn about the Embed API, which enables you to set up a map with a simple HTML code.": [
+        "簡単な HTML を書くだけで地図を設置できる Embed API についてご紹介します。"
       ],
       "JavaScript API": ["JavaScript API"],
       "Learn how to develop a professional map application using the JavaScript API.": [
@@ -373,7 +411,7 @@
       "Read More": ["続きを読む"],
       "Support": ["サポート"],
       "Please contact us if you have any questions about how to use the admin panel or if you need technical support (which may be paid).": [
-        "管理画面の使い方の質問や、有償の技術サポートはこちらからお問い合わせください。"
+        "ダッシュボードの使い方の質問や、有償の技術サポートはこちらからお問い合わせください。"
       ],
       "Contact support": ["問い合わせる"],
       "Your profile": ["プロフィール"],
@@ -412,13 +450,13 @@
       "Japanese": ["日本語"],
       "English": ["英語"],
       "request send": ["再送する"],
+      "Verification code": ["検証コード"],
       "Verify": ["検証する"],
       "Request a new verification code.": ["検証コードを再送する。"],
       "Verify your account": ["アカウントの確認"],
       "Please check your email and enter the verification code like <code>123456</code>.": [
         "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
       ],
-      "Verification code": ["検証コード"],
       "You are not authorized to do this operation.": [
         "この操作を行う権限がありません。"
       ],

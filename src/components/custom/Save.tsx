@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState } from 'react';
 
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import Snackbar from "@material-ui/core/Snackbar";
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/icons/Close";
-import { CircularProgress } from "@material-ui/core";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import { CircularProgress } from '@material-ui/core';
 
 // utils
-import { __ } from "@wordpress/i18n";
-import { messageDisplayDuration } from "../../constants";
+import { __ } from '@wordpress/i18n';
+import { messageDisplayDuration } from '../../constants';
+import { sleep } from '../../lib/sleep';
 
 type Props = {
   label?: string;
@@ -23,57 +24,58 @@ type Props = {
 };
 
 const getDefaultProps = (props: Props) => ({
-  label: props.label || __("Save"),
+  label: props.label || __('Save'),
   style: props.style || {},
   onClick: props.onClick,
   onError: props.onError,
   disabled: !!props.disabled,
 });
 
-const Save = (props: Props) => {
+const Save: React.FC<Props> = (props) => {
   const { label, style, onClick, onError, disabled } = getDefaultProps(props);
 
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState<
-    false | "working" | "success" | "failure"
+    false | 'working' | 'success' | 'failure'
   >(false);
 
   const typographyStyle: React.CSSProperties = {
-    marginTop: "1em",
+    marginTop: '1em',
     marginBottom: 0,
-    width: "100%",
-    ...style
+    width: '100%',
+    ...style,
   };
 
-  const handleSave = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    setStatus("working");
+  const handleSave = useCallback<React.MouseEventHandler<HTMLButtonElement>>((event) => {
+    setStatus('working');
     if (typeof onClick === 'undefined') {
-      return
+      return;
     }
 
-    onClick(event)
-      .then(() => {
-        setStatus("success");
+    (async () => {
+      try {
+        await onClick(event);
+        setStatus('success');
         setOpen(true);
-        setTimeout(() => setOpen(false), messageDisplayDuration);
-      })
-      .catch(err => {
-        setStatus("failure");
+        await sleep(messageDisplayDuration);
+        setOpen(false);
+      } catch (err) {
+        setStatus('failure');
         setOpen(true);
         if (typeof onError !== 'undefined') {
           onError(err);
         }
-        setTimeout(() => setOpen(false), messageDisplayDuration);
-      });
-  };
+        await sleep(messageDisplayDuration);
+        setOpen(false);
+      }
+    })();
+  }, [onClick, onError]);
 
   function handleClose(
     event: React.SyntheticEvent | React.MouseEvent,
-    reason?: string
+    reason?: string,
   ) {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -96,10 +98,10 @@ const Save = (props: Props) => {
           disabled={disabled}
           style={props.buttonStyle}
         >
-          {status === "working" && (
+          {status === 'working' && (
             <CircularProgress
               size={16}
-              color={"inherit"}
+              color={'inherit'}
               style={{ marginRight: 8 }}
             />
           )}
@@ -109,18 +111,18 @@ const Save = (props: Props) => {
       <Snackbar
         className={`snackbar-saved ${status}`}
         anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left"
+          vertical: 'bottom',
+          horizontal: 'left',
         }}
         open={open}
         autoHideDuration={6000}
         onClose={handleClose}
         ContentProps={{
-          "aria-describedby": "message-id"
+          'aria-describedby': 'message-id',
         }}
         message={
           <span id="message-id">
-            {status === "success" ? __("Saved.") : __("Failed to save.")}
+            {status === 'success' ? __('Saved.') : __('Failed to save.')}
           </span>
         }
         action={[
@@ -131,7 +133,7 @@ const Save = (props: Props) => {
             onClick={handleClose}
           >
             <CloseIcon />
-          </IconButton>
+          </IconButton>,
         ]}
       />
     </div>

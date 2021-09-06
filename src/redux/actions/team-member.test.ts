@@ -1,110 +1,110 @@
-import { reducer, createActions } from "./team-member";
-import { Roles } from "../../constants";
+import { reducer, createActions } from './team-member';
+import { Roles } from '../../constants';
 
 type State = Geolonia.Redux.State.TeamMember;
 
-const TEAM_ID = "test-team-id";
+const TEAM_ID = 'test-team-id';
 
 const commonMemberProps = {
-  name: "name",
-  username: "username",
-  language: "ja",
-  timezone: "tokyo",
-  links: { getAvatar: "", putAvatar: "" },
-  avatarImage: ""
+  name: 'name',
+  username: 'username',
+  language: 'ja',
+  timezone: 'tokyo',
+  links: { getAvatar: '', putAvatar: '' },
+  avatarImage: '',
 };
 
-it("should sort member when set", () => {
+it('should sort member when set', () => {
   const initialState: State = {
     [TEAM_ID]: {
-      data: []
-    }
+      data: [],
+    },
   };
   const members: any[] = [
     {
-      userSub: "0",
+      userSub: '0',
       role: Roles.Suspended,
-      ...commonMemberProps
+      ...commonMemberProps,
     },
     {
-      userSub: "1",
+      userSub: '1',
       role: Roles.Owner,
-      ...commonMemberProps
+      ...commonMemberProps,
     },
     {
-      userSub: "2",
+      userSub: '2',
       role: Roles.Member,
-      ...commonMemberProps
-    }
+      ...commonMemberProps,
+    },
   ];
   const action = createActions.set(TEAM_ID, members);
   const nextState = reducer(initialState, action);
-  const orderedRoles = nextState[TEAM_ID].data.map(member => member.role);
+  const orderedRoles = nextState[TEAM_ID].data.map((member) => member.role);
   expect(orderedRoles).toEqual([Roles.Owner, Roles.Member, Roles.Suspended]);
 });
 
-it("should sort member when add", () => {
+it('should sort member when add', () => {
   const initialState: State = {
     [TEAM_ID]: {
       data: [
         {
-          userSub: "0",
+          userSub: '0',
           role: Roles.Suspended,
-          ...commonMemberProps
+          ...commonMemberProps,
         },
         {
-          userSub: "1",
+          userSub: '1',
           role: Roles.Owner,
-          ...commonMemberProps
+          ...commonMemberProps,
         },
         {
-          userSub: "2",
+          userSub: '2',
           role: Roles.Member,
-          ...commonMemberProps
-        }
-      ]
-    }
+          ...commonMemberProps,
+        },
+      ],
+    },
   };
   const member: Geolonia.Member = {
-    userSub: "3",
+    userSub: '3',
     role: Roles.Owner,
-    ...commonMemberProps
+    ...commonMemberProps,
   };
   const action = createActions.add(TEAM_ID, member);
   const nextState = reducer(initialState, action);
-  const orderedRoles = nextState[TEAM_ID].data.map(member => member.role);
+  const orderedRoles = nextState[TEAM_ID].data.map((member) => member.role);
   expect(orderedRoles).toEqual([
     Roles.Owner,
     Roles.Owner,
     Roles.Member,
-    Roles.Suspended
+    Roles.Suspended,
   ]);
 });
 
-it("should sort member when update", () => {
+it('should sort member when update', () => {
   const initialState: State = {
     [TEAM_ID]: {
       data: [
         {
-          userSub: "0",
+          userSub: '0',
           role: Roles.Suspended,
-          ...commonMemberProps
+          ...commonMemberProps,
         },
         {
-          userSub: "1",
+          userSub: '1',
           role: Roles.Owner,
-          ...commonMemberProps
+          ...commonMemberProps,
         },
         {
-          userSub: "2",
+          userSub: '2',
           role: Roles.Member,
-          ...commonMemberProps
-        }
-      ]
-    }
+          ...commonMemberProps,
+        },
+      ],
+    },
   };
-  const action = createActions.update(TEAM_ID, "1", { role: Roles.Suspended });
+  const action = createActions.update(TEAM_ID, '1', { role: Roles.Suspended });
   const nextState = reducer(initialState, action);
-  const userSubOrder = nextState[TEAM_ID].data.map(member => member.userSub);
-  expect(userSubOrder).toEqual(["2", "0", "1"]);
+  const userSubOrder = nextState[TEAM_ID].data.map((member) => member.userSub);
+  expect(userSubOrder).toEqual(['2', '0', '1']);
 });

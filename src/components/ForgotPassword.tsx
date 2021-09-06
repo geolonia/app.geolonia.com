@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from 'react';
 
-import Button from "@material-ui/core/Button";
-import { __ } from "@wordpress/i18n";
+import Button from '@material-ui/core/Button';
+import { __ } from '@wordpress/i18n';
 
-import Support from "./custom/Support";
-import "./ForgotPassword.scss";
-import Logo from "./custom/logo.svg";
-import { sendVerificationEmail } from "../auth";
-import delay from "../lib/promise-delay";
-import Alert from "./custom/Alert";
-import estimateLanguage from "../lib/estimate-language";
-import { pageTransitionInterval } from "../constants";
-import StatusIndication from "./custom/status-indication";
-import { parseForgotPasswordError as parseCognitoForgotPasswordError } from "../lib/cognito/parse-error";
+import Support from './custom/Support';
+import './ForgotPassword.scss';
+import Logo from './custom/logo.svg';
+import { sendVerificationEmail } from '../auth';
+import delay from '../lib/promise-delay';
+import Alert from './custom/Alert';
+import estimateLanguage from '../lib/estimate-language';
+import { pageTransitionInterval } from '../constants';
+import StatusIndication from './custom/status-indication';
+import { parseForgotPasswordError as parseCognitoForgotPasswordError } from '../lib/cognito/parse-error';
 
 type OwnProps = Record<string, never>;
 type RouterProps = {
@@ -24,52 +24,52 @@ type DispatchProps = Record<string, never>;
 type Props = OwnProps & RouterProps & DispatchProps;
 
 const Content = (props: Props) => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [status, setStatus] = useState<
-    null | "requesting" | "success" | "warning"
+    null | 'requesting' | 'success' | 'warning'
   >(null);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState('');
 
   const handleSignup = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event && event.preventDefault();
-    setStatus("requesting");
+    setStatus('requesting');
     delay(sendVerificationEmail(email), 500)
       .then(() => {
-        setStatus("success");
+        setStatus('success');
         setTimeout(() => {
           window.location.href = `/?lang=${estimateLanguage()}&username=${encodeURIComponent(
-            email
+            email,
           )}#/reset-password`;
         }, pageTransitionInterval);
       })
-      .catch(error => {
+      .catch((error) => {
         setMessage(parseCognitoForgotPasswordError(error));
-        setStatus("warning");
+        setStatus('warning');
       });
   };
 
   const buttonDisabled =
-    email.trim() === "" || status === "success" || status === "requesting";
+    email.trim() === '' || status === 'success' || status === 'requesting';
 
   return (
     <div className="signup">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
-        <h1>{__("Reset your password")}</h1>
-        {status === "warning" && <Alert type={status}>{message}</Alert>}
+        <h1>{__('Reset your password')}</h1>
+        {status === 'warning' && <Alert type={status}>{message}</Alert>}
         <form className="form">
           <label className="email">
-            <h3>{__("Username or email")}</h3>
+            <h3>{__('Username or email')}</h3>
             <input
               type="text"
               value={email}
-              onChange={e => setEmail(e.target.value)}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </label>
           <p className="message">
-            {__("We will send you a verification code to reset your password.")}
+            {__('We will send you a verification code to reset your password.')}
           </p>
           <p>
             <Button
@@ -77,9 +77,9 @@ const Content = (props: Props) => {
               color="primary"
               onClick={handleSignup}
               disabled={buttonDisabled}
-              type={"submit"}
+              type={'submit'}
             >
-              {__("Send password reset email")}
+              {__('Send password reset email')}
             </Button>
           </p>
           <StatusIndication status={status}></StatusIndication>

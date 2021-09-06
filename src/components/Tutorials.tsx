@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { __ } from '@wordpress/i18n'
+import React, { useMemo } from 'react';
+import { __ } from '@wordpress/i18n';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -16,34 +16,34 @@ const getTutorialContents = () => {
       title: __('How to use the Dashboard'),
       excerpt: __('Learn about the easiest way to embed a Geolonia map in your website.'),
       url: 'https://docs.geolonia.com/tutorial/',
-      btnText: __('Read More')
+      btnText: __('Read More'),
     },
     {
       title: __('Embed API'),
-      excerpt: __('The Embed API allows you to set up a map with just a simple HTML code.'),
+      excerpt: __('Learn about the Embed API, which enables you to set up a map with a simple HTML code.'),
       url: 'https://docs.geolonia.com/embed-api/',
-      btnText: __('Read More')
+      btnText: __('Read More'),
     },
     {
       title: __('JavaScript API'),
       excerpt: __('Learn how to develop a professional map application using the JavaScript API.'),
       url: 'https://docs.geolonia.com/javascript-api/',
-      btnText: __('Read More')
+      btnText: __('Read More'),
     },
     {
       title: __('Custom Style'),
       excerpt: __('Learn how to customize the style of your map.'),
       url: 'https://docs.geolonia.com/custom-style/',
-      btnText: __('Read More')
+      btnText: __('Read More'),
     },
     {
       title: __('Support'),
       excerpt: __('Please contact us if you have any questions about how to use the admin panel or if you need technical support (which may be paid).'),
       url: 'https://geolonia.com/contact/',
-      btnText: __('Contact support')
+      btnText: __('Contact support'),
     },
-  ]
-}
+  ];
+};
 
 const useStyles = makeStyles({
   root: {
@@ -60,18 +60,20 @@ const useStyles = makeStyles({
     paddingBottom: '10px',
   },
   icon: {
-    marginRight: '10px'
+    marginRight: '10px',
   },
-  excerpt: {},
+  excerpt: {
+    minHeight: '60px',
+  },
   button: {
     color: '#EB5C0B',
-    marginLeft: '13px'
-  }
-})
+    marginLeft: '13px',
+  },
+});
 
 export const Tutorials: React.FC = () => {
-  const tutorialContents = useMemo(getTutorialContents, [])
-  const classes = useStyles()
+  const tutorialContents = useMemo(getTutorialContents, []);
+  const classes = useStyles();
 
   return <Grid container spacing={2}>
     {
@@ -87,12 +89,12 @@ export const Tutorials: React.FC = () => {
                 <Typography variant="body2" color="textSecondary" component="p" className={classes.excerpt}>{post.excerpt}</Typography>
               </div>
             </CardContent>
-            <Button className={classes.button} size="small">{post.btnText}</Button>
+            <Button component="div" className={classes.button} size="small">{post.btnText}</Button>
           </CardActionArea>
         </Card>
       </Grid>)
     }
-  </Grid>
-}
+  </Grid>;
+};
 
-export default Tutorials
+export default Tutorials;

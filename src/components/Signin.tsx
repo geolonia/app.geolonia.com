@@ -1,30 +1,34 @@
-import "./Signin.scss";
+import './Signin.scss';
 
-import React, { useState, useEffect } from "react";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import Logo from "./custom/logo.svg";
-import Support from "./custom/Support";
-import Alert from "./custom/Alert";
-import StatusIndication from "./custom/status-indication";
+import React, { useState, useEffect } from 'react';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import Logo from './custom/logo.svg';
+import Support from './custom/Support';
+import Alert from './custom/Alert';
+import StatusIndication from './custom/status-indication';
 
 // Utils
-import delay from "../lib/promise-delay";
-import queryString from "query-string";
-import { __ } from "@wordpress/i18n";
-import { parseSigninError as parseCognitoSigninError } from "../lib/cognito/parse-error";
+import queryString from 'query-string';
+import { __ } from '@wordpress/i18n';
+import { parseSigninError as parseCognitoSigninError } from '../lib/cognito/parse-error';
+import { sleep } from '../lib/sleep';
 
 // API
-import { signin } from "../auth";
+import { signin } from '../auth';
+
+// Hooks
+import { useInvitationToken } from '../hooks/invitation-token';
 
 // Redux
-import Redux from "redux";
-import { createActions } from "../redux/actions/auth-support";
-import { connect } from "react-redux";
+import Redux from 'redux';
+import { createActions } from '../redux/actions/auth-support';
+import { connect } from 'react-redux';
 
 // constants
-import { pageTransitionInterval } from "../constants";
+import { pageTransitionInterval } from '../constants';
 
+// types
 type OwnProps = Record<string, never>;
 type RouterProps = {
   history: {
@@ -39,28 +43,38 @@ type DispatchProps = {
 };
 type Props = OwnProps & RouterProps & StateProps & DispatchProps;
 
+const focusOn = (id: string) => {
+  const elm = document.getElementById(id);
+  elm && elm.focus();
+};
+
 const Signin = (props: Props) => {
   const { serverTrouble } = props;
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   const [status, setStatus] = useState<
-    null | "requesting" | "success" | "warning"
+    null | 'requesting' | 'success' | 'warning'
   >(null);
-  const [message, setMessage] = useState("");
-
-  const parsed = queryString.parse(window.location.search);
-  const hasQueryStringUsername =
-    !!parsed.username && typeof parsed.username === "string";
-  const hasPasswordReset = parsed.reset === "true";
+  const [errorMessage, setErrorMessage] = useState('');
+  const [passwordResetFlag, setPasswordResetFlag] = useState(false);
+  const [postVerifyFlag, setPostVerifyFlag] = useState(false);
+  const { fetchedEmail, isReady, acceptInvitationCallback } = useInvitationToken(window.location.search);
 
   useEffect(() => {
-    if (hasQueryStringUsername && username === "") {
-      setUsername(parsed.username as string);
-      const passwordInput = document.getElementById("password");
-      passwordInput && passwordInput.focus();
+    const parsed = queryString.parse(window.location.search);
+    if(typeof parsed.username === 'string') {
+      setUsername(parsed.username);
+      setPostVerifyFlag(true);
+      focusOn('password');
+    } else if(fetchedEmail) {
+      setUsername(fetchedEmail);
+      focusOn('password');
     }
-  }, [hasQueryStringUsername, parsed.username, username]);
+    if(parsed.reset === 'true') {
+      setPasswordResetFlag(true);
+    }
+  }, [fetchedEmail]);
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);
@@ -73,101 +87,113 @@ const Signin = (props: Props) => {
   };
 
   const buttonDisabled =
-    username === "" ||
-    password === "" ||
-    status === "success" ||
-    status === "requesting";
+    !isReady ||
+    username === '' ||
+    password === '' ||
+    status === 'success' ||
+    status === 'requesting';
 
-  const handleSignin = (e: React.MouseEvent | void) => {
+  const handleSignin = async (e: React.MouseEvent | void) => {
     e && e.preventDefault();
-    setStatus("requesting");
-    delay(signin(username, password), 500)
-      .then(() => {
-        setStatus("success");
-        // Force reloadading and use componentDidMount of AuthContainer to get session
-        setTimeout(() => (window.location.href = "/"), pageTransitionInterval);
-      })
-      .catch(error => {
-        setMessage(parseCognitoSigninError(error));
-        setStatus("warning");
-      });
+    setStatus('requesting');
+
+    try {
+      await signin(username, password);
+    } catch (error: any) {
+      setErrorMessage(parseCognitoSigninError(error));
+      setStatus('warning');
+    }
+
+    try {
+      await acceptInvitationCallback();
+    } catch (error) {
+      // チームへの招待失敗のエラーは無視し、あくまでサインインを完結してもらう
+      // eslint-disable-next-line no-console
+      console.error(error);
+    }
+
+    setStatus('success');
+    await sleep(pageTransitionInterval);
+    // Force reload and use componentDidMount of AuthContainer to get session
+    window.location.href = '/';
   };
+
   const onPasswordKeyDown = (e: React.KeyboardEvent) => {
     // enter
     e.keyCode === 13 && !buttonDisabled && handleSignin();
   };
 
+  let alert: React.ReactNode | null = null;
+  if(status === 'warning') {
+    <Alert type="warning">{errorMessage}</Alert>;
+  } else if (passwordResetFlag) {
+    alert = <Alert type="success">{__('Your password has been successfully reset. Please reenter and sign in to the account.')}</Alert>;
+  } else if (postVerifyFlag) {
+    alert = <Alert type="success">{__('Your account has been successfully verified. Please enter your password again and sign in to your account.')}</Alert>;
+  }
+
   return (
     <div className="signin">
       <div className="container">
         <img src={Logo} alt="" className="logo" />
-        <h1>{__("Sign in to Geolonia")}</h1>
-        {hasQueryStringUsername && status === null && !serverTrouble && (
-          <Alert type="success">
-            {hasPasswordReset
-              ? __(
-                  "Your password has been successfully reset. Please reenter and sign in to the account."
-                )
-              : __(
-                  "Your account has been successfully verified. Please enter your password again and sign in to your account."
-                )}
-          </Alert>
-        )}
-        {status === "warning" ? <Alert type="warning">{message}</Alert> : null}
+        <h1>{__('Sign in to Geolonia')}</h1>
+        {alert}
         {serverTrouble && (
-          <Alert type={"warning"}>
-            {__("Oops, the server seems not to be responding correctly.")}
+          <Alert type={'warning'}>
+            {__('Oops, the server seems not to be responding correctly.')}
           </Alert>
         )}
         <form className="form">
           <label className="username">
-            <h2>{__("Username or email address")}</h2>
+            <h2>{__('Username or email address')}</h2>
             <input
-              id={"username"}
-              type={"text"}
+              id={'username'}
+              type={'text'}
               value={username}
               onChange={onUsernameChange}
+              disabled={!!fetchedEmail || !isReady}
               tabIndex={100}
-              autoComplete={"username"}
+              autoComplete={'username'}
             />
           </label>
           <label className="password">
-            <h2>{__("Password")}</h2>
+            <h2>{__('Password')}</h2>
             <input
-              id={"password"}
-              type={"password"}
+              id={'password'}
+              type={'password'}
               value={password}
               onChange={onPasswordChange}
               onKeyDown={onPasswordKeyDown}
+              disabled={!isReady}
               tabIndex={200}
-              autoComplete={"current-password"}
+              autoComplete={'current-password'}
             />
           </label>
           <p className="forgot-password">
             <Link href="#/forgot-password" tabIndex={400}>
-              {__("Forgot password?")}
+              {__('Forgot password?')}
             </Link>
           </p>
           <p>
             <Button
-              id={"signin"}
+              id={'signin'}
               variant="contained"
               color="primary"
               onClick={handleSignin}
               tabIndex={300}
               disabled={buttonDisabled}
-              type={"submit"}
+              type={'submit'}
             >
-              {__("Sign in")}
+              {__('Sign in')}
             </Button>
           </p>
           <StatusIndication status={status}></StatusIndication>
         </form>
 
         <p>
-          {__("New to Geolonia?")}{" "}
+          {__('New to Geolonia?')}{' '}
           <Link href="#/signup" tabIndex={500}>
-            {__("Create an account.")}
+            {__('Create an account.')}
           </Link>
         </p>
 
@@ -180,11 +206,11 @@ const Signin = (props: Props) => {
 };
 
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-  serverTrouble: state.authSupport.hasTrouble
+  serverTrouble: state.authSupport.hasTrouble,
 });
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setAccessToken: (accessToken: string) =>
-    dispatch(createActions.setAccessToken(accessToken))
+    dispatch(createActions.setAccessToken(accessToken)),
 });
 const ConnectedContent = connect(mapStateToProps, mapDispatchToProps)(Signin);
 
