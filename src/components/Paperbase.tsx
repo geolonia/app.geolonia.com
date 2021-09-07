@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -24,8 +24,11 @@ import CommonNotification from './CommonNotification';
 
 import { theme } from '../assets/mui-theme';
 
-// redux
-import { connect } from 'react-redux';
+import {
+  useAppSelector,
+  useSelectedTeam,
+} from '../redux/hooks';
+
 import Alert from './custom/Alert';
 import { __ } from '@wordpress/i18n';
 
@@ -67,7 +70,7 @@ const styles = createStyles({
   },
 });
 
-type OwnProps = {
+type Props = {
   classes: {
     root: string;
     drawer: string;
@@ -78,25 +81,15 @@ type OwnProps = {
     mainContent: string;
   };
 };
-type StateProps = {
-  session: Geolonia.Session;
-  isReady: boolean;
-  teams: Geolonia.Team[];
-  currentTeam?: Geolonia.Team;
-  currentRole?: Geolonia.Role;
-  userMeta: Geolonia.User;
-};
-type Props = OwnProps & StateProps;
 
 export const Paperbase: React.FC<Props> = (props: Props) => {
   const history = useHistory();
-  const { classes, isReady, session, currentRole } = props;
-
-  const isLoggedIn = isReady && !!session;
-
   const [mobileOpen, setMobileOpen] = useState(false);
-
-  const handleDrawerToggle = () => setMobileOpen(!mobileOpen);
+  const handleDrawerToggle = useCallback(() => setMobileOpen((mobileOpen) => !mobileOpen), []);
+  const { classes } = props;
+  const { isReady, session } = useAppSelector((state) => state.authSupport);
+  const currentTeam = useSelectedTeam();
+  const isLoggedIn = isReady && !!session;
 
   useEffect(() => {
     if (!history) return;
@@ -163,7 +156,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
             <div className={classes.appContent}>
               <Header onDrawerToggle={handleDrawerToggle} />
               <main className={classes.mainContent}>
-                {currentRole === Roles.Suspended && (
+                {currentTeam && currentTeam.role === Roles.Suspended && (
                   <Alert type={'warning'}>
                     {__('You are suspended. Please contact the team owner.')}
                   </Alert>
@@ -180,28 +173,4 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  // map Teams
-  const selectedTeamIndex = state.team.selectedIndex;
-  const teams = state.team.data;
-  const currentTeam = state.team.data[selectedTeamIndex] as
-    | Geolonia.Team
-    | undefined;
-  const currentRole = currentTeam ? currentTeam.role : void 0;
-
-  // map UserMeta
-  const userMeta = state.userMeta;
-
-  return {
-    isReady: state.authSupport.isReady,
-    session: state.authSupport.session,
-    teams,
-    currentTeam,
-    currentRole,
-    userMeta,
-  };
-};
-
-const ConnectedPaperbase = connect(mapStateToProps)(Paperbase);
-
-export default withStyles(styles)(ConnectedPaperbase);
+export default withStyles(styles)(Paperbase);

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import { withStyles, Theme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -31,14 +31,13 @@ import defaultTeamIcon from './custom/team.svg';
 import { Link } from '@material-ui/core';
 
 import { __ } from '@wordpress/i18n';
-import { connect } from 'react-redux';
-import { createActions as createTeamActions } from '../redux/actions/team';
 
-import createTeam from '../api/teams/create';
 import { useLocation } from 'react-router-dom';
 
 // types
-import Redux from 'redux';
+import { useAppDispatch, useSelectedTeam } from '../redux/hooks';
+import { useGetTeamsQuery } from '../redux/apis/app-api';
+import { selectTeam } from '../redux/actions/team';
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -85,7 +84,7 @@ const handleClickHome = () => {
   window.location.hash = '';
 };
 
-type OwnProps = {
+type Props = {
   readonly classes: any;
   readonly PaperProps: any;
   readonly variant?: 'temporary';
@@ -93,30 +92,29 @@ type OwnProps = {
   readonly onClose?: () => any;
 };
 
-type StateProps = {
-  session: Geolonia.Session;
-  teams: Geolonia.Team[];
-  selectedTeamIndex: number;
-  ownerEmail: string;
-};
+// type StateProps = {
+//   session: Geolonia.Session;
+//   teams: Geolonia.Team[];
+//   selectedTeamIndex: number;
+//   ownerEmail: string;
+// };
 
-type DispatchProps = {
-  selectTeam: (index: number) => void;
-  addTeam: (team: Geolonia.Team) => void;
-};
+// type DispatchProps = {
+//   selectTeam: (index: number) => void;
+//   addTeam: (team: Geolonia.Team) => void;
+// };
 
-type Props = OwnProps & StateProps & DispatchProps;
-
-const Navigator: React.FC<Props> = (props: Props) => {
+const Navigator: React.FC<Props> = (props) => {
+  const dispatch = useAppDispatch();
   const initialValueForNewTeamName = __('My team');
 
   const {
     classes,
-    teams,
-    selectedTeamIndex,
-    selectTeam,
-    addTeam,
-    ownerEmail,
+    // teams,
+    // selectedTeamIndex,
+    // selectTeam,
+    // addTeam,
+    // ownerEmail,
     ...other
   } = props;
 
@@ -127,7 +125,8 @@ const Navigator: React.FC<Props> = (props: Props) => {
     initialValueForNewTeamName,
   );
 
-  const selectedTeam: Geolonia.Team | undefined = teams[selectedTeamIndex];
+  const { data: teams } = useGetTeamsQuery(undefined);
+  const selectedTeam = useSelectedTeam();
 
   const teamSettingsChildren = [
     {
@@ -195,21 +194,21 @@ const Navigator: React.FC<Props> = (props: Props) => {
     setNewTeamName(initialValueForNewTeamName);
   };
 
-  const saveHandler = () => {
-    const { session } = props;
-    return createTeam(session, newTeamName, ownerEmail).then((result) => {
-      if (result.error) {
-        throw new Error(result.code);
-      } else {
-        handleClose();
-        addTeam(result.data);
-        const nextTeamIndex = teams.length;
-        selectTeam(nextTeamIndex);
-        window.location.hash = '#/team/general';
-        window.location.reload();
-      }
-    });
-  };
+  const saveHandler = useCallback(async () => {
+    // const { session } = props;
+    // return createTeam(session, newTeamName, ownerEmail).then((result) => {
+    //   if (result.error) {
+    //     throw new Error(result.code);
+    //   } else {
+    //     handleClose();
+    //     addTeam(result.data);
+    //     const nextTeamIndex = teams.length;
+    //     selectTeam(nextTeamIndex);
+    //     window.location.hash = '#/team/general';
+    //     window.location.reload();
+    //   }
+    // });
+  }, []);
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
@@ -218,31 +217,29 @@ const Navigator: React.FC<Props> = (props: Props) => {
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
           <img
-            src={
-              (teams[selectedTeamIndex] &&
-                teams[selectedTeamIndex].avatarImage) ||
-              defaultTeamIcon
-            }
+            src={ selectedTeam?.avatarImage || defaultTeamIcon }
             className="logo"
             alt=""
           />
-          <Select
-            className="team"
-            value={selectedTeamIndex}
-            onChange={(e: any) => {
-              e.target.value !== '__not_selectable' &&
-                props.selectTeam(e.target.value);
-            }}
-          >
-            {teams.map((team, index) => (
-              <MenuItem key={team.teamId} value={index}>
-                {team.name}
+          { selectedTeam &&
+            <Select
+              className="team"
+              value={selectedTeam.teamId}
+              onChange={(e: any) => {
+                e.target.value !== '__not_selectable' &&
+                  dispatch(selectTeam({ teamId: e.target.value }));
+              }}
+            >
+              {teams?.map(({teamId, name}) => (
+                <MenuItem key={teamId} value={teamId}>
+                  {name}
+                </MenuItem>
+              ))}
+              <MenuItem className="create-new-team" value="__not_selectable">
+                <Link onClick={handleClickOpen}>+ {__('Create a new team')}</Link>
               </MenuItem>
-            ))}
-            <MenuItem className="create-new-team" value="__not_selectable">
-              <Link onClick={handleClickOpen}>+ {__('Create a new team')}</Link>
-            </MenuItem>
-          </Select>
+            </Select>
+          }
         </ListItem>
         <ListItem
           button
@@ -350,21 +347,21 @@ const Navigator: React.FC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-  teams: state.team.data,
-  selectedTeamIndex: state.team.selectedIndex,
-  session: state.authSupport.session,
-  ownerEmail: state.userMeta.email,
-});
+// const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
+//   teams: state.team.data,
+//   selectedTeamIndex: state.team.selectedIndex,
+//   session: state.authSupport.session,
+//   ownerEmail: state.userMeta.email,
+// });
 
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  selectTeam: (index: number) => dispatch(createTeamActions.select(index)),
-  addTeam: (team: Geolonia.Team) => dispatch(createTeamActions.add(team)),
-});
+// const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+//   selectTeam: (index: number) => dispatch(createTeamActions.select(index)),
+//   addTeam: (team: Geolonia.Team) => dispatch(createTeamActions.add(team)),
+// });
 
-const ConnectedNavigator = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Navigator);
+// const ConnectedNavigator = connect(
+//   mapStateToProps,
+//   mapDispatchToProps,
+// )(Navigator);
 
-export default withStyles(styles)(ConnectedNavigator);
+export default withStyles(styles)(Navigator);

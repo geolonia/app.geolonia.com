@@ -9,7 +9,9 @@ import Alert from './custom/Alert';
 import { signUp } from '../auth';
 import Redux from 'redux';
 import { connect } from 'react-redux';
-import { createActions } from '../redux/actions/auth-support';
+import {
+  setCognitoUser,
+} from '../redux/actions/auth-support';
 import StatusIndication from './custom/status-indication';
 import { sprintf, __ } from '@wordpress/i18n';
 import Interweave from 'interweave';
@@ -221,7 +223,7 @@ const Signup = (props: Props) => {
 
 const mapStateToProps = (): StateProps => ({});
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setCurrentUser: (user: string) => dispatch(createActions.setCurrentUser(user)),
+  setCurrentUser: (user: string) => dispatch(setCognitoUser({currentUser: user})),
 });
 
 export default connect<StateProps, DispatchProps>(

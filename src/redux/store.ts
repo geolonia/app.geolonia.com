@@ -1,19 +1,27 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { reducer as authSupportReducer } from './actions/auth-support';
-import { reducer as userMetaReducer } from './actions/user-meta';
-import { reducer as teamReducer } from './actions/team';
-import { reducer as mapKeyReducer } from './actions/map-key';
-import { reducer as teamMemberReducer } from './actions/team-member';
+import { configureStore } from '@reduxjs/toolkit';
+import { setupListeners } from '@reduxjs/toolkit/query';
+import authSupportReducer from './actions/auth-support';
+import userMetaReducer from './actions/user-meta';
+import teamReducer from './actions/team';
 
-import localStorageMiddleware from './middlewares/local-storage';
+import { appApi } from './apis/app-api';
 
-const appReducer = combineReducers({
-  authSupport: authSupportReducer,
-  userMeta: userMetaReducer,
-  team: teamReducer,
-  mapKey: mapKeyReducer,
-  teamMember: teamMemberReducer,
+const store = configureStore({
+  reducer: {
+    authSupport: authSupportReducer,
+    userMeta: userMetaReducer,
+    team: teamReducer,
+    [appApi.reducerPath]: appApi.reducer,
+  },
+  middleware: (getDefaultMiddleware) => (
+    getDefaultMiddleware()
+      .concat(appApi.middleware)
+  ),
 });
 
-// store
-export default createStore(appReducer, applyMiddleware(localStorageMiddleware));
+setupListeners(store.dispatch);
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
+
+export default store;

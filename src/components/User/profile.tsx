@@ -15,7 +15,9 @@ import momentTimeZone from 'moment-timezone';
 
 // Redux
 import { connect } from 'react-redux';
-import { createActions as createUserActions } from '../../redux/actions/user-meta';
+import {
+  set as setUserMeta,
+} from '../../redux/actions/user-meta';
 
 // types
 import { Dispatch } from 'redux';
@@ -175,7 +177,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   updateUser: (nextUser: Geolonia.User) =>
-    dispatch(createUserActions.set(nextUser)),
+    dispatch(setUserMeta(nextUser)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

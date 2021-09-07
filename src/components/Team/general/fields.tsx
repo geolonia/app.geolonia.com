@@ -4,33 +4,32 @@ import React, { useState, useEffect, useCallback } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Save from '../../custom/Save';
 
-// Redux
-import Redux from 'redux';
-import { connect } from 'react-redux';
-import { createActions as createTeamActions } from '../../../redux/actions/team';
-
-// API
-import updateTeam from '../../../api/teams/update';
-
 // utils
 import { __ } from '@wordpress/i18n';
 import { Roles } from '../../../constants';
+import { useSelectedTeam } from '../../../redux/hooks';
+import { useUpdateTeamMutation } from '../../../redux/apis/app-api';
 
-type OwnProps = Record<string, never>;
-type StateProps = {
-  session: Geolonia.Session;
-  selectedIndex: number;
-  team: Geolonia.Team;
-};
-type DispatchProps = {
-  updateTeamState: (index: number, team: Partial<Geolonia.Team>) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
+// type OwnProps = Record<string, never>;
+// type StateProps = {
+//   session: Geolonia.Session;
+//   selectedIndex: number;
+//   team: Geolonia.Team;
+// };
+// type DispatchProps = {
+//   updateTeamState: (index: number, team: Partial<Geolonia.Team>) => void;
+// };
+// type Props = OwnProps & StateProps & DispatchProps;
 
-const Content = (props: Props) => {
+const Content: React.FC = (props) => {
   // props
-  const { session, team, selectedIndex, updateTeamState } = props;
-  const { teamId, name, billingEmail } = team;
+  // const { session, team, selectedIndex, updateTeamState } = props;
+  const team = useSelectedTeam();
+
+  const [
+    updateTeam,
+  ] = useUpdateTeamMutation();
+
   // state
   const [draft, setDraft] = useState<Partial<Geolonia.Team>>({});
 
@@ -41,22 +40,17 @@ const Content = (props: Props) => {
 
   // effects
   //// clear draft on Team change
-  useEffect(() => setDraft({}), [selectedIndex]);
+  useEffect(() => setDraft({}), [team]);
 
   const onSaveClick = useCallback(async () => {
-    // update server side
-    const result = await updateTeam(session, teamId, draft);
-    if (result.error) {
-      throw new Error(result.code);
-    } else {
-      // update client side state
-      updateTeamState(selectedIndex, draft);
-      setDraft({});
-    }
-  }, [draft, selectedIndex, session, teamId, updateTeamState]);
+    if (!team) return;
+
+    await updateTeam({ teamId: team.teamId, updates: draft });
+    setDraft({});
+  }, [draft, team, updateTeam]);
 
   const draftExists = Object.keys(draft).length !== 0;
-  const isOwner = team.role === Roles.Owner;
+  const isOwner = team?.role === Roles.Owner;
 
   let saveDisabled = !draftExists || !isOwner;
   if (typeof draft.name === 'string') {
@@ -72,7 +66,7 @@ const Content = (props: Props) => {
         label={__('Team Name')}
         margin="normal"
         fullWidth={true}
-        value={(draft.name === void 0 ? name : draft.name) || ''}
+        value={(draft.name === void 0 ? team?.name : draft.name) || ''}
         onChange={(e) => setDraft({ ...draft, name: e.target.value })}
         disabled={isOwner !== true}
         onBlur={onNameBlur}
@@ -105,7 +99,7 @@ const Content = (props: Props) => {
         label={__('Billing email')}
         required={true}
         disabled={isOwner !== true}
-        value={(draft.billingEmail === void 0 ? billingEmail : draft.billingEmail) || ''}
+        value={(draft.billingEmail === void 0 ? team?.billingEmail : draft.billingEmail) || ''}
         onChange={useCallback((e) => {
           setDraft((draft) => ({ ...draft, billingEmail: e.target.value }));
         }, [])}
@@ -118,21 +112,4 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState) => {
-  const selectedIndex = state.team.selectedIndex;
-  const team = state.team.data[selectedIndex];
-  return {
-    session: state.authSupport.session,
-    selectedIndex,
-    team,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch) => {
-  return {
-    updateTeamState: (index: number, team: Partial<Geolonia.Team>) =>
-      dispatch(createTeamActions.update(index, team)),
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default Content;

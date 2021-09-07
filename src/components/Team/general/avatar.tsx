@@ -13,24 +13,20 @@ import { __, sprintf } from '@wordpress/i18n';
 // API
 import putAvatar from '../../../api/teams/put-avatar';
 
-// redux
-import Redux from 'redux';
-import { createActions as createTeamActions } from '../../../redux/actions/team';
-import { connect } from 'react-redux';
-
 // constants
 import { avatarLimitSize, Roles } from '../../../constants';
+import { useAppSelector, useSelectedTeam } from '../../../redux/hooks';
 
-type OwnProps = Record<string, never>;
-type StateProps = {
-  session: Geolonia.Session;
-  team: Geolonia.Team;
-  index: number;
-};
-type DispatchProps = {
-  setAvatar: (index: number, blobUrl: string | void) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
+// type OwnProps = Record<string, never>;
+// type StateProps = {
+//   session: Geolonia.Session;
+//   team: Geolonia.Team;
+//   index: number;
+// };
+// type DispatchProps = {
+//   setAvatar: (index: number, blobUrl: string | void) => void;
+// };
+// type Props = OwnProps & StateProps & DispatchProps;
 
 const ProfileImageStyle: React.CSSProperties = {
   width: '100%',
@@ -39,20 +35,22 @@ const ProfileImageStyle: React.CSSProperties = {
   margin: '16px',
 };
 
-const Content = (props: Props) => {
+const Content: React.FC = () => {
+  const session = useAppSelector((state) => state.authSupport.session);
   // states
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
   >(false);
   const [message, setMessage] = useState('');
 
-  // props
-  const { team } = props;
+  const team = useSelectedTeam();
 
   // refs
   const refContainer = useRef<HTMLInputElement | null>(null);
 
   const onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!team) return;
+
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
@@ -73,13 +71,13 @@ const Content = (props: Props) => {
       const prevAvatarUrl = team.avatarImage;
       setStatus('requesting');
 
-      putAvatar(props.session, team.teamId, file).then((result) => {
+      putAvatar(session, team.teamId, file).then((result) => {
         if (result.error) {
-          props.setAvatar(props.index, prevAvatarUrl); // roleback
+          // props.setAvatar(props.index, prevAvatarUrl); // roleback
           setStatus('failure');
           setMessage(result.message);
         } else {
-          props.setAvatar(props.index, avatarUrl);
+          // props.setAvatar(props.index, avatarUrl);
           setStatus('success');
         }
       });
@@ -94,8 +92,8 @@ const Content = (props: Props) => {
     }
   };
 
-  const isUploadEnabled = !!props.team.links.putAvatar;
-  const isOwner = team.role === Roles.Owner;
+  const isUploadEnabled = !!team?.links.putAvatar;
+  const isOwner = team?.role === Roles.Owner;
 
   const buttonDisabled = !(isUploadEnabled && isOwner);
 
@@ -103,7 +101,7 @@ const Content = (props: Props) => {
     <>
       <Typography component="p" align="center">
         <img
-          src={props.team.avatarImage || defaultTeamIcon}
+          src={team?.avatarImage || defaultTeamIcon}
           style={{
             ...ProfileImageStyle,
             opacity: status === 'requesting' ? 0.6 : 1,
@@ -138,15 +136,17 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-  session: state.authSupport.session,
-  team: state.team.data[state.team.selectedIndex],
-  index: state.team.selectedIndex,
-});
+// const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
+//   session: state.authSupport.session,
+//   team: state.team.data[state.team.selectedIndex],
+//   index: state.team.selectedIndex,
+// });
 
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setAvatar: (index, blobUrl) =>
-    dispatch(createTeamActions.setAvatar(index, blobUrl)),
-});
+// const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
+//   setAvatar: (index, blobUrl) =>
+//     dispatch(createTeamActions.setAvatar(index, blobUrl)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+// export default connect(mapStateToProps, mapDispatchToProps)(Content);
+
+export default Content;
