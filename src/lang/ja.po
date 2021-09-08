@@ -750,6 +750,10 @@ msgstr "次回のお支払日"
 msgid "Map loads"
 msgstr "地図の表示回数"
 
+#: src/components/Team/Billing.tsx:467
+msgid " / %s loads"
+msgstr " / %s 回"
+
 #: src/components/Team/Billing.tsx:471
 msgid "Last updated %s"
 msgstr "最終更新: %s"
@@ -1690,9 +1694,6 @@ msgstr "6"
 
 #~ msgid "Free for up to 50,000/month"
 #~ msgstr "50,000/月 までは無料"
-
-#~ msgid "Loads"
-#~ msgstr "ロード回数"
 
 #~ msgid "Team Plan"
 #~ msgstr "チームプラン"

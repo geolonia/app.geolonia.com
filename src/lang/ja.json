@@ -269,6 +269,7 @@
       "Billing period": ["請求対象期間"],
       "Next Payment Date": ["次回のお支払日"],
       "Map loads": ["地図の表示回数"],
+      " / %s loads": [" / %s 回"],
       "Last updated %s": ["最終更新: %s"],
       "Charges": ["料金"],
       "Map loads by API key": ["API キー別の地図の表示回数"],

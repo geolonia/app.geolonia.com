@@ -705,6 +705,10 @@ msgstr ""
 msgid "Map loads"
 msgstr ""
 
+#: src/components/Team/Billing.tsx:467
+msgid " / %s loads"
+msgstr ""
+
 #: src/components/Team/Billing.tsx:471
 msgid "Last updated %s"
 msgstr ""
