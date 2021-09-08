@@ -313,7 +313,7 @@ const Billing = (props: StateProps) => {
     }
 
     setDatasets(chartData);
-    setLabels(labelList.map((x) => x.format('MM/DD')));
+    setLabels(labelList.map((x) => x.format('M/D')));
 
   }, [usage, subscription, freePlanDetails, mapKeyNames]);
 
@@ -433,7 +433,7 @@ const Billing = (props: StateProps) => {
               <div className="usage-card-content">
                 {subOrFreePlan ?
                   <>
-                    {`${moment(subOrFreePlan.current_period_start).format('MM/DD')} ~ ${moment(subOrFreePlan.current_period_end).format('MM/DD')}`}
+                    {`${moment(subOrFreePlan.current_period_start).format('M/D')} ~ ${moment(subOrFreePlan.current_period_end).format('M/D')}`}
                   </>
                   :
                   '-'
@@ -449,7 +449,7 @@ const Billing = (props: StateProps) => {
               <div className="usage-card-content">
                 {subscription ?
                   <>
-                    {moment(subscription.current_period_end).format('MM/DD')}
+                    {moment(subscription.current_period_end).format('M/D')}
                   </>
                   :
                   '-'
