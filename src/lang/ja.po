@@ -142,9 +142,8 @@ msgstr ""
 "す。"
 
 #: src/components/Data/GeoJsonMeta.tsx:353 src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:338 src/components/Team/general/fields.tsx:72
-#: src/components/User/profile.tsx:129 src/components/custom/AddNew.tsx:37
-#: src/components/custom/Delete.tsx:125
+#: src/components/Navigator.tsx:338 src/components/User/profile.tsx:129
+#: src/components/custom/AddNew.tsx:37 src/components/custom/Delete.tsx:125
 msgid "Name"
 msgstr "名前"
 
@@ -934,6 +933,10 @@ msgid ""
 "address."
 msgstr "レシートや請求に関する通知がこちらのメールアドレスに送信されます。"
 
+#: src/components/Team/general/fields.tsx:72
+msgid "Team Name"
+msgstr "チーム名"
+
 #: src/components/Team/general/index.tsx:42
 msgid ""
 "All users on the Geolonia service belong to one of the teams, and a team "
@@ -1694,9 +1697,6 @@ msgstr "6"
 
 #~ msgid "Free for up to 50,000/month"
 #~ msgstr "50,000/月 までは無料"
-
-#~ msgid "Team Plan"
-#~ msgstr "チームプラン"
 
 #~ msgid "Users"
 #~ msgstr "ユーザー数"

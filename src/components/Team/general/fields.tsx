@@ -69,7 +69,7 @@ const Content = (props: Props) => {
     <>
       <TextField
         id="team-name"
-        label={__('Name')}
+        label={__('Team Name')}
         margin="normal"
         fullWidth={true}
         value={(draft.name === void 0 ? name : draft.name) || ''}
