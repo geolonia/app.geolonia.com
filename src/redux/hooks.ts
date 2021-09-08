@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useMemo } from 'react';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { selectTeam } from './actions/team';
 import { useGetTeamsQuery } from './apis/app-api';
@@ -13,19 +13,18 @@ export const useSelectedTeam: () => Geolonia.Team | null = () => {
   const { data: teams, isLoading } = useGetTeamsQuery(undefined);
   const selectedTeamId = useAppSelector((state) => state.team.selectedTeamId);
 
-  useEffect(() => {
-    if (!teams) return;
-    if (!selectedTeamId && teams.length > 0) {
+  const selectedTeam = useMemo(() => {
+    if (isLoading || !teams) return null;
+    if (
+      (!selectedTeamId && teams.length > 0)
+      ||
+      !teams.find((team) => team.teamId === selectedTeamId)
+    ) {
       dispatch(selectTeam({ teamId: teams[0].teamId }));
-      return;
+      return null;
     }
-    if (!teams.find((team) => team.teamId === selectedTeamId)) {
-      dispatch(selectTeam({ teamId: teams[0].teamId }));
-      return;
-    }
-  }, [ dispatch, teams, selectedTeamId ]);
+    return teams.find((team) => team.teamId === selectedTeamId) || teams[0];
+  }, [ isLoading, dispatch, teams, selectedTeamId ]);
 
-  if (isLoading || !teams) return null;
-
-  return teams.find((team) => team.teamId === selectedTeamId) || teams[0];
+  return selectedTeam;
 };

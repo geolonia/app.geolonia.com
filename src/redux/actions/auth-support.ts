@@ -2,24 +2,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type State = {
   currentUser?: string;
-
-  // TODO: delete because it is not serializable
-  session?: Geolonia.Session;
-
   accessToken?: string;
   hasTrouble: boolean;
   isReady: boolean;
   isVerified: boolean;
+  isLoggedIn: boolean;
 };
 
 const initialState: State = {
   hasTrouble: false,
   isReady: false,
   isVerified: false,
+  isLoggedIn: false,
 };
 
 type SetCognitoUserPayload = { currentUser: string };
-type SetSessionPayload = { session: Geolonia.Session };
 type SetAccessTokenPayload = { accessToken: string };
 
 const authSupportSlice = createSlice({
@@ -29,14 +26,14 @@ const authSupportSlice = createSlice({
     setCognitoUser(state, action: PayloadAction<SetCognitoUserPayload>) {
       state.currentUser = action.payload.currentUser;
     },
-    setSession(state, action: PayloadAction<SetSessionPayload>) {
-      state.session = action.payload.session;
-    },
     setAccessToken(state, action: PayloadAction<SetAccessTokenPayload>) {
       state.accessToken = action.payload.accessToken;
     },
     getInTrouble(state) {
       state.hasTrouble = true;
+    },
+    setLoggedIn(state, action: PayloadAction<boolean>) {
+      state.isLoggedIn = action.payload;
     },
     ready(state) {
       state.isReady = true;
@@ -47,9 +44,9 @@ const authSupportSlice = createSlice({
 const { actions, reducer } = authSupportSlice;
 export const {
   setCognitoUser,
-  setSession,
   setAccessToken,
   getInTrouble,
+  setLoggedIn,
   ready,
 } = actions;
 export default reducer;

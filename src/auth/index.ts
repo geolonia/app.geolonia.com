@@ -105,44 +105,30 @@ export const signin = (username: string, password: string) =>
     });
   });
 
+export let currentSession: CognitoIdentity.CognitoUserSession | undefined;
+
 export const getSession = () =>
-  new Promise<CognitoIdentity.CognitoUserSession | null>((resolve, reject) => {
+  new Promise<CognitoIdentity.CognitoUserSession>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser === null) {
-      return resolve(null);
+      return reject(new Error('no user'));
     }
 
     cognitoUser.getSession((err: Error | null, session: CognitoIdentity.CognitoUserSession | null) => {
-      if (err) {
+      if (err || !session) {
         cognitoUser.signOut();
-        reject(err);
-      } else {
-        resolve(session);
+        return reject(err);
       }
+
+      currentSession = session;
+      resolve(session);
     });
   });
 
 export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {
   return new Promise<CognitoIdentity.CognitoUserSession>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
-    if (cognitoUser !== null) {
-      // We don't need to refresh the session if it is valid
-      if (session.isValid() === true) {
-        return resolve(session);
-      }
-      const refreshToken = session.getRefreshToken();
-      cognitoUser.refreshSession(
-        refreshToken,
-        (err: Error, session: CognitoIdentity.CognitoUserSession) => {
-          if (err) {
-            cognitoUser.signOut();
-            reject(err);
-          } else {
-            resolve(session);
-          }
-        },
-      );
-    } else {
+    if (cognitoUser === null) {
       reject(new Error('no session found'));
       return;
     }
@@ -151,17 +137,16 @@ export const refreshSession = (session: CognitoIdentity.CognitoUserSession) => {
     if (session.isValid() === true) {
       return resolve(session);
     }
-
     const refreshToken = session.getRefreshToken();
     cognitoUser.refreshSession(
       refreshToken,
       (err: Error, session: CognitoIdentity.CognitoUserSession) => {
         if (err) {
           cognitoUser.signOut();
-          reject(err);
-        } else {
-          resolve(session);
+          return reject(err);
         }
+        currentSession = session;
+        return resolve(session);
       },
     );
   });

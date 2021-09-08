@@ -87,9 +87,8 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const handleDrawerToggle = useCallback(() => setMobileOpen((mobileOpen) => !mobileOpen), []);
   const { classes } = props;
-  const { isReady, session } = useAppSelector((state) => state.authSupport);
+  const { isReady, isLoggedIn } = useAppSelector((state) => state.authSupport);
   const currentTeam = useSelectedTeam();
-  const isLoggedIn = isReady && !!session;
 
   useEffect(() => {
     if (!history) return;
@@ -115,7 +114,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
           style={{ minHeight: '100vh' }}
         >
           <Grid item xs={3}>
-            <CircularProgress></CircularProgress>
+            <CircularProgress />
           </Grid>
         </Grid>
       </ThemeProvider>

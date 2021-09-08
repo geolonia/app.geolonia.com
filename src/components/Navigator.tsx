@@ -35,9 +35,11 @@ import { __ } from '@wordpress/i18n';
 import { useLocation } from 'react-router-dom';
 
 // types
-import { useAppDispatch, useSelectedTeam } from '../redux/hooks';
-import { useGetTeamsQuery } from '../redux/apis/app-api';
+import { useAppDispatch, useAppSelector, useSelectedTeam } from '../redux/hooks';
+import { useCreateTeamMutation, useGetTeamsQuery } from '../redux/apis/app-api';
 import { selectTeam } from '../redux/actions/team';
+import { useHistory } from 'react-router';
+import { sleep } from '../lib/sleep';
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -92,29 +94,16 @@ type Props = {
   readonly onClose?: () => any;
 };
 
-// type StateProps = {
-//   session: Geolonia.Session;
-//   teams: Geolonia.Team[];
-//   selectedTeamIndex: number;
-//   ownerEmail: string;
-// };
-
-// type DispatchProps = {
-//   selectTeam: (index: number) => void;
-//   addTeam: (team: Geolonia.Team) => void;
-// };
-
 const Navigator: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch();
+  const { push } = useHistory();
+  const ownerEmail = useAppSelector((state) => state.userMeta.email);
   const initialValueForNewTeamName = __('My team');
+
+  const [ createTeam ] = useCreateTeamMutation();
 
   const {
     classes,
-    // teams,
-    // selectedTeamIndex,
-    // selectTeam,
-    // addTeam,
-    // ownerEmail,
     ...other
   } = props;
 
@@ -189,26 +178,23 @@ const Navigator: React.FC<Props> = (props) => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false);
     setNewTeamName(initialValueForNewTeamName);
-  };
+  }, [initialValueForNewTeamName]);
 
   const saveHandler = useCallback(async () => {
-    // const { session } = props;
-    // return createTeam(session, newTeamName, ownerEmail).then((result) => {
-    //   if (result.error) {
-    //     throw new Error(result.code);
-    //   } else {
-    //     handleClose();
-    //     addTeam(result.data);
-    //     const nextTeamIndex = teams.length;
-    //     selectTeam(nextTeamIndex);
-    //     window.location.hash = '#/team/general';
-    //     window.location.reload();
-    //   }
-    // });
-  }, []);
+    const result = await createTeam({ name: newTeamName, billingEmail: ownerEmail });
+    if ('error' in result) {
+      throw new Error(JSON.stringify(result.error));
+    }
+
+    handleClose();
+
+    await sleep(1_000);
+    dispatch(selectTeam({ teamId: result.data.teamId }));
+    push('/team/general');
+  }, [createTeam, dispatch, handleClose, newTeamName, ownerEmail, push]);
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
@@ -346,22 +332,5 @@ const Navigator: React.FC<Props> = (props) => {
     </Drawer>
   );
 };
-
-// const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-//   teams: state.team.data,
-//   selectedTeamIndex: state.team.selectedIndex,
-//   session: state.authSupport.session,
-//   ownerEmail: state.userMeta.email,
-// });
-
-// const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-//   selectTeam: (index: number) => dispatch(createTeamActions.select(index)),
-//   addTeam: (team: Geolonia.Team) => dispatch(createTeamActions.add(team)),
-// });
-
-// const ConnectedNavigator = connect(
-//   mapStateToProps,
-//   mapDispatchToProps,
-// )(Navigator);
 
 export default withStyles(styles)(Navigator);

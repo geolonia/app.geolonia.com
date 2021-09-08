@@ -16,6 +16,7 @@ import putAvatar from '../../../api/teams/put-avatar';
 // constants
 import { avatarLimitSize, Roles } from '../../../constants';
 import { useAppSelector, useSelectedTeam } from '../../../redux/hooks';
+import { currentSession } from '../../../auth';
 
 // type OwnProps = Record<string, never>;
 // type StateProps = {
@@ -36,7 +37,6 @@ const ProfileImageStyle: React.CSSProperties = {
 };
 
 const Content: React.FC = () => {
-  const session = useAppSelector((state) => state.authSupport.session);
   // states
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
@@ -71,7 +71,7 @@ const Content: React.FC = () => {
       const prevAvatarUrl = team.avatarImage;
       setStatus('requesting');
 
-      putAvatar(session, team.teamId, file).then((result) => {
+      putAvatar(currentSession, team.teamId, file).then((result) => {
         if (result.error) {
           // props.setAvatar(props.index, prevAvatarUrl); // roleback
           setStatus('failure');

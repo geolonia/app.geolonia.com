@@ -7,20 +7,17 @@ import { setLocaleData } from '@wordpress/i18n';
 // API
 import { getSession } from './';
 import getUser from '../api/users/get';
-import listKeys from '../api/keys/list';
 import listTeamMembers from '../api/members/list';
 
 // Utils
-import dateParse from '../lib/date-parse';
 import estimateLanguage from '../lib/estimate-language';
 
 // redux
 import { connect } from 'react-redux';
 import {
-  setSession,
-  setAccessToken,
   getInTrouble,
   ready,
+  setLoggedIn,
 } from '../redux/actions/auth-support';
 import {
   set as setUserMeta,
@@ -30,7 +27,6 @@ import {
 import {
   selectTeam,
 } from '../redux/actions/team';
-import { createActions as createMapKeyActions } from '../redux/actions/map-key';
 import { createActions as createTeamMemberActions } from '../redux/actions/team-member';
 
 // Types
@@ -41,10 +37,9 @@ import mixpanel from 'mixpanel-browser';
 type OwnProps = { children: React.ReactElement };
 type StateProps = { session: Geolonia.Session };
 type DispatchProps = {
-  setSession: (session: Geolonia.Session) => void;
-  setAccessToken: (accessToken: string) => void;
   serverTrouble: () => void;
   ready: () => void;
+  setLoggedIn: (loggedIn: boolean) => void;
   setUserMeta: (userMeta: Geolonia.User) => void;
   selectTeam: (teamId: string) => void;
   setUserAvatar: (avatarImage: string | void) => void;
@@ -53,9 +48,7 @@ type DispatchProps = {
     userSub: string,
     avatarImage: string | void
   ) => void;
-  setMapKeys: (teamId: string, keys: Geolonia.Key[]) => void;
   setTeamMembers: (teamId: string, members: Geolonia.Member[]) => void;
-  markMapKeyError: (teamId: string) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
@@ -89,6 +82,7 @@ export class AuthContainer extends React.Component<Props, State> {
 
     if (session === null) {
       setLocaleData(loadLocale(estimateLanguage()));
+      this.props.setLoggedIn(false);
       return this.props.ready();
     }
 
@@ -112,7 +106,7 @@ export class AuthContainer extends React.Component<Props, State> {
         localStorage.setItem('geolonia__persisted_language', user.language);
       }
 
-      this.props.setSession(session);
+      this.props.setLoggedIn(true);
       this.props.setUserMeta(user);
 
       const { language, timezone } = user;
@@ -127,6 +121,7 @@ export class AuthContainer extends React.Component<Props, State> {
 
     } catch (error) {
       this.props.serverTrouble();
+      this.props.setLoggedIn(false);
     } finally {
       this.props.ready();
     }
@@ -152,25 +147,6 @@ export class AuthContainer extends React.Component<Props, State> {
     ]).then(([userAvatarImage]) => {
       this.props.setUserAvatar(userAvatarImage);
     });
-  };
-
-  loadMapKeys = (session: Geolonia.Session, teamIds: string[]) => {
-    const handleListKeys = (teamId: string) => {
-      return listKeys(session, teamId)
-        .then((result) => {
-          if (result.error) {
-            throw result.error;
-          } else {
-            const data = result.data.map((x) => dateParse(x));
-            this.props.setMapKeys(teamId, data);
-          }
-        })
-        .catch((err) => {
-          this.props.markMapKeyError(teamId);
-        });
-    };
-
-    return Promise.all(teamIds.map((teamId) => handleListKeys(teamId)));
   };
 
   loadTeamMembers = (session: Geolonia.Session, teamIds: string[]) => {
@@ -221,22 +197,17 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setSession: (session) =>
-    session && dispatch(setSession({session})),
-  setAccessToken: (accessToken) =>
-    dispatch(setAccessToken({accessToken})),
   serverTrouble: () => dispatch(getInTrouble()),
   ready: () => dispatch(ready()),
+  setLoggedIn: (loggedIn) => dispatch(setLoggedIn(loggedIn)),
   setUserMeta: (userMeta) => dispatch(setUserMeta(userMeta)),
   selectTeam: (teamId) => dispatch(selectTeam({ teamId })),
   setUserAvatar: (avatarImage) =>
     dispatch(setAvatar({avatarImage})),
   setTeamMemberAvatar: (teamId, userSub, avatarImage) =>
     dispatch(createTeamMemberActions.setAvatar(teamId, userSub, avatarImage)),
-  setMapKeys: (teamId, keys) => dispatch(createMapKeyActions.set(teamId, keys)),
   setTeamMembers: (teamId, members) =>
     dispatch(createTeamMemberActions.set(teamId, members)),
-  markMapKeyError: (teamId) => dispatch(createMapKeyActions.markError(teamId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer);

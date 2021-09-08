@@ -17,15 +17,6 @@ import Help from '../custom/Help';
 import Title from '../custom/Title';
 import DangerZone from '../custom/danger-zone';
 
-// api
-import updateKey from '../../api/keys/update';
-import deleteKey from '../../api/keys/delete';
-
-// redux
-import Redux from 'redux';
-import { connect } from 'react-redux';
-import { createActions as createMapKeyActions } from '../../redux/actions/map-key';
-
 // libs
 import normalizeOrigins from '../../lib/normalize-origin';
 
@@ -33,68 +24,78 @@ import normalizeOrigins from '../../lib/normalize-origin';
 import { messageDisplayDuration } from '../../constants';
 import { sleep } from '../../lib/sleep';
 import mixpanel from 'mixpanel-browser';
+import { Redirect, useHistory, useRouteMatch } from 'react-router';
+import { useDeleteApiKeyMutation, useGetApiKeysQuery, useUpdateApiKeyMutation } from '../../redux/apis/app-api';
+import { useSelectedTeam } from '../../redux/hooks';
 
 interface ApiKeyFormControlsCollection extends HTMLFormControlsCollection {
   apiKeyName: HTMLInputElement
   apiKeyAllowedOrigins: HTMLInputElement
 }
 
-type OwnProps = Record<string, never>;
-type StateProps = {
-  mapKey?: Geolonia.Key;
-  teamId: string;
-  session: Geolonia.Session;
-  selectedTeamIndex: number;
-};
-type DispatchProps = {
-  updateKey: (
-    teamId: string,
-    keyId: string,
-    key: Partial<Geolonia.Key>
-  ) => void;
-  deleteKey: (teamId: string, keyId: string) => void;
-};
-type RouterProps = {
-  match: { params: { id: string } };
-  history: { push: (path: string) => void };
-};
-type Props = OwnProps & StateProps & DispatchProps & RouterProps;
+// type OwnProps = Record<string, never>;
+// type StateProps = {
+//   mapKey?: Geolonia.Key;
+//   teamId: string;
+//   session: Geolonia.Session;
+//   selectedTeamIndex: number;
+// };
+// type DispatchProps = {
+//   updateKey: (
+//     teamId: string,
+//     keyId: string,
+//     key: Partial<Geolonia.Key>
+//   ) => void;
+//   deleteKey: (teamId: string, keyId: string) => void;
+// };
+// type RouterProps = {
+//   match: { params: { id: string } };
+//   history: { push: (path: string) => void };
+// };
+// type Props = OwnProps & StateProps & DispatchProps & RouterProps;
 
-const Content = (props: Props) => {
-  const {
-    session,
-    updateKey: updateKeyCallback,
-    deleteKey: deleteKeyCallback,
-    teamId,
-    history,
-  } = props;
-  const apiKey = props.mapKey?.userKey;
-  const keyId = props.mapKey?.keyId;
+const Content: React.FC = () => {
+  const history = useHistory();
+  const match = useRouteMatch<{id: string}>();
+  const team = useSelectedTeam();
+  const teamId = team?.teamId || '';
+  const { data: mapKeys, isLoading } = useGetApiKeysQuery({ teamId }, {
+    skip: !team,
+  });
+  const mapKey = mapKeys?.find((mapKey) => mapKey.keyId === match.params.id);
+
+  const [ updateKey ] = useUpdateApiKeyMutation();
+  const [ deleteKey ] = useDeleteApiKeyMutation();
+
+  // const {
+  //   session,
+  //   updateKey: updateKeyCallback,
+  //   deleteKey: deleteKeyCallback,
+  //   teamId,
+  // } = props;
+  const apiKey = mapKey?.userKey;
+  const keyId = mapKey?.keyId;
   // props
-  const propName = (props.mapKey || { name: '' }).name;
-  const propOrigins = (props.mapKey || { allowedOrigins: [] }).allowedOrigins;
+  const propName = (mapKey || { name: '' }).name;
+  const propOrigins = (mapKey || { allowedOrigins: [] }).allowedOrigins;
 
   // state
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
   >(false);
   const [message, setMessage] = useState('');
-  const [prevIndex] = useState(props.selectedTeamIndex);
 
   const apiKeyFormRef = useRef<HTMLFormElement | null>(null);
-
-  // move on team change
-  useEffect(() => {
-    if (prevIndex !== props.selectedTeamIndex) {
-      props.history.push('/api-keys');
-    }
-  }, [prevIndex, props.history, props.selectedTeamIndex]);
 
   // effects
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://geolonia.github.io/get-geolonia/app.js';
     document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   const onNameBlur = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
@@ -167,19 +168,18 @@ const Content = (props: Props) => {
       allowedOrigins: normalizedAllowedOrigins,
     };
 
-    const result = await updateKey(session, teamId, keyId, nextKey);
-    if (result.error) {
-      setStatus('failure');
-      setMessage(result.message);
-      throw new Error(result.code);
-    }
+    await updateKey({teamId, keyId, updates: nextKey});
+    // if (result.error) {
+    //   setStatus('failure');
+    //   setMessage(result.message);
+    //   throw new Error(result.code);
+    // }
     mixpanel.track('Update API key', {
       apiKeyId: keyId,
       originCount: normalizedAllowedOrigins.length,
     });
     setStatus('success');
-    updateKeyCallback(teamId, keyId, nextKey);
-  }, [keyId, session, teamId, updateKeyCallback]);
+  }, [keyId, teamId, updateKey]);
 
   const onUpdateClick = useCallback<() => Promise<void>>(async () => {
     await handleApiKeySubmit();
@@ -191,19 +191,18 @@ const Content = (props: Props) => {
     if (!keyId) return;
 
     setStatus('requesting');
-    const result = await deleteKey(session, teamId, keyId);
-    if (result.error) {
-      setStatus('failure');
-      setMessage(result.message);
-      throw new Error(result.code);
-    }
+    await deleteKey({teamId, keyId});
+    // if (result.error) {
+    //   setStatus('failure');
+    //   setMessage(result.message);
+    //   throw new Error(result.code);
+    // }
     setStatus('success');
     mixpanel.track('Delete API key', { apiKeyId: keyId });
     await sleep(messageDisplayDuration);
 
     history.push('/api-keys');
-    deleteKeyCallback(teamId, keyId);
-  }, [deleteKeyCallback, history, keyId, session, teamId]);
+  }, [deleteKey, history, keyId, teamId]);
 
   const copyToClipBoard = (cssSelector: string) => {
     const input = document.querySelector(cssSelector) as HTMLInputElement;
@@ -213,9 +212,11 @@ const Content = (props: Props) => {
     }
   };
 
-  if (!props.mapKey || !apiKey) {
+  if (isLoading) return null;
+
+  if (!mapKey || !apiKey) {
     // no key found
-    return null;
+    return <Redirect to="/api-keys" />;
   }
 
   return (
@@ -406,36 +407,36 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (
-  state: Geolonia.Redux.AppState,
-  ownProps: OwnProps & RouterProps,
-): StateProps => {
-  const session = state.authSupport.session;
-  const selectedTeamIndex = state.team.selectedIndex;
-  const { teamId } = state.team.data[selectedTeamIndex] || {
-    teamId: '-- unexpected fallback when no team id found --',
-  };
-  if (!state.mapKey[teamId]) {
-    return { session, teamId, selectedTeamIndex };
-  }
-  const mapKeyObject = state.mapKey[teamId] || { data: [] };
-  const mapKeys = mapKeyObject.data;
-  const mapKey = mapKeys.find(
-    (mapKey) => mapKey.keyId === ownProps.match.params.id,
-  );
-  return {
-    session,
-    mapKey,
-    teamId,
-    selectedTeamIndex,
-  };
-};
+// const mapStateToProps = (
+//   state: Geolonia.Redux.AppState,
+//   ownProps: OwnProps & RouterProps,
+// ): StateProps => {
+//   const session = state.authSupport.session;
+//   const selectedTeamIndex = state.team.selectedIndex;
+//   const { teamId } = state.team.data[selectedTeamIndex] || {
+//     teamId: '-- unexpected fallback when no team id found --',
+//   };
+//   if (!state.mapKey[teamId]) {
+//     return { session, teamId, selectedTeamIndex };
+//   }
+//   const mapKeyObject = state.mapKey[teamId] || { data: [] };
+//   const mapKeys = mapKeyObject.data;
+//   const mapKey = mapKeys.find(
+//     (mapKey) => mapKey.keyId === ownProps.match.params.id,
+//   );
+//   return {
+//     session,
+//     mapKey,
+//     teamId,
+//     selectedTeamIndex,
+//   };
+// };
 
-const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
-  updateKey: (teamId: string, keyId: string, key: Partial<Geolonia.Key>) =>
-    dispatch(createMapKeyActions.update(teamId, keyId, key)),
-  deleteKey: (teamId: string, keyId: string) =>
-    dispatch(createMapKeyActions.delete(teamId, keyId)),
-});
+// const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
+//   updateKey: (teamId: string, keyId: string, key: Partial<Geolonia.Key>) =>
+//     dispatch(createMapKeyActions.update(teamId, keyId, key)),
+//   deleteKey: (teamId: string, keyId: string) =>
+//     dispatch(createMapKeyActions.delete(teamId, keyId)),
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default Content;
