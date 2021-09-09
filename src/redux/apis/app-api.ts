@@ -28,6 +28,11 @@ type CreateApiKeyParam = {
   name: string
 }
 
+type CreateTeamMemberInvitationParam = {
+  teamId: string
+  email: string
+}
+
 export const appApi = createApi({
   reducerPath: 'appApi',
   baseQuery: fetchBaseQuery({
@@ -43,6 +48,7 @@ export const appApi = createApi({
   tagTypes: [
     'Team',
     'MapKey',
+    'TeamMember',
   ],
   endpoints: (builder) => ({
     // Teams
@@ -186,6 +192,29 @@ export const appApi = createApi({
         { type: 'MapKey', id: keyId },
       ]),
     }),
+
+    // Team Members
+    getTeamMembers: builder.query<Geolonia.Member[], string>({
+      query: (teamId) => `teams/${teamId}/members`,
+      providesTags: (result, _error, teamId) => (
+        result ?
+          [
+            ...result.map(({userSub}) => ({ type: 'TeamMember', id: userSub } as const)),
+            { type: 'TeamMember', id: `LIST:${teamId}` },
+          ] : [
+            { type: 'TeamMember', id: `LIST:${teamId}` },
+          ]
+      ),
+    }),
+    createTeamMemberInvitation: builder.mutation<void, CreateTeamMemberInvitationParam>({
+      query: (args) => ({
+        url: `teams/${args.teamId}/invitation`,
+        method: 'POST',
+        body: {
+          email: args.email,
+        },
+      }),
+    }),
   }),
 });
 
@@ -202,4 +231,8 @@ export const {
   useGetApiKeysQuery,
   useUpdateApiKeyMutation,
   useDeleteApiKeyMutation,
+
+  // Team Members
+  useGetTeamMembersQuery,
+  useCreateTeamMemberInvitationMutation,
 } = appApi;

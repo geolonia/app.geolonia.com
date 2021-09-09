@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 // Components
 import AddNew from '../../custom/AddNew';
@@ -8,66 +8,50 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // Util
 import { sprintf, __ } from '@wordpress/i18n';
-import fetch from '../../../lib/fetch';
 
 // redux
-import { connect } from 'react-redux';
-import { buildApiAppUrl } from '../../../lib/api';
 import Interweave from 'interweave';
+import { useSelectedTeam } from '../../../redux/hooks';
+import { useCreateTeamMemberInvitationMutation } from '../../../redux/apis/app-api';
 
-type OwnProps = {
+type Props = {
   disabled?: boolean;
-};
-
-type StateProps = {
-  session: Geolonia.Session;
   members: Geolonia.Member[];
-  team: Geolonia.Team | void;
 };
-type Props = OwnProps & StateProps;
 
-export const Invite = (props: Props) => {
+export const Invite: React.FC<Props> = (props) => {
   const [message, setMessage] = useState('');
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
   >(false);
 
-  const { session, team, members, disabled } = props;
+  const { disabled, members } = props;
+  const team = useSelectedTeam();
 
-  const inviteHandler = async (email: string) => {
+  const [ createInvitation ] = useCreateTeamMemberInvitationMutation();
+
+  const inviteHandler = useCallback(async (email: string) => {
     if (members.find((member) => member.email === email)) {
       setStatus('failure');
       setMessage(__('That user is already a member of this team.'));
       throw new Error('That user is already a member of the team.');
     } else if (team) {
       setStatus('requesting');
-      const res = await fetch(
-        session,
-        buildApiAppUrl(`/teams/${team.teamId}/invitation`),
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email }),
-        },
-      );
-      if (res.status < 400) {
-        setStatus('success');
-        return res.json();
-      } else if (res.status === 402) {
+      const res = await createInvitation({
+        teamId: team.teamId,
+        email,
+      });
+      if ('error' in res) {
         setStatus('failure');
         setMessage(__('The maximum number of members has been reached.'));
-        throw new Error();
-      } else {
-        setStatus('failure');
-        setMessage(__('You cannot use this email address for invitation.'));
+        // setMessage(__('You cannot use this email address for invitation.'));
         throw new Error();
       }
+      setStatus('success');
     } else {
       return Promise.reject('No team');
     }
-  };
+  }, [createInvitation, members, team]);
 
   const teamName = team && team.name;
 
@@ -126,18 +110,4 @@ export const Invite = (props: Props) => {
   );
 };
 
-export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  const { session } = state.authSupport;
-  const selectedTeamIndex = state.team.selectedIndex;
-  const team = state.team.data[selectedTeamIndex] as Geolonia.Team | void;
-  let members: Geolonia.Member[] = [];
-  if (team) {
-    const memberObject = state.teamMember[team.teamId];
-    if (memberObject) {
-      members = memberObject.data;
-    }
-  }
-  return { session, team, members };
-};
-
-export default connect(mapStateToProps)(Invite);
+export default Invite;
