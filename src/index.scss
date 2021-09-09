@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -17,9 +19,9 @@ code {
   padding: 16px;
 }
 
-a {color: #EB5C0B;}
+a {color: $color-primary;}
 .MuiTypography-colorPrimary{
-  color: #EB5C0B !important;
+  color: $color-primary !important;
 }
 
 .MuiButton-containedPrimary {
