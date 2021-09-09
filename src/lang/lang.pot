@@ -130,7 +130,6 @@ msgstr ""
 #: src/components/Data/GeoJsonMeta.tsx:353
 #: src/components/Data/fields.tsx:26
 #: src/components/Navigator.tsx:338
-#: src/components/Team/general/fields.tsx:72
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:125
@@ -880,6 +879,10 @@ msgstr ""
 msgid ""
 "Receipts and other billing-related notifications will be sent to this "
 "e-mail address."
+msgstr ""
+
+#: src/components/Team/general/fields.tsx:72
+msgid "Team Name"
 msgstr ""
 
 #: src/components/Team/general/index.tsx:42

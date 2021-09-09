@@ -333,6 +333,7 @@
       "Receipts and other billing-related notifications will be sent to this e-mail address.": [
         "レシートや請求に関する通知がこちらのメールアドレスに送信されます。"
       ],
+      "Team Name": ["チーム名"],
       "All users on the Geolonia service belong to one of the teams, and a team with the same name as the user is automatically generated when you sign up. You can switch teams in the pull-down menu at the top left of the sidebar.": [
         "すべてのユーザーはいずれかのチームに所属しており、サインアップ時にユーザー名と同じ名前をもつチームが自動的に生成されます。チームの切り替えは、サイドバーの左上にあるプルダウンで行うことができます。"
       ],
