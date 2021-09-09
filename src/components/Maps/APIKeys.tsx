@@ -16,30 +16,14 @@ import { useHistory } from 'react-router';
 import { useAppSelector, useSelectedTeam } from '../../redux/hooks';
 import { useCreateApiKeyMutation, useGetApiKeysQuery } from '../../redux/apis/app-api';
 import { sleep } from '../../lib/sleep';
-
-// type OwnProps = Record<string, never>;
-// type StateProps = {
-//   session: Geolonia.Session;
-//   mapKeys: Geolonia.Key[];
-//   error: boolean;
-//   teamId: string;
-//   username: string;
-// };
-// type DispatchProps = {
-//   addKey: (teamId: string, key: Geolonia.Key) => void;
-// };
-// type RouterProps = {
-//   history: { push: (path: string) => void };
-// };
-// type Props = OwnProps & StateProps & DispatchProps & RouterProps;
+import { CircularProgress } from '@material-ui/core';
 
 const ApiKeys: React.FC = () => {
   const { push } = useHistory();
-  // const { mapKeys, username, addKey, session, teamId } = props;
   const username = useAppSelector((state) => state.userMeta.name);
   const team = useSelectedTeam();
   const teamId = team?.teamId || '';
-  const { data: mapKeys } = useGetApiKeysQuery(teamId, {
+  const { data: mapKeys, isFetching } = useGetApiKeysQuery(teamId, {
     skip: !team,
   });
   const [ createApiKey ] = useCreateApiKeyMutation();
@@ -90,15 +74,19 @@ const ApiKeys: React.FC = () => {
     <div>
       <Title breadcrumb={breadcrumbItems} title={__('API keys')}/>
 
-      {mapKeys && mapKeys.length === 0 ? <div className={'tutorial-create-api-key'}>
-        <h3>{__('You need an API key to display map. Get an API key.')}</h3>
-        {newAPIButton}
-      </div>
-        :
-        newAPIButton
-      }
+      { isFetching ? <>
+        <CircularProgress />
+      </> : <>
+        {mapKeys && mapKeys.length === 0 ? <div className={'tutorial-create-api-key'}>
+          <h3>{__('You need an API key to display map. Get an API key.')}</h3>
+          {newAPIButton}
+        </div>
+          :
+          newAPIButton
+        }
 
-      <Table rows={rows} rowsPerPage={10} permalink="/api-keys/%s" />
+        <Table rows={rows} rowsPerPage={10} permalink="/api-keys/%s" />
+      </> }
     </div>
   );
 };
