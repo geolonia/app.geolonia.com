@@ -39,17 +39,17 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:115
 #: src/components/Maps/APIKeys.tsx:44
-#: src/components/Navigator.tsx:263
+#: src/components/Navigator.tsx:261
 #: src/components/Team/Billing.tsx:360
 #: src/components/Team/general/index.tsx:28
-#: src/components/Team/members/index.tsx:121
+#: src/components/Team/members/index.tsx:122
 #: src/components/User/User.tsx:13
 msgid "Home"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:104
 #: src/components/Data/GeoJsons.tsx:95
-#: src/components/Navigator.tsx:171
+#: src/components/Navigator.tsx:170
 msgid "Map"
 msgstr ""
 
@@ -129,7 +129,7 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:353
 #: src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:338
+#: src/components/Navigator.tsx:337
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:125
@@ -491,41 +491,41 @@ msgstr ""
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
-#: src/components/Navigator.tsx:110
+#: src/components/Navigator.tsx:111
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:130
+#: src/components/Navigator.tsx:134
 #: src/components/Team/general/index.tsx:41
 msgid "General"
 msgstr ""
 
-#: src/components/Navigator.tsx:136
-#: src/components/Team/members/index.tsx:141
+#: src/components/Navigator.tsx:139
+#: src/components/Team/members/index.tsx:142
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:145
+#: src/components/Navigator.tsx:147
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:154
+#: src/components/Navigator.tsx:155
 msgid "Manage API keys"
 msgstr ""
 
-#: src/components/Navigator.tsx:175
+#: src/components/Navigator.tsx:174
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:179
+#: src/components/Navigator.tsx:178
 msgid "Documentation"
 msgstr ""
 
-#: src/components/Navigator.tsx:182
+#: src/components/Navigator.tsx:181
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:315
+#: src/components/Navigator.tsx:314
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
@@ -533,11 +533,11 @@ msgid ""
 "target=\"_blank\">contact us</a>."
 msgstr ""
 
-#: src/components/Navigator.tsx:328
+#: src/components/Navigator.tsx:327
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:332
+#: src/components/Navigator.tsx:331
 msgid "Please enter the name of new team."
 msgstr ""
 
@@ -684,7 +684,7 @@ msgstr ""
 
 #: src/components/Team/Billing.tsx:364
 #: src/components/Team/general/index.tsx:32
-#: src/components/Team/members/index.tsx:125
+#: src/components/Team/members/index.tsx:126
 msgid "Team settings"
 msgstr ""
 
@@ -849,7 +849,7 @@ msgstr ""
 #: src/components/Team/general/delete.tsx:145
 #: src/components/Team/members/change-role.tsx:163
 #: src/components/Team/members/remove-member.tsx:89
-#: src/components/Team/members/suspend.tsx:112
+#: src/components/Team/members/suspend.tsx:122
 #: src/components/custom/AddNew.tsx:155
 #: src/components/custom/Cancel.tsx:18
 #: src/components/custom/Delete.tsx:141
@@ -893,7 +893,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:278
+#: src/components/Team/members/index.tsx:288
 msgid "Change role"
 msgstr ""
 
@@ -908,7 +908,7 @@ msgid "Select a new role of %s."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:200
+#: src/components/Team/members/index.tsx:208
 msgid "Owner"
 msgstr ""
 
@@ -941,35 +941,39 @@ msgid "Can manage all resources in the team, including API Keys."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:174
-#: src/components/Team/members/suspend.tsx:118
+#: src/components/Team/members/suspend.tsx:128
 #: src/components/custom/AddNew.tsx:40
 #: src/components/custom/Save.tsx:27
 msgid "Save"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:142
+#: src/components/Team/members/index.tsx:143
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:146
+#: src/components/Team/members/index.tsx:147
 msgid "You currently can not invite any new members."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:202
+#: src/components/Team/members/index.tsx:210
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:240
+#: src/components/Team/members/index.tsx:248
 #: src/components/custom/AsyncTable.tsx:139
 #: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:282
+#: src/components/Team/members/index.tsx:293
+msgid "Unsuspend"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:296
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:286
+#: src/components/Team/members/index.tsx:300
 msgid "Remove from team"
 msgstr ""
 
@@ -1025,12 +1029,20 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: src/components/Team/members/suspend.tsx:95
+#: src/components/Team/members/suspend.tsx:101
 msgid "Suspend team members"
 msgstr ""
 
-#: src/components/Team/members/suspend.tsx:99
+#: src/components/Team/members/suspend.tsx:101
+msgid "Unsuspend team members"
+msgstr ""
+
+#: src/components/Team/members/suspend.tsx:107
 msgid "The following members will be suspended:"
+msgstr ""
+
+#: src/components/Team/members/suspend.tsx:108
+msgid "The following members will be unsuspended:"
 msgstr ""
 
 #: src/components/Tutorials.tsx:16

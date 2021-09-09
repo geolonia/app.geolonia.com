@@ -51,11 +51,12 @@ const Members = (props: Props) => {
   // Dialogs open
   const [openChangeRole, setOpenChangeRole] = useState(false);
   const [openSuspend, setOpenSuspend] = useState(false);
+  const [openUnsuspend, setOpenUnsuspend] = useState(false);
   const [openRemoveMember, setOpenRemoveMember] = useState(false);
 
   useEffect(() => {
     handleClose();
-  }, [openChangeRole, openRemoveMember]);
+  }, [openChangeRole, openSuspend, openUnsuspend, openRemoveMember]);
   const rows: Row[] = members.map((member) => {
     return {
       id: member.userSub,
@@ -166,6 +167,13 @@ const Members = (props: Props) => {
             currentMember={currentMember}
             open={openSuspend}
             toggle={setOpenSuspend}
+            mode={'suspending'}
+          />
+          <Suspend
+            currentMember={currentMember}
+            open={openUnsuspend}
+            toggle={setOpenUnsuspend}
+            mode={'unsuspending'}
           />
           <RemoveMember
             currentMember={currentMember}
@@ -274,14 +282,20 @@ const Members = (props: Props) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={() => setOpenChangeRole(true)}>
-                {__('Change role')}
-              </MenuItem>
-              {currentMember.role === Roles.Suspended || (
-                <MenuItem onClick={() => setOpenSuspend(true)}>
-                  {__('Suspend')}
-                </MenuItem>
-              )}
+              {
+                currentMember.role !== Roles.Suspended &&
+                  <MenuItem onClick={() => setOpenChangeRole(true)}>
+                    {__('Change role')}
+                  </MenuItem>
+              }
+              {currentMember.role === Roles.Suspended ?
+                <MenuItem onClick={() => setOpenUnsuspend(true)}>
+                  {__('Unsuspend')}
+                </MenuItem> : (
+                  <MenuItem onClick={() => setOpenSuspend(true)}>
+                    {__('Suspend')}
+                  </MenuItem>
+                )}
               <MenuItem onClick={() => setOpenRemoveMember(true)}>
                 {__('Remove from team')}
               </MenuItem>

@@ -28,6 +28,7 @@ type OwnProps = {
   currentMember: Geolonia.Member;
   open: boolean;
   toggle: (open: boolean) => void;
+  mode: 'suspending' | 'unsuspending';
 };
 type StateProps = {
   session: Geolonia.Session;
@@ -44,7 +45,7 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const Suspend = (props: Props) => {
-  const { currentMember, open, toggle, updateMemberRoleState } = props;
+  const { currentMember, open, toggle, updateMemberRoleState, mode } = props;
   const [role, setRole] = useState<false | Geolonia.Role>(
     currentMember.role,
   );
@@ -52,6 +53,8 @@ const Suspend = (props: Props) => {
     false | 'requesting' | 'success' | 'failure'
   >(false);
   const [message, setMessage] = useState('');
+
+  const isSuspending = mode === 'suspending';
 
   useEffect(() => {
     setRole(currentMember.role);
@@ -64,7 +67,7 @@ const Suspend = (props: Props) => {
         props.session,
         props.teamId,
         currentMember.userSub,
-        Roles.Suspended,
+        isSuspending ? Roles.Suspended : Roles.Member,
       ).then((result) => {
         if (result.error) {
           setStatus('failure');
@@ -74,7 +77,7 @@ const Suspend = (props: Props) => {
           updateMemberRoleState(
             props.teamId,
             currentMember.userSub,
-            Roles.Suspended,
+            isSuspending ? Roles.Suspended : Roles.Member,
           );
           toggle(false);
         }
@@ -92,11 +95,15 @@ const Suspend = (props: Props) => {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            {__('Suspend team members')}
+            {isSuspending ? __('Suspend team members') : __('Unsuspend team members')}
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {__('The following members will be suspended:')}
+              {
+                isSuspending ?
+                  __('The following members will be suspended:') :
+                  __('The following members will be unsuspended:')
+              }
             </DialogContentText>
 
             <Box display="flex" alignItems="center">
