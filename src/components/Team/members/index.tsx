@@ -195,7 +195,10 @@ const Members = (props: Props) => {
                 {row.name}
                 <br />@{row.username}
               </TableCell>
-              <TableCell align="center">
+              <TableCell align="right">
+                <Chip label={__('You')} color={'primary'} />
+              </TableCell>
+              <TableCell align="left">
                 {row.role === Roles.Owner ? (
                   <Chip label={__('Owner')} />
                 ) : row.role === Roles.Suspended ? (
