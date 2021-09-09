@@ -39,7 +39,7 @@ const ApiKeys: React.FC = () => {
   const username = useAppSelector((state) => state.userMeta.name);
   const team = useSelectedTeam();
   const teamId = team?.teamId || '';
-  const { data: mapKeys } = useGetApiKeysQuery({ teamId }, {
+  const { data: mapKeys } = useGetApiKeysQuery(teamId, {
     skip: !team,
   });
   const [ createApiKey ] = useCreateApiKeyMutation();

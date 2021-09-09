@@ -59,7 +59,7 @@ const Content: React.FC = () => {
   const match = useRouteMatch<{id: string}>();
   const team = useSelectedTeam();
   const teamId = team?.teamId || '';
-  const { data: mapKeys, isLoading } = useGetApiKeysQuery({ teamId }, {
+  const { data: mapKeys, isLoading } = useGetApiKeysQuery(teamId, {
     skip: !team,
   });
   const mapKey = mapKeys?.find((mapKey) => mapKey.keyId === match.params.id);
@@ -168,12 +168,12 @@ const Content: React.FC = () => {
       allowedOrigins: normalizedAllowedOrigins,
     };
 
-    await updateKey({teamId, keyId, updates: nextKey});
-    // if (result.error) {
-    //   setStatus('failure');
-    //   setMessage(result.message);
-    //   throw new Error(result.code);
-    // }
+    const result = await updateKey({teamId, keyId, updates: nextKey});
+    if ('error' in result) {
+      setStatus('failure');
+      setMessage('Failure');
+      throw new Error(JSON.stringify(result));
+    }
     mixpanel.track('Update API key', {
       apiKeyId: keyId,
       originCount: normalizedAllowedOrigins.length,

@@ -35,7 +35,7 @@ import { __ } from '@wordpress/i18n';
 import { useLocation } from 'react-router-dom';
 
 // types
-import { useAppDispatch, useAppSelector, useSelectedTeam } from '../redux/hooks';
+import { useAppDispatch, useAppSelector, useAvatarImage, useSelectedTeam } from '../redux/hooks';
 import { useCreateTeamMutation, useGetTeamsQuery } from '../redux/apis/app-api';
 import { selectTeam } from '../redux/actions/team';
 import { useHistory } from 'react-router';
@@ -114,8 +114,11 @@ const Navigator: React.FC<Props> = (props) => {
     initialValueForNewTeamName,
   );
 
-  const { data: teams } = useGetTeamsQuery(undefined);
+  const { data: teams } = useGetTeamsQuery();
   const selectedTeam = useSelectedTeam();
+  const teamAvatar = useAvatarImage(
+    selectedTeam?.teamId, selectedTeam?.links.getAvatar || '',
+  );
 
   const teamSettingsChildren = [
     {
@@ -203,7 +206,7 @@ const Navigator: React.FC<Props> = (props) => {
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
           <img
-            src={ selectedTeam?.avatarImage || defaultTeamIcon }
+            src={ teamAvatar || defaultTeamIcon }
             className="logo"
             alt=""
           />

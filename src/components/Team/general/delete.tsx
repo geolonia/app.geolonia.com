@@ -43,7 +43,7 @@ const TeamDeletion: React.FC = () => {
   >(false);
 
   const team = useSelectedTeam();
-  const { data: teams } = useGetTeamsQuery(undefined);
+  const { data: teams } = useGetTeamsQuery();
   const [ deleteTeam ] = useDeleteTeamMutation();
   const teamLength = (teams && teams.length) || 0;
 

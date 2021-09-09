@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 
 // Components
 import Typography from '@material-ui/core/Typography';
@@ -10,24 +10,13 @@ import Alert from '../../custom/Alert';
 // utils
 import { __, sprintf } from '@wordpress/i18n';
 
-// API
-import putAvatar from '../../../api/teams/put-avatar';
-
 // constants
 import { avatarLimitSize, Roles } from '../../../constants';
-import { useAppSelector, useSelectedTeam } from '../../../redux/hooks';
-import { currentSession } from '../../../auth';
 
-// type OwnProps = Record<string, never>;
-// type StateProps = {
-//   session: Geolonia.Session;
-//   team: Geolonia.Team;
-//   index: number;
-// };
-// type DispatchProps = {
-//   setAvatar: (index: number, blobUrl: string | void) => void;
-// };
-// type Props = OwnProps & StateProps & DispatchProps;
+// redux
+import { useSelectedTeam, useAvatarImage, useAppDispatch } from '../../../redux/hooks';
+import { useUpdateTeamAvatarMutation } from '../../../redux/apis/app-api';
+import { setAvatar } from '../../../redux/actions/avatar';
 
 const ProfileImageStyle: React.CSSProperties = {
   width: '100%',
@@ -37,18 +26,22 @@ const ProfileImageStyle: React.CSSProperties = {
 };
 
 const Content: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   // states
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
   >(false);
   const [message, setMessage] = useState('');
 
+  const [ uploadAvatar ] = useUpdateTeamAvatarMutation();
   const team = useSelectedTeam();
+  const teamAvatar = useAvatarImage(team?.teamId, team?.links.getAvatar || '');
 
   // refs
   const refContainer = useRef<HTMLInputElement | null>(null);
 
-  const onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFileSelected = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!team) return;
 
     if (e.target.files && e.target.files.length > 0) {
@@ -68,29 +61,32 @@ const Content: React.FC = () => {
       }
 
       const avatarUrl = URL.createObjectURL(file);
-      const prevAvatarUrl = team.avatarImage;
+      const prevAvatarUrl = teamAvatar;
+
       setStatus('requesting');
 
-      putAvatar(currentSession, team.teamId, file).then((result) => {
-        if (result.error) {
-          // props.setAvatar(props.index, prevAvatarUrl); // roleback
-          setStatus('failure');
-          setMessage(result.message);
-        } else {
-          // props.setAvatar(props.index, avatarUrl);
-          setStatus('success');
-        }
+      dispatch(setAvatar({ key: team.teamId, value: avatarUrl }));
+      const resp = await uploadAvatar({
+        teamId: team.teamId,
+        file,
       });
+      if ('error' in resp) {
+        setStatus('failure');
+        setMessage(JSON.stringify(resp.error));
+        dispatch(setAvatar({ key: team.teamId, value: prevAvatarUrl }));
+        return;
+      }
+      setStatus('success');
     }
-  };
+  }, [dispatch, team, teamAvatar, uploadAvatar]);
 
-  const onUploadClick = () => {
+  const onUploadClick = useCallback(() => {
     setMessage('');
     setStatus(false);
     if (refContainer.current) {
       refContainer.current.click();
     }
-  };
+  }, []);
 
   const isUploadEnabled = !!team?.links.putAvatar;
   const isOwner = team?.role === Roles.Owner;
@@ -101,7 +97,7 @@ const Content: React.FC = () => {
     <>
       <Typography component="p" align="center">
         <img
-          src={team?.avatarImage || defaultTeamIcon}
+          src={teamAvatar || defaultTeamIcon}
           style={{
             ...ProfileImageStyle,
             opacity: status === 'requesting' ? 0.6 : 1,
@@ -135,18 +131,5 @@ const Content: React.FC = () => {
     </>
   );
 };
-
-// const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-//   session: state.authSupport.session,
-//   team: state.team.data[state.team.selectedIndex],
-//   index: state.team.selectedIndex,
-// });
-
-// const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-//   setAvatar: (index, blobUrl) =>
-//     dispatch(createTeamActions.setAvatar(index, blobUrl)),
-// });
-
-// export default connect(mapStateToProps, mapDispatchToProps)(Content);
 
 export default Content;

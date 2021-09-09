@@ -1,24 +1,29 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
 import { getSession } from '../../auth';
 import { byCreateAtString } from '../../lib/by-create-at';
 
-type TeamUpdateParam = {
+type UpdateTeamParam = {
   teamId: string
   updates: Partial<Omit<Geolonia.Team, 'teamId' | 'role' | 'avatarImage' | 'links' | 'isDeleted'>>
 }
 
-type TeamCreateParam = {
+type UpdateTeamAvatarParam = {
+  teamId: string
+  file: File
+}
+
+type CreateTeamParam = {
   name: string
   billingEmail: string
 }
 
-type ApiKeyUpdateParam = {
+type UpdateApiKeyParam = {
   teamId: string
   keyId: string
   updates: Partial<Omit<Geolonia.Key, 'teamId' | 'keyId' | 'userKey' | 'updateAt' | 'createAt' | 'forceDisabled'>>
 }
 
-type ApiKeyCreateParam = {
+type CreateApiKeyParam = {
   teamId: string
   name: string
 }
@@ -41,7 +46,7 @@ export const appApi = createApi({
   ],
   endpoints: (builder) => ({
     // Teams
-    createTeam: builder.mutation<Geolonia.Team, TeamCreateParam>({
+    createTeam: builder.mutation<Geolonia.Team, CreateTeamParam>({
       query: (args) => ({
         url: '/teams',
         method: 'POST',
@@ -54,7 +59,7 @@ export const appApi = createApi({
         { type: 'Team', id: 'LIST' },
       ],
     }),
-    getTeams: builder.query<Geolonia.Team[], undefined>({
+    getTeams: builder.query<Geolonia.Team[], void>({
       query: () => '/teams',
       transformResponse: (resp: Geolonia.Team[]) => (
         resp.filter((team) => !team.isDeleted)
@@ -69,7 +74,7 @@ export const appApi = createApi({
           ]
       ),
     }),
-    updateTeam: builder.mutation<void, TeamUpdateParam>({
+    updateTeam: builder.mutation<void, UpdateTeamParam>({
       query: (args) => ({
         url: `teams/${args.teamId}`,
         method: 'PUT',
@@ -95,6 +100,32 @@ export const appApi = createApi({
         }
       },
     }),
+    updateTeamAvatar: builder.mutation<void, UpdateTeamAvatarParam>({
+      async queryFn(arg, _queryApi, _extraOptions, fetchWithBQ) {
+        // First, get the signed URL endpoint
+        const signedURLResult = await fetchWithBQ(`/teams/${arg.teamId}/avatar/links`);
+        if (signedURLResult.error) throw signedURLResult.error;
+        const data = signedURLResult.data as { links: { putAvatar: string } };
+        const signedURL = data.links.putAvatar;
+        try {
+          // Use fetch instead of fetchWithBQ because we don't want to send the authorization
+          // header.
+          await fetch(signedURL, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': arg.file.type,
+            },
+            body: arg.file,
+          });
+        } catch (e: any) {
+          return { error: { status: 'FETCH_ERROR', error: e.name } as FetchBaseQueryError };
+        }
+        return { data: undefined };
+      },
+      invalidatesTags: (_result, _error, { teamId }) => ([
+        { type: 'Team', id: teamId },
+      ]),
+    }),
     deleteTeam: builder.mutation<void, string>({
       query: (teamId) => ({
         url: `/teams/${teamId}`,
@@ -107,7 +138,7 @@ export const appApi = createApi({
     }),
 
     // Map Keys
-    createApiKey: builder.mutation<Geolonia.DateStringify<Geolonia.Key>, ApiKeyCreateParam>({
+    createApiKey: builder.mutation<Geolonia.DateStringify<Geolonia.Key>, CreateApiKeyParam>({
       query: (args) => ({
         url: `teams/${args.teamId}/keys`,
         method: 'POST',
@@ -118,13 +149,13 @@ export const appApi = createApi({
         { type: 'MapKey', id: `LIST:${teamId}` },
       ]),
     }),
-    getApiKeys: builder.query<Geolonia.DateStringify<Geolonia.Key>[], { teamId: string }>({
-      query: ({ teamId }) => `teams/${teamId}/keys`,
+    getApiKeys: builder.query<Geolonia.DateStringify<Geolonia.Key>[], string>({
+      query: (teamId) => `teams/${teamId}/keys`,
       transformResponse: (resp: Geolonia.DateStringify<Geolonia.Key>[]) => {
         resp.sort(byCreateAtString);
         return resp;
       },
-      providesTags: (result, _error, { teamId }) => (
+      providesTags: (result, _error, teamId) => (
         result ?
           [
             ...result.map(({keyId}) => ({ type: 'MapKey', id: keyId } as const)),
@@ -134,7 +165,7 @@ export const appApi = createApi({
           ]
       ),
     }),
-    updateApiKey: builder.mutation<void, ApiKeyUpdateParam>({
+    updateApiKey: builder.mutation<void, UpdateApiKeyParam>({
       query: (args) => ({
         url: `teams/${args.teamId}/keys/${args.keyId}`,
         method: 'PUT',
@@ -163,6 +194,7 @@ export const {
   useCreateTeamMutation,
   useGetTeamsQuery,
   useUpdateTeamMutation,
+  useUpdateTeamAvatarMutation,
   useDeleteTeamMutation,
 
   // Map Keys
