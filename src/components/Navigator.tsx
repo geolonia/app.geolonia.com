@@ -133,12 +133,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
     {
       id: __('General'),
       icon: <ViewListIcon />,
-      href: '#/team/general',
+      href: '/team/general',
     },
     {
       id: __('Members'),
       icon: <GroupIcon />,
-      href: '#/team/members',
+      href: '/team/members',
     },
   ];
 
@@ -146,7 +146,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     teamSettingsChildren.push({
       id: __('Billing'),
       icon: <PaymentIcon />,
-      href: '#/team/billing',
+      href: '/team/billing',
     });
   }
 
@@ -154,15 +154,15 @@ const Navigator: React.FC<Props> = (props: Props) => {
     {
       id: __('Manage API keys'),
       icon: <CodeIcon />,
-      href: '#/api-keys',
+      href: '/api-keys',
     },
     // {
     //   id: __('Location Data'),
     //   icon: <RoomIcon />,
-    //   href: '#/data/geojson',
+    //   href: '/data/geojson',
     // },
-    // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles" },
-    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features" },
+    // { id: 'Styles', icon: <SatelliteIcon />, href: "/maps/styles" },
+    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "/data/features" },
   ];
 
   const categories = [
@@ -285,11 +285,11 @@ const Navigator: React.FC<Props> = (props: Props) => {
               } catch (error) {
                 // nothing to do
               }
-              const active = href === `#${pathname}`;
+              const active = href === pathname;
               return <ListItem
                 button
                 component="a"
-                href={href}
+                href={href.indexOf('https://') === 0 ? href : `#${href}`}
                 target={target}
                 rel={rel}
                 key={childId}
