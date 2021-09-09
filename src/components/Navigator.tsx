@@ -35,6 +35,7 @@ import { connect } from 'react-redux';
 import { createActions as createTeamActions } from '../redux/actions/team';
 
 import createTeam from '../api/teams/create';
+import { useLocation } from 'react-router-dom';
 
 // types
 import Redux from 'redux';
@@ -118,6 +119,9 @@ const Navigator: React.FC<Props> = (props: Props) => {
     ownerEmail,
     ...other
   } = props;
+
+  const { pathname } = useLocation();
+
   const [open, setOpen] = useState(false);
   const [newTeamName, setNewTeamName] = useState(
     initialValueForNewTeamName,
@@ -129,14 +133,12 @@ const Navigator: React.FC<Props> = (props: Props) => {
     {
       id: __('General'),
       icon: <ViewListIcon />,
-      href: '#/team/general',
-      active: false,
+      href: '/team/general',
     },
     {
       id: __('Members'),
       icon: <GroupIcon />,
-      href: '#/team/members',
-      active: false,
+      href: '/team/members',
     },
   ];
 
@@ -144,8 +146,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     teamSettingsChildren.push({
       id: __('Billing'),
       icon: <PaymentIcon />,
-      href: '#/team/billing',
-      active: false,
+      href: '/team/billing',
     });
   }
 
@@ -153,17 +154,15 @@ const Navigator: React.FC<Props> = (props: Props) => {
     {
       id: __('Manage API keys'),
       icon: <CodeIcon />,
-      href: '#/api-keys',
-      active: false,
+      href: '/api-keys',
     },
     // {
     //   id: __('Location Data'),
     //   icon: <RoomIcon />,
-    //   href: '#/data/geojson',
-    //   active: false,
+    //   href: '/data/geojson',
     // },
-    // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
-    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
+    // { id: 'Styles', icon: <SatelliteIcon />, href: "/maps/styles" },
+    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "/data/features" },
   ];
 
   const categories = [
@@ -182,7 +181,6 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __('Official Documents'),
           icon: <DescriptionIcon />,
           href: 'https://docs.geolonia.com/',
-          active: false,
         },
       ],
     },
@@ -274,7 +272,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active, href }) => {
+            {children.map(({ id: childId, icon, href }) => {
               let target = undefined;
               let rel = undefined;
               try {
@@ -287,10 +285,11 @@ const Navigator: React.FC<Props> = (props: Props) => {
               } catch (error) {
                 // nothing to do
               }
+              const active = href === pathname;
               return <ListItem
                 button
                 component="a"
-                href={href}
+                href={href.indexOf('https://') === 0 ? href : `#${href}`}
                 target={target}
                 rel={rel}
                 key={childId}
