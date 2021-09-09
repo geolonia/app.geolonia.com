@@ -18,7 +18,7 @@ import Invite from './invite';
 import ChangeRole from './change-role';
 import Suspend from './suspend';
 import RemoveMember from './remove-member';
-import { Chip, Avatar } from '@material-ui/core';
+import { Chip, Avatar, Typography } from '@material-ui/core';
 import Alert from '../../custom/Alert';
 
 // utils
@@ -32,18 +32,20 @@ type Row = {
   name: string;
   username: string;
   role: Geolonia.Role;
+  yourself: boolean;
 };
 
 type OwnProps = Record<string, never>;
 type StateProps = {
   team: Geolonia.Team | void;
   members: Geolonia.Member[];
+  currentUsername: string;
 };
 
 type Props = OwnProps & StateProps;
 
 const Members = (props: Props) => {
-  const { members } = props;
+  const { members, currentUsername } = props;
   const [currentMember, setCurrentMember] = useState<
     false | Geolonia.Member
   >(false);
@@ -63,6 +65,7 @@ const Members = (props: Props) => {
       name: member.name,
       username: member.username,
       role: member.role,
+      yourself: member.username === currentUsername,
     };
   });
 
@@ -188,17 +191,16 @@ const Members = (props: Props) => {
                 {row.avatar ? (
                   <Avatar src={row.avatar} style={avatarStyle} />
                 ) : (
-                  <PersonIcon />
+                  <PersonIcon color={row.yourself ? 'primary' : undefined} />
                 )}
               </TableCell>
               <TableCell component="th" scope="row">
-                {row.name}
-                <br />@{row.username}
+                <Typography color={row.yourself ? 'primary' : undefined}>
+                  {row.name}
+                  <br />@{row.username}
+                </Typography>
               </TableCell>
-              <TableCell align="right">
-                <Chip label={__('You')} color={'primary'} />
-              </TableCell>
-              <TableCell align="left">
+              <TableCell align="center">
                 {row.role === Roles.Owner ? (
                   <Chip label={__('Owner')} />
                 ) : row.role === Roles.Suspended ? (
@@ -209,7 +211,7 @@ const Members = (props: Props) => {
                 {(() => {
                   if (
                     (numOwners < 2 && row.role === 'Owner') ||
-                    isOwner === false
+                    (!isOwner && !row.yourself)
                   ) {
                     // There is only one owner and the row is owner, so nothing to return.
                   } else {
@@ -270,6 +272,7 @@ const Members = (props: Props) => {
             </Menu>
           );
         } else {
+          const yourself = currentMember.username === currentUsername;
           return (
             <Menu
               anchorEl={anchorEl}
@@ -277,16 +280,19 @@ const Members = (props: Props) => {
               open={Boolean(anchorEl)}
               onClose={handleClose}
             >
-              <MenuItem onClick={() => setOpenChangeRole(true)}>
-                {__('Change role')}
-              </MenuItem>
-              {currentMember.role === Roles.Suspended || (
+              {
+                !yourself && <MenuItem onClick={() => setOpenChangeRole(true)}>
+                  {__('Change role')}
+                </MenuItem>
+              }
+              { /* TODO: https://github.com/geolonia/app.geolonia.com/pull/577 の修正も必要 */}
+              {(!yourself && currentMember.role !== Roles.Suspended) && (
                 <MenuItem onClick={() => setOpenSuspend(true)}>
                   {__('Suspend')}
                 </MenuItem>
               )}
               <MenuItem onClick={() => setOpenRemoveMember(true)}>
-                {__('Remove from team')}
+                {yourself ? __('Leave the team') : __('Remove from team')}
               </MenuItem>
             </Menu>
           );
@@ -306,7 +312,8 @@ export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
       members = memberObject.data;
     }
   }
-  return { team, members };
+  const { username: currentUsername } = state.userMeta;
+  return { team, members, currentUsername };
 };
 
 export default connect(mapStateToProps)(Members);
