@@ -39,6 +39,22 @@ type UpdateTeamMemberParam = {
   role: Geolonia.Role
 }
 
+type UpdateTeamPlanParam = {
+  teamId: string
+  planId: string | null
+}
+
+type UpdateTeamPaymentMethodParam = {
+  teamId: string
+  token: string
+  last2: string
+}
+
+type StripeWrappedResp<T = any> = {
+  has_more: boolean
+  data: T
+}
+
 export const appApi = createApi({
   reducerPath: 'appApi',
   baseQuery: fetchBaseQuery({
@@ -55,6 +71,10 @@ export const appApi = createApi({
     'Team',
     'MapKey',
     'TeamMember',
+    'TeamPlan',
+    'Plan',
+    'TeamInvoice',
+    'TeamCharge',
   ],
   endpoints: (builder) => ({
     // Teams
@@ -239,6 +259,65 @@ export const appApi = createApi({
         { type: 'TeamMember', id: `LIST:${teamId}` },
       ]),
     }),
+
+    // Billing
+    getTeamPlan: builder.query<Geolonia.TeamPlanDetails, string>({
+      query: (teamId) => ({
+        url: `/teams/${teamId}/plan`,
+      }),
+      providesTags: (_result, _error, teamId) => ([
+        { type: 'TeamPlan', id: teamId },
+      ]),
+    }),
+    getPlans: builder.query<Geolonia.Billing.Plan[], void>({
+      query: () => ({
+        url: '/plans',
+      }),
+      providesTags: [
+        { type: 'Plan', id: 'LIST' },
+      ],
+    }),
+    updateTeamPlan: builder.mutation<void, UpdateTeamPlanParam>({
+      query: (args) => ({
+        url: `/teams/${args.teamId}/plan`,
+        method: 'PUT',
+        body: {
+          planId: args.planId,
+        },
+      }),
+      invalidatesTags: (_result, _error, {teamId}) => ([
+        { type: 'TeamPlan', id: teamId },
+      ]),
+    }),
+    updateTeamPaymentMethod: builder.mutation<void, UpdateTeamPaymentMethodParam>({
+      query: (args) => ({
+        url: `/teams/${args.teamId}/payment`,
+        method: 'POST',
+        body: {
+          token: args.token,
+          last2: args.last2,
+        },
+      }),
+      invalidatesTags: (_response, _error, { teamId }) => ([
+        { type: 'Team', id: teamId },
+      ]),
+    }),
+    getTeamInvoices: builder.query<StripeWrappedResp<Geolonia.Invoice[]>, string>({
+      query: (teamId) => ({
+        url: `/teams/${teamId}/invoices`,
+      }),
+      providesTags: (_response, _error, teamId) => ([
+        { type: 'TeamInvoice', id: `LIST:${teamId}` },
+      ]),
+    }),
+    getTeamCharges: builder.query<StripeWrappedResp<Geolonia.Charge[]>, string>({
+      query: (teamId) => ({
+        url: `/teams/${teamId}/charges`,
+      }),
+      providesTags: (_response, _error, teamId) => ([
+        { type: 'TeamCharge', id: `LIST:${teamId}` },
+      ]),
+    }),
   }),
 });
 
@@ -261,4 +340,12 @@ export const {
   useCreateTeamMemberInvitationMutation,
   useUpdateTeamMemberMutation,
   useDeleteTeamMemberMutation,
+
+  // Billing
+  useGetTeamPlanQuery,
+  useGetPlansQuery,
+  useUpdateTeamPlanMutation,
+  useGetTeamInvoicesQuery,
+  useGetTeamChargesQuery,
+  useUpdateTeamPaymentMethodMutation,
 } = appApi;

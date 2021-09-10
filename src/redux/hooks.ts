@@ -2,7 +2,11 @@ import { useEffect, useMemo } from 'react';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { setAvatar } from './actions/avatar';
 import { selectTeam } from './actions/team';
-import { useGetTeamsQuery } from './apis/app-api';
+import {
+  useGetPlansQuery,
+  useGetTeamsQuery,
+} from './apis/app-api';
+import { __ } from '@wordpress/i18n';
 import type { RootState, AppDispatch } from './store';
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
@@ -28,6 +32,10 @@ export const useSelectedTeam: () => Geolonia.Team | null = () => {
   }, [ isLoading, dispatch, teams, selectedTeamId ]);
 
   return selectedTeam;
+};
+
+export const useUserLanguage = () => {
+  return useAppSelector((state) => state.userMeta.language);
 };
 
 const __loadingAvatars: Set<string> = new Set();
@@ -58,4 +66,16 @@ export const useAvatarImage: (key?: string, imageUrl?: string) => string | undef
   }, [key, avatar, imageUrl, dispatch]);
 
   return avatar;
+};
+
+export const useGeoloniaPlans = () => {
+  const { data: plans } = useGetPlansQuery();
+  const freePlan: Geolonia.Billing.FreePlan = {
+    planId: null,
+    name: __('Free Plan'),
+    duration: 'month',
+    contactRequired: undefined,
+  };
+
+  return [freePlan, ...(plans || [])];
 };

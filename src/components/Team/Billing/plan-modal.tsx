@@ -3,32 +3,24 @@ import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { __ } from '@wordpress/i18n';
-import fetch from '../../../lib/fetch';
-import { connect } from 'react-redux';
-import { GeoloniaConstantPlan, parsePlanLabel } from '../Billing';
 import {
   CircularProgress,
   RadioGroup,
   FormControlLabel,
   Radio,
 } from '@material-ui/core';
-import { buildApiAppUrl } from '../../../lib/api';
 import Alert from '../../custom/Alert';
+import { useUpdateTeamPlanMutation } from '../../../redux/apis/app-api';
 
 type PlanId = string | null | undefined;
 
-type OwnProps = {
+type Props = {
   open: boolean;
   handleClose: () => void;
-  plans: GeoloniaConstantPlan[];
+  plans: Geolonia.Billing.Plan[];
   currentPlanId: PlanId;
+  teamId: string;
 };
-type StateProps = {
-  session: Geolonia.Session;
-  teamId?: string;
-};
-type Props = OwnProps & StateProps;
-
 const modalStyle: React.CSSProperties = {
   position: 'absolute',
   minWidth: 600,
@@ -61,48 +53,25 @@ const useMessage = (
   }
 };
 
-const PlanModal = (props: Props) => {
-  const { open, handleClose, session, teamId, plans, currentPlanId } = props;
-  const [loading, setLoading] = useState(false);
+const PlanModal: React.FC<Props> = (props) => {
+  const { open, handleClose, teamId, plans, currentPlanId } = props;
+  const [ updateTeam, { isLoading: teamIsUpdating } ] = useUpdateTeamPlanMutation();
+
   const [planId, setPlanId] = useState<PlanId>(void 0);
   const message = useMessage(currentPlanId, planId);
   const [ alertMessage, setAlertMessage ] = useState<string | undefined>();
 
   const handleSubmit = useCallback(async () => {
-    if (!teamId) {
-      return null;
-    }
-    setLoading(true);
-    const res = await fetch(
-      session,
-      buildApiAppUrl(`/teams/${teamId}/plan`),
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ planId }),
-      },
-    );
+    if (typeof planId === 'undefined') return;
 
-    try {
-      const resp = await res.json();
-      if (res.status < 400) {
-        handleClose();
-        window.location.reload();
-      } else if (res.status === 402 && resp.message === 'Payment required for this action.') {
-        // something happened with changing the plan
-        setAlertMessage(__('The plan could not be changed. If you are trying to downgrade your team to a team that supports fewer members, please remove the extra members before downgrading your team. If you still get this error, please contact us.'));
-      } else {
-        throw new Error();
-      }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(e);
-    } finally {
-      setLoading(false);
+    const res = await updateTeam({ teamId, planId });
+    if ('error' in res) {
+      setAlertMessage(__('The plan could not be changed. If you are trying to downgrade your team to a team that supports fewer members, please remove the extra members before downgrading your team. If you still get this error, please contact us.'));
+      return;
     }
-  }, [ session, teamId, planId, setLoading, handleClose ]);
+
+    handleClose();
+  }, [updateTeam, teamId, planId, handleClose]);
 
   const currencyFormatter = new Intl.NumberFormat('ja-JP', {
     style: 'currency',
@@ -128,25 +97,13 @@ const PlanModal = (props: Props) => {
                   />
                 }
                 label={<>
-                  {parsePlanLabel(plans, plan.planId)}
-                  {typeof plan.price !== 'undefined' && <>
+                  {plan.name}
+                  {'price' in plan && <>
                     &nbsp;-&nbsp;
                     {currencyFormatter.format(plan.price)}/月
                   </> }
                 </>}
               />
-              {/* <DialogContentText>
-                <ul>
-                  <li>{__("can invite another team member.")}</li>
-                  <li>{__("can designate another owner.")}</li>
-                  <li>{__("can suspend another member.")}</li>
-                  <li>
-                    {__(
-                      "Can manage all resources in the team, including API Keys."
-                    )}
-                  </li>
-                </ul>
-              </DialogContentText> */}
             </RadioGroup>
           ))}
           <Typography component="p" style={{ marginTop: '0.5em', marginBottom: '1em' }}>
@@ -162,7 +119,7 @@ const PlanModal = (props: Props) => {
             type={'button'}
             disabled={planId === void 0 || currentPlanId === planId}
           >
-            {loading && (
+            {teamIsUpdating && (
               <CircularProgress
                 size={16}
                 style={{ marginRight: 8 }}
@@ -181,18 +138,4 @@ const PlanModal = (props: Props) => {
   );
 };
 
-export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
-  const { session } = state.authSupport;
-  if (team) {
-    const { teamId } = team;
-    return {
-      session,
-      teamId,
-    };
-  } else {
-    return { session };
-  }
-};
-
-export default connect(mapStateToProps)(PlanModal);
+export default PlanModal;
