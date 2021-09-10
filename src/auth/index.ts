@@ -108,10 +108,10 @@ export const signin = (username: string, password: string) =>
 export let currentSession: CognitoIdentity.CognitoUserSession | undefined;
 
 export const getSession = () =>
-  new Promise<CognitoIdentity.CognitoUserSession>((resolve, reject) => {
+  new Promise<CognitoIdentity.CognitoUserSession | null>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser === null) {
-      return reject(new Error('no user'));
+      return resolve(null);
     }
 
     cognitoUser.getSession((err: Error | null, session: CognitoIdentity.CognitoUserSession | null) => {

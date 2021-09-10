@@ -8,14 +8,15 @@ import CloseIcon from '@material-ui/icons/Close';
 
 // Util
 import { sprintf, __ } from '@wordpress/i18n';
+import Interweave from 'interweave';
 
 // redux
-import Interweave from 'interweave';
 import { useSelectedTeam } from '../../../redux/hooks';
 import { useCreateTeamMemberInvitationMutation } from '../../../redux/apis/app-api';
 
 type Props = {
   disabled?: boolean;
+  team: Geolonia.Team;
   members: Geolonia.Member[];
 };
 
@@ -25,8 +26,7 @@ export const Invite: React.FC<Props> = (props) => {
     false | 'requesting' | 'success' | 'failure'
   >(false);
 
-  const { disabled, members } = props;
-  const team = useSelectedTeam();
+  const { disabled, members, team } = props;
 
   const [ createInvitation ] = useCreateTeamMemberInvitationMutation();
 
@@ -35,25 +35,23 @@ export const Invite: React.FC<Props> = (props) => {
       setStatus('failure');
       setMessage(__('That user is already a member of this team.'));
       throw new Error('That user is already a member of the team.');
-    } else if (team) {
-      setStatus('requesting');
-      const res = await createInvitation({
-        teamId: team.teamId,
-        email,
-      });
-      if ('error' in res) {
-        setStatus('failure');
-        setMessage(__('The maximum number of members has been reached.'));
-        // setMessage(__('You cannot use this email address for invitation.'));
-        throw new Error();
-      }
-      setStatus('success');
-    } else {
-      return Promise.reject('No team');
     }
+
+    setStatus('requesting');
+    const res = await createInvitation({
+      teamId: team.teamId,
+      email,
+    });
+    if ('error' in res) {
+      setStatus('failure');
+      setMessage(__('The maximum number of members has been reached.'));
+      // setMessage(__('You cannot use this email address for invitation.'));
+      throw new Error();
+    }
+    setStatus('success');
   }, [createInvitation, members, team]);
 
-  const teamName = team && team.name;
+  const teamName = team.name;
 
   return (
     <>

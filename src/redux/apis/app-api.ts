@@ -33,6 +33,12 @@ type CreateTeamMemberInvitationParam = {
   email: string
 }
 
+type UpdateTeamMemberParam = {
+  teamId: string
+  memberSub: string
+  role: Geolonia.Role
+}
+
 export const appApi = createApi({
   reducerPath: 'appApi',
   baseQuery: fetchBaseQuery({
@@ -84,7 +90,6 @@ export const appApi = createApi({
       query: (args) => ({
         url: `teams/${args.teamId}`,
         method: 'PUT',
-        headers: { 'content-type': 'application/json' },
         body: args.updates,
       }),
       invalidatesTags: (_result, _error, {teamId}) => ([
@@ -148,7 +153,6 @@ export const appApi = createApi({
       query: (args) => ({
         url: `teams/${args.teamId}/keys`,
         method: 'POST',
-        headers: { 'content-type': 'application/json' },
         body: { name: args.name },
       }),
       invalidatesTags: (_result, _error, {teamId}) => ([
@@ -175,7 +179,6 @@ export const appApi = createApi({
       query: (args) => ({
         url: `teams/${args.teamId}/keys/${args.keyId}`,
         method: 'PUT',
-        headers: { 'content-type': 'application/json' },
         body: args.updates,
       }),
       invalidatesTags: (_result, _error, {keyId}) => ([
@@ -215,6 +218,27 @@ export const appApi = createApi({
         },
       }),
     }),
+    updateTeamMember: builder.mutation<void, UpdateTeamMemberParam>({
+      query: (args) => ({
+        url: `/teams/${args.teamId}/members/${args.memberSub}`,
+        method: 'PUT',
+        body: { role: args.role },
+      }),
+      invalidatesTags: (_result, _error, {teamId, memberSub}) => ([
+        { type: 'TeamMember', id: memberSub },
+        { type: 'TeamMember', id: `LIST:${teamId}` },
+      ]),
+    }),
+    deleteTeamMember: builder.mutation<void, { teamId: string, memberSub: string }>({
+      query: ({teamId, memberSub}) => ({
+        url: `/teams/${teamId}/members/${memberSub}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: (_result, _error, {teamId, memberSub}) => ([
+        { type: 'TeamMember', id: memberSub },
+        { type: 'TeamMember', id: `LIST:${teamId}` },
+      ]),
+    }),
   }),
 });
 
@@ -235,4 +259,6 @@ export const {
   // Team Members
   useGetTeamMembersQuery,
   useCreateTeamMemberInvitationMutation,
+  useUpdateTeamMemberMutation,
+  useDeleteTeamMemberMutation,
 } = appApi;

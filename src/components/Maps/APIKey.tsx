@@ -33,27 +33,6 @@ interface ApiKeyFormControlsCollection extends HTMLFormControlsCollection {
   apiKeyAllowedOrigins: HTMLInputElement
 }
 
-// type OwnProps = Record<string, never>;
-// type StateProps = {
-//   mapKey?: Geolonia.Key;
-//   teamId: string;
-//   session: Geolonia.Session;
-//   selectedTeamIndex: number;
-// };
-// type DispatchProps = {
-//   updateKey: (
-//     teamId: string,
-//     keyId: string,
-//     key: Partial<Geolonia.Key>
-//   ) => void;
-//   deleteKey: (teamId: string, keyId: string) => void;
-// };
-// type RouterProps = {
-//   match: { params: { id: string } };
-//   history: { push: (path: string) => void };
-// };
-// type Props = OwnProps & StateProps & DispatchProps & RouterProps;
-
 const Content: React.FC = () => {
   const history = useHistory();
   const match = useRouteMatch<{id: string}>();
@@ -67,12 +46,6 @@ const Content: React.FC = () => {
   const [ updateKey ] = useUpdateApiKeyMutation();
   const [ deleteKey ] = useDeleteApiKeyMutation();
 
-  // const {
-  //   session,
-  //   updateKey: updateKeyCallback,
-  //   deleteKey: deleteKeyCallback,
-  //   teamId,
-  // } = props;
   const apiKey = mapKey?.userKey;
   const keyId = mapKey?.keyId;
   // props
@@ -406,37 +379,5 @@ const Content: React.FC = () => {
     </div>
   );
 };
-
-// const mapStateToProps = (
-//   state: Geolonia.Redux.AppState,
-//   ownProps: OwnProps & RouterProps,
-// ): StateProps => {
-//   const session = state.authSupport.session;
-//   const selectedTeamIndex = state.team.selectedIndex;
-//   const { teamId } = state.team.data[selectedTeamIndex] || {
-//     teamId: '-- unexpected fallback when no team id found --',
-//   };
-//   if (!state.mapKey[teamId]) {
-//     return { session, teamId, selectedTeamIndex };
-//   }
-//   const mapKeyObject = state.mapKey[teamId] || { data: [] };
-//   const mapKeys = mapKeyObject.data;
-//   const mapKey = mapKeys.find(
-//     (mapKey) => mapKey.keyId === ownProps.match.params.id,
-//   );
-//   return {
-//     session,
-//     mapKey,
-//     teamId,
-//     selectedTeamIndex,
-//   };
-// };
-
-// const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
-//   updateKey: (teamId: string, keyId: string, key: Partial<Geolonia.Key>) =>
-//     dispatch(createMapKeyActions.update(teamId, keyId, key)),
-//   deleteKey: (teamId: string, keyId: string) =>
-//     dispatch(createMapKeyActions.delete(teamId, keyId)),
-// });
 
 export default Content;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -16,40 +16,23 @@ import Interweave from 'interweave';
 // libs
 import { __, sprintf } from '@wordpress/i18n';
 
-// API
-import updateMember from '../../../api/members/update';
-
-// Types
-import { connect } from 'react-redux';
-
 // Redux
-import { createActions as createTeamMemberActions } from '../../../redux/actions/team-member';
-import Redux from 'redux';
+import { useUpdateTeamMemberMutation } from '../../../redux/apis/app-api';
 
 // Constants
 import { Roles } from '../../../constants';
 
-type OwnProps = {
+type Props = {
   currentMember: Geolonia.Member;
   open: boolean;
   toggle: (open: boolean) => void;
-};
-type StateProps = {
-  session: Geolonia.Session;
   team: Geolonia.Team;
 };
 
-type DispatchProps = {
-  updateMemberRoleState: (
-    teamId: string,
-    memberSub: string,
-    role: Geolonia.Role
-  ) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
-
-const ChangeRole = (props: Props) => {
-  const { currentMember, open, toggle, updateMemberRoleState } = props;
+const ChangeRole: React.FC<Props> = (props) => {
+  const { currentMember, open, toggle, team } = props;
+  const teamId = team.teamId;
+  const [ updateMember ] = useUpdateTeamMemberMutation();
   const [role, setRole] = useState<false | Geolonia.Role>(
     currentMember.role,
   );
@@ -62,27 +45,25 @@ const ChangeRole = (props: Props) => {
     setRole(currentMember.role);
   }, [currentMember]);
 
-  const onSaveClick = () => {
+  const onSaveClick = useCallback(async () => {
     if (role) {
       setStatus('requesting');
-      updateMember(
-        props.session,
-        props.team.teamId,
-        currentMember.userSub,
+      const res = await updateMember({
+        teamId,
+        memberSub: currentMember.userSub,
         role,
-      ).then((result) => {
-        if (result.error) {
-          setStatus('failure');
-          setMessage(result.message);
-        } else {
-          setStatus('success');
-          updateMemberRoleState(props.team.teamId, currentMember.userSub, role);
-          toggle(false);
-          window.location.reload();
-        }
       });
+
+      if ('error' in res) {
+        setStatus('failure');
+        setMessage('failure');
+        return;
+      }
+
+      setStatus('success');
+      toggle(false);
     }
-  };
+  }, [currentMember.userSub, role, teamId, toggle, updateMember]);
 
   const isRoleChanged = role === currentMember.role;
   const isBillingMember =
@@ -126,7 +107,7 @@ const ChangeRole = (props: Props) => {
                 control={<Radio disabled={isBillingMember} />}
                 label={__('Owner')}
               />
-              <DialogContentText>
+              <DialogContentText component="div">
                 <ul>
                   <li>{__('can view API key usage.')}</li>
                   <li>{__('can manage payment settings.')}</li>
@@ -146,7 +127,7 @@ const ChangeRole = (props: Props) => {
                 control={<Radio disabled={isBillingMember} />}
                 label={__('Member')}
               />
-              <DialogContentText>
+              <DialogContentText component="div">
                 <ul>
                   <li>{__('can view API key usage.')}</li>
                   <li>
@@ -188,17 +169,4 @@ const ChangeRole = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
-  return {
-    session: state.authSupport.session,
-    team,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  updateMemberRoleState: (teamId, userSub, role) =>
-    dispatch(createTeamMemberActions.update(teamId, userSub, { role })),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChangeRole);
+export default ChangeRole;

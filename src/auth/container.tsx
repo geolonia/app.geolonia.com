@@ -7,7 +7,6 @@ import { setLocaleData } from '@wordpress/i18n';
 // API
 import { getSession } from './';
 import getUser from '../api/users/get';
-import listTeamMembers from '../api/members/list';
 
 // Utils
 import estimateLanguage from '../lib/estimate-language';
@@ -147,43 +146,6 @@ export class AuthContainer extends React.Component<Props, State> {
     ]).then(([userAvatarImage]) => {
       this.props.setUserAvatar(userAvatarImage);
     });
-  };
-
-  loadTeamMembers = (session: Geolonia.Session, teamIds: string[]) => {
-    const handleListTeamMembersRequest = (teamId: string) => {
-      return listTeamMembers(session, teamId).then((result) => {
-        if (result.error) {
-          throw new Error(result.code);
-        } else {
-          const members = result.data;
-          this.props.setTeamMembers(teamId, members);
-          return members;
-        }
-      });
-    };
-
-    return Promise.all(
-      teamIds.map((teamId) =>
-        handleListTeamMembersRequest(teamId).then((members) => {
-          return Promise.all(
-            members.map((member) =>
-              member.links.getAvatar
-                ? fetch(member.links.getAvatar)
-                  .then(this._handleAvatarResponse)
-                : void 0,
-            ),
-          ).then((teamMemberAvatarImages) => {
-            teamMemberAvatarImages.map((avatarImage, index) => {
-              return this.props.setTeamMemberAvatar(
-                teamId,
-                members[index].userSub,
-                avatarImage,
-              );
-            });
-          });
-        }),
-      ),
-    );
   };
 
   render() {

@@ -24,6 +24,8 @@ import Alert from '../../custom/Alert';
 import { __ } from '@wordpress/i18n';
 
 import { Roles } from '../../../constants';
+
+// Redux
 import { useGetTeamMembersQuery } from '../../../redux/apis/app-api';
 import { useSelectedTeam } from '../../../redux/hooks';
 
@@ -136,7 +138,7 @@ const Members: React.FC = () => {
   const inviteDisabled =
     !isOwner || !( team && (team.maxMemberLength > (members || []).length));
 
-  if (isFetching) {
+  if (isFetching || !team) {
     return <CircularProgress />;
   }
 
@@ -156,6 +158,7 @@ const Members: React.FC = () => {
 
       { isOwner &&
         <Invite
+          team={team}
           members={members || []}
           disabled={inviteDisabled}
         />
@@ -165,23 +168,27 @@ const Members: React.FC = () => {
       {currentMember && (
         <>
           <ChangeRole
+            team={team}
             currentMember={currentMember}
             open={openChangeRole}
             toggle={setOpenChangeRole}
           />
           <Suspend
+            team={team}
             currentMember={currentMember}
             open={openSuspend}
             toggle={setOpenSuspend}
             mode={'suspending'}
           />
           <Suspend
+            team={team}
             currentMember={currentMember}
             open={openUnsuspend}
             toggle={setOpenUnsuspend}
             mode={'unsuspending'}
           />
           <RemoveMember
+            team={team}
             currentMember={currentMember}
             open={openRemoveMember}
             toggle={setOpenRemoveMember}
