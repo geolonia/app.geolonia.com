@@ -53,11 +53,13 @@ const Members = (props: Props) => {
   // Dialogs open
   const [openChangeRole, setOpenChangeRole] = useState(false);
   const [openSuspend, setOpenSuspend] = useState(false);
+  const [openUnsuspend, setOpenUnsuspend] = useState(false);
   const [openRemoveMember, setOpenRemoveMember] = useState(false);
+  const [openLeave, setOpenLeave] = useState(false);
 
   useEffect(() => {
     handleClose();
-  }, [openChangeRole, openRemoveMember]);
+  }, [openChangeRole, openSuspend, openUnsuspend, openRemoveMember, openLeave]);
   const rows: Row[] = members.map((member) => {
     return {
       id: member.userSub,
@@ -169,11 +171,25 @@ const Members = (props: Props) => {
             currentMember={currentMember}
             open={openSuspend}
             toggle={setOpenSuspend}
+            mode={'suspending'}
+          />
+          <Suspend
+            currentMember={currentMember}
+            open={openUnsuspend}
+            toggle={setOpenUnsuspend}
+            mode={'unsuspending'}
           />
           <RemoveMember
             currentMember={currentMember}
             open={openRemoveMember}
             toggle={setOpenRemoveMember}
+            mode={'remove'}
+          />
+          <RemoveMember
+            currentMember={currentMember}
+            open={openLeave}
+            toggle={setOpenLeave}
+            mode={'leave'}
           />
         </>
       )}
@@ -281,17 +297,20 @@ const Members = (props: Props) => {
               onClose={handleClose}
             >
               {
-                !yourself && <MenuItem onClick={() => setOpenChangeRole(true)}>
-                  {__('Change role')}
-                </MenuItem>
+                !yourself && currentMember.role !== Roles.Suspended &&
+                  <MenuItem onClick={() => setOpenChangeRole(true)}>
+                    {__('Change role')}
+                  </MenuItem>
               }
-              { /* TODO: https://github.com/geolonia/app.geolonia.com/pull/577 の修正も必要 */}
-              {(!yourself && currentMember.role !== Roles.Suspended) && (
-                <MenuItem onClick={() => setOpenSuspend(true)}>
-                  {__('Suspend')}
-                </MenuItem>
-              )}
-              <MenuItem onClick={() => setOpenRemoveMember(true)}>
+              {!yourself && (currentMember.role === Roles.Suspended ?
+                <MenuItem onClick={() => setOpenUnsuspend(true)}>
+                  {__('Unsuspend')}
+                </MenuItem> : (
+                  <MenuItem onClick={() => setOpenSuspend(true)}>
+                    {__('Suspend')}
+                  </MenuItem>
+                ))}
+              <MenuItem onClick={() => yourself ? setOpenLeave(true) : setOpenRemoveMember(true)}>
                 {yourself ? __('Leave the team') : __('Remove from team')}
               </MenuItem>
             </Menu>

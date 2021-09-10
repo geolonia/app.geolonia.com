@@ -365,6 +365,7 @@
       ],
       "Suspended": ["一時停止"],
       "rows per page": ["表示する個数"],
+      "Unsuspend": ["一時停止を解除"],
       "Suspend": ["一時停止"],
       "Remove from team": ["チームから削除"],
       "Successfully send invitation.": ["チームへの招待が送信されました。"],
@@ -391,8 +392,12 @@
       ],
       "Remove": ["削除"],
       "Suspend team members": ["メンバーの一時停止"],
+      "Unsuspend team members": ["メンバーの一時停止を解除"],
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
+      ],
+      "The following members will be unsuspended:": [
+        "以下のメンバーの一時停止が解除されます。"
       ],
       "How to use the Dashboard": ["ダッシュボードの使い方"],
       "Learn about the easiest way to embed a Geolonia map in your website.": [
