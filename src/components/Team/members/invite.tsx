@@ -11,7 +11,6 @@ import { sprintf, __ } from '@wordpress/i18n';
 import Interweave from 'interweave';
 
 // redux
-import { useSelectedTeam } from '../../../redux/hooks';
 import { useCreateTeamMemberInvitationMutation } from '../../../redux/apis/app-api';
 
 type Props = {
