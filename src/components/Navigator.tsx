@@ -39,6 +39,7 @@ import { useLocation } from 'react-router-dom';
 
 // types
 import Redux from 'redux';
+import { colorPrimary } from '../variables';
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -67,7 +68,7 @@ const styles = (theme: Theme) => ({
     color: theme.palette.common.white,
   },
   itemActiveItem: {
-    color: '#4fc3f7',
+    color: colorPrimary,
   },
   itemPrimary: {
     fontSize: 'inherit',

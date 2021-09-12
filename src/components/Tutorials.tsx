@@ -10,6 +10,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
+import { colorPrimary } from '../variables';
+
 const getTutorialContents = () => {
   return [
     {
@@ -66,7 +68,7 @@ const useStyles = makeStyles({
     minHeight: '60px',
   },
   button: {
-    color: '#EB5C0B',
+    color: colorPrimary,
     marginLeft: '13px',
   },
 });
@@ -83,7 +85,7 @@ export const Tutorials: React.FC = () => {
             <CardContent  className={classes.content}>
               <div>
                 <div className={classes.titleBox}>
-                  <PlayCircleOutlineIcon className={classes.icon} style={{ color: '#EB5C0B' }}/>
+                  <PlayCircleOutlineIcon className={classes.icon} style={{ color: colorPrimary }}/>
                   <Typography variant="h6" component="h2">{post.title}</Typography>
                 </div>
                 <Typography variant="body2" color="textSecondary" component="p" className={classes.excerpt}>{post.excerpt}</Typography>

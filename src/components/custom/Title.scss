@@ -1,8 +1,10 @@
+@import '../../variables.scss';
+
 .page-title
 {
   margin: 0 0 2em -0;
   border-bottom: 5px solid #dedede;
-  border-top: 5px solid #009BE5;
+  border-top: 5px solid $color-primary;
 
   .outer
   {
