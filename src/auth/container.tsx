@@ -23,10 +23,6 @@ import {
   setAvatar,
   isUserMeta,
 } from '../redux/actions/user-meta';
-import {
-  selectTeam,
-} from '../redux/actions/team';
-import { createActions as createTeamMemberActions } from '../redux/actions/team-member';
 
 // Types
 import Redux from 'redux';
@@ -40,14 +36,7 @@ type DispatchProps = {
   ready: () => void;
   setLoggedIn: (loggedIn: boolean) => void;
   setUserMeta: (userMeta: Geolonia.User) => void;
-  selectTeam: (teamId: string) => void;
   setUserAvatar: (avatarImage: string | void) => void;
-  setTeamMemberAvatar: (
-    teamId: string,
-    userSub: string,
-    avatarImage: string | void
-  ) => void;
-  setTeamMembers: (teamId: string, members: Geolonia.Member[]) => void;
 };
 type Props = OwnProps & StateProps & DispatchProps;
 
@@ -163,13 +152,8 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
   ready: () => dispatch(ready()),
   setLoggedIn: (loggedIn) => dispatch(setLoggedIn(loggedIn)),
   setUserMeta: (userMeta) => dispatch(setUserMeta(userMeta)),
-  selectTeam: (teamId) => dispatch(selectTeam({ teamId })),
   setUserAvatar: (avatarImage) =>
     dispatch(setAvatar({avatarImage})),
-  setTeamMemberAvatar: (teamId, userSub, avatarImage) =>
-    dispatch(createTeamMemberActions.setAvatar(teamId, userSub, avatarImage)),
-  setTeamMembers: (teamId, members) =>
-    dispatch(createTeamMemberActions.set(teamId, members)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer);

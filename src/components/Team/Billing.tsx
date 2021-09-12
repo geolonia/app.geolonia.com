@@ -279,7 +279,7 @@ const Billing: React.FC = () => {
   const teamName = team?.name;
   const teamId = team?.teamId;
 
-  const { data: planDetails } = useGetTeamPlanQuery(teamId || '', {
+  const { data: planDetails, isFetching: planDetailsLoading } = useGetTeamPlanQuery(teamId || '', {
     skip: !team,
   });
 
@@ -307,7 +307,7 @@ const Billing: React.FC = () => {
           {sprintf(__('You can check and change your current pricing plan and usage status of Team %s.'), teamName)}
         </Title>
 
-        { (typeof planDetails !== 'undefined' && team) ? (
+        { (!planDetailsLoading && typeof planDetails !== 'undefined' && team) ? (
           <BillingInner
             team={team}
             planDetails={planDetails}

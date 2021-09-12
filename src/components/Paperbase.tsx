@@ -102,6 +102,10 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
     };
   }, [ history ]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [ currentTeam ]);
+
   if (!isReady) {
     return (
       <ThemeProvider theme={theme}>
