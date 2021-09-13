@@ -40,6 +40,7 @@ import { useCreateTeamMutation, useGetTeamsQuery } from '../redux/apis/app-api';
 import { selectTeam } from '../redux/actions/team';
 import { useHistory } from 'react-router';
 import { sleep } from '../lib/sleep';
+import { colorPrimary } from '../variables';
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -68,7 +69,7 @@ const styles = (theme: Theme) => ({
     color: theme.palette.common.white,
   },
   itemActiveItem: {
-    color: '#4fc3f7',
+    color: colorPrimary,
   },
   itemPrimary: {
     fontSize: 'inherit',

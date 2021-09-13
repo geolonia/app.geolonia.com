@@ -367,6 +367,7 @@
       "rows per page": ["表示する個数"],
       "Unsuspend": ["一時停止を解除"],
       "Suspend": ["一時停止"],
+      "Leave the team": ["チームから離脱"],
       "Remove from team": ["チームから削除"],
       "Successfully send invitation.": ["チームへの招待が送信されました。"],
       "Failed to send invitation.": ["招待の送信に失敗しました。"],
@@ -386,19 +387,21 @@
       ],
       "Receipient's email address": ["招待するユーザーのメールアドレス"],
       "Send": ["送信"],
+      "Remove": ["削除"],
+      "Leave": ["離脱"],
       "Removing 1 member from %s.": ["%s から1人のメンバーを削除します。"],
+      "Leave from %s.": ["%s から離脱します。"],
       "The following members will be removed:": [
         "以下のメンバーがチームから削除されます。"
       ],
-      "Remove": ["削除"],
-      "Suspend team members": ["メンバーの一時停止"],
-      "Unsuspend team members": ["メンバーの一時停止を解除"],
       "The following members will be suspended:": [
         "以下のメンバーによる操作が一時停止されます。"
       ],
       "The following members will be unsuspended:": [
         "以下のメンバーの一時停止が解除されます。"
       ],
+      "Suspend team members": ["メンバーの一時停止"],
+      "Unsuspend team members": ["メンバーの一時停止を解除"],
       "How to use the Dashboard": ["ダッシュボードの使い方"],
       "Learn about the easiest way to embed a Geolonia map in your website.": [
         "ウェブサイトに Geolonia の地図を埋め込む最も簡単な方法についてご紹介します。"

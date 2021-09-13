@@ -1,10 +1,11 @@
 import { createTheme } from '@material-ui/core/styles';
+import { colorPrimary } from '../variables';
 
 const themeBase = createTheme({
   palette: {
     primary: {
       light: '#63ccff',
-      main: '#009be5',
+      main: colorPrimary, // NOTE: .MuiButton-containedPrimary は CSS で上書きされているので、 color=primary は適用されていない
       dark: '#006db3',
     },
   },

@@ -10,6 +10,8 @@ import PersonIcon from '@material-ui/icons/Person';
 
 // libs
 import { __, sprintf } from '@wordpress/i18n';
+import { sleep } from '../../../lib/sleep';
+import { pageTransitionInterval } from '../../../constants';
 
 // Redux
 import { useDeleteTeamMemberMutation } from '../../../redux/apis/app-api';
@@ -19,10 +21,11 @@ type Props = {
   currentMember: Geolonia.Member;
   open: boolean;
   toggle: (open: boolean) => void;
+  mode: 'remove' | 'leave';
 };
 
 const RemoveMember: React.FC<Props> = (props) => {
-  const { currentMember, team, open, toggle } = props;
+  const { currentMember, team, open, toggle, mode } = props;
   const { teamId, name: teamName } = team;
   const [ deleteMember ] = useDeleteTeamMemberMutation();
   const [status, setStatus] = useState<
@@ -43,7 +46,11 @@ const RemoveMember: React.FC<Props> = (props) => {
     }
     setStatus('success');
     toggle(false);
-  }, [currentMember.userSub, deleteMember, teamId, toggle]);
+    if (mode === 'leave') {
+      await sleep(pageTransitionInterval);
+      window.location.reload();
+    }
+  }, [currentMember.userSub, deleteMember, mode, teamId, toggle]);
 
   return (
     <div>
@@ -55,7 +62,10 @@ const RemoveMember: React.FC<Props> = (props) => {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            {sprintf(__('Removing 1 member from %s.'), teamName)}
+            { mode === 'remove' ?
+              sprintf(__('Removing 1 member from %s.'), teamName) :
+              sprintf(__('Leave from %s.'), teamName)
+            }
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -80,7 +90,7 @@ const RemoveMember: React.FC<Props> = (props) => {
               {status === 'requesting' && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
               )}
-              {__('Remove')}
+              {mode === 'remove' ? __('Remove') : __('Leave')}
             </Button>
           </DialogActions>
         </Dialog>

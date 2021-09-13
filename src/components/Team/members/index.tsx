@@ -17,7 +17,7 @@ import Invite from './invite';
 import ChangeRole from './change-role';
 import Suspend from './suspend';
 import RemoveMember from './remove-member';
-import { Chip, Avatar, CircularProgress } from '@material-ui/core';
+import { Chip, Avatar, CircularProgress, Typography } from '@material-ui/core';
 import Alert from '../../custom/Alert';
 
 // utils
@@ -27,7 +27,7 @@ import { Roles } from '../../../constants';
 
 // Redux
 import { useGetTeamMembersQuery } from '../../../redux/apis/app-api';
-import { useSelectedTeam } from '../../../redux/hooks';
+import { useAppSelector, useSelectedTeam } from '../../../redux/hooks';
 
 type Row = {
   id: number | string;
@@ -35,6 +35,7 @@ type Row = {
   name: string;
   username: string;
   role: Geolonia.Role;
+  yourself: boolean;
 };
 
 const Members: React.FC = () => {
@@ -47,8 +48,10 @@ const Members: React.FC = () => {
   const [openSuspend, setOpenSuspend] = useState(false);
   const [openUnsuspend, setOpenUnsuspend] = useState(false);
   const [openRemoveMember, setOpenRemoveMember] = useState(false);
+  const [openLeave, setOpenLeave] = useState(false);
 
   const { selectedTeam } = useSelectedTeam();
+  const currentUsername = useAppSelector((state) => state.userMeta.username);
   const { data: members, isFetching } = useGetTeamMembersQuery(selectedTeam?.teamId || '', {
     skip: !selectedTeam,
   });
@@ -60,6 +63,7 @@ const Members: React.FC = () => {
       name: member.name,
       username: member.username,
       role: member.role,
+      yourself: member.username === currentUsername,
     };
   });
 
@@ -117,7 +121,7 @@ const Members: React.FC = () => {
 
   useEffect(() => {
     handleClose();
-  }, [openChangeRole, openSuspend, openUnsuspend, openRemoveMember, handleClose]);
+  }, [openChangeRole, openSuspend, openUnsuspend, openRemoveMember, openLeave, handleClose]);
 
   const breadcrumbItems = [
     {
@@ -192,6 +196,14 @@ const Members: React.FC = () => {
             currentMember={currentMember}
             open={openRemoveMember}
             toggle={setOpenRemoveMember}
+            mode={'remove'}
+          />
+          <RemoveMember
+            team={selectedTeam}
+            currentMember={currentMember}
+            open={openLeave}
+            toggle={setOpenLeave}
+            mode={'leave'}
           />
         </>
       )}
@@ -209,12 +221,14 @@ const Members: React.FC = () => {
                 {row.avatar ? (
                   <Avatar src={row.avatar} style={avatarStyle} />
                 ) : (
-                  <PersonIcon />
+                  <PersonIcon color={row.yourself ? 'primary' : undefined} />
                 )}
               </TableCell>
               <TableCell component="th" scope="row">
-                {row.name}
-                <br />@{row.username}
+                <Typography color={row.yourself ? 'primary' : undefined}>
+                  {row.name}
+                  <br />@{row.username}
+                </Typography>
               </TableCell>
               <TableCell align="center">
                 {row.role === Roles.Owner ? (
@@ -224,18 +238,27 @@ const Members: React.FC = () => {
                 ) : null}
               </TableCell>
               <TableCell align="right">
-                { !((numOwners < 2 && row.role === 'Owner') || isOwner === false) && (
-                  <Button
-                    variant="outlined"
-                    color="default"
-                    aria-controls="simple-menu"
-                    aria-haspopup="true"
-                    onClick={handleClick}
-                    value={index}
-                  >
-                    <BrightnessLowIcon style={iconStyle} />
-                  </Button>
-                ) }
+                {(() => {
+                  if (
+                    (numOwners < 2 && row.role === 'Owner') ||
+                    (!isOwner && !row.yourself)
+                  ) {
+                    // There is only one owner and the row is owner, so nothing to return.
+                  } else {
+                    return (
+                      <Button
+                        variant="outlined"
+                        color="default"
+                        aria-controls="simple-menu"
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                        value={index}
+                      >
+                        <BrightnessLowIcon style={iconStyle} />
+                      </Button>
+                    );
+                  }
+                })()}
               </TableCell>
             </TableRow>
           ))}
@@ -279,6 +302,7 @@ const Members: React.FC = () => {
             </Menu>
           );
         } else {
+          const yourself = currentMember.username === currentUsername;
           return (
             <Menu
               anchorEl={anchorEl}
@@ -287,21 +311,21 @@ const Members: React.FC = () => {
               onClose={handleClose}
             >
               {
-                currentMember.role !== Roles.Suspended &&
+                !yourself && currentMember.role !== Roles.Suspended &&
                   <MenuItem onClick={() => setOpenChangeRole(true)}>
                     {__('Change role')}
                   </MenuItem>
               }
-              {currentMember.role === Roles.Suspended ?
+              {!yourself && (currentMember.role === Roles.Suspended ?
                 <MenuItem onClick={() => setOpenUnsuspend(true)}>
                   {__('Unsuspend')}
                 </MenuItem> : (
                   <MenuItem onClick={() => setOpenSuspend(true)}>
                     {__('Suspend')}
                   </MenuItem>
-                )}
-              <MenuItem onClick={() => setOpenRemoveMember(true)}>
-                {__('Remove from team')}
+                ))}
+              <MenuItem onClick={() => yourself ? setOpenLeave(true) : setOpenRemoveMember(true)}>
+                {yourself ? __('Leave the team') : __('Remove from team')}
               </MenuItem>
             </Menu>
           );
