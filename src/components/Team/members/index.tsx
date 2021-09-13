@@ -18,7 +18,7 @@ import Invite from './invite';
 import ChangeRole from './change-role';
 import Suspend from './suspend';
 import RemoveMember from './remove-member';
-import { Chip, Avatar } from '@material-ui/core';
+import { Chip, Avatar, Typography } from '@material-ui/core';
 import Alert from '../../custom/Alert';
 
 // utils
@@ -32,18 +32,20 @@ type Row = {
   name: string;
   username: string;
   role: Geolonia.Role;
+  yourself: boolean;
 };
 
 type OwnProps = Record<string, never>;
 type StateProps = {
   team: Geolonia.Team | void;
   members: Geolonia.Member[];
+  currentUsername: string;
 };
 
 type Props = OwnProps & StateProps;
 
 const Members = (props: Props) => {
-  const { members } = props;
+  const { members, currentUsername } = props;
   const [currentMember, setCurrentMember] = useState<
     false | Geolonia.Member
   >(false);
@@ -53,10 +55,11 @@ const Members = (props: Props) => {
   const [openSuspend, setOpenSuspend] = useState(false);
   const [openUnsuspend, setOpenUnsuspend] = useState(false);
   const [openRemoveMember, setOpenRemoveMember] = useState(false);
+  const [openLeave, setOpenLeave] = useState(false);
 
   useEffect(() => {
     handleClose();
-  }, [openChangeRole, openSuspend, openUnsuspend, openRemoveMember]);
+  }, [openChangeRole, openSuspend, openUnsuspend, openRemoveMember, openLeave]);
   const rows: Row[] = members.map((member) => {
     return {
       id: member.userSub,
@@ -64,6 +67,7 @@ const Members = (props: Props) => {
       name: member.name,
       username: member.username,
       role: member.role,
+      yourself: member.username === currentUsername,
     };
   });
 
@@ -179,6 +183,13 @@ const Members = (props: Props) => {
             currentMember={currentMember}
             open={openRemoveMember}
             toggle={setOpenRemoveMember}
+            mode={'remove'}
+          />
+          <RemoveMember
+            currentMember={currentMember}
+            open={openLeave}
+            toggle={setOpenLeave}
+            mode={'leave'}
           />
         </>
       )}
@@ -196,12 +207,14 @@ const Members = (props: Props) => {
                 {row.avatar ? (
                   <Avatar src={row.avatar} style={avatarStyle} />
                 ) : (
-                  <PersonIcon />
+                  <PersonIcon color={row.yourself ? 'primary' : undefined} />
                 )}
               </TableCell>
               <TableCell component="th" scope="row">
-                {row.name}
-                <br />@{row.username}
+                <Typography color={row.yourself ? 'primary' : undefined}>
+                  {row.name}
+                  <br />@{row.username}
+                </Typography>
               </TableCell>
               <TableCell align="center">
                 {row.role === Roles.Owner ? (
@@ -214,7 +227,7 @@ const Members = (props: Props) => {
                 {(() => {
                   if (
                     (numOwners < 2 && row.role === 'Owner') ||
-                    isOwner === false
+                    (!isOwner && !row.yourself)
                   ) {
                     // There is only one owner and the row is owner, so nothing to return.
                   } else {
@@ -275,6 +288,7 @@ const Members = (props: Props) => {
             </Menu>
           );
         } else {
+          const yourself = currentMember.username === currentUsername;
           return (
             <Menu
               anchorEl={anchorEl}
@@ -283,21 +297,21 @@ const Members = (props: Props) => {
               onClose={handleClose}
             >
               {
-                currentMember.role !== Roles.Suspended &&
+                !yourself && currentMember.role !== Roles.Suspended &&
                   <MenuItem onClick={() => setOpenChangeRole(true)}>
                     {__('Change role')}
                   </MenuItem>
               }
-              {currentMember.role === Roles.Suspended ?
+              {!yourself && (currentMember.role === Roles.Suspended ?
                 <MenuItem onClick={() => setOpenUnsuspend(true)}>
                   {__('Unsuspend')}
                 </MenuItem> : (
                   <MenuItem onClick={() => setOpenSuspend(true)}>
                     {__('Suspend')}
                   </MenuItem>
-                )}
-              <MenuItem onClick={() => setOpenRemoveMember(true)}>
-                {__('Remove from team')}
+                ))}
+              <MenuItem onClick={() => yourself ? setOpenLeave(true) : setOpenRemoveMember(true)}>
+                {yourself ? __('Leave the team') : __('Remove from team')}
               </MenuItem>
             </Menu>
           );
@@ -317,7 +331,8 @@ export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
       members = memberObject.data;
     }
   }
-  return { team, members };
+  const { username: currentUsername } = state.userMeta;
+  return { team, members, currentUsername };
 };
 
 export default connect(mapStateToProps)(Members);

@@ -39,17 +39,17 @@ msgstr ""
 #: src/components/Data/GeoJsons.tsx:91
 #: src/components/Maps/APIKey.tsx:115
 #: src/components/Maps/APIKeys.tsx:44
-#: src/components/Navigator.tsx:261
+#: src/components/Navigator.tsx:262
 #: src/components/Team/Billing.tsx:360
 #: src/components/Team/general/index.tsx:28
-#: src/components/Team/members/index.tsx:122
+#: src/components/Team/members/index.tsx:126
 #: src/components/User/User.tsx:13
 msgid "Home"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:104
 #: src/components/Data/GeoJsons.tsx:95
-#: src/components/Navigator.tsx:170
+#: src/components/Navigator.tsx:171
 msgid "Map"
 msgstr ""
 
@@ -129,7 +129,7 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:353
 #: src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:337
+#: src/components/Navigator.tsx:338
 #: src/components/User/profile.tsx:129
 #: src/components/custom/AddNew.tsx:37
 #: src/components/custom/Delete.tsx:125
@@ -491,41 +491,41 @@ msgstr ""
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
-#: src/components/Navigator.tsx:111
+#: src/components/Navigator.tsx:112
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:134
+#: src/components/Navigator.tsx:135
 #: src/components/Team/general/index.tsx:41
 msgid "General"
 msgstr ""
 
-#: src/components/Navigator.tsx:139
-#: src/components/Team/members/index.tsx:142
+#: src/components/Navigator.tsx:140
+#: src/components/Team/members/index.tsx:146
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:147
+#: src/components/Navigator.tsx:148
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:155
+#: src/components/Navigator.tsx:156
 msgid "Manage API keys"
 msgstr ""
 
-#: src/components/Navigator.tsx:174
+#: src/components/Navigator.tsx:175
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:178
+#: src/components/Navigator.tsx:179
 msgid "Documentation"
 msgstr ""
 
-#: src/components/Navigator.tsx:181
+#: src/components/Navigator.tsx:182
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:314
+#: src/components/Navigator.tsx:315
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
@@ -533,11 +533,11 @@ msgid ""
 "target=\"_blank\">contact us</a>."
 msgstr ""
 
-#: src/components/Navigator.tsx:327
+#: src/components/Navigator.tsx:328
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:331
+#: src/components/Navigator.tsx:332
 msgid "Please enter the name of new team."
 msgstr ""
 
@@ -684,7 +684,7 @@ msgstr ""
 
 #: src/components/Team/Billing.tsx:364
 #: src/components/Team/general/index.tsx:32
-#: src/components/Team/members/index.tsx:126
+#: src/components/Team/members/index.tsx:130
 msgid "Team settings"
 msgstr ""
 
@@ -848,8 +848,8 @@ msgstr ""
 
 #: src/components/Team/general/delete.tsx:145
 #: src/components/Team/members/change-role.tsx:163
-#: src/components/Team/members/remove-member.tsx:89
-#: src/components/Team/members/suspend.tsx:122
+#: src/components/Team/members/remove-member.tsx:97
+#: src/components/Team/members/suspend.tsx:119
 #: src/components/custom/AddNew.tsx:155
 #: src/components/custom/Cancel.tsx:18
 #: src/components/custom/Delete.tsx:141
@@ -893,7 +893,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:101
-#: src/components/Team/members/index.tsx:288
+#: src/components/Team/members/index.tsx:302
 msgid "Change role"
 msgstr ""
 
@@ -908,7 +908,7 @@ msgid "Select a new role of %s."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:127
-#: src/components/Team/members/index.tsx:208
+#: src/components/Team/members/index.tsx:221
 msgid "Owner"
 msgstr ""
 
@@ -941,39 +941,43 @@ msgid "Can manage all resources in the team, including API Keys."
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:174
-#: src/components/Team/members/suspend.tsx:128
+#: src/components/Team/members/suspend.tsx:125
 #: src/components/custom/AddNew.tsx:40
 #: src/components/custom/Save.tsx:27
 msgid "Save"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:143
+#: src/components/Team/members/index.tsx:147
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:147
+#: src/components/Team/members/index.tsx:151
 msgid "You currently can not invite any new members."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:210
+#: src/components/Team/members/index.tsx:223
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:248
+#: src/components/Team/members/index.tsx:261
 #: src/components/custom/AsyncTable.tsx:139
 #: src/components/custom/Table.tsx:141
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:293
+#: src/components/Team/members/index.tsx:307
 msgid "Unsuspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:296
+#: src/components/Team/members/index.tsx:310
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:300
+#: src/components/Team/members/index.tsx:314
+msgid "Leave the team"
+msgstr ""
+
+#: src/components/Team/members/index.tsx:314
 msgid "Remove from team"
 msgstr ""
 
@@ -1017,85 +1021,93 @@ msgstr ""
 msgid "Send"
 msgstr ""
 
-#: src/components/Team/members/remove-member.tsx:70
-msgid "Removing 1 member from %s."
-msgstr ""
-
-#: src/components/Team/members/remove-member.tsx:74
-msgid "The following members will be removed:"
-msgstr ""
-
-#: src/components/Team/members/remove-member.tsx:95
+#: src/components/Team/members/remove-member.tsx:103
 msgid "Remove"
 msgstr ""
 
-#: src/components/Team/members/suspend.tsx:101
-msgid "Suspend team members"
+#: src/components/Team/members/remove-member.tsx:103
+msgid "Leave"
 msgstr ""
 
-#: src/components/Team/members/suspend.tsx:101
-msgid "Unsuspend team members"
+#: src/components/Team/members/remove-member.tsx:76
+msgid "Removing 1 member from %s."
 msgstr ""
 
-#: src/components/Team/members/suspend.tsx:107
+#: src/components/Team/members/remove-member.tsx:77
+msgid "Leave from %s."
+msgstr ""
+
+#: src/components/Team/members/remove-member.tsx:82
+msgid "The following members will be removed:"
+msgstr ""
+
+#: src/components/Team/members/suspend.tsx:104
 msgid "The following members will be suspended:"
 msgstr ""
 
-#: src/components/Team/members/suspend.tsx:108
+#: src/components/Team/members/suspend.tsx:105
 msgid "The following members will be unsuspended:"
 msgstr ""
 
-#: src/components/Tutorials.tsx:16
+#: src/components/Team/members/suspend.tsx:98
+msgid "Suspend team members"
+msgstr ""
+
+#: src/components/Team/members/suspend.tsx:98
+msgid "Unsuspend team members"
+msgstr ""
+
+#: src/components/Tutorials.tsx:18
 msgid "How to use the Dashboard"
 msgstr ""
 
-#: src/components/Tutorials.tsx:17
+#: src/components/Tutorials.tsx:19
 msgid "Learn about the easiest way to embed a Geolonia map in your website."
 msgstr ""
 
-#: src/components/Tutorials.tsx:22
+#: src/components/Tutorials.tsx:24
 msgid "Embed API"
 msgstr ""
 
-#: src/components/Tutorials.tsx:23
+#: src/components/Tutorials.tsx:25
 msgid ""
 "Learn about the Embed API, which enables you to set up a map with a simple "
 "HTML code."
 msgstr ""
 
-#: src/components/Tutorials.tsx:28
+#: src/components/Tutorials.tsx:30
 msgid "JavaScript API"
 msgstr ""
 
-#: src/components/Tutorials.tsx:29
+#: src/components/Tutorials.tsx:31
 msgid ""
 "Learn how to develop a professional map application using the JavaScript "
 "API."
 msgstr ""
 
-#: src/components/Tutorials.tsx:34
+#: src/components/Tutorials.tsx:36
 msgid "Custom Style"
 msgstr ""
 
-#: src/components/Tutorials.tsx:35
+#: src/components/Tutorials.tsx:37
 msgid "Learn how to customize the style of your map."
 msgstr ""
 
-#: src/components/Tutorials.tsx:37
+#: src/components/Tutorials.tsx:39
 msgid "Read More"
 msgstr ""
 
-#: src/components/Tutorials.tsx:40
+#: src/components/Tutorials.tsx:42
 msgid "Support"
 msgstr ""
 
-#: src/components/Tutorials.tsx:41
+#: src/components/Tutorials.tsx:43
 msgid ""
 "Please contact us if you have any questions about how to use the admin "
 "panel or if you need technical support (which may be paid)."
 msgstr ""
 
-#: src/components/Tutorials.tsx:43
+#: src/components/Tutorials.tsx:45
 msgid "Contact support"
 msgstr ""
 

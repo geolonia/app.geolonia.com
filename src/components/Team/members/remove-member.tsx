@@ -10,6 +10,7 @@ import PersonIcon from '@material-ui/icons/Person';
 
 // libs
 import { __, sprintf } from '@wordpress/i18n';
+import { sleep } from '../../../lib/sleep';
 
 // API
 import deleteMember from '../../../api/members/delete';
@@ -19,10 +20,13 @@ import { connect } from 'react-redux';
 import { createActions as createTeamMemberActions } from '../../../redux/actions/team-member';
 import Redux from 'redux';
 
+import { pageTransitionInterval } from '../../../constants';
+
 type OwnProps = {
   currentMember: Geolonia.Member;
   open: boolean;
   toggle: (open: boolean) => void;
+  mode: 'remove' | 'leave';
 };
 type StateProps = {
   session: Geolonia.Session;
@@ -35,26 +39,27 @@ type DispatchProps = {
 type Props = OwnProps & StateProps & DispatchProps;
 
 const RemoveMember = (props: Props) => {
-  const { currentMember, teamName, open, toggle, deleteMemberState } = props;
+  const { currentMember, teamName, open, toggle, deleteMemberState, mode } = props;
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
   >(false);
   const [message, setMessage] = useState('');
 
-  const onRemoveClick = () => {
+  const onRemoveClick = async () => {
     setStatus('requesting');
-    deleteMember(props.session, props.teamId, currentMember.userSub).then(
-      (result) => {
-        if (result.error) {
-          setStatus('failure');
-          setMessage(result.message);
-        } else {
-          setStatus('success');
-          deleteMemberState(props.teamId, currentMember.userSub);
-          toggle(false);
-        }
-      },
-    );
+    const result = await deleteMember(props.session, props.teamId, currentMember.userSub);
+    if (result.error) {
+      setStatus('failure');
+      setMessage(result.message);
+    } else {
+      setStatus('success');
+      deleteMemberState(props.teamId, currentMember.userSub);
+      toggle(false);
+      if(mode === 'leave') {
+        await sleep(pageTransitionInterval);
+        window.location.reload();
+      }
+    }
   };
 
   return (
@@ -67,7 +72,10 @@ const RemoveMember = (props: Props) => {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            {sprintf(__('Removing 1 member from %s.'), teamName)}
+            { mode === 'remove' ?
+              sprintf(__('Removing 1 member from %s.'), teamName) :
+              sprintf(__('Leave from %s.'), teamName)
+            }
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -92,7 +100,7 @@ const RemoveMember = (props: Props) => {
               {status === 'requesting' && (
                 <CircularProgress size={16} style={{ marginRight: 8 }} />
               )}
-              {__('Remove')}
+              {mode === 'remove' ? __('Remove') : __('Leave')}
             </Button>
           </DialogActions>
         </Dialog>
