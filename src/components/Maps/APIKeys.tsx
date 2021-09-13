@@ -21,10 +21,10 @@ import { CircularProgress } from '@material-ui/core';
 const ApiKeys: React.FC = () => {
   const { push } = useHistory();
   const username = useAppSelector((state) => state.userMeta.name);
-  const team = useSelectedTeam();
-  const teamId = team?.teamId || '';
+  const { selectedTeam } = useSelectedTeam();
+  const teamId = selectedTeam?.teamId || '';
   const { data: mapKeys, isFetching } = useGetApiKeysQuery(teamId, {
-    skip: !team,
+    skip: !selectedTeam,
   });
   const [ createApiKey ] = useCreateApiKeyMutation();
   const [message, setMessage] = useState('');

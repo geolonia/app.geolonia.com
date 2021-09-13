@@ -274,13 +274,13 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
 };
 
 const Billing: React.FC = () => {
-  const team = useSelectedTeam();
-  const isOwner = team?.role === Roles.Owner;
-  const teamName = team?.name;
-  const teamId = team?.teamId;
+  const { selectedTeam } = useSelectedTeam();
+  const isOwner = selectedTeam?.role === Roles.Owner;
+  const teamName = selectedTeam?.name;
+  const teamId = selectedTeam?.teamId;
 
   const { data: planDetails, isFetching: planDetailsLoading } = useGetTeamPlanQuery(teamId || '', {
-    skip: !team,
+    skip: !selectedTeam,
   });
 
   const breadcrumbItems = [
@@ -294,9 +294,9 @@ const Billing: React.FC = () => {
     },
   ];
 
-  if (!team || !teamId) return null;
+  if (!selectedTeam || !teamId) return null;
 
-  if (team && team.billingMode !== 'STRIPE') {
+  if (selectedTeam && selectedTeam.billingMode !== 'STRIPE') {
     return <Redirect to="/" />;
   }
 
@@ -307,9 +307,9 @@ const Billing: React.FC = () => {
           {sprintf(__('You can check and change your current pricing plan and usage status of Team %s.'), teamName)}
         </Title>
 
-        { (!planDetailsLoading && typeof planDetails !== 'undefined' && team) ? (
+        { (!planDetailsLoading && typeof planDetails !== 'undefined' && selectedTeam) ? (
           <BillingInner
-            team={team}
+            team={selectedTeam}
             planDetails={planDetails}
           />
         ) : (

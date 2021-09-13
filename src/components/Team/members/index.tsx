@@ -48,9 +48,9 @@ const Members: React.FC = () => {
   const [openUnsuspend, setOpenUnsuspend] = useState(false);
   const [openRemoveMember, setOpenRemoveMember] = useState(false);
 
-  const team = useSelectedTeam();
-  const { data: members, isFetching } = useGetTeamMembersQuery(team?.teamId || '', {
-    skip: !team,
+  const { selectedTeam } = useSelectedTeam();
+  const { data: members, isFetching } = useGetTeamMembersQuery(selectedTeam?.teamId || '', {
+    skip: !selectedTeam,
   });
 
   const rows: Row[] = (members || []).map((member) => {
@@ -131,14 +131,14 @@ const Members: React.FC = () => {
   ];
 
   let isOwner = false;
-  if (team) {
-    isOwner = team.role === Roles.Owner;
+  if (selectedTeam) {
+    isOwner = selectedTeam.role === Roles.Owner;
   }
 
   const inviteDisabled =
-    !isOwner || !( team && (team.maxMemberLength > (members || []).length));
+    !isOwner || !( selectedTeam && (selectedTeam.maxMemberLength > (members || []).length));
 
-  if (isFetching || !team) {
+  if (isFetching || !selectedTeam) {
     return <CircularProgress />;
   }
 
@@ -158,7 +158,7 @@ const Members: React.FC = () => {
 
       { isOwner &&
         <Invite
-          team={team}
+          team={selectedTeam}
           members={members || []}
           disabled={inviteDisabled}
         />
@@ -168,27 +168,27 @@ const Members: React.FC = () => {
       {currentMember && (
         <>
           <ChangeRole
-            team={team}
+            team={selectedTeam}
             currentMember={currentMember}
             open={openChangeRole}
             toggle={setOpenChangeRole}
           />
           <Suspend
-            team={team}
+            team={selectedTeam}
             currentMember={currentMember}
             open={openSuspend}
             toggle={setOpenSuspend}
             mode={'suspending'}
           />
           <Suspend
-            team={team}
+            team={selectedTeam}
             currentMember={currentMember}
             open={openUnsuspend}
             toggle={setOpenUnsuspend}
             mode={'unsuspending'}
           />
           <RemoveMember
-            team={team}
+            team={selectedTeam}
             currentMember={currentMember}
             open={openRemoveMember}
             toggle={setOpenRemoveMember}

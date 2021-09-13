@@ -15,8 +15,8 @@ import { Roles } from '../../../constants';
 import { useSelectedTeam } from '../../../redux/hooks';
 
 const General: React.FC = () => {
-  const team = useSelectedTeam();
-  const role = team && team.role;
+  const { selectedTeam } = useSelectedTeam();
+  const role = selectedTeam && selectedTeam.role;
 
   const breadcrumbItems = [
     {

@@ -42,26 +42,26 @@ const TeamDeletion: React.FC = () => {
     false | 'requesting' | 'success' | 'failure'
   >(false);
 
-  const team = useSelectedTeam();
+  const { selectedTeam } = useSelectedTeam();
   const { data: teams } = useGetTeamsQuery();
   const [ deleteTeam ] = useDeleteTeamMutation();
   const teamLength = (teams && teams.length) || 0;
 
   const saveHandler = useCallback(async () => {
-    if (!team) return;
+    if (!selectedTeam) return;
     if (confirmation.toUpperCase() !== 'DELETE') {
       return;
     }
 
     setStatus('requesting');
-    await deleteTeam(team.teamId);
+    await deleteTeam(selectedTeam.teamId);
 
     setConfirmation('');
     setStatus('success');
     history.push('/');
-  }, [confirmation, deleteTeam, history, team]);
+  }, [confirmation, deleteTeam, history, selectedTeam]);
 
-  if (!team) return null;
+  if (!selectedTeam) return null;
 
   return (
     <div style={styleDangerZone}>
@@ -107,7 +107,7 @@ const TeamDeletion: React.FC = () => {
                   __(
                     'Please enter <code>delete</code> if you really want to delete the team <strong>%1$s</strong>.',
                   ),
-                  team.name,
+                  selectedTeam.name,
                 )}
               />
             </DialogContentText>

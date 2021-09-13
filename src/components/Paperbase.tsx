@@ -88,7 +88,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
   const handleDrawerToggle = useCallback(() => setMobileOpen((mobileOpen) => !mobileOpen), []);
   const { classes } = props;
   const { isReady, isLoggedIn } = useAppSelector((state) => state.authSupport);
-  const currentTeam = useSelectedTeam();
+  const { selectedTeam } = useSelectedTeam();
 
   useEffect(() => {
     if (!history) return;
@@ -104,7 +104,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [ currentTeam ]);
+  }, [ selectedTeam?.teamId ]);
 
   if (!isReady) {
     return (
@@ -159,7 +159,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
             <div className={classes.appContent}>
               <Header onDrawerToggle={handleDrawerToggle} />
               <main className={classes.mainContent}>
-                {currentTeam && currentTeam.role === Roles.Suspended && (
+                {selectedTeam && selectedTeam.role === Roles.Suspended && (
                   <Alert type={'warning'}>
                     {__('You are suspended. Please contact the team owner.')}
                   </Alert>

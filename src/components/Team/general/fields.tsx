@@ -10,21 +10,9 @@ import { Roles } from '../../../constants';
 import { useSelectedTeam } from '../../../redux/hooks';
 import { useUpdateTeamMutation } from '../../../redux/apis/app-api';
 
-// type OwnProps = Record<string, never>;
-// type StateProps = {
-//   session: Geolonia.Session;
-//   selectedIndex: number;
-//   team: Geolonia.Team;
-// };
-// type DispatchProps = {
-//   updateTeamState: (index: number, team: Partial<Geolonia.Team>) => void;
-// };
-// type Props = OwnProps & StateProps & DispatchProps;
-
 const Content: React.FC = (props) => {
   // props
-  // const { session, team, selectedIndex, updateTeamState } = props;
-  const team = useSelectedTeam();
+  const { selectedTeam } = useSelectedTeam();
 
   const [
     updateTeam,
@@ -40,17 +28,17 @@ const Content: React.FC = (props) => {
 
   // effects
   //// clear draft on Team change
-  useEffect(() => setDraft({}), [team]);
+  useEffect(() => setDraft({}), [selectedTeam]);
 
   const onSaveClick = useCallback(async () => {
-    if (!team) return;
+    if (!selectedTeam) return;
 
-    await updateTeam({ teamId: team.teamId, updates: draft });
+    await updateTeam({ teamId: selectedTeam.teamId, updates: draft });
     setDraft({});
-  }, [draft, team, updateTeam]);
+  }, [draft, selectedTeam, updateTeam]);
 
   const draftExists = Object.keys(draft).length !== 0;
-  const isOwner = team?.role === Roles.Owner;
+  const isOwner = selectedTeam?.role === Roles.Owner;
 
   let saveDisabled = !draftExists || !isOwner;
   if (typeof draft.name === 'string') {
@@ -66,7 +54,7 @@ const Content: React.FC = (props) => {
         label={__('Team Name')}
         margin="normal"
         fullWidth={true}
-        value={(draft.name === void 0 ? team?.name : draft.name) || ''}
+        value={(draft.name === void 0 ? selectedTeam?.name : draft.name) || ''}
         onChange={(e) => setDraft({ ...draft, name: e.target.value })}
         disabled={isOwner !== true}
         onBlur={onNameBlur}
@@ -99,7 +87,7 @@ const Content: React.FC = (props) => {
         label={__('Billing email')}
         required={true}
         disabled={isOwner !== true}
-        value={(draft.billingEmail === void 0 ? team?.billingEmail : draft.billingEmail) || ''}
+        value={(draft.billingEmail === void 0 ? selectedTeam?.billingEmail : draft.billingEmail) || ''}
         onChange={useCallback((e) => {
           setDraft((draft) => ({ ...draft, billingEmail: e.target.value }));
         }, [])}

@@ -14,7 +14,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { avatarLimitSize, Roles } from '../../../constants';
 
 // redux
-import { useSelectedTeam, useAvatarImage, useAppDispatch } from '../../../redux/hooks';
+import { useSelectedTeam, useImageFromURL, useAppDispatch } from '../../../redux/hooks';
 import { useUpdateTeamAvatarMutation } from '../../../redux/apis/app-api';
 import { setAvatar } from '../../../redux/actions/avatar';
 
@@ -35,14 +35,20 @@ const Content: React.FC = () => {
   const [message, setMessage] = useState('');
 
   const [ uploadAvatar ] = useUpdateTeamAvatarMutation();
-  const team = useSelectedTeam();
-  const teamAvatar = useAvatarImage(team?.teamId, team?.links.getAvatar || '');
+  const { selectedTeam, refetch: refetchTeam } = useSelectedTeam();
+  const teamAvatar = useImageFromURL(
+    selectedTeam?.teamId,
+    selectedTeam?.links.getAvatar || '',
+    {
+      onError: refetchTeam,
+    },
+  );
 
   // refs
   const refContainer = useRef<HTMLInputElement | null>(null);
 
   const onFileSelected = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!team) return;
+    if (!selectedTeam) return;
 
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
@@ -65,20 +71,20 @@ const Content: React.FC = () => {
 
       setStatus('requesting');
 
-      dispatch(setAvatar({ key: team.teamId, value: avatarUrl }));
+      dispatch(setAvatar({ key: selectedTeam.teamId, value: avatarUrl }));
       const resp = await uploadAvatar({
-        teamId: team.teamId,
+        teamId: selectedTeam.teamId,
         file,
       });
       if ('error' in resp) {
         setStatus('failure');
         setMessage(JSON.stringify(resp.error));
-        dispatch(setAvatar({ key: team.teamId, value: prevAvatarUrl }));
+        dispatch(setAvatar({ key: selectedTeam.teamId, value: prevAvatarUrl }));
         return;
       }
       setStatus('success');
     }
-  }, [dispatch, team, teamAvatar, uploadAvatar]);
+  }, [dispatch, selectedTeam, teamAvatar, uploadAvatar]);
 
   const onUploadClick = useCallback(() => {
     setMessage('');
@@ -88,8 +94,8 @@ const Content: React.FC = () => {
     }
   }, []);
 
-  const isUploadEnabled = !!team?.links.putAvatar;
-  const isOwner = team?.role === Roles.Owner;
+  const isUploadEnabled = !!selectedTeam?.links.putAvatar;
+  const isOwner = selectedTeam?.role === Roles.Owner;
 
   const buttonDisabled = !(isUploadEnabled && isOwner);
 

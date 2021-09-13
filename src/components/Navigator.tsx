@@ -35,7 +35,7 @@ import { __ } from '@wordpress/i18n';
 import { useLocation } from 'react-router-dom';
 
 // types
-import { useAppDispatch, useAppSelector, useAvatarImage, useSelectedTeam } from '../redux/hooks';
+import { useAppDispatch, useAppSelector, useImageFromURL, useSelectedTeam } from '../redux/hooks';
 import { useCreateTeamMutation, useGetTeamsQuery } from '../redux/apis/app-api';
 import { selectTeam } from '../redux/actions/team';
 import { useHistory } from 'react-router';
@@ -115,9 +115,13 @@ const Navigator: React.FC<Props> = (props) => {
   );
 
   const { data: teams } = useGetTeamsQuery();
-  const selectedTeam = useSelectedTeam();
-  const teamAvatar = useAvatarImage(
-    selectedTeam?.teamId, selectedTeam?.links.getAvatar || '',
+  const { selectedTeam, refetch: refetchTeam } = useSelectedTeam();
+  const teamAvatar = useImageFromURL(
+    selectedTeam?.teamId,
+    selectedTeam?.links.getAvatar || '',
+    {
+      onError: refetchTeam,
+    },
   );
 
   const teamSettingsChildren = [

@@ -13,9 +13,14 @@ import type { RootState, AppDispatch } from './store';
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-export const useSelectedTeam: () => Geolonia.Team | null = () => {
+type SelectedTeamResult = {
+  selectedTeam: Geolonia.Team | null
+  isLoading: boolean
+  refetch: () => void
+}
+export const useSelectedTeam: () => SelectedTeamResult = () => {
   const dispatch = useAppDispatch();
-  const { data: teams, isLoading } = useGetTeamsQuery();
+  const { data: teams, isLoading, refetch } = useGetTeamsQuery();
   const selectedTeamId = useAppSelector((state) => state.team.selectedTeamId);
 
   const selectedTeam = useMemo(() => {
@@ -31,18 +36,31 @@ export const useSelectedTeam: () => Geolonia.Team | null = () => {
     return teams.find((team) => team.teamId === selectedTeamId) || teams[0];
   }, [ isLoading, dispatch, teams, selectedTeamId ]);
 
-  return selectedTeam;
+  return {
+    selectedTeam,
+    isLoading,
+    refetch,
+  };
 };
 
 export const useUserLanguage = () => {
   return useAppSelector((state) => state.userMeta.language);
 };
 
-const __loadingAvatars: Set<string> = new Set();
+const __loadingImages: Set<string> = new Set();
 
-export const useAvatarImage: (key?: string, imageUrl?: string) => string | undefined = (key, imageUrl) => {
+type UseImageFromURLHook = (
+  key?: string,
+  imageUrl?: string,
+  opts?: {
+    onError?: () => void,
+  },
+) => string | undefined
+export const useImageFromURL: UseImageFromURLHook = (key, imageUrl, opts) => {
   const dispatch = useAppDispatch();
   const avatar = useAppSelector((state) => state.avatar.cachedAvatars[key || 'never']);
+
+  const { onError } = (opts || {});
 
   useEffect(() => {
     // If key doesn't exist, we can't load it yet.
@@ -53,17 +71,22 @@ export const useAvatarImage: (key?: string, imageUrl?: string) => string | undef
     if (typeof avatar !== 'undefined') return;
     // If there has already been a request to load this avatar, we'll wait
     // for the next one.
-    if (__loadingAvatars.has(key)) return;
+    if (__loadingImages.has(key)) return;
 
-    __loadingAvatars.add(key);
+    __loadingImages.add(key);
     (async () => {
       const resp = await fetch(imageUrl);
+      if (!resp.ok) {
+        __loadingImages.delete(key);
+        if (typeof onError !== 'undefined') onError();
+        return;
+      }
       const blob = await resp.blob();
       const url = URL.createObjectURL(blob);
-      __loadingAvatars.delete(key);
+      __loadingImages.delete(key);
       dispatch(setAvatar({ key, value: url }));
     })();
-  }, [key, avatar, imageUrl, dispatch]);
+  }, [key, avatar, imageUrl, dispatch, onError]);
 
   return avatar;
 };

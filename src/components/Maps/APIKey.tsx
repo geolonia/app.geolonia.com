@@ -36,10 +36,10 @@ interface ApiKeyFormControlsCollection extends HTMLFormControlsCollection {
 const Content: React.FC = () => {
   const history = useHistory();
   const match = useRouteMatch<{id: string}>();
-  const team = useSelectedTeam();
-  const teamId = team?.teamId || '';
+  const { selectedTeam } = useSelectedTeam();
+  const teamId = selectedTeam?.teamId || '';
   const { data: mapKeys, isLoading } = useGetApiKeysQuery(teamId, {
-    skip: !team,
+    skip: !selectedTeam,
   });
   const mapKey = mapKeys?.find((mapKey) => mapKey.keyId === match.params.id);
 
