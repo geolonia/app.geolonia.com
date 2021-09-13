@@ -41,7 +41,7 @@ const RemoveMember: React.FC<Props> = (props) => {
     });
     if ('error' in res) {
       setStatus('failure');
-      setMessage('failure');
+      setMessage(__('An unexpected error occurred. Please try again.'));
       return;
     }
     setStatus('success');

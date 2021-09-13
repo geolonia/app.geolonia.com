@@ -144,7 +144,7 @@ const Content: React.FC = () => {
     const result = await updateKey({teamId, keyId, updates: nextKey});
     if ('error' in result) {
       setStatus('failure');
-      setMessage('Failure');
+      setMessage(__('An unexpected error occurred. Please try again.'));
       throw new Error(JSON.stringify(result));
     }
     mixpanel.track('Update API key', {
