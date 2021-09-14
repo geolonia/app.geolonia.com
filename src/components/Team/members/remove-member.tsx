@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,56 +11,46 @@ import PersonIcon from '@material-ui/icons/Person';
 // libs
 import { __, sprintf } from '@wordpress/i18n';
 import { sleep } from '../../../lib/sleep';
-
-// API
-import deleteMember from '../../../api/members/delete';
-
-// Redux
-import { connect } from 'react-redux';
-import { createActions as createTeamMemberActions } from '../../../redux/actions/team-member';
-import Redux from 'redux';
-
 import { pageTransitionInterval } from '../../../constants';
 
-type OwnProps = {
+// Redux
+import { useDeleteTeamMemberMutation } from '../../../redux/apis/app-api';
+
+type Props = {
+  team: Geolonia.Team;
   currentMember: Geolonia.Member;
   open: boolean;
   toggle: (open: boolean) => void;
   mode: 'remove' | 'leave';
 };
-type StateProps = {
-  session: Geolonia.Session;
-  teamId: string;
-  teamName: string;
-};
-type DispatchProps = {
-  deleteMemberState: (teamId: string, memberSub: string) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
 
-const RemoveMember = (props: Props) => {
-  const { currentMember, teamName, open, toggle, deleteMemberState, mode } = props;
+const RemoveMember: React.FC<Props> = (props) => {
+  const { currentMember, team, open, toggle, mode } = props;
+  const { teamId, name: teamName } = team;
+  const [ deleteMember ] = useDeleteTeamMemberMutation();
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
   >(false);
   const [message, setMessage] = useState('');
 
-  const onRemoveClick = async () => {
+  const onRemoveClick = useCallback(async () => {
     setStatus('requesting');
-    const result = await deleteMember(props.session, props.teamId, currentMember.userSub);
-    if (result.error) {
+    const res = await deleteMember({
+      teamId,
+      memberSub: currentMember.userSub,
+    });
+    if ('error' in res) {
       setStatus('failure');
-      setMessage(result.message);
-    } else {
-      setStatus('success');
-      deleteMemberState(props.teamId, currentMember.userSub);
-      toggle(false);
-      if(mode === 'leave') {
-        await sleep(pageTransitionInterval);
-        window.location.reload();
-      }
+      setMessage(__('An unexpected error occurred. Please try again.'));
+      return;
     }
-  };
+    setStatus('success');
+    toggle(false);
+    if (mode === 'leave') {
+      await sleep(pageTransitionInterval);
+      window.location.reload();
+    }
+  }, [currentMember.userSub, deleteMember, mode, teamId, toggle]);
 
   return (
     <div>
@@ -109,18 +99,4 @@ const RemoveMember = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
-  return {
-    session: state.authSupport.session,
-    teamId: team.teamId,
-    teamName: team.name,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  deleteMemberState: (teamId, userSub) =>
-    dispatch(createTeamMemberActions.delete(teamId, userSub)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(RemoveMember);
+export default RemoveMember;

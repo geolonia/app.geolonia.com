@@ -22,7 +22,9 @@ import { useInvitationToken } from '../hooks/invitation-token';
 
 // Redux
 import Redux from 'redux';
-import { createActions } from '../redux/actions/auth-support';
+import {
+  setAccessToken,
+} from '../redux/actions/auth-support';
 import { connect } from 'react-redux';
 
 // constants
@@ -210,7 +212,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
 });
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setAccessToken: (accessToken: string) =>
-    dispatch(createActions.setAccessToken(accessToken)),
+    dispatch(setAccessToken({accessToken})),
 });
 const ConnectedContent = connect(mapStateToProps, mapDispatchToProps)(Signin);
 

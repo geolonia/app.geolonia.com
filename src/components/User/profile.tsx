@@ -15,13 +15,17 @@ import momentTimeZone from 'moment-timezone';
 
 // Redux
 import { connect } from 'react-redux';
-import { createActions as createUserActions } from '../../redux/actions/user-meta';
+import {
+  set as setUserMeta,
+} from '../../redux/actions/user-meta';
 
 // types
 import { Dispatch } from 'redux';
+import { getSession } from '../../auth';
+import { RootState } from '../../redux/store';
 
 type OwnProps = Record<string, never>;
-type StateProps = { session: Geolonia.Session; user: Geolonia.User };
+type StateProps = { user: Geolonia.User };
 type DispatchProps = {
   updateUser: (nextUser: Geolonia.User) => void;
 };
@@ -73,21 +77,21 @@ export class Profile extends React.Component<Props, State> {
   onLanguageChange = (e: any) => this._setUserMeta('language', e.target.value);
   onTimezoneChange = (e: any) => this._setUserMeta('timezone', e.target.value);
 
-  onSaveClick = (e: any) => {
-    const { session, user } = this.props;
+  onSaveClick = async (e: any) => {
+    const session = await getSession();
+    const { user } = this.props;
     const nextUser = { ...user, ...this.state.user };
 
     // Error Handling
-    return updateUser(session, nextUser).then((result) => {
-      if (result.error) {
-        throw new Error(result.code);
-      }
-      this.props.updateUser(nextUser);
-      // wait to show success effect
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    });
+    const result = await updateUser(session, nextUser);
+    if (result.error) {
+      throw new Error(result.code);
+    }
+    this.props.updateUser(nextUser);
+    // wait to show success effect
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   };
 
   timezones = momentTimeZone.tz.names();
@@ -168,14 +172,13 @@ export class Profile extends React.Component<Props, State> {
   }
 }
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-  session: state.authSupport.session,
+const mapStateToProps = (state: RootState): StateProps => ({
   user: state.userMeta,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
   updateUser: (nextUser: Geolonia.User) =>
-    dispatch(createUserActions.set(nextUser)),
+    dispatch(setUserMeta(nextUser)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

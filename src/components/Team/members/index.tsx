@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 // Components
 import Button from '@material-ui/core/Button';
@@ -13,18 +13,21 @@ import TableRow from '@material-ui/core/TableRow';
 import BrightnessLowIcon from '@material-ui/icons/BrightnessLow';
 import PersonIcon from '@material-ui/icons/Person';
 import Title from '../../custom/Title';
-import { connect } from 'react-redux';
 import Invite from './invite';
 import ChangeRole from './change-role';
 import Suspend from './suspend';
 import RemoveMember from './remove-member';
-import { Chip, Avatar, Typography } from '@material-ui/core';
+import { Chip, Avatar, CircularProgress, Typography } from '@material-ui/core';
 import Alert from '../../custom/Alert';
 
 // utils
 import { __ } from '@wordpress/i18n';
 
 import { Roles } from '../../../constants';
+
+// Redux
+import { useGetTeamMembersQuery } from '../../../redux/apis/app-api';
+import { useAppSelector, useSelectedTeam } from '../../../redux/hooks';
 
 type Row = {
   id: number | string;
@@ -35,17 +38,7 @@ type Row = {
   yourself: boolean;
 };
 
-type OwnProps = Record<string, never>;
-type StateProps = {
-  team: Geolonia.Team | void;
-  members: Geolonia.Member[];
-  currentUsername: string;
-};
-
-type Props = OwnProps & StateProps;
-
-const Members = (props: Props) => {
-  const { members, currentUsername } = props;
+const Members: React.FC = () => {
   const [currentMember, setCurrentMember] = useState<
     false | Geolonia.Member
   >(false);
@@ -57,10 +50,13 @@ const Members = (props: Props) => {
   const [openRemoveMember, setOpenRemoveMember] = useState(false);
   const [openLeave, setOpenLeave] = useState(false);
 
-  useEffect(() => {
-    handleClose();
-  }, [openChangeRole, openSuspend, openUnsuspend, openRemoveMember, openLeave]);
-  const rows: Row[] = members.map((member) => {
+  const { selectedTeam } = useSelectedTeam();
+  const currentUsername = useAppSelector((state) => state.userMeta.username);
+  const { data: members, isFetching } = useGetTeamMembersQuery(selectedTeam?.teamId || '', {
+    skip: !selectedTeam,
+  });
+
+  const rows: Row[] = (members || []).map((member) => {
     return {
       id: member.userSub,
       avatar: member.avatarImage,
@@ -108,18 +104,24 @@ const Members = (props: Props) => {
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
+    if (!members) return;
+
     const index = parseInt(event.currentTarget.value);
     const member = members[index];
     if (member) {
       setCurrentMember(members[index]);
       setAnchorEl(event.currentTarget);
     }
-  };
+  }, [members]);
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setAnchorEl(null);
-  };
+  }, []);
+
+  useEffect(() => {
+    handleClose();
+  }, [openChangeRole, openSuspend, openUnsuspend, openRemoveMember, openLeave, handleClose]);
 
   const breadcrumbItems = [
     {
@@ -132,14 +134,17 @@ const Members = (props: Props) => {
     },
   ];
 
-  const { team } = props;
   let isOwner = false;
-  if (team) {
-    isOwner = team.role === Roles.Owner;
+  if (selectedTeam) {
+    isOwner = selectedTeam.role === Roles.Owner;
   }
 
   const inviteDisabled =
-    !isOwner || !( team && (team.maxMemberLength > members.length));
+    !isOwner || !( selectedTeam && (selectedTeam.maxMemberLength > (members || []).length));
+
+  if (isFetching || !selectedTeam) {
+    return <CircularProgress />;
+  }
 
   return (
     <div>
@@ -156,36 +161,45 @@ const Members = (props: Props) => {
       </Title>
 
       { isOwner &&
-        <Invite disabled={inviteDisabled} />
+        <Invite
+          team={selectedTeam}
+          members={members || []}
+          disabled={inviteDisabled}
+        />
       }
 
       {/* each member management */}
       {currentMember && (
         <>
           <ChangeRole
+            team={selectedTeam}
             currentMember={currentMember}
             open={openChangeRole}
             toggle={setOpenChangeRole}
           />
           <Suspend
+            team={selectedTeam}
             currentMember={currentMember}
             open={openSuspend}
             toggle={setOpenSuspend}
             mode={'suspending'}
           />
           <Suspend
+            team={selectedTeam}
             currentMember={currentMember}
             open={openUnsuspend}
             toggle={setOpenUnsuspend}
             mode={'unsuspending'}
           />
           <RemoveMember
+            team={selectedTeam}
             currentMember={currentMember}
             open={openRemoveMember}
             toggle={setOpenRemoveMember}
             mode={'remove'}
           />
           <RemoveMember
+            team={selectedTeam}
             currentMember={currentMember}
             open={openLeave}
             toggle={setOpenLeave}
@@ -321,18 +335,4 @@ const Members = (props: Props) => {
   );
 };
 
-export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  const selectedTeamIndex = state.team.selectedIndex;
-  const team = state.team.data[selectedTeamIndex] as Geolonia.Team | void;
-  let members: Geolonia.Member[] = [];
-  if (team) {
-    const memberObject = state.teamMember[team.teamId];
-    if (memberObject) {
-      members = memberObject.data;
-    }
-  }
-  const { username: currentUsername } = state.userMeta;
-  return { team, members, currentUsername };
-};
-
-export default connect(mapStateToProps)(Members);
+export default Members;

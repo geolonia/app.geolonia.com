@@ -11,7 +11,9 @@ import Alert from '../custom/Alert';
 // redux
 import { connect } from 'react-redux';
 import Redux from 'redux';
-import { createActions as createUserMetaActions } from '../../redux/actions/user-meta';
+import {
+  setAvatar,
+} from '../../redux/actions/user-meta';
 
 // utils
 import { __, sprintf } from '@wordpress/i18n';
@@ -148,7 +150,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
 });
 
 const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setAvatar: (blobUrl) => dispatch(createUserMetaActions.setAvatar(blobUrl)),
+  setAvatar: (blobUrl) => dispatch(setAvatar({ avatarImage: blobUrl })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AvatarSection);

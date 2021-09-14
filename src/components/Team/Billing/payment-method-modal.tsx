@@ -8,19 +8,13 @@ import { CircularProgress } from '@material-ui/core';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 
 import { __ } from '@wordpress/i18n';
-import fetch from '../../../lib/fetch';
-import { connect } from 'react-redux';
-import { buildApiAppUrl } from '../../../lib/api';
+import { useUpdateTeamPaymentMethodMutation } from '../../../redux/apis/app-api';
 
-type OwnProps = {
+type Props = {
   open: boolean;
   handleClose: () => void;
+  teamId: string;
 };
-type StateProps = {
-  session: Geolonia.Session;
-  teamId?: string;
-};
-type Props = OwnProps & StateProps;
 
 const modalStyle: React.CSSProperties = {
   position: 'absolute',
@@ -33,23 +27,15 @@ const modalStyle: React.CSSProperties = {
 };
 
 const PaymentMethodModal: React.FC<Props> = (props) => {
-  const { open, handleClose, session, teamId } = props;
+  const { open, handleClose, teamId } = props;
+  const [ updatePaymentMethod ] = useUpdateTeamPaymentMethodMutation();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState('');
   const stripe = useStripe();
   const elements = useElements();
 
-  if (stripe) {
-    // stripe
-    //   .retrieveSource({
-    //     id: "plan_seat",
-    //     client_secret: process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string
-    //   })
-    //   .then(console.log);
-  }
-
   const handleSubmit = useCallback(async () => {
-    if (!stripe || !elements || !teamId) {
+    if (!stripe || !elements) {
       return null;
     }
 
@@ -69,32 +55,14 @@ const PaymentMethodModal: React.FC<Props> = (props) => {
 
     const last2 = token.card.last4.slice(2, 4);
     setMessage('');
-
-    try {
-      const res = await fetch(
-        session,
-        buildApiAppUrl(`/teams/${teamId}/payment`),
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ token: token.id, last2 }),
-        },
-      );
-      if (res.status < 400) {
-        handleClose();
-        window.location.reload();
-      } else {
-        throw new Error();
-      }
-    } catch (e) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  }, [ stripe, elements, teamId, handleClose, session ]);
+    await updatePaymentMethod({
+      teamId,
+      token: token.id,
+      last2,
+    });
+    setLoading(false);
+    handleClose();
+  }, [stripe, elements, updatePaymentMethod, teamId, handleClose]);
 
   return (
     <Modal open={open} onClose={handleClose}>
@@ -150,18 +118,4 @@ const PaymentMethodModal: React.FC<Props> = (props) => {
   );
 };
 
-export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
-  const { session } = state.authSupport;
-  if (team) {
-    const { teamId } = team;
-    return {
-      session,
-      teamId,
-    };
-  } else {
-    return { session };
-  }
-};
-
-export default connect(mapStateToProps)(PaymentMethodModal);
+export default PaymentMethodModal;

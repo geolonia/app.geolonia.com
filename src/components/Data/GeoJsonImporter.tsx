@@ -91,7 +91,7 @@ const Importer: React.FC<Props> = (props) => {
           }
         }
         GeoJsonImporter(geojson);
-      } catch (e) {
+      } catch (e: any) {
         if (e.message === 'invalid-case-of-identifier') {
           setError(__('Error: The name of identifier `id` must be lower case.'));
         } else if (e.message === 'invalid-identifier') {

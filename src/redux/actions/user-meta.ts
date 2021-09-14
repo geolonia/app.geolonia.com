@@ -1,5 +1,4 @@
-const SET_ACTION = 'USER_META/SET';
-const SET_AVATAR_ACTION = 'USER_META/SET_AVATAR';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type State = Geolonia.Redux.State.UserMeta;
 
@@ -28,48 +27,25 @@ export const initialState: State = {
   avatarImage: undefined,
 };
 
-type SetAction = {
-  type: typeof SET_ACTION;
-  payload: State;
-};
+type SetPayload = State;
+type SetAvatarPayload = { avatarImage: string | void };
 
-type SetAvatarAction = {
-  type: typeof SET_AVATAR_ACTION;
-  payload: { avatarImage: string | void };
-};
-
-type UserMetaAction = SetAction | SetAvatarAction;
-
-export const createActions = {
-  set: (userMeta: State) => ({
-    type: SET_ACTION,
-    payload: userMeta,
-  }),
-  setAvatar: (avatarImage: string | void) => {
-    return {
-      type: SET_AVATAR_ACTION,
-      payload: {
-        avatarImage,
-      },
-    };
+const userMetaSlice = createSlice({
+  name: 'userMeta',
+  initialState,
+  reducers: {
+    set(_state, action: PayloadAction<SetPayload>) {
+      return action.payload;
+    },
+    setAvatar(state, action: PayloadAction<SetAvatarPayload>) {
+      state.avatarImage = action.payload.avatarImage;
+    },
   },
-};
+});
 
-const isSetAction = (action: UserMetaAction): action is SetAction =>
-  action.type === SET_ACTION;
-
-const isSetAvatarAction = (action: UserMetaAction): action is SetAvatarAction =>
-  action.type === SET_AVATAR_ACTION;
-
-export const reducer = (
-  state: State = initialState,
-  action: UserMetaAction,
-) => {
-  if (isSetAction(action)) {
-    return { ...state, ...action.payload };
-  } else if (isSetAvatarAction(action)) {
-    return { ...state, avatarImage: action.payload.avatarImage };
-  } else {
-    return state;
-  }
-};
+const { actions, reducer } = userMetaSlice;
+export const {
+  set,
+  setAvatar,
+} = actions;
+export default reducer;
