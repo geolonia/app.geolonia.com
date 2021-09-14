@@ -79,7 +79,7 @@ const PlanModal: React.FC<Props> = (props) => {
       fullWidth={true}
       aria-labelledby={'change-team-plan'}
     >
-      <form action="">
+      <form onSubmit={handleSubmit}>
 
         <DialogTitle id={'change-team-plan'}>{__('Your plan')}</DialogTitle>
         <DialogContent>
