@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { __ } from '@wordpress/i18n';
@@ -10,6 +9,10 @@ import {
   Radio,
 } from '@material-ui/core';
 import Alert from '../../custom/Alert';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import { useUpdateTeamPlanMutation } from '../../../redux/apis/app-api';
 
 type PlanId = string | null | undefined;
@@ -20,15 +23,6 @@ type Props = {
   plans: Geolonia.Billing.Plan[];
   currentPlanId: PlanId;
   teamId: string;
-};
-const modalStyle: React.CSSProperties = {
-  position: 'absolute',
-  minWidth: 600,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  background: 'white',
-  padding: '2em 4em 3em',
 };
 
 const useMessage = (
@@ -79,10 +73,16 @@ const PlanModal: React.FC<Props> = (props) => {
   });
 
   return (
-    <Modal open={open} onClose={handleClose}>
-      <div style={modalStyle}>
-        <Typography component="h2">{__('Your plan')}</Typography>
-        <div style={{ marginTop: '1em' }}>
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      fullWidth={true}
+      aria-labelledby={'change-team-plan'}
+    >
+      <form onSubmit={handleSubmit}>
+
+        <DialogTitle id={'change-team-plan'}>{__('Your plan')}</DialogTitle>
+        <DialogContent>
           {plans.map((plan) => (
             <RadioGroup key={plan.planId} name="plan">
               <FormControlLabel
@@ -109,6 +109,8 @@ const PlanModal: React.FC<Props> = (props) => {
           <Typography component="p" style={{ marginTop: '0.5em', marginBottom: '1em' }}>
             {__('All prices include a 10% Japanese Consumption Tax')}
           </Typography>
+        </DialogContent>
+        <DialogActions>
           <Button
             variant="contained"
             color="primary"
@@ -132,9 +134,9 @@ const PlanModal: React.FC<Props> = (props) => {
           { typeof alertMessage !== 'undefined' && <Alert>
             {alertMessage}
           </Alert>}
-        </div>
-      </div>
-    </Modal>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 };
 

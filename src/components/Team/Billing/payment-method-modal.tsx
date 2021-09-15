@@ -1,8 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import Modal from '@material-ui/core/Modal';
-import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { CircularProgress } from '@material-ui/core';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 
 // Stripe
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -14,16 +16,6 @@ type Props = {
   open: boolean;
   handleClose: () => void;
   teamId: string;
-};
-
-const modalStyle: React.CSSProperties = {
-  position: 'absolute',
-  minWidth: 600,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  background: 'white',
-  padding: '2em 4em 3em',
 };
 
 const PaymentMethodModal: React.FC<Props> = (props) => {
@@ -65,21 +57,20 @@ const PaymentMethodModal: React.FC<Props> = (props) => {
   }, [stripe, elements, updatePaymentMethod, teamId, handleClose]);
 
   return (
-    <Modal open={open} onClose={handleClose}>
-      <div style={modalStyle}>
-        <Typography component="h3">{__('Card information')}</Typography>
-        <div
-          style={{
-            margin: '1em 0 1em',
-            padding: '3px 1px 2px',
-          }}
-        >
+    <Dialog
+      open={open}
+      onClose={handleClose}
+      fullWidth={true}
+      aria-labelledby={'register-payment-method'}
+    >
+      <form onSubmit={handleSubmit}>
+        <DialogTitle id={'register-payment-method'}>{__('Card information')}</DialogTitle>
+        <DialogContent>
           <CardElement
             options={{
               hidePostalCode: true,
               style: {
                 base: {
-                  padding: '16px',
                   fontSize: '16px',
                   color: '#424770',
                   '::placeholder': {
@@ -92,29 +83,32 @@ const PaymentMethodModal: React.FC<Props> = (props) => {
               },
             }}
           />
-        </div>
-        <p>{message}</p>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={(e) => {
-            e.preventDefault();
-            handleSubmit();
+          <p>{message}</p>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            style={{marginRight: 24}}
+            variant="contained"
+            color="primary"
+            onClick={(e) => {
+              e.preventDefault();
+              handleSubmit();
             // handleClose();
-          }}
-          type={'button'}
-        >
-          {loading && (
-            <CircularProgress
-              size={16}
-              style={{ marginRight: 8 }}
-              color={'inherit'}
-            />
-          )}
-          {__('Update')}
-        </Button>
-      </div>
-    </Modal>
+            }}
+            type={'button'}
+          >
+            {loading && (
+              <CircularProgress
+                size={16}
+                style={{ marginRight: 8 }}
+                color={'inherit'}
+              />
+            )}
+            {__('Update')}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
   );
 };
 
