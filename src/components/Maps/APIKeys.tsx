@@ -58,7 +58,7 @@ const ApiKeys: React.FC = () => {
       id: key.keyId,
       name: key.name,
       updated: key.createAt
-        ? moment(key.createAt).format('YYYY/MM/DD hh:mm:ss')
+        ? moment(key.createAt).format('YYYY/MM/DD HH:mm:ss')
         : __('(No date)'),
     };
   });
