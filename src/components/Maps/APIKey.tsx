@@ -348,6 +348,7 @@ const Content: React.FC = () => {
                 color="primary"
                 size="large"
                 style={{ width: '100%' }}
+                data-geocoder="community-geocoder"
               >
                 {__('Get HTML')}
               </Button>
