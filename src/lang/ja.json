@@ -449,6 +449,7 @@
       "Please type as <code>delete</code> to confirm.": [
         "確認のためにデータセット名を入力してください。"
       ],
+      "Enter and check": ["入力して確認"],
       "Saved.": ["保存しました。"],
       "Failed to save.": ["保存できませんでした。"],
       "Terms": ["利用規約"],

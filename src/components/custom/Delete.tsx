@@ -20,6 +20,7 @@ type Status = false | 'working' | 'success' | 'failure';
 type Props = {
   text1?: string;
   text2?: string;
+  textLabel?: string;
   answer?: string;
   errorMessage: string;
   onClick: () => Promise<any>;
@@ -31,12 +32,13 @@ type Props = {
 const getTexts = (props: Props) => ({
   text1: props.text1 || __('Are you sure you want to delete this item?'),
   text2: props.text2 || __('Please type as <code>delete</code> to confirm.'),
+  textLabel: props.textLabel || __('Enter and check'),
   answer: props.answer || 'delete',
 });
 
 export const Delete: React.FC<Props> = (props) => {
   const { disableCancel, disableDelete, onClick, onFailure } = props;
-  const { text1, text2 } = getTexts(props);
+  const { text1, text2, textLabel } = getTexts(props);
 
   const [open, setOpen] = useState(false);
   const [confirmation, setConfirmation] = useState('');
@@ -122,7 +124,7 @@ export const Delete: React.FC<Props> = (props) => {
               error
               margin="dense"
               name="name"
-              label={__('Name')}
+              label={textLabel}
               type="text"
               value={confirmation}
               onChange={(e) => setConfirmation(e.target.value)}
