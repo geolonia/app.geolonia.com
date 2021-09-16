@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 // i18n
+import { I18nProvider } from '@wordpress/react-i18n';
 import { loadLocale } from '../lib/load-locale';
-import { setLocaleData } from '@wordpress/i18n';
+import { createI18n, setLocaleData } from '@wordpress/i18n';
 
 // API
 import { getSession } from './';
@@ -30,15 +31,20 @@ import mixpanel from 'mixpanel-browser';
 
 const AuthContainer: React.FC = ({children}) => {
   const dispatch = useAppDispatch();
-  const { isReady } = useAppSelector((state) => ({
+  const { isReady, language } = useAppSelector((state) => ({
     isReady: state.authSupport.isReady,
+    language: state.userMeta.language,
   }));
+  const i18n = useMemo(() => {
+    return createI18n(loadLocale(language));
+  }, [language]);
 
   useEffect(() => {
     (async () => {
       const session = await getSession();
 
       if (session === null) {
+        // TODO: Remove this after all translation calls are migrated to the useI18n() hook.
         setLocaleData(loadLocale(estimateLanguage()));
         dispatch(setLoggedIn(false));
         dispatch(ready());
@@ -65,10 +71,15 @@ const AuthContainer: React.FC = ({children}) => {
           localStorage.setItem('geolonia__persisted_language', language);
         }
 
+        // TODO: Remove this after all translation calls are migrated to the useI18n() hook.
+        // START
         const localeData = loadLocale(language);
         if (localeData) {
           setLocaleData(localeData);
         }
+        // END
+
+        // NOTE: Can we make a moment vending machine? Or switch to something that isn't moment to save on bundle size?
         Moment.locale(language);
         Moment.tz.setDefault(timezone);
         // NOTE: We can localize datetime format here
@@ -83,9 +94,11 @@ const AuthContainer: React.FC = ({children}) => {
         dispatch(ready());
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, i18n]);
 
-  return <>{isReady && children}</>;
+  return <I18nProvider i18n={i18n}>
+    {isReady && children}
+  </I18nProvider>;
 };
 
 export default AuthContainer;
