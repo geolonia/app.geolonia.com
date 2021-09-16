@@ -20,7 +20,10 @@ type SelectedTeamResult = {
 }
 export const useSelectedTeam: () => SelectedTeamResult = () => {
   const dispatch = useAppDispatch();
-  const { data: teams, isLoading, refetch } = useGetTeamsQuery();
+  const isLoggedIn = useAppSelector((state) => state.authSupport.isLoggedIn);
+  const { data: teams, isLoading, refetch } = useGetTeamsQuery(undefined, {
+    skip: !isLoggedIn,
+  });
   const selectedTeamId = useAppSelector((state) => state.team.selectedTeamId);
 
   const selectedTeam = useMemo(() => {
