@@ -23,10 +23,10 @@ import putAvatar from '../../api/users/put-avatar';
 
 // constants
 import { avatarLimitSize } from '../../constants';
+import { getSession } from '../../auth';
 
 type OwnProps = Record<string, never>;
 type StateProps = {
-  session: Geolonia.Session;
   userMeta: Geolonia.User;
 };
 type DispatchProps = {
@@ -64,7 +64,7 @@ export class AvatarSection extends React.Component<Props, State> {
     }
   };
 
-  onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+  onFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
@@ -85,15 +85,15 @@ export class AvatarSection extends React.Component<Props, State> {
       const prevAvatarUrl = this.props.userMeta.avatarImage;
       this.setState({ status: 'requesting' });
 
-      putAvatar(this.props.session, file).then((result) => {
-        if (result.error) {
-          this.props.setAvatar(prevAvatarUrl); // roleback
-          this.setState({ status: 'failure', errorMessage: result.message });
-        } else {
-          this.props.setAvatar(avatarUrl);
-          this.setState({ status: 'success' });
-        }
-      });
+      const session = await getSession();
+      const result = await putAvatar(session, file);
+      if (result.error) {
+        this.props.setAvatar(prevAvatarUrl); // roleback
+        this.setState({ status: 'failure', errorMessage: result.message });
+      } else {
+        this.props.setAvatar(avatarUrl);
+        this.setState({ status: 'success' });
+      }
     }
   };
 
@@ -145,7 +145,6 @@ export class AvatarSection extends React.Component<Props, State> {
 }
 
 const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-  session: state.authSupport.session,
   userMeta: state.userMeta,
 });
 
