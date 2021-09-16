@@ -104,6 +104,7 @@ const Signin = (props: Props) => {
     } catch (error: any) {
       setErrorMessage(parseCognitoSigninError(error));
       setStatus('warning');
+      return;
     }
 
     try {
@@ -127,7 +128,7 @@ const Signin = (props: Props) => {
 
   let alert: React.ReactNode | null = null;
   if(status === 'warning') {
-    <Alert type="warning">{errorMessage}</Alert>;
+    alert = <Alert type="warning">{errorMessage}</Alert>;
   } else if (passwordResetFlag) {
     alert = <Alert type="success">{__('Your password has been successfully reset. Please reenter and sign in to the account.')}</Alert>;
   } else if (postVerifyFlag) {
