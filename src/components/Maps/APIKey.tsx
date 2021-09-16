@@ -18,7 +18,7 @@ import Title from '../custom/Title';
 import DangerZone from '../custom/danger-zone';
 
 // libs
-import normalizeOrigins from '../../lib/normalize-origin';
+import { normalizeOrigins } from '@geolonia/utils';
 
 // constants
 import { messageDisplayDuration } from '../../constants';
