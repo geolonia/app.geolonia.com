@@ -228,7 +228,7 @@ msgstr ""
 "のコードを挿入してください。API キーはすでに埋め込まれているのでそのままコ"
 "ピーして貼り付けできます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:531 src/components/Maps/APIKey.tsx:356
+#: src/components/Data/GeoJsonMeta.tsx:531 src/components/Maps/APIKey.tsx:357
 msgid "Step 3"
 msgstr "ステップ 3"
 
@@ -239,7 +239,7 @@ msgstr ""
 "以下のボタンをクリックして地図を表示したい場所の HTML を取得、Webサイトで地図"
 "を表示したい場所に挿入してください。"
 
-#: src/components/Data/GeoJsonMeta.tsx:552 src/components/Maps/APIKey.tsx:352
+#: src/components/Data/GeoJsonMeta.tsx:552 src/components/Maps/APIKey.tsx:353
 msgid "Get HTML"
 msgstr "HTML を取得"
 
@@ -247,12 +247,12 @@ msgstr "HTML を取得"
 msgid "Step 4"
 msgstr "ステップ 4"
 
-#: src/components/Data/GeoJsonMeta.tsx:558 src/components/Maps/APIKey.tsx:358
+#: src/components/Data/GeoJsonMeta.tsx:558 src/components/Maps/APIKey.tsx:359
 msgid "Adjust the element size."
 msgstr ""
 "下記のCSSをWebサイトに追加して、地図を表示する要素のサイズを調整して下さい。"
 
-#: src/components/Data/GeoJsonMeta.tsx:573 src/components/Maps/APIKey.tsx:373
+#: src/components/Data/GeoJsonMeta.tsx:573 src/components/Maps/APIKey.tsx:374
 msgid "Copy to Clipboard"
 msgstr "クリップボードにコピー"
 
@@ -457,8 +457,8 @@ msgid "List of URLs that are allowed to display the map"
 msgstr "地図の表示を許可するURLのリスト"
 
 #: src/components/Maps/APIKey.tsx:234
-msgid "Enter multiple URLs on new lines."
-msgstr "複数 URL を指定する場合、改行で入力してください。"
+msgid "Enter multiple URLs on new lines. You cannot specify a path in the URL."
+msgstr "複数 URL を指定する場合、改行で入力してください。パスの指定はできません。"
 
 #: src/components/Maps/APIKey.tsx:252
 msgid ""
