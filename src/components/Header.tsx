@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
@@ -15,9 +15,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { signout } from '../auth';
 
 import { __ } from '@wordpress/i18n';
-import { connect } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import './Header.scss';
+import { useAppSelector } from '../redux/hooks';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -43,20 +43,15 @@ const styles = (theme: Theme) => ({
   },
 });
 
-type OwnProps = {
+type Props = {
   classes: any;
   onDrawerToggle: () => void;
 };
 
-type StateProps = {
-  userAvatar: string | void;
-};
-
-type Props = OwnProps & StateProps;
-
-const Header = (props: Props) => {
+const Header: React.FC<Props> = (props: Props) => {
   const { classes, onDrawerToggle } = props;
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const { name, avatarImage } = useAppSelector((state) => state.userMeta);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const headerStyle: React.CSSProperties = {
     backgroundColor: '#EE5F28',
@@ -86,16 +81,17 @@ const Header = (props: Props) => {
       window.location.href = '/';
     });
   };
+
   return (
     <React.Fragment>
       <AppBar
-        color="primary"
+        color="default"
         style={headerStyle}
         position="sticky"
         elevation={0}
       >
         <Toolbar>
-          <Grid container spacing={1} alignItems="center">
+          <Grid container spacing={2} alignItems="center">
             <Hidden smUp>
               <Grid item>
                 <IconButton
@@ -117,13 +113,16 @@ const Header = (props: Props) => {
               </Tooltip>
             </Grid> */}
             <Grid item>
+              {name}
+            </Grid>
+            <Grid item>
               <IconButton
                 onClick={handleClick}
                 color="inherit"
                 className={`iconButtonAvatar ${(classes.iconButtonAvatar)}`}
               >
-                {props.userAvatar ? (
-                  <Avatar src={props.userAvatar} style={avatarStyle} />
+                {avatarImage ? (
+                  <Avatar src={avatarImage} style={avatarStyle} />
                 ) : (
                   <PersonOutlineIcon style={avatarStyle} />
                 )}
@@ -148,11 +147,4 @@ const Header = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  return {
-    userAvatar: state.userMeta.avatarImage,
-  };
-};
-const ConnectedHeader = connect(mapStateToProps)(Header);
-
-export default withStyles(styles)(ConnectedHeader);
+export default withStyles(styles)(Header);
