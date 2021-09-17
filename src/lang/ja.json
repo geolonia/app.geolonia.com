@@ -159,6 +159,7 @@
         "パスワードをリセットするための検証コードを送付します。"
       ],
       "Send password reset email": ["メールを送信"],
+      "Logged in as %s": ["%s としてログイン中"],
       "Profile": ["プロフィール"],
       "Logout": ["ログアウト"],
       "An unexpected error occurred. Please try again.": [

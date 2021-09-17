@@ -3,31 +3,31 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/Dashboard.tsx:50
+#: src/components/Dashboard.tsx:18
 msgid "Get started with Geolonia map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:51
+#: src/components/Dashboard.tsx:19
 msgid ""
 "First, you need to obtain an API key and set up the initial settings for "
 "the map design and display position."
 msgstr ""
 
-#: src/components/Dashboard.tsx:51
+#: src/components/Dashboard.tsx:19
 msgid ""
 "After that, add the generated HTML code snippet to your website to display "
 "the map you have created."
 msgstr ""
 
-#: src/components/Dashboard.tsx:52
+#: src/components/Dashboard.tsx:20
 msgid "Create map"
 msgstr ""
 
-#: src/components/Dashboard.tsx:56
+#: src/components/Dashboard.tsx:24
 msgid "Tutorials"
 msgstr ""
 
-#: src/components/Dashboard.tsx:59
+#: src/components/Dashboard.tsx:27
 msgid "Developer's Blog"
 msgstr ""
 
@@ -212,7 +212,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:531
-#: src/components/Maps/APIKey.tsx:356
+#: src/components/Maps/APIKey.tsx:357
 msgid "Step 3"
 msgstr ""
 
@@ -222,7 +222,7 @@ msgid "Click following button and get HTML code where you want to place the map.
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:552
-#: src/components/Maps/APIKey.tsx:352
+#: src/components/Maps/APIKey.tsx:353
 msgid "Get HTML"
 msgstr ""
 
@@ -231,12 +231,12 @@ msgid "Step 4"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:558
-#: src/components/Maps/APIKey.tsx:358
+#: src/components/Maps/APIKey.tsx:359
 msgid "Adjust the element size."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:573
-#: src/components/Maps/APIKey.tsx:373
+#: src/components/Maps/APIKey.tsx:374
 msgid "Copy to Clipboard"
 msgstr ""
 
@@ -390,11 +390,15 @@ msgstr ""
 msgid "Send password reset email"
 msgstr ""
 
-#: src/components/Header.tsx:139
+#: src/components/Header.tsx:137
+msgid "Logged in as %s"
+msgstr ""
+
+#: src/components/Header.tsx:140
 msgid "Profile"
 msgstr ""
 
-#: src/components/Header.tsx:141
+#: src/components/Header.tsx:142
 msgid "Logout"
 msgstr ""
 
@@ -589,49 +593,49 @@ msgstr ""
 msgid "Verification Code"
 msgstr ""
 
-#: src/components/Signin.tsx:132
+#: src/components/Signin.tsx:133
 msgid ""
 "Your password has been successfully reset. Please reenter and sign in to "
 "the account."
 msgstr ""
 
-#: src/components/Signin.tsx:134
+#: src/components/Signin.tsx:135
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
 msgstr ""
 
-#: src/components/Signin.tsx:141
+#: src/components/Signin.tsx:142
 msgid "Sign in to Geolonia"
 msgstr ""
 
-#: src/components/Signin.tsx:145
+#: src/components/Signin.tsx:146
 #: src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr ""
 
-#: src/components/Signin.tsx:150
+#: src/components/Signin.tsx:151
 msgid "Username or email address"
 msgstr ""
 
-#: src/components/Signin.tsx:162
+#: src/components/Signin.tsx:163
 #: src/components/Signup.tsx:167
 msgid "Password"
 msgstr ""
 
-#: src/components/Signin.tsx:176
+#: src/components/Signin.tsx:177
 msgid "Forgot password?"
 msgstr ""
 
-#: src/components/Signin.tsx:189
+#: src/components/Signin.tsx:190
 msgid "Sign in"
 msgstr ""
 
-#: src/components/Signin.tsx:196
+#: src/components/Signin.tsx:197
 msgid "New to Geolonia?"
 msgstr ""
 
-#: src/components/Signin.tsx:198
+#: src/components/Signin.tsx:199
 msgid "Create an account."
 msgstr ""
 
@@ -1352,7 +1356,7 @@ msgid ""
 "perhaps the email is not verified."
 msgstr ""
 
-#: src/redux/hooks.ts:98
+#: src/redux/hooks.ts:101
 msgid "Free Plan"
 msgstr ""
 

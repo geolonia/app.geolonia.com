@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: 2021-09-13 15:57+0900\n"
+"PO-Revision-Date: 2021-09-17 10:42+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
@@ -14,18 +14,18 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 3.0\n"
 
-#: src/components/Dashboard.tsx:50
+#: src/components/Dashboard.tsx:18
 msgid "Get started with Geolonia map"
 msgstr "Geoloniaの地図を使ってみる"
 
-#: src/components/Dashboard.tsx:51
+#: src/components/Dashboard.tsx:19
 msgid ""
 "First, you need to obtain an API key and set up the initial settings for the "
 "map design and display position."
 msgstr ""
 "まずAPI キーを取得し、地図のデザインや表示位置の初期設定をしてください。"
 
-#: src/components/Dashboard.tsx:51
+#: src/components/Dashboard.tsx:19
 msgid ""
 "After that, add the generated HTML code snippet to your website to display "
 "the map you have created."
@@ -33,15 +33,15 @@ msgstr ""
 "その後、生成された HTML コードスニペットをあなたの Webサイトに追加すると、作"
 "成した地図が表示されます。"
 
-#: src/components/Dashboard.tsx:52
+#: src/components/Dashboard.tsx:20
 msgid "Create map"
 msgstr "地図を作成する"
 
-#: src/components/Dashboard.tsx:56
+#: src/components/Dashboard.tsx:24
 msgid "Tutorials"
 msgstr "チュートリアル"
 
-#: src/components/Dashboard.tsx:59
+#: src/components/Dashboard.tsx:27
 msgid "Developer's Blog"
 msgstr "Developer's Blog"
 
@@ -228,7 +228,7 @@ msgstr ""
 "のコードを挿入してください。API キーはすでに埋め込まれているのでそのままコ"
 "ピーして貼り付けできます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:531 src/components/Maps/APIKey.tsx:356
+#: src/components/Data/GeoJsonMeta.tsx:531 src/components/Maps/APIKey.tsx:357
 msgid "Step 3"
 msgstr "ステップ 3"
 
@@ -239,7 +239,7 @@ msgstr ""
 "以下のボタンをクリックして地図を表示したい場所の HTML を取得、Webサイトで地図"
 "を表示したい場所に挿入してください。"
 
-#: src/components/Data/GeoJsonMeta.tsx:552 src/components/Maps/APIKey.tsx:352
+#: src/components/Data/GeoJsonMeta.tsx:552 src/components/Maps/APIKey.tsx:353
 msgid "Get HTML"
 msgstr "HTML を取得"
 
@@ -247,12 +247,12 @@ msgstr "HTML を取得"
 msgid "Step 4"
 msgstr "ステップ 4"
 
-#: src/components/Data/GeoJsonMeta.tsx:558 src/components/Maps/APIKey.tsx:358
+#: src/components/Data/GeoJsonMeta.tsx:558 src/components/Maps/APIKey.tsx:359
 msgid "Adjust the element size."
 msgstr ""
 "下記のCSSをWebサイトに追加して、地図を表示する要素のサイズを調整して下さい。"
 
-#: src/components/Data/GeoJsonMeta.tsx:573 src/components/Maps/APIKey.tsx:373
+#: src/components/Data/GeoJsonMeta.tsx:573 src/components/Maps/APIKey.tsx:374
 msgid "Copy to Clipboard"
 msgstr "クリップボードにコピー"
 
@@ -419,11 +419,15 @@ msgstr "パスワードをリセットするための検証コードを送付し
 msgid "Send password reset email"
 msgstr "メールを送信"
 
-#: src/components/Header.tsx:139
+#: src/components/Header.tsx:137
+msgid "Logged in as %s"
+msgstr "%s としてログイン中"
+
+#: src/components/Header.tsx:140
 msgid "Profile"
 msgstr "プロフィール"
 
-#: src/components/Header.tsx:141
+#: src/components/Header.tsx:142
 msgid "Logout"
 msgstr "ログアウト"
 
@@ -629,13 +633,13 @@ msgstr ""
 msgid "Verification Code"
 msgstr "検証コード"
 
-#: src/components/Signin.tsx:132
+#: src/components/Signin.tsx:133
 msgid ""
 "Your password has been successfully reset. Please reenter and sign in to the "
 "account."
 msgstr "パスワードがリセットされました。再度入力してサインインしてください。"
 
-#: src/components/Signin.tsx:134
+#: src/components/Signin.tsx:135
 msgid ""
 "Your account has been successfully verified. Please enter your password "
 "again and sign in to your account."
@@ -643,35 +647,35 @@ msgstr ""
 "あなたのアカウントが認証されました。パスワードを再度入力してサインインしてく"
 "ださい。"
 
-#: src/components/Signin.tsx:141
+#: src/components/Signin.tsx:142
 msgid "Sign in to Geolonia"
 msgstr "Geolonia にサインイン"
 
-#: src/components/Signin.tsx:145 src/lib/cognito/parse-error.ts:50
+#: src/components/Signin.tsx:146 src/lib/cognito/parse-error.ts:50
 msgid "Oops, the server seems not to be responding correctly."
 msgstr "おっと、サーバーが正しく応答していないようです。"
 
-#: src/components/Signin.tsx:150
+#: src/components/Signin.tsx:151
 msgid "Username or email address"
 msgstr "ユーザー名または Email アドレス"
 
-#: src/components/Signin.tsx:162 src/components/Signup.tsx:167
+#: src/components/Signin.tsx:163 src/components/Signup.tsx:167
 msgid "Password"
 msgstr "パスワード"
 
-#: src/components/Signin.tsx:176
+#: src/components/Signin.tsx:177
 msgid "Forgot password?"
 msgstr "パスワードをお忘れですか？"
 
-#: src/components/Signin.tsx:189
+#: src/components/Signin.tsx:190
 msgid "Sign in"
 msgstr "サインイン"
 
-#: src/components/Signin.tsx:196
+#: src/components/Signin.tsx:197
 msgid "New to Geolonia?"
 msgstr "アカウントをお持ちですか？"
 
-#: src/components/Signin.tsx:198
+#: src/components/Signin.tsx:199
 msgid "Create an account."
 msgstr "アカウントを作成"
 
@@ -1430,7 +1434,7 @@ msgstr ""
 "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してくだ"
 "さい。メールアドレスが認証されていない可能性があります。"
 
-#: src/redux/hooks.ts:98
+#: src/redux/hooks.ts:101
 msgid "Free Plan"
 msgstr "Free プラン"
 
