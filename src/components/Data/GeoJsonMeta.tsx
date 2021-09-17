@@ -506,7 +506,8 @@ const GeoJSONMeta = (props: Props) => {
           <p>
             <Interweave
               content={__(
-                'Include the following code <strong>before closing tag of the <code>&lt;body /&gt;</code><strong> in your HTML file.'              )}
+                'Include the following code <strong>before closing tag of the <code>&lt;body /&gt;</code><strong> in your HTML file.',
+              )}
             />
           </p>
           <textarea
