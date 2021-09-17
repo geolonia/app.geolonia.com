@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 // Components
 import Typography from '@material-ui/core/Typography';
@@ -19,10 +19,12 @@ import { __, sprintf } from '@wordpress/i18n';
 import Interweave from 'interweave';
 
 // api
-import deleteTeam from '../../../api/teams/delete';
-
-// types
-import { connect } from 'react-redux';
+import { useSelectedTeam } from '../../../redux/hooks';
+import {
+  useGetTeamsQuery,
+  useDeleteTeamMutation,
+} from '../../../redux/apis/app-api';
+import { useHistory } from 'react-router-dom';
 
 // parameters
 const styleDangerZone: React.CSSProperties = {
@@ -30,15 +32,9 @@ const styleDangerZone: React.CSSProperties = {
   padding: '16px 24px',
 };
 
-type OwnProps = Record<string, never>;
-type StateProps = {
-  session: Geolonia.Session;
-  team: Geolonia.Team;
-  teamLength: number;
-};
-type Props = OwnProps & StateProps;
+const TeamDeletion: React.FC = () => {
+  const history = useHistory();
 
-const TeamDeletion = (props: Props) => {
   // state
   const [open, setOpen] = useState(false);
   const [confirmation, setConfirmation] = useState('');
@@ -46,31 +42,26 @@ const TeamDeletion = (props: Props) => {
     false | 'requesting' | 'success' | 'failure'
   >(false);
 
-  // props
-  const { team, teamLength } = props;
+  const { selectedTeam } = useSelectedTeam();
+  const { data: teams } = useGetTeamsQuery();
+  const [ deleteTeam ] = useDeleteTeamMutation();
+  const teamLength = (teams && teams.length) || 0;
 
-  const saveHandler = () => {
-    if (confirmation.toUpperCase() === 'DELETE') {
-      const { session } = props;
-      setStatus('requesting');
-      deleteTeam(session, team.teamId)
-        .then((result) => {
-          if (result.error) {
-            throw new Error(result.code);
-          } else {
-            setConfirmation('');
-            setStatus('success');
-            setTimeout(() => {
-              window.location.href = '/';
-            }, 2000);
-          }
-        })
-        .catch(() => {
-          setConfirmation('');
-          setStatus('failure');
-        });
+  const saveHandler = useCallback(async () => {
+    if (!selectedTeam) return;
+    if (confirmation.toUpperCase() !== 'DELETE') {
+      return;
     }
-  };
+
+    setStatus('requesting');
+    await deleteTeam(selectedTeam.teamId);
+
+    setConfirmation('');
+    setStatus('success');
+    history.push('/');
+  }, [confirmation, deleteTeam, history, selectedTeam]);
+
+  if (!selectedTeam) return null;
 
   return (
     <div style={styleDangerZone}>
@@ -116,7 +107,7 @@ const TeamDeletion = (props: Props) => {
                   __(
                     'Please enter <code>delete</code> if you really want to delete the team <strong>%1$s</strong>.',
                   ),
-                  team.name,
+                  selectedTeam.name,
                 )}
               />
             </DialogContentText>
@@ -170,12 +161,4 @@ const TeamDeletion = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  return {
-    session: state.authSupport.session,
-    team: state.team.data[state.team.selectedIndex],
-    teamLength: state.team.data.length,
-  };
-};
-
-export default connect(mapStateToProps)(TeamDeletion);
+export default TeamDeletion;

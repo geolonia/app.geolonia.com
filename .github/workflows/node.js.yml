@@ -35,6 +35,15 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+
+      - name: Cache the built for react-scripts
+        uses: actions/cache@v2
+        with:
+          path: ./build
+          key: build-assets-${{ github.sha }}
+          restore-keys: |
+            build-assets-${{ github.event.pull_request.base.sha }}
+
       - run: yarn
       - run: yarn run validate:jed
       - run: yarn test

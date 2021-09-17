@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import clsx from 'clsx';
 import { withStyles, Theme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -31,13 +31,16 @@ import defaultTeamIcon from './custom/team.svg';
 import { Link } from '@material-ui/core';
 
 import { __ } from '@wordpress/i18n';
-import { connect } from 'react-redux';
-import { createActions as createTeamActions } from '../redux/actions/team';
 
-import createTeam from '../api/teams/create';
+import { useLocation } from 'react-router-dom';
 
 // types
-import Redux from 'redux';
+import { useAppDispatch, useAppSelector, useImageFromURL, useSelectedTeam } from '../redux/hooks';
+import { useCreateTeamMutation, useGetTeamsQuery } from '../redux/apis/app-api';
+import { selectTeam } from '../redux/actions/team';
+import { useHistory } from 'react-router';
+import { sleep } from '../lib/sleep';
+import { colorPrimary } from '../variables';
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -66,7 +69,7 @@ const styles = (theme: Theme) => ({
     color: theme.palette.common.white,
   },
   itemActiveItem: {
-    color: '#4fc3f7',
+    color: colorPrimary,
   },
   itemPrimary: {
     fontSize: 'inherit',
@@ -84,7 +87,7 @@ const handleClickHome = () => {
   window.location.hash = '';
 };
 
-type OwnProps = {
+type Props = {
   readonly classes: any;
   readonly PaperProps: any;
   readonly variant?: 'temporary';
@@ -92,51 +95,46 @@ type OwnProps = {
   readonly onClose?: () => any;
 };
 
-type StateProps = {
-  session: Geolonia.Session;
-  teams: Geolonia.Team[];
-  selectedTeamIndex: number;
-  ownerEmail: string;
-};
-
-type DispatchProps = {
-  selectTeam: (index: number) => void;
-  addTeam: (team: Geolonia.Team) => void;
-};
-
-type Props = OwnProps & StateProps & DispatchProps;
-
-const Navigator: React.FC<Props> = (props: Props) => {
+const Navigator: React.FC<Props> = (props) => {
+  const dispatch = useAppDispatch();
+  const { push } = useHistory();
+  const ownerEmail = useAppSelector((state) => state.userMeta.email);
   const initialValueForNewTeamName = __('My team');
+
+  const [ createTeam ] = useCreateTeamMutation();
 
   const {
     classes,
-    teams,
-    selectedTeamIndex,
-    selectTeam,
-    addTeam,
-    ownerEmail,
     ...other
   } = props;
+
+  const { pathname } = useLocation();
+
   const [open, setOpen] = useState(false);
   const [newTeamName, setNewTeamName] = useState(
     initialValueForNewTeamName,
   );
 
-  const selectedTeam: Geolonia.Team | undefined = teams[selectedTeamIndex];
+  const { data: teams } = useGetTeamsQuery();
+  const { selectedTeam, refetch: refetchTeam } = useSelectedTeam();
+  const teamAvatar = useImageFromURL(
+    selectedTeam?.teamId,
+    selectedTeam?.links.getAvatar || '',
+    {
+      onError: refetchTeam,
+    },
+  );
 
   const teamSettingsChildren = [
     {
       id: __('General'),
       icon: <ViewListIcon />,
-      href: '#/team/general',
-      active: false,
+      href: '/team/general',
     },
     {
       id: __('Members'),
       icon: <GroupIcon />,
-      href: '#/team/members',
-      active: false,
+      href: '/team/members',
     },
   ];
 
@@ -144,8 +142,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
     teamSettingsChildren.push({
       id: __('Billing'),
       icon: <PaymentIcon />,
-      href: '#/team/billing',
-      active: false,
+      href: '/team/billing',
     });
   }
 
@@ -153,17 +150,15 @@ const Navigator: React.FC<Props> = (props: Props) => {
     {
       id: __('Manage API keys'),
       icon: <CodeIcon />,
-      href: '#/api-keys',
-      active: false,
+      href: '/api-keys',
     },
     // {
     //   id: __('Location Data'),
     //   icon: <RoomIcon />,
-    //   href: '#/data/geojson',
-    //   active: false,
+    //   href: '/data/geojson',
     // },
-    // { id: 'Styles', icon: <SatelliteIcon />, href: "#/maps/styles", active: false },
-    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "#/data/features", active: false },
+    // { id: 'Styles', icon: <SatelliteIcon />, href: "/maps/styles" },
+    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "/data/features" },
   ];
 
   const categories = [
@@ -182,7 +177,6 @@ const Navigator: React.FC<Props> = (props: Props) => {
           id: __('Official Documents'),
           icon: <DescriptionIcon />,
           href: 'https://docs.geolonia.com/',
-          active: false,
         },
       ],
     },
@@ -192,26 +186,23 @@ const Navigator: React.FC<Props> = (props: Props) => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setOpen(false);
     setNewTeamName(initialValueForNewTeamName);
-  };
+  }, [initialValueForNewTeamName]);
 
-  const saveHandler = () => {
-    const { session } = props;
-    return createTeam(session, newTeamName, ownerEmail).then((result) => {
-      if (result.error) {
-        throw new Error(result.code);
-      } else {
-        handleClose();
-        addTeam(result.data);
-        const nextTeamIndex = teams.length;
-        selectTeam(nextTeamIndex);
-        window.location.hash = '#/team/general';
-        window.location.reload();
-      }
-    });
-  };
+  const saveHandler = useCallback(async () => {
+    const result = await createTeam({ name: newTeamName, billingEmail: ownerEmail });
+    if ('error' in result) {
+      throw new Error(JSON.stringify(result.error));
+    }
+
+    handleClose();
+
+    await sleep(1_000);
+    dispatch(selectTeam({ teamId: result.data.teamId }));
+    push('/team/general');
+  }, [createTeam, dispatch, handleClose, newTeamName, ownerEmail, push]);
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
@@ -220,31 +211,29 @@ const Navigator: React.FC<Props> = (props: Props) => {
           className={clsx(classes.firebase, classes.item, classes.itemCategory)}
         >
           <img
-            src={
-              (teams[selectedTeamIndex] &&
-                teams[selectedTeamIndex].avatarImage) ||
-              defaultTeamIcon
-            }
+            src={ teamAvatar || defaultTeamIcon }
             className="logo"
             alt=""
           />
-          <Select
-            className="team"
-            value={selectedTeamIndex}
-            onChange={(e: any) => {
-              e.target.value !== '__not_selectable' &&
-                props.selectTeam(e.target.value);
-            }}
-          >
-            {teams.map((team, index) => (
-              <MenuItem key={team.teamId} value={index}>
-                {team.name}
+          { selectedTeam &&
+            <Select
+              className="team"
+              value={selectedTeam.teamId}
+              onChange={(e: any) => {
+                e.target.value !== '__not_selectable' &&
+                  dispatch(selectTeam({ teamId: e.target.value }));
+              }}
+            >
+              {teams?.map(({teamId, name}) => (
+                <MenuItem key={teamId} value={teamId}>
+                  {name}
+                </MenuItem>
+              ))}
+              <MenuItem className="create-new-team" value="__not_selectable">
+                <Link onClick={handleClickOpen}>+ {__('Create a new team')}</Link>
               </MenuItem>
-            ))}
-            <MenuItem className="create-new-team" value="__not_selectable">
-              <Link onClick={handleClickOpen}>+ {__('Create a new team')}</Link>
-            </MenuItem>
-          </Select>
+            </Select>
+          }
         </ListItem>
         <ListItem
           button
@@ -274,7 +263,7 @@ const Navigator: React.FC<Props> = (props: Props) => {
                 {id}
               </ListItemText>
             </ListItem>
-            {children.map(({ id: childId, icon, active, href }) => {
+            {children.map(({ id: childId, icon, href }) => {
               let target = undefined;
               let rel = undefined;
               try {
@@ -287,10 +276,11 @@ const Navigator: React.FC<Props> = (props: Props) => {
               } catch (error) {
                 // nothing to do
               }
+              const active = href === pathname;
               return <ListItem
                 button
                 component="a"
-                href={href}
+                href={href.indexOf('https://') === 0 ? href : `#${href}`}
                 target={target}
                 rel={rel}
                 key={childId}
@@ -351,21 +341,4 @@ const Navigator: React.FC<Props> = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-  teams: state.team.data,
-  selectedTeamIndex: state.team.selectedIndex,
-  session: state.authSupport.session,
-  ownerEmail: state.userMeta.email,
-});
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  selectTeam: (index: number) => dispatch(createTeamActions.select(index)),
-  addTeam: (team: Geolonia.Team) => dispatch(createTeamActions.add(team)),
-});
-
-const ConnectedNavigator = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Navigator);
-
-export default withStyles(styles)(ConnectedNavigator);
+export default withStyles(styles)(Navigator);

@@ -22,7 +22,9 @@ import { useInvitationToken } from '../hooks/invitation-token';
 
 // Redux
 import Redux from 'redux';
-import { createActions } from '../redux/actions/auth-support';
+import {
+  setAccessToken,
+} from '../redux/actions/auth-support';
 import { connect } from 'react-redux';
 
 // constants
@@ -102,6 +104,7 @@ const Signin = (props: Props) => {
     } catch (error: any) {
       setErrorMessage(parseCognitoSigninError(error));
       setStatus('warning');
+      return;
     }
 
     try {
@@ -125,7 +128,7 @@ const Signin = (props: Props) => {
 
   let alert: React.ReactNode | null = null;
   if(status === 'warning') {
-    <Alert type="warning">{errorMessage}</Alert>;
+    alert = <Alert type="warning">{errorMessage}</Alert>;
   } else if (passwordResetFlag) {
     alert = <Alert type="success">{__('Your password has been successfully reset. Please reenter and sign in to the account.')}</Alert>;
   } else if (postVerifyFlag) {
@@ -210,7 +213,7 @@ const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
 });
 const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setAccessToken: (accessToken: string) =>
-    dispatch(createActions.setAccessToken(accessToken)),
+    dispatch(setAccessToken({accessToken})),
 });
 const ConnectedContent = connect(mapStateToProps, mapDispatchToProps)(Signin);
 

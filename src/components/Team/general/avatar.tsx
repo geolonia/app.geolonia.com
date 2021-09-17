@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 
 // Components
 import Typography from '@material-ui/core/Typography';
@@ -10,27 +10,13 @@ import Alert from '../../custom/Alert';
 // utils
 import { __, sprintf } from '@wordpress/i18n';
 
-// API
-import putAvatar from '../../../api/teams/put-avatar';
-
-// redux
-import Redux from 'redux';
-import { createActions as createTeamActions } from '../../../redux/actions/team';
-import { connect } from 'react-redux';
-
 // constants
 import { avatarLimitSize, Roles } from '../../../constants';
 
-type OwnProps = Record<string, never>;
-type StateProps = {
-  session: Geolonia.Session;
-  team: Geolonia.Team;
-  index: number;
-};
-type DispatchProps = {
-  setAvatar: (index: number, blobUrl: string | void) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
+// redux
+import { useSelectedTeam, useImageFromURL, useAppDispatch } from '../../../redux/hooks';
+import { useUpdateTeamAvatarMutation } from '../../../redux/apis/app-api';
+import { setAvatar } from '../../../redux/actions/avatar';
 
 const ProfileImageStyle: React.CSSProperties = {
   width: '100%',
@@ -39,20 +25,31 @@ const ProfileImageStyle: React.CSSProperties = {
   margin: '16px',
 };
 
-const Content = (props: Props) => {
+const Content: React.FC = () => {
+  const dispatch = useAppDispatch();
+
   // states
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
   >(false);
   const [message, setMessage] = useState('');
 
-  // props
-  const { team } = props;
+  const [ uploadAvatar ] = useUpdateTeamAvatarMutation();
+  const { selectedTeam, refetch: refetchTeam } = useSelectedTeam();
+  const teamAvatar = useImageFromURL(
+    selectedTeam?.teamId,
+    selectedTeam?.links.getAvatar || '',
+    {
+      onError: refetchTeam,
+    },
+  );
 
   // refs
   const refContainer = useRef<HTMLInputElement | null>(null);
 
-  const onFileSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onFileSelected = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!selectedTeam) return;
+
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
@@ -70,32 +67,35 @@ const Content = (props: Props) => {
       }
 
       const avatarUrl = URL.createObjectURL(file);
-      const prevAvatarUrl = team.avatarImage;
+      const prevAvatarUrl = teamAvatar;
+
       setStatus('requesting');
 
-      putAvatar(props.session, team.teamId, file).then((result) => {
-        if (result.error) {
-          props.setAvatar(props.index, prevAvatarUrl); // roleback
-          setStatus('failure');
-          setMessage(result.message);
-        } else {
-          props.setAvatar(props.index, avatarUrl);
-          setStatus('success');
-        }
+      dispatch(setAvatar({ key: selectedTeam.teamId, value: avatarUrl }));
+      const resp = await uploadAvatar({
+        teamId: selectedTeam.teamId,
+        file,
       });
+      if ('error' in resp) {
+        setStatus('failure');
+        setMessage(JSON.stringify(resp.error));
+        dispatch(setAvatar({ key: selectedTeam.teamId, value: prevAvatarUrl }));
+        return;
+      }
+      setStatus('success');
     }
-  };
+  }, [dispatch, selectedTeam, teamAvatar, uploadAvatar]);
 
-  const onUploadClick = () => {
+  const onUploadClick = useCallback(() => {
     setMessage('');
     setStatus(false);
     if (refContainer.current) {
       refContainer.current.click();
     }
-  };
+  }, []);
 
-  const isUploadEnabled = !!props.team.links.putAvatar;
-  const isOwner = team.role === Roles.Owner;
+  const isUploadEnabled = !!selectedTeam?.links.putAvatar;
+  const isOwner = selectedTeam?.role === Roles.Owner;
 
   const buttonDisabled = !(isUploadEnabled && isOwner);
 
@@ -103,7 +103,7 @@ const Content = (props: Props) => {
     <>
       <Typography component="p" align="center">
         <img
-          src={props.team.avatarImage || defaultTeamIcon}
+          src={teamAvatar || defaultTeamIcon}
           style={{
             ...ProfileImageStyle,
             opacity: status === 'requesting' ? 0.6 : 1,
@@ -138,15 +138,4 @@ const Content = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-  session: state.authSupport.session,
-  team: state.team.data[state.team.selectedIndex],
-  index: state.team.selectedIndex,
-});
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setAvatar: (index, blobUrl) =>
-    dispatch(createTeamActions.setAvatar(index, blobUrl)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default Content;

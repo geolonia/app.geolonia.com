@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,76 +11,56 @@ import PersonIcon from '@material-ui/icons/Person';
 // libs
 import { __ } from '@wordpress/i18n';
 
-// API
-import updateMember from '../../../api/members/update';
-
-// Types
-import { connect } from 'react-redux';
-
-// Redux
-import { createActions as createTeamMemberActions } from '../../../redux/actions/team-member';
-import Redux from 'redux';
-
 // constants
 import { Roles } from '../../../constants';
 
-type OwnProps = {
+// Redux
+import { useUpdateTeamMemberMutation } from '../../../redux/apis/app-api';
+
+type Props = {
   currentMember: Geolonia.Member;
+  team: Geolonia.Team;
   open: boolean;
   toggle: (open: boolean) => void;
+  mode: 'suspending' | 'unsuspending';
 };
-type StateProps = {
-  session: Geolonia.Session;
-  teamId: string;
-  teamName: string;
-};
-type DispatchProps = {
-  updateMemberRoleState: (
-    teamId: string,
-    memberSub: string,
-    role: Geolonia.Role
-  ) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
 
-const Suspend = (props: Props) => {
-  const { currentMember, open, toggle, updateMemberRoleState } = props;
+const Suspend: React.FC<Props> = (props) => {
+  const { currentMember, team, open, toggle, mode } = props;
+  const teamId = team.teamId;
   const [role, setRole] = useState<false | Geolonia.Role>(
     currentMember.role,
   );
+  const [ updateMember ] = useUpdateTeamMemberMutation();
   const [status, setStatus] = useState<
     false | 'requesting' | 'success' | 'failure'
   >(false);
   const [message, setMessage] = useState('');
 
+  const isSuspending = mode === 'suspending';
+
   useEffect(() => {
     setRole(currentMember.role);
   }, [currentMember]);
 
-  const onSaveClick = () => {
-    if (role) {
-      setStatus('requesting');
-      updateMember(
-        props.session,
-        props.teamId,
-        currentMember.userSub,
-        Roles.Suspended,
-      ).then((result) => {
-        if (result.error) {
-          setStatus('failure');
-          setMessage(result.message);
-        } else {
-          setStatus('success');
-          updateMemberRoleState(
-            props.teamId,
-            currentMember.userSub,
-            Roles.Suspended,
-          );
-          toggle(false);
-        }
-      });
+  const onSaveClick = useCallback(async () => {
+    if (!role) return;
+
+    setStatus('requesting');
+    const res = await updateMember({
+      teamId,
+      memberSub: currentMember.userSub,
+      role: isSuspending ? Roles.Suspended : Roles.Member,
+    });
+    if ('error' in res) {
+      setStatus('failure');
+      setMessage(__('An unexpected error occurred. Please try again.'));
+      return;
     }
-  };
+
+    setStatus('success');
+    toggle(false);
+  }, [currentMember.userSub, isSuspending, role, teamId, toggle, updateMember]);
 
   return (
     <div>
@@ -92,11 +72,15 @@ const Suspend = (props: Props) => {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle id="form-dialog-title">
-            {__('Suspend team members')}
+            {isSuspending ? __('Suspend team members') : __('Unsuspend team members')}
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {__('The following members will be suspended:')}
+              {
+                isSuspending ?
+                  __('The following members will be suspended:') :
+                  __('The following members will be unsuspended:')
+              }
             </DialogContentText>
 
             <Box display="flex" alignItems="center">
@@ -132,18 +116,4 @@ const Suspend = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
-  return {
-    session: state.authSupport.session,
-    teamId: team.teamId,
-    teamName: team.name,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  updateMemberRoleState: (teamId, userSub, role) =>
-    dispatch(createTeamMemberActions.update(teamId, userSub, { role })),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Suspend);
+export default Suspend;

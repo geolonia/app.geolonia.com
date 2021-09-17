@@ -94,6 +94,59 @@ declare namespace Geolonia {
     createAt: Moment.Moment | void;
     updateAt?: Moment.Moment | void;
   };
+  type TeamPlanDetails = {
+    planId: string | null | undefined;
+    subscription?: {
+      cancel_at_period_end: boolean;
+      current_period_start: string;
+      current_period_end: string;
+    };
+    customer?: {
+      balance: number;
+      currency: string;
+    };
+    upcoming?: {
+      /** クレジットカードに請求する金額。アカウントにクレジットがあるや、割引が適用されているなどの場合、割引が適用されたあとの金額となります。 */
+      amount_due: number;
+
+      /** 今度支払いが試行される時間。ISO8601 */
+      next_payment_attempt: string;
+
+      /** 割引 */
+      discounts: {
+        amount: number;
+        name: string;
+      }[];
+
+      /** 小計 - 割引が入っていない */
+      subtotal: number;
+
+      /** 税額 */
+      tax: number;
+
+      /** 合計 - アカウントクレジットから支払われる場合は0以上。割引が適用されている場合は割引後の合計となります。 */
+      total: number;
+    };
+    usage: {
+      count: number;
+      lastLoggedRequest: string;
+      updated: string;
+      details: {
+        [s: string]: [
+          {
+            aggregationUnit: string;
+            count: number;
+            date: string;
+            lastLoggedRequest: string;
+          }
+        ];
+      };
+    };
+    freePlanDetails?: {
+      current_period_start: string
+      current_period_end: string
+    };
+  };
   type Role = 'Owner' | 'Member' | 'Suspended';
   type Member = Omit<Geolonia.User, 'links'> & {
     userSub: string;
@@ -145,4 +198,38 @@ declare namespace Geolonia {
     invoice: string | null;
     receipt_url: string | null;
   };
+
+  namespace Billing {
+    type Duration = '' | 'month' | 'year';
+
+    type FreePlan = {
+      planId: null;
+      name: string;
+      duration: Duration;
+      contactRequired: undefined;
+    };
+
+    type ConstantPlan = {
+      planId: string;
+      name: string;
+      price: number;
+      duration: Duration;
+      maxMemberLength: number;
+      baseFreeMapLoadCount: number;
+      contactRequired: false;
+    };
+
+    // Currently Unused
+    // type AppliancePlan = {
+    //   planId: string;
+    //   name: string;
+    //   contactRequired: boolean;
+    //   unitPrice: number;
+    // };
+
+    type Plan =
+      | FreePlan
+      | ConstantPlan;
+      // | AppliancePlan;
+  }
 }

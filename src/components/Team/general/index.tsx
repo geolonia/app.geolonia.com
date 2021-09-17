@@ -10,18 +10,13 @@ import Delete from './delete';
 // utils
 import { __ } from '@wordpress/i18n';
 
-// types
-import { connect } from 'react-redux';
-
 // Constants
 import { Roles } from '../../../constants';
+import { useSelectedTeam } from '../../../redux/hooks';
 
-type OwnProps = Record<string, never>;
-type StateProps = { role?: Geolonia.Role };
-type Props = OwnProps & StateProps;
-
-const General = (props: Props) => {
-  const { role } = props;
+const General: React.FC = () => {
+  const { selectedTeam } = useSelectedTeam();
+  const role = selectedTeam && selectedTeam.role;
 
   const breadcrumbItems = [
     {
@@ -63,10 +58,4 @@ const General = (props: Props) => {
   );
 };
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
-  const role = team && team.role;
-  return { role };
-};
-
-export default connect(mapStateToProps)(General);
+export default General;

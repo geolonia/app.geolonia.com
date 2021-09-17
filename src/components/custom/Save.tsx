@@ -59,7 +59,7 @@ const Save: React.FC<Props> = (props) => {
         setOpen(true);
         await sleep(messageDisplayDuration);
         setOpen(false);
-      } catch (err) {
+      } catch (err: any) {
         setStatus('failure');
         setOpen(true);
         if (typeof onError !== 'undefined') {
