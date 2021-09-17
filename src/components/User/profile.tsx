@@ -88,10 +88,6 @@ export class Profile extends React.Component<Props, State> {
       throw new Error(result.code);
     }
     this.props.updateUser(nextUser);
-    // wait to show success effect
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
   };
 
   timezones = momentTimeZone.tz.names();

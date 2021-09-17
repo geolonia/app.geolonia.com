@@ -30,8 +30,6 @@ import './Navigator.scss';
 import defaultTeamIcon from './custom/team.svg';
 import { Link } from '@material-ui/core';
 
-import { __ } from '@wordpress/i18n';
-
 import { useLocation } from 'react-router-dom';
 
 // types
@@ -41,6 +39,7 @@ import { selectTeam } from '../redux/actions/team';
 import { useHistory } from 'react-router';
 import { sleep } from '../lib/sleep';
 import { colorPrimary } from '../variables';
+import { useI18n } from '@wordpress/react-i18n';
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -96,6 +95,7 @@ type Props = {
 };
 
 const Navigator: React.FC<Props> = (props) => {
+  const { __ } = useI18n();
   const dispatch = useAppDispatch();
   const { push } = useHistory();
   const ownerEmail = useAppSelector((state) => state.userMeta.email);
