@@ -138,7 +138,7 @@ export const CustomTable = (props: Props) => {
               }}
               labelRowsPerPage={ __('rows per page') }
               labelDisplayedRows={({from, to, count}) => {
-                if(from > count) {
+                if (from > count) {
                   return '';
                 } else {
                   return sprintf(__('%1$s - %2$s / %3$s'), from, to, count);

@@ -74,7 +74,7 @@ const Signup = (props: Props) => {
   };
 
   useEffect(() => {
-    if(fetchedEmail) {
+    if (fetchedEmail) {
       setEmail(fetchedEmail);
       focusOn('username');
     }
@@ -104,7 +104,7 @@ const Signup = (props: Props) => {
       username: encodeURIComponent(succeededUsername),
     };
       // Postpone and handle invitation at /verify
-    if(invitationToken) {
+    if (invitationToken) {
       query.invitationToken = invitationToken;
     }
     const qs = new URLSearchParams(query).toString();

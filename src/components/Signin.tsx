@@ -65,15 +65,15 @@ const Signin = (props: Props) => {
 
   useEffect(() => {
     const parsed = queryString.parse(window.location.search);
-    if(typeof parsed.username === 'string') {
+    if (typeof parsed.username === 'string') {
       setUsername(parsed.username);
       setPostVerifyFlag(true);
       focusOn('password');
-    } else if(fetchedEmail) {
+    } else if (fetchedEmail) {
       setUsername(fetchedEmail);
       focusOn('password');
     }
-    if(parsed.reset === 'true') {
+    if (parsed.reset === 'true') {
       setPasswordResetFlag(true);
     }
   }, [fetchedEmail]);
@@ -127,7 +127,7 @@ const Signin = (props: Props) => {
   };
 
   let alert: React.ReactNode | null = null;
-  if(status === 'warning') {
+  if (status === 'warning') {
     alert = <Alert type="warning">{errorMessage}</Alert>;
   } else if (passwordResetFlag) {
     alert = <Alert type="success">{__('Your password has been successfully reset. Please reenter and sign in to the account.')}</Alert>;
