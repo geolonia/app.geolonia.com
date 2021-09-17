@@ -24,7 +24,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { connect } from 'react-redux';
 import Save from '../custom/Save';
 import fetch from '../../lib/fetch';
-import normalizeOrigin from '../../lib/normalize-origin';
+import { normalizeOrigins } from '@geolonia/utils';
 import { buildApiUrl } from '../../lib/api';
 import { GeoJsonMetaSetter } from './GeoJson/hooks/use-geojson';
 import Interweave from 'interweave';
@@ -265,7 +265,7 @@ const GeoJSONMeta = (props: Props) => {
 
     setSaveStatus('requesting');
 
-    const normalizedAllowedOrigins = normalizeOrigin(draftAllowedOrigins);
+    const normalizedAllowedOrigins = normalizeOrigins(draftAllowedOrigins);
 
     const rawResp = await fetch(
       session,

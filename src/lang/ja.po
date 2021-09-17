@@ -457,8 +457,8 @@ msgid "List of URLs that are allowed to display the map"
 msgstr "地図の表示を許可するURLのリスト"
 
 #: src/components/Maps/APIKey.tsx:234
-msgid "Enter multiple URLs on new lines."
-msgstr "複数 URL を指定する場合、改行で入力してください。"
+msgid "Enter multiple URLs on new lines. You cannot specify a path in the URL."
+msgstr "複数 URL を指定する場合、改行で入力してください。パスの指定はできません。"
 
 #: src/components/Maps/APIKey.tsx:252
 msgid ""

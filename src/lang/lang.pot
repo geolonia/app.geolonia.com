@@ -428,7 +428,7 @@ msgid "List of URLs that are allowed to display the map"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:234
-msgid "Enter multiple URLs on new lines."
+msgid "Enter multiple URLs on new lines. You cannot specify a path in the URL."
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:252
