@@ -14,7 +14,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import MenuIcon from '@material-ui/icons/Menu';
 import { signout } from '../auth';
 
-import { __ } from '@wordpress/i18n';
+import { sprintf, __ } from '@wordpress/i18n';
 import Avatar from '@material-ui/core/Avatar';
 import './Header.scss';
 import { useAppSelector } from '../redux/hooks';
@@ -50,7 +50,7 @@ type Props = {
 
 const Header: React.FC<Props> = (props: Props) => {
   const { classes, onDrawerToggle } = props;
-  const { name, avatarImage } = useAppSelector((state) => state.userMeta);
+  const { username, avatarImage } = useAppSelector((state) => state.userMeta);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const headerStyle: React.CSSProperties = {
@@ -113,9 +113,6 @@ const Header: React.FC<Props> = (props: Props) => {
               </Tooltip>
             </Grid> */}
             <Grid item>
-              {name}
-            </Grid>
-            <Grid item>
               <IconButton
                 onClick={handleClick}
                 color="inherit"
@@ -134,6 +131,11 @@ const Header: React.FC<Props> = (props: Props) => {
                 onClose={handleClose}
                 className={'headerProfilemenu'}
               >
+                <MenuItem
+                  disabled={true}
+                >
+                  {sprintf(__('Logged in as %s'), username)}
+                </MenuItem>
                 <MenuItem onClick={handleProfileClick}>
                   {__('Profile')}
                 </MenuItem>
