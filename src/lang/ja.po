@@ -221,38 +221,38 @@ msgstr "ステップ 2"
 
 #: src/components/Data/GeoJsonMeta.tsx:508 src/components/Maps/APIKey.tsx:314
 msgid ""
-"Include the following code before closing tag of the <code>&lt;body /&gt;</"
-"code> in your HTML file."
+"Include the following code <strong>before closing tag of the <code>&lt;body /"
+"&gt;</code><strong> in your HTML file."
 msgstr ""
-"地図を表示したいWebサイトの <code>&lt;body /&gt;</code> の終了タグ直前に以下"
+"地図を表示したいWebサイトの <strong><code>&lt;body /&gt;</code> の終了タグ直前に</strong>以下"
 "のコードを挿入してください。API キーはすでに埋め込まれているのでそのままコ"
 "ピーして貼り付けできます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:531 src/components/Maps/APIKey.tsx:357
+#: src/components/Data/GeoJsonMeta.tsx:530 src/components/Maps/APIKey.tsx:357
 msgid "Step 3"
 msgstr "ステップ 3"
 
-#: src/components/Data/GeoJsonMeta.tsx:534 src/components/Maps/APIKey.tsx:340
+#: src/components/Data/GeoJsonMeta.tsx:533 src/components/Maps/APIKey.tsx:340
 msgid ""
 "Click following button and get HTML code where you want to place the map."
 msgstr ""
 "以下のボタンをクリックして地図を表示したい場所の HTML を取得、Webサイトで地図"
 "を表示したい場所に挿入してください。"
 
-#: src/components/Data/GeoJsonMeta.tsx:552 src/components/Maps/APIKey.tsx:353
+#: src/components/Data/GeoJsonMeta.tsx:551 src/components/Maps/APIKey.tsx:353
 msgid "Get HTML"
 msgstr "HTML を取得"
 
-#: src/components/Data/GeoJsonMeta.tsx:556
+#: src/components/Data/GeoJsonMeta.tsx:555
 msgid "Step 4"
 msgstr "ステップ 4"
 
-#: src/components/Data/GeoJsonMeta.tsx:558 src/components/Maps/APIKey.tsx:359
+#: src/components/Data/GeoJsonMeta.tsx:557 src/components/Maps/APIKey.tsx:359
 msgid "Adjust the element size."
 msgstr ""
 "下記のCSSをWebサイトに追加して、地図を表示する要素のサイズを調整して下さい。"
 
-#: src/components/Data/GeoJsonMeta.tsx:573 src/components/Maps/APIKey.tsx:374
+#: src/components/Data/GeoJsonMeta.tsx:572 src/components/Maps/APIKey.tsx:374
 msgid "Copy to Clipboard"
 msgstr "クリップボードにコピー"
 
@@ -462,7 +462,8 @@ msgstr "地図の表示を許可するURLのリスト"
 
 #: src/components/Maps/APIKey.tsx:234
 msgid "Enter multiple URLs on new lines. You cannot specify a path in the URL."
-msgstr "複数 URL を指定する場合、改行で入力してください。パスの指定はできません。"
+msgstr ""
+"複数 URL を指定する場合、改行で入力してください。パスの指定はできません。"
 
 #: src/components/Maps/APIKey.tsx:252
 msgid ""
