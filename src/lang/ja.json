@@ -80,8 +80,8 @@
         "API キーをお持ちでない場合は <a href='#/api-keys'>API Keys</a> から作成して下さい。"
       ],
       "Step 2": ["ステップ 2"],
-      "Include the following code before closing tag of the <code>&lt;body /&gt;</code> in your HTML file.": [
-        "地図を表示したいWebサイトの <code>&lt;body /&gt;</code> の終了タグ直前に以下のコードを挿入してください。API キーはすでに埋め込まれているのでそのままコピーして貼り付けできます。"
+      "Include the following code <strong>before closing tag of the <code>&lt;body /&gt;</code><strong> in your HTML file.": [
+        "地図を表示したいWebサイトの <strong><code>&lt;body /&gt;</code> の終了タグ直前に</strong>以下のコードを挿入してください。API キーはすでに埋め込まれているのでそのままコピーして貼り付けできます。"
       ],
       "Step 3": ["ステップ 3"],
       "Click following button and get HTML code where you want to place the map.": [

@@ -207,35 +207,35 @@ msgstr ""
 #: src/components/Data/GeoJsonMeta.tsx:508
 #: src/components/Maps/APIKey.tsx:314
 msgid ""
-"Include the following code before closing tag of the <code>&lt;body "
-"/&gt;</code> in your HTML file."
+"Include the following code <strong>before closing tag of the <code>&lt;body "
+"/&gt;</code><strong> in your HTML file."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:531
+#: src/components/Data/GeoJsonMeta.tsx:530
 #: src/components/Maps/APIKey.tsx:357
 msgid "Step 3"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:534
+#: src/components/Data/GeoJsonMeta.tsx:533
 #: src/components/Maps/APIKey.tsx:340
 msgid "Click following button and get HTML code where you want to place the map."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:552
+#: src/components/Data/GeoJsonMeta.tsx:551
 #: src/components/Maps/APIKey.tsx:353
 msgid "Get HTML"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:556
+#: src/components/Data/GeoJsonMeta.tsx:555
 msgid "Step 4"
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:558
+#: src/components/Data/GeoJsonMeta.tsx:557
 #: src/components/Maps/APIKey.tsx:359
 msgid "Adjust the element size."
 msgstr ""
 
-#: src/components/Data/GeoJsonMeta.tsx:573
+#: src/components/Data/GeoJsonMeta.tsx:572
 #: src/components/Maps/APIKey.tsx:374
 msgid "Copy to Clipboard"
 msgstr ""
