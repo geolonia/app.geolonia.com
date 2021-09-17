@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@geolonia/utils": "^0.0.4",
+    "@geolonia/utils": "^1.0.0",
     "@mapbox/geojson-extent": "^0.3.2",
     "@material-ui/core": "^4.6.1",
     "@material-ui/icons": "^4.5.1",
