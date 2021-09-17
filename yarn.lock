@@ -1296,6 +1296,11 @@
     eslint-plugin-react "^7.24.0"
     typescript "^4.3.5"
 
+"@geolonia/utils@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@geolonia/utils/-/utils-1.0.0.tgz#7ad91307efb30b5ddf51cb15639b3e1d118e9b10"
+  integrity sha512-ne1ugsuFw11I/qCLEvFsq18JIILDvaiMGl2Tqy/U/+pRxVcpTikC4Nkg96dIHR7eIxMMQyllNogVAANIHvIhSw==
+
 "@hapi/address@2.x.x":
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.4.tgz#5d67ed43f3fd41a69d4b9ff7b56e7c0d1d0a81e5"

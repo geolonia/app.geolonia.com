@@ -18,7 +18,7 @@ import Title from '../custom/Title';
 import DangerZone from '../custom/danger-zone';
 
 // libs
-import normalizeOrigins from '../../lib/normalize-origin';
+import { normalizeOrigins } from '@geolonia/utils';
 
 // constants
 import { messageDisplayDuration } from '../../constants';
@@ -231,7 +231,7 @@ const Content: React.FC = () => {
               <TextField
                 label={__('List of URLs that are allowed to display the map')}
                 name="apiKeyAllowedOrigins"
-                helperText={__('Enter multiple URLs on new lines.')}
+                helperText={__('Enter multiple URLs on new lines. You cannot specify a path in the URL.')}
                 margin="normal"
                 multiline={true}
                 rows={5}

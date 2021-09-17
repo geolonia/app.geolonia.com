@@ -173,8 +173,8 @@
       "List of URLs that are allowed to display the map": [
         "地図の表示を許可するURLのリスト"
       ],
-      "Enter multiple URLs on new lines.": [
-        "複数 URL を指定する場合、改行で入力してください。"
+      "Enter multiple URLs on new lines. You cannot specify a path in the URL.": [
+        "複数 URL を指定する場合、改行で入力してください。パスの指定はできません。"
       ],
       "This API key can only be used to display maps on the websites listed above.": [
         "このAPIキーは上記指定されているウェブサイトからでしか表示できません。"
