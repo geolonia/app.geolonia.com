@@ -7,8 +7,9 @@ import { externalTooltipHandler } from '../../../lib/billing-tooltip';
 import { useGetApiKeysQuery } from '../../../redux/apis/app-api';
 import { colorScheme } from '../../../lib/colorscheme';
 import moment from 'moment';
+import { ChartOptions } from 'chart.js';
 
-const CHARTJS_OPTIONS = {
+const CHARTJS_OPTIONS: ChartOptions = {
   responsive: true,
   scales: {
     x: {
