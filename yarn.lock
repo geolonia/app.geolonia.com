@@ -1293,7 +1293,7 @@
 
 "@geolonia/eslint-config@https://github.com/geolonia/eslint-config":
   version "0.0.0"
-  resolved "https://github.com/geolonia/eslint-config#1c123e07d32fb6e878723cbbebc923203e821b00"
+  resolved "https://github.com/geolonia/eslint-config#0da69077938992076756e41f54a734205246ddbb"
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.29.1"
     "@typescript-eslint/parser" "^4.29.1"
