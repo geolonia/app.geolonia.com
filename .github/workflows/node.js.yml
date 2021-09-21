@@ -52,7 +52,7 @@ jobs:
          REACT_APP_COGNITO_APP_CLIENT_ID: 0000000000000aaaaaaaaaaaaa
 
       - id: build_assets
-        run: "::set-output name=run_build::$(yarn build)"
+        run: "echo ::set-output name=run_build::$(yarn build)"
 
       - name: Post comment
         uses: actions/github-script@v4
