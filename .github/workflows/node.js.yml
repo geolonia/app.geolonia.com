@@ -50,13 +50,15 @@ jobs:
         env:
          REACT_APP_COGNITO_USERPOOL_ID: us-east-1_000000000
          REACT_APP_COGNITO_APP_CLIENT_ID: 0000000000000aaaaaaaaaaaaa
-      - run: yarn build
 
-      - name: 'Comment PR'
+      - id: build_assets
+        run: yarn build
+
+      - name: Post comment
         uses: actions/github-script@v4
         if: github.event_name == 'pull_request'
         env:
-          POSTING_COMMENT_BODY: test
+          POSTING_COMMENT_BODY: ${{join(steps.build_assets.outputs.*, '\n')}}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
