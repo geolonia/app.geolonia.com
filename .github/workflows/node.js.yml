@@ -51,14 +51,23 @@ jobs:
          REACT_APP_COGNITO_USERPOOL_ID: us-east-1_000000000
          REACT_APP_COGNITO_APP_CLIENT_ID: 0000000000000aaaaaaaaaaaaa
 
-      - name: build and prepare report
-        run: echo "::set-env name=REPORT::$(yarn build)"
+      - id: build_assets
+        # Escape trancated multiline string
+        # https://github.community/t/set-output-truncates-multiline-strings/16852
+        run: |
+          REPORT=$(yarn build)
+          REPORT="${REPORT//'%'/'%25'}"
+          REPORT="${REPORT//$'\n'/'%0A'}"
+          REPORT="${REPORT//$'\r'/'%0D'}"
+          "echo ::set-output name=report::$REPORT"
 
       - name: Post comment
         uses: actions/github-script@v4
         if: github.event_name == 'pull_request'
+        env:
+          POSTING_COMMENT_BODY: ${{ steps.build_assets.outputs.report }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
-            github.issues.createComment({ issue_number, owner, repo, body: "```log\n" + process.env.REPORT + "\n```" });
+            github.issues.createComment({ issue_number, owner, repo, body: "```log\n" + process.env.POSTING_COMMENT_BODY + "\n```" });
