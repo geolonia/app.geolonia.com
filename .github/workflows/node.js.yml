@@ -51,8 +51,8 @@ jobs:
          REACT_APP_COGNITO_USERPOOL_ID: us-east-1_000000000
          REACT_APP_COGNITO_APP_CLIENT_ID: 0000000000000aaaaaaaaaaaaa
 
-      - id: build_assets
-        run: REPORT=$(yarn build)
+      - name: build and prepare report
+        run: echo "::set-env name=REPORT::$(yarn build)"
 
       - name: Post comment
         uses: actions/github-script@v4
