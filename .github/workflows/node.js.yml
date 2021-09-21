@@ -52,13 +52,13 @@ jobs:
          REACT_APP_COGNITO_APP_CLIENT_ID: 0000000000000aaaaaaaaaaaaa
 
       - id: build_assets
-        run: yarn build
+        run: "::set-output name=run_build::$(yarn build)"
 
       - name: Post comment
         uses: actions/github-script@v4
         if: github.event_name == 'pull_request'
         env:
-          POSTING_COMMENT_BODY: ${{join(steps.build_assets.outputs.*, '\n')}}
+          POSTING_COMMENT_BODY: ${{ steps.build_assets.outputs.run_build }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
