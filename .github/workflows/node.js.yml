@@ -50,4 +50,27 @@ jobs:
         env:
          REACT_APP_COGNITO_USERPOOL_ID: us-east-1_000000000
          REACT_APP_COGNITO_APP_CLIENT_ID: 0000000000000aaaaaaaaaaaaa
+
+      - run: "mkdir -p build && cp -r build build_prev"
       - run: yarn build
+
+      - id: compare_bundle_size
+        # Escape trancated multiline string
+        # https://github.community/t/set-output-truncates-multiline-strings/16852
+        run: |
+          REPORT=$(node bin/compare.js)
+          REPORT="${REPORT//'%'/'%25'}"
+          REPORT="${REPORT//$'\n'/'%0A'}"
+          REPORT="${REPORT//$'\r'/'%0D'}"
+          echo ::set-output name=report::$REPORT
+
+      - name: Post comment
+        uses: actions/github-script@v4
+        if: github.event_name == 'pull_request'
+        env:
+          POSTING_COMMENT_BODY: ${{ steps.compare_bundle_size.outputs.report }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
+            github.issues.createComment({ issue_number, owner, repo, body: process.env.POSTING_COMMENT_BODY });
