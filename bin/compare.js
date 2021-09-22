@@ -1,7 +1,6 @@
 const child_process = require('child_process');
 const exec = require('util').promisify(child_process.exec);
 const fs = require('fs/promises');
-const { map } = require('traverse');
 
 const BEFORE_DIR = 'build_prev/static';
 const AFTER_DIR = 'build/static';
@@ -29,21 +28,23 @@ const statFileSize = (prefix) => (result) =>
 const unit = (size) => {
   const absSize = Math.abs(size);
   if (absSize > 1024 ** 2) {
-    return `${Math.round(size / 1024 ** 2)}MB`;
+    return `${Math.round(100 * size / 1024 ** 2) / 100}MB`;
   } else if (absSize > 1024) {
-    return `${Math.round(size / 1024)}kB`;
+    return `${Math.round(100 * size / 1024) / 100}kB`;
   } else {
     return `${size}B`;
   }
 };
 
-const format = (stats) => {
-  return ` ## bundle size
+const format = (each, total) => {
+  return ` ## bundle size comparison
 
-\`\`\`makdown
+${total}
+
+\`\`\`markdown
 |file|before|after|diff|
 |:--|:--|:--|:--|
-${stats.map((stat) => `|${stat.key}|${stat.before}|${stat.after}|${stat.diff}|`).join('\n')}
+${each.map((stat) => `|${stat.key}|${stat.before}|${stat.after}|${stat.diff}|`).join('\n')}
 \`\`\``;
 };
 
@@ -52,6 +53,22 @@ const compare = async () => {
     exec(`find ${BEFORE_DIR} -type f`).then(statFileSize(BEFORE_DIR)),
     exec(`find ${AFTER_DIR} -type f`).then(statFileSize(AFTER_DIR)),
   ]);
+
+  const beforeTotal = Object.values(before).reduce((prev, size) => prev + size, 0);
+  const afterTotal = Object.values(after).reduce((prev, size) => prev + size, 0);
+  let diffTotal = afterTotal - beforeTotal;
+  if (diffTotal >= 0) {
+    diffTotal = `+${unit(diffTotal)}`;
+  } else {
+    diffTotal = unit(diffTotal);
+  }
+
+  const beforeFileConut = Object.keys(before).length;
+  const afterFileCount = Object.keys(after).length;
+
+  const total = `before: ${unit(beforeTotal)} (${beforeFileConut} ${beforeFileConut > 1 ? 'files' : 'file'})
+after: ${unit(afterTotal)} (${afterFileCount} ${afterFileCount > 1 ? 'files' : 'file'})
+**diff**: ${diffTotal}`;
 
   const stats = Object.keys(after).map((key) => {
     if (!(key in before)) {
@@ -67,7 +84,7 @@ const compare = async () => {
     return { key, before: unit(before[key]), after: unit(after[key]), diff };
   });
 
-  process.stdout.write(format(stats));
+  process.stdout.write(format(stats, total));
 };
 
 compare();
