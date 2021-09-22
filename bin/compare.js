@@ -41,11 +41,9 @@ const format = (each, total) => {
 
 ${total}
 
-\`\`\`markdown
 |file|before|after|diff|
 |:--|:--|:--|:--|
-${each.map((stat) => `|${stat.key}|${stat.before}|${stat.after}|${stat.diff}|`).join('\n')}
-\`\`\``;
+${each.map((stat) => `|${stat.key}|${stat.before}|${stat.after}|${stat.diff}|`).join('\n')}`;
 };
 
 const compare = async () => {
