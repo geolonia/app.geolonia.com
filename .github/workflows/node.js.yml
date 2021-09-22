@@ -51,11 +51,14 @@ jobs:
          REACT_APP_COGNITO_USERPOOL_ID: us-east-1_000000000
          REACT_APP_COGNITO_APP_CLIENT_ID: 0000000000000aaaaaaaaaaaaa
 
-      - id: build_assets
+      - run: "mkdir -p build && cp dist build_prev"
+      - run: yarn build
+
+      - id: compare_bundle_size
         # Escape trancated multiline string
         # https://github.community/t/set-output-truncates-multiline-strings/16852
         run: |
-          REPORT=$(yarn build)
+          REPORT=$(node bin/compare.js)
           REPORT="${REPORT//'%'/'%25'}"
           REPORT="${REPORT//$'\n'/'%0A'}"
           REPORT="${REPORT//$'\r'/'%0D'}"
@@ -65,7 +68,7 @@ jobs:
         uses: actions/github-script@v4
         if: github.event_name == 'pull_request'
         env:
-          POSTING_COMMENT_BODY: ${{ steps.build_assets.outputs.report }}
+          POSTING_COMMENT_BODY: ${{ steps.compare_bundle_size.outputs.report }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
