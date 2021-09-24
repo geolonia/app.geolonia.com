@@ -22,7 +22,7 @@ export const useInvitationToken = (search: string): HookResult => {
     try {
       const res = await describeInvitation(invitationToken);
       const {email} = await res.json();
-      if(typeof email === 'string') {
+      if (typeof email === 'string') {
         setFetchedEmail(email);
       }
     } catch (error) {
@@ -35,7 +35,7 @@ export const useInvitationToken = (search: string): HookResult => {
 
   useEffect(() => {
     const parsed = queryString.parse(search);
-    if(typeof parsed.invitationToken === 'string') {
+    if (typeof parsed.invitationToken === 'string') {
       setInvitationToken(parsed.invitationToken);
       fetchInvitationData(parsed.invitationToken);
       setIsReady(true);
@@ -49,7 +49,7 @@ export const useInvitationToken = (search: string): HookResult => {
     isReady,
     invitationToken,
     acceptInvitationCallback: async () => {
-      if(invitationToken && fetchedEmail) {
+      if (invitationToken && fetchedEmail) {
         await acceptInvitation(invitationToken, fetchedEmail);
       } else {
         throw new Error('Invalid invitaton token.');
