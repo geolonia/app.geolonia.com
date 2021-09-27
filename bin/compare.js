@@ -1,3 +1,5 @@
+// compare bundle size for CI
+
 const child_process = require('child_process');
 const exec = require('util').promisify(child_process.exec);
 const fs = require('fs/promises');
@@ -8,13 +10,13 @@ const AFTER_DIR = 'build/static';
 const statFileSize = (prefix) => (result) =>
   result.stdout
     .split('\n')
-    .filter((x) => !!x)
+    .filter((filename) => !!filename && !filename.endsWith('.map'))
     .map(async (filepath) => {
       const { name, postfix } = filepath.match(
         new RegExp(`^${prefix}/(?<name>.*)\\.([0-9a-f]{8})(?<postfix>.*)$`),
       ).groups;
       return {
-        key: `${name}.<hash>${postfix}`,
+        key: `${name}${postfix}`,
         size: (await fs.stat(filepath)).size,
       };
     })
