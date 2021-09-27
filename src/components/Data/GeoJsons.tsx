@@ -7,17 +7,14 @@ import { CircularProgress } from '@material-ui/core';
 
 // utils
 import { __ } from '@wordpress/i18n';
-import { connect } from 'react-redux';
 import Moment from 'moment';
-import fetch from '../../lib/fetch';
-import { buildApiUrl } from '../../lib/api';
 import Table from '../custom/Table';
+import { useSelectedTeam } from '../../redux/hooks';
+import { useGetGeojsonMetaQuery, useCreateGeojsonMetaMutation } from '../../redux/apis/api';
+import mixpanel from 'mixpanel-browser';
+import { sleep } from '../../lib/sleep';
 
 type OwnProps = Record<string, never>;
-type StateProps = {
-  session: Geolonia.Session;
-  teamId?: string;
-};
 type RouteProps = {
   location: {
     search: string;
@@ -26,7 +23,7 @@ type RouteProps = {
     push: (href: string) => void;
   };
 };
-type Props = OwnProps & StateProps & RouteProps;
+type Props = OwnProps & RouteProps;
 
 type typeTableRows = {
   id: string;
@@ -35,56 +32,50 @@ type typeTableRows = {
   isPublic?: boolean | undefined;
 };
 
-function Content(props: Props) {
+function GeoJsons(props: Props) {
   const [message, setMessage] = useState('');
   const [geoJsons, setGeoJsons] = useState<typeTableRows[]>([]);
-  const [loading, setLoading] = useState(false);
 
-  const { teamId, session, history } = props;
+  const { selectedTeam } = useSelectedTeam();
+  const teamId = selectedTeam?.teamId || '';
+  const { data: geojsons = [], isFetching, isError } = useGetGeojsonMetaQuery(teamId, {
+    skip: !selectedTeam,
+  });
+  const [ createGeoJSONMeta ] = useCreateGeojsonMetaMutation();
+  const { history } = props;
+
 
   useEffect(() => {
-    if (!teamId || !session) {
+    if (!teamId) {
       return;
     }
 
-    (async () => {
-      setLoading(true);
-      const rawResp = await fetch(
-        session,
-        buildApiUrl(`/geojsons?teamId=${teamId}&per_page=10000`),
-      );
-      if (rawResp.status >= 300) {
-        alert(__('Network Error.'));
-        setLoading(false);
-        return;
-      }
+    if (isError) {
+      alert(__('Network Error.'));
+      return;
+    }
 
-      const json = await rawResp.json();
-      const { geojsons } = json;
-
-      const rows = [];
-      for (let i = 0; i < geojsons.length; i++) {
-        // const item = dateParse<DateStringify<any>>(json[i]);
-        const geojson = geojsons[i];
-        rows.push({
-          id: geojson.id,
-          name: geojson.name,
-          updated: Moment(geojson.updateAt).format(),
-          isPublic: geojson.isPublic,
-        } as typeTableRows);
-      }
-      setGeoJsons(
-        rows.sort((a: typeTableRows, b: typeTableRows) => {
-          if (a.updated > b.updated) {
-            return -1;
-          } else {
-            return 1;
-          }
-        }),
-      );
-      setLoading(false);
-    })();
-  }, [teamId, session, history]);
+    const rows = [];
+    for (let i = 0; i < geojsons.length; i++) {
+      // const item = dateParse<DateStringify<any>>(json[i]);
+      const geojson = geojsons[i];
+      rows.push({
+        id: geojson.id,
+        name: geojson.name,
+        updated: Moment(geojson.updateAt).format(),
+        isPublic: geojson.isPublic,
+      } as typeTableRows);
+    }
+    setGeoJsons(
+      rows.sort((a: typeTableRows, b: typeTableRows) => {
+        if (a.updated > b.updated) {
+          return -1;
+        } else {
+          return 1;
+        }
+      }),
+    );
+  }, [geojsons, isError, teamId]);
 
   const breadcrumbItems = [
     {
@@ -97,28 +88,17 @@ function Content(props: Props) {
     },
   ];
 
-  const createHandler = useCallback(async (name: string) => {
-    if (!teamId || !session) {
-      return;
-    }
-
-    const rawResp = await fetch(
-      session,
-      buildApiUrl(`/geojsons?teamId=${teamId}`),
-      {
-        method: 'POST',
-        body: JSON.stringify({ name }),
-      },
-    );
-    if (rawResp.status >= 300) {
-      setMessage(__('Network error.'));
+  const handleNewGeoJSONMeta = useCallback(async (name: string) => {
+    const result = await createGeoJSONMeta({teamId, name});
+    if ('error' in result) {
+      setMessage('Error');
       throw new Error();
     }
-    const resp = await rawResp.json();
-    const newId = resp.body._id;
-    history.push(`/data/geojson/${newId}`);
-
-  }, [session, history, teamId]);
+    const geojsonId = result.data;
+    mixpanel.track('Create Dataset', { geojsonId });
+    await sleep(1_000);
+    history.push(`/data/geojson/${geojsonId}`);
+  }, [createGeoJSONMeta, history, teamId]);
 
   return (
     <div>
@@ -132,22 +112,12 @@ function Content(props: Props) {
         label={__('Create a new dataset')}
         description={__('Please enter the name of the new dataset.')}
         defaultValue={__('My dataset')}
-        onClick={createHandler}
+        onClick={handleNewGeoJSONMeta}
         errorMessage={message}
       />
 
-      {loading ? (
-        <div
-          style={{
-            width: '100%',
-            height: '200px',
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <CircularProgress />
-        </div>
+      {isFetching ? (
+        <CircularProgress />
       ) : (
         <Table
           rows={geoJsons}
@@ -159,18 +129,4 @@ function Content(props: Props) {
   );
 }
 
-export const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => {
-  const team = state.team.data[state.team.selectedIndex];
-  const { session } = state.authSupport;
-  if (team) {
-    const { teamId } = team;
-    return {
-      session,
-      teamId,
-    };
-  } else {
-    return { session };
-  }
-};
-
-export default connect(mapStateToProps)(Content);
+export default GeoJsons;

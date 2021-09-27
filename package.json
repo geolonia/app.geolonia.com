@@ -74,6 +74,7 @@
     "@types/geojson": "^7946.0.7",
     "@types/jest": "^27.0.0",
     "@types/mapbox-gl": "^1.11.1",
+    "@types/mapbox__geojson-extent": "^1.0.0",
     "@types/mixpanel-browser": "^2.35.7",
     "@types/node": "^14.0.26",
     "@types/react": "^17.0.0",

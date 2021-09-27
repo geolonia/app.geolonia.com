@@ -93,7 +93,18 @@ declare namespace Geolonia {
     allowedOrigins: string[];
     createAt: Moment.Moment | void;
     updateAt?: Moment.Moment | void;
-  };
+  }
+  type GeoJSONMeta = {
+    id: string;
+    name: string;
+    updateAt: string;
+    isPublic: boolean;
+    allowedOrigins: string[];
+    status: string;
+    teamId: string;
+    gvp_status?: 'progress' | 'created' | 'failure';
+    primaryApiKeyId?: string;
+  }
   type TeamPlanDetails = {
     planId: string | null | undefined;
     subscription?: {
