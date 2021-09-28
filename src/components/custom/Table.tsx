@@ -34,7 +34,7 @@ type TablePaginationActionsProps = {
   count: number;
   page: number;
   rowsPerPage: number;
-  onChangePage: (
+  onPageChange: (
     event: React.MouseEvent<HTMLButtonElement>,
     newPage: number
   ) => void;
@@ -46,34 +46,34 @@ const PagenationWrap = styled.div`
 `;
 
 const TablePaginationActions = (props: TablePaginationActionsProps) => {
-  const { count, page, rowsPerPage, onChangePage } = props;
+  const { count, page, rowsPerPage, onPageChange } = props;
   const lastPage = Math.ceil(count / rowsPerPage) - 1;
 
   return (
     <PagenationWrap>
       <IconButton
-        onClick={(e) => onChangePage(e, 0)}
+        onClick={(e) => onPageChange(e, 0)}
         disabled={page === 0}
         aria-label={__('first page')}
       >
         <FirstPageIcon />
       </IconButton>
       <IconButton
-        onClick={(e) => onChangePage(e, page - 1)}
+        onClick={(e) => onPageChange(e, page - 1)}
         disabled={page === 0}
         aria-label={__('previous page')}
       >
         <KeyboardArrowLeft />
       </IconButton>
       <IconButton
-        onClick={(e) => onChangePage(e, page + 1)}
+        onClick={(e) => onPageChange(e, page + 1)}
         disabled={page >= lastPage}
         aria-label={__('next page')}
       >
         <KeyboardArrowRight />
       </IconButton>
       <IconButton
-        onClick={(e) => onChangePage(e, lastPage)}
+        onClick={(e) => onPageChange(e, lastPage)}
         disabled={page >= lastPage}
         aria-label={__('last page')}
       >
@@ -100,6 +100,7 @@ export const CustomTable = (props: Props) => {
     e.currentTarget.className = '';
   };
 
+  // TODO: useHistory
   const onClick = (e: any) => {
     window.location.hash = permalink.replace('%s', e.currentTarget.dataset.id);
   };

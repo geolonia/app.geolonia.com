@@ -205,7 +205,7 @@ const GeoJson: React.FC<Props> = (props: Props) => {
       setGvpStep={setGvpStep}
     />;
   } else if (tileStatus === 'created') {
-    if(isSimpleStyled) {
+    if (isSimpleStyled) {
       mapEditorElement = <MapEditor
         session={session}
         style={style}

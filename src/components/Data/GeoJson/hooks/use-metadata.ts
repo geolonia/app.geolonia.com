@@ -18,7 +18,7 @@ export default function useMetadata(geojsonId: string | void) {
         })
         .then((data) => setLayerNames((data.vector_layers.map((layer: any) => layer.id))))
         .catch(() => setLayerNames('error'));
-    }}, [geojsonId]);
+    } }, [geojsonId]);
 
   return { layerNames };
 }

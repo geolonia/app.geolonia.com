@@ -337,7 +337,7 @@ const GeoJSONMeta = (props: Props) => {
     setApiKeyId(primaryApiKeyId);
     setUserKey(userKey);
     setApiKeyIdAllowedOrigins(allowedOrigins);
-  },[mapKeys, savePrimaryApiKeyId]);
+  }, [mapKeys, savePrimaryApiKeyId]);
 
   const embedCode = sprintf(
     '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',

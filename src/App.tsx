@@ -6,7 +6,7 @@ import Paperbase from './components/Paperbase';
 import AuthContainer from './auth/container';
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { HashRouter } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 
 const App: React.FC = () => {
   const [notification, setNotification] = useState<NotificationState>(initialNotificationState);
@@ -20,9 +20,9 @@ const App: React.FC = () => {
             updateState: ((nextState: any) => setNotification(nextState)) as any,
           }
         }>
-          <HashRouter>
+          <Router>
             <Paperbase />
-          </HashRouter>
+          </Router>
         </NotificationContext.Provider>
       </AuthContainer>
     </Provider>
