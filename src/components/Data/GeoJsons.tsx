@@ -34,19 +34,18 @@ type typeTableRows = {
 
 function GeoJsons(props: Props) {
   const [message, setMessage] = useState('');
-  const [geoJsons, setGeoJsons] = useState<typeTableRows[]>([]);
+  const [rows, setRows] = useState<typeTableRows[]>([]);
 
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
-  const { data: geojsons = [], isFetching, isError } = useListGeojsonMetaQuery(teamId, {
+  const { data: geojsons, isFetching, isError } = useListGeojsonMetaQuery(teamId, {
     skip: !selectedTeam,
   });
   const [ createGeoJSONMeta ] = useCreateGeoJSONMetaMutation();
   const { history } = props;
 
-
   useEffect(() => {
-    if (!teamId) {
+    if (!teamId || !geojsons) {
       return;
     }
 
@@ -66,15 +65,14 @@ function GeoJsons(props: Props) {
         isPublic: geojson.isPublic,
       } as typeTableRows);
     }
-    setGeoJsons(
-      rows.sort((a: typeTableRows, b: typeTableRows) => {
-        if (a.updated > b.updated) {
-          return -1;
-        } else {
-          return 1;
-        }
-      }),
-    );
+    rows.sort((a: typeTableRows, b: typeTableRows) => {
+      if (a.updated > b.updated) {
+        return -1;
+      } else {
+        return 1;
+      }
+    });
+    setRows(rows);
   }, [geojsons, isError, teamId]);
 
   const breadcrumbItems = [
@@ -120,7 +118,7 @@ function GeoJsons(props: Props) {
         <CircularProgress />
       ) : (
         <Table
-          rows={geoJsons}
+          rows={rows}
           rowsPerPage={10}
           permalink="/data/geojson/%s"
         />
