@@ -60,7 +60,7 @@ export const api = createApi({
         {type: 'GeoJSONMeta', id: `LIST:${teamId}`},
       ]),
     }),
-    listGeojsonMeta: builder.query<Geolonia.GeoJSONMeta[], string>({
+    listGeoJSONMeta: builder.query<Geolonia.GeoJSONMeta[], string>({
       query: (teamId) => `/geojsons?teamId=${teamId}&per_page=10000`,
       transformResponse: (resp: GeoJSONMetaCollectionResp) => resp.geojsons,
       providesTags: (result, _error, teamId) => {
@@ -75,7 +75,7 @@ export const api = createApi({
         );
       },
     }),
-    getGeojsonMeta: builder.query<Geolonia.GeoJSONMeta, { geojsonId: string, teamId: string }>({
+    getGeoJSONMeta: builder.query<Geolonia.GeoJSONMeta, { geojsonId: string, teamId: string }>({
       query: ({geojsonId, teamId}) => `/geojsons/${geojsonId}?teamId=${teamId}`,
     }),
     updateGeoJSONMeta: builder.mutation<
@@ -123,7 +123,7 @@ export const api = createApi({
         method: 'PUT',
         body: { deleted: true },
       }),
-      invalidatesTags: (_result, _error, {teamId, geojsonId}) => ([
+      invalidatesTags: (_result, _error, { teamId, geojsonId }) => ([
         { type: 'GeoJSONMeta', id: `LIST:${teamId}` },
         { type: 'GeoJSONMeta', id: geojsonId },
       ]),
@@ -143,8 +143,8 @@ export const api = createApi({
 export const {
   // Geojson Meta
   useCreateGeoJSONMetaMutation,
-  useListGeojsonMetaQuery,
-  useGetGeojsonMetaQuery,
+  useListGeoJSONMetaQuery,
+  useGetGeoJSONMetaQuery,
   useUpdateGeoJSONMetaMutation,
   useDeleteGeoJSONMetaMutation,
 

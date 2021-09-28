@@ -26,7 +26,7 @@ import { normalizeOrigins } from '@geolonia/utils';
 import Interweave from 'interweave';
 import './GeoJsonMeta.scss';
 import { useSelectedTeam } from '../../redux/hooks';
-import { useGetGeojsonMetaQuery, useUpdateGeoJSONMetaMutation } from '../../redux/apis/api';
+import { useGetGeoJSONMetaQuery, useUpdateGeoJSONMetaMutation } from '../../redux/apis/api';
 import { useGetApiKeysQuery } from '../../redux/apis/app-api';
 
 const { REACT_APP_TILE_SERVER } = process.env;
@@ -124,7 +124,7 @@ const GeoJSONMeta = (props: Props) => {
   const { geojsonId } = props;
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
-  const { data: geojsonMeta } = useGetGeojsonMetaQuery({ geojsonId, teamId }, {
+  const { data: geojsonMeta } = useGetGeoJSONMetaQuery({ geojsonId, teamId }, {
     skip: !selectedTeam,
   });
   const { data: mapKeys = [] } = useGetApiKeysQuery(teamId, {

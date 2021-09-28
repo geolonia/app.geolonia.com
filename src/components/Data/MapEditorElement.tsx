@@ -9,7 +9,7 @@ import StyleSelector from './StyleSelector';
 import useMetadata from './GeoJson/hooks/use-metadata';
 
 import { useSelectedTeam } from '../../redux/hooks';
-import { useGetGeojsonMetaQuery } from '../../redux/apis/api';
+import { useGetGeoJSONMetaQuery } from '../../redux/apis/api';
 
 
 const mapEditorStyle: React.CSSProperties = {
@@ -47,7 +47,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
 
   const pollingInterval = (tileStatus === 'created' || tileStatus === 'failure') ? undefined : 2_500;
   // TODO: エラーハンドリング
-  const { data: GeoJSONMeta } = useGetGeojsonMetaQuery({geojsonId, teamId}, {
+  const { data: GeoJSONMeta } = useGetGeoJSONMetaQuery({geojsonId, teamId}, {
     skip: !selectedTeam,
     pollingInterval,
   });
