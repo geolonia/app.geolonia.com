@@ -18,16 +18,11 @@ import './GeoJson.scss';
 // constants
 import { messageDisplayDuration } from '../../constants';
 import { useGetGeoJSONMetaQuery, useDeleteGeoJSONMetaMutation } from '../../redux/apis/api';
-import { useAppSelector, useSelectedTeam } from '../../redux/hooks';
+import { useSelectedTeam } from '../../redux/hooks';
 
 type Props = Record<string, never>;
 
 const GeoJson: React.FC<Props> = () => {
-
-  // TODO: debug
-  const apiState = useAppSelector((state) => state.api);
-  console.log({apiState});
-
 
   const history = useHistory();
   const match = useRouteMatch<{id: string}>();

@@ -4,56 +4,10 @@ import Paper from '@material-ui/core/Paper';
 import { GEOJSON_MAX_UPLOAD_SIZE } from '../../constants';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from '@wordpress/i18n';
-import fetch from '../../api/custom-fetch';
 import './ImportDropZone.scss';
 import { sleep } from '../../lib/sleep';
 import { useSelectedTeam } from '../../redux/hooks';
-
-const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
-
-type GeoJSONLinksResp = {
-  links: {
-    putGeoJSON: string;
-    putCSV: string;
-    putMBTiles: string;
-  }
-};
-
-const uploadGeoJson = async (geojson: File, teamId?: string, geojsonId?: string) => {
-  // TODO: use RTK
-  const result = await fetch<GeoJSONLinksResp>(
-    undefined,
-    `${REACT_APP_API_BASE}/${REACT_APP_STAGE}/geojsons/${geojsonId}/links?teamId=${teamId}`,
-    { method: 'GET' },
-    { absPath: true },
-  );
-
-  if (result.error) {
-    return result;
-  }
-
-  let signedURL = result.data.links.putGeoJSON;
-  let contentType = 'application/json';
-  if (geojson.name.endsWith('.csv')) {
-    signedURL = result.data.links.putCSV;
-    contentType = 'text/csv';
-  } else if (geojson.name.endsWith('.mbtiles')) {
-    signedURL = result.data.links.putMBTiles;
-    contentType = 'application/octet-stream';
-  }
-  await fetch<any>(
-    undefined,
-    signedURL,
-    {
-      method: 'PUT',
-      body: geojson,
-      headers: {
-        'Content-Type': contentType,
-      },
-    },
-    { absPath: true, noAuth: true, decode: 'text' },
-  );
-};
+import { useUpdateLocationDataMutation } from '../../redux/apis/api';
 
 type Props = {
   getTileStatus: () => Promise< Geolonia.TileStatus>,
@@ -76,6 +30,7 @@ const ImportDropZone = (props: Props) => {
   } = props;
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
+  const [uploadLocationData] = useUpdateLocationDataMutation();
 
   useEffect(() => {
     if (tileStatus === 'failure') {
@@ -115,7 +70,8 @@ const ImportDropZone = (props: Props) => {
     await sleep(50); // Just waiting for the visual effect of GVPProgress
     setGvpStep('uploading');
     try {
-      await uploadGeoJson(acceptedFiles[0], teamId, geojsonId);
+      await uploadLocationData({locationDataFile: acceptedFiles[0], teamId, geojsonId});
+      // TODO: エラーハンドリング
     } catch (error) {
       setGvpStep('started');
       throw error;
@@ -128,7 +84,7 @@ const ImportDropZone = (props: Props) => {
     setTileStatus(status);
     setTimeout(() => setGvpStep('started'), 200); // // Just waiting and reset for the visual effect of GVPProgress
 
-  }, [geojsonId, getTileStatus, maxUploadSize, setGvpStep, setTileStatus, teamId]);
+  }, [geojsonId, getTileStatus, maxUploadSize, setGvpStep, setTileStatus, teamId, uploadLocationData]);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
   const mouseOverStyle = { background: isDragActive ? 'rgb(245, 245, 245)' : 'inherit' };

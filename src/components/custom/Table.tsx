@@ -100,7 +100,6 @@ export const CustomTable = (props: Props) => {
     e.currentTarget.className = '';
   };
 
-  // TODO: useHistory
   const onClick = (e: any) => {
     window.location.hash = permalink.replace('%s', e.currentTarget.dataset.id);
   };

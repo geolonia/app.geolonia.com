@@ -42,10 +42,12 @@ export const MapEditorElement: React.FC<Props> = (props) => {
   const teamId = selectedTeam?.teamId || '';
   const [gvpStep, setGvpStep] = useState<Geolonia.GVPStep>('started');
 
+  console.log(gvpStep);
+
   const { geojsonId, tileStatus, setTileStatus } = props;
   const stepProgress = useMemo(getStepProgress, []);
 
-  const pollingInterval = (tileStatus === 'created' || tileStatus === 'failure') ? undefined : 2_500;
+  const pollingInterval = (tileStatus === 'created' || tileStatus === 'failure') ? undefined : 5_000;
   // TODO: エラーハンドリング
   const { data: GeoJSONMeta } = useGetGeoJSONMetaQuery({geojsonId, teamId}, {
     skip: !selectedTeam,
@@ -82,8 +84,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
     mapEditorElement = <ImportDropZone
       geojsonId={geojsonId}
       tileStatus={tileStatus}
-      // TODO: これを取り除きたい
-      getTileStatus={() => Promise.resolve(tileStatus)}
+      // getTileStatus={() => Promise.resolve(tileStatus)}
       setTileStatus={setTileStatus}
       setGvpStep={setGvpStep}
     />;
@@ -103,8 +104,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
         {/* <ExportButton GeoJsonID={geojsonId} drawObject={drawObject} /> */}
         <ImportDropZoneButton
           geojsonId={geojsonId}
-          // TODO: これを取り除きたい
-          getTileStatus={() => Promise.resolve(tileStatus)}
+          // getTileStatus={() => Promise.resolve(tileStatus)}
           setTileStatus={setTileStatus}
           setGvpStep={setGvpStep}
         />

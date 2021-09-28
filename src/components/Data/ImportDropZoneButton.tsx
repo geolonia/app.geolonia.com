@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 import './ImportDropZoneButton.scss';
 
 type Props = {
-  getTileStatus: () => Promise<Geolonia.TileStatus>,
+  // getTileStatus: () => Promise<Geolonia.TileStatus>,
   setTileStatus: (value: Geolonia.TileStatus) => void,
   setGvpStep: (value: Geolonia.GVPStep) => void,
   teamId?: string,
@@ -60,7 +60,7 @@ const Content = (props: Props) => {
           <div className="inner" onClick={preventClose}>
             <ImportDropZone
               geojsonId={props.geojsonId}
-              getTileStatus={props.getTileStatus}
+              // getTileStatus={props.getTileStatus}
               setTileStatus={props.setTileStatus}
               setGvpStep={props.setGvpStep}
               customMessage={__('Data that has already been uploaded will be overwritten.')}
