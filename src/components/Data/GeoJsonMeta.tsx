@@ -33,7 +33,6 @@ const { REACT_APP_TILE_SERVER } = process.env;
 
 type Props = {
   geojsonId: string;
-  style?: string;
 };
 
 
@@ -171,7 +170,7 @@ const GeoJSONMeta = (props: Props) => {
   }, [mapKeys, primaryApiKeyId]);
 
   // fire save name request
-  const handleGeoJSONMetaSubmit = useCallback<(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<void>>(async (event) => {
+  const handleGeoJSONMetaSubmit = useCallback<(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<void>>(async () => {
 
     if (!draftName) {
       return;

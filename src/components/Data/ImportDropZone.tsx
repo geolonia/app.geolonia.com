@@ -6,8 +6,9 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from '@wordpress/i18n';
 import fetch from '../../api/custom-fetch';
 import './ImportDropZone.scss';
-import { TileStatus, GVPStep } from './GeoJson';
 import { sleep } from '../../lib/sleep';
+import { useSelectedTeam } from '../../redux/hooks';
+
 const { REACT_APP_API_BASE, REACT_APP_STAGE } = process.env;
 
 type GeoJSONLinksResp = {
@@ -19,6 +20,7 @@ type GeoJSONLinksResp = {
 };
 
 const uploadGeoJson = async (geojson: File, teamId?: string, geojsonId?: string) => {
+  // TODO: use RTK
   const result = await fetch<GeoJSONLinksResp>(
     undefined,
     `${REACT_APP_API_BASE}/${REACT_APP_STAGE}/geojsons/${geojsonId}/links?teamId=${teamId}`,
@@ -54,19 +56,17 @@ const uploadGeoJson = async (geojson: File, teamId?: string, geojsonId?: string)
 };
 
 type Props = {
-  getTileStatus: () => Promise<TileStatus>,
-  setTileStatus: (value: TileStatus) => void,
-  setGvpStep: (value: GVPStep) => void,
-  teamId?: string,
+  getTileStatus: () => Promise< Geolonia.TileStatus>,
+  setTileStatus: (value: Geolonia.TileStatus) => void,
+  setGvpStep: (value: Geolonia.GVPStep) => void,
   geojsonId?: string,
   customMessage?: string,
   tileStatus?: undefined | 'failure'
 }
 
-const Content = (props: Props) => {
+const ImportDropZone = (props: Props) => {
   const [error, setError] = useState<string | null>(null);
   const {
-    teamId,
     geojsonId,
     customMessage,
     setTileStatus,
@@ -74,6 +74,8 @@ const Content = (props: Props) => {
     getTileStatus,
     tileStatus,
   } = props;
+  const { selectedTeam } = useSelectedTeam();
+  const teamId = selectedTeam?.teamId || '';
 
   useEffect(() => {
     if (tileStatus === 'failure') {
@@ -154,4 +156,4 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+export default ImportDropZone;

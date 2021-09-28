@@ -3,12 +3,11 @@ import ImportDropZone from './ImportDropZone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __ } from '@wordpress/i18n';
 import './ImportDropZoneButton.scss';
-import { TileStatus, GVPStep } from './GeoJson';
 
 type Props = {
-  getTileStatus: () => Promise<TileStatus>,
-  setTileStatus: (value: TileStatus) => void,
-  setGvpStep: (value: GVPStep) => void,
+  getTileStatus: () => Promise<Geolonia.TileStatus>,
+  setTileStatus: (value: Geolonia.TileStatus) => void,
+  setGvpStep: (value: Geolonia.GVPStep) => void,
   teamId?: string,
   geojsonId?: string,
 }
@@ -60,7 +59,6 @@ const Content = (props: Props) => {
         <div className="geojson-importer geojson-dropzone-button" style={styleOuter} onClick={close}>
           <div className="inner" onClick={preventClose}>
             <ImportDropZone
-              teamId={props.teamId}
               geojsonId={props.geojsonId}
               getTileStatus={props.getTileStatus}
               setTileStatus={props.setTileStatus}

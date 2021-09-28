@@ -210,6 +210,10 @@ declare namespace Geolonia {
     receipt_url: string | null;
   };
 
+  type GVPStep = 'started' | 'uploading' | 'processing' | 'done';
+  // TODO: 多分消せる？
+  type TileStatus = null | undefined | 'progress' | 'created' | 'failure';
+
   namespace Billing {
     type Duration = '' | 'month' | 'year';
 
