@@ -8,14 +8,13 @@ import './ImportDropZone.scss';
 import { sleep } from '../../lib/sleep';
 import { useSelectedTeam } from '../../redux/hooks';
 import { useUpdateLocationDataMutation } from '../../redux/apis/api';
+import type { TransitionStatus } from './GeoJson/hooks/use-gvp';
 
 type Props = {
-  getTileStatus: () => Promise< Geolonia.TileStatus>,
-  setTileStatus: (value: Geolonia.TileStatus) => void,
-  setGvpStep: (value: Geolonia.GVPStep) => void,
-  geojsonId?: string,
+  geojsonId: string,
   customMessage?: string,
-  tileStatus?: undefined | 'failure'
+  transitionStatus: TransitionStatus,
+  updateGVPOrder: (order: TransitionStatus['order']) => void,
 }
 
 const ImportDropZone = (props: Props) => {
@@ -23,20 +22,18 @@ const ImportDropZone = (props: Props) => {
   const {
     geojsonId,
     customMessage,
-    setTileStatus,
-    setGvpStep,
-    getTileStatus,
-    tileStatus,
+    transitionStatus: { gvp },
+    updateGVPOrder,
   } = props;
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
   const [uploadLocationData] = useUpdateLocationDataMutation();
 
   useEffect(() => {
-    if (tileStatus === 'failure') {
+    if (gvp === 'failure') {
       setError(__('Failed to add your data. Your data might be invalid format.'));
     }
-  }, [tileStatus]);
+  }, [gvp]);
 
   const maxUploadSize = GEOJSON_MAX_UPLOAD_SIZE;
 
@@ -66,25 +63,32 @@ const ImportDropZone = (props: Props) => {
       return;
     }
     setError(null);
-    setTileStatus('progress'); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
+    // setTileStatus('progress'); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
     await sleep(50); // Just waiting for the visual effect of GVPProgress
-    setGvpStep('uploading');
+    updateGVPOrder('upload-started');
     try {
       await uploadLocationData({locationDataFile: acceptedFiles[0], teamId, geojsonId});
       // TODO: エラーハンドリング
     } catch (error) {
-      setGvpStep('started');
+      updateGVPOrder('idoling');
       throw error;
     }
 
-    setGvpStep('processing');
-    const status = await getTileStatus();
-    setGvpStep('done');
-    status === 'created' && await sleep(1500); // Just waiting for the visual effect of GVPProgress
-    setTileStatus(status);
-    setTimeout(() => setGvpStep('started'), 200); // // Just waiting and reset for the visual effect of GVPProgress
+    updateGVPOrder('process-started');
 
-  }, [geojsonId, getTileStatus, maxUploadSize, setGvpStep, setTileStatus, teamId, uploadLocationData]);
+  }, [geojsonId, maxUploadSize, teamId, updateGVPOrder, uploadLocationData]);
+
+  // useEffect(() => {
+  //   async function controlSteps() {
+  //     if (gvpStep === 'processing' && tileStatus !== 'progress') {
+  //       setGvpStep('done');
+  //       tileStatus === 'created' && await sleep(1500); // Just waiting for the visual effect of GVPProgress
+  //       setTimeout(() => setGvpStep('started'), 200); // // Just waiting and reset for the visual effect of GVPProgress
+  //     }
+  //   }
+  //   controlSteps();
+  // }, [gvpStep, setGvpStep, tileStatus]);
+
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
   const mouseOverStyle = { background: isDragActive ? 'rgb(245, 245, 245)' : 'inherit' };

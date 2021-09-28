@@ -102,7 +102,7 @@ declare namespace Geolonia {
     allowedOrigins: string[];
     status: string;
     teamId: string;
-    gvp_status?: 'progress' | 'created' | 'failure';
+    gvp_status: string; // 'progress' | 'created' | 'failure';
     primaryApiKeyId?: string;
   }
   type TeamPlanDetails = {
@@ -210,10 +210,7 @@ declare namespace Geolonia {
     receipt_url: string | null;
   };
 
-  type GVPStep = 'started' | 'uploading' | 'processing' | 'done';
-  // TODO: 多分消せる？
-  type TileStatus = null | undefined | 'progress' | 'created' | 'failure';
-
+  // type TileStatus = 'unknown' | 'idoling' | 'started-uploading' | 'started-processing' | 'created' | 'failure';
   namespace Billing {
     type Duration = '' | 'month' | 'year';
 

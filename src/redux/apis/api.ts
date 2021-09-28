@@ -42,9 +42,10 @@ type FeaturesGetResp = {
 }
 
 const transformGeoJSONMetaResp2GeoJSONMeta = (resp: GeoJSONMetaResp): Geolonia.GeoJSONMeta => {
+  const source = resp.body._source;
   const geojsonMeta = {
-    ...resp.body._source,
-    id: resp.body._source.geojsonId,
+    ...source,
+    id: source.geojsonId,
     geojsonId: undefined,
   } as Geolonia.GeoJSONMeta;
   return geojsonMeta;

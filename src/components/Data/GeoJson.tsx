@@ -31,8 +31,6 @@ const GeoJson: React.FC<Props> = () => {
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
 
-  const [tileStatus, setTileStatus] = useState<Geolonia.TileStatus>(null);
-
   const { data: geoJsonMeta } = useGetGeoJSONMetaQuery({ geojsonId, teamId }, {
     skip: !selectedTeam,
   });
@@ -75,12 +73,6 @@ const GeoJson: React.FC<Props> = () => {
     history.push('/data/geojson');
   }, [deleteGeoJSONMeta, geojsonId, history, teamId]);
 
-  useEffect(() => {
-    if (geoJsonMeta) {
-      setTileStatus(geoJsonMeta.gvp_status);
-    }
-  }, [geoJsonMeta]);
-
   // invalid url entered
   if (geoJsonMeta && geoJsonMeta.teamId !== teamId) {
     return null;
@@ -100,7 +92,7 @@ const GeoJson: React.FC<Props> = () => {
         )}
       </Title>
 
-      <MapEditorElement geojsonId={geojsonId} tileStatus={tileStatus} setTileStatus={setTileStatus} />
+      <MapEditorElement geojsonId={geojsonId} />
 
       { geoJsonMeta && <div className="geojson-meta">
         <GeoJsonMeta geojsonId={geojsonId} />

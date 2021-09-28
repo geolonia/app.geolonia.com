@@ -3,13 +3,12 @@ import ImportDropZone from './ImportDropZone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __ } from '@wordpress/i18n';
 import './ImportDropZoneButton.scss';
+import type { TransitionStatus } from './GeoJson/hooks/use-gvp';
 
 type Props = {
-  // getTileStatus: () => Promise<Geolonia.TileStatus>,
-  setTileStatus: (value: Geolonia.TileStatus) => void,
-  setGvpStep: (value: Geolonia.GVPStep) => void,
-  teamId?: string,
-  geojsonId?: string,
+  geojsonId: string,
+  transitionStatus: TransitionStatus
+  updateGVPOrder: (order: TransitionStatus['order']) => void,
 }
 
 const styleOuterDefault: React.CSSProperties = {
@@ -27,7 +26,8 @@ const styleOuterDefault: React.CSSProperties = {
   textAlign: 'left',
 };
 
-const Content = (props: Props) => {
+const ImportDropZoneButton = (props: Props) => {
+  const {geojsonId, transitionStatus, updateGVPOrder} = props;
   const [stateImporter, setStateImporter] = useState<boolean>(false);
   const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault);
 
@@ -59,10 +59,9 @@ const Content = (props: Props) => {
         <div className="geojson-importer geojson-dropzone-button" style={styleOuter} onClick={close}>
           <div className="inner" onClick={preventClose}>
             <ImportDropZone
-              geojsonId={props.geojsonId}
-              // getTileStatus={props.getTileStatus}
-              setTileStatus={props.setTileStatus}
-              setGvpStep={props.setGvpStep}
+              geojsonId={geojsonId}
+              transitionStatus={transitionStatus}
+              updateGVPOrder={updateGVPOrder}
               customMessage={__('Data that has already been uploaded will be overwritten.')}
             />
           </div>
@@ -72,4 +71,4 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+export default ImportDropZoneButton;

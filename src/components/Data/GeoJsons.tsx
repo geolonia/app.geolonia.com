@@ -97,7 +97,7 @@ function GeoJsons(props: Props) {
     await sleep(1_000);
     history.push(`/data/geojson/${geojsonId}`);
   }, [createGeoJSONMeta, history, teamId]);
-  console.log({rows});
+
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title={__('Location Data')}>
