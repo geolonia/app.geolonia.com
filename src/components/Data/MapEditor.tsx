@@ -1,10 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import GeoloniaMap from '../custom/GeoloniaMap';
 
 import { _x } from '@wordpress/i18n';
 import fullscreen from './fullscreenMap';
-
-import { refreshSession } from '../../auth';
 
 type OwnProps = {
   geojsonId: string;

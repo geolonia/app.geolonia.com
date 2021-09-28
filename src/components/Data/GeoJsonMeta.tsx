@@ -22,9 +22,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import * as clipboard from 'clipboard-polyfill';
 import { __, sprintf } from '@wordpress/i18n';
 import Save from '../custom/Save';
-import fetch from '../../lib/fetch';
 import { normalizeOrigins } from '@geolonia/utils';
-import { buildApiUrl } from '../../lib/api';
 import Interweave from 'interweave';
 import './GeoJsonMeta.scss';
 import { useSelectedTeam } from '../../redux/hooks';
@@ -121,15 +119,16 @@ const getApiKeyIdUserKey = (mapKeys: Geolonia.DateStringify<Geolonia.Key>[], api
 };
 
 // TODO: Mutation がうまくいっていない。name、isPublic、status を変更しても、リロードするまでstateが変わらない
+// TODO: ローディングの管理
 
 const GeoJSONMeta = (props: Props) => {
   const { geojsonId } = props;
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
-  const { data: geojsonMeta, isFetching: isGeoJSONMetaFetching } = useGetGeojsonMetaQuery({ geojsonId, teamId }, {
+  const { data: geojsonMeta } = useGetGeojsonMetaQuery({ geojsonId, teamId }, {
     skip: !selectedTeam,
   });
-  const { data: mapKeys = [], isFetching: isApiKeyFetching } = useGetApiKeysQuery(teamId, {
+  const { data: mapKeys = [] } = useGetApiKeysQuery(teamId, {
     skip: !selectedTeam,
   });
   const [ updateGeoJSONMeta ] = useUpdateGeoJSONMetaMutation();

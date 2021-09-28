@@ -1,5 +1,7 @@
-import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react';
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { getSession } from '../../auth';
+
+// TODO: FetchBaseQueryError を使う
 
 type CreateGeojsonMetaParam = {
   teamId: string
