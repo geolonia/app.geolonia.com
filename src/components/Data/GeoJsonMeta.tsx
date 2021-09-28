@@ -378,7 +378,7 @@ const GeoJSONMeta = (props: Props) => {
             <Select
               labelId="api-key-select-label"
               id="api-key-select"
-              value={apiKeyId || ''}
+              value={mapKeys.length > 0 ? (apiKeyId || '') : ''} // NOTE: value should match one of the option values, so wait mapKeys arrives
               onChange={handleSelectApiKey}
             >
               <MenuItem value="">
@@ -434,7 +434,7 @@ const GeoJSONMeta = (props: Props) => {
               color="primary"
               size="large"
               style={{ width: '100%' }}
-              // data-simple-vector fits the bounds
+              // no xyz because data-simple-vector fits the bounds
               data-lat=""
               data-lng=""
               data-zoom=""
