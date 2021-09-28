@@ -13,7 +13,6 @@ type Props = {
   navigationControl: Toggle;
   fullscreenControl: Toggle;
   geolocateControl: Toggle;
-  bounds: mapboxgl.LngLatBoundsLike | undefined;
   onAfterLoad: (map: mapboxgl.Map) => void;
   initialMapOptions?: { [key: string]: any };
 };
@@ -57,15 +56,6 @@ class Map extends React.Component<Props, State> {
     });
     this.props.onAfterLoad(map);
     this.setState({map: map});
-  }
-
-  componentDidUpdate() {
-    if (this.props.bounds) {
-      this.state.map.fitBounds(this.props.bounds, {
-        padding: 20,
-        maxZoom: 16,
-      });
-    }
   }
 
   render() {

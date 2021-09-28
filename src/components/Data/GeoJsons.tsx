@@ -10,7 +10,7 @@ import { __ } from '@wordpress/i18n';
 import Moment from 'moment';
 import Table from '../custom/Table';
 import { useSelectedTeam } from '../../redux/hooks';
-import { useGetGeojsonMetaQuery, useCreateGeojsonMetaMutation } from '../../redux/apis/api';
+import { useListGeojsonMetaQuery, useCreateGeoJSONMetaMutation } from '../../redux/apis/api';
 import mixpanel from 'mixpanel-browser';
 import { sleep } from '../../lib/sleep';
 
@@ -38,10 +38,10 @@ function GeoJsons(props: Props) {
 
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
-  const { data: geojsons = [], isFetching, isError } = useGetGeojsonMetaQuery(teamId, {
+  const { data: geojsons = [], isFetching, isError } = useListGeojsonMetaQuery(teamId, {
     skip: !selectedTeam,
   });
-  const [ createGeoJSONMeta ] = useCreateGeojsonMetaMutation();
+  const [ createGeoJSONMeta ] = useCreateGeoJSONMetaMutation();
   const { history } = props;
 
 
@@ -94,7 +94,7 @@ function GeoJsons(props: Props) {
       setMessage('Error');
       throw new Error();
     }
-    const geojsonId = result.data;
+    const geojsonId = result.data.id;
     mixpanel.track('Create Dataset', { geojsonId });
     await sleep(1_000);
     history.push(`/data/geojson/${geojsonId}`);

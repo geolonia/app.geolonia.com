@@ -7,9 +7,7 @@ import fullscreen from './fullscreenMap';
 import { refreshSession } from '../../auth';
 
 type OwnProps = {
-  geojsonId: string | undefined;
-  session: Geolonia.Session;
-  bounds: mapboxgl.LngLatBoundsLike | undefined;
+  geojsonId: string;
   style?: string;
 };
 
@@ -23,12 +21,12 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapEditor = (props: Props) => {
-  const { geojsonId, bounds, style, session } = props;
+  const { geojsonId, style } = props;
 
   // mapbox map and draw binding
   const mapRef = useRef<mapboxgl.Map | null>(null);
-  const [sessionIsValid, setSessionIsValid] = useState<boolean>(!!session?.isValid());
-  const sessionRef = useRef<Geolonia.Session>(session);
+  // const [sessionIsValid, setSessionIsValid] = useState<boolean>(!!session?.isValid());
+  // const sessionRef = useRef<Geolonia.Session>(session);
 
   useEffect(() => {
     if (mapRef.current && style) {
@@ -45,27 +43,27 @@ export const MapEditor = (props: Props) => {
   }, []);
 
   const transformRequest = useCallback((url: string, resourceType) => {
-    if (sessionRef.current && url.indexOf('customtiles') >= 0) {
-      const idToken = sessionRef.current.getIdToken().getJwtToken();
-      return {
-        url,
-        headers: {
-          Authorization: idToken,
-        },
-      };
-    }
+    // if (sessionRef.current && url.indexOf('customtiles') >= 0) {
+    //   const idToken = sessionRef.current.getIdToken().getJwtToken();
+    //   return {
+    //     url,
+    //     headers: {
+    //       Authorization: idToken,
+    //     },
+    //   };
+    // }
     return { url };
   }, []);
 
   useEffect(() => {
     let updateTimer: number | undefined;
     const updater = (async () => {
-      if (!session || session.isValid()) {
-        return;
-      }
-      const newSession = await refreshSession(session);
-      sessionRef.current = newSession;
-      setSessionIsValid(newSession.isValid());
+      // if (!session || session.isValid()) {
+      //   return;
+      // }
+      // const newSession = await refreshSession(session);
+      // sessionRef.current = newSession;
+      // setSessionIsValid(newSession.isValid());
       updateTimer = setTimeout(updater, 30_000) as unknown as number;
     });
     updater();
@@ -75,11 +73,11 @@ export const MapEditor = (props: Props) => {
         clearTimeout(updateTimer);
       }
     };
-  }, [ session ]);
+  }, []);
 
-  if (!sessionIsValid || !geojsonId) {
-    return null;
-  }
+  // if (!sessionIsValid || !geojsonId) {
+  //   return null;
+  // }
 
   return (
     <div style={mapStyle}>
@@ -93,7 +91,6 @@ export const MapEditor = (props: Props) => {
         fullscreenControl={'off'}
         navigationControl={'off'}
         onAfterLoad={handleOnAfterLoad}
-        bounds={bounds}
         geojsonId={geojsonId}
         initialMapOptions={{
           transformRequest,

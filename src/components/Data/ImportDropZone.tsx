@@ -18,9 +18,9 @@ type GeoJSONLinksResp = {
   }
 };
 
-const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: string, geojsonId?: string) => {
+const uploadGeoJson = async (geojson: File, teamId?: string, geojsonId?: string) => {
   const result = await fetch<GeoJSONLinksResp>(
-    session,
+    undefined,
     `${REACT_APP_API_BASE}/${REACT_APP_STAGE}/geojsons/${geojsonId}/links?teamId=${teamId}`,
     { method: 'GET' },
     { absPath: true },
@@ -40,7 +40,7 @@ const uploadGeoJson = async (geojson: File, session: Geolonia.Session, teamId?: 
     contentType = 'application/octet-stream';
   }
   await fetch<any>(
-    session,
+    undefined,
     signedURL,
     {
       method: 'PUT',
@@ -57,7 +57,6 @@ type Props = {
   getTileStatus: () => Promise<TileStatus>,
   setTileStatus: (value: TileStatus) => void,
   setGvpStep: (value: GVPStep) => void,
-  session: Geolonia.Session,
   teamId?: string,
   geojsonId?: string,
   customMessage?: string,
@@ -67,7 +66,6 @@ type Props = {
 const Content = (props: Props) => {
   const [error, setError] = useState<string | null>(null);
   const {
-    session,
     teamId,
     geojsonId,
     customMessage,
@@ -86,7 +84,7 @@ const Content = (props: Props) => {
   const maxUploadSize = GEOJSON_MAX_UPLOAD_SIZE;
 
   const onDrop = useCallback( async (acceptedFiles) => {
-    if (!session || !teamId || !geojsonId) {
+    if (!teamId || !geojsonId) {
       setError(__('Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/'));
       return;
     }
@@ -115,7 +113,7 @@ const Content = (props: Props) => {
     await sleep(50); // Just waiting for the visual effect of GVPProgress
     setGvpStep('uploading');
     try {
-      await uploadGeoJson(acceptedFiles[0], session, teamId, geojsonId);
+      await uploadGeoJson(acceptedFiles[0], teamId, geojsonId);
     } catch (error) {
       setGvpStep('started');
       throw error;
@@ -128,7 +126,7 @@ const Content = (props: Props) => {
     setTileStatus(status);
     setTimeout(() => setGvpStep('started'), 200); // // Just waiting and reset for the visual effect of GVPProgress
 
-  }, [geojsonId, getTileStatus, maxUploadSize, session, setGvpStep, setTileStatus, teamId]);
+  }, [geojsonId, getTileStatus, maxUploadSize, setGvpStep, setTileStatus, teamId]);
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
   const mouseOverStyle = { background: isDragActive ? 'rgb(245, 245, 245)' : 'inherit' };

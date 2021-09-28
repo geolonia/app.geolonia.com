@@ -6,16 +6,29 @@ type CreateGeojsonMetaParam = {
   name: string
 }
 
-type GeoJSONMetaGetResp = {
+type GeoJSONMetaCollectionResp = {
   geojsons: Geolonia.GeoJSONMeta[]
   totalCount: number
 }
-type GeoJSONMetaPostResp = {
+type GeoJSONMetaResp = {
   body: {
     _id: string;
-    _source: Omit<Geolonia.GeoJSONMeta, 'geojsonId'> | { geojsonId: string }
+    _source: Omit<Geolonia.GeoJSONMeta, 'id'> & { geojsonId: string }
   }
 }
+type FeaturesGetResp = {
+  features: GeoJSON.Feature[],
+  totalCount: number
+}
+
+const transformGeoJSONMetaResp2GeoJSONMeta = (resp: GeoJSONMetaResp): Geolonia.GeoJSONMeta => {
+  const geojsonMeta = {
+    ...resp.body._source,
+    id: resp.body._source.geojsonId,
+    geojsonId: undefined,
+  } as Geolonia.GeoJSONMeta;
+  return geojsonMeta;
+};
 
 export const api = createApi({
   reducerPath: 'api',
@@ -34,20 +47,20 @@ export const api = createApi({
   ],
   endpoints: (builder) => ({
     // Geojson Meta
-    createGeojsonMeta: builder.mutation<string, CreateGeojsonMetaParam>({
+    createGeoJSONMeta: builder.mutation<Geolonia.GeoJSONMeta, CreateGeojsonMetaParam>({
       query: (args) => ({
         url: `/geojsons?teamId=${args.teamId}`,
         method: 'POST',
         body: { name: args.name },
       }),
-      transformResponse: (resp: GeoJSONMetaPostResp) => resp.body._id,
+      transformResponse: transformGeoJSONMetaResp2GeoJSONMeta,
       invalidatesTags: (_result, _error, {teamId}) => ([
         {type: 'GeoJSONMeta', id: `LIST:${teamId}`},
       ]),
     }),
-    getGeojsonMeta: builder.query<Geolonia.GeoJSONMeta[], string>({
+    listGeojsonMeta: builder.query<Geolonia.GeoJSONMeta[], string>({
       query: (teamId) => `/geojsons?teamId=${teamId}&per_page=10000`,
-      transformResponse: (resp: GeoJSONMetaGetResp) => resp.geojsons,
+      transformResponse: (resp: GeoJSONMetaCollectionResp) => resp.geojsons,
       providesTags: (result, _error, teamId) => {
         return (
           result ?
@@ -60,11 +73,79 @@ export const api = createApi({
         );
       },
     }),
+    getGeojsonMeta: builder.query<Geolonia.GeoJSONMeta, { geojsonId: string, teamId: string }>({
+      query: ({geojsonId, teamId}) => `/geojsons/${geojsonId}?teamId=${teamId}`,
+    }),
+    updateGeoJSONMeta: builder.mutation<
+    Geolonia.GeoJSONMeta,
+    {
+      geojsonId: string,
+      name?: string,
+      isPublic?: boolean,
+      status?: string,
+      allowedOrigins?: string[],
+      primaryApiKeyId?: string,
+    }
+    >({
+      query: ({ geojsonId, name, isPublic, status, allowedOrigins, primaryApiKeyId }) => {
+        const body: { [key: string]: any } = {};
+        if (typeof name === 'string') {
+          body.name = name;
+        }
+        if (typeof isPublic === 'boolean') {
+          body.isPublic = isPublic;
+        }
+        if (typeof status === 'string') {
+          body.status = status;
+        }
+        if (Array.isArray(allowedOrigins)) {
+          body.allowedOrigins = allowedOrigins;
+        }
+        if (typeof primaryApiKeyId === 'string') {
+          body.primaryApiKeyId = primaryApiKeyId;
+        }
+        return ({
+          url: `/geojsons/${geojsonId}`,
+          method: 'PUT',
+          body,
+        });
+      },
+      transformResponse: transformGeoJSONMetaResp2GeoJSONMeta,
+      invalidatesTags: (_result, _error, { geojsonId }) => ([
+        { type: 'GeoJSONMeta', id: geojsonId },
+      ]),
+    }),
+    deleteGeoJSONMeta: builder.mutation<void, { teamId: string, geojsonId: string }>({
+      query: ({geojsonId}) => ({
+        url: `/geojsons/${geojsonId}`,
+        method: 'PUT',
+        body: { deleted: true },
+      }),
+      invalidatesTags: (_result, _error, {teamId, geojsonId}) => ([
+        { type: 'GeoJSONMeta', id: `LIST:${teamId}` },
+        { type: 'GeoJSONMeta', id: geojsonId },
+      ]),
+    }),
+
+    // NOTE: not in use currently
+    getFeatureCollection: builder.query<GeoJSON.FeatureCollection, { geojsonId: string }>({
+      query: ({ geojsonId }) => `/geojsons/${geojsonId}/features`,
+      transformResponse: (resp: FeaturesGetResp) => ({
+        type: 'FeatureCollection',
+        features: resp.features,
+      }),
+    }),
   }),
 });
 
 export const {
   // Geojson Meta
-  useCreateGeojsonMetaMutation,
+  useCreateGeoJSONMetaMutation,
+  useListGeojsonMetaQuery,
   useGetGeojsonMetaQuery,
+  useUpdateGeoJSONMetaMutation,
+  useDeleteGeoJSONMetaMutation,
+
+  // features
+  useGetFeatureCollectionQuery,
 } = api;

@@ -9,7 +9,6 @@ type Props = {
   getTileStatus: () => Promise<TileStatus>,
   setTileStatus: (value: TileStatus) => void,
   setGvpStep: (value: GVPStep) => void,
-  session: Geolonia.Session,
   teamId?: string,
   geojsonId?: string,
 }
@@ -61,7 +60,6 @@ const Content = (props: Props) => {
         <div className="geojson-importer geojson-dropzone-button" style={styleOuter} onClick={close}>
           <div className="inner" onClick={preventClose}>
             <ImportDropZone
-              session={props.session}
               teamId={props.teamId}
               geojsonId={props.geojsonId}
               getTileStatus={props.getTileStatus}
