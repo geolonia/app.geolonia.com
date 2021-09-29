@@ -166,6 +166,17 @@ const GeoJSONMeta = (props: Props) => {
 
   }, [mapKeys, primaryApiKeyId]);
 
+  // control the Accordion
+  const [expanded, setExpanded] = useState<boolean | undefined>(undefined);
+  useEffect(() => {
+    if (allowedOrigins && allowedOrigins.length > 0 && expanded === undefined) {
+      setExpanded(true);
+    }
+  }, [allowedOrigins, expanded]);
+  const handleExpandClick = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    setExpanded(!expanded);
+  }, [expanded]);
+
   // fire save name request
   const handleGeoJSONMetaSubmit = useCallback<(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<void>>(async () => {
 
@@ -315,9 +326,10 @@ const GeoJSONMeta = (props: Props) => {
           </div>
         </Paper>
         {draftIsPublic && (
-          <Accordion className="geojson-title-description geojson-advanced-settings">
+          <Accordion className="geojson-title-description geojson-advanced-settings" expanded={!!expanded}>
             <AccordionSummary
               expandIcon={<ExpandMoreIcon />}
+              onClick={handleExpandClick}
             >
               <h3>{__('Advanced Settings')}</h3>
             </AccordionSummary>
