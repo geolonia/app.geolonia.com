@@ -41,6 +41,7 @@ export const MapEditor = (props: Props) => {
   }, []);
 
   const transformRequest = useCallback((url: string, resourceType) => {
+    // TODO: これこのままでいい？
     // if (sessionRef.current && url.indexOf('customtiles') >= 0) {
     //   const idToken = sessionRef.current.getIdToken().getJwtToken();
     //   return {
@@ -56,6 +57,7 @@ export const MapEditor = (props: Props) => {
   useEffect(() => {
     let updateTimer: number | undefined;
     const updater = (async () => {
+      // TODO これこのままでいい？
       // if (!session || session.isValid()) {
       //   return;
       // }
@@ -73,6 +75,7 @@ export const MapEditor = (props: Props) => {
     };
   }, []);
 
+  // TODO: これこのままでいい？
   // if (!sessionIsValid || !geojsonId) {
   //   return null;
   // }

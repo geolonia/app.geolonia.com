@@ -30,38 +30,36 @@ export const useGVP = (geojsonId: string) => {
   const teamId = selectedTeam?.teamId || '';
 
   const [transitionStatus, setTransitionStatus] = useState<TransitionStatus>(initialTransitionStatus);
-  const [pollingEnabled, setPollingEnabled] = useState(false);
+  const [timerId, setTimerId] = useState<null | NodeJS.Timeout>(null);
   const { gvp, order } = transitionStatus;
 
   // first access
-  const { data: geoJSONMeta } = useGetGeoJSONMetaQuery({geojsonId, teamId}, {
+  const { data: geoJSONMeta, refetch } = useGetGeoJSONMetaQuery({geojsonId, teamId}, {
     skip: !selectedTeam,
-  });
-
-  const { data: geoJSONMetaWithPolling } = useGetGeoJSONMetaQuery({geojsonId, teamId}, {
-    skip: !selectedTeam,
-    pollingInterval: pollingEnabled ? 5_000 : undefined,
   });
 
   // control polling
   useEffect(() => {
-    const nextPollingEnabled = gvp === 'progress' && (order === 'process-started' || order === 'upload-started');
-    setPollingEnabled(nextPollingEnabled);
-  }, [gvp, order]);
+    const shouldPole = gvp === 'progress' && (order === 'process-started' || order === 'upload-started');
+    if (shouldPole) {
+      timerId && clearInterval(timerId);
+      setTimerId(setInterval(() => { refetch(); }, 2_500));
+    }
+    return () => { timerId && clearInterval(timerId); };
+  }, [gvp, order, refetch, timerId]);
 
   // update gvp
   useEffect(() => {
-    const scopedGeoJSONMeta = pollingEnabled ? geoJSONMetaWithPolling : geoJSONMeta;
-    const gvp_status =  scopedGeoJSONMeta ? (scopedGeoJSONMeta.gvp_status || 'none') : 'retrieving';
+    const gvp_status =  (geoJSONMeta?.gvp_status || 'none');
     if (isValidGVPStatus(gvp_status)) {
       setTransitionStatus({ order: order, gvp: gvp_status });
     }
-  }, [geoJSONMeta, geoJSONMetaWithPolling, order, pollingEnabled]);
+  }, [geoJSONMeta?.gvp_status, order]);
 
   const updateGVPOrder = (order: TransitionStatus['order']) => setTransitionStatus({ ...transitionStatus, order });
 
-  const stepProgress = useMemo(() => getStepProgress({ gvp, order }), [gvp, order]);
-  console.log({order, gvp, scene: stepProgress.scene, pollingEnabled}, geoJSONMeta);
+  const stepProgress = getStepProgress({ gvp, order });
+  console.log(order, gvp, stepProgress.scene, geoJSONMeta);
   return {
     transitionStatus,
     updateGVPOrder,
