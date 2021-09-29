@@ -12,7 +12,7 @@ import GeoJsonMeta from './GeoJsonMeta';
 // lib
 import { __ } from '@wordpress/i18n';
 import { sleep } from '../../lib/sleep';
-import { useHistory, useRouteMatch } from 'react-router';
+import { Redirect, useHistory, useRouteMatch } from 'react-router';
 
 import './GeoJson.scss';
 // constants
@@ -31,7 +31,7 @@ const GeoJson: React.FC<Props> = () => {
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
 
-  const { data: geoJsonMeta } = useGetGeoJSONMetaQuery({ geojsonId, teamId }, {
+  const { data: geoJsonMeta, isError, error } = useGetGeoJSONMetaQuery({ geojsonId, teamId }, {
     skip: !selectedTeam,
   });
   const [deleteGeoJSONMeta] = useDeleteGeoJSONMetaMutation();
@@ -43,7 +43,7 @@ const GeoJson: React.FC<Props> = () => {
   useEffect(() => {
     if (!prevTeamId && !!teamId) {
       setPrevTeamId(teamId);
-    } else if (prevTeamId !== teamId) {
+    } else if (!!teamId && prevTeamId !== teamId) {
       history.push('/data/geojson');
     }
   }, [history, prevTeamId, teamId]);
@@ -75,6 +75,11 @@ const GeoJson: React.FC<Props> = () => {
   // invalid url entered
   if (geoJsonMeta && geoJsonMeta.teamId !== teamId) {
     return null;
+  }
+
+  if (isError && error && 'status' in error && error.status === 403) {
+    // perhaps enter geojsonId in URL directly and no GeoJSON Meta found
+    return <Redirect to="/data/geojson" />;
   }
 
   return (

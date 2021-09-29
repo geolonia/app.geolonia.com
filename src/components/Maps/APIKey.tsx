@@ -27,6 +27,7 @@ import mixpanel from 'mixpanel-browser';
 import { Redirect, useHistory, useRouteMatch } from 'react-router';
 import { useDeleteApiKeyMutation, useGetApiKeysQuery, useUpdateApiKeyMutation } from '../../redux/apis/app-api';
 import { useSelectedTeam } from '../../redux/hooks';
+import { CircularProgress } from '@material-ui/core';
 
 interface ApiKeyFormControlsCollection extends HTMLFormControlsCollection {
   apiKeyName: HTMLInputElement
@@ -185,9 +186,11 @@ const Content: React.FC = () => {
     }
   };
 
-  if (isLoading) return null;
+  if (isLoading || !Array.isArray(mapKeys)) {
+    return <CircularProgress />;
+  }
 
-  if (!mapKey || !apiKey) {
+  if (Array.isArray(mapKeys) && (!mapKey || !apiKey)) {
     // no key found
     return <Redirect to="/api-keys" />;
   }
@@ -208,7 +211,7 @@ const Content: React.FC = () => {
             <Typography component="h2" className="module-title">
               {__('Your API Key')}
             </Typography>
-            <Code>{apiKey}</Code>
+            <Code>{apiKey || ''}</Code>
 
           </Paper>
 
