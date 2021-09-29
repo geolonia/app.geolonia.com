@@ -50,16 +50,15 @@ export const useGVP = (geojsonId: string) => {
 
   // update gvp
   useEffect(() => {
-    const gvp_status =  (geoJSONMeta?.gvp_status || 'none');
+    const gvp_status =  geoJSONMeta ? geoJSONMeta.gvp_status : 'retrieving';
     if (isValidGVPStatus(gvp_status)) {
       setTransitionStatus({ order: order, gvp: gvp_status });
     }
-  }, [geoJSONMeta?.gvp_status, order]);
+  }, [geoJSONMeta, order]);
 
   const updateGVPOrder = (order: TransitionStatus['order']) => setTransitionStatus({ ...transitionStatus, order });
-
   const stepProgress = getStepProgress({ gvp, order });
-  console.log(order, gvp, stepProgress.scene, geoJSONMeta);
+
   return {
     transitionStatus,
     updateGVPOrder,

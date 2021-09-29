@@ -77,6 +77,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
         />
       </div>
     )}
+    {scene}
     <div className={'editor'}>{mapEditorElement}</div>
   </>;
 };
