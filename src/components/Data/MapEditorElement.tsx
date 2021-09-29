@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import MapEditor from './MapEditor';
 import ImportDropZone from './ImportDropZone';
@@ -18,9 +18,27 @@ const mapEditorStyle: React.CSSProperties = {
   flexDirection: 'column',
 };
 
+type StepperProps = {
+  text: string;
+  progress: number;
+  lazy: number;
+}
+
 type Props = {
   geojsonId: string;
 }
+
+const Stepper: React.FC<StepperProps> = ({text, progress, lazy}) => {
+  const [lazyProgress, setLazyProgress] = useState(0);
+  useEffect(() => {
+    setTimeout(() => { setLazyProgress(progress); }, lazy);
+  }, [lazy, progress]);
+
+  return <div style={{ width: '80%', height: '20px' }}>
+    <p style={{ textAlign: 'center' }}>{text}</p>
+    <LinearProgress variant="determinate" value={lazyProgress} />
+  </div>;
+};
 
 // Switch Map, Uploader or some Message Component
 export const MapEditorElement: React.FC<Props> = (props) => {
@@ -28,11 +46,6 @@ export const MapEditorElement: React.FC<Props> = (props) => {
   const { transitionStatus, updateGVPOrder, stepProgress } = useGVP(geojsonId);
   const { scene, text, progress } = stepProgress;
   const [style, setStyle] = useState<string>('');
-
-  const stepper: React.ReactNode = <div style={{ width: '80%', height: '20px' }}>
-    <p style={{ textAlign: 'center' }}>{text}</p>
-    <LinearProgress variant="determinate" value={progress} />
-  </div>;
 
   const { layerNames } = useMetadata(geojsonId);
   const isSimpleStyled = (
@@ -47,7 +60,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
     </div>;
   } else if (scene === 'progress') {
     mapEditorElement = <div style={mapEditorStyle}>
-      {stepper}
+      <Stepper text={text} progress={progress} lazy={50} />
     </div>;
   } else if (scene === 'uploadable') {
     mapEditorElement = <ImportDropZone
