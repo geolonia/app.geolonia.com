@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 
 import { MapStylesAPI } from '../../constants';
 
-type Props = {};
+type Props = {
+  style: string;
+  setStyle: React.Dispatch<React.SetStateAction<string>>;
+};
 
-const StyleSelector: React.FC<Props> = () => {
+const StyleSelector: React.FC<Props> = (props) => {
+  const { style, setStyle } = props;
   const [styles, setStyles] = useState<[]>([]);
-  const [style, setStyle] = useState<string | undefined>();
 
   useEffect(() => {
     fetch(MapStylesAPI)

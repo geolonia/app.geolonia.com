@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import MapEditor from './MapEditor';
 import ImportDropZone from './ImportDropZone';
@@ -27,6 +27,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
   const { geojsonId } = props;
   const { transitionStatus, updateGVPOrder, stepProgress } = useGVP(geojsonId);
   const { scene, text, progress } = stepProgress;
+  const [style, setStyle] = useState<string>('geolonia/basic');
 
   const stepper: React.ReactNode = <div style={{ width: '80%', height: '20px' }}>
     <p style={{ textAlign: 'center' }}>{text}</p>
@@ -56,7 +57,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
     />;
   } else if (scene === 'success') {
     if (isSimpleStyled) {
-      mapEditorElement = <MapEditor geojsonId={geojsonId} />;
+      mapEditorElement = <MapEditor geojsonId={geojsonId} style={style} />;
     } else {
       mapEditorElement = <div style={mapEditorStyle}>
         { __('In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.') }
@@ -67,7 +68,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
   return <>
     {scene === 'success' && (
       <div className="nav">
-        {isSimpleStyled && <StyleSelector />}
+        {isSimpleStyled && <StyleSelector style={style} setStyle={setStyle} />}
         {/* <ExportButton GeoJsonID={geojsonId} drawObject={drawObject} /> */}
         <ImportDropZoneButton
           geojsonId={geojsonId}
