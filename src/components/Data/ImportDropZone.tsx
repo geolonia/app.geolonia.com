@@ -5,16 +5,15 @@ import { GEOJSON_MAX_UPLOAD_SIZE } from '../../constants';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __, sprintf } from '@wordpress/i18n';
 import './ImportDropZone.scss';
-import { sleep } from '../../lib/sleep';
 import { useSelectedTeam } from '../../redux/hooks';
 import { useUpdateLocationDataMutation } from '../../redux/apis/api';
-import type { TransitionStatus } from './GeoJson/hooks/use-gvp';
+import type { LSPageStatus } from './GeoJson/hooks/use-gvp';
 
 type Props = {
   geojsonId: string,
   customMessage?: string,
-  transitionStatus: TransitionStatus,
-  updateGVPOrder: (order: TransitionStatus['order']) => void,
+  lsPageStatus: LSPageStatus,
+  setLSPageStatus: (lsPageStatus: LSPageStatus) => void
 }
 
 const ImportDropZone = (props: Props) => {
@@ -22,18 +21,18 @@ const ImportDropZone = (props: Props) => {
   const {
     geojsonId,
     customMessage,
-    transitionStatus: { gvp },
-    updateGVPOrder,
+    lsPageStatus,
+    setLSPageStatus,
   } = props;
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
   const [uploadLocationData] = useUpdateLocationDataMutation();
 
   useEffect(() => {
-    if (gvp === 'failure') {
+    if (lsPageStatus === 'failed/uploadable') {
       setError(__('Failed to add your data. Your data might be invalid format.'));
     }
-  }, [gvp]);
+  }, [lsPageStatus]);
 
   const maxUploadSize = GEOJSON_MAX_UPLOAD_SIZE;
 
@@ -63,20 +62,17 @@ const ImportDropZone = (props: Props) => {
       return;
     }
     setError(null);
-    // setTileStatus('progress'); // NOTE: 最初のレスポンスまでに時間がかかるので、progress をセット。
-    await sleep(50); // Just waiting for the visual effect of GVPProgress
-    updateGVPOrder('upload-started');
+    setLSPageStatus('uploading');
     try {
       await uploadLocationData({locationDataFile: acceptedFiles[0], teamId, geojsonId});
       // TODO: エラーハンドリング
     } catch (error) {
-      updateGVPOrder('idoling');
+      setLSPageStatus('failed/uploadable');
       throw error;
     }
+    setLSPageStatus('processing');
 
-    updateGVPOrder('process-started');
-
-  }, [geojsonId, maxUploadSize, teamId, updateGVPOrder, uploadLocationData]);
+  }, [geojsonId, maxUploadSize, setLSPageStatus, teamId, uploadLocationData]);
 
   // useEffect(() => {
   //   async function controlSteps() {

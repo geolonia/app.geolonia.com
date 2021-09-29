@@ -3,12 +3,12 @@ import ImportDropZone from './ImportDropZone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __ } from '@wordpress/i18n';
 import './ImportDropZoneButton.scss';
-import type { TransitionStatus } from './GeoJson/hooks/use-gvp';
+import type { LSPageStatus } from './GeoJson/hooks/use-gvp';
 
 type Props = {
   geojsonId: string,
-  transitionStatus: TransitionStatus
-  updateGVPOrder: (order: TransitionStatus['order']) => void,
+  lsPageStatus: LSPageStatus,
+  setLSPageStatus: (lsPageStatus: LSPageStatus) => void
 }
 
 const styleOuterDefault: React.CSSProperties = {
@@ -27,7 +27,7 @@ const styleOuterDefault: React.CSSProperties = {
 };
 
 const ImportDropZoneButton = (props: Props) => {
-  const {geojsonId, transitionStatus, updateGVPOrder} = props;
+  const {geojsonId, lsPageStatus, setLSPageStatus} = props;
   const [stateImporter, setStateImporter] = useState<boolean>(false);
   const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault);
 
@@ -60,8 +60,8 @@ const ImportDropZoneButton = (props: Props) => {
           <div className="inner" onClick={preventClose}>
             <ImportDropZone
               geojsonId={geojsonId}
-              transitionStatus={transitionStatus}
-              updateGVPOrder={updateGVPOrder}
+              lsPageStatus={lsPageStatus}
+              setLSPageStatus={setLSPageStatus}
               customMessage={__('Data that has already been uploaded will be overwritten.')}
             />
           </div>

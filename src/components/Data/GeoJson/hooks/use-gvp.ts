@@ -4,10 +4,7 @@ import { __ } from '@wordpress/i18n';
 import { useGetGeoJSONMetaQuery } from '../../../../redux/apis/api';
 import { useSelectedTeam } from '../../../../redux/hooks';
 
-export type TransitionStatus = {
-  gvp: 'retrieving' | 'none' | 'progress' | 'created' | 'failure',
-  order: 'idoling' | 'upload-started' | 'process-started'
-}
+export type LSPageStatus = 'retrieving' | 'uploadable' | 'uploading' | 'processing' | 'success/uploadable' | 'failed/uploadable'
 
 export type StepProgress = {
   scene: 'loading' | 'uploadable' | 'progress' | 'success',
@@ -15,115 +12,88 @@ export type StepProgress = {
   progress: number,
 };
 
-const isValidGVPStatus = (status: string): status is TransitionStatus['gvp'] => {
-  return  ['retrieving', 'none', 'progress', 'created', 'failure'].includes(status);
-};
-
-const initialTransitionStatus: TransitionStatus = {
-  gvp: 'retrieving' as const,
-  order: 'idoling' as const,
-};
-
 export const useGVP = (geojsonId: string) => {
 
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
 
-  const [transitionStatus, setTransitionStatus] = useState<TransitionStatus>(initialTransitionStatus);
-  const [timerId, setTimerId] = useState<null | NodeJS.Timeout>(null);
-  const { gvp, order } = transitionStatus;
+  const [lsPageStatus, setLSPageStatus] = useState<LSPageStatus>('retrieving');
+  const [timer, setTimer] = useState<null | NodeJS.Timeout>(null);
 
   // first access
-  const { data: geoJSONMeta, refetch } = useGetGeoJSONMetaQuery({geojsonId, teamId}, {
+  const { data: geoJSONMeta, refetch } = useGetGeoJSONMetaQuery({ geojsonId, teamId }, {
     skip: !selectedTeam,
   });
+  const gvp_status = geoJSONMeta?.gvp_status;
 
   // control polling
   useEffect(() => {
-    const shouldPole = gvp === 'progress' && (order === 'process-started' || order === 'upload-started');
-    if (shouldPole) {
-      timerId && clearInterval(timerId);
-      setTimerId(setInterval(() => { refetch(); }, 2_500));
+    if (!timer && lsPageStatus === 'processing') {
+      setTimer(setInterval(() => { refetch(); }, 2_500));
+    } else if (timer && lsPageStatus !== 'processing') {
+      clearInterval(timer);
+      setTimer(null);
     }
-    return () => { timerId && clearInterval(timerId); };
-  }, [gvp, order, refetch, timerId]);
+  }, [lsPageStatus, refetch, timer]);
 
-  // update gvp
+  // update page status
   useEffect(() => {
-    const gvp_status =  geoJSONMeta ? geoJSONMeta.gvp_status : 'retrieving';
-    if (isValidGVPStatus(gvp_status)) {
-      setTransitionStatus({ order: order, gvp: gvp_status });
+    if (geoJSONMeta) {
+      if (gvp_status === 'created') {
+        setLSPageStatus('success/uploadable');
+      } else if (gvp_status === 'failure') {
+        setLSPageStatus('failed/uploadable');
+      } else if (gvp_status === 'progress') {
+        setLSPageStatus('processing');
+      } else {
+        setLSPageStatus('uploadable');
+      }
+    } else {
+      setLSPageStatus('retrieving');
     }
-  }, [geoJSONMeta, order]);
+  }, [geoJSONMeta, gvp_status]);
 
-  const updateGVPOrder = (order: TransitionStatus['order']) => setTransitionStatus({ ...transitionStatus, order });
-  const stepProgress = getStepProgress({ gvp, order });
-
+  const stepProgress = getStepProgress(lsPageStatus);
   return {
-    transitionStatus,
-    updateGVPOrder,
+    lsPageStatus,
+    setLSPageStatus,
     stepProgress,
   };
 };
 
-const getStepProgress = ({ gvp, order }: TransitionStatus): StepProgress => {
-
-  if (order === 'idoling') {
-    if (gvp === 'retrieving') {
+const getStepProgress = (pageStatus: LSPageStatus): StepProgress => {
+  switch (pageStatus) {
+    case 'retrieving':
       return {
         scene: 'loading',
         text: '',
         progress: 0,
       };
-    } else if (gvp === 'created') {
-      return {
-        scene: 'success',
-        text: '',
-        progress: 0,
-      };
-    } else {
-      // gvp === none || gvp === failure
+    case 'uploadable':
+    case 'failed/uploadable':
       return {
         scene: 'uploadable',
         text: '',
         progress: 0,
       };
-    }
-  } else if (order === 'upload-started') {
-    if (gvp === 'failure') {
-      return {
-        scene: 'uploadable',
-        text: __('failure.'),
-        progress: 20,
-      };
-    } else {
+    case 'uploading':
       return {
         scene: 'progress',
         text: __('Uploading now..'),
         progress: 20,
       };
-    }
-  } else {
-    // order === 'process-started'
-    if (gvp === 'created') {
-      return {
-        scene: 'success',
-        text: __('Successed.'),
-        progress: 100,
-      };
-    } else if (gvp === 'failure') {
-      return {
-        scene: 'uploadable',
-        text: __('failure.'),
-        progress: 60,
-      };
-    } else {
+    case 'processing':
       return {
         scene: 'progress',
         text: __('Processing data..'),
         progress: 60,
       };
-    }
+    case 'success/uploadable':
+      return {
+        scene: 'success',
+        text: __('Successed.'),
+        progress: 100,
+      };
   }
 };
 

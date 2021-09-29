@@ -43,7 +43,7 @@ const Stepper: React.FC<StepperProps> = ({text, progress, lazy}) => {
 // Switch Map, Uploader or some Message Component
 export const MapEditorElement: React.FC<Props> = (props) => {
   const { geojsonId } = props;
-  const { transitionStatus, updateGVPOrder, stepProgress } = useGVP(geojsonId);
+  const { lsPageStatus, setLSPageStatus, stepProgress } = useGVP(geojsonId);
   const { scene, text, progress } = stepProgress;
   const [style, setStyle] = useState<string>('');
 
@@ -65,8 +65,8 @@ export const MapEditorElement: React.FC<Props> = (props) => {
   } else if (scene === 'uploadable') {
     mapEditorElement = <ImportDropZone
       geojsonId={geojsonId}
-      transitionStatus={transitionStatus}
-      updateGVPOrder={updateGVPOrder}
+      lsPageStatus={lsPageStatus}
+      setLSPageStatus={setLSPageStatus}
     />;
   } else if (scene === 'success') {
     if (isSimpleStyled) {
@@ -85,12 +85,11 @@ export const MapEditorElement: React.FC<Props> = (props) => {
         {/* <ExportButton GeoJsonID={geojsonId} drawObject={drawObject} /> */}
         <ImportDropZoneButton
           geojsonId={geojsonId}
-          transitionStatus={transitionStatus}
-          updateGVPOrder={updateGVPOrder}
+          lsPageStatus={lsPageStatus}
+          setLSPageStatus={setLSPageStatus}
         />
       </div>
     )}
-    {scene}
     <div className={'editor'}>{mapEditorElement}</div>
   </>;
 };
