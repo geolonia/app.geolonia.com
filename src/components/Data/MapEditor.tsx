@@ -1,8 +1,10 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import GeoloniaMap from '../custom/GeoloniaMap';
 
 import { _x } from '@wordpress/i18n';
 import fullscreen from './fullscreenMap';
+import { getSession, refreshSession } from '../../auth';
+import * as CognitoIdentity from 'amazon-cognito-identity-js';
 
 type OwnProps = {
   geojsonId: string;
@@ -20,11 +22,16 @@ const mapStyle: React.CSSProperties = {
 
 export const MapEditor = (props: Props) => {
   const { geojsonId, style } = props;
+  const [session, setSession] = useState<null | CognitoIdentity.CognitoUserSession >(null);
+
+  useEffect(() => {
+    getSession().then(setSession);
+  }, []);
 
   // mapbox map and draw binding
   const mapRef = useRef<mapboxgl.Map | null>(null);
-  // const [sessionIsValid, setSessionIsValid] = useState<boolean>(!!session?.isValid());
-  // const sessionRef = useRef<Geolonia.Session>(session);
+  const [sessionIsValid, setSessionIsValid] = useState<boolean>(!!session?.isValid());
+  const sessionRef = useRef<Geolonia.Session>(session);
 
   useEffect(() => {
     if (mapRef.current && style) {
@@ -41,29 +48,27 @@ export const MapEditor = (props: Props) => {
   }, []);
 
   const transformRequest = useCallback((url: string, resourceType) => {
-    // TODO: これこのままでいい？
-    // if (sessionRef.current && url.indexOf('customtiles') >= 0) {
-    //   const idToken = sessionRef.current.getIdToken().getJwtToken();
-    //   return {
-    //     url,
-    //     headers: {
-    //       Authorization: idToken,
-    //     },
-    //   };
-    // }
+    if (sessionRef.current && url.indexOf('customtiles') >= 0) {
+      const idToken = sessionRef.current.getIdToken().getJwtToken();
+      return {
+        url,
+        headers: {
+          Authorization: idToken,
+        },
+      };
+    }
     return { url };
   }, []);
 
   useEffect(() => {
     let updateTimer: number | undefined;
     const updater = (async () => {
-      // TODO これこのままでいい？
-      // if (!session || session.isValid()) {
-      //   return;
-      // }
-      // const newSession = await refreshSession(session);
-      // sessionRef.current = newSession;
-      // setSessionIsValid(newSession.isValid());
+      if (!session || !session.isValid()) {
+        return;
+      }
+      const newSession = await refreshSession(session);
+      sessionRef.current = newSession;
+      setSessionIsValid(newSession.isValid());
       updateTimer = setTimeout(updater, 30_000) as unknown as number;
     });
     updater();
@@ -73,12 +78,11 @@ export const MapEditor = (props: Props) => {
         clearTimeout(updateTimer);
       }
     };
-  }, []);
+  }, [session]);
 
-  // TODO: これこのままでいい？
-  // if (!sessionIsValid || !geojsonId) {
-  //   return null;
-  // }
+  if (!sessionIsValid || !geojsonId) {
+    return null;
+  }
 
   return (
     <div style={mapStyle}>

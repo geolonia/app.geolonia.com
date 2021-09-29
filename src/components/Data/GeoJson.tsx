@@ -67,7 +67,6 @@ const GeoJson: React.FC<Props> = () => {
     if (!teamId || !geojsonId) {
       return Promise.resolve();
     }
-    // TODO: エラーハンドリング
     await deleteGeoJSONMeta({teamId, geojsonId});
     await sleep(messageDisplayDuration);
     history.push('/data/geojson');

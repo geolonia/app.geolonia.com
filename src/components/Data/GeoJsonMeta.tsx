@@ -117,9 +117,6 @@ const getApiKeyIdUserKey = (mapKeys: Geolonia.DateStringify<Geolonia.Key>[], api
   return mapKeys.find((key) => key.keyId === apiKeyId)?.userKey;
 };
 
-// TODO: Mutation がうまくいっていない。name、isPublic、status を変更しても、リロードするまでstateが変わらない
-// TODO: ローディングの管理
-
 const GeoJSONMeta = (props: Props) => {
   const { geojsonId } = props;
   const { selectedTeam } = useSelectedTeam();
@@ -178,11 +175,8 @@ const GeoJSONMeta = (props: Props) => {
 
     const result = await updateGeoJSONMeta({ name: draftName, geojsonId });
     if ('error' in result) {
-      // TODO エラーハンドリング
       throw result.error;
     }
-    // const { data: geojsonMeta } = result;
-    // setGeoJsonMeta(geojsonMeta);
   }, [draftName, geojsonId, updateGeoJSONMeta]);
 
   let saveDisabled = false;
@@ -200,7 +194,6 @@ const GeoJSONMeta = (props: Props) => {
     const result = await updateGeoJSONMeta({geojsonId, allowedOrigins: normalizedAllowedOrigins});
     if ('error' in result) {
       setSaveStatus('failure');
-      // TODO エラーハンドリング
       throw result.error;
     } else {
       setSaveStatus('success');
@@ -210,7 +203,6 @@ const GeoJSONMeta = (props: Props) => {
   const handleGeoJSONMetaPrimaryApiKeySubmit = useCallback(async (primaryApiKeyId: string) => {
     const result = await updateGeoJSONMeta({geojsonId, primaryApiKeyId});
     if ('error' in result) {
-      // TODO エラーハンドリング
       throw new Error('HTTP error');
     }
   }, [geojsonId, updateGeoJSONMeta]);

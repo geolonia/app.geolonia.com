@@ -65,7 +65,6 @@ const ImportDropZone = (props: Props) => {
     setLSPageStatus('uploading');
     try {
       await uploadLocationData({locationDataFile: acceptedFiles[0], teamId, geojsonId});
-      // TODO: エラーハンドリング
     } catch (error) {
       setLSPageStatus('failed/uploadable');
       throw error;
@@ -73,18 +72,6 @@ const ImportDropZone = (props: Props) => {
     setLSPageStatus('processing');
 
   }, [geojsonId, maxUploadSize, setLSPageStatus, teamId, uploadLocationData]);
-
-  // useEffect(() => {
-  //   async function controlSteps() {
-  //     if (gvpStep === 'processing' && tileStatus !== 'progress') {
-  //       setGvpStep('done');
-  //       tileStatus === 'created' && await sleep(1500); // Just waiting for the visual effect of GVPProgress
-  //       setTimeout(() => setGvpStep('started'), 200); // // Just waiting and reset for the visual effect of GVPProgress
-  //     }
-  //   }
-  //   controlSteps();
-  // }, [gvpStep, setGvpStep, tileStatus]);
-
 
   const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop});
   const mouseOverStyle = { background: isDragActive ? 'rgb(245, 245, 245)' : 'inherit' };
