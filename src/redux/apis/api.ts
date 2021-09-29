@@ -96,6 +96,10 @@ export const api = createApi({
     }),
     getGeoJSONMeta: builder.query<Geolonia.GeoJSONMeta, { geojsonId: string, teamId: string }>({
       query: ({geojsonId, teamId}) => `/geojsons/${geojsonId}?teamId=${teamId}`,
+      providesTags: (_result, _error, {teamId, geojsonId}) => ([
+        { type: 'GeoJSONMeta', id: geojsonId },
+        { type: 'GeoJSONMeta', id: `LIST:${teamId}` },
+      ]),
     }),
     updateGeoJSONMeta: builder.mutation<Geolonia.GeoJSONMeta, UpdateGeoJSONMetaParam>({
       query: ({ geojsonId, name, isPublic, status, allowedOrigins, primaryApiKeyId }) => {
