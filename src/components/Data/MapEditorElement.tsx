@@ -27,7 +27,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
   const { geojsonId } = props;
   const { transitionStatus, updateGVPOrder, stepProgress } = useGVP(geojsonId);
   const { scene, text, progress } = stepProgress;
-  const [style, setStyle] = useState<string>('geolonia/basic');
+  const [style, setStyle] = useState<string>('');
 
   const stepper: React.ReactNode = <div style={{ width: '80%', height: '20px' }}>
     <p style={{ textAlign: 'center' }}>{text}</p>
@@ -43,7 +43,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
   let mapEditorElement: JSX.Element | null = null;
   if (scene === 'loading') {
     mapEditorElement = <div style={mapEditorStyle}>
-      <CircularProgress></CircularProgress>
+      <CircularProgress />
     </div>;
   } else if (scene === 'progress') {
     mapEditorElement = <div style={mapEditorStyle}>
