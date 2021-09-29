@@ -152,11 +152,11 @@ const Navigator: React.FC<Props> = (props) => {
       icon: <CodeIcon />,
       href: '/api-keys',
     },
-    {
-      id: __('Location Data'),
-      icon: <RoomIcon />,
-      href: '/data/geojson',
-    },
+    // {
+    //   id: __('Location Data'),
+    //   icon: <RoomIcon />,
+    //   href: '/data/geojson',
+    // },
     // { id: 'Styles', icon: <SatelliteIcon />, href: "/maps/styles" },
     // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "/data/features" },
   ];

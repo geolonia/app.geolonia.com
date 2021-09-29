@@ -101,6 +101,7 @@ export const CustomTable = (props: Props) => {
   };
 
   const onClick = (e: any) => {
+    // TODO: useHistory
     window.location.hash = permalink.replace('%s', e.currentTarget.dataset.id);
   };
 

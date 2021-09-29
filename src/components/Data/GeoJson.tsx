@@ -76,9 +76,6 @@ const GeoJson: React.FC<Props> = () => {
   if (geoJsonMeta && geoJsonMeta.teamId !== teamId) {
     return null;
   }
-  // if (error) {
-  //   return null;
-  // }
 
   return (
     <div className="gis-panel">
