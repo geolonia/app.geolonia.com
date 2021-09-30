@@ -174,8 +174,8 @@ const GeoJSONMeta = (props: Props) => {
     }
   }, [allowedOrigins, expanded]);
   const handleExpandClick = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    setExpanded(!expanded);
-  }, [expanded]);
+    setExpanded((expanded) => !expanded);
+  }, []);
 
   // fire save name request
   const handleGeoJSONMetaSubmit = useCallback<(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => Promise<void>>(async () => {
