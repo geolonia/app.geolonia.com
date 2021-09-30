@@ -93,7 +93,18 @@ declare namespace Geolonia {
     allowedOrigins: string[];
     createAt: Moment.Moment | void;
     updateAt?: Moment.Moment | void;
-  };
+  }
+  type GeoJSONMeta = {
+    id: string;
+    name: string;
+    updateAt: string;
+    isPublic: boolean;
+    allowedOrigins: string[];
+    status: string;
+    teamId: string;
+    gvp_status: string; // 'progress' | 'created' | 'failure';
+    primaryApiKeyId?: string;
+  }
   type TeamPlanDetails = {
     planId: string | null | undefined;
     subscription?: {
@@ -199,6 +210,7 @@ declare namespace Geolonia {
     receipt_url: string | null;
   };
 
+  // type TileStatus = 'unknown' | 'idoling' | 'started-uploading' | 'started-processing' | 'created' | 'failure';
   namespace Billing {
     type Duration = '' | 'month' | 'year';
 

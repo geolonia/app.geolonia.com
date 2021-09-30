@@ -1,99 +1,52 @@
-import React, { useMemo, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import fetch from '../../lib/fetch';
 
-import MapEditor from './MapEditor';
 import Delete from '../custom/Delete';
 import DangerZone from '../custom/danger-zone';
 
 import Title from '../custom/Title';
-import ImportDropZoneButton from './ImportDropZoneButton';
-import ImportDropZone from './ImportDropZone';
+import MapEditorElement from './MapEditorElement';
 // import ExportButton from "./ExportButton";
 import GeoJsonMeta from './GeoJsonMeta';
-import StyleSelector from './StyleSelector';
-import { LinearProgress } from '@material-ui/core';
 
 // lib
-import { connect } from 'react-redux';
 import { __ } from '@wordpress/i18n';
 import { sleep } from '../../lib/sleep';
-
-// hooks
-import useGeoJSON from './GeoJson/hooks/use-geojson';
-import useMetadata from './GeoJson/hooks/use-metadata';
+import { useHistory, useRouteMatch } from 'react-router';
 
 import './GeoJson.scss';
 // constants
 import { messageDisplayDuration } from '../../constants';
-import { buildApiUrl } from '../../lib/api';
+import { useGetGeoJSONMetaQuery, useDeleteGeoJSONMetaMutation } from '../../redux/apis/api';
+import { useSelectedTeam } from '../../redux/hooks';
 
-type OwnProps = Record<string, never>;
+type Props = Record<string, never>;
 
-type StateProps = {
-  session: Geolonia.Session;
-  geojsonId?: string;
-  teamId?: string;
-};
+const GeoJson: React.FC<Props> = () => {
 
-type RouterProps = {
-  match: { params: { id: string } };
-  history: { push: (path: string) => void };
-};
+  const history = useHistory();
+  const match = useRouteMatch<{id: string}>();
+  const geojsonId = match.params.id;
 
-type Props = OwnProps & RouterProps & StateProps;
+  const { selectedTeam } = useSelectedTeam();
+  const teamId = selectedTeam?.teamId || '';
 
-export type TileStatus = null | undefined | 'progress' | 'created' | 'failure';
-
-export type GVPStep = 'started' | 'uploading' | 'processing' | 'done';
-
-const getStepProgress = (): { [key in GVPStep]: { text: string, progress: number } } => {
-  return {
-    started: { text: '', progress: 0 },
-    uploading: { text: __('Uploading now..'), progress: 20 },
-    processing: { text: __('Processing data..'), progress: 60 },
-    done: { text: __('Adding your data to the map...'), progress: 90 },
-  };
-};
-
-const mapEditorStyle: React.CSSProperties = {
-  width: '100%',
-  height: '100%',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  flexDirection: 'column',
-};
-
-const GeoJson: React.FC<Props> = (props: Props) => {
-  const {
-    session,
-    teamId,
-    geojsonId,
-    history,
-  } = props;
+  const { data: geoJsonMeta } = useGetGeoJSONMetaQuery({ geojsonId, teamId }, {
+    skip: !selectedTeam,
+  });
+  const [deleteGeoJSONMeta] = useDeleteGeoJSONMetaMutation();
 
   const [message] = useState('');
-  const [style, setStyle] = useState<string | undefined>();
-  const [tileStatus, setTileStatus] = useState<TileStatus>(null);
-  const [prevTeamId] = useState(teamId);
-  const [gvpStep, setGvpStep] = useState<GVPStep>('started');
-
-  // custom hooks
-  const {
-    geoJsonMeta,
-    bounds,
-    setGeoJsonMeta,
-    error,
-  } = useGeoJSON(session, geojsonId);
-  const { layerNames } = useMetadata(geojsonId);
 
   // move on team change
+  const [prevTeamId, setPrevTeamId] = useState<string | null>(null);
   useEffect(() => {
-    if (prevTeamId !== teamId) {
+    if (!prevTeamId && !!teamId) {
+      setPrevTeamId(teamId);
+    } else if (prevTeamId !== teamId) {
       history.push('/data/geojson');
     }
-  }, [prevTeamId, history, teamId]);
+  }, [history, prevTeamId, teamId]);
 
   const breadcrumbItems = [
     {
@@ -110,113 +63,18 @@ const GeoJson: React.FC<Props> = (props: Props) => {
     },
   ];
 
-  const onDeleteClick = useCallback(async () => {
+  const handleDeleteGeoJSONMeta = useCallback(async () => {
     if (!teamId || !geojsonId) {
       return Promise.resolve();
     }
-
-    return fetch(
-      session,
-      buildApiUrl(`/geojsons/${geojsonId}`),
-      {
-        method: 'PUT',
-        body: JSON.stringify({ deleted: true }),
-      },
-    )
-      .then((res) => {
-        if (res.status < 400) {
-          return res.json();
-        } else {
-          // will be caught at <Save />
-          throw new Error();
-        }
-      })
-      .then(() => {
-        setTimeout(
-          () => history.push('/data/geojson'),
-          messageDisplayDuration,
-        );
-      });
-  }, [session, teamId, geojsonId, history]);
-
-  const stepProgress = useMemo(getStepProgress, []);
-
-  const getTileStatus = useCallback(async () => {
-    let status = 'progress';
-    while (status !== 'created' && status !== 'failure') {
-      await sleep(2500);
-      try {
-        const res = await fetch(
-          session,
-          buildApiUrl(`/geojsons/${geojsonId}?teamId=${teamId}`),
-          { method: 'GET' },
-        );
-        const json = await res.json();
-        status = json.gvp_status;
-
-      } catch (error) {
-        throw new Error();
-      }
-    }
-    return status;
-  }, [session, geojsonId, teamId]);
-
-  useEffect(() => {
-    if (geoJsonMeta) {
-      setTileStatus(geoJsonMeta.gvp_status);
-    }
-  }, [geoJsonMeta]);
+    await deleteGeoJSONMeta({teamId, geojsonId});
+    await sleep(messageDisplayDuration);
+    history.push('/data/geojson');
+  }, [deleteGeoJSONMeta, geojsonId, history, teamId]);
 
   // invalid url entered
   if (geoJsonMeta && geoJsonMeta.teamId !== teamId) {
     return null;
-  }
-  if (error) {
-    return null;
-  }
-
-  const isSimpleStyled = (
-    Array.isArray(layerNames) &&
-      layerNames.some((id: string) => id.startsWith('g-simplestyle-'))
-  ) || layerNames === 'error'; // NOTE: fallback
-
-  const stepper: React.ReactNode = <div style={{ width: '80%', height: '20px' }}>
-    <p style={{ textAlign: 'center' }}>{stepProgress[gvpStep].text}</p>
-    <LinearProgress variant="determinate" value={stepProgress[gvpStep].progress} />
-  </div>;
-
-  let mapEditorElement: JSX.Element | null = null;
-  if (tileStatus === null) {
-    mapEditorElement = <div style={mapEditorStyle}>
-      {stepper}
-    </div>;
-  } else if (tileStatus === 'progress') {
-    mapEditorElement = <div style={mapEditorStyle}>
-      {stepper}
-    </div>;
-  } else if (tileStatus === undefined || tileStatus === 'failure') {
-    mapEditorElement = <ImportDropZone
-      session={session}
-      teamId={teamId}
-      geojsonId={geojsonId}
-      tileStatus={tileStatus}
-      getTileStatus={getTileStatus}
-      setTileStatus={setTileStatus}
-      setGvpStep={setGvpStep}
-    />;
-  } else if (tileStatus === 'created') {
-    if (isSimpleStyled) {
-      mapEditorElement = <MapEditor
-        session={session}
-        style={style}
-        geojsonId={geojsonId}
-        bounds={bounds}
-      />;
-    } else {
-      mapEditorElement = <div style={mapEditorStyle}>
-        { __('In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.') }
-      </div>;
-    }
   }
 
   return (
@@ -230,39 +88,11 @@ const GeoJson: React.FC<Props> = (props: Props) => {
         )}
       </Title>
 
-      {tileStatus === 'created' && (
-        <div className="nav">
-          {isSimpleStyled && <StyleSelector style={style} setStyle={setStyle} />}
-          {/* <ExportButton GeoJsonID={geojsonId} drawObject={drawObject} /> */}
-          <ImportDropZoneButton
-            session={session}
-            teamId={teamId}
-            geojsonId={geojsonId}
-            getTileStatus={getTileStatus}
-            setTileStatus={setTileStatus}
-            setGvpStep={setGvpStep}
-          />
-        </div>
-      )}
+      <MapEditorElement geojsonId={geojsonId} />
 
-      <div className={'editor'}>
-        {mapEditorElement}
-      </div>
-
-      {geojsonId && geoJsonMeta && <div className="geojson-meta">
-        <GeoJsonMeta
-          geojsonId={geojsonId}
-          name={geoJsonMeta.name}
-          isPublic={geoJsonMeta.isPublic}
-          allowedOrigins={geoJsonMeta.allowedOrigins}
-          teamId={geoJsonMeta.teamId}
-          primaryApiKeyId={geoJsonMeta.primaryApiKeyId}
-          status={geoJsonMeta.status}
-          setGeoJsonMeta={setGeoJsonMeta}
-          style={style}
-        />
-      </div>
-      }
+      { geoJsonMeta && <div className="geojson-meta">
+        <GeoJsonMeta geojsonId={geojsonId} />
+      </div>}
 
       <DangerZone
         whyDanger={__(
@@ -274,30 +104,11 @@ const GeoJson: React.FC<Props> = (props: Props) => {
           text2={__('Please type delete to confirm.')}
           answer={geoJsonMeta ? geoJsonMeta.name : void 0}
           errorMessage={message}
-          onClick={onDeleteClick}
+          onClick={handleDeleteGeoJSONMeta}
         />
       </DangerZone>
     </div>
   );
 };
 
-export const mapStateToProps = (
-  state: Geolonia.Redux.AppState,
-  ownProps: OwnProps & RouterProps,
-): StateProps => {
-  const session = state.authSupport.session;
-  const team = state.team.data[state.team.selectedIndex];
-  if (team) {
-    const { teamId } = team;
-    const geojsonId = ownProps.match.params.id;
-    return {
-      session,
-      teamId,
-      geojsonId,
-    };
-  } else {
-    return { session };
-  }
-};
-
-export default connect(mapStateToProps)(GeoJson);
+export default GeoJson;

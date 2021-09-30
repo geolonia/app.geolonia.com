@@ -3,15 +3,12 @@ import ImportDropZone from './ImportDropZone';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import { __ } from '@wordpress/i18n';
 import './ImportDropZoneButton.scss';
-import { TileStatus, GVPStep } from './GeoJson';
+import type { LSPageStatus } from './GeoJson/hooks/use-gvp';
 
 type Props = {
-  getTileStatus: () => Promise<TileStatus>,
-  setTileStatus: (value: TileStatus) => void,
-  setGvpStep: (value: GVPStep) => void,
-  session: Geolonia.Session,
-  teamId?: string,
-  geojsonId?: string,
+  geojsonId: string,
+  lsPageStatus: LSPageStatus,
+  setLSPageStatus: (lsPageStatus: LSPageStatus) => void
 }
 
 const styleOuterDefault: React.CSSProperties = {
@@ -29,7 +26,8 @@ const styleOuterDefault: React.CSSProperties = {
   textAlign: 'left',
 };
 
-const Content = (props: Props) => {
+const ImportDropZoneButton = (props: Props) => {
+  const {geojsonId, lsPageStatus, setLSPageStatus} = props;
   const [stateImporter, setStateImporter] = useState<boolean>(false);
   const [styleOuter, setStyleOuter] = useState<React.CSSProperties>(styleOuterDefault);
 
@@ -61,12 +59,9 @@ const Content = (props: Props) => {
         <div className="geojson-importer geojson-dropzone-button" style={styleOuter} onClick={close}>
           <div className="inner" onClick={preventClose}>
             <ImportDropZone
-              session={props.session}
-              teamId={props.teamId}
-              geojsonId={props.geojsonId}
-              getTileStatus={props.getTileStatus}
-              setTileStatus={props.setTileStatus}
-              setGvpStep={props.setGvpStep}
+              geojsonId={geojsonId}
+              lsPageStatus={lsPageStatus}
+              setLSPageStatus={setLSPageStatus}
               customMessage={__('Data that has already been uploaded will be overwritten.')}
             />
           </div>
@@ -76,4 +71,4 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+export default ImportDropZoneButton;

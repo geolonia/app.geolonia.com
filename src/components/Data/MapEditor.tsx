@@ -3,13 +3,11 @@ import GeoloniaMap from '../custom/GeoloniaMap';
 
 import { _x } from '@wordpress/i18n';
 import fullscreen from './fullscreenMap';
-
-import { refreshSession } from '../../auth';
+import { getSession, refreshSession } from '../../auth';
+import * as CognitoIdentity from 'amazon-cognito-identity-js';
 
 type OwnProps = {
-  geojsonId: string | undefined;
-  session: Geolonia.Session;
-  bounds: mapboxgl.LngLatBoundsLike | undefined;
+  geojsonId: string;
   style?: string;
 };
 
@@ -23,7 +21,12 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapEditor = (props: Props) => {
-  const { geojsonId, bounds, style, session } = props;
+  const { geojsonId, style } = props;
+  const [session, setSession] = useState<null | CognitoIdentity.CognitoUserSession >(null);
+
+  useEffect(() => {
+    getSession().then(setSession);
+  }, []);
 
   // mapbox map and draw binding
   const mapRef = useRef<mapboxgl.Map | null>(null);
@@ -60,7 +63,7 @@ export const MapEditor = (props: Props) => {
   useEffect(() => {
     let updateTimer: number | undefined;
     const updater = (async () => {
-      if (!session || session.isValid()) {
+      if (!session || !session.isValid()) {
         return;
       }
       const newSession = await refreshSession(session);
@@ -75,7 +78,7 @@ export const MapEditor = (props: Props) => {
         clearTimeout(updateTimer);
       }
     };
-  }, [ session ]);
+  }, [session]);
 
   if (!sessionIsValid || !geojsonId) {
     return null;
@@ -93,7 +96,6 @@ export const MapEditor = (props: Props) => {
         fullscreenControl={'off'}
         navigationControl={'off'}
         onAfterLoad={handleOnAfterLoad}
-        bounds={bounds}
         geojsonId={geojsonId}
         initialMapOptions={{
           transformRequest,
