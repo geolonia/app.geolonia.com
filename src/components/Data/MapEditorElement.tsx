@@ -73,7 +73,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
       mapEditorElement = <MapEditor geojsonId={geojsonId} style={style} />;
     } else {
       mapEditorElement = <div style={mapEditorStyle}>
-        { __('In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.') }
+        { layerNames && __('In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.') }
       </div>;
     }
   }
