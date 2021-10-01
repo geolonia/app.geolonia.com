@@ -23,7 +23,7 @@ type RouterProps = {
 type DispatchProps = Record<string, never>;
 type Props = OwnProps & RouterProps & DispatchProps;
 
-const Content = (props: Props) => {
+const Signin = (props: Props) => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<
     null | 'requesting' | 'success' | 'warning'
@@ -93,4 +93,4 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+export default Signin;
