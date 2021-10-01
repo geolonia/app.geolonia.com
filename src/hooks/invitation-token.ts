@@ -27,7 +27,6 @@ export const useInvitationToken = (): HookResult => {
   const { data, isFetching } = useDescribeInvitationQuery(invitationToken || '', {
     skip: !invitationToken,
   });
-  console.log(data);
 
   useEffect(() => {
     if (!isFetching && data && typeof data.email === 'string') {
