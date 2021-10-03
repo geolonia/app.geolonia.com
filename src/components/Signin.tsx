@@ -215,6 +215,6 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setAccessToken: (accessToken: string) =>
     dispatch(setAccessToken({accessToken})),
 });
-const ConnectedContent = connect(mapStateToProps, mapDispatchToProps)(Signin);
+const ConnectedSignin = connect(mapStateToProps, mapDispatchToProps)(Signin);
 
-export default ConnectedContent;
+export default ConnectedSignin;

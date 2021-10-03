@@ -11,7 +11,7 @@ type Props = {
   drawObject: MapboxDraw;
 };
 
-const Content = (props: Props) => {
+const ExportButton = (props: Props) => {
   const { GeoJsonID, drawObject } = props;
 
   const downloadGeoJson = () => {
@@ -34,4 +34,4 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+export default ExportButton;
