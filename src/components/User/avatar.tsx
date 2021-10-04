@@ -37,14 +37,14 @@ export const AvatarSection: React.FC<{}> = () => {
   const [ uploadAvatar ] = useUpdateUserAvatarMutation();
   const { userSub } = useSession();
   const { data: user, refetch: refetchUser } = useGetUserQuery({ userSub }, { skip: !userSub });
-  // TODO: ここよく分からない
+
   const userAvatar = useImageFromURL(
     userSub,
     user?.links.getAvatar || '',
     {
       onError: refetchUser,
     },
-  ) || user?.links.getAvatar;
+  );
 
   // refs
   const inputFileRef = useRef<HTMLInputElement | null>(null);

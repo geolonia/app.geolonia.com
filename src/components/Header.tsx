@@ -58,14 +58,13 @@ const Header: React.FC<Props> = (props: Props) => {
   const { data: user, refetch: refetchUser } = useGetUserQuery({ userSub }, { skip: !userSub });
   const { username } = user || { links: {} };
 
-  // TODO: ここよく分からない
   const userAvatar = useImageFromURL(
     userSub,
     user?.links.getAvatar || '',
     {
       onError: refetchUser,
     },
-  ) || user?.links.getAvatar;
+  );
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

@@ -78,11 +78,8 @@ export const useImageFromURL: UseImageFromURLHook = (key, imageUrl, opts) => {
 
     __loadingImages.add(key);
     (async () => {
-      let resp;
-      try {
-        resp = await fetch(imageUrl);
-        if (!resp.ok) throw new Error(await resp.text());
-      } catch (error) {
+      const resp = await fetch(imageUrl);
+      if (!resp.ok) {
         __loadingImages.delete(key);
         if (typeof onError !== 'undefined') onError();
         return;
