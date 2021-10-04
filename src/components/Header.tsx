@@ -17,7 +17,9 @@ import { signout } from '../auth';
 import { sprintf, __ } from '@wordpress/i18n';
 import Avatar from '@material-ui/core/Avatar';
 import './Header.scss';
-import { useAppSelector } from '../redux/hooks';
+
+import { useSession } from '../hooks/session';
+import { useGetUserQuery } from '../redux/apis/app-api';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -50,7 +52,11 @@ type Props = {
 
 const Header: React.FC<Props> = (props: Props) => {
   const { classes, onDrawerToggle } = props;
-  const { username, avatarImage } = useAppSelector((state) => state.userMeta);
+
+  const { userSub } = useSession();
+  const { data: user } = useGetUserQuery({ userSub }, { skip: !userSub });
+  const { username, links: { getAvatar: avatarImage } } = user || { links: {} };
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const headerStyle: React.CSSProperties = {

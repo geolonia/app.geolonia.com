@@ -22,6 +22,7 @@ const mapStyle: React.CSSProperties = {
 
 export const MapEditor = (props: Props) => {
   const { geojsonId, style } = props;
+  // TODO: use useSession
   const [session, setSession] = useState<null | CognitoIdentity.CognitoUserSession >(null);
 
   useEffect(() => {

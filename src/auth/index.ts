@@ -13,7 +13,7 @@ const poolData = {
   UserPoolId,
   ClientId,
 } as CognitoIdentity.ICognitoUserPoolData;
-const userPool = new CognitoIdentity.CognitoUserPool(poolData);
+export const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 
 export const signUp = (username: string, email: string, password: string) =>
   new Promise<CognitoIdentity.ISignUpResult>((resolve, reject) => {
@@ -107,6 +107,7 @@ export const signin = (username: string, password: string) =>
 
 export let currentSession: CognitoIdentity.CognitoUserSession | undefined;
 
+// TODO: removing
 export const getSession = () =>
   new Promise<CognitoIdentity.CognitoUserSession | null>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();

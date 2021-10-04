@@ -1,3 +1,4 @@
+// TODO: 削除中
 import fetch from '../custom-fetch';
 
 type FetchResult = {

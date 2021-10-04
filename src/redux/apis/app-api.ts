@@ -2,6 +2,22 @@ import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit
 import { getSession } from '../../auth';
 import { byCreateAtString } from '../../lib/by-create-at';
 
+type GetUserParam = {
+  userSub?: string;
+}
+type GetUserResp = {
+  item: Omit<Geolonia.User, 'links'>,
+  links: Geolonia.User['links'],
+}
+type UpdateUserParam = {
+  userSub: string;
+  updates: {
+    language: string;
+    timezone: string;
+    name: string;
+  }
+}
+
 type UpdateTeamParam = {
   teamId: string
   updates: Partial<Omit<Geolonia.Team, 'teamId' | 'role' | 'avatarImage' | 'links' | 'isDeleted'>>
@@ -68,6 +84,7 @@ export const appApi = createApi({
     },
   }),
   tagTypes: [
+    'User',
     'Team',
     'MapKey',
     'TeamMember',
@@ -77,6 +94,25 @@ export const appApi = createApi({
     'TeamCharge',
   ],
   endpoints: (builder) => ({
+    // User
+    getUser: builder.query<Geolonia.User, GetUserParam>({
+      query: (args) => `/users/${args.userSub}`,
+      transformResponse: (resp: GetUserResp) => ({
+        ...resp.item,
+        links: resp.links,
+      }),
+    }),
+    updateUser: builder.mutation<void, UpdateUserParam>({
+      query: (args) => ({
+        url: `/users/${args.userSub}`,
+        method: 'PUT',
+        body: args.updates,
+      }),
+      invalidatesTags: (_result, _error, {userSub}) => ([
+        { type: 'User', id: userSub },
+      ]),
+    }),
+
     // Teams
     createTeam: builder.mutation<Geolonia.Team, CreateTeamParam>({
       query: (args) => ({
@@ -334,6 +370,10 @@ export const appApi = createApi({
 });
 
 export const {
+  // User
+  useGetUserQuery,
+  useUpdateUserMutation,
+
   // Teams
   useCreateTeamMutation,
   useGetTeamsQuery,
