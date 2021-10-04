@@ -55,7 +55,7 @@ const Signup = (props: Props) => {
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState<Status>(null);
   const [message, setMessage] = useState('');
-  const { fetchedEmail, isReady, invitationToken } = useInvitationToken(window.location.search);
+  const { fetchedEmail, isReady, invitationToken } = useInvitationToken();
 
   const onUsernameChange = (e: React.FormEvent<HTMLInputElement>) => {
     setStatus(null);

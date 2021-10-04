@@ -260,6 +260,18 @@ export const appApi = createApi({
       ]),
     }),
 
+    // Team member invitation
+    describeInvitation: builder.query<{ email: string, exp: number }, string>({
+      query: (invitationToken) => `/invitation/${invitationToken}`,
+    }),
+    acceptInvitation: builder.mutation<void, { invitationToken: string, email: string }>({
+      query: (args) => ({
+        url: '/accept-invitation',
+        method: 'POST',
+        body: args,
+      }),
+    }),
+
     // Billing
     getTeamPlan: builder.query<Geolonia.TeamPlanDetails, string>({
       query: (teamId) => ({
@@ -340,6 +352,10 @@ export const {
   useCreateTeamMemberInvitationMutation,
   useUpdateTeamMemberMutation,
   useDeleteTeamMemberMutation,
+
+  // Team Member invitation
+  useDescribeInvitationQuery,
+  useAcceptInvitationMutation,
 
   // Billing
   useGetTeamPlanQuery,

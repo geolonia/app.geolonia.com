@@ -61,7 +61,7 @@ const Signin = (props: Props) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordResetFlag, setPasswordResetFlag] = useState(false);
   const [postVerifyFlag, setPostVerifyFlag] = useState(false);
-  const { fetchedEmail, isReady, acceptInvitationCallback } = useInvitationToken(window.location.search);
+  const { fetchedEmail, isReady, acceptInvitationCallback } = useInvitationToken();
 
   useEffect(() => {
     const parsed = queryString.parse(window.location.search);

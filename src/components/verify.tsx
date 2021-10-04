@@ -24,7 +24,7 @@ const Verify = () => {
     null | 'requesting' | 'success' | 'warning'
   >(null);
   const [message, setMessage] = useState('');
-  const { isReady, acceptInvitationCallback } = useInvitationToken(window.location.search);
+  const { isReady, acceptInvitationCallback } = useInvitationToken();
 
   const parsed = queryString.parse(window.location.search);
   const hasQueryStringUsername =
