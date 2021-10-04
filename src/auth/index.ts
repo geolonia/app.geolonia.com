@@ -107,7 +107,6 @@ export const signin = (username: string, password: string) =>
 
 export let currentSession: CognitoIdentity.CognitoUserSession | undefined;
 
-// TODO: removing
 export const getSession = () =>
   new Promise<CognitoIdentity.CognitoUserSession | null>((resolve, reject) => {
     const cognitoUser = userPool.getCurrentUser();

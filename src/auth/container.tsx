@@ -36,6 +36,7 @@ const AuthContainer: React.FC = ({children}) => {
 
   useEffect(() => {
     (async () => {
+      // TODO: replace with useSession
       const session = await getSession();
 
       if (session === null) {
@@ -52,6 +53,7 @@ const AuthContainer: React.FC = ({children}) => {
       mixpanel.people.set('$email', idTokenPayload.email);
 
       try {
+        // TODO: replace with useUser
         const userResp = await getUser(session);
         const user = userResp.error ? undefined : { ...userResp.data.item, links: userResp.data.links };
         if (!isUserMeta(user)) {

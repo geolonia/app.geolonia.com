@@ -17,6 +17,10 @@ type UpdateUserParam = {
     name: string;
   }
 }
+type UpdateUserAvatarParam = {
+  userSub: string;
+  file: File;
+}
 
 type UpdateTeamParam = {
   teamId: string
@@ -109,6 +113,32 @@ export const appApi = createApi({
         body: args.updates,
       }),
       invalidatesTags: (_result, _error, {userSub}) => ([
+        { type: 'User', id: userSub },
+      ]),
+    }),
+    updateUserAvatar: builder.mutation<void, UpdateUserAvatarParam>({
+      async queryFn(arg, _queryApi, _extraOptions, fetchWithBQ) {
+        // First, get the signed URL endpoint
+        const signedURLResult = await fetchWithBQ(`/users/${arg.userSub}/avatar/links`);
+        if (signedURLResult.error) throw signedURLResult.error;
+        const data = signedURLResult.data as { links: { putAvatar: string } };
+        const signedURL = data.links.putAvatar;
+        try {
+          // Use fetch instead of fetchWithBQ because we don't want to send the authorization
+          // header.
+          await fetch(signedURL, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': arg.file.type,
+            },
+            body: arg.file,
+          });
+        } catch (e: any) {
+          return { error: { status: 'FETCH_ERROR', error: e.name } as FetchBaseQueryError };
+        }
+        return { data: undefined };
+      },
+      invalidatesTags: (_result, _error, { userSub }) => ([
         { type: 'User', id: userSub },
       ]),
     }),
@@ -373,6 +403,7 @@ export const {
   // User
   useGetUserQuery,
   useUpdateUserMutation,
+  useUpdateUserAvatarMutation,
 
   // Teams
   useCreateTeamMutation,

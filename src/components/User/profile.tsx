@@ -30,7 +30,6 @@ const Profile: React.FC<{}> = () => {
   const [timezone, setTimezone] = useState('');
 
   const { userSub } = useSession();
-  // TODO: enhance type
   const { data: user } = useGetUserQuery({ userSub }, { skip: !userSub });
   const [updateUser] = useUpdateUserMutation();
 
@@ -54,12 +53,12 @@ const Profile: React.FC<{}> = () => {
   }, []);
 
   const handleLanguageChange = useCallback((event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => {
-    const nextLanguage = event.target.value as string; // TODO: typing
+    const nextLanguage = event.target.value as string;
     setLanguage(nextLanguage);
   }, []);
 
   const handleTimezoneChange = useCallback((event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => {
-    const nextTimezone = event.target.value as string; // TODO: typing
+    const nextTimezone = event.target.value as string;
     setTimezone(nextTimezone);
   }, []);
 
