@@ -3,8 +3,8 @@ import GeoloniaMap from '../custom/GeoloniaMap';
 
 import { _x } from '@wordpress/i18n';
 import fullscreen from './fullscreenMap';
-import { getSession, refreshSession } from '../../auth';
-import * as CognitoIdentity from 'amazon-cognito-identity-js';
+import { refreshSession } from '../../auth';
+import { useSession } from '../../hooks/session';
 
 type OwnProps = {
   geojsonId: string;
@@ -22,14 +22,9 @@ const mapStyle: React.CSSProperties = {
 
 export const MapEditor = (props: Props) => {
   const { geojsonId, style } = props;
-  // TODO: use useSession
-  const [session, setSession] = useState<null | CognitoIdentity.CognitoUserSession >(null);
+  const { session } = useSession();
 
-  useEffect(() => {
-    getSession().then(setSession);
-  }, []);
-
-  // mapbox map and draw binding
+  // mapbox map binding
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const [sessionIsValid, setSessionIsValid] = useState<boolean>(!!session?.isValid());
   const sessionRef = useRef<Geolonia.Session>(session);

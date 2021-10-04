@@ -18,6 +18,6 @@ export const useSession = () => {
 
   const isValid = !!session?.isValid();
   const userSub = session?.getIdToken().decodePayload().sub as undefined | string;
-  return { isValid, userSub };
+  return { isValid, userSub, session };
 };
 
