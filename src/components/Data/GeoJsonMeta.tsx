@@ -24,6 +24,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import Save from '../custom/Save';
 import { normalizeOrigins } from '@geolonia/utils';
 import Interweave from 'interweave';
+import { GetGeolonia } from '../custom/get-geolonia';
 import './GeoJsonMeta.scss';
 import { useSelectedTeam } from '../../redux/hooks';
 import { useGetGeoJSONMetaQuery, useUpdateGeoJSONMetaMutation } from '../../redux/apis/api';
@@ -432,6 +433,7 @@ const GeoJSONMeta = (props: Props) => {
             )}
           </p>
           <p>
+            <GetGeolonia />
             {/* TODO: これを置き換え */}
             <Button
               className="launch-get-geolonia"

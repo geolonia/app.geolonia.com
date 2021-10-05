@@ -45,7 +45,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
   const { geojsonId } = props;
   const { lsPageStatus, setLSPageStatus, stepProgress } = useGVP(geojsonId);
   const { scene, text, progress } = stepProgress;
-  const [style, setStyle] = useState<string>('');
+  const [styleIdentifier, setStyleIdentifier] = useState<string>('');
 
   const { layerNames } = useMetadata(geojsonId);
   const isSimpleStyled = (
@@ -70,7 +70,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
     />;
   } else if (scene === 'success') {
     if (isSimpleStyled) {
-      mapEditorElement = <MapEditor geojsonId={geojsonId} style={style} />;
+      mapEditorElement = <MapEditor geojsonId={geojsonId} style={styleIdentifier} />;
     } else {
       mapEditorElement = <div style={mapEditorStyle}>
         { layerNames && __('In order to display the map, the style.json corresponding to the MBTiles you uploaded is required.') }
@@ -81,7 +81,7 @@ export const MapEditorElement: React.FC<Props> = (props) => {
   return <>
     {scene === 'success' && (
       <div className="nav">
-        {isSimpleStyled && <StyleSelector style={style} setStyle={setStyle} />}
+        {isSimpleStyled && <StyleSelector styleIdentifier={styleIdentifier} setStyleIdentifier={setStyleIdentifier} />}
         {/* <ExportButton GeoJsonID={geojsonId} drawObject={drawObject} /> */}
         <ImportDropZoneButton
           geojsonId={geojsonId}
