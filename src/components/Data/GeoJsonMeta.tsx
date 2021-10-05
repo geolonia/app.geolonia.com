@@ -233,10 +233,11 @@ const GeoJSONMeta = (props: Props) => {
     setApiKeyIdAllowedOrigins(allowedOrigins);
   }, [mapKeys, handleGeoJSONMetaPrimaryApiKeySubmit]);
 
+  const stage = process.env.REACT_APP_STAGE === 'v1' ? 'v1' : 'dev';
   const embedCode = sprintf(
     '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
     'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
-    process.env.REACT_APP_STAGE,
+    stage,
     userKey,
   );
 
@@ -431,6 +432,7 @@ const GeoJSONMeta = (props: Props) => {
             )}
           </p>
           <p>
+            {/* TODO: これを置き換え */}
             <Button
               className="launch-get-geolonia"
               variant="contained"
@@ -442,6 +444,7 @@ const GeoJSONMeta = (props: Props) => {
               data-lng=""
               data-zoom=""
               data-marker="off"
+              // TODO: これは geolonia スキームになる予定
               data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json`}
             >
               {__('Get HTML')}

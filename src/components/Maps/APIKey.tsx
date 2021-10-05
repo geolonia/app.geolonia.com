@@ -345,6 +345,7 @@ const Content: React.FC = () => {
               )}
             </p>
             <p>
+              { /* TODO: これを置き換える */ }
               <Button
                 className="launch-get-geolonia"
                 variant="contained"
