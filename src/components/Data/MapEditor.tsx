@@ -7,7 +7,9 @@ import { refreshSession } from '../../auth';
 import { useSession } from '../../hooks/session';
 import mapboxgl from 'mapbox-gl';
 
-const { REACT_APP_TILE_SERVER } = process.env;
+const { REACT_APP_STAGE } = process.env;
+const STAGE = REACT_APP_STAGE === 'v1' ? 'v1': 'dev';
+const embedSrc = `https://cdn.geolonia.com/${STAGE}/embed?geolonia-api-key=YOUR-API-KEY`;
 
 type OwnProps = {
   geojsonId: string;
@@ -50,7 +52,7 @@ export const MapEditor = (props: Props) => {
     if (sessionRef.current && url.indexOf('customtiles') >= 0) {
       const idToken = sessionRef.current.getIdToken().getJwtToken();
       return {
-        url,
+        url: `${url}&key=YOUR-API-KEY`,
         headers: {
           Authorization: idToken,
         },
@@ -86,6 +88,7 @@ export const MapEditor = (props: Props) => {
   return (
     <div style={mapStyle}>
       <GeoloniaMap
+        embedSrc={embedSrc}
         mapRef={mapRef}
         style={{width: '100%', height: '100%'}}
         gestureHandling={'off'}
@@ -94,7 +97,7 @@ export const MapEditor = (props: Props) => {
         geolocateControl={'off'}
         fullscreenControl={'off'}
         navigationControl={'off'}
-        simpleVector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json?key=YOUR-API-KEY`}
+        simpleVector={`geolonia://tiles/custom/${geojsonId}`}
         onLoad={handleOnAfterLoad}
         initOptions={{ transformRequest }}
       />
