@@ -2,6 +2,26 @@ import { createApi, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit
 import { getSession } from '../../auth';
 import { byCreateAtString } from '../../lib/by-create-at';
 
+type GetUserParam = {
+  userSub?: string;
+}
+type GetUserResp = {
+  item: Omit<Geolonia.User, 'links'>,
+  links: Geolonia.User['links'],
+}
+type UpdateUserParam = {
+  userSub: string;
+  updates: {
+    language: string;
+    timezone: string;
+    name: string;
+  }
+}
+type UpdateUserAvatarParam = {
+  userSub: string;
+  file: File;
+}
+
 type UpdateTeamParam = {
   teamId: string
   updates: Partial<Omit<Geolonia.Team, 'teamId' | 'role' | 'avatarImage' | 'links' | 'isDeleted'>>
@@ -68,6 +88,7 @@ export const appApi = createApi({
     },
   }),
   tagTypes: [
+    'User',
     'Team',
     'MapKey',
     'TeamMember',
@@ -77,6 +98,51 @@ export const appApi = createApi({
     'TeamCharge',
   ],
   endpoints: (builder) => ({
+    // User
+    getUser: builder.query<Geolonia.User, GetUserParam>({
+      query: (args) => `/users/${args.userSub}`,
+      transformResponse: (resp: GetUserResp) => ({
+        ...resp.item,
+        links: resp.links,
+      }),
+    }),
+    updateUser: builder.mutation<void, UpdateUserParam>({
+      query: (args) => ({
+        url: `/users/${args.userSub}`,
+        method: 'PUT',
+        body: args.updates,
+      }),
+      invalidatesTags: (_result, _error, {userSub}) => ([
+        { type: 'User', id: userSub },
+      ]),
+    }),
+    updateUserAvatar: builder.mutation<void, UpdateUserAvatarParam>({
+      async queryFn(arg, _queryApi, _extraOptions, fetchWithBQ) {
+        // First, get the signed URL endpoint
+        const signedURLResult = await fetchWithBQ(`/users/${arg.userSub}/avatar/links`);
+        if (signedURLResult.error) throw signedURLResult.error;
+        const data = signedURLResult.data as { links: { putAvatar: string } };
+        const signedURL = data.links.putAvatar;
+        try {
+          // Use fetch instead of fetchWithBQ because we don't want to send the authorization
+          // header.
+          await fetch(signedURL, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': arg.file.type,
+            },
+            body: arg.file,
+          });
+        } catch (e: any) {
+          return { error: { status: 'FETCH_ERROR', error: e.name } as FetchBaseQueryError };
+        }
+        return { data: undefined };
+      },
+      invalidatesTags: (_result, _error, { userSub }) => ([
+        { type: 'User', id: userSub },
+      ]),
+    }),
+
     // Teams
     createTeam: builder.mutation<Geolonia.Team, CreateTeamParam>({
       query: (args) => ({
@@ -334,6 +400,11 @@ export const appApi = createApi({
 });
 
 export const {
+  // User
+  useGetUserQuery,
+  useUpdateUserMutation,
+  useUpdateUserAvatarMutation,
+
   // Teams
   useCreateTeamMutation,
   useGetTeamsQuery,
