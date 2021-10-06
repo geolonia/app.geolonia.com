@@ -44,17 +44,17 @@ const useStyles = makeStyles({
   },
 });
 
-const Content = (props: Props) => {
+const DeveloperBlog = (props: Props) => {
   const [blogItems, setBlogItems] = useState<BlogPost[]>([]);
   const classes = useStyles();
 
   useEffect(() => {
-    const endpoint = 'https://blog.geolonia.com/feed.json';
-    fetch(endpoint)
-      .then((res) => res.json())
-      .then((json) => {
-        setBlogItems(json.items);
-      });
+    (async () => {
+      const endpoint = 'https://blog.geolonia.com/feed.json';
+      const resp = await fetch(endpoint);
+      const json = await resp.json();
+      setBlogItems(json.items);
+    })();
   }, []);
 
   return (
@@ -84,4 +84,4 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+export default DeveloperBlog;

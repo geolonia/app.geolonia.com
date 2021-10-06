@@ -8,7 +8,7 @@ type Props = {
   GeoJsonImporter: Function;
 };
 
-const Content = (props: Props) => {
+const ImportButton = (props: Props) => {
   const [stateImporter, setStateImporter] = useState<boolean>(false);
 
   const closeImporter = () => {
@@ -28,4 +28,4 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+export default ImportButton;

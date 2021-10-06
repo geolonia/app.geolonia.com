@@ -7,7 +7,7 @@ import './Support.scss';
 
 type Props = {};
 
-const Content = (props: Props) => {
+const Support = (props: Props) => {
   return (
     <div className="support-menu">
       <ul>
@@ -27,4 +27,4 @@ const Content = (props: Props) => {
   );
 };
 
-export default Content;
+export default Support;

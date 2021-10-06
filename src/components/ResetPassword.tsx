@@ -22,7 +22,7 @@ import { pageTransitionInterval } from '../constants';
 import estimateLanguage from '../lib/estimate-language';
 import StatusIndication from './custom/status-indication';
 
-const Content = () => {
+const ResetPassword = () => {
   const parsed = queryString.parse(window.location.search);
   const qsusername = parsed.username as string;
 
@@ -171,4 +171,4 @@ const mapStateToProps = (state: Geolonia.Redux.AppState) => ({
   currentUser: state.authSupport.currentUser || '',
 });
 
-export default connect(mapStateToProps)(Content);
+export default connect(mapStateToProps)(ResetPassword);
