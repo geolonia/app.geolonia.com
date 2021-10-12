@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { withStyles, Theme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -39,7 +39,6 @@ import { useAppDispatch, useImageFromURL, useSelectedTeam } from '../redux/hooks
 import { useCreateTeamMutation, useGetTeamsQuery, useGetUserQuery } from '../redux/apis/app-api';
 import { selectTeam } from '../redux/actions/team';
 import { useHistory } from 'react-router';
-import { sleep } from '../lib/sleep';
 import { colorPrimary } from '../variables';
 import { useSession } from '../hooks/session';
 
@@ -117,7 +116,8 @@ const Navigator: React.FC<Props> = (props) => {
     initialValueForNewTeamName,
   );
 
-  const { data: teams } = useGetTeamsQuery();
+  const { data: teams, refetch: refetchTeams, isFetching } = useGetTeamsQuery();
+  const [selectingTeamId, setSelectingTeamId] = useState<string | null>(null);
   const { selectedTeam, refetch: refetchTeam } = useSelectedTeam();
   const teamAvatar = useImageFromURL(
     selectedTeam?.teamId,
@@ -202,13 +202,18 @@ const Navigator: React.FC<Props> = (props) => {
 
     handleClose();
 
-    // TODO: チーム作成後必ず特定のチームの選択状態に戻ってしまう
-    dispatch(selectTeam({ teamId: result.data.teamId }));
-    await sleep(1_000);
-    if (location.pathname !== '/team/general') {
-      push('/team/general');
+    refetchTeams();
+    setSelectingTeamId(result.data.teamId);
+  }, [createTeam, handleClose, newTeamName, owner, refetchTeams]);
+
+  useEffect(() => {
+    if (!isFetching && selectingTeamId) {
+      dispatch(selectTeam({ teamId: selectingTeamId }));
+      if (location.pathname !== '/team/general') {
+        push('/team/general');
+      }
     }
-  }, [createTeam, dispatch, handleClose, location.pathname, newTeamName, owner, push]);
+  }, [dispatch, isFetching, location.pathname, push, selectingTeamId]);
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
