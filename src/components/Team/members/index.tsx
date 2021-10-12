@@ -26,8 +26,9 @@ import { __ } from '@wordpress/i18n';
 import { Roles } from '../../../constants';
 
 // Redux
-import { useGetTeamMembersQuery } from '../../../redux/apis/app-api';
-import { useAppSelector, useSelectedTeam } from '../../../redux/hooks';
+import { useGetTeamMembersQuery, useGetUserQuery } from '../../../redux/apis/app-api';
+import { useSelectedTeam } from '../../../redux/hooks';
+import { useSession } from '../../../hooks/session';
 
 type Row = {
   id: number | string;
@@ -51,7 +52,8 @@ const Members: React.FC = () => {
   const [openLeave, setOpenLeave] = useState(false);
 
   const { selectedTeam } = useSelectedTeam();
-  const currentUsername = useAppSelector((state) => state.userMeta.username);
+  const { userSub } = useSession();
+  const { data: currentUser } = useGetUserQuery({ userSub }, { skip: !userSub });
   const { data: members, isFetching } = useGetTeamMembersQuery(selectedTeam?.teamId || '', {
     skip: !selectedTeam,
   });
@@ -63,7 +65,7 @@ const Members: React.FC = () => {
       name: member.name,
       username: member.username,
       role: member.role,
-      yourself: member.username === currentUsername,
+      yourself: !!currentUser && (member.username === currentUser.username),
     };
   });
 
@@ -302,7 +304,7 @@ const Members: React.FC = () => {
             </Menu>
           );
         } else {
-          const yourself = currentMember.username === currentUsername;
+          const yourself = currentUser && (currentMember.username === currentUser.username);
           return (
             <Menu
               anchorEl={anchorEl}

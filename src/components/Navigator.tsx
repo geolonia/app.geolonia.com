@@ -35,12 +35,13 @@ import { __ } from '@wordpress/i18n';
 import { useLocation } from 'react-router-dom';
 
 // types
-import { useAppDispatch, useAppSelector, useImageFromURL, useSelectedTeam } from '../redux/hooks';
-import { useCreateTeamMutation, useGetTeamsQuery } from '../redux/apis/app-api';
+import { useAppDispatch, useImageFromURL, useSelectedTeam } from '../redux/hooks';
+import { useCreateTeamMutation, useGetTeamsQuery, useGetUserQuery } from '../redux/apis/app-api';
 import { selectTeam } from '../redux/actions/team';
 import { useHistory } from 'react-router';
 import { sleep } from '../lib/sleep';
 import { colorPrimary } from '../variables';
+import { useSession } from '../hooks/session';
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -97,8 +98,9 @@ type Props = {
 
 const Navigator: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch();
-  const { push } = useHistory();
-  const ownerEmail = useAppSelector((state) => state.userMeta.email);
+  const { push, location } = useHistory();
+  const { userSub } = useSession();
+  const { data: owner } = useGetUserQuery({ userSub }, { skip: !userSub });
   const initialValueForNewTeamName = __('My team');
 
   const [ createTeam ] = useCreateTeamMutation();
@@ -192,17 +194,21 @@ const Navigator: React.FC<Props> = (props) => {
   }, [initialValueForNewTeamName]);
 
   const saveHandler = useCallback(async () => {
-    const result = await createTeam({ name: newTeamName, billingEmail: ownerEmail });
+    if (!owner) return;
+    const result = await createTeam({ name: newTeamName, billingEmail: owner.email });
     if ('error' in result) {
       throw new Error(JSON.stringify(result.error));
     }
 
     handleClose();
 
-    await sleep(1_000);
+    // TODO: チーム作成後必ず特定のチームの選択状態に戻ってしまう
     dispatch(selectTeam({ teamId: result.data.teamId }));
-    push('/team/general');
-  }, [createTeam, dispatch, handleClose, newTeamName, ownerEmail, push]);
+    await sleep(1_000);
+    if (location.pathname !== '/team/general') {
+      push('/team/general');
+    }
+  }, [createTeam, dispatch, handleClose, location.pathname, newTeamName, owner, push]);
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
