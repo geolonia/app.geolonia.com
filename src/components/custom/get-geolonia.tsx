@@ -212,7 +212,7 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
       moveendCallback(); // force fire and setState
     }
     map.on('moveend', moveendCallback);
-  }, []);
+  }, [lngLatZoom]);
 
   return <>
     <Button
