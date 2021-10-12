@@ -431,7 +431,7 @@ const GeoJSONMeta = (props: Props) => {
             )}
           </p>
           <p>
-            <GetGeolonia geojsonId={geojsonId} />
+            <GetGeolonia geojsonId={geojsonId} marker={'off'} />
           </p>
           <Typography component="h3" style={styleH3}>
             {__('Step 4')}

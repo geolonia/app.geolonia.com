@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import { GeoloniaMap } from '@geolonia/embed-react';
@@ -14,9 +14,10 @@ import * as clipboard from 'clipboard-polyfill';
 
 type Props = {
   geojsonId?: string;
-  lat?: string;
-  lng?: string;
-  zoom?: string;
+  lat?: number;
+  lng?: number;
+  zoom?: number;
+  marker? : 'on' | 'off',
   mapStyle?: string;
 }
 
@@ -65,6 +66,10 @@ const buildEmbedHtmlSnipet = (options: { [key: string]: string | number | undefi
           return false;
         }
 
+        if (key === 'class') {
+          return `class="${value}"`;
+        }
+
         if ((key === 'lat' || key === 'lng' || key === 'zoom') && typeof value === 'number') {
           // 1.666666666e-10 -> 0
           // 35.12300000     -> 35.123
@@ -91,12 +96,14 @@ const buildEmbedHtmlSnipet = (options: { [key: string]: string | number | undefi
 };
 
 export const GetGeolonia: React.FC<Props> = (props: Props) => {
-  const { geojsonId, lat, lng, zoom, mapStyle } = props;
+  const { geojsonId, lat, lng, zoom, marker, mapStyle } = props;
   const simpleVector = geojsonId ? `geolonia://tiles/custom/${geojsonId}` : undefined;
 
   const [open, setOpen] = useState(false);
   const [geocodeText, setGeocodeText] = useState('');
   const [messageVisibility, setMessageVisibilty] = useState<string | false>(false);
+
+  const [lngLatZoom, setLngLatZoom] = useState<[lng: number, lat: number, zoom: number] | undefined>(lng && lat && zoom ? [lng, lat, zoom] : undefined);
   const [styleIdentifier, setStyleIdentifier] = useState(mapStyle || 'geolonia/basic');
   const [htmlSnippet, setHtmlSnippet] = useState('');
 
@@ -167,25 +174,45 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
     clipboard.writeText(htmlSnippet);
   }, [htmlSnippet]);
 
-  const moveendCallback = useCallback(() => {
-    if (!mapRef.current) return;
-    const map = mapRef.current;
-    const { lng, lat } = map.getCenter();
-    const zoom = map.getZoom();
-    setHtmlSnippet(buildEmbedHtmlSnipet({
-      lng,
-      lat,
-      zoom,
-      // TODO: これ、現在の state を反映させる方法がわからない
-      style: styleIdentifier,
-      simpleVector,
-    }));
-  }, [simpleVector, styleIdentifier]);
+  useEffect(() => {
+    if (lngLatZoom) {
+      const [lng, lat, zoom] = lngLatZoom;
+      setHtmlSnippet(buildEmbedHtmlSnipet({
+        class: 'geolonia',
+        lng,
+        lat,
+        zoom,
+        marker,
+        style: styleIdentifier,
+        simpleVector,
+      }));
+    } else {
+      setHtmlSnippet(buildEmbedHtmlSnipet({
+        class: 'geolonia',
+        style: styleIdentifier,
+        simpleVector,
+      }));
+    }
+
+  }, [lngLatZoom, marker, simpleVector, styleIdentifier]);
 
   const handleMapOnLoad = useCallback((map: mapboxgl.Map) => {
-    moveendCallback(); // force fire and setState
+    const moveendCallback = () => {
+      if (!mapRef.current) return;
+      const map = mapRef.current;
+      const { lng, lat } = map.getCenter();
+      const zoom = map.getZoom();
+      setLngLatZoom([lng, lat, zoom]);
+    };
+    if (lngLatZoom) {
+      if (!mapRef.current) return;
+      const map = mapRef.current;
+      map.flyTo({ center: [lngLatZoom[0], lngLatZoom[1]], zoom: lngLatZoom[2] });
+    } else {
+      moveendCallback(); // force fire and setState
+    }
     map.on('moveend', moveendCallback);
-  }, [moveendCallback]);
+  }, []);
 
   return <>
     <Button
@@ -201,9 +228,6 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
     <Modal open={open} onClose={handleClose} style={{display: 'flex'}}>
       <div className={'get-geolonia-modal-content'}>
         <GeoloniaMap
-          lat={lat}
-          lng={lng}
-          zoom={zoom}
           marker={'off'}
           mapRef={mapRef}
           style={{width: '100%', height: 'calc(100% - 150px)'}}
