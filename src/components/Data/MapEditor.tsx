@@ -52,7 +52,7 @@ export const MapEditor = (props: Props) => {
     if (sessionRef.current && url.indexOf('customtiles') >= 0) {
       const idToken = sessionRef.current.getIdToken().getJwtToken();
       return {
-        url: `${url}&key=YOUR-API-KEY`,
+        url,
         headers: {
           Authorization: idToken,
         },
