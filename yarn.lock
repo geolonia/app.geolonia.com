@@ -1294,9 +1294,9 @@
     strip-json-comments "^3.1.1"
 
 "@geolonia/embed-react@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@geolonia/embed-react/-/embed-react-1.1.0.tgz#83d8242d9671f7447603d8703bc9e392ccad7f80"
-  integrity sha512-uO2NXlLjWK41NtSwMaQt2d+gHgi5/oHesIIKcBKvFgWQprBLkBUMaXg23GMj4oY69q2nupzu1UN/uwPwHOV0Xw==
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@geolonia/embed-react/-/embed-react-1.2.0.tgz#919b9fe09ff5b8613620bfbc75edb07a974cfcc5"
+  integrity sha512-+0UsH4rBmjuiB5nnRxjcpL8xFC9+piZgUIZj2QGzpiUEuQtCgxA09bayL7Zbu8UHiN4OutO7Bh96arkVsFa0Bg==
 
 "@geolonia/eslint-config@^0.0.1":
   version "0.0.1"
@@ -1563,6 +1563,34 @@
     "@types/node" "*"
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
+
+"@mapbox/extent@0.4.0":
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/@mapbox/extent/-/extent-0.4.0.tgz#3e591f32e1f0c3981c864239f7b0ac06e610f8a9"
+  integrity sha1-PlkfMuHww5gchkI597CsBuYQ+Kk=
+
+"@mapbox/geojson-coords@0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@mapbox/geojson-coords/-/geojson-coords-0.0.2.tgz#f73d5744c832de0f05c48899f16a4288cefb2606"
+  integrity sha512-YuVzpseee/P1T5BWyeVVPppyfmuXYHFwZHmybkqaMfu4BWlOf2cmMGKj2Rr92MwfSTOCSUA0PAsVGRG8akY0rg==
+  dependencies:
+    "@mapbox/geojson-normalize" "0.0.1"
+    geojson-flatten "^1.0.4"
+
+"@mapbox/geojson-extent@^1.0.1":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@mapbox/geojson-extent/-/geojson-extent-1.0.1.tgz#bd99a6b66ba98e63a29511c9cd1bbd1df4c1e203"
+  integrity sha512-hh8LEO3djT4fqfr8sSC6wKt+p0TMiu+KOLMBUiFOyj+zGq7+IXwQGl0ppCVDkyzCewyd9LoGe9zAvDxXrLfhLw==
+  dependencies:
+    "@mapbox/extent" "0.4.0"
+    "@mapbox/geojson-coords" "0.0.2"
+    rw "~0.1.4"
+    traverse "~0.6.6"
+
+"@mapbox/geojson-normalize@0.0.1":
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/@mapbox/geojson-normalize/-/geojson-normalize-0.0.1.tgz#1da1e6b3a7add3ad29909b30f438f60581b7cd80"
+  integrity sha1-HaHms6et060pkJsw9Dj2BYG3zYA=
 
 "@material-ui/core@^4.6.1":
   version "4.12.3"
@@ -2130,6 +2158,13 @@
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/@types/mapbox-gl/-/mapbox-gl-1.13.2.tgz#d20959d02b9ca17a2a3244387f1da763992ed11d"
   integrity sha512-sv69WkijddNCIdLLyUsG90+X3Lh67a26lKsqaL8WbmXMkWITDrshe+sc9BI8oUV7sh+XD0jraI3qBe0NtJs7dw==
+  dependencies:
+    "@types/geojson" "*"
+
+"@types/mapbox__geojson-extent@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@types/mapbox__geojson-extent/-/mapbox__geojson-extent-1.0.0.tgz#3f62ffcde94dd5a984862d6bff46d88649276df4"
+  integrity sha512-RJBeVDv7LDmW4gO3VD8pr/OYuToQtF77H/VRDG733fmA6chzztBTz6yi9/llRD8SpM7fznxhP6B43Izaj4ufoA==
   dependencies:
     "@types/geojson" "*"
 
@@ -6093,6 +6128,14 @@ gensync@^1.0.0-beta.1, gensync@^1.0.0-beta.2:
   resolved "https://registry.yarnpkg.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
   integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
 
+geojson-flatten@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/geojson-flatten/-/geojson-flatten-1.0.4.tgz#cdfef2e9042996fcaa14fe658db6d88c99c20930"
+  integrity sha512-PpscUXxO6dvvhZxtwuqiI5v+1C/IQYPJRMWoQeaF2oohJgfGYSHKVAe8L+yUqF34PH/hmq9JlwmO+juPw+95/Q==
+  dependencies:
+    get-stdin "^7.0.0"
+    minimist "^1.2.5"
+
 get-caller-file@^2.0.1:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-2.0.5.tgz#4f94412a82db32f36e3b0b9741f8a97feb031f7e"
@@ -6121,6 +6164,11 @@ get-stdin@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-4.0.1.tgz#b968c6b0a04384324902e8bf1a5df32579a450fe"
   integrity sha1-uWjGsKBDhDJJAui/Gl3zJXmkUP4=
+
+get-stdin@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/get-stdin/-/get-stdin-7.0.0.tgz#8d5de98f15171a125c5e516643c7a6d0ea8a96f6"
+  integrity sha512-zRKcywvrXlXsA0v0i9Io4KDRaAw7+a1ZpjRwl9Wox8PFlVCCHra7E9c4kqXCoCM9nR5tBkaTTZRBoCm60bFqTQ==
 
 get-stream@^4.0.0:
   version "4.1.0"
@@ -11090,6 +11138,11 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
+rw@~0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/rw/-/rw-0.1.4.tgz#4903cbd80248ae0ede685bf58fd236a7a9b29a3e"
+  integrity sha1-SQPL2AJIrg7eaFv1j9I2p6mymj4=
+
 safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   version "5.1.2"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
@@ -12233,6 +12286,11 @@ tr46@^2.1.0:
   integrity sha512-15Ih7phfcdP5YxqiB+iDtLoaTz4Nd35+IiAv0kQ5FNKHzXgdWqPoTIqEDDJmXceQt4JZk6lVPT8lnDlPpGDppw==
   dependencies:
     punycode "^2.1.1"
+
+traverse@~0.6.6:
+  version "0.6.6"
+  resolved "https://registry.yarnpkg.com/traverse/-/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"
+  integrity sha1-y99WD9e5r2MlAv7UD5GMFX6pcTc=
 
 trim-newlines@^3.0.0:
   version "3.0.1"

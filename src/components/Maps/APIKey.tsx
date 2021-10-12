@@ -16,6 +16,7 @@ import Delete from '../custom/Delete';
 import Help from '../custom/Help';
 import Title from '../custom/Title';
 import DangerZone from '../custom/danger-zone';
+import { GetGeolonia } from '../custom/get-geolonia';
 
 // libs
 import { normalizeOrigins } from '@geolonia/utils';
@@ -34,7 +35,7 @@ interface ApiKeyFormControlsCollection extends HTMLFormControlsCollection {
   apiKeyAllowedOrigins: HTMLInputElement
 }
 
-const Content: React.FC = () => {
+const ApiKey: React.FC = () => {
   const history = useHistory();
   const match = useRouteMatch<{id: string}>();
   const { selectedTeam } = useSelectedTeam();
@@ -345,17 +346,13 @@ const Content: React.FC = () => {
               )}
             </p>
             <p>
-              { /* TODO: これを置き換える */ }
-              <Button
-                className="launch-get-geolonia"
-                variant="contained"
-                color="primary"
-                size="large"
-                style={{ width: '100%' }}
-                data-geocoder="community-geocoder"
-              >
-                {__('Get HTML')}
-              </Button>
+              <GetGeolonia
+                // lat={'35.6762'}
+                lat={'1.666666666e-10'}
+                lng={'139.6503'}
+                zoom={'10'}
+                mapStyle={'geolonia/basic'}
+              />
             </p>
             <Typography component="h3" style={styleH3}>
               {__('Step 3')}
@@ -385,4 +382,4 @@ const Content: React.FC = () => {
   );
 };
 
-export default Content;
+export default ApiKey;

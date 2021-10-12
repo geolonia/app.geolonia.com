@@ -30,8 +30,6 @@ import { useSelectedTeam } from '../../redux/hooks';
 import { useGetGeoJSONMetaQuery, useUpdateGeoJSONMetaMutation } from '../../redux/apis/api';
 import { useGetApiKeysQuery } from '../../redux/apis/app-api';
 
-const { REACT_APP_TILE_SERVER } = process.env;
-
 type Props = {
   geojsonId: string;
 };
@@ -433,24 +431,7 @@ const GeoJSONMeta = (props: Props) => {
             )}
           </p>
           <p>
-            <GetGeolonia />
-            {/* TODO: これを置き換え */}
-            <Button
-              className="launch-get-geolonia"
-              variant="contained"
-              color="primary"
-              size="large"
-              style={{ width: '100%' }}
-              // no xyz because data-simple-vector fits the bounds
-              data-lat=""
-              data-lng=""
-              data-zoom=""
-              data-marker="off"
-              // TODO: これは geolonia スキームになる予定
-              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json`}
-            >
-              {__('Get HTML')}
-            </Button>
+            <GetGeolonia geojsonId={geojsonId} />
           </p>
           <Typography component="h3" style={styleH3}>
             {__('Step 4')}
