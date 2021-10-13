@@ -1,10 +1,15 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import GeoloniaMap from '../custom/GeoloniaMap';
+import { GeoloniaMap } from '@geolonia/embed-react';
 
 import { _x } from '@wordpress/i18n';
 import fullscreen from './fullscreenMap';
 import { refreshSession } from '../../auth';
 import { useSession } from '../../hooks/session';
+import mapboxgl from 'mapbox-gl';
+
+const { REACT_APP_STAGE } = process.env;
+const STAGE = REACT_APP_STAGE === 'v1' ? 'v1': 'dev';
+const embedSrc = `https://cdn.geolonia.com/${STAGE}/embed?geolonia-api-key=YOUR-API-KEY`;
 
 type OwnProps = {
   geojsonId: string;
@@ -83,19 +88,18 @@ export const MapEditor = (props: Props) => {
   return (
     <div style={mapStyle}>
       <GeoloniaMap
-        width="100%"
-        height="100%"
-        gestureHandling="off"
+        embedSrc={embedSrc}
+        mapRef={mapRef}
+        style={{width: '100%', height: '100%'}}
+        gestureHandling={'off'}
         marker={'off'}
-        zoom={parseFloat(_x('0', 'Default value of zoom level of map'))}
+        zoom={_x('0', 'Default value of zoom level of map')}
         geolocateControl={'off'}
         fullscreenControl={'off'}
         navigationControl={'off'}
-        onAfterLoad={handleOnAfterLoad}
-        geojsonId={geojsonId}
-        initialMapOptions={{
-          transformRequest,
-        }}
+        simpleVector={`geolonia://tiles/custom/${geojsonId}`}
+        onLoad={handleOnAfterLoad}
+        initOptions={{ transformRequest }}
       />
     </div>
   );

@@ -24,12 +24,11 @@ import { __, sprintf } from '@wordpress/i18n';
 import Save from '../custom/Save';
 import { normalizeOrigins } from '@geolonia/utils';
 import Interweave from 'interweave';
+import { GetGeolonia } from '../custom/get-geolonia';
 import './GeoJsonMeta.scss';
 import { useSelectedTeam } from '../../redux/hooks';
 import { useGetGeoJSONMetaQuery, useUpdateGeoJSONMetaMutation } from '../../redux/apis/api';
 import { useGetApiKeysQuery } from '../../redux/apis/app-api';
-
-const { REACT_APP_TILE_SERVER } = process.env;
 
 type Props = {
   geojsonId: string;
@@ -233,10 +232,11 @@ const GeoJSONMeta = (props: Props) => {
     setApiKeyIdAllowedOrigins(allowedOrigins);
   }, [mapKeys, handleGeoJSONMetaPrimaryApiKeySubmit]);
 
+  const stage = process.env.REACT_APP_STAGE === 'v1' ? 'v1' : 'dev';
   const embedCode = sprintf(
     '<script type="text/javascript" src="%s/%s/embed?geolonia-api-key=%s"></script>',
     'https://cdn.geolonia.com', // `api.geolonia.com/{stage}/embed` has been deprecated.
-    process.env.REACT_APP_STAGE,
+    stage,
     userKey,
   );
 
@@ -431,21 +431,7 @@ const GeoJSONMeta = (props: Props) => {
             )}
           </p>
           <p>
-            <Button
-              className="launch-get-geolonia"
-              variant="contained"
-              color="primary"
-              size="large"
-              style={{ width: '100%' }}
-              // no xyz because data-simple-vector fits the bounds
-              data-lat=""
-              data-lng=""
-              data-zoom=""
-              data-marker="off"
-              data-simple-vector={`${REACT_APP_TILE_SERVER}/customtiles/${geojsonId}/tiles.json`}
-            >
-              {__('Get HTML')}
-            </Button>
+            <GetGeolonia geojsonId={geojsonId} marker={'off'} />
           </p>
           <Typography component="h3" style={styleH3}>
             {__('Step 4')}
