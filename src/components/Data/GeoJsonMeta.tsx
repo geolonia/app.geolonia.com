@@ -7,7 +7,6 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import LockIcon from '@material-ui/icons/Lock';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -19,7 +18,7 @@ import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import AccordionDetails from '@material-ui/core/AccordionDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import * as clipboard from 'clipboard-polyfill';
+import { CopyToClipboard } from '../custom/copy-to-clipboard';
 import { __, sprintf } from '@wordpress/i18n';
 import Save from '../custom/Save';
 import { normalizeOrigins } from '@geolonia/utils';
@@ -58,13 +57,7 @@ const styleTextarea: React.CSSProperties = {
   padding: '8px',
 };
 
-const copyToClipBoard = (cssSelector: string) => {
-  const input = document.querySelector(cssSelector) as HTMLInputElement;
-  if (input) {
-    input.select();
-    clipboard.writeText(input.value);
-  }
-};
+
 
 const usePublic = (geojsonId: string, isPublic: boolean): [boolean, (nextIsPublic: boolean) => void] => {
   const [draftIsPublic, setDraftIsPublic] = useState(isPublic);
@@ -406,22 +399,12 @@ const GeoJSONMeta = (props: Props) => {
             />
           </p>
           <textarea
-            className="api-key-embed-code"
+            id={'location-searvice__embed-script'}
             style={styleTextarea}
             value={embedCode}
             readOnly={true}
           ></textarea>
-          <p>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              style={{ width: '100%' }}
-              onClick={() => copyToClipBoard('.api-key-embed-code')}
-            >
-              {__('Copy to Clipboard')}
-            </Button>
-          </p>
+          <CopyToClipboard value={embedCode} target={'location-searvice__embed-script'} />
           <Typography component="h3" style={styleH3}>
             {__('Step 3')}
           </Typography>
@@ -438,22 +421,12 @@ const GeoJSONMeta = (props: Props) => {
           </Typography>
           <p>{__('Adjust the element size.')}</p>
           <textarea
-            className="api-key-embed-css"
+            id="location-searvice__embed-css"
             style={styleTextarea}
             value={embedCSS}
             readOnly={true}
           ></textarea>
-          <p>
-            <Button
-              variant="contained"
-              color="primary"
-              size="large"
-              style={{ width: '100%' }}
-              onClick={() => copyToClipBoard('.api-key-embed-css')}
-            >
-              {__('Copy to Clipboard')}
-            </Button>
-          </p>
+          <CopyToClipboard value={embedCSS} target={'location-searvice__embed-css'} />
         </Paper>
       </Grid>
     </Grid>
