@@ -35,7 +35,7 @@
       ],
       "Uploading now..": ["データをアップロードしています。"],
       "Processing data..": ["データを処理しています。"],
-      "Successed.": ["成功しました。"],
+      "Succeeded.": ["成功しました。"],
       "Error: Please upload GeoJSON file less than %d MB.": [
         "エラー: %d MB 以下の GeoJSON ファイルをアップロードしてください。"
       ],

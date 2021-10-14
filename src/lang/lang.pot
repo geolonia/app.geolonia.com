@@ -88,7 +88,7 @@ msgid "Processing data.."
 msgstr ""
 
 #: src/components/Data/GeoJson/hooks/use-gvp.ts:94
-msgid "Successed."
+msgid "Succeeded."
 msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:100

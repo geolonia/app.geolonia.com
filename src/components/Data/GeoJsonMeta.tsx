@@ -399,12 +399,12 @@ const GeoJSONMeta = (props: Props) => {
             />
           </p>
           <textarea
-            id={'location-searvice__embed-script'}
+            id={'location-service__embed-script'}
             style={styleTextarea}
             value={embedCode}
             readOnly={true}
           ></textarea>
-          <CopyToClipboard value={embedCode} target={'location-searvice__embed-script'} />
+          <CopyToClipboard value={embedCode} target={'location-service__embed-script'} />
           <Typography component="h3" style={styleH3}>
             {__('Step 3')}
           </Typography>
@@ -421,12 +421,12 @@ const GeoJSONMeta = (props: Props) => {
           </Typography>
           <p>{__('Adjust the element size.')}</p>
           <textarea
-            id="location-searvice__embed-css"
+            id="location-service__embed-css"
             style={styleTextarea}
             value={embedCSS}
             readOnly={true}
           ></textarea>
-          <CopyToClipboard value={embedCSS} target={'location-searvice__embed-css'} />
+          <CopyToClipboard value={embedCSS} target={'location-service__embed-css'} />
         </Paper>
       </Grid>
     </Grid>

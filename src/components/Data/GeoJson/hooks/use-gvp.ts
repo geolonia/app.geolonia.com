@@ -91,7 +91,7 @@ const getStepProgress = (pageStatus: LSPageStatus): StepProgress => {
     case 'success/uploadable':
       return {
         scene: 'success',
-        text: __('Successed.'),
+        text: __('Succeeded.'),
         progress: 100,
       };
   }
