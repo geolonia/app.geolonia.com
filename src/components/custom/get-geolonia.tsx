@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
+import { CopyToClipboard } from '../custom/copy-to-clipboard';
 import { GeoloniaMap } from '@geolonia/embed-react';
 import StyleSelector from '../Data/StyleSelector';
 import { CloseButton } from './close-button';
@@ -10,7 +11,6 @@ import { geocode as geocodeWithCommunityGeocoder, CommunityGeocodeResult } from 
 import geojsonExtent from '@mapbox/geojson-extent';
 import './get-geolonia.scss';
 import mapboxgl from 'mapbox-gl';
-import * as clipboard from 'clipboard-polyfill';
 
 type Props = {
   geojsonId?: string;
@@ -170,10 +170,6 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
     setMessageVisibilty(false);
   }, [handleGeocodeSubmit, setMessageVisibilty]);
 
-  const handleCopyToClipboardClick = useCallback(() => {
-    clipboard.writeText(htmlSnippet);
-  }, [htmlSnippet]);
-
   useEffect(() => {
     if (lngLatZoom) {
       const [lng, lat, zoom] = lngLatZoom;
@@ -267,11 +263,13 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
         <StyleSelector style={styleSelectorStyle} styleIdentifier={styleIdentifier} setStyleIdentifier={setStyleIdentifier} />
 
         <div className={'get-geolonia-code-container'}>
-          <input className={'get-geolonia-html'} value={htmlSnippet.replaceAll('\n  ', ' ')} onChange={handleHtmlSnippetChangeByUser} />
-          <button
-            className={ 'get-geolonia-copy' }
-            onClick={handleCopyToClipboardClick}
-          >{__('Copy to Clipboard')}</button>
+          <input
+            id={'get-geolonia__html-snippet'}
+            className={'get-geolonia-html'}
+            value={htmlSnippet.replaceAll('\n  ', ' ')}
+            onChange={handleHtmlSnippetChangeByUser}
+          />
+          <CopyToClipboard value={htmlSnippet} target={'get-geolonia__html-snippet'} />
         </div>
 
         <CloseButton onClick={handleClose} />
