@@ -5,9 +5,11 @@ import { selectTeam } from './actions/team';
 import {
   useGetPlansQuery,
   useGetTeamsQuery,
+  useGetUserQuery,
 } from './apis/app-api';
 import { __ } from '@wordpress/i18n';
 import type { RootState, AppDispatch } from './store';
+import { useSession } from '../hooks/session';
 
 // Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch = () => useDispatch<AppDispatch>();
@@ -37,7 +39,7 @@ export const useSelectedTeam: () => SelectedTeamResult = () => {
       return null;
     }
     return teams.find((team) => team.teamId === selectedTeamId) || teams[0];
-  }, [ isLoading, dispatch, teams, selectedTeamId ]);
+  }, [isLoading, dispatch, teams, selectedTeamId]);
 
   return {
     selectedTeam,
@@ -47,7 +49,9 @@ export const useSelectedTeam: () => SelectedTeamResult = () => {
 };
 
 export const useUserLanguage = () => {
-  return useAppSelector((state) => state.userMeta.language);
+  const { userSub } = useSession();
+  const { data: user } = useGetUserQuery({ userSub }, { skip: !userSub });
+  return user ? user.language : undefined;
 };
 
 const __loadingImages: Set<string> = new Set();
