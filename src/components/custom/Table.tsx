@@ -11,6 +11,7 @@ import FirstPageIcon from '@material-ui/icons/FirstPage';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 import LastPageIcon from '@material-ui/icons/LastPage';
+import Chip from '@material-ui/core/Chip';
 
 // utils
 import { __ } from '@wordpress/i18n';
@@ -24,6 +25,7 @@ type Props = {
     id: string | number;
     name: string;
     isPublic?: boolean;
+    isRestricted?: boolean;
     updated: string;
   }[];
   rowsPerPage?: number;
@@ -109,23 +111,28 @@ export const CustomTable = (props: Props) => {
   return (
     <Table className="geolonia-list-table">
       <TableBody>
-        {currentRows.map((row) => (
-          <TableRow
-            key={row.id}
-            onMouseOver={onMouseOver}
-            onMouseOut={onMouseOut}
-            onClick={onClick}
-            data-id={row.id}
-          >
-            <TableCell component="th" scope="row">
-              {row.name}
-              {row.isPublic && (
-                <span className="private-or-public">{__('Public')}</span>
-              )}
-            </TableCell>
-            <TableCell align="right">{row.updated}</TableCell>
-          </TableRow>
-        ))}
+        {currentRows.map((row) => {
+          const chips = [];
+          row.isPublic && chips.push(__('Public'));
+          row.isRestricted && chips.push(__('Restricted'));
+          return (
+            <TableRow
+              key={row.id}
+              onMouseOver={onMouseOver}
+              onMouseOut={onMouseOut}
+              onClick={onClick}
+              data-id={row.id}
+            >
+              <TableCell component="th" scope="row">
+                {row.name}
+                { chips.length > 0 && <span style={{ marginLeft: '1em' }}>
+                  {chips.map((label) => <Chip key={label} label={label} />)}
+                </span>}
+              </TableCell>
+              <TableCell align="right">{row.updated}</TableCell>
+            </TableRow>
+          );
+        })}
       </TableBody>
       {currentRows.length > 0 && (
         <TableFooter>

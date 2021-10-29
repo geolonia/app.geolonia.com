@@ -80,6 +80,7 @@ declare namespace Geolonia {
     last2?: string;
     maxMemberLength: number;
     baseFreeMapLoadCount: number;
+    customMaxMapLoadCount?: number;
     billingMode: TeamBillingMethod;
     featureFlags: { [key: string]: boolean };
   };

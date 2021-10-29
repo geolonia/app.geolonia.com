@@ -52,18 +52,18 @@ msgstr ""
 #: src/components/Data/GeoJson.tsx:53
 #: src/components/Data/GeoJsons.tsx:80
 #: src/components/Maps/APIKey.tsx:90
-#: src/components/Maps/APIKeys.tsx:33
-#: src/components/Navigator.tsx:252
+#: src/components/Maps/APIKeys.tsx:48
+#: src/components/Navigator.tsx:263
 #: src/components/Team/Billing.tsx:288
 #: src/components/Team/general/index.tsx:23
-#: src/components/Team/members/index.tsx:128
+#: src/components/Team/members/index.tsx:130
 #: src/components/User/User.tsx:13
 msgid "Home"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:57
 #: src/components/Data/GeoJsons.tsx:84
-#: src/components/Navigator.tsx:166
+#: src/components/Navigator.tsx:168
 msgid "Map"
 msgstr ""
 
@@ -123,7 +123,7 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:240
 #: src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:328
+#: src/components/Navigator.tsx:339
 #: src/components/User/profile.tsx:105
 #: src/components/custom/AddNew.tsx:37
 msgid "Name"
@@ -328,7 +328,7 @@ msgid "Are you sure you want to delete this dataset?"
 msgstr ""
 
 #: src/components/Data/publish.tsx:34
-#: src/components/custom/Table.tsx:123
+#: src/components/custom/Table.tsx:116
 msgid "Public"
 msgstr ""
 
@@ -460,66 +460,66 @@ msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:94
-#: src/components/Maps/APIKeys.tsx:75
+#: src/components/Maps/APIKeys.tsx:93
 msgid "API keys"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:44
+#: src/components/Maps/APIKeys.tsx:60
 msgid "API Key (created by %1$s on %2$s)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:62
+#: src/components/Maps/APIKeys.tsx:79
 msgid "(No date)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:67
+#: src/components/Maps/APIKeys.tsx:84
 #: src/components/custom/AddNew.tsx:35
 msgid "New"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:69
+#: src/components/Maps/APIKeys.tsx:87
 msgid "A new API key has been created."
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:81
+#: src/components/Maps/APIKeys.tsx:99
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
-#: src/components/Navigator.tsx:102
+#: src/components/Navigator.tsx:103
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:130
+#: src/components/Navigator.tsx:132
 #: src/components/Team/general/index.tsx:36
 msgid "General"
 msgstr ""
 
-#: src/components/Navigator.tsx:135
-#: src/components/Team/members/index.tsx:151
+#: src/components/Navigator.tsx:137
+#: src/components/Team/members/index.tsx:153
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:143
+#: src/components/Navigator.tsx:145
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:151
+#: src/components/Navigator.tsx:153
 msgid "Manage API keys"
 msgstr ""
 
-#: src/components/Navigator.tsx:170
+#: src/components/Navigator.tsx:172
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:174
+#: src/components/Navigator.tsx:176
 msgid "Documentation"
 msgstr ""
 
-#: src/components/Navigator.tsx:177
+#: src/components/Navigator.tsx:179
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:305
+#: src/components/Navigator.tsx:316
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
@@ -527,11 +527,11 @@ msgid ""
 "target=\"_blank\">contact us</a>."
 msgstr ""
 
-#: src/components/Navigator.tsx:318
+#: src/components/Navigator.tsx:329
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:322
+#: src/components/Navigator.tsx:333
 msgid "Please enter the name of new team."
 msgstr ""
 
@@ -740,7 +740,7 @@ msgstr ""
 
 #: src/components/Team/Billing.tsx:292
 #: src/components/Team/general/index.tsx:27
-#: src/components/Team/members/index.tsx:132
+#: src/components/Team/members/index.tsx:134
 msgid "Team settings"
 msgstr ""
 
@@ -879,7 +879,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:108
-#: src/components/Team/members/index.tsx:235
+#: src/components/Team/members/index.tsx:237
 msgid "Owner"
 msgstr ""
 
@@ -919,7 +919,7 @@ msgid "Save"
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:82
-#: src/components/Team/members/index.tsx:316
+#: src/components/Team/members/index.tsx:318
 msgid "Change role"
 msgstr ""
 
@@ -933,36 +933,36 @@ msgstr ""
 msgid "Select a new role of %s."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:152
+#: src/components/Team/members/index.tsx:154
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:156
+#: src/components/Team/members/index.tsx:158
 msgid "You currently can not invite any new members."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:237
+#: src/components/Team/members/index.tsx:239
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:275
-#: src/components/custom/Table.tsx:143
+#: src/components/Team/members/index.tsx:277
+#: src/components/custom/Table.tsx:150
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:321
+#: src/components/Team/members/index.tsx:323
 msgid "Unsuspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:324
+#: src/components/Team/members/index.tsx:326
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:328
+#: src/components/Team/members/index.tsx:330
 msgid "Leave the team"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:328
+#: src/components/Team/members/index.tsx:330
 msgid "Remove from team"
 msgstr ""
 
@@ -1184,19 +1184,23 @@ msgstr ""
 msgid "Contact"
 msgstr ""
 
-#: src/components/custom/Table.tsx:57
+#: src/components/custom/Table.tsx:117
+msgid "Restricted"
+msgstr ""
+
+#: src/components/custom/Table.tsx:59
 msgid "first page"
 msgstr ""
 
-#: src/components/custom/Table.tsx:64
+#: src/components/custom/Table.tsx:66
 msgid "previous page"
 msgstr ""
 
-#: src/components/custom/Table.tsx:71
+#: src/components/custom/Table.tsx:73
 msgid "next page"
 msgstr ""
 
-#: src/components/custom/Table.tsx:78
+#: src/components/custom/Table.tsx:80
 msgid "last page"
 msgstr ""
 
@@ -1364,7 +1368,7 @@ msgid ""
 "perhaps the email is not verified."
 msgstr ""
 
-#: src/redux/hooks.ts:101
+#: src/redux/hooks.ts:105
 msgid "Free Plan"
 msgstr ""
 

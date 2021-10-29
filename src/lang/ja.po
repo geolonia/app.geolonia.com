@@ -63,15 +63,15 @@ msgid "Please type delete to confirm."
 msgstr "確認のために delete と入力してください。"
 
 #: src/components/Data/GeoJson.tsx:53 src/components/Data/GeoJsons.tsx:80
-#: src/components/Maps/APIKey.tsx:90 src/components/Maps/APIKeys.tsx:33
-#: src/components/Navigator.tsx:252 src/components/Team/Billing.tsx:288
+#: src/components/Maps/APIKey.tsx:90 src/components/Maps/APIKeys.tsx:48
+#: src/components/Navigator.tsx:263 src/components/Team/Billing.tsx:288
 #: src/components/Team/general/index.tsx:23
-#: src/components/Team/members/index.tsx:128 src/components/User/User.tsx:13
+#: src/components/Team/members/index.tsx:130 src/components/User/User.tsx:13
 msgid "Home"
 msgstr "ホーム"
 
 #: src/components/Data/GeoJson.tsx:57 src/components/Data/GeoJsons.tsx:84
-#: src/components/Navigator.tsx:166
+#: src/components/Navigator.tsx:168
 msgid "Map"
 msgstr "地図"
 
@@ -134,7 +134,7 @@ msgstr ""
 "す。"
 
 #: src/components/Data/GeoJsonMeta.tsx:240 src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:328 src/components/User/profile.tsx:105
+#: src/components/Navigator.tsx:339 src/components/User/profile.tsx:105
 #: src/components/custom/AddNew.tsx:37
 msgid "Name"
 msgstr "名前"
@@ -359,7 +359,7 @@ msgstr ""
 msgid "Are you sure you want to delete this dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
-#: src/components/Data/publish.tsx:34 src/components/custom/Table.tsx:123
+#: src/components/Data/publish.tsx:34 src/components/custom/Table.tsx:116
 msgid "Public"
 msgstr "一般公開"
 
@@ -501,65 +501,65 @@ msgstr ""
 msgid "Are you sure you want to delete this API key?"
 msgstr "この API キーを本当に削除しますか？"
 
-#: src/components/Maps/APIKey.tsx:94 src/components/Maps/APIKeys.tsx:75
+#: src/components/Maps/APIKey.tsx:94 src/components/Maps/APIKeys.tsx:93
 msgid "API keys"
 msgstr "API キー"
 
-#: src/components/Maps/APIKeys.tsx:44
+#: src/components/Maps/APIKeys.tsx:60
 msgid "API Key (created by %1$s on %2$s)"
 msgstr "API キー (%1$s が %2$s に作成)"
 
-#: src/components/Maps/APIKeys.tsx:62
+#: src/components/Maps/APIKeys.tsx:79
 msgid "(No date)"
 msgstr "(データなし)"
 
-#: src/components/Maps/APIKeys.tsx:67 src/components/custom/AddNew.tsx:35
+#: src/components/Maps/APIKeys.tsx:84 src/components/custom/AddNew.tsx:35
 msgid "New"
 msgstr "新規作成"
 
-#: src/components/Maps/APIKeys.tsx:69
+#: src/components/Maps/APIKeys.tsx:87
 msgid "A new API key has been created."
 msgstr "新しい API キーが作成されました。"
 
-#: src/components/Maps/APIKeys.tsx:81
+#: src/components/Maps/APIKeys.tsx:99
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成して"
 "ください。"
 
-#: src/components/Navigator.tsx:102
+#: src/components/Navigator.tsx:103
 msgid "My team"
 msgstr "My team"
 
-#: src/components/Navigator.tsx:130 src/components/Team/general/index.tsx:36
+#: src/components/Navigator.tsx:132 src/components/Team/general/index.tsx:36
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:135 src/components/Team/members/index.tsx:151
+#: src/components/Navigator.tsx:137 src/components/Team/members/index.tsx:153
 msgid "Members"
 msgstr "メンバー"
 
-#: src/components/Navigator.tsx:143
+#: src/components/Navigator.tsx:145
 msgid "Billing"
 msgstr "支払い"
 
-#: src/components/Navigator.tsx:151
+#: src/components/Navigator.tsx:153
 msgid "Manage API keys"
 msgstr "API キー の管理"
 
-#: src/components/Navigator.tsx:170
+#: src/components/Navigator.tsx:172
 msgid "Team Settings"
 msgstr "チーム設定"
 
-#: src/components/Navigator.tsx:174
+#: src/components/Navigator.tsx:176
 msgid "Documentation"
 msgstr "ドキュメント"
 
-#: src/components/Navigator.tsx:177
+#: src/components/Navigator.tsx:179
 msgid "Official Documents"
 msgstr "公式ドキュメント"
 
-#: src/components/Navigator.tsx:305
+#: src/components/Navigator.tsx:316
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
@@ -571,11 +571,11 @@ msgstr ""
 "ますが、ダウンロードが必要な場合はお手数ですが別途 <a href=\"https://"
 "geolonia.com/contact/\" target=\"_blank\">ご連絡</a>をお願いします。"
 
-#: src/components/Navigator.tsx:318
+#: src/components/Navigator.tsx:329
 msgid "Create a new team"
 msgstr "新しいチームを作成"
 
-#: src/components/Navigator.tsx:322
+#: src/components/Navigator.tsx:333
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
@@ -792,7 +792,7 @@ msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
 #: src/components/Team/Billing.tsx:292 src/components/Team/general/index.tsx:27
-#: src/components/Team/members/index.tsx:132
+#: src/components/Team/members/index.tsx:134
 msgid "Team settings"
 msgstr "チーム設定"
 
@@ -939,7 +939,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:108
-#: src/components/Team/members/index.tsx:235
+#: src/components/Team/members/index.tsx:237
 msgid "Owner"
 msgstr "オーナー"
 
@@ -978,7 +978,7 @@ msgid "Save"
 msgstr "保存"
 
 #: src/components/Team/members/change-role.tsx:82
-#: src/components/Team/members/index.tsx:316
+#: src/components/Team/members/index.tsx:318
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -995,39 +995,39 @@ msgstr ""
 msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
-#: src/components/Team/members/index.tsx:152
+#: src/components/Team/members/index.tsx:154
 msgid "You can manage members in your team."
 msgstr ""
 "チームメンバーの管理ができます。チームの参加者には「オーナー」と「メンバー」"
 "の2つの権限があります。オーナーは他のメンバーの招待、権限変更、一時停止、削除"
 "が可能です。"
 
-#: src/components/Team/members/index.tsx:156
+#: src/components/Team/members/index.tsx:158
 msgid "You currently can not invite any new members."
 msgstr "現在、新しいメンバーをチームに招待出来ません。"
 
-#: src/components/Team/members/index.tsx:237
+#: src/components/Team/members/index.tsx:239
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:275
-#: src/components/custom/Table.tsx:143
+#: src/components/Team/members/index.tsx:277
+#: src/components/custom/Table.tsx:150
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:321
+#: src/components/Team/members/index.tsx:323
 msgid "Unsuspend"
 msgstr "一時停止を解除"
 
-#: src/components/Team/members/index.tsx:324
+#: src/components/Team/members/index.tsx:326
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:328
+#: src/components/Team/members/index.tsx:330
 msgid "Leave the team"
 msgstr "チームから離脱"
 
-#: src/components/Team/members/index.tsx:328
+#: src/components/Team/members/index.tsx:330
 msgid "Remove from team"
 msgstr "チームから削除"
 
@@ -1254,19 +1254,23 @@ msgstr "プライバシー"
 msgid "Contact"
 msgstr "お問い合わせ"
 
-#: src/components/custom/Table.tsx:57
+#: src/components/custom/Table.tsx:117
+msgid "Restricted"
+msgstr "制限中"
+
+#: src/components/custom/Table.tsx:59
 msgid "first page"
 msgstr "最初のページ"
 
-#: src/components/custom/Table.tsx:64
+#: src/components/custom/Table.tsx:66
 msgid "previous page"
 msgstr "前のページ"
 
-#: src/components/custom/Table.tsx:71
+#: src/components/custom/Table.tsx:73
 msgid "next page"
 msgstr "次のページ"
 
-#: src/components/custom/Table.tsx:78
+#: src/components/custom/Table.tsx:80
 msgid "last page"
 msgstr "最後のページ"
 
@@ -1451,7 +1455,7 @@ msgstr ""
 "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してくだ"
 "さい。メールアドレスが認証されていない可能性があります。"
 
-#: src/redux/hooks.ts:101
+#: src/redux/hooks.ts:105
 msgid "Free Plan"
 msgstr "Free プラン"
 

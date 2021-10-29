@@ -13,7 +13,7 @@ import moment from 'moment';
 // redux
 import { useHistory } from 'react-router';
 import { useSelectedTeam } from '../../redux/hooks';
-import { useCreateApiKeyMutation, useGetApiKeysQuery, useGetUserQuery } from '../../redux/apis/app-api';
+import { useCreateApiKeyMutation, useGetApiKeysQuery, useGetUserQuery, useGetTeamPlanQuery } from '../../redux/apis/app-api';
 import { useSession } from '../../hooks/session';
 
 import dateParse from '../../lib/date-parse';
@@ -26,6 +26,17 @@ const ApiKeys: React.FC = () => {
   const { data: user, isSuccess: isUserSuccess } = useGetUserQuery({ userSub }, { skip: !userSub });
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
+  const { data: planDetails } = useGetTeamPlanQuery(teamId, {
+    skip: !selectedTeam,
+  });
+
+  let isRestricted = false;
+  if (selectedTeam && planDetails) {
+    const { baseFreeMapLoadCount, customMaxMapLoadCount } = selectedTeam;
+    const { count } = planDetails.usage;
+    isRestricted = count > (customMaxMapLoadCount || baseFreeMapLoadCount);
+  }
+
   const { data: mapKeys, isSuccess: isApiKeysSuccess } = useGetApiKeysQuery(teamId, {
     skip: !selectedTeam,
   });
@@ -62,6 +73,7 @@ const ApiKeys: React.FC = () => {
     return {
       id: key.keyId,
       name: key.name,
+      isRestricted: true,
       updated: key.createAt
         ? moment(key.createAt).format('YYYY/MM/DD HH:mm:ss')
         : __('(No date)'),
