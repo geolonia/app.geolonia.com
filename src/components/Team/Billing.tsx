@@ -144,7 +144,8 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
             </>}
             {isRestricted && <p className="restricted-mode-description">
               {__('Map is being displayed in restricted mode because the map load has reached the limit. please upgrade your plan to unlock it.')}<br />
-              <a href="https://docs.geolonia.com/billing/#restricted-mode">{__('What is the restricted mode?')}</a>
+              {/* TODO: wait https://github.com/geolonia/docs.geolonia.com/pull/38 */}
+              <a href="https://docs.geolonia.com/embed-api/#制限モードについて" target="_blank" rel="noopener noreferrer">{__('What is the restricted mode?')}</a>
             </p>}
           </Paper>
         </Grid>
