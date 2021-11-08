@@ -6,6 +6,7 @@ import {
   useGetPlansQuery,
   useGetTeamsQuery,
   useGetUserQuery,
+  useGetTeamPlanQuery,
 } from './apis/app-api';
 import { __ } from '@wordpress/i18n';
 import type { RootState, AppDispatch } from './store';
@@ -17,7 +18,8 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 type SelectedTeamResult = {
   selectedTeam: Geolonia.Team | null
-  isLoading: boolean
+  isLoading: boolean,
+  isRestricted: boolean | null,
   refetch: () => void
 }
 export const useSelectedTeam: () => SelectedTeamResult = () => {
@@ -27,6 +29,9 @@ export const useSelectedTeam: () => SelectedTeamResult = () => {
     skip: !isLoggedIn,
   });
   const selectedTeamId = useAppSelector((state) => state.team.selectedTeamId);
+  const { data: planDetails } = useGetTeamPlanQuery(selectedTeamId || '', {
+    skip: !selectedTeamId,
+  });
 
   const selectedTeam = useMemo(() => {
     if (isLoading || !teams) return null;
@@ -41,10 +46,18 @@ export const useSelectedTeam: () => SelectedTeamResult = () => {
     return teams.find((team) => team.teamId === selectedTeamId) || teams[0];
   }, [isLoading, dispatch, teams, selectedTeamId]);
 
+  let isRestricted = null;
+  if (selectedTeam && planDetails) {
+    const { baseFreeMapLoadCount, customMaxMapLoadCount } = selectedTeam;
+    const { count } = planDetails.usage;
+    isRestricted = count > (customMaxMapLoadCount || baseFreeMapLoadCount);
+  }
+
   return {
     selectedTeam,
     isLoading,
     refetch,
+    isRestricted,
   };
 };
 

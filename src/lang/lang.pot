@@ -52,9 +52,9 @@ msgstr ""
 #: src/components/Data/GeoJson.tsx:53
 #: src/components/Data/GeoJsons.tsx:80
 #: src/components/Maps/APIKey.tsx:90
-#: src/components/Maps/APIKeys.tsx:48
+#: src/components/Maps/APIKeys.tsx:38
 #: src/components/Navigator.tsx:263
-#: src/components/Team/Billing.tsx:288
+#: src/components/Team/Billing.tsx:294
 #: src/components/Team/general/index.tsx:23
 #: src/components/Team/members/index.tsx:130
 #: src/components/User/User.tsx:13
@@ -460,28 +460,28 @@ msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:94
-#: src/components/Maps/APIKeys.tsx:93
+#: src/components/Maps/APIKeys.tsx:83
 msgid "API keys"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:60
+#: src/components/Maps/APIKeys.tsx:50
 msgid "API Key (created by %1$s on %2$s)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:79
+#: src/components/Maps/APIKeys.tsx:69
 msgid "(No date)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:84
+#: src/components/Maps/APIKeys.tsx:74
 #: src/components/custom/AddNew.tsx:35
 msgid "New"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:87
+#: src/components/Maps/APIKeys.tsx:77
 msgid "A new API key has been created."
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:99
+#: src/components/Maps/APIKeys.tsx:89
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
@@ -668,97 +668,107 @@ msgstr ""
 msgid "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:102
+#: src/components/Team/Billing.tsx:104
 msgid "Billing period"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:118
+#: src/components/Team/Billing.tsx:120
 msgid "Next Payment Date"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:134
+#: src/components/Team/Billing.tsx:136
 msgid "Map loads"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:138
+#: src/components/Team/Billing.tsx:140
 msgid " / %s loads"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:142
+#: src/components/Team/Billing.tsx:144
 msgid "Last updated %s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:149
+#: src/components/Team/Billing.tsx:147
+msgid ""
+"Map is being displayed in restricted mode because the map load has reached "
+"the limit. please upgrade your plan to unlock it."
+msgstr ""
+
+#: src/components/Team/Billing.tsx:148
+msgid "What is the restricted mode?"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:155
 msgid "Charges"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:170
+#: src/components/Team/Billing.tsx:176
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:180
+#: src/components/Team/Billing.tsx:186
 msgid "Current account credit:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:184
+#: src/components/Team/Billing.tsx:190
 msgid ""
 " : While this account has credits available, payments will deduct from "
 "account credit instead of the registered credit card."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:189
+#: src/components/Team/Billing.tsx:195
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:193
+#: src/components/Team/Billing.tsx:199
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:203
+#: src/components/Team/Billing.tsx:209
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:216
+#: src/components/Team/Billing.tsx:222
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:222
+#: src/components/Team/Billing.tsx:228
 msgid "Scheduled to expire on %1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:241
+#: src/components/Team/Billing.tsx:247
 msgid "Resume subscription"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:253
+#: src/components/Team/Billing.tsx:259
 msgid "Change Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:269
+#: src/components/Team/Billing.tsx:275
 msgid "Learn more about plans on the pricing page."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:292
+#: src/components/Team/Billing.tsx:298
 #: src/components/Team/general/index.tsx:27
 #: src/components/Team/members/index.tsx:134
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:306
+#: src/components/Team/Billing.tsx:312
 msgid "Billing and Plans"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:307
+#: src/components/Team/Billing.tsx:313
 msgid ""
 "You can check and change your current pricing plan and usage status of Team "
 "%s."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:331
+#: src/components/Team/Billing.tsx:338
 msgid "Payment history"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:96
+#: src/components/Team/Billing.tsx:98
 msgid "Usage this month"
 msgstr ""
 
@@ -1368,7 +1378,7 @@ msgid ""
 "perhaps the email is not verified."
 msgstr ""
 
-#: src/redux/hooks.ts:105
+#: src/redux/hooks.ts:118
 msgid "Free Plan"
 msgstr ""
 

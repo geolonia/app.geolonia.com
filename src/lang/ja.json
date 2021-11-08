@@ -268,6 +268,10 @@
       "Map loads": ["地図の表示回数"],
       " / %s loads": [" / %s 回"],
       "Last updated %s": ["最終更新: %s"],
+      "Map is being displayed in restricted mode because the map load has reached the limit. please upgrade your plan to unlock it.": [
+        "地図表示回数の上限に達したため、制限モードで地図を表示しています。制限モードを解除するにはプランをアップグレードしてください。"
+      ],
+      "What is the restricted mode?": ["制限モードとは？"],
       "Charges": ["料金"],
       "Payment information": ["支払い情報"],
       "Current account credit:": ["クレジット残高"],

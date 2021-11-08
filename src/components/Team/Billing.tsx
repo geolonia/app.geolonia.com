@@ -49,11 +49,12 @@ const StripeContainer: React.FC = (props) => {
 type BillingInnerProps = {
   planDetails: Geolonia.TeamPlanDetails;
   team: Geolonia.Team;
+  isRestricted: boolean | null;
 };
 
 const BillingInner: React.FC<BillingInnerProps> = (props) => {
   const language = useUserLanguage();
-  const {team, planDetails} = props;
+  const {team, planDetails, isRestricted} = props;
   const {
     planId,
     subscription,
@@ -133,7 +134,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
             <Typography component="h3">
               {__('Map loads')}
             </Typography>
-            <div className="usage-card-content">
+            <div className={`usage-card-content${isRestricted ? ' is-restricted' : ''}`}>
               {!usage || typeof usage.count !== 'number' ? '-' : usage.count.toLocaleString()}
               { (team && team.baseFreeMapLoadCount) && <small>{sprintf(__(' / %s loads'), team.baseFreeMapLoadCount.toLocaleString())}</small> }
             </div>
@@ -141,6 +142,10 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
             {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
               <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY/MM/DD HH:mm:ss'))}</div>
             </>}
+            {isRestricted && <p className="restricted-mode-description">
+              {__('Map is being displayed in restricted mode because the map load has reached the limit. please upgrade your plan to unlock it.')}<br />
+              <a href="https://docs.geolonia.com/billing/#restricted-mode">{__('What is the restricted mode?')}</a>
+            </p>}
           </Paper>
         </Grid>
         <Grid item xs={12} md={6} lg={3}>
@@ -274,7 +279,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
 };
 
 const Billing: React.FC = () => {
-  const { selectedTeam } = useSelectedTeam();
+  const { selectedTeam, isRestricted } = useSelectedTeam();
   const isOwner = selectedTeam?.role === Roles.Owner;
   const teamName = selectedTeam?.name;
   const teamId = selectedTeam?.teamId;
@@ -310,6 +315,7 @@ const Billing: React.FC = () => {
         { (!planDetailsLoading && typeof planDetails !== 'undefined' && selectedTeam) ? (
           <BillingInner
             team={selectedTeam}
+            isRestricted={isRestricted}
             planDetails={planDetails}
           />
         ) : (

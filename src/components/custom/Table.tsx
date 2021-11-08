@@ -25,7 +25,6 @@ type Props = {
     id: string | number;
     name: string;
     isPublic?: boolean;
-    isRestricted?: boolean;
     updated: string;
   }[];
   rowsPerPage?: number;
@@ -114,7 +113,6 @@ export const CustomTable = (props: Props) => {
         {currentRows.map((row) => {
           const chips = [];
           row.isPublic && chips.push(__('Public'));
-          row.isRestricted && chips.push(__('Restricted'));
           return (
             <TableRow
               key={row.id}
