@@ -118,7 +118,7 @@ const Navigator: React.FC<Props> = (props) => {
 
   const { data: teams, refetch: refetchTeams, isFetching } = useGetTeamsQuery();
   const [selectingTeamId, setSelectingTeamId] = useState<string | null>(null);
-  const { selectedTeam, refetch: refetchTeam } = useSelectedTeam();
+  const { selectedTeam, refetch: refetchTeam, isFetching: isTeamFetching } = useSelectedTeam();
   const teamAvatar = useImageFromURL(
     selectedTeam?.teamId,
     selectedTeam?.links.getAvatar || '',
@@ -223,10 +223,10 @@ const Navigator: React.FC<Props> = (props) => {
         >
           <img
             src={ teamAvatar || defaultTeamIcon }
-            className="logo"
+            className={`logo${isTeamFetching ? ' is-team-fetching' : ''}`}
             alt=""
           />
-          { selectedTeam &&
+          { selectedTeam && !isTeamFetching &&
             <Select
               className="team"
               value={selectedTeam.teamId}
