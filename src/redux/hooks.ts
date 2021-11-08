@@ -18,8 +18,8 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 type SelectedTeamResult = {
   selectedTeam: Geolonia.Team | null
-  isLoading: boolean,
-  isRestricted: boolean | null,
+  isLoading: boolean
+  isRestricted: boolean | null
   refetch: () => void
 }
 export const useSelectedTeam: () => SelectedTeamResult = () => {
