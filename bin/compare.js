@@ -49,10 +49,19 @@ ${each.map((stat) => `|${stat.key}|${stat.before}|${stat.after}|${stat.diff}|`).
 };
 
 const compare = async () => {
-  const [before, after] = await Promise.all([
-    exec(`find ${BEFORE_DIR} -type f`).then(statFileSize(BEFORE_DIR)),
-    exec(`find ${AFTER_DIR} -type f`).then(statFileSize(AFTER_DIR)),
-  ]);
+  let fileStats;
+  try {
+    fileStats = await Promise.all([
+      exec(`find ${BEFORE_DIR} -type f`).then(statFileSize(BEFORE_DIR)),
+      exec(`find ${AFTER_DIR} -type f`).then(statFileSize(AFTER_DIR)),
+    ]);
+  } catch (error) {
+    process.stdout.write('No previous build assets to compare bundle size.\n');
+    if (process.CI) {
+      process.stdout.write('Perhaps no cache remains on CI.');
+    }
+  }
+  const [before, after] = fileStats;
 
   const beforeTotal = Object.values(before).reduce((prev, size) => prev + size, 0);
   const afterTotal = Object.values(after).reduce((prev, size) => prev + size, 0);
