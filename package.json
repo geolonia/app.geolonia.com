@@ -17,6 +17,7 @@
     "@wordpress/i18n": "^4.2.2",
     "amazon-cognito-identity-js": "^5.0.6",
     "chart.js": "^3.5.1",
+    "classnames": "^2.3.1",
     "clipboard-polyfill": "^3.0.3",
     "clsx": "^1.1.1",
     "interweave": "^12.8.0",

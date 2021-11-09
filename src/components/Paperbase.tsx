@@ -34,6 +34,7 @@ import { __ } from '@wordpress/i18n';
 
 import { Roles } from '../constants';
 import mixpanel from 'mixpanel-browser';
+import classNames from 'classnames';
 
 const drawerWidth = 256;
 const styles = createStyles({
@@ -143,7 +144,7 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/reset-password" component={ResetPassword} />
           <Route exact>
-            <nav className={`${classes.drawer} ${classes.headerColor}`}>
+            <nav className={classNames(classes.drawer, classes.headerColor)}>
               <Hidden smUp implementation="js">
                 <Navigator
                   PaperProps={{ style: { width: drawerWidth } }}

@@ -31,7 +31,7 @@ import defaultTeamIcon from './custom/team.svg';
 import { Link } from '@material-ui/core';
 
 import { __ } from '@wordpress/i18n';
-
+import classNames from 'classnames';
 import { useLocation } from 'react-router-dom';
 
 // types
@@ -223,7 +223,7 @@ const Navigator: React.FC<Props> = (props) => {
         >
           <img
             src={ teamAvatar || defaultTeamIcon }
-            className={`logo${isTeamFetching ? ' is-team-fetching' : ''}`}
+            className={classNames('logo', isTeamFetching ? ' is-team-fetching' : '')}
             alt=""
           />
           { selectedTeam && !isTeamFetching &&

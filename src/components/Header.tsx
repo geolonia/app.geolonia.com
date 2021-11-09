@@ -21,6 +21,7 @@ import './Header.scss';
 import { useSession } from '../hooks/session';
 import { useGetUserQuery } from '../redux/apis/app-api';
 import { useImageFromURL } from '../redux/hooks';
+import classNames from 'classnames';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -131,7 +132,7 @@ const Header: React.FC<Props> = (props: Props) => {
               <IconButton
                 onClick={handleClick}
                 color="inherit"
-                className={`iconButtonAvatar ${(classes.iconButtonAvatar)}`}
+                className={classNames('iconButtonAvatar', classes.iconButtonAvatar)}
               >
                 {userAvatar ? (
                   <Avatar src={userAvatar} style={avatarStyle} />
