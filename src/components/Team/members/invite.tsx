@@ -9,6 +9,7 @@ import CloseIcon from '@material-ui/icons/Close';
 // Util
 import { sprintf, __ } from '@wordpress/i18n';
 import Interweave from 'interweave';
+import classNames from 'classnames';
 
 // redux
 import { useCreateTeamMemberInvitationMutation } from '../../../redux/apis/app-api';
@@ -72,7 +73,7 @@ export const Invite: React.FC<Props> = (props) => {
         saveButtonLabel={__('Send')}
       />
       <Snackbar
-        className={`snackbar-saved ${status}`}
+        className={classNames('snackbar-saved', status)}
         anchorOrigin={{
           vertical: 'bottom',
           horizontal: 'left',

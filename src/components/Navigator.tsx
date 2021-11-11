@@ -31,7 +31,7 @@ import defaultTeamIcon from './custom/team.svg';
 import { Link } from '@material-ui/core';
 
 import { __ } from '@wordpress/i18n';
-
+import classNames from 'classnames';
 import { useLocation } from 'react-router-dom';
 
 // types
@@ -118,7 +118,7 @@ const Navigator: React.FC<Props> = (props) => {
 
   const { data: teams, refetch: refetchTeams, isFetching } = useGetTeamsQuery();
   const [selectingTeamId, setSelectingTeamId] = useState<string | null>(null);
-  const { selectedTeam, refetch: refetchTeam } = useSelectedTeam();
+  const { selectedTeam, refetch: refetchTeam, isFetching: isTeamFetching } = useSelectedTeam();
   const teamAvatar = useImageFromURL(
     selectedTeam?.teamId,
     selectedTeam?.links.getAvatar || '',
@@ -223,10 +223,10 @@ const Navigator: React.FC<Props> = (props) => {
         >
           <img
             src={ teamAvatar || defaultTeamIcon }
-            className="logo"
+            className={classNames('logo', isTeamFetching ? ' is-team-fetching' : '')}
             alt=""
           />
-          { selectedTeam &&
+          { selectedTeam && !isTeamFetching &&
             <Select
               className="team"
               value={selectedTeam.teamId}

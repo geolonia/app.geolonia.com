@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useContext, useEffect } from 'react';
 
 // Components
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +13,8 @@ import {
   DialogActions,
 } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
+
+import { context as NotificationContext} from '../../../contexts/notification';
 
 // utils
 import { __, sprintf } from '@wordpress/i18n';
@@ -42,10 +44,19 @@ const TeamDeletion: React.FC = () => {
     false | 'requesting' | 'success' | 'failure'
   >(false);
 
+  // hooks
+  const { updateState: updateNotificationState } = useContext(NotificationContext);
   const { selectedTeam } = useSelectedTeam();
   const { data: teams } = useGetTeamsQuery();
-  const [ deleteTeam ] = useDeleteTeamMutation();
+  const [ deleteTeam, mutationResult ] = useDeleteTeamMutation();
   const teamLength = (teams && teams.length) || 0;
+
+  // handle error
+  useEffect(() => {
+    if (mutationResult.isError) {
+      updateNotificationState({ open: true, message: __('Unknown error.'), type: 'success' });
+    }
+  }, [mutationResult.isError, updateNotificationState]);
 
   const saveHandler = useCallback(async () => {
     if (!selectedTeam) return;
