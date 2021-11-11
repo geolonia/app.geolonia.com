@@ -263,15 +263,18 @@
       "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>.": [
         "すでにアカウントをお持ちですか？その場合は<a href=\"/#/signin\">サインイン</a>してください。"
       ],
+      "Usage this month": ["今月の利用状況"],
       "Billing period": ["請求対象期間"],
       "Next Payment Date": ["次回のお支払日"],
       "Map loads": ["地図の表示回数"],
       " / %s loads": [" / %s 回"],
       "Last updated %s": ["最終更新: %s"],
-      "Map is being displayed in restricted mode because the map load has reached the limit. please upgrade your plan to unlock it.": [
-        "地図表示回数の上限に達したため、制限モードで地図を表示しています。制限モードを解除するにはプランをアップグレードしてください。"
+      "Map loads have reached the limit.": [
+        "地図表示回数が上限に達したため表示が制限されています。"
       ],
-      "What is the restricted mode?": ["制限モードとは？"],
+      " Please upgrade your plan to unlock it.": [
+        "制限を解除するにはプランをアップグレードしてください。"
+      ],
       "Charges": ["料金"],
       "Payment information": ["支払い情報"],
       "Current account credit:": ["クレジット残高"],
@@ -294,7 +297,6 @@
         "チーム「%s」の現在の料金プラン・利用状況の確認、変更ができます。"
       ],
       "Payment history": ["支払い履歴"],
-      "Usage this month": ["今月の利用状況"],
       "No payment history.": ["支払い履歴はありません。"],
       "Update": ["更新"],
       "Unknown Error.": ["不明なエラー。"],
@@ -326,6 +328,7 @@
       ],
       "Cancel": ["キャンセル"],
       "Delete": ["削除"],
+      "Unknown error.": ["不明なエラー。"],
       "You must have at least one team to use Geolonia Maps. If you have only one team, please create a new one, and then delete the team.": [
         "Geolonia Mapsの利用には最低1つのチームが必要です。削除したいチームが1つしかない場合は、新規にチームを作成してから該当のチームを削除してください。"
       ],
@@ -453,7 +456,6 @@
       "Terms": ["利用規約"],
       "Privacy": ["プライバシー"],
       "Contact": ["お問い合わせ"],
-      "Restricted": ["制限中"],
       "first page": ["最初のページ"],
       "previous page": ["前のページ"],
       "next page": ["次のページ"],
@@ -461,7 +463,6 @@
       "Coming soon": ["準備中"],
       "Copied to the clipboard.": ["クリップボードにコピーされました。"],
       "Copy to Clipboard": ["クリップボードにコピー"],
-      "Unknown error.": ["不明なエラー。"],
       "Location could not be determined, so move to %s.": [
         "位置情報が判定できなかったので %s に移動します。"
       ],

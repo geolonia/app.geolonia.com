@@ -14,6 +14,7 @@ import PaymentMethodModal from './Billing/payment-method-modal';
 import PlanModal from './Billing/plan-modal';
 import PaymentHistory from './Billing/payment-history';
 import UsageChart from './Billing/usage-chart';
+import classNames from 'classnames';
 
 import './Billing.scss';
 
@@ -50,11 +51,12 @@ type BillingInnerProps = {
   planDetails: Geolonia.TeamPlanDetails;
   team: Geolonia.Team;
   isRestricted: boolean | null;
+  hasCustomMaxMapLoad: boolean;
 };
 
 const BillingInner: React.FC<BillingInnerProps> = (props) => {
   const language = useUserLanguage();
-  const {team, planDetails, isRestricted} = props;
+  const {team, planDetails, isRestricted, hasCustomMaxMapLoad} = props;
   const {
     planId,
     subscription,
@@ -136,7 +138,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
             <Typography component="h3">
               {__('Map loads')}
             </Typography>
-            <div className={`usage-card-content${isRestricted ? ' is-restricted' : ''}`}>
+            <div className={classNames('usage-card-content', isRestricted ? ' is-restricted' : '')}>
               {!usage || typeof usage.count !== 'number' ? '-' : usage.count.toLocaleString()}
               <small>{sprintf(__(' / %s loads'), maxLoadCount.toLocaleString())}</small>
             </div>
@@ -145,9 +147,8 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
               <div className="updated-at">{sprintf(__('Last updated %s'), moment(usage.updated).format('YYYY/MM/DD HH:mm:ss'))}</div>
             </>}
             {isRestricted && <p className="restricted-mode-description">
-              {__('Map is being displayed in restricted mode because the map load has reached the limit. please upgrade your plan to unlock it.')}<br />
-              {/* TODO: wait https://github.com/geolonia/docs.geolonia.com/pull/38 */}
-              <a href="https://docs.geolonia.com/embed-api/#制限モードについて" target="_blank" rel="noopener noreferrer">{__('What is the restricted mode?')}</a>
+              {__('Map loads have reached the limit.')}
+              {hasCustomMaxMapLoad || __(' Please upgrade your plan to unlock it.')}
             </p>}
           </Paper>
         </Grid>
@@ -286,6 +287,7 @@ const Billing: React.FC = () => {
   const isOwner = selectedTeam?.role === Roles.Owner;
   const teamName = selectedTeam?.name;
   const teamId = selectedTeam?.teamId;
+  const hasCustomMaxMapLoad = !!selectedTeam?.customMaxMapLoadCount;
 
   const { data: planDetails, isFetching: planDetailsLoading } = useGetTeamPlanQuery(teamId || '', {
     skip: !selectedTeam,
@@ -319,6 +321,7 @@ const Billing: React.FC = () => {
           <BillingInner
             team={selectedTeam}
             isRestricted={isRestricted}
+            hasCustomMaxMapLoad={hasCustomMaxMapLoad}
             planDetails={planDetails}
           />
         ) : (

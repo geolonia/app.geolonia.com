@@ -26,7 +26,6 @@ const ApiKeys: React.FC = () => {
   const { data: user, isSuccess: isUserSuccess } = useGetUserQuery({ userSub }, { skip: !userSub });
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
-
   const { data: mapKeys, isSuccess: isApiKeysSuccess } = useGetApiKeysQuery(teamId, {
     skip: !selectedTeam,
   });
