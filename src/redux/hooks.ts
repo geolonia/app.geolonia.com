@@ -17,13 +17,14 @@ export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
 type SelectedTeamResult = {
   selectedTeam: Geolonia.Team | null
-  isLoading: boolean
+  isLoading: boolean,
+  isFetching: boolean,
   refetch: () => void
 }
 export const useSelectedTeam: () => SelectedTeamResult = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.authSupport.isLoggedIn);
-  const { data: teams, isLoading, refetch } = useGetTeamsQuery(undefined, {
+  const { data: teams, isLoading, refetch, isFetching } = useGetTeamsQuery(undefined, {
     skip: !isLoggedIn,
   });
   const selectedTeamId = useAppSelector((state) => state.team.selectedTeamId);
@@ -44,6 +45,7 @@ export const useSelectedTeam: () => SelectedTeamResult = () => {
   return {
     selectedTeam,
     isLoading,
+    isFetching,
     refetch,
   };
 };
