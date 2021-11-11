@@ -89,6 +89,8 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
 
   const subOrFreePlan = planDetails.subscription || planDetails.freePlanDetails;
 
+  const maxLoadCount = team.customMaxMapLoadCount || team.baseFreeMapLoadCount;
+
   return <>
     { isOwner && <>
       <Grid container spacing={3} className="usage-info">
@@ -136,7 +138,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
             </Typography>
             <div className={`usage-card-content${isRestricted ? ' is-restricted' : ''}`}>
               {!usage || typeof usage.count !== 'number' ? '-' : usage.count.toLocaleString()}
-              { (team && team.baseFreeMapLoadCount) && <small>{sprintf(__(' / %s loads'), team.baseFreeMapLoadCount.toLocaleString())}</small> }
+              <small>{sprintf(__(' / %s loads'), maxLoadCount.toLocaleString())}</small>
             </div>
             {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
             {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
