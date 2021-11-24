@@ -52,18 +52,18 @@ msgstr ""
 #: src/components/Data/GeoJson.tsx:53
 #: src/components/Data/GeoJsons.tsx:80
 #: src/components/Maps/APIKey.tsx:90
-#: src/components/Maps/APIKeys.tsx:33
-#: src/components/Navigator.tsx:252
-#: src/components/Team/Billing.tsx:288
+#: src/components/Maps/APIKeys.tsx:37
+#: src/components/Navigator.tsx:263
+#: src/components/Team/Billing.tsx:298
 #: src/components/Team/general/index.tsx:23
-#: src/components/Team/members/index.tsx:128
+#: src/components/Team/members/index.tsx:130
 #: src/components/User/User.tsx:13
 msgid "Home"
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:57
 #: src/components/Data/GeoJsons.tsx:84
-#: src/components/Navigator.tsx:166
+#: src/components/Navigator.tsx:168
 msgid "Map"
 msgstr ""
 
@@ -123,7 +123,7 @@ msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:240
 #: src/components/Data/fields.tsx:26
-#: src/components/Navigator.tsx:328
+#: src/components/Navigator.tsx:339
 #: src/components/User/profile.tsx:105
 #: src/components/custom/AddNew.tsx:37
 msgid "Name"
@@ -314,7 +314,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Data/fields.tsx:58
-#: src/components/Team/general/delete.tsx:69
+#: src/components/Team/general/delete.tsx:80
 #: src/components/custom/danger-zone.tsx:20
 msgid "Danger Zone"
 msgstr ""
@@ -374,15 +374,15 @@ msgstr ""
 msgid "Send password reset email"
 msgstr ""
 
-#: src/components/Header.tsx:152
+#: src/components/Header.tsx:153
 msgid "Logged in as %s"
 msgstr ""
 
-#: src/components/Header.tsx:155
+#: src/components/Header.tsx:156
 msgid "Profile"
 msgstr ""
 
-#: src/components/Header.tsx:157
+#: src/components/Header.tsx:158
 msgid "Logout"
 msgstr ""
 
@@ -460,66 +460,66 @@ msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
 #: src/components/Maps/APIKey.tsx:94
-#: src/components/Maps/APIKeys.tsx:75
+#: src/components/Maps/APIKeys.tsx:81
 msgid "API keys"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:44
+#: src/components/Maps/APIKeys.tsx:49
 msgid "API Key (created by %1$s on %2$s)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:62
+#: src/components/Maps/APIKeys.tsx:67
 msgid "(No date)"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:67
+#: src/components/Maps/APIKeys.tsx:72
 #: src/components/custom/AddNew.tsx:35
 msgid "New"
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:69
+#: src/components/Maps/APIKeys.tsx:75
 msgid "A new API key has been created."
 msgstr ""
 
-#: src/components/Maps/APIKeys.tsx:81
+#: src/components/Maps/APIKeys.tsx:87
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 
-#: src/components/Navigator.tsx:102
+#: src/components/Navigator.tsx:103
 msgid "My team"
 msgstr ""
 
-#: src/components/Navigator.tsx:130
+#: src/components/Navigator.tsx:132
 #: src/components/Team/general/index.tsx:36
 msgid "General"
 msgstr ""
 
-#: src/components/Navigator.tsx:135
-#: src/components/Team/members/index.tsx:151
+#: src/components/Navigator.tsx:137
+#: src/components/Team/members/index.tsx:153
 msgid "Members"
 msgstr ""
 
-#: src/components/Navigator.tsx:143
+#: src/components/Navigator.tsx:145
 msgid "Billing"
 msgstr ""
 
-#: src/components/Navigator.tsx:151
+#: src/components/Navigator.tsx:153
 msgid "Manage API keys"
 msgstr ""
 
-#: src/components/Navigator.tsx:170
+#: src/components/Navigator.tsx:172
 msgid "Team Settings"
 msgstr ""
 
-#: src/components/Navigator.tsx:174
+#: src/components/Navigator.tsx:176
 msgid "Documentation"
 msgstr ""
 
-#: src/components/Navigator.tsx:177
+#: src/components/Navigator.tsx:179
 msgid "Official Documents"
 msgstr ""
 
-#: src/components/Navigator.tsx:305
+#: src/components/Navigator.tsx:316
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
@@ -527,15 +527,15 @@ msgid ""
 "target=\"_blank\">contact us</a>."
 msgstr ""
 
-#: src/components/Navigator.tsx:318
+#: src/components/Navigator.tsx:329
 msgid "Create a new team"
 msgstr ""
 
-#: src/components/Navigator.tsx:322
+#: src/components/Navigator.tsx:333
 msgid "Please enter the name of new team."
 msgstr ""
 
-#: src/components/Paperbase.tsx:164
+#: src/components/Paperbase.tsx:165
 msgid "You are suspended. Please contact the team owner."
 msgstr ""
 
@@ -668,98 +668,106 @@ msgstr ""
 msgid "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:102
+#: src/components/Team/Billing.tsx:101
+msgid "Usage this month"
+msgstr ""
+
+#: src/components/Team/Billing.tsx:107
 msgid "Billing period"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:118
+#: src/components/Team/Billing.tsx:123
 msgid "Next Payment Date"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:134
+#: src/components/Team/Billing.tsx:139
 msgid "Map loads"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:138
+#: src/components/Team/Billing.tsx:143
 msgid " / %s loads"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:142
+#: src/components/Team/Billing.tsx:147
 msgid "Last updated %s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:149
+#: src/components/Team/Billing.tsx:150
+msgid "Map loads have reached the limit."
+msgstr ""
+
+#: src/components/Team/Billing.tsx:151
+msgid " Please upgrade your plan to unlock it."
+msgstr ""
+
+#: src/components/Team/Billing.tsx:158
 msgid "Charges"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:170
+#: src/components/Team/Billing.tsx:179
 msgid "Payment information"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:180
+#: src/components/Team/Billing.tsx:189
 msgid "Current account credit:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:184
+#: src/components/Team/Billing.tsx:193
 msgid ""
 " : While this account has credits available, payments will deduct from "
 "account credit instead of the registered credit card."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:189
+#: src/components/Team/Billing.tsx:198
 msgid "Payment method:"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:193
+#: src/components/Team/Billing.tsx:202
 msgid "ending in **%1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:203
+#: src/components/Team/Billing.tsx:212
 msgid "Change payment method"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:216
+#: src/components/Team/Billing.tsx:225
 msgid "Current Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:222
+#: src/components/Team/Billing.tsx:231
 msgid "Scheduled to expire on %1$s"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:241
+#: src/components/Team/Billing.tsx:250
 msgid "Resume subscription"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:253
+#: src/components/Team/Billing.tsx:262
 msgid "Change Plan"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:269
+#: src/components/Team/Billing.tsx:278
 msgid "Learn more about plans on the pricing page."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:292
+#: src/components/Team/Billing.tsx:302
 #: src/components/Team/general/index.tsx:27
-#: src/components/Team/members/index.tsx:132
+#: src/components/Team/members/index.tsx:134
 msgid "Team settings"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:306
+#: src/components/Team/Billing.tsx:316
 msgid "Billing and Plans"
 msgstr ""
 
-#: src/components/Team/Billing.tsx:307
+#: src/components/Team/Billing.tsx:317
 msgid ""
 "You can check and change your current pricing plan and usage status of Team "
 "%s."
 msgstr ""
 
-#: src/components/Team/Billing.tsx:331
+#: src/components/Team/Billing.tsx:343
 msgid "Payment history"
-msgstr ""
-
-#: src/components/Team/Billing.tsx:96
-msgid "Usage this month"
 msgstr ""
 
 #: src/components/Team/Billing/payment-history.tsx:110
@@ -822,17 +830,17 @@ msgstr ""
 msgid "Upload failed. The avatar image size cannot be larger than %d MB."
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:100
+#: src/components/Team/general/delete.tsx:111
 msgid "Confirm deletion"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:107
+#: src/components/Team/general/delete.tsx:118
 msgid ""
 "Please enter <code>delete</code> if you really want to delete the team "
 "<strong>%1$s</strong>."
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:136
+#: src/components/Team/general/delete.tsx:147
 #: src/components/Team/members/change-role.tsx:144
 #: src/components/Team/members/remove-member.tsx:87
 #: src/components/Team/members/suspend.tsx:96
@@ -842,18 +850,25 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:155
+#: src/components/Team/general/delete.tsx:166
 #: src/components/custom/Delete.tsx:164
 msgid "Delete"
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:74
+#: src/components/Team/general/delete.tsx:57
+#: src/components/custom/get-geolonia.tsx:129
+#: src/constants.ts:35
+#: src/lib/cognito/parse-error.ts:51
+msgid "Unknown error."
+msgstr ""
+
+#: src/components/Team/general/delete.tsx:85
 msgid ""
 "You must have at least one team to use Geolonia Maps. If you have only one "
 "team, please create a new one, and then delete the team."
 msgstr ""
 
-#: src/components/Team/general/delete.tsx:77
+#: src/components/Team/general/delete.tsx:88
 msgid "Once you delete a team, there is no going back. Please be certain. "
 msgstr ""
 
@@ -879,7 +894,7 @@ msgid ""
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:108
-#: src/components/Team/members/index.tsx:235
+#: src/components/Team/members/index.tsx:237
 msgid "Owner"
 msgstr ""
 
@@ -919,7 +934,7 @@ msgid "Save"
 msgstr ""
 
 #: src/components/Team/members/change-role.tsx:82
-#: src/components/Team/members/index.tsx:316
+#: src/components/Team/members/index.tsx:318
 msgid "Change role"
 msgstr ""
 
@@ -933,72 +948,72 @@ msgstr ""
 msgid "Select a new role of %s."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:152
+#: src/components/Team/members/index.tsx:154
 msgid "You can manage members in your team."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:156
+#: src/components/Team/members/index.tsx:158
 msgid "You currently can not invite any new members."
 msgstr ""
 
-#: src/components/Team/members/index.tsx:237
+#: src/components/Team/members/index.tsx:239
 msgid "Suspended"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:275
+#: src/components/Team/members/index.tsx:277
 #: src/components/custom/Table.tsx:143
 msgid "rows per page"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:321
+#: src/components/Team/members/index.tsx:323
 msgid "Unsuspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:324
+#: src/components/Team/members/index.tsx:326
 msgid "Suspend"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:328
+#: src/components/Team/members/index.tsx:330
 msgid "Leave the team"
 msgstr ""
 
-#: src/components/Team/members/index.tsx:328
+#: src/components/Team/members/index.tsx:330
 msgid "Remove from team"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:35
+#: src/components/Team/members/invite.tsx:36
 msgid "That user is already a member of this team."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:46
+#: src/components/Team/members/invite.tsx:47
 msgid "The maximum number of members has been reached."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:59
+#: src/components/Team/members/invite.tsx:60
 msgid "Invite"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:60
+#: src/components/Team/members/invite.tsx:61
 msgid "Send an invitation"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:62
+#: src/components/Team/members/invite.tsx:63
 msgid "Please enter the email address of the person you want to invite to \"%s\"."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:66
+#: src/components/Team/members/invite.tsx:67
 msgid "Receipient's email address"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:72
+#: src/components/Team/members/invite.tsx:73
 msgid "Send"
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:89
+#: src/components/Team/members/invite.tsx:90
 msgid "Successfully send invitation."
 msgstr ""
 
-#: src/components/Team/members/invite.tsx:91
+#: src/components/Team/members/invite.tsx:92
 msgid "Failed to send invitation."
 msgstr ""
 
@@ -1212,12 +1227,6 @@ msgstr ""
 msgid "Copy to Clipboard"
 msgstr ""
 
-#: src/components/custom/get-geolonia.tsx:129
-#: src/constants.ts:35
-#: src/lib/cognito/parse-error.ts:51
-msgid "Unknown error."
-msgstr ""
-
 #: src/components/custom/get-geolonia.tsx:157
 msgid "Location could not be determined, so move to %s."
 msgstr ""
@@ -1364,7 +1373,7 @@ msgid ""
 "perhaps the email is not verified."
 msgstr ""
 
-#: src/redux/hooks.ts:101
+#: src/redux/hooks.ts:120
 msgid "Free Plan"
 msgstr ""
 
