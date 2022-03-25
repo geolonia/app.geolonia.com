@@ -45,13 +45,13 @@ msgstr ""
 
 #: src/components/Data/GeoJson.tsx:109
 #: src/components/Data/fields.tsx:70
-#: src/components/Maps/APIKey.tsx:286
+#: src/components/Maps/APIKey.tsx:314
 msgid "Please type delete to confirm."
 msgstr ""
 
 #: src/components/Data/GeoJson.tsx:53
 #: src/components/Data/GeoJsons.tsx:80
-#: src/components/Maps/APIKey.tsx:90
+#: src/components/Maps/APIKey.tsx:94
 #: src/components/Maps/APIKeys.tsx:37
 #: src/components/Navigator.tsx:263
 #: src/components/Team/Billing.tsx:298
@@ -167,12 +167,12 @@ msgid "Enter URLs to be added."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:366
-#: src/components/Maps/APIKey.tsx:302
+#: src/components/Maps/APIKey.tsx:330
 msgid "Add the map to your site"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:369
-#: src/components/Maps/APIKey.tsx:305
+#: src/components/Maps/APIKey.tsx:333
 msgid "Step 1"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgid "Please select API key."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:373
-#: src/components/Maps/APIKey.tsx:192
+#: src/components/Maps/APIKey.tsx:196
 msgid "API key"
 msgstr ""
 
@@ -194,24 +194,24 @@ msgid "If you don't have one, create it from <a href='#/api-keys'>API Keys</a>."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:392
-#: src/components/Maps/APIKey.tsx:322
+#: src/components/Maps/APIKey.tsx:350
 msgid "Step 2"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:396
-#: src/components/Maps/APIKey.tsx:309
+#: src/components/Maps/APIKey.tsx:337
 msgid ""
 "Include the following code <strong>before closing tag of the <code>&lt;body "
 "/&gt;</code><strong> in your HTML file."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:409
-#: src/components/Maps/APIKey.tsx:338
+#: src/components/Maps/APIKey.tsx:366
 msgid "Step 3"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:412
-#: src/components/Maps/APIKey.tsx:325
+#: src/components/Maps/APIKey.tsx:353
 msgid "Click following button and get HTML code where you want to place the map."
 msgstr ""
 
@@ -220,7 +220,7 @@ msgid "Step 4"
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:422
-#: src/components/Maps/APIKey.tsx:340
+#: src/components/Maps/APIKey.tsx:368
 msgid "Adjust the element size."
 msgstr ""
 
@@ -386,44 +386,52 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:148
+#: src/components/Maps/APIKey.tsx:152
 #: src/components/Team/members/change-role.tsx:59
 #: src/components/Team/members/remove-member.tsx:44
 #: src/components/Team/members/suspend.tsx:57
 msgid "An unexpected error occurred. Please try again."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:193
+#: src/components/Maps/APIKey.tsx:197
 msgid ""
 "Configure access control for your API key and Get the HTML code for your "
 "map."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:204
+#: src/components/Maps/APIKey.tsx:207
 msgid "Your API Key"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:213
+#: src/components/Maps/APIKey.tsx:215
+msgid "Secret API Key"
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:233
+msgid "Use this key to interact with authenticated APIs."
+msgstr ""
+
+#: src/components/Maps/APIKey.tsx:241
 msgid "Settings"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:217
+#: src/components/Maps/APIKey.tsx:245
 msgid "Name for managing API keys"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:227
+#: src/components/Maps/APIKey.tsx:255
 msgid "List of URLs that are allowed to display the map"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:229
+#: src/components/Maps/APIKey.tsx:257
 msgid "Enter multiple URLs on new lines. You cannot specify a path in the URL."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:247
+#: src/components/Maps/APIKey.tsx:275
 msgid "This API key can only be used to display maps on the websites listed above."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:253
+#: src/components/Maps/APIKey.tsx:281
 msgid ""
 "The <a "
 "href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-%E3%81%AB%E3%81%"
@@ -433,33 +441,33 @@ msgid ""
 "and are not counted towards your map view quota."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:258
+#: src/components/Maps/APIKey.tsx:286
 msgid "Any page in a specific URL:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:262
+#: src/components/Maps/APIKey.tsx:290
 msgid "Any subdomain:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:265
+#: src/components/Maps/APIKey.tsx:293
 msgid "A URL with a non-standard port:"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:270
+#: src/components/Maps/APIKey.tsx:298
 msgid ""
 "Note: The wildcard character (*) will be matched to a-z, A-Z, 0-9, \"-\", "
 "\"_\". You may use multiple wildcards in one URL."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:280
+#: src/components/Maps/APIKey.tsx:308
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:285
+#: src/components/Maps/APIKey.tsx:313
 msgid "Are you sure you want to delete this API key?"
 msgstr ""
 
-#: src/components/Maps/APIKey.tsx:94
+#: src/components/Maps/APIKey.tsx:98
 #: src/components/Maps/APIKeys.tsx:81
 msgid "API keys"
 msgstr ""
