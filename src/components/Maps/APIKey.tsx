@@ -28,6 +28,7 @@ import { Redirect, useHistory, useRouteMatch } from 'react-router';
 import { useDeleteApiKeyMutation, useGetApiKeysQuery, useUpdateApiKeyMutation } from '../../redux/apis/app-api';
 import { useSelectedTeam } from '../../redux/hooks';
 import { CircularProgress } from '@material-ui/core';
+import HiddenCode from '../custom/HiddenCode';
 
 interface ApiKeyFormControlsCollection extends HTMLFormControlsCollection {
   apiKeyName: HTMLInputElement
@@ -48,6 +49,7 @@ const ApiKey: React.FC = () => {
   const [ deleteKey ] = useDeleteApiKeyMutation();
 
   const apiKey = mapKey?.userKey;
+  const secretKey = mapKey?.secretKey || '';
   const keyId = mapKey?.keyId;
   // props
   const propName = (mapKey || { name: '' }).name;
@@ -199,12 +201,17 @@ const ApiKey: React.FC = () => {
         <Grid item xs={12} md={8}>
 
           <Paper style={apiKeyArea}>
-
             <Typography component="h2" className="module-title">
               {__('Your API Key')}
             </Typography>
+
             <Code>{apiKey || ''}</Code>
 
+            <HiddenCode
+              labelText={__('Secret API Key')}
+              value={secretKey}
+              helperText={__('Use this key to interact with authenticated APIs.')}
+            />
           </Paper>
 
           <Paper>

@@ -1,12 +1,11 @@
 import React from 'react';
 
 type Props = {
-  children: string;
-  backgroundColor: string;
-  color: string;
+  backgroundColor?: string;
+  color?: string;
 };
 
-const Code = (props: Props) => {
+const Code: React.FC<Props> = (props) => {
   const style: React.CSSProperties = {
     padding: '16px',
     backgroundColor: props.backgroundColor,

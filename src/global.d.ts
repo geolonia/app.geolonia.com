@@ -87,6 +87,7 @@ declare namespace Geolonia {
   type Key = {
     keyId: string;
     userKey: string;
+    secretKey: string;
     name: string;
     description: string;
     enabled: boolean;
