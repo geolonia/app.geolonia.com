@@ -61,7 +61,7 @@ const Signin = (props: Props) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [passwordResetFlag, setPasswordResetFlag] = useState(false);
   const [postVerifyFlag, setPostVerifyFlag] = useState(false);
-  const { fetchedEmail, isReady, acceptInvitationCallback } = useInvitationToken(window.location.search);
+  const { fetchedEmail, isReady, acceptInvitationCallback } = useInvitationToken();
 
   useEffect(() => {
     const parsed = queryString.parse(window.location.search);
@@ -215,6 +215,6 @@ const mapDispatchToProps = (dispatch: Redux.Dispatch) => ({
   setAccessToken: (accessToken: string) =>
     dispatch(setAccessToken({accessToken})),
 });
-const ConnectedContent = connect(mapStateToProps, mapDispatchToProps)(Signin);
+const ConnectedSignin = connect(mapStateToProps, mapDispatchToProps)(Signin);
 
-export default ConnectedContent;
+export default ConnectedSignin;

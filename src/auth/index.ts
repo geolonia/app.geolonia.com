@@ -13,7 +13,7 @@ const poolData = {
   UserPoolId,
   ClientId,
 } as CognitoIdentity.ICognitoUserPoolData;
-const userPool = new CognitoIdentity.CognitoUserPool(poolData);
+export const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 
 export const signUp = (username: string, email: string, password: string) =>
   new Promise<CognitoIdentity.ISignUpResult>((resolve, reject) => {

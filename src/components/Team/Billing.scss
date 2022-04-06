@@ -79,6 +79,7 @@
     .usage-card
     {
       padding: 30px 24px;
+      height: 100%;
       text-align: center;
       position: relative;
       h3
@@ -90,6 +91,9 @@
       {
         font-size: 24px;
         font-weight: 600;
+        &.is-restricted {
+          color: red;
+        }
 
         small {
           font-size: 18px;
@@ -109,6 +113,9 @@
         position: absolute;
         bottom: 3px;
         right: 7px;
+      }
+      .restricted-mode-description {
+        text-align: left;
       }
     }
   }

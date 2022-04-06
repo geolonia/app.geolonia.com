@@ -1,31 +1,35 @@
+import './APIKeys.scss';
+
 import React, { useState, useCallback } from 'react';
 
 import Table from '../custom/Table';
 import AddNew2 from '../custom/AddNew2';
 import Title from '../custom/Title';
+import { CircularProgress } from '@material-ui/core';
 
 import { sprintf, __ } from '@wordpress/i18n';
 import moment from 'moment';
 
 // redux
+import { useHistory } from 'react-router';
+import { useSelectedTeam } from '../../redux/hooks';
+import { useCreateApiKeyMutation, useGetApiKeysQuery, useGetUserQuery } from '../../redux/apis/app-api';
+import { useSession } from '../../hooks/session';
+
 import dateParse from '../../lib/date-parse';
 import mixpanel from 'mixpanel-browser';
-
-import './APIKeys.scss';
-import { useHistory } from 'react-router';
-import { useAppSelector, useSelectedTeam } from '../../redux/hooks';
-import { useCreateApiKeyMutation, useGetApiKeysQuery } from '../../redux/apis/app-api';
 import { sleep } from '../../lib/sleep';
-import { CircularProgress } from '@material-ui/core';
 
 const ApiKeys: React.FC = () => {
   const { push } = useHistory();
-  const username = useAppSelector((state) => state.userMeta.name);
+  const { userSub } = useSession();
+  const { data: user, isSuccess: isUserSuccess } = useGetUserQuery({ userSub }, { skip: !userSub });
   const { selectedTeam } = useSelectedTeam();
   const teamId = selectedTeam?.teamId || '';
-  const { data: mapKeys, isFetching } = useGetApiKeysQuery(teamId, {
+  const { data: mapKeys, isSuccess: isApiKeysSuccess } = useGetApiKeysQuery(teamId, {
     skip: !selectedTeam,
   });
+  const isSuccess = isUserSuccess && isApiKeysSuccess;
   const [ createApiKey ] = useCreateApiKeyMutation();
   const [message, setMessage] = useState('');
   const breadcrumbItems = [
@@ -40,8 +44,9 @@ const ApiKeys: React.FC = () => {
   ];
 
   const handleNewApiKey = useCallback<() => Promise<void>>(async () => {
+    if (!user) return;
     const today = moment().format('YYYY-MM-DD');
-    const name = sprintf(__('API Key (created by %1$s on %2$s)'), username, today);
+    const name = sprintf(__('API Key (created by %1$s on %2$s)'), user.username, today);
     const result = await createApiKey({ teamId, name });
     if ('error' in result) {
       setMessage('Error');
@@ -51,7 +56,7 @@ const ApiKeys: React.FC = () => {
     mixpanel.track('Create API key', { apiKeyId: data.keyId });
     await sleep(1_000);
     push(`/api-keys/${data.keyId}`);
-  }, [createApiKey, push, teamId, username]);
+  }, [createApiKey, push, teamId, user]);
 
   const rows = (mapKeys || []).map((key) => {
     return {
@@ -66,6 +71,7 @@ const ApiKeys: React.FC = () => {
   const newAPIButton = <AddNew2
     buttonLabel={__('New')}
     onClick={handleNewApiKey}
+    disabled={!isSuccess}
     successMessage={__('A new API key has been created.')}
     errorMessage={message}
   />;
@@ -74,7 +80,7 @@ const ApiKeys: React.FC = () => {
     <div>
       <Title breadcrumb={breadcrumbItems} title={__('API keys')}/>
 
-      { isFetching ? <>
+      { !isSuccess ? <>
         <CircularProgress />
       </> : <>
         {mapKeys && mapKeys.length === 0 ? <div className={'tutorial-create-api-key'}>

@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import * as clipboard from 'clipboard-polyfill';
 
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
 
 import { sprintf, __ } from '@wordpress/i18n';
 import Interweave from 'interweave';
@@ -16,6 +14,8 @@ import Delete from '../custom/Delete';
 import Help from '../custom/Help';
 import Title from '../custom/Title';
 import DangerZone from '../custom/danger-zone';
+import { GetGeolonia } from '../custom/get-geolonia';
+import { CopyToClipboard } from '../custom/copy-to-clipboard';
 
 // libs
 import { normalizeOrigins } from '@geolonia/utils';
@@ -27,13 +27,15 @@ import mixpanel from 'mixpanel-browser';
 import { Redirect, useHistory, useRouteMatch } from 'react-router';
 import { useDeleteApiKeyMutation, useGetApiKeysQuery, useUpdateApiKeyMutation } from '../../redux/apis/app-api';
 import { useSelectedTeam } from '../../redux/hooks';
+import { CircularProgress } from '@material-ui/core';
+import HiddenCode from '../custom/HiddenCode';
 
 interface ApiKeyFormControlsCollection extends HTMLFormControlsCollection {
   apiKeyName: HTMLInputElement
   apiKeyAllowedOrigins: HTMLInputElement
 }
 
-const Content: React.FC = () => {
+const ApiKey: React.FC = () => {
   const history = useHistory();
   const match = useRouteMatch<{id: string}>();
   const { selectedTeam } = useSelectedTeam();
@@ -47,6 +49,7 @@ const Content: React.FC = () => {
   const [ deleteKey ] = useDeleteApiKeyMutation();
 
   const apiKey = mapKey?.userKey;
+  const secretKey = mapKey?.secretKey || '';
   const keyId = mapKey?.keyId;
   // props
   const propName = (mapKey || { name: '' }).name;
@@ -177,17 +180,11 @@ const Content: React.FC = () => {
     history.push('/api-keys');
   }, [deleteKey, history, keyId, teamId]);
 
-  const copyToClipBoard = (cssSelector: string) => {
-    const input = document.querySelector(cssSelector) as HTMLInputElement;
-    if (input) {
-      input.select();
-      clipboard.writeText(input.value);
-    }
-  };
+  if (isLoading || !Array.isArray(mapKeys)) {
+    return <CircularProgress />;
+  }
 
-  if (isLoading) return null;
-
-  if (!mapKey || !apiKey) {
+  if (Array.isArray(mapKeys) && (!mapKey || !apiKey)) {
     // no key found
     return <Redirect to="/api-keys" />;
   }
@@ -204,12 +201,17 @@ const Content: React.FC = () => {
         <Grid item xs={12} md={8}>
 
           <Paper style={apiKeyArea}>
-
             <Typography component="h2" className="module-title">
               {__('Your API Key')}
             </Typography>
-            <Code>{apiKey}</Code>
 
+            <Code>{apiKey || ''}</Code>
+
+            <HiddenCode
+              labelText={__('Secret API Key')}
+              value={secretKey}
+              helperText={__('Use this key to interact with authenticated APIs.')}
+            />
           </Paper>
 
           <Paper>
@@ -317,22 +319,12 @@ const Content: React.FC = () => {
               />
             </p>
             <textarea
-              className="api-key-embed-code"
+              id={'api-key__embed-script'}
               style={styleTextarea}
               value={embedCode}
               readOnly={true}
             ></textarea>
-            <p>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                style={{ width: '100%' }}
-                onClick={() => copyToClipBoard('.api-key-embed-code')}
-              >
-                {__('Copy to Clipboard')}
-              </Button>
-            </p>
+            <CopyToClipboard value={ embedCode } target={'api-key__embed-script'} />
             <Typography component="h3" style={styleH3}>
               {__('Step 2')}
             </Typography>
@@ -342,38 +334,24 @@ const Content: React.FC = () => {
               )}
             </p>
             <p>
-              <Button
-                className="launch-get-geolonia"
-                variant="contained"
-                color="primary"
-                size="large"
-                style={{ width: '100%' }}
-                data-geocoder="community-geocoder"
-              >
-                {__('Get HTML')}
-              </Button>
+              <GetGeolonia
+                lat={35.6762}
+                lng={139.6503}
+                zoom={10}
+                mapStyle={'geolonia/basic'}
+              />
             </p>
             <Typography component="h3" style={styleH3}>
               {__('Step 3')}
             </Typography>
             <p>{__('Adjust the element size.')}</p>
             <textarea
-              className="api-key-embed-css"
+              id={'api-key__embed-css'}
               style={styleTextarea}
               value={embedCSS}
               readOnly={true}
             ></textarea>
-            <p>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                style={{ width: '100%' }}
-                onClick={() => copyToClipBoard('.api-key-embed-css')}
-              >
-                {__('Copy to Clipboard')}
-              </Button>
-            </p>
+            <CopyToClipboard value={ embedCSS } target={'api-key__embed-css'} />
           </Paper>
         </Grid>
       </Grid>
@@ -381,4 +359,4 @@ const Content: React.FC = () => {
   );
 };
 
-export default Content;
+export default ApiKey;

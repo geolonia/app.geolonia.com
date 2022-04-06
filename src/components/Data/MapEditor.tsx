@@ -1,15 +1,18 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import GeoloniaMap from '../custom/GeoloniaMap';
+import { GeoloniaMap } from '@geolonia/embed-react';
 
 import { _x } from '@wordpress/i18n';
 import fullscreen from './fullscreenMap';
-
 import { refreshSession } from '../../auth';
+import { useSession } from '../../hooks/session';
+import mapboxgl from 'mapbox-gl';
+
+const { REACT_APP_STAGE } = process.env;
+const STAGE = REACT_APP_STAGE === 'v1' ? 'v1': 'dev';
+const embedSrc = `https://cdn.geolonia.com/${STAGE}/embed?geolonia-api-key=YOUR-API-KEY`;
 
 type OwnProps = {
-  geojsonId: string | undefined;
-  session: Geolonia.Session;
-  bounds: mapboxgl.LngLatBoundsLike | undefined;
+  geojsonId: string;
   style?: string;
 };
 
@@ -23,9 +26,10 @@ const mapStyle: React.CSSProperties = {
 };
 
 export const MapEditor = (props: Props) => {
-  const { geojsonId, bounds, style, session } = props;
+  const { geojsonId, style } = props;
+  const { session } = useSession();
 
-  // mapbox map and draw binding
+  // mapbox map binding
   const mapRef = useRef<mapboxgl.Map | null>(null);
   const [sessionIsValid, setSessionIsValid] = useState<boolean>(!!session?.isValid());
   const sessionRef = useRef<Geolonia.Session>(session);
@@ -60,7 +64,7 @@ export const MapEditor = (props: Props) => {
   useEffect(() => {
     let updateTimer: number | undefined;
     const updater = (async () => {
-      if (!session || session.isValid()) {
+      if (!session || !session.isValid()) {
         return;
       }
       const newSession = await refreshSession(session);
@@ -75,7 +79,7 @@ export const MapEditor = (props: Props) => {
         clearTimeout(updateTimer);
       }
     };
-  }, [ session ]);
+  }, [session]);
 
   if (!sessionIsValid || !geojsonId) {
     return null;
@@ -84,20 +88,18 @@ export const MapEditor = (props: Props) => {
   return (
     <div style={mapStyle}>
       <GeoloniaMap
-        width="100%"
-        height="100%"
-        gestureHandling="off"
+        embedSrc={embedSrc}
+        mapRef={mapRef}
+        style={{width: '100%', height: '100%'}}
+        gestureHandling={'off'}
         marker={'off'}
-        zoom={parseFloat(_x('0', 'Default value of zoom level of map'))}
+        zoom={_x('0', 'Default value of zoom level of map')}
         geolocateControl={'off'}
         fullscreenControl={'off'}
         navigationControl={'off'}
-        onAfterLoad={handleOnAfterLoad}
-        bounds={bounds}
-        geojsonId={geojsonId}
-        initialMapOptions={{
-          transformRequest,
-        }}
+        simpleVector={`geolonia://tiles/custom/${geojsonId}`}
+        onLoad={handleOnAfterLoad}
+        initOptions={{ transformRequest }}
       />
     </div>
   );

@@ -1,0 +1,82 @@
+.mapbox-gl-control-community-geocoder-text-input {
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-right: 0.3em;
+  height: 24px;
+  width: 200px;
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  border-radius: 0;
+  outline: none;
+}
+
+.mapbox-gl-control-community-geocoder-message {
+  margin-top: 0.2em;
+  margin-bottom: 0.1em;
+  color: red;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+.get-geolonia-modal-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto auto;
+  padding: 0;
+  width: 90%;
+  height: 90%;
+  background-color: #ffffff;
+}
+
+.get-geolonia-code-container {
+  box-sizing: border-box;
+  width: 100%;
+  height: 150px;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 32px;
+  margin: 0;
+  background-color: #ffffff;
+
+  a {
+    display: block;
+    margin-top: 4px;
+    font-size: 80%;
+  }
+}
+
+.get-geolonia-html {
+  width: 100%;
+  font-size: 120%;
+  font-family: monospace;
+  display: block;
+  margin: 0;
+  margin-bottom: 8px;
+  color: #555555;
+}
+
+.get-geolonia-copy {
+  background-color: #008cba;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 0;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+}
+
+.get-geolonia-copy:hover {
+  background-color: #003366;
+}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 
 // components
 import Typography from '@material-ui/core/Typography';
@@ -8,35 +8,17 @@ import Avatar from '@material-ui/core/Avatar';
 import { CircularProgress } from '@material-ui/core';
 import Alert from '../custom/Alert';
 
-// redux
-import { connect } from 'react-redux';
-import Redux from 'redux';
-import {
-  setAvatar,
-} from '../../redux/actions/user-meta';
-
 // utils
 import { __, sprintf } from '@wordpress/i18n';
 
-// API
-import putAvatar from '../../api/users/put-avatar';
-
 // constants
 import { avatarLimitSize } from '../../constants';
-import { getSession } from '../../auth';
 
-type OwnProps = Record<string, never>;
-type StateProps = {
-  userMeta: Geolonia.User;
-};
-type DispatchProps = {
-  setAvatar: (avatarBlobUrl: string | void) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
-type State = {
-  status: false | 'requesting' | 'success' | 'failure';
-  errorMessage: string;
-};
+// redux
+import { useImageFromURL, useAppDispatch } from '../../redux/hooks';
+import { useSession } from '../../hooks/session';
+import { useGetUserQuery, useUpdateUserAvatarMutation } from '../../redux/apis/app-api';
+import { setAvatar } from '../../redux/actions/avatar';
 
 const ProfileImageStyle: React.CSSProperties = {
   width: '250px',
@@ -45,111 +27,108 @@ const ProfileImageStyle: React.CSSProperties = {
   margin: 'auto',
 };
 
-export class AvatarSection extends React.Component<Props, State> {
-  private inputFileRef: HTMLInputElement | null;
+export const AvatarSection: React.FC<{}> = () => {
+  const dispatch = useAppDispatch();
 
-  constructor(props: Props) {
-    super(props);
-    this.inputFileRef = null;
-    this.state = {
-      status: false,
-      errorMessage: '',
-    };
-  }
+  // states
+  const [status, setStatus] = useState<false | 'requesting' | 'success' | 'failure'>(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  onUploadClick = () => {
-    this.setState({ status: false, errorMessage: '' });
-    if (this.inputFileRef) {
-      this.inputFileRef.click();
-    }
-  };
+  const [ uploadAvatar ] = useUpdateUserAvatarMutation();
+  const { userSub } = useSession();
+  const { data: user, refetch: refetchUser } = useGetUserQuery({ userSub }, { skip: !userSub });
 
-  onFileSelected = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const userAvatar = useImageFromURL(
+    userSub,
+    user?.links.getAvatar || '',
+    {
+      onError: refetchUser,
+    },
+  );
+
+  // refs
+  const inputFileRef = useRef<HTMLInputElement | null>(null);
+
+  const handleFileSelect = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!userSub) return;
+
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
 
       if (file.size > avatarLimitSize * 1024 * 1024) {
-        this.setState({
-          status: 'failure',
-          errorMessage: sprintf(
-            __(
-              'Upload failed. The avatar image size cannot be larger than %d MB.',
-            ),
-            avatarLimitSize,
+        setStatus('failure');
+        setErrorMessage(sprintf(
+          __(
+            'Upload failed. The avatar image size cannot be larger than %d MB.',
           ),
-        });
+          avatarLimitSize,
+        ));
         return;
       }
 
       const avatarUrl = URL.createObjectURL(file);
-      const prevAvatarUrl = this.props.userMeta.avatarImage;
-      this.setState({ status: 'requesting' });
+      const prevAvatarUrl = userAvatar;
 
-      const session = await getSession();
-      const result = await putAvatar(session, file);
-      if (result.error) {
-        this.props.setAvatar(prevAvatarUrl); // roleback
-        this.setState({ status: 'failure', errorMessage: result.message });
+      setStatus('requesting');
+
+      dispatch(setAvatar({ key: userSub, value: avatarUrl }));
+      const result = await uploadAvatar({ file, userSub });
+      if ('error' in result) {
+        dispatch(setAvatar({ key: userSub, value: prevAvatarUrl })); // roleback
+        setStatus('failure');
+        setErrorMessage(__('Upload failed.'));
       } else {
-        this.props.setAvatar(avatarUrl);
-        this.setState({ status: 'success' });
+        dispatch(setAvatar({ key: userSub, value: avatarUrl }));
+        setStatus('success');
       }
     }
-  };
+  }, [dispatch, userSub, userAvatar, uploadAvatar]);
 
-  render() {
-    const { errorMessage, status } = this.state;
-    const {
-      userMeta: { avatarImage },
-    } = this.props;
+  const handleUploadClick = useCallback(() => {
+    setStatus(false);
+    setErrorMessage('');
+    if (inputFileRef.current) {
+      inputFileRef.current.click();
+    }
+  }, []);
 
-    return (
-      <Typography component="div" align="center">
-        {avatarImage ? (
-          <Avatar
-            src={avatarImage}
-            style={{
-              ...ProfileImageStyle,
-              opacity: this.state.status === 'requesting' ? 0.6 : 1,
-            }}
-          ></Avatar>
-        ) : (
-          <PersonIcon style={ProfileImageStyle} />
-        )}
-        <br />
-        <Button
-          variant="contained"
-          color="default"
-          onClick={this.onUploadClick}
-        >
-          {this.state.status === 'requesting' && (
-            <CircularProgress size={16} style={{ marginRight: 8 }} />
-          )}
-          {__('Upload new picture')}
-        </Button>
-        <input
-          ref={(ref) => (this.inputFileRef = ref)}
-          accept="image/*"
-          style={{ display: 'none' }}
-          id="avatar-file"
-          type="file"
-          onChange={this.onFileSelected}
-        />
-        <br />
-        {status === 'failure' && errorMessage && (
-          <Alert type="danger">{errorMessage}</Alert>
-        )}
-      </Typography>
-    );
-  }
-}
+  return <Typography component="div" align="center">
+    {userAvatar ? (
+      <Avatar
+        src={userAvatar}
+        style={{
+          ...ProfileImageStyle,
+          opacity: status === 'requesting' ? 0.6 : 1,
+        }}
+      ></Avatar>
+    ) : (
+      <PersonIcon style={ProfileImageStyle} />
+    )}
+    <br />
+    <Button
+      variant="contained"
+      color="default"
+      onClick={handleUploadClick}
+    >
+      {status === 'requesting' && (
+        <CircularProgress size={16} style={{ marginRight: 8 }} />
+      )}
+      {__('Upload new picture')}
+    </Button>
+    <input
+      ref={(ref) => (inputFileRef.current = ref)}
+      accept="image/*"
+      style={{ display: 'none' }}
+      id="avatar-file"
+      type="file"
+      onChange={handleFileSelect}
+    />
+    <br />
+    {status === 'failure' && errorMessage && (
+      <Alert type="danger">{errorMessage}</Alert>
+    )}
+  </Typography>;
+};
 
-const mapStateToProps = (state: Geolonia.Redux.AppState): StateProps => ({
-  userMeta: state.userMeta,
-});
-
-const mapDispatchToProps = (dispatch: Redux.Dispatch): DispatchProps => ({
-  setAvatar: (blobUrl) => dispatch(setAvatar({ avatarImage: blobUrl })),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AvatarSection);
+export default AvatarSection
+;

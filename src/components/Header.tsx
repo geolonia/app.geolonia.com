@@ -17,7 +17,11 @@ import { signout } from '../auth';
 import { sprintf, __ } from '@wordpress/i18n';
 import Avatar from '@material-ui/core/Avatar';
 import './Header.scss';
-import { useAppSelector } from '../redux/hooks';
+
+import { useSession } from '../hooks/session';
+import { useGetUserQuery } from '../redux/apis/app-api';
+import { useImageFromURL } from '../redux/hooks';
+import classNames from 'classnames';
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -50,7 +54,19 @@ type Props = {
 
 const Header: React.FC<Props> = (props: Props) => {
   const { classes, onDrawerToggle } = props;
-  const { username, avatarImage } = useAppSelector((state) => state.userMeta);
+
+  const { userSub } = useSession();
+  const { data: user, refetch: refetchUser } = useGetUserQuery({ userSub }, { skip: !userSub });
+  const { username } = user || { links: {} };
+
+  const userAvatar = useImageFromURL(
+    userSub,
+    user?.links.getAvatar || '',
+    {
+      onError: refetchUser,
+    },
+  );
+
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const headerStyle: React.CSSProperties = {
@@ -116,10 +132,10 @@ const Header: React.FC<Props> = (props: Props) => {
               <IconButton
                 onClick={handleClick}
                 color="inherit"
-                className={`iconButtonAvatar ${(classes.iconButtonAvatar)}`}
+                className={classNames('iconButtonAvatar', classes.iconButtonAvatar)}
               >
-                {avatarImage ? (
-                  <Avatar src={avatarImage} style={avatarStyle} />
+                {userAvatar ? (
+                  <Avatar src={userAvatar} style={avatarStyle} />
                 ) : (
                   <PersonOutlineIcon style={avatarStyle} />
                 )}

@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import queryString from 'query-string';
-import { describeInvitation, acceptInvitation } from '../api/teams/accept-invitation';
+import { useDescribeInvitationQuery, useAcceptInvitationMutation } from '../redux/apis/app-api';
 
 type HookResult = {
   fetchedEmail: string | null,
@@ -9,51 +9,46 @@ type HookResult = {
   acceptInvitationCallback: () => Promise<void>,
 };
 
+// Switch with react-router in the future.
+// see https://github.com/geolonia/app.geolonia.com/issues/618
+const qs = queryString.parse(window.location.search);
+const invitationToken = typeof qs.invitationToken === 'string' ? qs.invitationToken : null;
+
 /**
  * Use invitationToken with search string
  * @param search window.location.search or any search string
  */
-export const useInvitationToken = (search: string): HookResult => {
-  const [invitationToken, setInvitationToken] = useState<null | string>(null);
-  const [fetchedEmail, setFetchedEmail] = useState<null | string>(null);
-  const [isReady, setIsReady] = useState(false);
+export const useInvitationToken = (): HookResult => {
 
-  const fetchInvitationData = async (invitationToken: string) => {
-    try {
-      const res = await describeInvitation(invitationToken);
-      const {email} = await res.json();
-      if (typeof email === 'string') {
-        setFetchedEmail(email);
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    } finally {
-      setIsReady(true);
-    }
-  };
+  const [fetchedEmail, setFetchedEmail] = useState<null | string>(null);
+  // skip and be ready without invitationToken
+  const [isReady, setIsReady] = useState(!invitationToken);
+
+  const { data, isFetching } = useDescribeInvitationQuery(invitationToken || '', {
+    skip: !invitationToken,
+  });
 
   useEffect(() => {
-    const parsed = queryString.parse(search);
-    if (typeof parsed.invitationToken === 'string') {
-      setInvitationToken(parsed.invitationToken);
-      fetchInvitationData(parsed.invitationToken);
-      setIsReady(true);
-    } else {
+    if (!isFetching && data && typeof data.email === 'string') {
+      setFetchedEmail(data.email);
       setIsReady(true);
     }
-  }, [search]);
+  }, [data, isFetching]);
+
+  const [acceptInvitation] = useAcceptInvitationMutation();
+
+  const acceptInvitationCallback = useCallback(async () => {
+    if (invitationToken && fetchedEmail) {
+      await acceptInvitation({ invitationToken, email: fetchedEmail });
+    } else {
+      throw new Error('Invalid invitaton token.');
+    }
+  }, [acceptInvitation, fetchedEmail]);
 
   return {
     fetchedEmail,
     isReady,
     invitationToken,
-    acceptInvitationCallback: async () => {
-      if (invitationToken && fetchedEmail) {
-        await acceptInvitation(invitationToken, fetchedEmail);
-      } else {
-        throw new Error('Invalid invitaton token.');
-      }
-    },
+    acceptInvitationCallback,
   };
 };

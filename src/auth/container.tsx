@@ -4,10 +4,6 @@ import React, { useEffect } from 'react';
 import { loadLocale } from '../lib/load-locale';
 import { setLocaleData } from '@wordpress/i18n';
 
-// API
-import { getSession } from './';
-import getUser from '../api/users/get';
-
 // Utils
 import estimateLanguage from '../lib/estimate-language';
 
@@ -18,25 +14,27 @@ import {
   ready,
   setLoggedIn,
 } from '../redux/actions/auth-support';
-import {
-  set as setUserMeta,
-  isUserMeta,
-} from '../redux/actions/user-meta';
 
 // Types
 import Moment from 'moment';
 
 import mixpanel from 'mixpanel-browser';
+import { useGetUserQuery } from '../redux/apis/app-api';
+import { useSession } from '../hooks/session';
 
 const AuthContainer: React.FC = ({children}) => {
   const dispatch = useAppDispatch();
   const { isReady } = useAppSelector((state) => ({
     isReady: state.authSupport.isReady,
   }));
+  const { userSub, session, isReady: isSessionReady } = useSession();
+  const { data: user, isLoading } = useGetUserQuery({ userSub }, { skip: !userSub });
 
   useEffect(() => {
     (async () => {
-      const session = await getSession();
+      if (!isSessionReady || isLoading) {
+        return;
+      }
 
       if (session === null) {
         setLocaleData(loadLocale(estimateLanguage()));
@@ -52,9 +50,7 @@ const AuthContainer: React.FC = ({children}) => {
       mixpanel.people.set('$email', idTokenPayload.email);
 
       try {
-        const userResp = await getUser(session);
-        const user = userResp.error ? undefined : { ...userResp.data.item, links: userResp.data.links };
-        if (!isUserMeta(user)) {
+        if (!user) {
           throw new Error('invalid user meta response');
         }
 
@@ -75,7 +71,6 @@ const AuthContainer: React.FC = ({children}) => {
         Moment.defaultFormat = 'YYYY-MM-DD HH:mm:ss';
 
         dispatch(setLoggedIn(true));
-        dispatch(setUserMeta(user));
       } catch (error) {
         dispatch(getInTrouble());
         dispatch(setLoggedIn(false));
@@ -83,7 +78,7 @@ const AuthContainer: React.FC = ({children}) => {
         dispatch(ready());
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, isSessionReady, session, isLoading, user]);
 
   return <>{isReady && children}</>;
 };

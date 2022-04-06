@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import clsx from 'clsx';
 import { withStyles, Theme } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
@@ -31,16 +31,16 @@ import defaultTeamIcon from './custom/team.svg';
 import { Link } from '@material-ui/core';
 
 import { __ } from '@wordpress/i18n';
-
+import classNames from 'classnames';
 import { useLocation } from 'react-router-dom';
 
 // types
-import { useAppDispatch, useAppSelector, useImageFromURL, useSelectedTeam } from '../redux/hooks';
-import { useCreateTeamMutation, useGetTeamsQuery } from '../redux/apis/app-api';
+import { useAppDispatch, useImageFromURL, useSelectedTeam } from '../redux/hooks';
+import { useCreateTeamMutation, useGetTeamsQuery, useGetUserQuery } from '../redux/apis/app-api';
 import { selectTeam } from '../redux/actions/team';
 import { useHistory } from 'react-router';
-import { sleep } from '../lib/sleep';
 import { colorPrimary } from '../variables';
+import { useSession } from '../hooks/session';
 
 const styles = (theme: Theme) => ({
   categoryHeader: {
@@ -97,8 +97,9 @@ type Props = {
 
 const Navigator: React.FC<Props> = (props) => {
   const dispatch = useAppDispatch();
-  const { push } = useHistory();
-  const ownerEmail = useAppSelector((state) => state.userMeta.email);
+  const { push, location } = useHistory();
+  const { userSub } = useSession();
+  const { data: owner } = useGetUserQuery({ userSub }, { skip: !userSub });
   const initialValueForNewTeamName = __('My team');
 
   const [ createTeam ] = useCreateTeamMutation();
@@ -115,8 +116,9 @@ const Navigator: React.FC<Props> = (props) => {
     initialValueForNewTeamName,
   );
 
-  const { data: teams } = useGetTeamsQuery();
-  const { selectedTeam, refetch: refetchTeam } = useSelectedTeam();
+  const { data: teams, refetch: refetchTeams, isFetching } = useGetTeamsQuery();
+  const [selectingTeamId, setSelectingTeamId] = useState<string | null>(null);
+  const { selectedTeam, refetch: refetchTeam, isFetching: isTeamFetching } = useSelectedTeam();
   const teamAvatar = useImageFromURL(
     selectedTeam?.teamId,
     selectedTeam?.links.getAvatar || '',
@@ -192,17 +194,26 @@ const Navigator: React.FC<Props> = (props) => {
   }, [initialValueForNewTeamName]);
 
   const saveHandler = useCallback(async () => {
-    const result = await createTeam({ name: newTeamName, billingEmail: ownerEmail });
+    if (!owner) return;
+    const result = await createTeam({ name: newTeamName, billingEmail: owner.email });
     if ('error' in result) {
       throw new Error(JSON.stringify(result.error));
     }
 
     handleClose();
 
-    await sleep(1_000);
-    dispatch(selectTeam({ teamId: result.data.teamId }));
-    push('/team/general');
-  }, [createTeam, dispatch, handleClose, newTeamName, ownerEmail, push]);
+    refetchTeams();
+    setSelectingTeamId(result.data.teamId);
+  }, [createTeam, handleClose, newTeamName, owner, refetchTeams]);
+
+  useEffect(() => {
+    if (!isFetching && selectingTeamId) {
+      dispatch(selectTeam({ teamId: selectingTeamId }));
+      if (location.pathname !== '/team/general') {
+        push('/team/general');
+      }
+    }
+  }, [dispatch, isFetching, location.pathname, push, selectingTeamId]);
 
   return (
     <Drawer id="navigator" variant="permanent" {...other}>
@@ -212,10 +223,10 @@ const Navigator: React.FC<Props> = (props) => {
         >
           <img
             src={ teamAvatar || defaultTeamIcon }
-            className="logo"
+            className={classNames('logo', isTeamFetching ? ' is-team-fetching' : '')}
             alt=""
           />
-          { selectedTeam &&
+          { selectedTeam && !isTeamFetching &&
             <Select
               className="team"
               value={selectedTeam.teamId}

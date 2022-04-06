@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import TextField from '@material-ui/core/TextField';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -6,179 +6,141 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Save from '../custom/Save';
 
-// API
-import updateUser from '../../api/users/update';
-
 // utils
 import { __ } from '@wordpress/i18n';
 import momentTimeZone from 'moment-timezone';
+import { useSession } from '../../hooks/session';
+import { sleep } from '../../lib/sleep';
 
-// Redux
-import { connect } from 'react-redux';
-import {
-  set as setUserMeta,
-} from '../../redux/actions/user-meta';
-
-// types
-import { Dispatch } from 'redux';
-import { getSession } from '../../auth';
-import { RootState } from '../../redux/store';
-
-type OwnProps = Record<string, never>;
-type StateProps = { user: Geolonia.User };
-type DispatchProps = {
-  updateUser: (nextUser: Geolonia.User) => void;
-};
-type Props = OwnProps & StateProps & DispatchProps;
-
-type State = {
-  user: Pick<Geolonia.User, 'name' | 'language' | 'timezone'>;
-  email: string;
-  username: string;
-};
+import { useGetUserQuery, useUpdateUserMutation } from '../../redux/apis/app-api';
 
 const selectStyle: React.CSSProperties = {
   marginTop: '16px',
   marginBottom: '8px',
 };
 
-export class Profile extends React.Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      user: {
-        name: props.user.name,
-        language: props.user.language,
-        timezone: props.user.timezone || momentTimeZone.tz.guess(),
-      },
-      username: props.user.username,
-      email: props.user.email,
-    };
-  }
+const timezones = momentTimeZone.tz.names();
 
-  _setUserMeta = (key: keyof Geolonia.User, value: string) => {
-    this.setState({
-      user: { ...this.state.user, [key]: value },
-    });
-  };
+const Profile: React.FC<{}> = () => {
 
-  onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    this._setUserMeta('name', e.currentTarget.value);
-  };
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [name, setName] = useState('');
+  const [language, setLanguage] = useState('');
+  const [timezone, setTimezone] = useState('');
 
-  onNameBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    const name = e.currentTarget.value;
-    this._setUserMeta('name', name.trim());
-  };
+  const { userSub } = useSession();
+  const { data: user } = useGetUserQuery({ userSub }, { skip: !userSub });
+  const [updateUser] = useUpdateUserMutation();
 
-  onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    this.setState({ email: e.target.value });
+  useEffect(() => {
+    const fetchedUser = user || { links: {}, username: '', email: '', name: '', language: '', timezone: '' };
+    setUsername(fetchedUser.username);
+    setEmail(fetchedUser.email);
+    setName(fetchedUser.name);
+    setLanguage(fetchedUser.language);
+    setTimezone(fetchedUser.timezone);
+  }, [user]);
 
-  onLanguageChange = (e: any) => this._setUserMeta('language', e.target.value);
-  onTimezoneChange = (e: any) => this._setUserMeta('timezone', e.target.value);
+  const handleEmailChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const nextEmail = event.target.value;
+    setEmail(nextEmail);
+  }, []);
 
-  onSaveClick = async (e: any) => {
-    const session = await getSession();
-    const { user } = this.props;
-    const nextUser = { ...user, ...this.state.user };
+  const handleNameChange = useCallback((event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    const nextName = event.target.value;
+    setName(nextName);
+  }, []);
 
-    // Error Handling
-    const result = await updateUser(session, nextUser);
-    if (result.error) {
-      throw new Error(result.code);
-    }
-    this.props.updateUser(nextUser);
-    // wait to show success effect
-    setTimeout(() => {
+  const handleLanguageChange = useCallback((event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => {
+    const nextLanguage = event.target.value as string;
+    setLanguage(nextLanguage);
+  }, []);
+
+  const handleTimezoneChange = useCallback((event: React.ChangeEvent<{ name?: string | undefined; value: unknown; }>) => {
+    const nextTimezone = event.target.value as string;
+    setTimezone(nextTimezone);
+  }, []);
+
+  const handleNameBlur = useCallback((event: React.FocusEvent<HTMLInputElement>) => {
+    const name = event.currentTarget.value;
+    setName(name.trim());
+  }, []);
+
+  const handleSaveClick = useCallback(async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const nextUser =  { name, timezone, language };
+    if (userSub) {
+      await updateUser({ userSub, updates: nextUser });
+      await sleep(500);
       window.location.reload();
-    }, 500);
-  };
+    }
+  }, [language, name, timezone, updateUser, userSub]);
 
-  timezones = momentTimeZone.tz.names();
+  const saveDisabled = name === '';
 
-  render() {
-    const {
-      user: { name, language, timezone },
-      email,
-      username,
-    } = this.state;
+  return (
+    <>
+      <TextField
+        id="username"
+        label={__('Username')}
+        margin="normal"
+        value={username}
+        fullWidth={true}
+        disabled
+      />
 
-    const saveDisabled = name === '';
+      <TextField
+        id="email"
+        label={__('Email')}
+        margin="normal"
+        value={email}
+        onChange={handleEmailChange}
+        fullWidth={true}
+        // NOTE: currently disabled
+        disabled
+      />
 
-    return (
-      <>
-        <TextField
-          id="username"
-          label={__('Username')}
-          margin="normal"
-          value={username}
+      <TextField
+        id="display-name"
+        label={__('Name')}
+        margin="normal"
+        value={name}
+        onChange={handleNameChange}
+        fullWidth={true}
+        onBlur={handleNameBlur}
+      />
+
+      <FormControl fullWidth={true} style={selectStyle}>
+        <InputLabel htmlFor="select-language">{__('Language')}</InputLabel>
+        <Select
+          id="select-language"
           fullWidth={true}
-          disabled
-        />
+          value={language}
+          onChange={handleLanguageChange}
+        >
+          <MenuItem value="en">{'English'}</MenuItem>
+          <MenuItem value="ja">{'日本語'}</MenuItem>
+        </Select>
+      </FormControl>
 
-        <TextField
-          id="email"
-          label={__('Email')}
-          margin="normal"
-          value={email}
-          onChange={this.onEmailChange}
+      <FormControl fullWidth={true} style={selectStyle}>
+        <InputLabel htmlFor="select-timezone">{__('Time zone')}</InputLabel>
+        <Select
+          id="select-timezone"
           fullWidth={true}
-          // NOTE: currently disabled
-          disabled
-        />
-        {/* <Save></Save> */}
+          value={timezone}
+          onChange={handleTimezoneChange}
+        >
+          {timezones.map((timezoneName: string) => (
+            <MenuItem key={timezoneName} value={timezoneName}>
+              {timezoneName}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+      <Save onClick={handleSaveClick} disabled={saveDisabled} />
+    </>
+  );
+};
 
-        <TextField
-          id="display-name"
-          label={__('Name')}
-          margin="normal"
-          value={name}
-          onChange={this.onNameChange}
-          fullWidth={true}
-          onBlur={this.onNameBlur}
-        />
-
-        <FormControl fullWidth={true} style={selectStyle}>
-          <InputLabel htmlFor="select-language">{__('Language')}</InputLabel>
-          <Select
-            id="select-language"
-            fullWidth={true}
-            value={language}
-            onChange={this.onLanguageChange}
-          >
-            <MenuItem value="en">English</MenuItem>
-            <MenuItem value="ja">日本語</MenuItem>
-          </Select>
-        </FormControl>
-
-        <FormControl fullWidth={true} style={selectStyle}>
-          <InputLabel htmlFor="select-timezone">{__('Time zone')}</InputLabel>
-          <Select
-            id="select-timezone"
-            fullWidth={true}
-            value={timezone}
-            onChange={this.onTimezoneChange}
-          >
-            {this.timezones.map((timezoneName: string) => (
-              <MenuItem key={timezoneName} value={timezoneName}>
-                {timezoneName}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        <Save onClick={this.onSaveClick} disabled={saveDisabled} />
-      </>
-    );
-  }
-}
-
-const mapStateToProps = (state: RootState): StateProps => ({
-  user: state.userMeta,
-});
-
-const mapDispatchToProps = (dispatch: Dispatch): DispatchProps => ({
-  updateUser: (nextUser: Geolonia.User) =>
-    dispatch(setUserMeta(nextUser)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Profile);
+export default Profile;

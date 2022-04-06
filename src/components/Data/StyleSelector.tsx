@@ -3,11 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { MapStylesAPI } from '../../constants';
 
 type Props = {
-  setStyle: Function;
-  style?: string;
+  style?: React.CSSProperties;
+  styleIdentifier: string;
+  setStyleIdentifier: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const Content = (props: Props) => {
+const StyleSelector: React.FC<Props> = (props) => {
+  const { style, styleIdentifier, setStyleIdentifier } = props;
   const [styles, setStyles] = useState<[]>([]);
 
   useEffect(() => {
@@ -19,16 +21,16 @@ const Content = (props: Props) => {
   }, []);
 
   const onChangeHandler = (event: React.FormEvent<HTMLSelectElement>) => {
-    props.setStyle(event.currentTarget.value);
+    setStyleIdentifier(event.currentTarget.value);
   };
 
   return (
     <>
-      <select onChange={onChangeHandler} value={props.style}>{styles.map((item, index) => {
+      <select style={style} onChange={onChangeHandler} value={styleIdentifier}>{styles.map((item, index) => {
         return <option key={index} value={item}>{item}</option>;
       })}</select>
     </>
   );
 };
 
-export default Content;
+export default StyleSelector;
