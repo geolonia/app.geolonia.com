@@ -23,7 +23,7 @@
     "interweave": "^12.8.0",
     "isomorphic-fetch": "^3.0.0",
     "mixpanel-browser": "^2.41.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.27",
     "query-string": "^7.0.1",
     "react": "^17.0.0",
