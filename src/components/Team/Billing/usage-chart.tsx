@@ -7,6 +7,7 @@ import { externalTooltipHandler } from '../../../lib/billing-tooltip';
 import { useGetApiKeysQuery } from '../../../redux/apis/app-api';
 import { colorScheme } from '../../../lib/colorscheme';
 import moment from 'moment';
+import { useLocation } from 'react-router-dom';
 
 const CHARTJS_OPTIONS = {
   responsive: true,
@@ -52,7 +53,9 @@ type ChartDataset = {
 const UsageChart: React.FC<UsageChartProps> = (props) => {
   const { team, planDetails } = props;
   const { usage } = planDetails;
-  const { data: mapKeys } = useGetApiKeysQuery(team.teamId);
+  const { search } = useLocation();
+  const searchParams = new URLSearchParams(search);
+  const { data: mapKeys } = useGetApiKeysQuery(searchParams.get('teamId') || team.teamId);
 
   const chartData = useMemo(() => {
     const subOrFreePlan = planDetails.subscription || planDetails.freePlanDetails;
