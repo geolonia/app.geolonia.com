@@ -166,6 +166,10 @@
         "地図を設置するサイトの登録や地図を設置するためのHTMLコード取得ができます"
       ],
       "Your API Key": ["あなたの API キー"],
+      "Secret API Key": ["API の秘密鍵"],
+      "Use this key to interact with authenticated APIs.": [
+        "サーバー間での API アクセスにお使いください。"
+      ],
       "Settings": ["設定"],
       "Name for managing API keys": ["APIキー管理用の名前"],
       "List of URLs that are allowed to display the map": [
