@@ -304,6 +304,9 @@ export const appApi = createApi({
         },
       }),
     }),
+    listTeamInvitations: builder.query<Geolonia.Pending[], string>({
+      query: (teamId) => `teams/${teamId}/invitations`,
+    }),
     updateTeamMember: builder.mutation<void, UpdateTeamMemberParam>({
       query: (args) => ({
         url: `/teams/${args.teamId}/members/${args.memberSub}`,
@@ -423,6 +426,7 @@ export const {
   useCreateTeamMemberInvitationMutation,
   useUpdateTeamMemberMutation,
   useDeleteTeamMemberMutation,
+  useListTeamInvitationsQuery,
 
   // Team Member invitation
   useDescribeInvitationQuery,

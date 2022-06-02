@@ -62,7 +62,7 @@ declare namespace Geolonia {
       getAvatar: string;
       putAvatar: string;
     };
-    avatarImage: string | void;
+    avatarImage?: string;
   };
   type Team = {
     teamId: string;
@@ -76,7 +76,7 @@ declare namespace Geolonia {
       getAvatar: string;
       putAvatar: string;
     };
-    avatarImage: string | void;
+    avatarImage?: string;
     last2?: string;
     maxMemberLength: number;
     baseFreeMapLoadCount: number;
@@ -84,6 +84,15 @@ declare namespace Geolonia {
     billingMode: TeamBillingMethod;
     featureFlags: { [key: string]: boolean };
   };
+
+  type Pending = {
+    pendingId: string;
+    email: string;
+    exp: number;
+    teamId: 'team-invitation';
+    type: string;
+  }
+
   type Key = {
     keyId: string;
     userKey: string;

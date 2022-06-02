@@ -40,7 +40,7 @@ type DeleteAction = {
 };
 type SetAvatarAction = {
   type: typeof SET_AVATAR;
-  payload: { teamId: string; userSub: string; avatarImage: string | void };
+  payload: { teamId: string; userSub: string; avatarImage?: string };
 };
 
 type TeamMemberAction =
@@ -79,7 +79,7 @@ export const createActions = {
   setAvatar: (
     teamId: string,
     userSub: string,
-    avatarImage: string | void,
+    avatarImage?: string,
   ): SetAvatarAction => ({
     type: SET_AVATAR,
     payload: { teamId, userSub, avatarImage },

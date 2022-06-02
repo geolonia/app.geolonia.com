@@ -28,7 +28,7 @@ export const initialState: State = {
 };
 
 type SetPayload = State;
-type SetAvatarPayload = { avatarImage: string | void };
+type SetAvatarPayload = { avatarImage?: string };
 
 const userMetaSlice = createSlice({
   name: 'userMeta',
