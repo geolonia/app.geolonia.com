@@ -246,7 +246,7 @@ const Members: React.FC = () => {
               <TableCell component="th" scope="row">
                 <Typography color={row.yourself ? 'primary' : undefined}>
                   {row.name}
-                  <br />@{row.username}
+                  <br />{row.role === 'Pending' ? '' : '@'}{row.username}
                 </Typography>
               </TableCell>
               <TableCell align="center">
