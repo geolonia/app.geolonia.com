@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 const { REACT_APP_TILE_SERVER } = process.env;
 
-export default function useMetadata(geojsonId: string | void) {
+export default function useMetadata(geojsonId: string | undefined) {
   const [layerNames, setLayerNames] = useState<string[] | null | 'error'>(null);
 
   useEffect(() => {

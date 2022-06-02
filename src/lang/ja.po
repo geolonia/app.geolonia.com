@@ -58,15 +58,15 @@ msgid "Are you sure you want to delete this Dataset?"
 msgstr "本当にこのデータセットを削除しますか？"
 
 #: src/components/Data/GeoJson.tsx:109 src/components/Data/fields.tsx:70
-#: src/components/Maps/APIKey.tsx:314
+#: src/components/Maps/APIKey.tsx:293
 msgid "Please type delete to confirm."
 msgstr "確認のために delete と入力してください。"
 
 #: src/components/Data/GeoJson.tsx:53 src/components/Data/GeoJsons.tsx:80
-#: src/components/Maps/APIKey.tsx:94 src/components/Maps/APIKeys.tsx:37
+#: src/components/Maps/APIKey.tsx:92 src/components/Maps/APIKeys.tsx:37
 #: src/components/Navigator.tsx:263 src/components/Team/Billing.tsx:298
 #: src/components/Team/general/index.tsx:23
-#: src/components/Team/members/index.tsx:130 src/components/User/User.tsx:13
+#: src/components/Team/members/index.tsx:149 src/components/User/User.tsx:13
 msgid "Home"
 msgstr "ホーム"
 
@@ -180,11 +180,11 @@ msgstr "API キーページで設定した URL"
 msgid "Enter URLs to be added."
 msgstr "追加する URL を入力して下さい"
 
-#: src/components/Data/GeoJsonMeta.tsx:366 src/components/Maps/APIKey.tsx:330
+#: src/components/Data/GeoJsonMeta.tsx:366 src/components/Maps/APIKey.tsx:309
 msgid "Add the map to your site"
 msgstr "ウェブサイトに地図を追加しましょう"
 
-#: src/components/Data/GeoJsonMeta.tsx:369 src/components/Maps/APIKey.tsx:333
+#: src/components/Data/GeoJsonMeta.tsx:369 src/components/Maps/APIKey.tsx:312
 msgid "Step 1"
 msgstr "ステップ 1"
 
@@ -192,7 +192,7 @@ msgstr "ステップ 1"
 msgid "Please select API key."
 msgstr "API キーを選択してください"
 
-#: src/components/Data/GeoJsonMeta.tsx:373 src/components/Maps/APIKey.tsx:196
+#: src/components/Data/GeoJsonMeta.tsx:373 src/components/Maps/APIKey.tsx:194
 msgid "API key"
 msgstr "API キー"
 
@@ -207,11 +207,11 @@ msgstr ""
 "API キーをお持ちでない場合は <a href='#/api-keys'>API Keys</a> から作成して下"
 "さい。"
 
-#: src/components/Data/GeoJsonMeta.tsx:392 src/components/Maps/APIKey.tsx:350
+#: src/components/Data/GeoJsonMeta.tsx:392 src/components/Maps/APIKey.tsx:329
 msgid "Step 2"
 msgstr "ステップ 2"
 
-#: src/components/Data/GeoJsonMeta.tsx:396 src/components/Maps/APIKey.tsx:337
+#: src/components/Data/GeoJsonMeta.tsx:396 src/components/Maps/APIKey.tsx:316
 msgid ""
 "Include the following code <strong>before closing tag of the <code>&lt;body /"
 "&gt;</code><strong> in your HTML file."
@@ -220,11 +220,11 @@ msgstr ""
 "前に</strong>以下のコードを挿入してください。API キーはすでに埋め込まれている"
 "のでそのままコピーして貼り付けできます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:409 src/components/Maps/APIKey.tsx:366
+#: src/components/Data/GeoJsonMeta.tsx:409 src/components/Maps/APIKey.tsx:345
 msgid "Step 3"
 msgstr "ステップ 3"
 
-#: src/components/Data/GeoJsonMeta.tsx:412 src/components/Maps/APIKey.tsx:353
+#: src/components/Data/GeoJsonMeta.tsx:412 src/components/Maps/APIKey.tsx:332
 msgid ""
 "Click following button and get HTML code where you want to place the map."
 msgstr ""
@@ -235,7 +235,7 @@ msgstr ""
 msgid "Step 4"
 msgstr "ステップ 4"
 
-#: src/components/Data/GeoJsonMeta.tsx:422 src/components/Maps/APIKey.tsx:368
+#: src/components/Data/GeoJsonMeta.tsx:422 src/components/Maps/APIKey.tsx:347
 msgid "Adjust the element size."
 msgstr ""
 "下記のCSSをWebサイトに追加して、地図を表示する要素のサイズを調整して下さい。"
@@ -418,54 +418,54 @@ msgstr "プロフィール"
 msgid "Logout"
 msgstr "ログアウト"
 
-#: src/components/Maps/APIKey.tsx:152
+#: src/components/Maps/APIKey.tsx:150
 #: src/components/Team/members/change-role.tsx:59
 #: src/components/Team/members/remove-member.tsx:44
 #: src/components/Team/members/suspend.tsx:57
 msgid "An unexpected error occurred. Please try again."
 msgstr "予期せぬエラーが発生しました。もう一度試してください。"
 
-#: src/components/Maps/APIKey.tsx:197
+#: src/components/Maps/APIKey.tsx:195
 msgid ""
 "Configure access control for your API key and Get the HTML code for your map."
 msgstr ""
 "地図を設置するサイトの登録や地図を設置するためのHTMLコード取得ができます"
 
-#: src/components/Maps/APIKey.tsx:207
+#: src/components/Maps/APIKey.tsx:205
 msgid "Your API Key"
 msgstr "あなたの API キー"
 
-#: src/components/Maps/APIKey.tsx:215
+#: src/components/Maps/APIKey.tsx:211
 msgid "Secret API Key"
 msgstr "API の秘密鍵"
 
-#: src/components/Maps/APIKey.tsx:233
+#: src/components/Maps/APIKey.tsx:213
 msgid "Use this key to interact with authenticated APIs."
 msgstr "サーバー間での API アクセスにお使いください。"
 
-#: src/components/Maps/APIKey.tsx:241
+#: src/components/Maps/APIKey.tsx:220
 msgid "Settings"
 msgstr "設定"
 
-#: src/components/Maps/APIKey.tsx:245
+#: src/components/Maps/APIKey.tsx:224
 msgid "Name for managing API keys"
 msgstr "APIキー管理用の名前"
 
-#: src/components/Maps/APIKey.tsx:255
+#: src/components/Maps/APIKey.tsx:234
 msgid "List of URLs that are allowed to display the map"
 msgstr "地図の表示を許可するURLのリスト"
 
-#: src/components/Maps/APIKey.tsx:257
+#: src/components/Maps/APIKey.tsx:236
 msgid "Enter multiple URLs on new lines. You cannot specify a path in the URL."
 msgstr ""
 "複数 URL を指定する場合、改行で入力してください。パスの指定はできません。"
 
-#: src/components/Maps/APIKey.tsx:275
+#: src/components/Maps/APIKey.tsx:254
 msgid ""
 "This API key can only be used to display maps on the websites listed above."
 msgstr "このAPIキーは上記指定されているウェブサイトからでしか表示できません。"
 
-#: src/components/Maps/APIKey.tsx:281
+#: src/components/Maps/APIKey.tsx:260
 msgid ""
 "The <a href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-%E3%81%AB"
 "%E3%81%A4%E3%81%84%E3%81%A6\" target=\"_blank\" rel=\"noopener noreferrer"
@@ -479,19 +479,19 @@ msgstr ""
 "ストに追加されます。このウェブサイトからのアクセスは課金対象にせず、「地図の"
 "表示回数」に反映されません。"
 
-#: src/components/Maps/APIKey.tsx:286
+#: src/components/Maps/APIKey.tsx:265
 msgid "Any page in a specific URL:"
 msgstr "指定された URL 以下のすべてのページ:"
 
-#: src/components/Maps/APIKey.tsx:290
+#: src/components/Maps/APIKey.tsx:269
 msgid "Any subdomain:"
 msgstr "すべてのサブドメイン:"
 
-#: src/components/Maps/APIKey.tsx:293
+#: src/components/Maps/APIKey.tsx:272
 msgid "A URL with a non-standard port:"
 msgstr "一般的ではないポート:"
 
-#: src/components/Maps/APIKey.tsx:298
+#: src/components/Maps/APIKey.tsx:277
 msgid ""
 "Note: The wildcard character (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_"
 "\". You may use multiple wildcards in one URL."
@@ -499,17 +499,17 @@ msgstr ""
 "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致しま"
 "す。同一 URL に複数ワイルドカードを使うことが出来ます。"
 
-#: src/components/Maps/APIKey.tsx:308
+#: src/components/Maps/APIKey.tsx:287
 msgid "Once you delete an API, there is no going back. Please be certain."
 msgstr ""
 "API キーを一度削除したらもとに戻すことはできません。よく確認して実行してくだ"
 "さい。"
 
-#: src/components/Maps/APIKey.tsx:313
+#: src/components/Maps/APIKey.tsx:292
 msgid "Are you sure you want to delete this API key?"
 msgstr "この API キーを本当に削除しますか？"
 
-#: src/components/Maps/APIKey.tsx:98 src/components/Maps/APIKeys.tsx:81
+#: src/components/Maps/APIKey.tsx:96 src/components/Maps/APIKeys.tsx:81
 msgid "API keys"
 msgstr "API キー"
 
@@ -543,7 +543,7 @@ msgstr "My team"
 msgid "General"
 msgstr "一般"
 
-#: src/components/Navigator.tsx:137 src/components/Team/members/index.tsx:153
+#: src/components/Navigator.tsx:137 src/components/Team/members/index.tsx:170
 msgid "Members"
 msgstr "メンバー"
 
@@ -812,7 +812,7 @@ msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
 #: src/components/Team/Billing.tsx:302 src/components/Team/general/index.tsx:27
-#: src/components/Team/members/index.tsx:134
+#: src/components/Team/members/index.tsx:153
 msgid "Team settings"
 msgstr "チーム設定"
 
@@ -961,7 +961,7 @@ msgstr ""
 "の左上にあるプルダウンで行うことができます。"
 
 #: src/components/Team/members/change-role.tsx:108
-#: src/components/Team/members/index.tsx:237
+#: src/components/Team/members/index.tsx:254
 msgid "Owner"
 msgstr "オーナー"
 
@@ -1000,7 +1000,7 @@ msgid "Save"
 msgstr "保存"
 
 #: src/components/Team/members/change-role.tsx:82
-#: src/components/Team/members/index.tsx:318
+#: src/components/Team/members/index.tsx:339
 msgid "Change role"
 msgstr "権限を変更"
 
@@ -1017,39 +1017,51 @@ msgstr ""
 msgid "Select a new role of %s."
 msgstr "%s の権限を選択して下さい。"
 
-#: src/components/Team/members/index.tsx:154
+#: src/components/Team/members/index.tsx:132
+msgid "(An invited user)"
+msgstr "(招待されたユーザー)"
+
+#: src/components/Team/members/index.tsx:171
 msgid "You can manage members in your team."
 msgstr ""
 "チームメンバーの管理ができます。チームの参加者には「オーナー」と「メンバー」"
 "の2つの権限があります。オーナーは他のメンバーの招待、権限変更、一時停止、削除"
 "が可能です。"
 
-#: src/components/Team/members/index.tsx:158
+#: src/components/Team/members/index.tsx:175
 msgid "You currently can not invite any new members."
 msgstr "現在、新しいメンバーをチームに招待出来ません。"
 
-#: src/components/Team/members/index.tsx:239
+#: src/components/Team/members/index.tsx:256
 msgid "Suspended"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:277
+#: src/components/Team/members/index.tsx:258
+msgid "Inviting"
+msgstr "招待中"
+
+#: src/components/Team/members/index.tsx:269
+msgid "Expires on %s"
+msgstr " 有効期限: %s"
+
+#: src/components/Team/members/index.tsx:298
 #: src/components/custom/Table.tsx:143
 msgid "rows per page"
 msgstr "表示する個数"
 
-#: src/components/Team/members/index.tsx:323
+#: src/components/Team/members/index.tsx:344
 msgid "Unsuspend"
 msgstr "一時停止を解除"
 
-#: src/components/Team/members/index.tsx:326
+#: src/components/Team/members/index.tsx:347
 msgid "Suspend"
 msgstr "一時停止"
 
-#: src/components/Team/members/index.tsx:330
+#: src/components/Team/members/index.tsx:351
 msgid "Leave the team"
 msgstr "チームから離脱"
 
-#: src/components/Team/members/index.tsx:330
+#: src/components/Team/members/index.tsx:351
 msgid "Remove from team"
 msgstr "チームから削除"
 

@@ -21,22 +21,38 @@ import { Chip, Avatar, CircularProgress, Typography } from '@material-ui/core';
 import Alert from '../../custom/Alert';
 
 // utils
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 import { Roles } from '../../../constants';
+import Moment from 'moment';
 
 // Redux
-import { useGetTeamMembersQuery, useGetUserQuery } from '../../../redux/apis/app-api';
+import { useGetTeamMembersQuery, useGetUserQuery, useListTeamInvitationsQuery } from '../../../redux/apis/app-api';
 import { useSelectedTeam } from '../../../redux/hooks';
 import { useSession } from '../../../hooks/session';
 
 type Row = {
   id: number | string;
-  avatar: string | void;
+  avatar?: string;
   name: string;
   username: string;
-  role: Geolonia.Role;
+  role: Geolonia.Role | 'Pending';
   yourself: boolean;
+  expiredAt?: string;
+};
+
+const firstCellStyle: React.CSSProperties = {
+  width: '56px',
+  padding: '8px 0 3px 8px',
+};
+
+const iconStyle: React.CSSProperties = {
+  fontSize: '16px',
+};
+
+const avatarStyle: React.CSSProperties = {
+  width: '24px',
+  height: '24px',
 };
 
 const Members: React.FC = () => {
@@ -54,41 +70,12 @@ const Members: React.FC = () => {
   const { selectedTeam } = useSelectedTeam();
   const { userSub } = useSession();
   const { data: currentUser } = useGetUserQuery({ userSub }, { skip: !userSub });
-  const { data: members, isFetching } = useGetTeamMembersQuery(selectedTeam?.teamId || '', {
+  const { data: members = [], isFetching } = useGetTeamMembersQuery(selectedTeam?.teamId || '', {
     skip: !selectedTeam,
   });
-
-  const rows: Row[] = (members || []).map((member) => {
-    return {
-      id: member.userSub,
-      avatar: member.avatarImage,
-      name: member.name,
-      username: member.username,
-      role: member.role,
-      yourself: !!currentUser && (member.username === currentUser.username),
-    };
+  const { data: pendings = [] } =useListTeamInvitationsQuery(selectedTeam?.teamId || '', {
+    skip: !selectedTeam,
   });
-
-  let numOwners = 0;
-  for (let i = 0; i < rows.length; i++) {
-    if (rows[i]['role'] === 'Owner') {
-      numOwners = numOwners + 1;
-    }
-  }
-
-  const firstCellStyle: React.CSSProperties = {
-    width: '56px',
-    padding: '8px 0 3px 8px',
-  };
-
-  const iconStyle: React.CSSProperties = {
-    fontSize: '16px',
-  };
-
-  const avatarStyle: React.CSSProperties = {
-    width: '24px',
-    height: '24px',
-  };
 
   const handleChangePage = () => {};
 
@@ -125,6 +112,38 @@ const Members: React.FC = () => {
     handleClose();
   }, [openChangeRole, openSuspend, openUnsuspend, openRemoveMember, openLeave, handleClose]);
 
+  if (isFetching || !selectedTeam) {
+    return <CircularProgress />;
+  }
+
+  const rows: Row[] = members.map((member) => {
+    return {
+      id: member.userSub,
+      avatar: member.avatarImage,
+      name: member.name,
+      username: member.username,
+      role: member.role,
+      yourself: !!currentUser && (member.username === currentUser.username),
+    };
+  });
+  const pendingRows: Row[] = pendings.map((pending) => {
+    return {
+      id: pending.pendingId,
+      name: __('(An invited user)'),
+      username: pending.email,
+      role: 'Pending',
+      yourself: false,
+      expiredAt: Moment.unix(pending.exp).format('YYYY/MM/DD hh:mm'),
+    };
+  });
+
+  let numOwners = 0;
+  for (let i = 0; i < rows.length; i++) {
+    if (rows[i]['role'] === 'Owner') {
+      numOwners = numOwners + 1;
+    }
+  }
+
   const breadcrumbItems = [
     {
       title: __('Home'),
@@ -144,9 +163,7 @@ const Members: React.FC = () => {
   const inviteDisabled =
     !isOwner || !( selectedTeam && (selectedTeam.maxMemberLength > (members || []).length));
 
-  if (isFetching || !selectedTeam) {
-    return <CircularProgress />;
-  }
+  const allRows = [...rows, ...pendingRows];
 
   return (
     <div>
@@ -211,7 +228,7 @@ const Members: React.FC = () => {
       )}
       <Table className="geolonia-list-table">
         <TableBody>
-          {rows.map((row, index) => (
+          {allRows.map((row, index) => (
             <TableRow
               key={row.id}
               onMouseOver={onMouseOver}
@@ -237,6 +254,8 @@ const Members: React.FC = () => {
                   <Chip label={__('Owner')} />
                 ) : row.role === Roles.Suspended ? (
                   <Chip label={__('Suspended')} color={'secondary'} />
+                ) : row.role === 'Pending' ? (
+                  <Chip label={__('Inviting')} />
                 ) : null}
               </TableCell>
               <TableCell align="right">
@@ -246,6 +265,8 @@ const Members: React.FC = () => {
                     (!isOwner && !row.yourself)
                   ) {
                     // There is only one owner and the row is owner, so nothing to return.
+                  } else if (row.role === 'Pending') {
+                    return sprintf(__('Expires on %s'), row.expiredAt);
                   } else {
                     return (
                       <Button
@@ -270,7 +291,7 @@ const Members: React.FC = () => {
             <TablePagination
               rowsPerPageOptions={[5]}
               colSpan={4}
-              count={rows.length}
+              count={allRows.length}
               rowsPerPage={20}
               page={0}
               SelectProps={{
