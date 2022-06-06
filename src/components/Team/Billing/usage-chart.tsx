@@ -61,6 +61,10 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
   const chartData = useMemo<ChartData>(() => {
     const subOrFreePlan = planDetails.subscription || planDetails.freePlanDetails;
     if (!subOrFreePlan) return undefined;
+    if (
+      (typeof mapKeys === 'undefined') ||
+      !usage.details
+    ) return undefined;
     const labelList = getRangeDate(
       moment(subOrFreePlan.current_period_start), moment(subOrFreePlan.current_period_end),
     );
@@ -115,20 +119,9 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
     <Typography component="h2" className="module-title">
       {__('Map loads by API key')}
     </Typography>
-    <BarWrap data={chartData}></BarWrap>
+    <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
     <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
   </Paper>;
 };
-
-// NOTE: React Chart JS は別のオブジェクトを data プロパティとして受け取るとグラフを再レンダーする。
-// このページでは data は更新されることはないため、data を最初に受け取った時だけ更新するようにしている。
-class BarWrap extends React.Component<{ data: ChartData }> {
-  shouldComponentUpdate(nextProps: { data: ChartData }) {
-    return !this.props.data && !!nextProps.data;
-  }
-  render() {
-    return <Bar data={this.props.data} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100}/>;
-  }
-}
 
 export default UsageChart;
