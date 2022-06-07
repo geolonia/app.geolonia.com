@@ -13,7 +13,6 @@ import Title from '../custom/Title';
 import PaymentMethodModal from './Billing/payment-method-modal';
 import PlanModal from './Billing/plan-modal';
 import PaymentHistory from './Billing/payment-history';
-import UsageChart from './Billing/usage-chart';
 import classNames from 'classnames';
 
 import './Billing.scss';
@@ -35,6 +34,8 @@ import moment from 'moment';
 import { Redirect } from 'react-router';
 import { useSelectedTeam, useUserLanguage, useGeoloniaPlans } from '../../redux/hooks';
 import { useGetTeamPlanQuery, useUpdateTeamPlanMutation } from '../../redux/apis/app-api';
+
+const UsageChart = React.lazy(() => import('./Billing/usage-chart'));
 
 const stripePromise = loadStripe(
   process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY as string,

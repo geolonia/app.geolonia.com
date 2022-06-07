@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { Suspense, useCallback, useEffect, useState } from 'react';
 
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
@@ -83,6 +83,25 @@ type Props = {
   };
 };
 
+const LoadingScreen: React.FC = () => {
+  return (
+    <ThemeProvider theme={theme}>
+      <Grid
+        container
+        spacing={0}
+        direction="column"
+        alignItems="center"
+        justifyContent="center"
+        style={{ minHeight: '100vh' }}
+      >
+        <Grid item xs={3}>
+          <CircularProgress />
+        </Grid>
+      </Grid>
+    </ThemeProvider>
+  );
+};
+
 export const Paperbase: React.FC<Props> = (props: Props) => {
   const history = useHistory();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -108,71 +127,58 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
   }, [ selectedTeam?.teamId ]);
 
   if (!isReady) {
-    return (
-      <ThemeProvider theme={theme}>
-        <Grid
-          container
-          spacing={0}
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
-          style={{ minHeight: '100vh' }}
-        >
-          <Grid item xs={3}>
-            <CircularProgress />
-          </Grid>
-        </Grid>
-      </ThemeProvider>
-    );
+    return <LoadingScreen />;
   }
 
   return (
     <ThemeProvider theme={theme}>
-      <div className={classes.root}>
-        <CssBaseline />
-        <Route
-          path="/"
-          render={(props: any) => {
-            return <RouteController {...props} isLoggedIn={isLoggedIn} />;
-          }}
-        />
-        <Switch>
-          <Route exact path="/signup" component={Signup} />
-          <Route exact path="/verify" component={Verify} />
-          <Route exact path="/resend" component={ResendCode} />
-          <Route exact path="/signin" component={Signin} />
-          <Route exact path="/forgot-password" component={ForgotPassword} />
-          <Route exact path="/reset-password" component={ResetPassword} />
-          <Route exact>
-            <nav className={classNames(classes.drawer, classes.headerColor)}>
-              <Hidden smUp implementation="js">
-                <Navigator
-                  PaperProps={{ style: { width: drawerWidth } }}
-                  variant="temporary"
-                  open={mobileOpen}
-                  onClose={handleDrawerToggle}
-                />
-              </Hidden>
-              <Hidden xsDown implementation="css">
-                <Navigator PaperProps={{ style: { width: drawerWidth } }} />
-              </Hidden>
-            </nav>
-            <div className={classes.appContent}>
-              <Header onDrawerToggle={handleDrawerToggle} />
-              <main className={classes.mainContent}>
-                {selectedTeam && selectedTeam.role === Roles.Suspended && (
-                  <Alert type={'warning'}>
-                    {__('You are suspended. Please contact the team owner.')}
-                  </Alert>
-                )}
-                <Router />
-              </main>
-              <Footer />
-            </div>
-          </Route>
-        </Switch>
-      </div>
-      <CommonNotification />
+      <Suspense fallback={<LoadingScreen />}>
+        <div className={classes.root}>
+          <CssBaseline />
+          <Route
+            path="/"
+            render={(props: any) => {
+              return <RouteController {...props} isLoggedIn={isLoggedIn} />;
+            }}
+          />
+          <Switch>
+            <Route exact path="/signup" component={Signup} />
+            <Route exact path="/verify" component={Verify} />
+            <Route exact path="/resend" component={ResendCode} />
+            <Route exact path="/signin" component={Signin} />
+            <Route exact path="/forgot-password" component={ForgotPassword} />
+            <Route exact path="/reset-password" component={ResetPassword} />
+            <Route exact>
+              <nav className={classNames(classes.drawer, classes.headerColor)}>
+                <Hidden smUp implementation="js">
+                  <Navigator
+                    PaperProps={{ style: { width: drawerWidth } }}
+                    variant="temporary"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                  />
+                </Hidden>
+                <Hidden xsDown implementation="css">
+                  <Navigator PaperProps={{ style: { width: drawerWidth } }} />
+                </Hidden>
+              </nav>
+              <div className={classes.appContent}>
+                <Header onDrawerToggle={handleDrawerToggle} />
+                <main className={classes.mainContent}>
+                  {selectedTeam && selectedTeam.role === Roles.Suspended && (
+                    <Alert type={'warning'}>
+                      {__('You are suspended. Please contact the team owner.')}
+                    </Alert>
+                  )}
+                  <Router />
+                </main>
+                <Footer />
+              </div>
+            </Route>
+          </Switch>
+        </div>
+        <CommonNotification />
+      </Suspense>
     </ThemeProvider>
   );
 };
