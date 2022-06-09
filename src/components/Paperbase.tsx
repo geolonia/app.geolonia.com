@@ -85,20 +85,18 @@ type Props = {
 
 const LoadingScreen: React.FC = () => {
   return (
-    <ThemeProvider theme={theme}>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justifyContent="center"
-        style={{ minHeight: '100vh' }}
-      >
-        <Grid item xs={3}>
-          <CircularProgress />
-        </Grid>
+    <Grid
+      container
+      spacing={0}
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      style={{ minHeight: '100vh' }}
+    >
+      <Grid item>
+        <CircularProgress />
       </Grid>
-    </ThemeProvider>
+    </Grid>
   );
 };
 
@@ -162,18 +160,20 @@ export const Paperbase: React.FC<Props> = (props: Props) => {
                   <Navigator PaperProps={{ style: { width: drawerWidth } }} />
                 </Hidden>
               </nav>
-              <div className={classes.appContent}>
-                <Header onDrawerToggle={handleDrawerToggle} />
-                <main className={classes.mainContent}>
-                  {selectedTeam && selectedTeam.role === Roles.Suspended && (
-                    <Alert type={'warning'}>
-                      {__('You are suspended. Please contact the team owner.')}
-                    </Alert>
-                  )}
-                  <Router />
-                </main>
-                <Footer />
-              </div>
+              <Suspense fallback={<div className={classes.appContent}><LoadingScreen /></div>}>
+                <div className={classes.appContent}>
+                  <Header onDrawerToggle={handleDrawerToggle} />
+                  <main className={classes.mainContent}>
+                    {selectedTeam && selectedTeam.role === Roles.Suspended && (
+                      <Alert type={'warning'}>
+                        {__('You are suspended. Please contact the team owner.')}
+                      </Alert>
+                    )}
+                    <Router />
+                  </main>
+                  <Footer />
+                </div>
+              </Suspense>
             </Route>
           </Switch>
         </div>
