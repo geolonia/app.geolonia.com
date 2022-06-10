@@ -3,16 +3,16 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-09-25 06:14+0900\n"
-"PO-Revision-Date: 2022-03-25 17:23+0900\n"
+"PO-Revision-Date: 2022-06-10 14:51+0900\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"lang: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.0\n"
+"lang: ja\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #: src/components/Dashboard.tsx:18
 msgid "Get started with Geolonia map"
@@ -64,7 +64,7 @@ msgstr "確認のために delete と入力してください。"
 
 #: src/components/Data/GeoJson.tsx:53 src/components/Data/GeoJsons.tsx:80
 #: src/components/Maps/APIKey.tsx:92 src/components/Maps/APIKeys.tsx:37
-#: src/components/Navigator.tsx:263 src/components/Team/Billing.tsx:298
+#: src/components/Navigator.tsx:263 src/components/Team/Billing.tsx:313
 #: src/components/Team/general/index.tsx:23
 #: src/components/Team/members/index.tsx:149 src/components/User/User.tsx:13
 msgid "Home"
@@ -467,17 +467,17 @@ msgstr "このAPIキーは上記指定されているウェブサイトからで
 
 #: src/components/Maps/APIKey.tsx:260
 msgid ""
-"The <a href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-%E3%81%AB"
-"%E3%81%A4%E3%81%84%E3%81%A6\" target=\"_blank\" rel=\"noopener noreferrer"
-"\">websites allowed by <code>YOUR-API-KEY</code></a> are automatically added "
-"to this list. Requests from these websites are free, and are not counted "
-"towards your map view quota."
+"The <a href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-"
+"%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6\" target=\"_blank\" rel=\"noopener "
+"noreferrer\">websites allowed by <code>YOUR-API-KEY</code></a> are "
+"automatically added to this list. Requests from these websites are free, and "
+"are not counted towards your map view quota."
 msgstr ""
-"<a href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-%E3%81%AB"
-"%E3%81%A4%E3%81%84%E3%81%A6\" target=\"_blank\" rel=\"noopener noreferrer"
-"\"><code>YOUR-API-KEY</code> で許可されている</a>ウェブサイトは自動的にこのリ"
-"ストに追加されます。このウェブサイトからのアクセスは課金対象にせず、「地図の"
-"表示回数」に反映されません。"
+"<a href=\"https://docs.geolonia.com/tutorial/002/#your-api-key-"
+"%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6\" target=\"_blank\" rel=\"noopener "
+"noreferrer\"><code>YOUR-API-KEY</code> で許可されている</a>ウェブサイトは自動"
+"的にこのリストに追加されます。このウェブサイトからのアクセスは課金対象にせ"
+"ず、「地図の表示回数」に反映されません。"
 
 #: src/components/Maps/APIKey.tsx:265
 msgid "Any page in a specific URL:"
@@ -493,8 +493,8 @@ msgstr "一般的ではないポート:"
 
 #: src/components/Maps/APIKey.tsx:277
 msgid ""
-"Note: The wildcard character (*) will be matched to a-z, A-Z, 0-9, \"-\", \"_"
-"\". You may use multiple wildcards in one URL."
+"Note: The wildcard character (*) will be matched to a-z, A-Z, 0-9, \"-\", "
+"\"_\". You may use multiple wildcards in one URL."
 msgstr ""
 "備考: ワイルドカード (*) は、a-z, A-Z, 0-9, \"-\", \"_\" のいずれかと一致しま"
 "す。同一 URL に複数ワイルドカードを使うことが出来ます。"
@@ -571,8 +571,8 @@ msgstr "公式ドキュメント"
 msgid ""
 "The dashboard has been renewed. The GeoJSON API that we used to provide is "
 "currently not accessible due to functional modifications. If you need to "
-"download the data, please <a href=\"https://geolonia.com/contact/\" target="
-"\"_blank\">contact us</a>."
+"download the data, please <a href=\"https://geolonia.com/contact/\" "
+"target=\"_blank\">contact us</a>."
 msgstr ""
 "8月5日にダッシュボードの正式版を公開しました。ベータ版で提供していたGeoJSON "
 "APIは、近日中に公開予定です。ベータ版で作成したデータはそのままお使いいただけ"
@@ -587,7 +587,7 @@ msgstr "新しいチームを作成"
 msgid "Please enter the name of new team."
 msgstr "新しいチームの名前を入力してください。"
 
-#: src/components/Paperbase.tsx:165
+#: src/components/Paperbase.tsx:169
 msgid "You are suspended. Please contact the team owner."
 msgstr "このユーザーは停止中です。チームの所有者にお問い合わせください。"
 
@@ -727,51 +727,61 @@ msgstr ""
 "すでにアカウントをお持ちですか？その場合は<a href=\"/#/signin\">サインイン</"
 "a>してください。"
 
-#: src/components/Team/Billing.tsx:101
+#: src/components/Team/Billing.tsx:107
+msgid ""
+"We were not able to charge your credit card. Please double check your "
+"payment details below. If this message doesn't clear within a few days, "
+"please contact us."
+msgstr ""
+"ご登録いただいているクレジットカードにて請求を実施した結果、失敗しました。下"
+"記の支払い情報のご確認ください。変更後数日経ってもこのエラーが残る場合は、お"
+"問い合わせてください。"
+
+#: src/components/Team/Billing.tsx:116
 msgid "Usage this month"
 msgstr "今月の利用状況"
 
-#: src/components/Team/Billing.tsx:107
+#: src/components/Team/Billing.tsx:122
 msgid "Billing period"
 msgstr "請求対象期間"
 
-#: src/components/Team/Billing.tsx:123
+#: src/components/Team/Billing.tsx:138
 msgid "Next Payment Date"
 msgstr "次回のお支払日"
 
-#: src/components/Team/Billing.tsx:139
+#: src/components/Team/Billing.tsx:154
 msgid "Map loads"
 msgstr "地図の表示回数"
 
-#: src/components/Team/Billing.tsx:143
+#: src/components/Team/Billing.tsx:158
 msgid " / %s loads"
 msgstr " / %s 回"
 
-#: src/components/Team/Billing.tsx:147
+#: src/components/Team/Billing.tsx:162
 msgid "Last updated %s"
 msgstr "最終更新: %s"
 
-#: src/components/Team/Billing.tsx:150
+#: src/components/Team/Billing.tsx:165
 msgid "Map loads have reached the limit."
 msgstr "地図表示回数が上限に達したため表示が制限されています。"
 
-#: src/components/Team/Billing.tsx:151
+#: src/components/Team/Billing.tsx:166
 msgid " Please upgrade your plan to unlock it."
 msgstr "制限を解除するにはプランをアップグレードしてください。"
 
-#: src/components/Team/Billing.tsx:158
+#: src/components/Team/Billing.tsx:173
 msgid "Charges"
 msgstr "料金"
 
-#: src/components/Team/Billing.tsx:179
+#: src/components/Team/Billing.tsx:194
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:189
+#: src/components/Team/Billing.tsx:204
 msgid "Current account credit:"
 msgstr "クレジット残高"
 
-#: src/components/Team/Billing.tsx:193
+#: src/components/Team/Billing.tsx:208
 msgid ""
 " : While this account has credits available, payments will deduct from "
 "account credit instead of the registered credit card."
@@ -779,54 +789,54 @@ msgstr ""
 "　(現在、クレジットが適用されています。クレジット残高が残っている場合、請求は"
 "クレジット残高から支払われます。)"
 
-#: src/components/Team/Billing.tsx:198
+#: src/components/Team/Billing.tsx:213
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:202
+#: src/components/Team/Billing.tsx:217
 msgid "ending in **%1$s"
 msgstr "クレジットカード（末尾の番号 **%1$s）"
 
-#: src/components/Team/Billing.tsx:212
+#: src/components/Team/Billing.tsx:227
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:225
+#: src/components/Team/Billing.tsx:240
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:231
+#: src/components/Team/Billing.tsx:246
 msgid "Scheduled to expire on %1$s"
 msgstr "%1$s にキャンセルされます"
 
-#: src/components/Team/Billing.tsx:250
+#: src/components/Team/Billing.tsx:265
 msgid "Resume subscription"
 msgstr "自動更新を再開"
 
-#: src/components/Team/Billing.tsx:262
+#: src/components/Team/Billing.tsx:277
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:278
+#: src/components/Team/Billing.tsx:293
 msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
-#: src/components/Team/Billing.tsx:302 src/components/Team/general/index.tsx:27
+#: src/components/Team/Billing.tsx:317 src/components/Team/general/index.tsx:27
 #: src/components/Team/members/index.tsx:153
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:316
+#: src/components/Team/Billing.tsx:331
 msgid "Billing and Plans"
 msgstr "料金プランとお支払い"
 
-#: src/components/Team/Billing.tsx:317
+#: src/components/Team/Billing.tsx:332
 msgid ""
 "You can check and change your current pricing plan and usage status of Team "
 "%s."
 msgstr "チーム「%s」の現在の料金プラン・利用状況の確認、変更ができます。"
 
-#: src/components/Team/Billing.tsx:343
+#: src/components/Team/Billing.tsx:358
 msgid "Payment history"
 msgstr "支払い履歴"
 
@@ -875,11 +885,11 @@ msgstr ""
 msgid "Your plan"
 msgstr "あなたのプラン"
 
-#: src/components/Team/Billing/usage-chart.tsx:112
+#: src/components/Team/Billing/usage-chart.tsx:121
 msgid "Map loads by API key"
 msgstr "API キー別の地図の表示回数"
 
-#: src/components/Team/Billing/usage-chart.tsx:115
+#: src/components/Team/Billing/usage-chart.tsx:124
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 
@@ -1430,8 +1440,8 @@ msgstr ""
 #: src/lib/cognito/parse-error.ts:35
 msgid ""
 "User is already verified. Please <a class=\"MuiTypography-root MuiLink-root "
-"MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/signin"
-"\">signin</a>."
+"MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/"
+"signin\">signin</a>."
 msgstr ""
 "ユーザーはすでに認証されています。こちらから<a class=\"MuiTypography-root "
 "MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/"
@@ -1440,8 +1450,8 @@ msgstr ""
 #: src/lib/cognito/parse-error.ts:38
 msgid ""
 "User is not verified. Please <a class=\"MuiTypography-root MuiLink-root "
-"MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/resend"
-"\">verify</a> your account."
+"MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/"
+"resend\">verify</a> your account."
 msgstr ""
 "ユーザーは認証されていません。こちらから <a class=\"MuiTypography-root "
 "MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary\" href=\"#/"
@@ -1511,9 +1521,10 @@ msgstr "6"
 #~ msgstr "この招待は無効です。"
 
 #~ msgid ""
-#~ "Please enter the email address of the person you want to invite to \"%s"
-#~ "\". Please note that the user must <a href=\"/#/signup\" target=\"_blank"
-#~ "\">create a Geolonia account</a> first before you can send the invitation."
+#~ "Please enter the email address of the person you want to invite to "
+#~ "\"%s\". Please note that the user must <a href=\"/#/signup\" "
+#~ "target=\"_blank\">create a Geolonia account</a> first before you can send "
+#~ "the invitation."
 #~ msgstr ""
 #~ "チーム「%s」にユーザーを招待してコラボレーションしましょう。<br>\n"
 #~ "<br>\n"

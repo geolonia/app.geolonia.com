@@ -116,6 +116,14 @@ declare namespace Geolonia {
     gvp_status: string; // 'progress' | 'created' | 'failure';
     primaryApiKeyId?: string;
   }
+  type InvoiceDetails = {
+    id: string
+    amount_due: number
+    amount_paid: number
+    amount_remaining: number
+    attempted: boolean
+    attempt_count: number
+  };
   type TeamPlanDetails = {
     planId: string | null | undefined;
     subscription?: {
@@ -164,6 +172,7 @@ declare namespace Geolonia {
         ];
       };
     };
+    openInvoices: InvoiceDetails[];
     freePlanDetails?: {
       current_period_start: string
       current_period_end: string
