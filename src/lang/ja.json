@@ -267,6 +267,9 @@
       "Already have an account? If so, please <a href=\"/#/signin\">sign in</a>.": [
         "すでにアカウントをお持ちですか？その場合は<a href=\"/#/signin\">サインイン</a>してください。"
       ],
+      "We were not able to charge your credit card. Please double check your payment details below. If this message doesn't clear within a few days, please contact us.": [
+        "ご登録いただいているクレジットカードにて請求を実施した結果、失敗しました。下記の支払い情報のご確認ください。変更後数日経ってもこのエラーが残る場合は、お問い合わせてください。"
+      ],
       "Usage this month": ["今月の利用状況"],
       "Billing period": ["請求対象期間"],
       "Next Payment Date": ["次回のお支払日"],
