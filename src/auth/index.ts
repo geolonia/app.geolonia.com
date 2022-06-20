@@ -30,7 +30,7 @@ export const signUp = (username: string, email: string, password: string) =>
       }),
       // ユーザ分析のために、リファラーを送信する
       new CognitoIdentity.CognitoUserAttribute({
-        Name: 'signup_tag',
+        Name: 'custom:signup_tag',
         Value: referrer,
       }),
     ];
