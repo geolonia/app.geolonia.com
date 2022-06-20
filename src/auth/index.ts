@@ -26,6 +26,10 @@ export const signUp = (username: string, email: string, password: string) =>
         // 今使っている言語を送信する
         Value: locale,
       }),
+      new CognitoIdentity.CognitoUserAttribute({
+        Name: 'tag',
+        Value: '', // TODO: ここに値を設定
+      }),
     ];
 
     userPool.signUp(username, password, attributeList, [], (err, result) => {
