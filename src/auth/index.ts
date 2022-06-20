@@ -15,7 +15,7 @@ const poolData = {
 } as CognitoIdentity.ICognitoUserPoolData;
 export const userPool = new CognitoIdentity.CognitoUserPool(poolData);
 
-export const signUp = (username: string, email: string, password: string) =>
+export const signUp = (username: string, email: string, password: string, referer: string) =>
   new Promise<CognitoIdentity.ISignUpResult>((resolve, reject) => {
     // NOTE: if we have more language option, let's extend
     const locale = estimateLanguage();
@@ -26,9 +26,10 @@ export const signUp = (username: string, email: string, password: string) =>
         // 今使っている言語を送信する
         Value: locale,
       }),
+      // ユーザ分析のために、リファラーを送信する
       new CognitoIdentity.CognitoUserAttribute({
         Name: 'signup_tag',
-        Value: '', // TODO: ここに値を設定
+        Value: referer,
       }),
     ];
 
