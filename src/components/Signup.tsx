@@ -85,15 +85,9 @@ const Signup = (props: Props) => {
     setStatus('requesting');
     setUsername(username);
 
-    let referrer = queryString.parse(window.location.search).referrer;
-
-    if (Array.isArray(referrer) || !referrer) {
-      referrer = '';
-    }
-
     let result: ISignUpResult;
     try {
-      result = await signUp(username, fetchedEmail || email, password, referrer);
+      result = await signUp(username, fetchedEmail || email, password);
     } catch (err: any) {
       setMessage(parseCognitoSignupError(err || { code: '' }));
       setStatus('warning');
