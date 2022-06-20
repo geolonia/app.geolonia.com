@@ -1,6 +1,6 @@
 import queryString from 'query-string';
 
-const signupReferer = () => {
+const signupReferrer = () => {
 
   let referrer = queryString.parse(window.location.search).referrer;
 
@@ -11,4 +11,4 @@ const signupReferer = () => {
   return referrer;
 };
 
-export default signupReferer;
+export default signupReferrer;

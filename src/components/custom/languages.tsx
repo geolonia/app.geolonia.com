@@ -2,7 +2,7 @@ import React from 'react';
 import Link from '@material-ui/core/Link';
 import estimateLanguage from '../../lib/estimate-language';
 import { __ } from '@wordpress/i18n';
-import queryString from 'query-string';
+import signupReferrer from '../../lib/signup-referrer';
 
 type LanguagesData = {
   [key: string]: { primitive: string; translated: string };
@@ -17,10 +17,7 @@ const Languages = () => {
   };
 
   // get url parameter
-  let referrer = queryString.parse(window.location.search).referer;
-  if (Array.isArray(referrer) || !referrer) {
-    referrer = '';
-  }
+  const referrer = signupReferrer();
   const referrerQuery = referrer ? `&referrer=${referrer}` : '';
 
   // the selected language should lead the language list
