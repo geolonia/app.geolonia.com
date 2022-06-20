@@ -16,9 +16,9 @@ const Languages = () => {
     en: { primitive: 'English', translated: __('English') },
   };
 
-  // get url parameter
   const referrer = signupReferrer();
-  const referrerQuery = referrer ? `&referrer=${referrer}` : '';
+  const referrerParams =  new URLSearchParams({referrer: referrer}).toString();
+  const referrerQuery = referrer ? referrerParams : '';
 
   // the selected language should lead the language list
   const sortedLanguagesKeys = Object.keys(languages);
@@ -34,7 +34,7 @@ const Languages = () => {
                 <span>{languages[key].translated}</span>
               ) : (
                 <Link
-                  href={`/?lang=${key}${referrerQuery}${hash}`}
+                  href={`/?lang=${key}&${referrerQuery}${hash}`}
                   onClick={() => {
                     localStorage.setItem('geolonia__persisted_language', key);
                   }}
