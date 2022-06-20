@@ -27,7 +27,7 @@ export const signUp = (username: string, email: string, password: string) =>
         Value: locale,
       }),
       new CognitoIdentity.CognitoUserAttribute({
-        Name: 'tag',
+        Name: 'signup_tag',
         Value: '', // TODO: ここに値を設定
       }),
     ];
