@@ -4,6 +4,7 @@ import 'isomorphic-fetch';
 import * as CognitoIdentity from 'amazon-cognito-identity-js';
 import estimateLanguage from '../lib/estimate-language';
 import * as mixpanel from 'mixpanel-browser';
+import signupReferrer from '../lib/signup-referrer';
 
 const {
   REACT_APP_COGNITO_USERPOOL_ID: UserPoolId,
@@ -19,12 +20,18 @@ export const signUp = (username: string, email: string, password: string) =>
   new Promise<CognitoIdentity.ISignUpResult>((resolve, reject) => {
     // NOTE: if we have more language option, let's extend
     const locale = estimateLanguage();
+    const referrer = signupReferrer();
     const attributeList = [
       new CognitoIdentity.CognitoUserAttribute({ Name: 'email', Value: email }),
       new CognitoIdentity.CognitoUserAttribute({
         Name: 'locale',
         // 今使っている言語を送信する
         Value: locale,
+      }),
+      // ユーザ分析のために、リファラーを送信する
+      new CognitoIdentity.CognitoUserAttribute({
+        Name: 'custom:signup_tag',
+        Value: referrer,
       }),
     ];
 
