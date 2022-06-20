@@ -2,12 +2,20 @@ import React from 'react';
 import Link from '@material-ui/core/Link';
 import estimateLanguage from '../../lib/estimate-language';
 import { __ } from '@wordpress/i18n';
+import signupReferrer from '../../lib/signup-referrer';
 
 type LanguagesData = {
   [key: string]: { primitive: string; translated: string };
 };
+
+type urlParams = {
+  lang: string,
+  referrer?: string
+}
+
 const Languages = () => {
   const hash = window.location.hash;
+  const referrer = signupReferrer();
   const estimatedLanguage = estimateLanguage();
 
   const languages: LanguagesData = {
@@ -23,13 +31,24 @@ const Languages = () => {
     <div className="support-menu">
       <ul>
         {sortedLanguagesKeys.map((key) => {
+
+          const params:urlParams  = {
+            lang: key,
+          };
+
+          if (referrer) {
+            params.referrer = referrer;
+          }
+
+          const urlSearchParam = new URLSearchParams(params).toString();
+
           return (
             <li key={key}>
               {estimatedLanguage === key ? (
                 <span>{languages[key].translated}</span>
               ) : (
                 <Link
-                  href={`/?lang=${key}${hash}`}
+                  href={`/?${urlSearchParam}${hash}`}
                   onClick={() => {
                     localStorage.setItem('geolonia__persisted_language', key);
                   }}

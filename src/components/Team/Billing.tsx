@@ -22,6 +22,7 @@ import { __, sprintf } from '@wordpress/i18n';
 import { Roles } from '../../constants';
 
 import {
+  Box,
   CircularProgress, TableHead,
 } from '@material-ui/core';
 
@@ -34,6 +35,7 @@ import moment from 'moment';
 import { Redirect } from 'react-router';
 import { useSelectedTeam, useUserLanguage, useGeoloniaPlans } from '../../redux/hooks';
 import { useGetTeamPlanQuery, useUpdateTeamPlanMutation } from '../../redux/apis/app-api';
+import Alert from '@material-ui/lab/Alert';
 
 const UsageChart = React.lazy(() => import('./Billing/usage-chart'));
 
@@ -94,7 +96,19 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
 
   const maxLoadCount = team.customMaxMapLoadCount || team.baseFreeMapLoadCount;
 
+  const openInvoicesWithAttempts = planDetails.openInvoices.filter((inv) => inv.attempt_count > 0);
+
   return <>
+    { openInvoicesWithAttempts.length > 0 && <>
+      <Box sx={{ mb: 2 }}>
+        <Alert
+          severity="error"
+        >
+          {__('We were not able to charge your credit card. Please double check your payment details below. If this message doesn\'t clear within a few days, please contact us.')}
+        </Alert>
+      </Box>
+    </>}
+
     { isOwner && <>
       <Grid container spacing={3} className="usage-info">
         <Grid item xs={12}>
