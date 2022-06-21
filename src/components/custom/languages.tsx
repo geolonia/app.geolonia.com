@@ -10,7 +10,7 @@ type LanguagesData = {
 
 type urlParams = {
   lang: string,
-  referrer?: string
+  ref?: string
 }
 
 const Languages = () => {
@@ -37,7 +37,7 @@ const Languages = () => {
           };
 
           if (referrer) {
-            params.referrer = referrer;
+            params.ref = referrer;
           }
 
           const urlSearchParam = new URLSearchParams(params).toString();

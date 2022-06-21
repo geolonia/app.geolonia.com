@@ -96,7 +96,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
 
   const maxLoadCount = team.customMaxMapLoadCount || team.baseFreeMapLoadCount;
 
-  const openInvoicesWithAttempts = planDetails.openInvoices.filter((inv) => inv.attempt_count > 0);
+  const openInvoicesWithAttempts = (planDetails.openInvoices || []).filter((inv) => inv.attempt_count > 0);
 
   return <>
     { openInvoicesWithAttempts.length > 0 && <>
