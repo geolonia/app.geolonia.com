@@ -21,8 +21,9 @@ import Moment from 'moment';
 import mixpanel from 'mixpanel-browser';
 import { useGetUserQuery } from '../redux/apis/app-api';
 import { useSession } from '../hooks/session';
+import LoadingScreen from '../components/LoadingScreen';
 
-const AuthContainer: React.FC = ({children}) => {
+const AuthContainer: React.FC<React.PropsWithChildren<{}>> = ({children}) => {
   const dispatch = useAppDispatch();
   const { isReady } = useAppSelector((state) => ({
     isReady: state.authSupport.isReady,
@@ -80,7 +81,10 @@ const AuthContainer: React.FC = ({children}) => {
     })();
   }, [dispatch, isSessionReady, session, isLoading, user]);
 
-  return <>{isReady && children}</>;
+  if (!isReady) {
+    return <LoadingScreen />;
+  }
+  return <>{children}</>;
 };
 
 export default AuthContainer;
