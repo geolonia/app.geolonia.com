@@ -3,9 +3,7 @@ import React, { Suspense, useCallback, useEffect, useState } from 'react';
 import { withStyles, createStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
 import Hidden from '@material-ui/core/Hidden';
-import { CircularProgress } from '@material-ui/core';
 import type { Location } from 'history';
 import { Route, Switch, useHistory } from 'react-router-dom';
 
@@ -35,6 +33,7 @@ import { __ } from '@wordpress/i18n';
 import { Roles } from '../constants';
 import mixpanel from 'mixpanel-browser';
 import classNames from 'classnames';
+import LoadingScreen from './LoadingScreen';
 
 const drawerWidth = 256;
 const styles = createStyles({
@@ -81,23 +80,6 @@ type Props = {
     warningContent: string;
     mainContent: string;
   };
-};
-
-const LoadingScreen: React.FC = () => {
-  return (
-    <Grid
-      container
-      spacing={0}
-      direction="column"
-      alignItems="center"
-      justifyContent="center"
-      style={{ minHeight: '100vh' }}
-    >
-      <Grid item>
-        <CircularProgress />
-      </Grid>
-    </Grid>
-  );
 };
 
 export const Paperbase: React.FC<Props> = (props: Props) => {

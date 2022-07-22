@@ -91,6 +91,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
 
   const isOwner = team.role === Roles.Owner;
   const currentPlan = plans.find((p) => p.planId === planId);
+  const { selectedTeam } = useSelectedTeam();
 
   const subOrFreePlan = planDetails.subscription || planDetails.freePlanDetails;
 
@@ -185,115 +186,117 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
       planDetails={planDetails}
     />
 
-    <Paper className="payment-info">
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell component="th" scope="body" colSpan={3}>
-              <Typography component="h2" className="module-title">
-                {__('Payment information')}
-              </Typography>
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {isOwner && (
-            <>
-              { customer && customer.balance < 0 && <TableRow>
-                <TableCell component="th" scope="row">
-                  {__('Current account credit:')}
-                </TableCell>
-                <TableCell colSpan={2}>
-                  {currencyFormatter.format(Math.abs(customer.balance))}
-                  {__(' : While this account has credits available, payments will deduct from account credit instead of the registered credit card.')}
-                </TableCell>
-              </TableRow> }
-              <TableRow>
-                <TableCell component="th" scope="row">
-                  {__('Payment method:')}
-                </TableCell>
-                <TableCell>
-                  {last2
-                    ? sprintf(__('ending in **%1$s'), last2)
-                    : ''}
-                </TableCell>
-                <TableCell align="right">
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => setOpenPayment(true)}
-                    type={'button'}
-                  >
-                    {__('Change payment method')}
-                  </Button>
-                  <PaymentMethodModal
-                    teamId={teamId}
-                    open={openPayment}
-                    handleClose={() => setOpenPayment(false)}
-                  />
-                </TableCell>
-              </TableRow>
-            </>
-          )}
-          <TableRow>
-            <TableCell component="th" scope="row">
-              {__('Current Plan')}
-            </TableCell>
-            <TableCell>
-              { currentPlan?.name || '-' }
-              { subscription && <>
-                <br />
-                { subscription.cancel_at_period_end && sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end).format('YYYY-MM-DD'))}
-              </>}
-            </TableCell>
-            { isOwner && <TableCell align="right">
-              { subscription && subscription.cancel_at_period_end === true ?
-                <>
-                  { teamIsUpdating ?
-                    <CircularProgress
-                      size={16}
-                      color={'inherit'}
-                    />
-                    :
+    {
+      selectedTeam?.billingMode === 'STRIPE' && <Paper className="payment-info">
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell component="th" scope="body" colSpan={3}>
+                <Typography component="h2" className="module-title">
+                  {__('Payment information')}
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {isOwner && (
+              <>
+                { customer && customer.balance < 0 && <TableRow>
+                  <TableCell component="th" scope="row">
+                    {__('Current account credit:')}
+                  </TableCell>
+                  <TableCell colSpan={2}>
+                    {currencyFormatter.format(Math.abs(customer.balance))}
+                    {__(' : While this account has credits available, payments will deduct from account credit instead of the registered credit card.')}
+                  </TableCell>
+                </TableRow> }
+                <TableRow>
+                  <TableCell component="th" scope="row">
+                    {__('Payment method:')}
+                  </TableCell>
+                  <TableCell>
+                    {last2
+                      ? sprintf(__('ending in **%1$s'), last2)
+                      : ''}
+                  </TableCell>
+                  <TableCell align="right">
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={resumeSubscriptionHandler}
+                      onClick={() => setOpenPayment(true)}
                       type={'button'}
-                      disabled={!last2}
                     >
-                      {__('Resume subscription')}
+                      {__('Change payment method')}
                     </Button>
-                  }
-                </>
-                :
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={() => setOpenPlan(true)}
-                  type={'button'}
-                  disabled={!last2}
-                >
-                  {__('Change Plan')}
-                </Button>
-              }
-              <PlanModal
-                open={openPlan}
-                handleClose={() => setOpenPlan(false)}
-                plans={plans}
-                currentPlanId={planId}
-                teamId={teamId}
-              />
-            </TableCell> }
-          </TableRow>
-        </TableBody>
-      </Table>
-      { isOwner && <p style={{ textAlign: 'right' }}>
-        <a href="https://geolonia.com/pricing" target="_blank" rel="noreferrer">
-          {__('Learn more about plans on the pricing page.')}
-        </a>
-      </p> }
-    </Paper>
+                    <PaymentMethodModal
+                      teamId={teamId}
+                      open={openPayment}
+                      handleClose={() => setOpenPayment(false)}
+                    />
+                  </TableCell>
+                </TableRow>
+              </>
+            )}
+            <TableRow>
+              <TableCell component="th" scope="row">
+                {__('Current Plan')}
+              </TableCell>
+              <TableCell>
+                { currentPlan?.name || '-' }
+                { subscription && <>
+                  <br />
+                  { subscription.cancel_at_period_end && sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end).format('YYYY-MM-DD'))}
+                </>}
+              </TableCell>
+              { isOwner && <TableCell align="right">
+                { subscription && subscription.cancel_at_period_end === true ?
+                  <>
+                    { teamIsUpdating ?
+                      <CircularProgress
+                        size={16}
+                        color={'inherit'}
+                      />
+                      :
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={resumeSubscriptionHandler}
+                        type={'button'}
+                        disabled={!last2}
+                      >
+                        {__('Resume subscription')}
+                      </Button>
+                    }
+                  </>
+                  :
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setOpenPlan(true)}
+                    type={'button'}
+                    disabled={!last2}
+                  >
+                    {__('Change Plan')}
+                  </Button>
+                }
+                <PlanModal
+                  open={openPlan}
+                  handleClose={() => setOpenPlan(false)}
+                  plans={plans}
+                  currentPlanId={planId}
+                  teamId={teamId}
+                />
+              </TableCell> }
+            </TableRow>
+          </TableBody>
+        </Table>
+        { isOwner && <p style={{ textAlign: 'right' }}>
+          <a href="https://geolonia.com/pricing" target="_blank" rel="noreferrer">
+            {__('Learn more about plans on the pricing page.')}
+          </a>
+        </p> }
+      </Paper>
+    }
   </>;
 };
 
@@ -321,7 +324,7 @@ const Billing: React.FC = () => {
 
   if (!selectedTeam || !teamId) return null;
 
-  if (selectedTeam && selectedTeam.billingMode !== 'STRIPE') {
+  if (selectedTeam && selectedTeam.billingMode !== 'STRIPE' && selectedTeam.billingMode !== 'INVOICE') {
     return <Redirect to="/" />;
   }
 
@@ -353,7 +356,7 @@ const Billing: React.FC = () => {
           </div>
         ) }
 
-        { isOwner && <Paper>
+        { isOwner && selectedTeam?.billingMode === 'STRIPE' && <Paper>
           <Typography component="h2" className="module-title">
             {__('Payment history')}
           </Typography>

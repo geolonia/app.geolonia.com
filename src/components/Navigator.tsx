@@ -116,7 +116,9 @@ const Navigator: React.FC<Props> = (props) => {
     initialValueForNewTeamName,
   );
 
-  const { data: teams, refetch: refetchTeams, isFetching } = useGetTeamsQuery();
+  const { data: teams, refetch: refetchTeams, isFetching } = useGetTeamsQuery(undefined, {
+    skip: !userSub,
+  });
   const [selectingTeamId, setSelectingTeamId] = useState<string | null>(null);
   const { selectedTeam, refetch: refetchTeam, isFetching: isTeamFetching } = useSelectedTeam();
   const teamAvatar = useImageFromURL(
@@ -140,7 +142,7 @@ const Navigator: React.FC<Props> = (props) => {
     },
   ];
 
-  if (selectedTeam?.billingMode === 'STRIPE') {
+  if (selectedTeam?.billingMode === 'STRIPE' || selectedTeam?.billingMode === 'INVOICE') {
     teamSettingsChildren.push({
       id: __('Billing'),
       icon: <PaymentIcon />,

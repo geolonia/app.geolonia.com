@@ -31,7 +31,7 @@ export const useSelectedTeam: () => SelectedTeamResult = () => {
   });
   const selectedTeamId = useAppSelector((state) => state.team.selectedTeamId);
   const { data: planDetails } = useGetTeamPlanQuery(selectedTeamId || '', {
-    skip: !selectedTeamId,
+    skip: (!isLoggedIn || !selectedTeamId),
   });
 
   const selectedTeam = useMemo(() => {
