@@ -142,7 +142,7 @@ const Navigator: React.FC<Props> = (props) => {
     },
   ];
 
-  if (selectedTeam?.billingMode === 'STRIPE') {
+  if (selectedTeam?.billingMode === 'STRIPE' || selectedTeam?.billingMode === 'INVOICE') {
     teamSettingsChildren.push({
       id: __('Billing'),
       icon: <PaymentIcon />,
