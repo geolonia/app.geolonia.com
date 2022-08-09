@@ -17,6 +17,14 @@ type UpdateUserParam = {
     name: string;
   }
 }
+type GenerateAccessTokenParam = {
+  userSub: string;
+}
+type GenerateAccessTokenResp = {
+  success: boolean;
+  regenerated: boolean;
+  accessToken: string;
+}
 type UpdateUserAvatarParam = {
   userSub: string;
   file: File;
@@ -105,6 +113,16 @@ export const appApi = createApi({
         ...resp.item,
         links: resp.links,
       }),
+      providesTags: (_result, _error, { userSub }) => [{ type: 'User', id: userSub }],
+    }),
+    generateAccessToken: builder.mutation<GenerateAccessTokenResp, GenerateAccessTokenParam>({
+      query: (args) => ({
+        url: `/users/${args.userSub}/access-token`,
+        method: 'POST',
+      }),
+      invalidatesTags: (_result, _error, {userSub}) => ([
+        { type: 'User', id: userSub },
+      ]),
     }),
     updateUser: builder.mutation<void, UpdateUserParam>({
       query: (args) => ({
@@ -405,6 +423,7 @@ export const appApi = createApi({
 export const {
   // User
   useGetUserQuery,
+  useGenerateAccessTokenMutation,
   useUpdateUserMutation,
   useUpdateUserAvatarMutation,
 
