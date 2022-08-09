@@ -63,6 +63,7 @@ declare namespace Geolonia {
       putAvatar: string;
     };
     avatarImage?: string;
+    hasPersonalAccessToken: boolean;
   };
   type Team = {
     teamId: string;

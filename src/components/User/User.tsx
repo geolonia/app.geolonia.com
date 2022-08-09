@@ -4,8 +4,10 @@ import Grid from '@material-ui/core/Grid';
 import Security from './security';
 import Profile from './profile';
 import Avatar from './avatar';
+import PersonalAccessToken from './personal-access-token';
 import Title from '../custom/Title';
 import { __ } from '@wordpress/i18n';
+import './user.scss';
 
 const User = () => {
   const breadcrumbItems = [
@@ -28,6 +30,7 @@ const User = () => {
       <Grid container spacing={4}>
         <Grid item sm={12} md={8}>
           <Profile />
+          <PersonalAccessToken />
           <Security />
         </Grid>
 

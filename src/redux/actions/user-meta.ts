@@ -25,6 +25,7 @@ export const initialState: State = {
     putAvatar: '',
   },
   avatarImage: undefined,
+  hasPersonalAccessToken: false,
 };
 
 type SetPayload = State;
