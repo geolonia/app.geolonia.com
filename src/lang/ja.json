@@ -543,7 +543,14 @@
         "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してください。メールアドレスが認証されていない可能性があります。"
       ],
       "Free Plan": ["Free プラン"],
-      "Default value of zoom level of map\u00040": ["6"]
+      "Default value of zoom level of map\u00040": ["6"],
+      "API Access": ["API アクセス"],
+      "Personal Access Token": ["Personal Access Token"],
+      "Re-issue an access token": ["アクセストークンを再発行する"],
+      "Issue an access token": ["アクセストークンを発行する"],
+      "For security reasons, the access token is only displayed when issued. Re-issuing will invalidate the previous access token.": [
+        "セキュリティのためアクセストークンは発行時のみ表示されます。アクセストークンを再発行した場合、以前のアクセストークンは使えなくなります。"
+      ]
     }
   }
 }
