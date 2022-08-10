@@ -9,7 +9,6 @@ import { context as NotificationContext} from '../../../contexts/notification';
 
 // constant
 import { useGenerateTeamAccessTokenMutation } from '../../../redux/apis/app-api';
-import { useSession } from '../../../hooks/session';
 import { useSelectedTeam } from '../../../redux/hooks';
 
 const paragraphStyle = {
