@@ -1,3 +1,4 @@
+import './general.scss';
 import React from 'react';
 
 // Components
@@ -6,6 +7,8 @@ import Title from '../../custom/Title';
 import Fields from './fields';
 import Avatar from './avatar';
 import Delete from './delete';
+import AccessToken from './access-token';
+
 
 // utils
 import { __ } from '@wordpress/i18n';
@@ -42,6 +45,7 @@ const General: React.FC = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={8}>
           <Fields />
+          <AccessToken />
         </Grid>
 
         <Grid item xs={12} md={4}>

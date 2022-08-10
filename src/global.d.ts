@@ -84,6 +84,7 @@ declare namespace Geolonia {
     customMaxMapLoadCount?: number;
     billingMode: TeamBillingMethod;
     featureFlags: { [key: string]: boolean };
+    hasAccessToken: boolean;
   };
 
   type Pending = {
