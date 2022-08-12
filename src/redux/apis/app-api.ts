@@ -78,6 +78,10 @@ type UpdateTeamPaymentMethodParam = {
   last2: string
 }
 
+type GenerateTeamAccessTokenParam = {
+  teamId: string,
+}
+
 type StripeWrappedResp<T = any> = {
   has_more: boolean
   data: T
@@ -250,6 +254,13 @@ export const appApi = createApi({
         { type: 'Team', id: 'LIST' },
         { type: 'Team', id: teamId },
       ]),
+    }),
+    generateTeamAccessToken: builder.mutation<GenerateAccessTokenResp, GenerateTeamAccessTokenParam>({
+      query: (args) => ({
+        url: `/teams/${args.teamId}/access-token`,
+        method: 'POST',
+      }),
+      // Invalidation すると 選択チーム表示が点滅するのでしない
     }),
 
     // Map Keys
@@ -446,6 +457,7 @@ export const {
   useUpdateTeamMemberMutation,
   useDeleteTeamMemberMutation,
   useListTeamInvitationsQuery,
+  useGenerateTeamAccessTokenMutation,
 
   // Team Member invitation
   useDescribeInvitationQuery,
