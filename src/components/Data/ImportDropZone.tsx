@@ -43,11 +43,31 @@ const ImportDropZone = (props: Props) => {
       return;
     }
 
+    const shp = acceptedFiles.find((file) => file.name.endsWith('.shp'));
+    const shx = acceptedFiles.find((file) => file.name.endsWith('.shx'));
+    const dbf = acceptedFiles.find((file) => file.name.endsWith('.dbf'));
+    const singleVector = acceptedFiles.find((file) => {
+      return file.name.endsWith('.geojson') || file.name.endsWith('.json') || file.name.endsWith('.csv') || file.name.endsWith('.mbtiles');
+    });
+
+    const isShapefile = shp || shx || dbf;
+
     let uploadingFile: File;
-    if (acceptedFiles.length > 1) {
-      const shp = acceptedFiles.find((file) => file.name.endsWith('.shp'));
-      const shx = acceptedFiles.find((file) => file.name.endsWith('.shx'));
-      const dbf = acceptedFiles.find((file) => file.name.endsWith('.dbf'));
+    if (acceptedFiles.length === 0) {
+      setError(__('Error: Please select at least one file.'));
+      return;
+    } else if (acceptedFiles.length === 1) {
+      if (singleVector) {
+        uploadingFile = singleVector;
+      } else {
+        if (isShapefile) {
+          setError(__('Error: Some of the shapefiles seem to be missing.'));
+        } else {
+          setError(__('Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. Please try uploading again.'));
+        }
+        return;
+      }
+    } else {
       if (shp && shx && dbf) {
         const zip = new JSZip();
         for (const file of acceptedFiles) {
@@ -56,23 +76,13 @@ const ImportDropZone = (props: Props) => {
         const blob = await zip.generateAsync({type: 'blob'});
         uploadingFile = new File([blob], `${shp.name}.zip`, { type: 'application/zip' });
       } else {
-        if (shp || shx || dbf) {
+        if (isShapefile) {
           setError(__('Error: Some of the shapefiles seem to be missing.'));
         } else {
           setError(__('Error: Can not upload multiple files.'));
         }
         return;
       }
-    } else if (
-      !acceptedFiles[0].name.endsWith('.geojson') &&
-      !acceptedFiles[0].name.endsWith('.json') &&
-      !acceptedFiles[0].name.endsWith('.csv') &&
-      !acceptedFiles[0].name.endsWith('.mbtiles')
-    ) {
-      setError(__('Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. Please try uploading again.'));
-      return;
-    } else {
-      uploadingFile = acceptedFiles[0];
     }
 
     if (uploadingFile.size > maxUploadSize) {
@@ -82,7 +92,6 @@ const ImportDropZone = (props: Props) => {
     setError(null);
     setLSPageStatus('uploading');
     try {
-      console.log({uploadingFile});
       await uploadLocationData({locationDataFile: uploadingFile, teamId, geojsonId});
     } catch (error) {
       setLSPageStatus('failed/uploadable');

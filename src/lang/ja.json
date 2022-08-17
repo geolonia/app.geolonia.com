@@ -30,8 +30,8 @@
       "Home": ["ホーム"],
       "Map": ["地図"],
       "Location Data": ["位置情報データ"],
-      "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON, CSV and MBTiles files.": [
-        "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSON・CSV・MBTilesファイルに対応しています。"
+      "Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON, CSV, MBTiles and Shapefile files.": [
+        "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSON・CSV・MBTiles・シェープファイルファイルに対応しています。"
       ],
       "Uploading now..": ["データをアップロードしています。"],
       "Processing data..": ["データを処理しています。"],
@@ -97,21 +97,6 @@
       ],
       "My dataset": ["データセット"],
       "Network Error.": ["通信エラー。"],
-      "Failed to add your data. Your data might be invalid format.": [
-        "データの追加に失敗しました。データが無効なフォーマットである可能性があります。"
-      ],
-      "Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/": [
-        "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタマーサポートに連絡してください。"
-      ],
-      "Error: Can not upload multiple files.": [
-        "複数のファイルをアップロードできません。"
-      ],
-      "Error: We currently support GeoJSON, CSV and MBTiles files. Please try uploading again.": [
-        "エラー: 現在 GeoJSON・CSV・MBTiles ファイルのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
-      ],
-      "Error: The file you selected was too big. Please upload a file less than %d MB.": [
-        "エラー: %d MB 以下のファイルをアップロードしてください。"
-      ],
       "Drop file to add your map.": [
         "地図に追加するファイルをドロップして下さい。"
       ],
@@ -121,8 +106,27 @@
       "Drag and drop a file here to add your map, or click to choose your file.": [
         "地図に追加するファイルをドラッグ&ドロップしてください。クリックするとファイルを選択してアップロードすることが出来ます。"
       ],
-      "Upload Data (GeoJSON / CSV / MBTiles)": [
-        "データのアップロード (GeoJSON / CSV / MBTiles)"
+      "When uploading a shapefile, please select all associated files.": ["シェープファイルをアップロードする場合、関連づけられた全てのファイルを選択してください。"],
+      "Failed to add your data. Your data might be invalid format.": [
+        "データの追加に失敗しました。データが無効なフォーマットである可能性があります。"
+      ],
+      "Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/": [
+        "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタマーサポートに連絡してください。"
+      ],
+      "Error: Some of the shapefiles seem to be missing.": [
+        "シェープファイルのうちいくつかのファイルが不足しています。"
+      ],
+      "Error: Can not upload multiple files.": [
+        "複数のファイルをアップロードできません。"
+      ],
+      "Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. Please try uploading again.": [
+        "エラー: 現在 GeoJSON・CSV・MBTiles ファイルまたはシェープファイルにのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
+      ],
+      "Error: The file you selected was too big. Please upload a file less than %d MB.": [
+        "エラー: %d MB 以下のファイルをアップロードしてください。"
+      ],
+      "Upload Data (GeoJSON / CSV / MBTiles / Shapefile)": [
+        "データのアップロード (GeoJSON / CSV / MBTiles / シェープファイル)"
       ],
       "Data that has already been uploaded will be overwritten.": [
         "既にアップロードされているデータが上書きされます。"
@@ -325,6 +329,13 @@
       "API keys with no map loads will not be shown in the graph.": [
         "表示回数の無いAPIキーはグラフに表示されません。"
       ],
+      "API Access": ["API アクセス"],
+      "Access Token": ["アクセストークン"],
+      "Re-issue an access token": ["アクセストークンを再発行する"],
+      "Issue an access token": ["アクセストークンを発行する"],
+      "For security reasons, the access token is only displayed when issued. Re-issuing will invalidate the previous access token.": [
+        "セキュリティのためアクセストークンは発行時のみ表示されます。アクセストークンを再発行した場合、以前のアクセストークンは使えなくなります。"
+      ],
       "Upload new picture": ["新しい画像をアップロード"],
       "Upload failed. The avatar image size cannot be larger than %d MB.": [
         "アップロードに失敗しました。アバターの画像サイズの上限は %d MB です。"
@@ -442,6 +453,7 @@
         "プロフィールとセキュリティを設定できます。"
       ],
       "Upload failed.": ["アップロードに失敗しました。"],
+      "Personal Access Token": ["Personal Access Token"],
       "Language": ["言語"],
       "Time zone": ["タイムゾーン"],
       "Email": ["メールアドレス"],
@@ -543,14 +555,7 @@
         "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してください。メールアドレスが認証されていない可能性があります。"
       ],
       "Free Plan": ["Free プラン"],
-      "Default value of zoom level of map\u00040": ["6"],
-      "API Access": ["API アクセス"],
-      "Personal Access Token": ["Personal Access Token"],
-      "Re-issue an access token": ["アクセストークンを再発行する"],
-      "Issue an access token": ["アクセストークンを発行する"],
-      "For security reasons, the access token is only displayed when issued. Re-issuing will invalidate the previous access token.": [
-        "セキュリティのためアクセストークンは発行時のみ表示されます。アクセストークンを再発行した場合、以前のアクセストークンは使えなくなります。"
-      ]
+      "Default value of zoom level of map\u00040": ["6"]
     }
   }
 }

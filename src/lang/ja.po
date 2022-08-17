@@ -282,7 +282,7 @@ msgstr ""
 
 #: src/components/Data/ImportDropZone.tsx:111
 msgid "When uploading a shapefile, please select all associated files."
-msgstr ""
+msgstr "シェープファイルをアップロードする場合、関連づけられた全てのファイルを選択してください。"
 
 #: src/components/Data/ImportDropZone.tsx:34
 msgid "Failed to add your data. Your data might be invalid format."
