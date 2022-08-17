@@ -55,7 +55,7 @@ msgstr ""
 #: src/components/Maps/APIKeys.tsx:37
 #: src/components/Navigator.tsx:265
 #: src/components/Team/Billing.tsx:316
-#: src/components/Team/general/index.tsx:23
+#: src/components/Team/general/index.tsx:26
 #: src/components/Team/members/index.tsx:149
 #: src/components/User/User.tsx:15
 msgid "Home"
@@ -76,7 +76,8 @@ msgstr ""
 msgid ""
 "Upload your location data here to display it on a map. Once the data has "
 "been uploaded, HTML code will be generated so you can embed it in your "
-"site. We currently support uploading GeoJSON, CSV and MBTiles files."
+"site. We currently support uploading GeoJSON, CSV, MBTiles and Shapefile "
+"files."
 msgstr ""
 
 #: src/components/Data/GeoJson/hooks/use-gvp.ts:82
@@ -105,7 +106,7 @@ msgid "Import GeoJSON from your computer."
 msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:110
-#: src/components/Data/ImportDropZone.tsx:88
+#: src/components/Data/ImportDropZone.tsx:107
 msgid "Maximum upload file size: %d MB"
 msgstr ""
 
@@ -118,7 +119,7 @@ msgid "Error: The name of identifier `id` must be lower case."
 msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:98
-msgid "Error: The `id` of each `fueature` must be unique in the GeoJSON."
+msgid "Error: The `id` of each `feature` must be unique in the GeoJSON."
 msgstr ""
 
 #: src/components/Data/GeoJsonMeta.tsx:240
@@ -247,46 +248,54 @@ msgstr ""
 msgid "Network Error."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:33
+#: src/components/Data/ImportDropZone.tsx:102
+msgid "Drop file to add your map."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:106
+msgid "Upload a file from your computer."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:110
+msgid "Drag and drop a file here to add your map, or click to choose your file."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:111
+msgid "When uploading a shapefile, please select all associated files."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:34
 msgid "Failed to add your data. Your data might be invalid format."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:41
+#: src/components/Data/ImportDropZone.tsx:42
 msgid ""
 "Error: Can not upload file. Please contact to customer support at "
 "https://geolonia.com/contact/"
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:46
+#: src/components/Data/ImportDropZone.tsx:60
+msgid "Error: Some of the shapefiles seem to be missing."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:62
 msgid "Error: Can not upload multiple files."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:56
+#: src/components/Data/ImportDropZone.tsx:72
 msgid ""
-"Error: We currently support GeoJSON, CSV and MBTiles files. Please try "
-"uploading again."
+"Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. "
+"Please try uploading again."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:61
+#: src/components/Data/ImportDropZone.tsx:79
 msgid ""
 "Error: The file you selected was too big. Please upload a file less than %d "
 "MB."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:83
-msgid "Drop file to add your map."
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:87
-msgid "Upload a file from your computer."
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:91
-msgid "Drag and drop a file here to add your map, or click to choose your file."
-msgstr ""
-
 #: src/components/Data/ImportDropZoneButton.tsx:56
-msgid "Upload Data (GeoJSON / CSV / MBTiles)"
+msgid "Upload Data (GeoJSON / CSV / MBTiles / Shapefile)"
 msgstr ""
 
 #: src/components/Data/ImportDropZoneButton.tsx:65
@@ -498,7 +507,7 @@ msgid "My team"
 msgstr ""
 
 #: src/components/Navigator.tsx:134
-#: src/components/Team/general/index.tsx:36
+#: src/components/Team/general/index.tsx:39
 msgid "General"
 msgstr ""
 
@@ -766,7 +775,7 @@ msgid "Learn more about plans on the pricing page."
 msgstr ""
 
 #: src/components/Team/Billing.tsx:320
-#: src/components/Team/general/index.tsx:27
+#: src/components/Team/general/index.tsx:30
 #: src/components/Team/members/index.tsx:153
 msgid "Team settings"
 msgstr ""
@@ -795,6 +804,7 @@ msgid "Update"
 msgstr ""
 
 #: src/components/Team/Billing/payment-method-modal.tsx:43
+#: src/components/Team/general/access-token.tsx:35
 #: src/components/User/personal-access-token.tsx:34
 msgid "Unknown Error."
 msgstr ""
@@ -834,6 +844,32 @@ msgstr ""
 
 #: src/components/Team/Billing/usage-chart.tsx:124
 msgid "API keys with no map loads will not be shown in the graph."
+msgstr ""
+
+#: src/components/Team/general/access-token.tsx:44
+#: src/components/User/personal-access-token.tsx:43
+msgid "API Access"
+msgstr ""
+
+#: src/components/Team/general/access-token.tsx:49
+msgid "Access Token"
+msgstr ""
+
+#: src/components/Team/general/access-token.tsx:65
+#: src/components/User/personal-access-token.tsx:64
+msgid "Re-issue an access token"
+msgstr ""
+
+#: src/components/Team/general/access-token.tsx:65
+#: src/components/User/personal-access-token.tsx:64
+msgid "Issue an access token"
+msgstr ""
+
+#: src/components/Team/general/access-token.tsx:68
+#: src/components/User/personal-access-token.tsx:67
+msgid ""
+"For security reasons, the access token is only displayed when issued. "
+"Re-issuing will invalidate the previous access token."
 msgstr ""
 
 #: src/components/Team/general/avatar.tsx:123
@@ -902,7 +938,7 @@ msgid ""
 "e-mail address."
 msgstr ""
 
-#: src/components/Team/general/index.tsx:37
+#: src/components/Team/general/index.tsx:40
 msgid ""
 "All users on the Geolonia service belong to one of the teams, and a team "
 "with the same name as the user is automatically generated when you sign up. "
@@ -1147,26 +1183,8 @@ msgstr ""
 msgid "Upload failed."
 msgstr ""
 
-#: src/components/User/personal-access-token.tsx:43
-msgid "API Access"
-msgstr ""
-
 #: src/components/User/personal-access-token.tsx:48
 msgid "Personal Access Token"
-msgstr ""
-
-#: src/components/User/personal-access-token.tsx:64
-msgid "Re-issue an access token"
-msgstr ""
-
-#: src/components/User/personal-access-token.tsx:64
-msgid "Issue an access token"
-msgstr ""
-
-#: src/components/User/personal-access-token.tsx:67
-msgid ""
-"For security reasons, the access token is only displayed when issued. "
-"Re-issuing will invalidate the previous access token."
 msgstr ""
 
 #: src/components/User/profile.tsx:114

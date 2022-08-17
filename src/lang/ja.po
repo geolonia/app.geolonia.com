@@ -128,7 +128,7 @@ msgid "Error: The name of identifier `id` must be lower case."
 msgstr "エラー: `id` は小文字である必要があります。"
 
 #: src/components/Data/GeoJsonImporter.tsx:98
-msgid "Error: The `id` of each `fueature` must be unique in the GeoJSON."
+msgid "Error: The `id` of each `feature` must be unique in the GeoJSON."
 msgstr ""
 "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要がありま"
 "す。"
