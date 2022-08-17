@@ -65,7 +65,7 @@ msgstr "確認のために delete と入力してください。"
 #: src/components/Data/GeoJson.tsx:53 src/components/Data/GeoJsons.tsx:80
 #: src/components/Maps/APIKey.tsx:92 src/components/Maps/APIKeys.tsx:37
 #: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:316
-#: src/components/Team/general/index.tsx:23
+#: src/components/Team/general/index.tsx:26
 #: src/components/Team/members/index.tsx:149 src/components/User/User.tsx:15
 msgid "Home"
 msgstr "ホーム"
@@ -83,10 +83,10 @@ msgstr "位置情報データ"
 msgid ""
 "Upload your location data here to display it on a map. Once the data has "
 "been uploaded, HTML code will be generated so you can embed it in your site. "
-"We currently support uploading GeoJSON, CSV and MBTiles files."
+"We currently support uploading GeoJSON, CSV, MBTiles and Shapefile files."
 msgstr ""
 "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を"
-"追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSON・CSV・MBTiles"
+"追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSON・CSV・MBTiles・シェープファイル"
 "ファイルに対応しています。"
 
 #: src/components/Data/GeoJson/hooks/use-gvp.ts:82
@@ -115,7 +115,7 @@ msgid "Import GeoJSON from your computer."
 msgstr "GeoJSON をコンピューターからインポートしましょう。"
 
 #: src/components/Data/GeoJsonImporter.tsx:110
-#: src/components/Data/ImportDropZone.tsx:88
+#: src/components/Data/ImportDropZone.tsx:107
 msgid "Maximum upload file size: %d MB"
 msgstr "最大アップロードファイルサイズ: %d MB"
 
@@ -128,7 +128,7 @@ msgid "Error: The name of identifier `id` must be lower case."
 msgstr "エラー: `id` は小文字である必要があります。"
 
 #: src/components/Data/GeoJsonImporter.tsx:98
-msgid "Error: The `id` of each `fueature` must be unique in the GeoJSON."
+msgid "Error: The `id` of each `feature` must be unique in the GeoJSON."
 msgstr ""
 "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要がありま"
 "す。"
@@ -265,13 +265,32 @@ msgstr "データセット"
 msgid "Network Error."
 msgstr "通信エラー。"
 
-#: src/components/Data/ImportDropZone.tsx:33
+#: src/components/Data/ImportDropZone.tsx:102
+msgid "Drop file to add your map."
+msgstr "地図に追加するファイルをドロップして下さい。"
+
+#: src/components/Data/ImportDropZone.tsx:106
+msgid "Upload a file from your computer."
+msgstr "ファイルをアップロードしましょう。"
+
+#: src/components/Data/ImportDropZone.tsx:110
+msgid ""
+"Drag and drop a file here to add your map, or click to choose your file."
+msgstr ""
+"地図に追加するファイルをドラッグ&ドロップしてください。クリックするとファイル"
+"を選択してアップロードすることが出来ます。"
+
+#: src/components/Data/ImportDropZone.tsx:111
+msgid "When uploading a shapefile, please select all associated files."
+msgstr "シェープファイルをアップロードする場合、関連づけられた全てのファイルを選択してください。"
+
+#: src/components/Data/ImportDropZone.tsx:34
 msgid "Failed to add your data. Your data might be invalid format."
 msgstr ""
 "データの追加に失敗しました。データが無効なフォーマットである可能性がありま"
 "す。"
 
-#: src/components/Data/ImportDropZone.tsx:41
+#: src/components/Data/ImportDropZone.tsx:42
 msgid ""
 "Error: Can not upload file. Please contact to customer support at https://"
 "geolonia.com/contact/"
@@ -279,42 +298,31 @@ msgstr ""
 "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタ"
 "マーサポートに連絡してください。"
 
-#: src/components/Data/ImportDropZone.tsx:46
+#: src/components/Data/ImportDropZone.tsx:60
+msgid "Error: Some of the shapefiles seem to be missing."
+msgstr "シェープファイルのうちいくつかのファイルが不足しています。"
+
+#: src/components/Data/ImportDropZone.tsx:62
 msgid "Error: Can not upload multiple files."
 msgstr "複数のファイルをアップロードできません。"
 
-#: src/components/Data/ImportDropZone.tsx:56
+#: src/components/Data/ImportDropZone.tsx:72
 msgid ""
-"Error: We currently support GeoJSON, CSV and MBTiles files. Please try "
-"uploading again."
+"Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. "
+"Please try uploading again."
 msgstr ""
-"エラー: 現在 GeoJSON・CSV・MBTiles ファイルのみ対応しています。ファイルをご確"
+"エラー: 現在 GeoJSON・CSV・MBTiles ファイルまたはシェープファイルにのみ対応しています。ファイルをご確"
 "認の上、もう一度アップロードを試してください。"
 
-#: src/components/Data/ImportDropZone.tsx:61
+#: src/components/Data/ImportDropZone.tsx:79
 msgid ""
 "Error: The file you selected was too big. Please upload a file less than %d "
 "MB."
 msgstr "エラー: %d MB 以下のファイルをアップロードしてください。"
 
-#: src/components/Data/ImportDropZone.tsx:83
-msgid "Drop file to add your map."
-msgstr "地図に追加するファイルをドロップして下さい。"
-
-#: src/components/Data/ImportDropZone.tsx:87
-msgid "Upload a file from your computer."
-msgstr "ファイルをアップロードしましょう。"
-
-#: src/components/Data/ImportDropZone.tsx:91
-msgid ""
-"Drag and drop a file here to add your map, or click to choose your file."
-msgstr ""
-"地図に追加するファイルをドラッグ&ドロップしてください。クリックするとファイル"
-"を選択してアップロードすることが出来ます。"
-
 #: src/components/Data/ImportDropZoneButton.tsx:56
-msgid "Upload Data (GeoJSON / CSV / MBTiles)"
-msgstr "データのアップロード (GeoJSON / CSV / MBTiles)"
+msgid "Upload Data (GeoJSON / CSV / MBTiles / Shapefile)"
+msgstr "データのアップロード (GeoJSON / CSV / MBTiles / シェープファイル)"
 
 #: src/components/Data/ImportDropZoneButton.tsx:65
 msgid "Data that has already been uploaded will be overwritten."
@@ -539,7 +547,7 @@ msgstr ""
 msgid "My team"
 msgstr "My team"
 
-#: src/components/Navigator.tsx:134 src/components/Team/general/index.tsx:36
+#: src/components/Navigator.tsx:134 src/components/Team/general/index.tsx:39
 msgid "General"
 msgstr "一般"
 
@@ -821,7 +829,7 @@ msgstr "プランを変更"
 msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
-#: src/components/Team/Billing.tsx:320 src/components/Team/general/index.tsx:27
+#: src/components/Team/Billing.tsx:320 src/components/Team/general/index.tsx:30
 #: src/components/Team/members/index.tsx:153
 msgid "Team settings"
 msgstr "チーム設定"
@@ -850,6 +858,7 @@ msgid "Update"
 msgstr "更新"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:43
+#: src/components/Team/general/access-token.tsx:35
 #: src/components/User/personal-access-token.tsx:34
 msgid "Unknown Error."
 msgstr "不明なエラー。"
@@ -893,6 +902,34 @@ msgstr "API キー別の地図の表示回数"
 #: src/components/Team/Billing/usage-chart.tsx:124
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
+
+#: src/components/Team/general/access-token.tsx:44
+#: src/components/User/personal-access-token.tsx:43
+msgid "API Access"
+msgstr "API アクセス"
+
+#: src/components/Team/general/access-token.tsx:49
+msgid "Access Token"
+msgstr "アクセストークン"
+
+#: src/components/Team/general/access-token.tsx:65
+#: src/components/User/personal-access-token.tsx:64
+msgid "Re-issue an access token"
+msgstr "アクセストークンを再発行する"
+
+#: src/components/Team/general/access-token.tsx:65
+#: src/components/User/personal-access-token.tsx:64
+msgid "Issue an access token"
+msgstr "アクセストークンを発行する"
+
+#: src/components/Team/general/access-token.tsx:68
+#: src/components/User/personal-access-token.tsx:67
+msgid ""
+"For security reasons, the access token is only displayed when issued. Re-"
+"issuing will invalidate the previous access token."
+msgstr ""
+"セキュリティのためアクセストークンは発行時のみ表示されます。アクセストークン"
+"を再発行した場合、以前のアクセストークンは使えなくなります。"
 
 #: src/components/Team/general/avatar.tsx:123
 #: src/components/User/avatar.tsx:116
@@ -961,7 +998,7 @@ msgid ""
 "address."
 msgstr "レシートや請求に関する通知がこちらのメールアドレスに送信されます。"
 
-#: src/components/Team/general/index.tsx:37
+#: src/components/Team/general/index.tsx:40
 msgid ""
 "All users on the Geolonia service belong to one of the teams, and a team "
 "with the same name as the user is automatically generated when you sign up. "
@@ -1219,27 +1256,9 @@ msgstr "プロフィールとセキュリティを設定できます。"
 msgid "Upload failed."
 msgstr "アップロードに失敗しました。"
 
-#: src/components/User/personal-access-token.tsx:43
-msgid "API Access"
-msgstr "API アクセス"
-
 #: src/components/User/personal-access-token.tsx:48
 msgid "Personal Access Token"
 msgstr "Personal Access Token"
-
-#: src/components/User/personal-access-token.tsx:64
-msgid "Re-issue an access token"
-msgstr "アクセストークンを再発行する"
-
-#: src/components/User/personal-access-token.tsx:64
-msgid "Issue an access token"
-msgstr "アクセストークンを発行する"
-
-#: src/components/User/personal-access-token.tsx:67
-msgid ""
-"For security reasons, the access token is only displayed when issued. Re-"
-"issuing will invalidate the previous access token."
-msgstr "セキュリティのためアクセストークンは発行時のみ表示されます。アクセストークンを再発行した場合、以前のアクセストークンは使えなくなります。"
 
 #: src/components/User/profile.tsx:114
 msgid "Language"
