@@ -89,7 +89,7 @@ const GeoJson: React.FC<Props> = () => {
         title={geoJsonMeta ? geoJsonMeta.name : ''}
       >
         {__(
-          'Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON, CSV and MBTiles files.',
+          'Upload your location data here to display it on a map. Once the data has been uploaded, HTML code will be generated so you can embed it in your site. We currently support uploading GeoJSON, CSV, MBTiles and Shapefile files.',
         )}
       </Title>
 

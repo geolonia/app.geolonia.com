@@ -53,7 +53,7 @@ const ImportDropZoneButton = (props: Props) => {
     <>
       <button className="btn" onClick={() => setStateImporter(true)}>
         <CloudUploadIcon fontSize="small" />
-        <span className="label">{__('Upload Data (GeoJSON / CSV / MBTiles)')}</span>
+        <span className="label">{__('Upload Data (GeoJSON / CSV / MBTiles / Shapefile)')}</span>
       </button>
       {stateImporter ? (
         <div className="geojson-importer geojson-dropzone-button" style={styleOuter} onClick={close}>

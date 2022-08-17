@@ -8,6 +8,7 @@ import './ImportDropZone.scss';
 import { useSelectedTeam } from '../../redux/hooks';
 import { useUpdateLocationDataMutation } from '../../redux/apis/api';
 import type { LSPageStatus } from './GeoJson/hooks/use-gvp';
+import JSZip from 'jszip';
 
 type Props = {
   geojsonId: string,
@@ -36,35 +37,53 @@ const ImportDropZone = (props: Props) => {
 
   const maxUploadSize = GEOJSON_MAX_UPLOAD_SIZE;
 
-  const onDrop = useCallback( async (acceptedFiles) => {
+  const onDrop = useCallback( async (acceptedFiles: File[]) => {
     if (!teamId || !geojsonId) {
       setError(__('Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/'));
       return;
     }
 
-    if (acceptedFiles.length !== 1) {
-      setError(__('Error: Can not upload multiple files.'));
-      return;
-    }
-
-    if (
+    let uploadingFile: File;
+    if (acceptedFiles.length > 1) {
+      const shp = acceptedFiles.find((file) => file.name.endsWith('.shp'));
+      const shx = acceptedFiles.find((file) => file.name.endsWith('.shx'));
+      const dbf = acceptedFiles.find((file) => file.name.endsWith('.dbf'));
+      if (shp && shx && dbf) {
+        const zip = new JSZip();
+        for (const file of acceptedFiles) {
+          zip.file(file.name, file);
+        }
+        const blob = await zip.generateAsync({type: 'blob'});
+        uploadingFile = new File([blob], `${shp.name}.zip`, { type: 'application/zip' });
+      } else {
+        if (shp || shx || dbf) {
+          setError(__('Error: Some of the shapefiles seem to be missing.'));
+        } else {
+          setError(__('Error: Can not upload multiple files.'));
+        }
+        return;
+      }
+    } else if (
       !acceptedFiles[0].name.endsWith('.geojson') &&
       !acceptedFiles[0].name.endsWith('.json') &&
       !acceptedFiles[0].name.endsWith('.csv') &&
       !acceptedFiles[0].name.endsWith('.mbtiles')
     ) {
-      setError(__('Error: We currently support GeoJSON, CSV and MBTiles files. Please try uploading again.'));
+      setError(__('Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. Please try uploading again.'));
       return;
+    } else {
+      uploadingFile = acceptedFiles[0];
     }
 
-    if (acceptedFiles[0].size > maxUploadSize) {
+    if (uploadingFile.size > maxUploadSize) {
       setError(sprintf(__('Error: The file you selected was too big. Please upload a file less than %d MB.'), maxUploadSize / 1000000));
       return;
     }
     setError(null);
     setLSPageStatus('uploading');
     try {
-      await uploadLocationData({locationDataFile: acceptedFiles[0], teamId, geojsonId});
+      console.log({uploadingFile});
+      await uploadLocationData({locationDataFile: uploadingFile, teamId, geojsonId});
     } catch (error) {
       setLSPageStatus('failed/uploadable');
       throw error;
@@ -79,16 +98,17 @@ const ImportDropZone = (props: Props) => {
   return (
     <Paper className={'geojson-dropzone-container'}>
       <div className={'geojson-dropzone'} {...getRootProps()} style={mouseOverStyle}>
-        <input {...getInputProps()} accept='.json,.geojson,.csv,.mbtiles' />
+        <input {...getInputProps()} accept='.json,.geojson,.csv,.mbtiles,.shp,.shx,.dbf,.prj' />
         {isDragActive ? <p>{__('Drop file to add your map.')}</p> : (
           <>
             <CloudUploadIcon fontSize="large" />
-            <p>
+            <p style={{ textAlign: 'center' }}>
               {__('Upload a file from your computer.')}<br />
               {sprintf(__('Maximum upload file size: %d MB'), maxUploadSize / 1_000_000)}
             </p>
-            <p>
+            <p style={{ textAlign: 'center' }}>
               {__('Drag and drop a file here to add your map, or click to choose your file.')}<br />
+              {__('When uploading a shapefile, please select all associated files.')}
             </p>
             { customMessage && <p>{customMessage}</p>}
           </>
