@@ -68,7 +68,7 @@ jobs:
         uses: actions/github-script@v4
         if: |
           github.event_name == 'pull_request' &&
-          contain(github.actor, 'dependabot')
+          contains(github.actor, 'dependabot')
         env:
           POSTING_COMMENT_BODY: ${{ steps.compare_bundle_size.outputs.report }}
         with:
