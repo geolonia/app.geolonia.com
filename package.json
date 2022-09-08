@@ -25,7 +25,7 @@
     "isomorphic-fetch": "^3.0.0",
     "jszip": "^3.10.1",
     "mixpanel-browser": "^2.41.0",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "moment-timezone": "^0.5.35",
     "query-string": "^7.0.1",
     "react": "^17.0.0",
