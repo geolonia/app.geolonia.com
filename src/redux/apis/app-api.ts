@@ -17,6 +17,14 @@ type UpdateUserParam = {
     name: string;
   }
 }
+type GenerateAccessTokenParam = {
+  userSub: string;
+}
+type GenerateAccessTokenResp = {
+  success: boolean;
+  regenerated: boolean;
+  accessToken: string;
+}
 type UpdateUserAvatarParam = {
   userSub: string;
   file: File;
@@ -70,6 +78,10 @@ type UpdateTeamPaymentMethodParam = {
   last2: string
 }
 
+type GenerateTeamAccessTokenParam = {
+  teamId: string,
+}
+
 type StripeWrappedResp<T = any> = {
   has_more: boolean
   data: T
@@ -105,6 +117,16 @@ export const appApi = createApi({
         ...resp.item,
         links: resp.links,
       }),
+      providesTags: (_result, _error, { userSub }) => [{ type: 'User', id: userSub }],
+    }),
+    generateAccessToken: builder.mutation<GenerateAccessTokenResp, GenerateAccessTokenParam>({
+      query: (args) => ({
+        url: `/users/${args.userSub}/access-token`,
+        method: 'POST',
+      }),
+      invalidatesTags: (_result, _error, {userSub}) => ([
+        { type: 'User', id: userSub },
+      ]),
     }),
     updateUser: builder.mutation<void, UpdateUserParam>({
       query: (args) => ({
@@ -232,6 +254,13 @@ export const appApi = createApi({
         { type: 'Team', id: 'LIST' },
         { type: 'Team', id: teamId },
       ]),
+    }),
+    generateTeamAccessToken: builder.mutation<GenerateAccessTokenResp, GenerateTeamAccessTokenParam>({
+      query: (args) => ({
+        url: `/teams/${args.teamId}/access-token`,
+        method: 'POST',
+      }),
+      // Invalidation すると 選択チーム表示が点滅するのでしない
     }),
 
     // Map Keys
@@ -405,6 +434,7 @@ export const appApi = createApi({
 export const {
   // User
   useGetUserQuery,
+  useGenerateAccessTokenMutation,
   useUpdateUserMutation,
   useUpdateUserAvatarMutation,
 
@@ -427,6 +457,7 @@ export const {
   useUpdateTeamMemberMutation,
   useDeleteTeamMemberMutation,
   useListTeamInvitationsQuery,
+  useGenerateTeamAccessTokenMutation,
 
   // Team Member invitation
   useDescribeInvitationQuery,

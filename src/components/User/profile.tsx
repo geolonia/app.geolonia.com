@@ -79,7 +79,7 @@ const Profile: React.FC<{}> = () => {
   const saveDisabled = name === '';
 
   return (
-    <>
+    <div className="grid-item-container">
       <TextField
         id="username"
         label={__('Username')}
@@ -139,7 +139,7 @@ const Profile: React.FC<{}> = () => {
         </Select>
       </FormControl>
       <Save onClick={handleSaveClick} disabled={saveDisabled} />
-    </>
+    </div>
   );
 };
 

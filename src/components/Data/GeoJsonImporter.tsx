@@ -95,7 +95,7 @@ const Importer: React.FC<Props> = (props) => {
         if (e.message === 'invalid-case-of-identifier') {
           setError(__('Error: The name of identifier `id` must be lower case.'));
         } else if (e.message === 'invalid-identifier') {
-          setError(__('Error: The `id` of each `fueature` must be unique in the GeoJSON.'));
+          setError(__('Error: The `id` of each `feature` must be unique in the GeoJSON.'));
         } else {
           setError(sprintf(__('Error: Please upload GeoJSON file less than %d MB.'), GEOJSON_MAX_UPLOAD_SIZE / 1000000));
         }

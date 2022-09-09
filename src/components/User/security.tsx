@@ -79,7 +79,7 @@ export class Security extends React.Component<Props, State> {
     );
 
     return (
-      <>
+      <div className="grid-item-container">
         <Typography component="h2" className="module-title">
           {__('Security')}
         </Typography>
@@ -132,7 +132,7 @@ export class Security extends React.Component<Props, State> {
         {status === 'failure' && (
           <Alert type="warning">{__('Failed to change password.')}</Alert>
         )}
-      </>
+      </div>
     );
   }
 }

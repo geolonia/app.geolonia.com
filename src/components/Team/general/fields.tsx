@@ -48,7 +48,7 @@ const Content: React.FC = (props) => {
   }
 
   return (
-    <>
+    <div className="grid-item-container">
       <TextField
         id="team-name"
         label={__('Team Name')}
@@ -96,7 +96,7 @@ const Content: React.FC = (props) => {
       <p className="mute">{__('Receipts and other billing-related notifications will be sent to this e-mail address.')}</p>
 
       <Save onClick={onSaveClick} disabled={saveDisabled} />
-    </>
+    </div>
   );
 };
 

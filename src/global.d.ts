@@ -63,6 +63,7 @@ declare namespace Geolonia {
       putAvatar: string;
     };
     avatarImage?: string;
+    hasPersonalAccessToken: boolean;
   };
   type Team = {
     teamId: string;
@@ -83,6 +84,7 @@ declare namespace Geolonia {
     customMaxMapLoadCount?: number;
     billingMode: TeamBillingMethod;
     featureFlags: { [key: string]: boolean };
+    hasAccessToken: boolean;
   };
 
   type Pending = {

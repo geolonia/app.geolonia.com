@@ -34,12 +34,20 @@ type LocationDataLinksResp = {
     putGeoJSON: string;
     putCSV: string;
     putMBTiles: string;
+    putShapefile: string;
   }
 };
 type FeaturesGetResp = {
   features: GeoJSON.Feature[],
   totalCount: number
 }
+
+const typeMap: { [key: string]: [string, keyof LocationDataLinksResp['links']] } = {
+  geojson: ['application/json', 'putGeoJSON'],
+  csv: ['text/csv', 'putCSV'],
+  mbtiles: ['application/octet-stream', 'putMBTiles'],
+  shapefile: ['application/zip', 'putShapefile'],
+};
 
 const transformGeoJSONMetaResp2GeoJSONMeta = (resp: GeoJSONMetaResp): Geolonia.GeoJSONMeta => {
   const source = resp.body._source;
@@ -145,19 +153,30 @@ export const api = createApi({
     }),
     updateLocationData: builder.mutation<void, UploadLocationDataParam>({
       async queryFn(arg, _queryApi, _extraOptions, fetchWithBQ) {
+
+        const file = arg.locationDataFile;
+
+        let type: keyof typeof typeMap;
+        if (file.name.endsWith('.geojson')) {
+          type = 'geojson';
+        } else if (file.name.endsWith('.csv')) {
+          type ='csv';
+        } else if (file.name.endsWith('.mbtiles')) {
+          type = 'mbtiles';
+        } else if (file.name.endsWith('.shp.zip')) {
+          type = 'shapefile';
+        } else {
+          throw new Error('Invalid file type.');
+        }
+
         // First, get the signed URL endpoint
-        const signedURLResult = await fetchWithBQ(`geojsons/${arg.geojsonId}/links?teamId=${arg.teamId}`);
+        const signedURLResult = await fetchWithBQ(`geojsons/${arg.geojsonId}/links?teamId=${arg.teamId}&types=${type}`);
         if (signedURLResult.error) throw signedURLResult.error;
         const data = signedURLResult.data as LocationDataLinksResp;
-        let signedURL = data.links.putGeoJSON;
-        let contentType = 'application/json';
-        if (arg.locationDataFile.name.endsWith('.csv')) {
-          signedURL = data.links.putCSV;
-          contentType = 'text/csv';
-        } else if (arg.locationDataFile.name.endsWith('.mbtiles')) {
-          signedURL = data.links.putMBTiles;
-          contentType = 'application/octet-stream';
-        }
+
+        const [contentType, propertyName] = typeMap[type];
+        const signedURL = data.links[propertyName];
+
         try {
           // Use fetch instead of fetchWithBQ because we don't want to send the authorization
           // header.
