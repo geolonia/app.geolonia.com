@@ -67,6 +67,12 @@ type UpdateTeamMemberParam = {
   role: Geolonia.Role
 }
 
+type GetTeamPlanParam = {
+  teamId: string
+  /** moment valid format like 'yyyy-mm-dd' */
+  duration?: { usageStart: string, usageEnd: string }
+}
+
 type UpdateTeamPlanParam = {
   teamId: string
   planId: string | null
@@ -371,13 +377,27 @@ export const appApi = createApi({
     }),
 
     // Billing
-    getTeamPlan: builder.query<Geolonia.TeamPlanDetails, string>({
-      query: (teamId) => ({
-        url: `/teams/${teamId}/plan`,
-      }),
-      providesTags: (_result, _error, teamId) => ([
-        { type: 'TeamPlan', id: teamId },
-      ]),
+    getTeamPlan: builder.query<Geolonia.TeamPlanDetails, GetTeamPlanParam>({
+      query: (args) => {
+        const { teamId, duration } = args;
+        const qs = duration ? `?usageStart=${duration.usageStart}&usageEnd=${duration.usageEnd}` : '';
+        return {
+          url: `/teams/${teamId}/plan${qs}`,
+        };
+      },
+      providesTags: (_result, _error, args) => {
+        const { teamId, duration } = args;
+        if (duration) {
+          return [
+            { type: 'TeamPlan', id: `${teamId}:${duration.usageStart}:${duration.usageEnd}` },
+          ];
+        } else {
+          return [
+            { type: 'TeamPlan', id: teamId },
+          ];
+
+        }
+      },
     }),
     getPlans: builder.query<Geolonia.Billing.Plan[], void>({
       query: () => ({

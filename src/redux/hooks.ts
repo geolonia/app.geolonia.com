@@ -30,7 +30,7 @@ export const useSelectedTeam: () => SelectedTeamResult = () => {
     skip: !isLoggedIn,
   });
   const selectedTeamId = useAppSelector((state) => state.team.selectedTeamId);
-  const { data: planDetails } = useGetTeamPlanQuery(selectedTeamId || '', {
+  const { data: planDetails } = useGetTeamPlanQuery({ teamId: selectedTeamId || '' }, {
     skip: (!isLoggedIn || !selectedTeamId),
   });
 
