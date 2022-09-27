@@ -1,13 +1,19 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import { __ } from '@wordpress/i18n';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Bar } from 'react-chartjs-2';
 import { externalTooltipHandler } from '../../../lib/billing-tooltip';
-import { useGetApiKeysQuery } from '../../../redux/apis/app-api';
+import { useGetApiKeysQuery, useGetTeamPlanQuery } from '../../../redux/apis/app-api';
 import { colorScheme } from '../../../lib/colorscheme';
 import moment from 'moment';
 import { ChartOptions } from 'chart.js';
+import { useSelectedTeam } from '../../../redux/hooks';
+import IconButton from '@material-ui/core/IconButton';
+import ChevronLeft from '@material-ui/icons/ChevronLeft';
+import ChevronRight from '@material-ui/icons/ChevronRight';
+import Box from '@material-ui/core/Box';
+
 
 const CHARTJS_OPTIONS: ChartOptions<'bar'> = {
   responsive: true,
@@ -59,8 +65,19 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
   const { usage } = planDetails;
   const { data: mapKeys } = useGetApiKeysQuery(team.teamId);
 
+  const [subQueryDateRange, setSubQueryDateRange] = useState<{ usageStart: string, usageEnd: string } | undefined>(undefined);
+  const { selectedTeam } = useSelectedTeam();
+  const teamId = selectedTeam?.teamId;
+
+  const { data: planDetailsSub, isFetching } = useGetTeamPlanQuery(
+    { teamId: teamId || '', duration: subQueryDateRange },
+    { skip: !teamId || !subQueryDateRange },
+  );
+
+  const coalescedPlanDetails = planDetailsSub || planDetails;
+  const subOrFreePlan = coalescedPlanDetails.subscription || coalescedPlanDetails.freePlanDetails;
+
   const chartData = useMemo<ChartData>(() => {
-    const subOrFreePlan = planDetails.subscription || planDetails.freePlanDetails;
     if (!subOrFreePlan) return undefined;
     if (
       (typeof mapKeys === 'undefined') ||
@@ -110,7 +127,28 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
     const labels = labelList.map((x) => x.format('M/D'));
 
     return { labels, datasets };
-  }, [mapKeys, planDetails.freePlanDetails, planDetails.subscription, usage.details]);
+  }, [mapKeys, subOrFreePlan, usage.details]);
+
+  const onPrevClick = useCallback(() => {
+    if (subOrFreePlan) {
+      const prevDuration = {
+        usageStart: moment(subOrFreePlan.current_period_start).add(-1, 'month').format('YYYY-MM-DD'),
+        usageEnd: moment(subOrFreePlan.current_period_end).add(-1, 'month').format('YYYY-MM-DD'),
+      };
+      setSubQueryDateRange(prevDuration);
+    }
+  }, [subOrFreePlan]);
+
+  const onNextClick = useCallback(() => {
+    if (subOrFreePlan) {
+      const nextDuration = {
+        usageStart: moment(subOrFreePlan.current_period_start).add(1, 'month').format('YYYY-MM-DD'),
+        usageEnd: moment(subOrFreePlan.current_period_end).add(1, 'month').format('YYYY-MM-DD'),
+      };
+      setSubQueryDateRange(nextDuration);
+    }
+
+  }, [subOrFreePlan]);
 
   if (typeof chartData === 'undefined') {
     return null;
@@ -120,8 +158,26 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
     <Typography component="h2" className="module-title">
       {__('Map loads by API key')}
     </Typography>
-    <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
-    <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
+    <Box position={'relative'}>
+      <Box style={{
+        paddingTop: 32,
+        paddingLeft: 52,
+        paddingRight: 52,
+      }}>
+        <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
+        <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
+      </Box>
+      <Box position={'absolute'} left={0} bottom={'50%'}>
+        <IconButton onClick={onPrevClick} disabled={!subOrFreePlan || isFetching}>
+          <ChevronLeft fontSize={'large'} />
+        </IconButton>
+      </Box>
+      <Box position={'absolute'} right={0} bottom={'50%'}>
+        <IconButton onClick={onNextClick} disabled={!subOrFreePlan || isFetching}>
+          <ChevronRight fontSize={'large'} />
+        </IconButton>
+      </Box>
+    </Box>
   </Paper>;
 };
 
