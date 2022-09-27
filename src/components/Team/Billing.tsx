@@ -307,7 +307,7 @@ const Billing: React.FC = () => {
   const teamId = selectedTeam?.teamId;
   const hasCustomMaxMapLoad = !!selectedTeam?.customMaxMapLoadCount;
 
-  const { data: planDetails, isFetching: planDetailsLoading } = useGetTeamPlanQuery(teamId || '', {
+  const { data: planDetails, isFetching: planDetailsLoading } = useGetTeamPlanQuery({ teamId: teamId || '' }, {
     skip: !selectedTeam,
   });
 
