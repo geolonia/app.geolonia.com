@@ -62,7 +62,6 @@ type ChartData = {
 
 const UsageChart: React.FC<UsageChartProps> = (props) => {
   const { team, planDetails } = props;
-  const { usage } = planDetails;
   const { data: mapKeys } = useGetApiKeysQuery(team.teamId);
 
   const [subQueryDateRange, setSubQueryDateRange] = useState<{ usageStart: string, usageEnd: string } | undefined>(undefined);
@@ -76,6 +75,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
 
   const coalescedPlanDetails = planDetailsSub || planDetails;
   const subOrFreePlan = coalescedPlanDetails.subscription || coalescedPlanDetails.freePlanDetails;
+  const { usage } = coalescedPlanDetails;
 
   const chartData = useMemo<ChartData>(() => {
     if (!subOrFreePlan) return undefined;
