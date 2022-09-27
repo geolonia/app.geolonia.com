@@ -159,10 +159,14 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
       {__('Map loads by API key')}
     </Typography>
     <Box position={'relative'}>
-      <div style={{ paddingTop: 32, paddingLeft: 52, paddingRight: 52}}>
+      <Box style={{
+        paddingTop: 32,
+        paddingLeft: 52,
+        paddingRight: 52,
+      }}>
         <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
         <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
-      </div>
+      </Box>
       <Box position={'absolute'} left={0} bottom={'50%'}>
         <IconButton onClick={onPrevClick} disabled={!subOrFreePlan || isFetching}>
           <ChevronLeft fontSize={'large'} />
