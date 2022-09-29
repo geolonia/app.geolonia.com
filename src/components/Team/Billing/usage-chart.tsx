@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -13,6 +13,8 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import Box from '@material-ui/core/Box';
+import { DatePicker } from '../../custom/date-picker';
+import Button from '@material-ui/core/Button';
 
 
 const CHARTJS_OPTIONS: ChartOptions<'bar'> = {
@@ -76,6 +78,15 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
   const coalescedPlanDetails = planDetailsSub || planDetails;
   const subOrFreePlan = coalescedPlanDetails.subscription || coalescedPlanDetails.freePlanDetails;
   const { usage } = coalescedPlanDetails;
+
+  const [start, setStart] = useState('');
+  const [end, setEnd] = useState('');
+  useEffect(() => {
+    if (subOrFreePlan) {
+      setStart(moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD'));
+      setEnd(moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD'));
+    }
+  }, [subOrFreePlan]);
 
   const chartData = useMemo<ChartData>(() => {
     if (!subOrFreePlan) return undefined;
@@ -150,9 +161,18 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
 
   }, [subOrFreePlan]);
 
+  const setCustomRange = useCallback(() => {
+    setSubQueryDateRange({ usageStart: start, usageEnd: end });
+  }, [end, start]);
+
+
   if (typeof chartData === 'undefined') {
     return null;
   }
+
+  const rangeDisabled = subOrFreePlan &&
+  moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD') === start &&
+  moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD') === end;
 
   return <Paper className="usage-details-info">
     <Typography component="h2" className="module-title">
@@ -164,6 +184,21 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
         paddingLeft: 52,
         paddingRight: 52,
       }}>
+        <form>
+          <Box display={'flex'} alignItems={'center'}>
+            <DatePicker disabled={!subOrFreePlan || isFetching} label={__('Start date')} value={start} onChange={ (date) => setStart(date) }></DatePicker>
+            <DatePicker disabled={!subOrFreePlan || isFetching} label={__('End date')} value={end} onChange={ (date) => setEnd(date) }></DatePicker>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={setCustomRange}
+              disabled={!subOrFreePlan || isFetching || rangeDisabled}
+              type={'button'}
+            >
+              {__('Update')}
+            </Button>
+          </Box>
+        </form>
         <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
         <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
       </Box>
