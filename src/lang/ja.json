@@ -106,21 +106,26 @@
       "Drag and drop a file here to add your map, or click to choose your file.": [
         "地図に追加するファイルをドラッグ&ドロップしてください。クリックするとファイルを選択してアップロードすることが出来ます。"
       ],
-      "When uploading a shapefile, please select all associated files.": ["シェープファイルをアップロードする場合、関連づけられた全てのファイルを選択してください。"],
+      "When uploading a shapefile, please select all associated files.": [
+        "シェープファイルをアップロードする場合、関連づけられた全てのファイルを選択してください。"
+      ],
       "Failed to add your data. Your data might be invalid format.": [
         "データの追加に失敗しました。データが無効なフォーマットである可能性があります。"
       ],
       "Error: Can not upload file. Please contact to customer support at https://geolonia.com/contact/": [
         "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタマーサポートに連絡してください。"
       ],
+      "Error: Please select at least one file.": [
+        "エラー: 少なくとも1つのファイルを選択してください。"
+      ],
+      "Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. Please try uploading again.": [
+        "エラー: 現在 GeoJSON・CSV・MBTiles ファイルまたはシェープファイルにのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
+      ],
       "Error: Some of the shapefiles seem to be missing.": [
         "シェープファイルのうちいくつかのファイルが不足しています。"
       ],
       "Error: Can not upload multiple files.": [
         "複数のファイルをアップロードできません。"
-      ],
-      "Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. Please try uploading again.": [
-        "エラー: 現在 GeoJSON・CSV・MBTiles ファイルまたはシェープファイルにのみ対応しています。ファイルをご確認の上、もう一度アップロードを試してください。"
       ],
       "Error: The file you selected was too big. Please upload a file less than %d MB.": [
         "エラー: %d MB 以下のファイルをアップロードしてください。"
@@ -326,6 +331,8 @@
       ],
       "Your plan": ["あなたのプラン"],
       "Map loads by API key": ["API キー別の地図の表示回数"],
+      "Start date": ["開始日"],
+      "End date": ["終了日"],
       "API keys with no map loads will not be shown in the graph.": [
         "表示回数の無いAPIキーはグラフに表示されません。"
       ],
