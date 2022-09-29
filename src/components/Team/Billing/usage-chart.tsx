@@ -53,6 +53,7 @@ type UsageChartProps = {
 
 type ChartDataset = {
   label?: string,
+  keyName: string,
   data: number[],
   fill: boolean,
   backgroundColor: string,
@@ -128,6 +129,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
       datasets.push(
         {
           label: `${apiKeyName} : ${totalCount}`,
+          keyName: apiKeyName,
           data: countData,
           fill: false,
           backgroundColor: colorScheme[colorIndex],
@@ -165,6 +167,30 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
     setSubQueryDateRange({ usageStart: start, usageEnd: end });
   }, [end, start]);
 
+  const onDownloadClick = useCallback(() => {
+    if (subOrFreePlan && chartData) {
+      const usageStart = moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD');
+      const usageEnd = moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD');
+
+      const header = ['date', ...chartData.datasets.map((dataset) => dataset.keyName)].map((val) => `"${val}"`).join(',');
+
+      const rows = getRangeDate(
+        moment(subOrFreePlan.current_period_start),
+        moment(subOrFreePlan.current_period_end),
+      )
+        .map((date, index) => [date.format('YYYY-MM-DD'), chartData.datasets.map((dataset) => dataset.data[index])].join(','));
+
+
+      const csv = [header, ...rows].join('\n');
+      const element = document.createElement('a');
+      const file = new Blob([csv], {type: 'text/csv'});
+      element.href = URL.createObjectURL(file);
+      element.download = `${usageStart}_${usageEnd}.csv`;
+      document.body.appendChild(element); // Required for this to work in FireFox
+      element.click();
+      document.body.removeChild(element);
+    }
+  }, [chartData, subOrFreePlan]);
 
   if (typeof chartData === 'undefined') {
     return null;
@@ -175,6 +201,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
   moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD') === end;
 
   return <Paper className="usage-details-info">
+
     <Typography component="h2" className="module-title">
       {__('Map loads by API key')}
     </Typography>
@@ -184,24 +211,33 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
         paddingLeft: 52,
         paddingRight: 52,
       }}>
-        <form>
-          <Box display={'flex'} alignItems={'center'}>
-            <DatePicker disabled={!subOrFreePlan || isFetching} label={__('Start date')} value={start} onChange={ (date) => setStart(date) }></DatePicker>
-            <DatePicker disabled={!subOrFreePlan || isFetching} label={__('End date')} value={end} onChange={ (date) => setEnd(date) }></DatePicker>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={setCustomRange}
-              disabled={!subOrFreePlan || isFetching || rangeDisabled}
-              type={'button'}
+        <Box display={'flex'} alignItems={'center'}>
+          <DatePicker disabled={!subOrFreePlan || isFetching} label={__('Start date')} value={start} onChange={ (date) => setStart(date) }></DatePicker>
+          <DatePicker disabled={!subOrFreePlan || isFetching} label={__('End date')} value={end} onChange={ (date) => setEnd(date) }></DatePicker>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={setCustomRange}
+            disabled={!subOrFreePlan || isFetching || rangeDisabled}
+            type={'button'}
+          >
+            {__('Update')}
+          </Button>
+        </Box>
+        <div>
+          <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
+          <p className="chart-helper-text">
+            {__('API keys with no map loads will not be shown in the graph.')}
+            <button
+              onClick={onDownloadClick}
+              disabled={!subOrFreePlan || isFetching}
             >
-              {__('Update')}
-            </Button>
-          </Box>
-        </form>
-        <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
-        <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
+              {__('Download')}
+            </button>
+          </p>
+        </div>
       </Box>
+
       <Box position={'absolute'} left={0} bottom={'50%'}>
         <IconButton onClick={onPrevClick} disabled={!subOrFreePlan || isFetching}>
           <ChevronLeft fontSize={'large'} />
