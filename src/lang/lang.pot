@@ -804,7 +804,7 @@ msgstr ""
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131
-#: src/components/Team/Billing/usage-chart.tsx:198
+#: src/components/Team/Billing/usage-chart.tsx:281
 msgid "Update"
 msgstr ""
 
@@ -843,19 +843,39 @@ msgstr ""
 msgid "Your plan"
 msgstr ""
 
-#: src/components/Team/Billing/usage-chart.tsx:179
-msgid "Map loads by API key"
+#: src/components/Team/Billing/usage-chart.tsx:189
+msgid "date"
 msgstr ""
 
-#: src/components/Team/Billing/usage-chart.tsx:189
+#: src/components/Team/Billing/usage-chart.tsx:214
+msgid "total"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:263
+msgid "Map loads details by API key"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:272
 msgid "Start date"
 msgstr ""
 
-#: src/components/Team/Billing/usage-chart.tsx:190
+#: src/components/Team/Billing/usage-chart.tsx:273
 msgid "End date"
 msgstr ""
 
-#: src/components/Team/Billing/usage-chart.tsx:203
+#: src/components/Team/Billing/usage-chart.tsx:289
+msgid "Download"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:298
+msgid "HTML format"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:299
+msgid "CSV format"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:305
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr ""
 

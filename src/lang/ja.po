@@ -302,8 +302,7 @@ msgstr ""
 
 #: src/components/Data/ImportDropZone.tsx:57
 msgid "Error: Please select at least one file."
-msgstr ""
-"エラー: 少なくとも1つのファイルを選択してください。"
+msgstr "エラー: 少なくとも1つのファイルを選択してください。"
 
 #: src/components/Data/ImportDropZone.tsx:66
 msgid ""
@@ -861,7 +860,7 @@ msgstr "支払い履歴はありません。"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131
-#: src/components/Team/Billing/usage-chart.tsx:198
+#: src/components/Team/Billing/usage-chart.tsx:281
 msgid "Update"
 msgstr "更新"
 
@@ -903,19 +902,39 @@ msgstr ""
 msgid "Your plan"
 msgstr "あなたのプラン"
 
-#: src/components/Team/Billing/usage-chart.tsx:179
-msgid "Map loads by API key"
-msgstr "API キー別の地図の表示回数"
-
 #: src/components/Team/Billing/usage-chart.tsx:189
+msgid "date"
+msgstr "日付"
+
+#: src/components/Team/Billing/usage-chart.tsx:214
+msgid "total"
+msgstr "合計"
+
+#: src/components/Team/Billing/usage-chart.tsx:263
+msgid "Map loads details by API key"
+msgstr "API キー別の地図の表示回数の詳細"
+
+#: src/components/Team/Billing/usage-chart.tsx:272
 msgid "Start date"
 msgstr "開始日"
 
-#: src/components/Team/Billing/usage-chart.tsx:190
+#: src/components/Team/Billing/usage-chart.tsx:273
 msgid "End date"
 msgstr "終了日"
 
-#: src/components/Team/Billing/usage-chart.tsx:203
+#: src/components/Team/Billing/usage-chart.tsx:289
+msgid "Download"
+msgstr "ダウンロード"
+
+#: src/components/Team/Billing/usage-chart.tsx:298
+msgid "HTML format"
+msgstr "HTML フォーマット"
+
+#: src/components/Team/Billing/usage-chart.tsx:299
+msgid "CSV format"
+msgstr "CSV フォーマット"
+
+#: src/components/Team/Billing/usage-chart.tsx:305
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 
@@ -1733,9 +1752,6 @@ msgstr "6"
 
 #~ msgid "Total Count of Features: %s"
 #~ msgstr "%s 件のデータ"
-
-#~ msgid "Download"
-#~ msgstr "GeoJSON をダウンロード"
 
 #~ msgid "Or"
 #~ msgstr "または"

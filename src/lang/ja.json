@@ -330,9 +330,14 @@
         "料金プランを変更できませんでした。チームメンバーが1人になるように調整してから料金プランの変更を行ってください。それでもこのエラーが発生する場合は、お問い合わせください。"
       ],
       "Your plan": ["あなたのプラン"],
-      "Map loads by API key": ["API キー別の地図の表示回数"],
+      "date": ["日付"],
+      "total": ["合計"],
+      "Map loads details by API key": ["API キー別の地図の表示回数の詳細"],
       "Start date": ["開始日"],
       "End date": ["終了日"],
+      "Download": ["ダウンロード"],
+      "HTML format": ["HTML フォーマット"],
+      "CSV format": ["CSV フォーマット"],
       "API keys with no map loads will not be shown in the graph.": [
         "表示回数の無いAPIキーはグラフに表示されません。"
       ],
