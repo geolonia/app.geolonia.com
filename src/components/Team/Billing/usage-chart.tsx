@@ -45,7 +45,7 @@ const CHARTJS_OPTIONS: ChartOptions<'bar'> = {
 const getRangeDate = (startDate: moment.Moment, endDate: moment.Moment) => {
   const dates: moment.Moment[] = [];
   let currentDate: moment.Moment = startDate;
-  while (currentDate < endDate) {
+  while (currentDate <= endDate) {
     dates.push(currentDate);
     currentDate = currentDate.clone().add(1, 'days');
   }
