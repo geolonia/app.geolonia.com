@@ -278,6 +278,8 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
   moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD') === start &&
   moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD') === end;
 
+  const noKeys = chartData.datasets.length === 0;
+
   return <Paper className="usage-details-info">
 
     <Typography component="h2" className="module-title">
@@ -305,7 +307,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
             variant="contained"
             color="primary"
             onClick={handleToggleDownloadMenu}
-            disabled={!subOrFreePlan || isFetching}
+            disabled={!subOrFreePlan || isFetching || noKeys}
             endIcon={<KeyboardArrowDown />}
           >
             {__('Download')}
@@ -317,8 +319,8 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
             open={open}
             onClose={handleCloseDownloadMenu}
           >
-            <MenuItem onClick={onDownloadClick} disabled={!subOrFreePlan || isFetching} data-format={'html'}>{__('HTML format')}</MenuItem>
-            <MenuItem onClick={onDownloadClick} disabled={!subOrFreePlan || isFetching} data-format={'csv'}>{__('CSV format')}</MenuItem>
+            <MenuItem onClick={onDownloadClick} disabled={!subOrFreePlan || isFetching || noKeys} data-format={'html'}>{__('HTML format')}</MenuItem>
+            <MenuItem onClick={onDownloadClick} disabled={!subOrFreePlan || isFetching || noKeys} data-format={'csv'}>{__('CSV format')}</MenuItem>
           </Menu>
         </Box>
         <div>
