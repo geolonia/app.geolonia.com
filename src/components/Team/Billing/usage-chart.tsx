@@ -194,16 +194,26 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
         .map((date, index) => [date.format('YYYY-MM-DD'), ...chartData.datasets.map((dataset) => dataset.data[index])]);
 
       let data: string;
-      const element = document.createElement('a');
+      const anchor = document.createElement('a');
       const { format } = e.currentTarget.dataset;
       if (format === 'csv') {
         const header = headerItems.map((val) => `"${val}"`).join(',');
         data = [header, ...rows.map((row) => row.join(','))].join('\n');
-        element.download = `${usageStart}_${usageEnd}.${format}`;
+        anchor.download = `${usageStart}_${usageEnd}.${format}`;
       } else if (format === 'html') {
         const summary = [];
 
-        data = '<html><head><meta charset="utf-8"></head><body><table>';
+        data = `<html>
+          <head>
+            <meta charset="utf-8">
+            <style>
+              table { border-collapse: collapse; }
+              td, th { border: 1px solid black; padding: 3px 5px 2px; }
+              td { text-align: right; }
+            </style>
+          </head>
+          <body>
+            <table>`;
         data += `<thead><tr>${headerItems.map((item) => `<th>${item}</th>`).join('')}</tr></thead>`;
         data += '<tbody>';
         for (let index1 = 0; index1 < rows.length; index1++) {
@@ -211,7 +221,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
           for (let index2 = 0; index2 < rows[index1].length; index2++) {
             const value = rows[index1][index2];
             if (index2 === 0) {
-              summary[index2] = __('total');
+              summary[index2] = __('sub total');
               data += `<th>${value}</th>`;
             } else {
               if (summary[index2] === undefined) {
@@ -224,7 +234,8 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
           data += '</tr>';
         }
         data += '</tbody>';
-        data += '<tfoot><tr>';
+        data += '<tfoot>';
+        data += '<tr>';
         for (let index = 0; index < summary.length; index++) {
           const value = summary[index];
           if (index === 0) {
@@ -233,18 +244,28 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
             data += `<td>${value}</td>`;
           }
         }
-        data += '</tfoot></tr>';
+        data += '</tr>';
+        if (summary.length > 1) {
+          const total = summary.reduce<number>((prev, value) => prev + (typeof value === 'number' ? value : 0), 0);
+          data += `<tr><th>${__('total')}</th>`;
+          for (let index = 0; index < summary.length - 2; index++) {
+            data += '<td></td>';
+          }
+          data += `<td>${total}</td></tr>`;
+        }
+        data += '</tfoot>';
         data += '</table></body></html>';
+        anchor.target = '_blank';
       } else {
         throw new Error(`Invalid format ${format}.`);
       }
 
       const file = new Blob([data], { type: `text/${format}` });
       const blobUrl = URL.createObjectURL(file);
-      element.href = blobUrl;
-      document.body.appendChild(element); // Required for this to work in FireFox
-      element.click();
-      document.body.removeChild(element);
+      anchor.href = blobUrl;
+      document.body.appendChild(anchor); // Required for this to work in FireFox
+      anchor.click();
+      document.body.removeChild(anchor);
       URL.revokeObjectURL(blobUrl);
     }
   }, [chartData, subOrFreePlan]);

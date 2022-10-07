@@ -860,7 +860,7 @@ msgstr "支払い履歴はありません。"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131
-#: src/components/Team/Billing/usage-chart.tsx:281
+#: src/components/Team/Billing/usage-chart.tsx:302
 msgid "Update"
 msgstr "更新"
 
@@ -906,35 +906,39 @@ msgstr "あなたのプラン"
 msgid "date"
 msgstr "日付"
 
-#: src/components/Team/Billing/usage-chart.tsx:214
+#: src/components/Team/Billing/usage-chart.tsx:224
+msgid "sub total"
+msgstr "小計"
+
+#: src/components/Team/Billing/usage-chart.tsx:250
 msgid "total"
 msgstr "合計"
 
-#: src/components/Team/Billing/usage-chart.tsx:263
+#: src/components/Team/Billing/usage-chart.tsx:284
 msgid "Map loads details by API key"
 msgstr "API キー別の地図の表示回数の詳細"
 
-#: src/components/Team/Billing/usage-chart.tsx:272
+#: src/components/Team/Billing/usage-chart.tsx:293
 msgid "Start date"
 msgstr "開始日"
 
-#: src/components/Team/Billing/usage-chart.tsx:273
+#: src/components/Team/Billing/usage-chart.tsx:294
 msgid "End date"
 msgstr "終了日"
 
-#: src/components/Team/Billing/usage-chart.tsx:289
+#: src/components/Team/Billing/usage-chart.tsx:311
 msgid "Download"
 msgstr "ダウンロード"
 
-#: src/components/Team/Billing/usage-chart.tsx:298
+#: src/components/Team/Billing/usage-chart.tsx:320
 msgid "HTML format"
 msgstr "HTML フォーマット"
 
-#: src/components/Team/Billing/usage-chart.tsx:299
+#: src/components/Team/Billing/usage-chart.tsx:321
 msgid "CSV format"
 msgstr "CSV フォーマット"
 
-#: src/components/Team/Billing/usage-chart.tsx:305
+#: src/components/Team/Billing/usage-chart.tsx:327
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 

@@ -331,6 +331,7 @@
       ],
       "Your plan": ["あなたのプラン"],
       "date": ["日付"],
+      "sub total": ["小計"],
       "total": ["合計"],
       "Map loads details by API key": ["API キー別の地図の表示回数の詳細"],
       "Start date": ["開始日"],
