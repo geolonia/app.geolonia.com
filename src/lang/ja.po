@@ -86,8 +86,8 @@ msgid ""
 "We currently support uploading GeoJSON, CSV, MBTiles and Shapefile files."
 msgstr ""
 "ここでは位置情報データをアップロードすることができます。またWebサイトに地図を"
-"追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSON・CSV・MBTiles・シェープファイル"
-"ファイルに対応しています。"
+"追加するための埋め込み用HTMLコードも入手できます。現在、GeoJSON・CSV・"
+"MBTiles・シェープファイルファイルに対応しています。"
 
 #: src/components/Data/GeoJson/hooks/use-gvp.ts:82
 msgid "Uploading now.."
@@ -115,7 +115,7 @@ msgid "Import GeoJSON from your computer."
 msgstr "GeoJSON をコンピューターからインポートしましょう。"
 
 #: src/components/Data/GeoJsonImporter.tsx:110
-#: src/components/Data/ImportDropZone.tsx:107
+#: src/components/Data/ImportDropZone.tsx:116
 msgid "Maximum upload file size: %d MB"
 msgstr "最大アップロードファイルサイズ: %d MB"
 
@@ -265,24 +265,26 @@ msgstr "データセット"
 msgid "Network Error."
 msgstr "通信エラー。"
 
-#: src/components/Data/ImportDropZone.tsx:102
+#: src/components/Data/ImportDropZone.tsx:111
 msgid "Drop file to add your map."
 msgstr "地図に追加するファイルをドロップして下さい。"
 
-#: src/components/Data/ImportDropZone.tsx:106
+#: src/components/Data/ImportDropZone.tsx:115
 msgid "Upload a file from your computer."
 msgstr "ファイルをアップロードしましょう。"
 
-#: src/components/Data/ImportDropZone.tsx:110
+#: src/components/Data/ImportDropZone.tsx:119
 msgid ""
 "Drag and drop a file here to add your map, or click to choose your file."
 msgstr ""
 "地図に追加するファイルをドラッグ&ドロップしてください。クリックするとファイル"
 "を選択してアップロードすることが出来ます。"
 
-#: src/components/Data/ImportDropZone.tsx:111
+#: src/components/Data/ImportDropZone.tsx:120
 msgid "When uploading a shapefile, please select all associated files."
-msgstr "シェープファイルをアップロードする場合、関連づけられた全てのファイルを選択してください。"
+msgstr ""
+"シェープファイルをアップロードする場合、関連づけられた全てのファイルを選択し"
+"てください。"
 
 #: src/components/Data/ImportDropZone.tsx:34
 msgid "Failed to add your data. Your data might be invalid format."
@@ -298,23 +300,27 @@ msgstr ""
 "ファイルをアップロードできません。https://geolonia.com/contact/ からカスタ"
 "マーサポートに連絡してください。"
 
-#: src/components/Data/ImportDropZone.tsx:60
-msgid "Error: Some of the shapefiles seem to be missing."
-msgstr "シェープファイルのうちいくつかのファイルが不足しています。"
+#: src/components/Data/ImportDropZone.tsx:57
+msgid "Error: Please select at least one file."
+msgstr "エラー: 少なくとも1つのファイルを選択してください。"
 
-#: src/components/Data/ImportDropZone.tsx:62
-msgid "Error: Can not upload multiple files."
-msgstr "複数のファイルをアップロードできません。"
-
-#: src/components/Data/ImportDropZone.tsx:72
+#: src/components/Data/ImportDropZone.tsx:66
 msgid ""
 "Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. "
 "Please try uploading again."
 msgstr ""
-"エラー: 現在 GeoJSON・CSV・MBTiles ファイルまたはシェープファイルにのみ対応しています。ファイルをご確"
-"認の上、もう一度アップロードを試してください。"
+"エラー: 現在 GeoJSON・CSV・MBTiles ファイルまたはシェープファイルにのみ対応し"
+"ています。ファイルをご確認の上、もう一度アップロードを試してください。"
 
-#: src/components/Data/ImportDropZone.tsx:79
+#: src/components/Data/ImportDropZone.tsx:80
+msgid "Error: Some of the shapefiles seem to be missing."
+msgstr "シェープファイルのうちいくつかのファイルが不足しています。"
+
+#: src/components/Data/ImportDropZone.tsx:82
+msgid "Error: Can not upload multiple files."
+msgstr "複数のファイルをアップロードできません。"
+
+#: src/components/Data/ImportDropZone.tsx:89
 msgid ""
 "Error: The file you selected was too big. Please upload a file less than %d "
 "MB."
@@ -854,6 +860,7 @@ msgstr "支払い履歴はありません。"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131
+#: src/components/Team/Billing/usage-chart.tsx:302
 msgid "Update"
 msgstr "更新"
 
@@ -895,11 +902,43 @@ msgstr ""
 msgid "Your plan"
 msgstr "あなたのプラン"
 
-#: src/components/Team/Billing/usage-chart.tsx:121
-msgid "Map loads by API key"
-msgstr "API キー別の地図の表示回数"
+#: src/components/Team/Billing/usage-chart.tsx:189
+msgid "date"
+msgstr "日付"
 
-#: src/components/Team/Billing/usage-chart.tsx:124
+#: src/components/Team/Billing/usage-chart.tsx:224
+msgid "sub total"
+msgstr "小計"
+
+#: src/components/Team/Billing/usage-chart.tsx:250
+msgid "total"
+msgstr "合計"
+
+#: src/components/Team/Billing/usage-chart.tsx:284
+msgid "Map loads details by API key"
+msgstr "API キー別の地図の表示回数の詳細"
+
+#: src/components/Team/Billing/usage-chart.tsx:293
+msgid "Start date"
+msgstr "開始日"
+
+#: src/components/Team/Billing/usage-chart.tsx:294
+msgid "End date"
+msgstr "終了日"
+
+#: src/components/Team/Billing/usage-chart.tsx:311
+msgid "Download"
+msgstr "ダウンロード"
+
+#: src/components/Team/Billing/usage-chart.tsx:320
+msgid "HTML format"
+msgstr "HTML フォーマット"
+
+#: src/components/Team/Billing/usage-chart.tsx:321
+msgid "CSV format"
+msgstr "CSV フォーマット"
+
+#: src/components/Team/Billing/usage-chart.tsx:327
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 
@@ -1691,10 +1730,6 @@ msgstr "6"
 #~ msgid "Or click to choose your file"
 #~ msgstr "もしくは、クリックしてファイルを選択してください。"
 
-#~ msgid "Error: Please upload *.geojson or *.json file."
-#~ msgstr ""
-#~ "エラー: 拡張子が .geojson か .json のファイルをアップロードして下さい。"
-
 #~ msgctxt "Default value of latitude for map"
 #~ msgid "0"
 #~ msgstr "35.65810422222222"
@@ -1721,9 +1756,6 @@ msgstr "6"
 
 #~ msgid "Total Count of Features: %s"
 #~ msgstr "%s 件のデータ"
-
-#~ msgid "Download"
-#~ msgstr "GeoJSON をダウンロード"
 
 #~ msgid "Or"
 #~ msgstr "または"

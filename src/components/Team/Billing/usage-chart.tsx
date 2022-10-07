@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +12,12 @@ import { useSelectedTeam } from '../../../redux/hooks';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
+import KeyboardArrowDown from '@material-ui/icons/KeyboardArrowDown';
 import Box from '@material-ui/core/Box';
+import { DatePicker } from '../../custom/date-picker';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 
 
 const CHARTJS_OPTIONS: ChartOptions<'bar'> = {
@@ -26,6 +31,9 @@ const CHARTJS_OPTIONS: ChartOptions<'bar'> = {
     },
   },
   plugins: {
+    legend: {
+      position: 'bottom',
+    },
     tooltip: {
       enabled: false,
       position: 'nearest',
@@ -51,6 +59,7 @@ type UsageChartProps = {
 
 type ChartDataset = {
   label?: string,
+  keyName: string,
   data: number[],
   fill: boolean,
   backgroundColor: string,
@@ -76,6 +85,24 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
   const coalescedPlanDetails = planDetailsSub || planDetails;
   const subOrFreePlan = coalescedPlanDetails.subscription || coalescedPlanDetails.freePlanDetails;
   const { usage } = coalescedPlanDetails;
+
+  const [start, setStart] = useState('');
+  const [end, setEnd] = useState('');
+
+  // download menu
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = !!anchorEl;
+  const handleToggleDownloadMenu = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  }, []);
+  const handleCloseDownloadMenu = useCallback(() => setAnchorEl(null), []);
+
+  useEffect(() => {
+    if (subOrFreePlan) {
+      setStart(moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD'));
+      setEnd(moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD'));
+    }
+  }, [subOrFreePlan]);
 
   const chartData = useMemo<ChartData>(() => {
     if (!subOrFreePlan) return undefined;
@@ -117,6 +144,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
       datasets.push(
         {
           label: `${apiKeyName} : ${totalCount}`,
+          keyName: apiKeyName,
           data: countData,
           fill: false,
           backgroundColor: colorScheme[colorIndex],
@@ -150,13 +178,112 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
 
   }, [subOrFreePlan]);
 
+  const setCustomRange = useCallback(() => {
+    setSubQueryDateRange({ usageStart: start, usageEnd: end });
+  }, [end, start]);
+
+  const onDownloadClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    if (subOrFreePlan && chartData) {
+      const usageStart = moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD');
+      const usageEnd = moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD');
+      const headerItems = [__('date'), ...chartData.datasets.map((dataset) => dataset.keyName)];
+      const rows = getRangeDate(
+        moment(subOrFreePlan.current_period_start),
+        moment(subOrFreePlan.current_period_end),
+      )
+        .map((date, index) => [date.format('YYYY-MM-DD'), ...chartData.datasets.map((dataset) => dataset.data[index])]);
+
+      let data: string;
+      const anchor = document.createElement('a');
+      const { format } = e.currentTarget.dataset;
+      if (format === 'csv') {
+        const header = headerItems.map((val) => `"${val}"`).join(',');
+        data = [header, ...rows.map((row) => row.join(','))].join('\n');
+        anchor.download = `${usageStart}_${usageEnd}.${format}`;
+      } else if (format === 'html') {
+        const summary = [];
+
+        data = `<html>
+          <head>
+            <meta charset="utf-8">
+            <style>
+              table { border-collapse: collapse; }
+              td, th { border: 1px solid black; padding: 3px 5px 2px; }
+              td { text-align: right; }
+            </style>
+          </head>
+          <body>
+            <table>`;
+        data += `<thead><tr>${headerItems.map((item) => `<th>${item}</th>`).join('')}</tr></thead>`;
+        data += '<tbody>';
+        for (let index1 = 0; index1 < rows.length; index1++) {
+          data += '<tr>';
+          for (let index2 = 0; index2 < rows[index1].length; index2++) {
+            const value = rows[index1][index2];
+            if (index2 === 0) {
+              summary[index2] = __('sub total');
+              data += `<th>${value}</th>`;
+            } else {
+              if (summary[index2] === undefined) {
+                summary[index2] = 0;
+              }
+              (summary[index2] as number) += (value as number);
+              data += `<td>${value}</td>`;
+            }
+          }
+          data += '</tr>';
+        }
+        data += '</tbody>';
+        data += '<tfoot>';
+        data += '<tr>';
+        for (let index = 0; index < summary.length; index++) {
+          const value = summary[index];
+          if (index === 0) {
+            data += `<th>${value}</th>`;
+          } else {
+            data += `<td>${value}</td>`;
+          }
+        }
+        data += '</tr>';
+        if (summary.length > 1) {
+          const total = summary.reduce<number>((prev, value) => prev + (typeof value === 'number' ? value : 0), 0);
+          data += `<tr><th>${__('total')}</th>`;
+          for (let index = 0; index < summary.length - 2; index++) {
+            data += '<td></td>';
+          }
+          data += `<td>${total}</td></tr>`;
+        }
+        data += '</tfoot>';
+        data += '</table></body></html>';
+        anchor.target = '_blank';
+      } else {
+        throw new Error(`Invalid format ${format}.`);
+      }
+
+      const file = new Blob([data], { type: `text/${format}` });
+      const blobUrl = URL.createObjectURL(file);
+      anchor.href = blobUrl;
+      document.body.appendChild(anchor); // Required for this to work in FireFox
+      anchor.click();
+      document.body.removeChild(anchor);
+      URL.revokeObjectURL(blobUrl);
+    }
+  }, [chartData, subOrFreePlan]);
+
   if (typeof chartData === 'undefined') {
     return null;
   }
 
+  const rangeDisabled = subOrFreePlan &&
+  moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD') === start &&
+  moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD') === end;
+
+  const noKeys = chartData.datasets.length === 0;
+
   return <Paper className="usage-details-info">
+
     <Typography component="h2" className="module-title">
-      {__('Map loads by API key')}
+      {__('Map loads details by API key')}
     </Typography>
     <Box position={'relative'}>
       <Box style={{
@@ -164,9 +291,46 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
         paddingLeft: 52,
         paddingRight: 52,
       }}>
-        <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
-        <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
+        <Box display={'flex'} alignItems={'center'} justifyContent={'end'} gridColumnGap={5}>
+          <DatePicker disabled={!subOrFreePlan || isFetching} label={__('Start date')} value={start} onChange={ (date) => setStart(date) }></DatePicker>
+          <DatePicker disabled={!subOrFreePlan || isFetching} label={__('End date')} value={end} onChange={ (date) => setEnd(date) }></DatePicker>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={setCustomRange}
+            disabled={!subOrFreePlan || isFetching || rangeDisabled}
+            type={'button'}
+          >
+            {__('Update')}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleToggleDownloadMenu}
+            disabled={!subOrFreePlan || isFetching || noKeys}
+            endIcon={<KeyboardArrowDown />}
+          >
+            {__('Download')}
+          </Button>
+          <Menu
+            className={'downloadFormatMenu'}
+            anchorEl={anchorEl}
+            keepMounted
+            open={open}
+            onClose={handleCloseDownloadMenu}
+          >
+            <MenuItem onClick={onDownloadClick} disabled={!subOrFreePlan || isFetching || noKeys} data-format={'html'}>{__('HTML format')}</MenuItem>
+            <MenuItem onClick={onDownloadClick} disabled={!subOrFreePlan || isFetching || noKeys} data-format={'csv'}>{__('CSV format')}</MenuItem>
+          </Menu>
+        </Box>
+        <div>
+          <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
+          <p className="chart-helper-text">
+            {__('API keys with no map loads will not be shown in the graph.')}
+          </p>
+        </div>
       </Box>
+
       <Box position={'absolute'} left={0} bottom={'50%'}>
         <IconButton onClick={onPrevClick} disabled={!subOrFreePlan || isFetching}>
           <ChevronLeft fontSize={'large'} />
