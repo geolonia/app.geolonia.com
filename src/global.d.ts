@@ -180,7 +180,7 @@ declare namespace Geolonia {
       current_period_end: string
     };
   };
-  type Role = 'Owner' | 'Member' | 'Suspended';
+  type Role = 'Owner' | 'Member' | 'Suspended' | 'Operator';
   type Member = Omit<Geolonia.User, 'links'> & {
     userSub: string;
     role: Role;

@@ -89,7 +89,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
     await updateTeam({ teamId, planId });
   }, [planId, teamId, updateTeam]);
 
-  const isOwner = team.role === Roles.Owner;
+  const isOwner = team.role === Roles.Owner || team.role ===  Roles.Operator;
   const currentPlan = plans.find((p) => p.planId === planId);
   const { selectedTeam } = useSelectedTeam();
 
