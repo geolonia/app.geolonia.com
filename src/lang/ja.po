@@ -64,7 +64,7 @@ msgstr "確認のために delete と入力してください。"
 
 #: src/components/Data/GeoJson.tsx:53 src/components/Data/GeoJsons.tsx:80
 #: src/components/Maps/APIKey.tsx:92 src/components/Maps/APIKeys.tsx:37
-#: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:316
+#: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:317
 #: src/components/Team/general/index.tsx:26
 #: src/components/Team/members/index.tsx:149 src/components/User/User.tsx:15
 msgid "Home"
@@ -767,35 +767,35 @@ msgstr "次回のお支払日"
 msgid "Map loads"
 msgstr "地図の表示回数"
 
-#: src/components/Team/Billing.tsx:159
+#: src/components/Team/Billing.tsx:160
 msgid " / %s loads"
 msgstr " / %s 回"
 
-#: src/components/Team/Billing.tsx:163
+#: src/components/Team/Billing.tsx:164
 msgid "Last updated %s"
 msgstr "最終更新: %s"
 
-#: src/components/Team/Billing.tsx:166
+#: src/components/Team/Billing.tsx:167
 msgid "Map loads have reached the limit."
 msgstr "地図表示回数が上限に達したため表示が制限されています。"
 
-#: src/components/Team/Billing.tsx:167
+#: src/components/Team/Billing.tsx:168
 msgid " Please upgrade your plan to unlock it."
 msgstr "制限を解除するにはプランをアップグレードしてください。"
 
-#: src/components/Team/Billing.tsx:174
+#: src/components/Team/Billing.tsx:175
 msgid "Charges"
 msgstr "料金"
 
-#: src/components/Team/Billing.tsx:196
+#: src/components/Team/Billing.tsx:197
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:206
+#: src/components/Team/Billing.tsx:207
 msgid "Current account credit:"
 msgstr "クレジット残高"
 
-#: src/components/Team/Billing.tsx:210
+#: src/components/Team/Billing.tsx:211
 msgid ""
 " : While this account has credits available, payments will deduct from "
 "account credit instead of the registered credit card."
@@ -803,54 +803,54 @@ msgstr ""
 "　(現在、クレジットが適用されています。クレジット残高が残っている場合、請求は"
 "クレジット残高から支払われます。)"
 
-#: src/components/Team/Billing.tsx:215
+#: src/components/Team/Billing.tsx:216
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:219
+#: src/components/Team/Billing.tsx:220
 msgid "ending in **%1$s"
 msgstr "クレジットカード（末尾の番号 **%1$s）"
 
-#: src/components/Team/Billing.tsx:229
+#: src/components/Team/Billing.tsx:230
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:242
+#: src/components/Team/Billing.tsx:243
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:248
+#: src/components/Team/Billing.tsx:249
 msgid "Scheduled to expire on %1$s"
 msgstr "%1$s にキャンセルされます"
 
-#: src/components/Team/Billing.tsx:267
+#: src/components/Team/Billing.tsx:268
 msgid "Resume subscription"
 msgstr "自動更新を再開"
 
-#: src/components/Team/Billing.tsx:279
+#: src/components/Team/Billing.tsx:280
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:295
+#: src/components/Team/Billing.tsx:296
 msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
-#: src/components/Team/Billing.tsx:320 src/components/Team/general/index.tsx:30
+#: src/components/Team/Billing.tsx:321 src/components/Team/general/index.tsx:30
 #: src/components/Team/members/index.tsx:153
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:334
+#: src/components/Team/Billing.tsx:335
 msgid "Billing and Plans"
 msgstr "料金プランとお支払い"
 
-#: src/components/Team/Billing.tsx:335
+#: src/components/Team/Billing.tsx:336
 msgid ""
 "You can check and change your current pricing plan and usage status of Team "
 "%s."
 msgstr "チーム「%s」の現在の料金プラン・利用状況の確認、変更ができます。"
 
-#: src/components/Team/Billing.tsx:361
+#: src/components/Team/Billing.tsx:362
 msgid "Payment history"
 msgstr "支払い履歴"
 
@@ -860,7 +860,7 @@ msgstr "支払い履歴はありません。"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131
-#: src/components/Team/Billing/usage-chart.tsx:302
+#: src/components/Team/Billing/usage-chart.tsx:328
 msgid "Update"
 msgstr "更新"
 
@@ -902,43 +902,47 @@ msgstr ""
 msgid "Your plan"
 msgstr "あなたのプラン"
 
-#: src/components/Team/Billing/usage-chart.tsx:189
+#: src/components/Team/Billing/usage-chart.tsx:186
 msgid "date"
 msgstr "日付"
 
-#: src/components/Team/Billing/usage-chart.tsx:224
+#: src/components/Team/Billing/usage-chart.tsx:218
 msgid "sub total"
 msgstr "小計"
 
-#: src/components/Team/Billing/usage-chart.tsx:250
+#: src/components/Team/Billing/usage-chart.tsx:245
 msgid "total"
 msgstr "合計"
 
-#: src/components/Team/Billing/usage-chart.tsx:284
+#: src/components/Team/Billing/usage-chart.tsx:310
 msgid "Map loads details by API key"
 msgstr "API キー別の地図の表示回数の詳細"
 
-#: src/components/Team/Billing/usage-chart.tsx:293
+#: src/components/Team/Billing/usage-chart.tsx:319
 msgid "Start date"
 msgstr "開始日"
 
-#: src/components/Team/Billing/usage-chart.tsx:294
+#: src/components/Team/Billing/usage-chart.tsx:320
 msgid "End date"
 msgstr "終了日"
 
-#: src/components/Team/Billing/usage-chart.tsx:311
+#: src/components/Team/Billing/usage-chart.tsx:337
 msgid "Download"
 msgstr "ダウンロード"
 
-#: src/components/Team/Billing/usage-chart.tsx:320
+#: src/components/Team/Billing/usage-chart.tsx:346
 msgid "HTML format"
 msgstr "HTML フォーマット"
 
-#: src/components/Team/Billing/usage-chart.tsx:321
+#: src/components/Team/Billing/usage-chart.tsx:347
 msgid "CSV format"
 msgstr "CSV フォーマット"
 
-#: src/components/Team/Billing/usage-chart.tsx:327
+#: src/components/Team/Billing/usage-chart.tsx:372
+msgid "total: %s"
+msgstr "合計: %s"
+
+#: src/components/Team/Billing/usage-chart.tsx:377
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 
@@ -1006,7 +1010,7 @@ msgid "Delete"
 msgstr "削除"
 
 #: src/components/Team/general/delete.tsx:57
-#: src/components/custom/get-geolonia.tsx:129 src/constants.ts:35
+#: src/components/custom/get-geolonia.tsx:129 src/constants.ts:36
 #: src/lib/cognito/parse-error.ts:51
 msgid "Unknown error."
 msgstr "不明なエラー。"
@@ -1458,11 +1462,11 @@ msgid ""
 msgstr ""
 "Eメールを確認して <code>123456</code> のような検証コードを入力してください。"
 
-#: src/constants.ts:29
+#: src/constants.ts:30
 msgid "You are not authorized to do this operation."
 msgstr "この操作を行う権限がありません。"
 
-#: src/constants.ts:31
+#: src/constants.ts:32
 msgid "Network error."
 msgstr "通信エラー。"
 

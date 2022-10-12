@@ -4,6 +4,7 @@ export const Roles = {
   Owner: 'Owner' as const,
   Member: 'Member' as const,
   Suspended: 'Suspended' as const,
+  Operator: 'Operator' as const,
 };
 
 export const errorCodes = {

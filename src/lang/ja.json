@@ -339,6 +339,7 @@
       "Download": ["ダウンロード"],
       "HTML format": ["HTML フォーマット"],
       "CSV format": ["CSV フォーマット"],
+      "total: %s": ["合計: %s"],
       "API keys with no map loads will not be shown in the graph.": [
         "表示回数の無いAPIキーはグラフに表示されません。"
       ],

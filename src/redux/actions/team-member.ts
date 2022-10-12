@@ -9,6 +9,7 @@ export const RoleOrders = {
   Owner: 0,
   Member: 1,
   Suspended: 2,
+  Operator: 1000,
 };
 
 type State = Geolonia.Redux.State.TeamMember;
