@@ -106,7 +106,7 @@ msgid "Import GeoJSON from your computer."
 msgstr ""
 
 #: src/components/Data/GeoJsonImporter.tsx:110
-#: src/components/Data/ImportDropZone.tsx:107
+#: src/components/Data/ImportDropZone.tsx:116
 msgid "Maximum upload file size: %d MB"
 msgstr ""
 
@@ -248,19 +248,19 @@ msgstr ""
 msgid "Network Error."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:102
+#: src/components/Data/ImportDropZone.tsx:111
 msgid "Drop file to add your map."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:106
+#: src/components/Data/ImportDropZone.tsx:115
 msgid "Upload a file from your computer."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:110
+#: src/components/Data/ImportDropZone.tsx:119
 msgid "Drag and drop a file here to add your map, or click to choose your file."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:111
+#: src/components/Data/ImportDropZone.tsx:120
 msgid "When uploading a shapefile, please select all associated files."
 msgstr ""
 
@@ -274,21 +274,25 @@ msgid ""
 "https://geolonia.com/contact/"
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:60
-msgid "Error: Some of the shapefiles seem to be missing."
+#: src/components/Data/ImportDropZone.tsx:57
+msgid "Error: Please select at least one file."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:62
-msgid "Error: Can not upload multiple files."
-msgstr ""
-
-#: src/components/Data/ImportDropZone.tsx:72
+#: src/components/Data/ImportDropZone.tsx:66
 msgid ""
 "Error: We currently support GeoJSON, CSV, MBTiles and Shapefile files. "
 "Please try uploading again."
 msgstr ""
 
-#: src/components/Data/ImportDropZone.tsx:79
+#: src/components/Data/ImportDropZone.tsx:80
+msgid "Error: Some of the shapefiles seem to be missing."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:82
+msgid "Error: Can not upload multiple files."
+msgstr ""
+
+#: src/components/Data/ImportDropZone.tsx:89
 msgid ""
 "Error: The file you selected was too big. Please upload a file less than %d "
 "MB."
@@ -800,6 +804,7 @@ msgstr ""
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131
+#: src/components/Team/Billing/usage-chart.tsx:302
 msgid "Update"
 msgstr ""
 
@@ -838,11 +843,43 @@ msgstr ""
 msgid "Your plan"
 msgstr ""
 
-#: src/components/Team/Billing/usage-chart.tsx:121
-msgid "Map loads by API key"
+#: src/components/Team/Billing/usage-chart.tsx:189
+msgid "date"
 msgstr ""
 
-#: src/components/Team/Billing/usage-chart.tsx:124
+#: src/components/Team/Billing/usage-chart.tsx:224
+msgid "sub total"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:250
+msgid "total"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:284
+msgid "Map loads details by API key"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:293
+msgid "Start date"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:294
+msgid "End date"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:311
+msgid "Download"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:320
+msgid "HTML format"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:321
+msgid "CSV format"
+msgstr ""
+
+#: src/components/Team/Billing/usage-chart.tsx:327
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr ""
 

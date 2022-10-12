@@ -194,3 +194,13 @@
     padding-right: 8px;
   }
 }
+
+.downloadFormatMenu{
+  .MuiPopover-paper{
+    margin-top: 45px;
+    box-shadow: none !important;
+    padding: 10px !important;
+    font-size: 14px;
+    border-radius: inherit !important;
+  }
+}
