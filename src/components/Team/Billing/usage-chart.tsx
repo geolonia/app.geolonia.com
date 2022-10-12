@@ -18,7 +18,6 @@ import { DatePicker } from '../../custom/date-picker';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import Grid from '@material-ui/core/Grid';
 
 const CHARTJS_OPTIONS: ChartOptions<'bar'> = {
   responsive: true,
