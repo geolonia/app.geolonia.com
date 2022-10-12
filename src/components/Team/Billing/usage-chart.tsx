@@ -13,6 +13,11 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeft from '@material-ui/icons/ChevronLeft';
 import ChevronRight from '@material-ui/icons/ChevronRight';
 import Box from '@material-ui/core/Box';
+import { DatePicker } from '../../custom/date-picker';
+import Button from '@material-ui/core/Button';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Grid from '@material-ui/core/Grid';
 
 
 const CHARTJS_OPTIONS: ChartOptions<'bar'> = {
@@ -167,12 +172,12 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
         <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
         <p className="chart-helper-text">{__('API keys with no map loads will not be shown in the graph.')}</p>
       </Box>
-      <Box position={'absolute'} left={0} bottom={'50%'}>
+      <Box position={'absolute'} left={-10} bottom={'50%'}>
         <IconButton onClick={onPrevClick} disabled={!subOrFreePlan || isFetching}>
           <ChevronLeft fontSize={'large'} />
         </IconButton>
       </Box>
-      <Box position={'absolute'} right={0} bottom={'50%'}>
+      <Box position={'absolute'} right={-10} bottom={'50%'}>
         <IconButton onClick={onNextClick} disabled={!subOrFreePlan || isFetching}>
           <ChevronRight fontSize={'large'} />
         </IconButton>
