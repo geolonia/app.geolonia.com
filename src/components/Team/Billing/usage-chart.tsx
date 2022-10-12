@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { Bar } from 'react-chartjs-2';
@@ -19,7 +19,6 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 
-
 const CHARTJS_OPTIONS: ChartOptions<'bar'> = {
   responsive: true,
   scales: {
@@ -32,7 +31,7 @@ const CHARTJS_OPTIONS: ChartOptions<'bar'> = {
   },
   plugins: {
     legend: {
-      position: 'bottom',
+      display: false,
     },
     tooltip: {
       enabled: false,
@@ -182,10 +181,8 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
     setSubQueryDateRange({ usageStart: start, usageEnd: end });
   }, [end, start]);
 
-  const onDownloadClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
+  const statisticsData = useMemo(() => {
     if (subOrFreePlan && chartData) {
-      const usageStart = moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD');
-      const usageEnd = moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD');
       const headerItems = [__('date'), ...chartData.datasets.map((dataset) => dataset.keyName)];
       const rows = getRangeDate(
         moment(subOrFreePlan.current_period_start),
@@ -193,17 +190,14 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
       )
         .map((date, index) => [date.format('YYYY-MM-DD'), ...chartData.datasets.map((dataset) => dataset.data[index])]);
 
-      let data: string;
-      const anchor = document.createElement('a');
-      const { format } = e.currentTarget.dataset;
-      if (format === 'csv') {
-        const header = headerItems.map((val) => `"${val}"`).join(',');
-        data = [header, ...rows.map((row) => row.join(','))].join('\n');
-        anchor.download = `${usageStart}_${usageEnd}.${format}`;
-      } else if (format === 'html') {
-        const summary = [];
 
-        data = `<html>
+      const csvHeader = headerItems.map((val) => `"${val}"`).join(',');
+      const csv: string = [csvHeader, ...rows.map((row) => row.join(','))].join('\n');
+
+      let html: string;
+      const summary: (string | number)[] = [];
+
+      html = `<html>
           <head>
             <meta charset="utf-8">
             <style>
@@ -214,47 +208,77 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
           </head>
           <body>
             <table>`;
-        data += `<thead><tr>${headerItems.map((item) => `<th>${item}</th>`).join('')}</tr></thead>`;
-        data += '<tbody>';
-        for (let index1 = 0; index1 < rows.length; index1++) {
-          data += '<tr>';
-          for (let index2 = 0; index2 < rows[index1].length; index2++) {
-            const value = rows[index1][index2];
-            if (index2 === 0) {
-              summary[index2] = __('sub total');
-              data += `<th>${value}</th>`;
-            } else {
-              if (summary[index2] === undefined) {
-                summary[index2] = 0;
-              }
-              (summary[index2] as number) += (value as number);
-              data += `<td>${value}</td>`;
-            }
-          }
-          data += '</tr>';
-        }
-        data += '</tbody>';
-        data += '<tfoot>';
-        data += '<tr>';
-        for (let index = 0; index < summary.length; index++) {
-          const value = summary[index];
-          if (index === 0) {
-            data += `<th>${value}</th>`;
+      html += `<thead><tr>${headerItems.map((item) => `<th>${item}</th>`).join('')}</tr></thead>`;
+      html += '<tbody>';
+      for (let index1 = 0; index1 < rows.length; index1++) {
+        html += '<tr>';
+        for (let index2 = 0; index2 < rows[index1].length; index2++) {
+          const value = rows[index1][index2];
+          if (index2 === 0) {
+            summary[index2] = __('sub total');
+            html += `<th>${value}</th>`;
           } else {
-            data += `<td>${value}</td>`;
+            if (summary[index2] === undefined) {
+              summary[index2] = 0;
+            }
+            (summary[index2] as number) += (value as number);
+            html += `<td>${value}</td>`;
           }
         }
-        data += '</tr>';
-        if (summary.length > 1) {
-          const total = summary.reduce<number>((prev, value) => prev + (typeof value === 'number' ? value : 0), 0);
-          data += `<tr><th>${__('total')}</th>`;
-          for (let index = 0; index < summary.length - 2; index++) {
-            data += '<td></td>';
-          }
-          data += `<td>${total}</td></tr>`;
+        html += '</tr>';
+      }
+      html += '</tbody>';
+      html += '<tfoot>';
+      html += '<tr>';
+      for (let index = 0; index < summary.length; index++) {
+        const value = summary[index];
+        if (index === 0) {
+          html += `<th>${value}</th>`;
+        } else {
+          html += `<td>${value}</td>`;
         }
-        data += '</tfoot>';
-        data += '</table></body></html>';
+      }
+      html += '</tr>';
+
+      const total = summary.reduce<number>((prev, value) => prev + (typeof value === 'number' ? value : 0), 0);
+      if (summary.length > 1) {
+        html += `<tr><th>${__('total')}</th>`;
+        for (let index = 0; index < summary.length - 2; index++) {
+          html += '<td></td>';
+        }
+        html += `<td>${total}</td></tr>`;
+      }
+      html += '</tfoot>';
+      html += '</table></body></html>';
+
+      const legendItems = headerItems.reduce<{ [keyName: string]: { value: number, color: string } }>((prev, keyName, index) => {
+        if (index > 0) {
+          prev[keyName] = {
+            value: summary[index] as number,
+            color: chartData.datasets[index - 1].backgroundColor,
+          };
+        }
+        return prev;
+      }, {});
+
+      return { csv, html, total, legendItems };
+    }
+    return null;
+  }, [chartData, subOrFreePlan]);
+
+
+  const onDownloadClick = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    if (subOrFreePlan && statisticsData) {
+      let data: string;
+      const anchor = document.createElement('a');
+      const { format } = e.currentTarget.dataset;
+      if (format === 'csv') {
+        data = statisticsData.csv!;
+        const usageStart = moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD');
+        const usageEnd = moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD');
+        anchor.download = `${usageStart}_${usageEnd}.${format}`;
+      } else if (format === 'html') {
+        data = statisticsData.html!;
         anchor.target = '_blank';
       } else {
         throw new Error(`Invalid format ${format}.`);
@@ -268,7 +292,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
       document.body.removeChild(anchor);
       URL.revokeObjectURL(blobUrl);
     }
-  }, [chartData, subOrFreePlan]);
+  }, [statisticsData, subOrFreePlan]);
 
   if (typeof chartData === 'undefined') {
     return null;
@@ -325,18 +349,40 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
         </Box>
         <div>
           <Bar data={chartData} options={CHARTJS_OPTIONS} id={'chart-usage-api-key'} height={100} />
-          <p className="chart-helper-text">
-            {__('API keys with no map loads will not be shown in the graph.')}
-          </p>
         </div>
+        { statisticsData && <>
+          <p style={{display: 'flex', justifyContent: 'center' }}>
+            {
+              Object.keys(statisticsData.legendItems).map((keyName) => {
+                const { value, color } = statisticsData.legendItems[keyName];
+                return <div style={ { display: 'inline', margin: '0 10px' } } key={keyName}>
+                  <i style={{
+                    display: 'inline-block',
+                    width: 40,
+                    height: 12,
+                    background: color,
+                    marginRight: 10,
+                  }} />
+                  {`${keyName}: ${value}`}
+                </div>;
+              })
+            }
+          </p>
+          <p style={{display: 'flex', justifyContent: 'center' }}>
+            <em style={ { fontWeight: 'bold', fontStyle: 'normal', textTransform: 'uppercase' } }>{sprintf(__('total: %s'), statisticsData.total)}</em>
+          </p>
+        </>
+        }
+        <p className="chart-helper-text">
+          {__('API keys with no map loads will not be shown in the graph.')}
+        </p>
       </Box>
-
-      <Box position={'absolute'} left={0} bottom={'50%'}>
+      <Box position={'absolute'} left={-10} bottom={'50%'}>
         <IconButton onClick={onPrevClick} disabled={!subOrFreePlan || isFetching}>
           <ChevronLeft fontSize={'large'} />
         </IconButton>
       </Box>
-      <Box position={'absolute'} right={0} bottom={'50%'}>
+      <Box position={'absolute'} right={-10} bottom={'50%'}>
         <IconButton onClick={onNextClick} disabled={!subOrFreePlan || isFetching}>
           <ChevronRight fontSize={'large'} />
         </IconButton>

@@ -89,7 +89,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
     await updateTeam({ teamId, planId });
   }, [planId, teamId, updateTeam]);
 
-  const isOwner = team.role === Roles.Owner;
+  const isOwner = team.role === Roles.Owner || team.role ===  Roles.Operator;
   const currentPlan = plans.find((p) => p.planId === planId);
   const { selectedTeam } = useSelectedTeam();
 
@@ -156,7 +156,8 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
             </Typography>
             <div className={classNames('usage-card-content', isRestricted ? ' is-restricted' : '')}>
               {!usage || typeof usage.count !== 'number' ? '-' : usage.count.toLocaleString()}
-              <small>{sprintf(__(' / %s loads'), maxLoadCount.toLocaleString())}</small>
+              {/* NOTE: 無制限の地図ロードは、十分に大きい maxLoadCount を指定することで現在実装している。 */}
+              <small>{sprintf(__(' / %s loads'), maxLoadCount >= 999_999_999 ? '∞' : maxLoadCount.toLocaleString())}</small>
             </div>
             {/* NOTE: 未更新時（usage.updated = 1970-01-01T00:00:00Z が API から返ってくる） は、非表示にする */ }
             {(usage?.updated && usage.updated >= '2000-01-01T00:00:00Z') && <>
