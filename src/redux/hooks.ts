@@ -51,7 +51,19 @@ export const useSelectedTeam: () => SelectedTeamResult = () => {
   if (selectedTeam && planDetails) {
     const { baseFreeMapLoadCount, customMaxMapLoadCount } = selectedTeam;
     const { count } = planDetails.usage;
-    isRestricted = count > (customMaxMapLoadCount || baseFreeMapLoadCount);
+
+    let maxMapLoadCount: number;
+    if (planDetails.subscription) {
+      if (typeof customMaxMapLoadCount === 'number') {
+        maxMapLoadCount = customMaxMapLoadCount;
+      } else {
+        maxMapLoadCount = Infinity;
+      }
+    } else  {
+      maxMapLoadCount = customMaxMapLoadCount || baseFreeMapLoadCount;
+    }
+    isRestricted = count > maxMapLoadCount;
+
   }
 
   return {

@@ -64,7 +64,7 @@ msgstr "確認のために delete と入力してください。"
 
 #: src/components/Data/GeoJson.tsx:53 src/components/Data/GeoJsons.tsx:80
 #: src/components/Maps/APIKey.tsx:92 src/components/Maps/APIKeys.tsx:37
-#: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:317
+#: src/components/Navigator.tsx:265 src/components/Team/Billing.tsx:320
 #: src/components/Team/general/index.tsx:26
 #: src/components/Team/members/index.tsx:149 src/components/User/User.tsx:15
 msgid "Home"
@@ -768,34 +768,38 @@ msgid "Map loads"
 msgstr "地図の表示回数"
 
 #: src/components/Team/Billing.tsx:160
+msgid " loads"
+msgstr " 回"
+
+#: src/components/Team/Billing.tsx:162
 msgid " / %s loads"
 msgstr " / %s 回"
 
-#: src/components/Team/Billing.tsx:164
+#: src/components/Team/Billing.tsx:167
 msgid "Last updated %s"
 msgstr "最終更新: %s"
 
-#: src/components/Team/Billing.tsx:167
+#: src/components/Team/Billing.tsx:170
 msgid "Map loads have reached the limit."
 msgstr "地図表示回数が上限に達したため表示が制限されています。"
 
-#: src/components/Team/Billing.tsx:168
+#: src/components/Team/Billing.tsx:171
 msgid " Please upgrade your plan to unlock it."
 msgstr "制限を解除するにはプランをアップグレードしてください。"
 
-#: src/components/Team/Billing.tsx:175
+#: src/components/Team/Billing.tsx:178
 msgid "Charges"
 msgstr "料金"
 
-#: src/components/Team/Billing.tsx:197
+#: src/components/Team/Billing.tsx:200
 msgid "Payment information"
 msgstr "支払い情報"
 
-#: src/components/Team/Billing.tsx:207
+#: src/components/Team/Billing.tsx:210
 msgid "Current account credit:"
 msgstr "クレジット残高"
 
-#: src/components/Team/Billing.tsx:211
+#: src/components/Team/Billing.tsx:214
 msgid ""
 " : While this account has credits available, payments will deduct from "
 "account credit instead of the registered credit card."
@@ -803,54 +807,54 @@ msgstr ""
 "　(現在、クレジットが適用されています。クレジット残高が残っている場合、請求は"
 "クレジット残高から支払われます。)"
 
-#: src/components/Team/Billing.tsx:216
+#: src/components/Team/Billing.tsx:219
 msgid "Payment method:"
 msgstr "支払い方法"
 
-#: src/components/Team/Billing.tsx:220
+#: src/components/Team/Billing.tsx:223
 msgid "ending in **%1$s"
 msgstr "クレジットカード（末尾の番号 **%1$s）"
 
-#: src/components/Team/Billing.tsx:230
+#: src/components/Team/Billing.tsx:233
 msgid "Change payment method"
 msgstr "支払い方法を変更"
 
-#: src/components/Team/Billing.tsx:243
+#: src/components/Team/Billing.tsx:246
 msgid "Current Plan"
 msgstr "現在のプラン"
 
-#: src/components/Team/Billing.tsx:249
+#: src/components/Team/Billing.tsx:252
 msgid "Scheduled to expire on %1$s"
 msgstr "%1$s にキャンセルされます"
 
-#: src/components/Team/Billing.tsx:268
+#: src/components/Team/Billing.tsx:271
 msgid "Resume subscription"
 msgstr "自動更新を再開"
 
-#: src/components/Team/Billing.tsx:280
+#: src/components/Team/Billing.tsx:283
 msgid "Change Plan"
 msgstr "プランを変更"
 
-#: src/components/Team/Billing.tsx:296
+#: src/components/Team/Billing.tsx:299
 msgid "Learn more about plans on the pricing page."
 msgstr "プラン詳細については、料金ページをご覧ください。"
 
-#: src/components/Team/Billing.tsx:321 src/components/Team/general/index.tsx:30
+#: src/components/Team/Billing.tsx:324 src/components/Team/general/index.tsx:30
 #: src/components/Team/members/index.tsx:153
 msgid "Team settings"
 msgstr "チーム設定"
 
-#: src/components/Team/Billing.tsx:335
+#: src/components/Team/Billing.tsx:338
 msgid "Billing and Plans"
 msgstr "料金プランとお支払い"
 
-#: src/components/Team/Billing.tsx:336
+#: src/components/Team/Billing.tsx:339
 msgid ""
 "You can check and change your current pricing plan and usage status of Team "
 "%s."
 msgstr "チーム「%s」の現在の料金プラン・利用状況の確認、変更ができます。"
 
-#: src/components/Team/Billing.tsx:362
+#: src/components/Team/Billing.tsx:365
 msgid "Payment history"
 msgstr "支払い履歴"
 
@@ -1575,7 +1579,7 @@ msgstr ""
 "ユーザーが見つかりませんでした。ユーザー名またはメールアドレスを確認してくだ"
 "さい。メールアドレスが認証されていない可能性があります。"
 
-#: src/redux/hooks.ts:120
+#: src/redux/hooks.ts:132
 msgid "Free Plan"
 msgstr "Free プラン"
 
