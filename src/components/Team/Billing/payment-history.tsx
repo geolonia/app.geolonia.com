@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -25,23 +25,23 @@ const useInvoices = (teamId: string) => {
 interface PaymentHistoryInvoiceRowProps {
   invoice: Geolonia.Invoice;
   formatter: ((currency: string) => Intl.NumberFormat);
-  charges: Geolonia.Charge[];
+  charge?: Geolonia.Charge;
 }
 
 const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props) => {
   const {
     invoice,
     formatter,
-    charges,
+    charge,
   } = props;
 
   const {
     total,
     currency,
     period_start,
+    period_end,
     ending_balance,
     starting_balance,
-    id,
     descriptions,
   } = invoice;
 
@@ -56,8 +56,7 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
   //   ((ending_balance || 0) - starting_balance)
   // );
 
-  const charge = charges.find((charge) => charge.invoice === id);
-  const date = moment(period_start * 1000).format('YYYY/MM/DD');
+  const duration = `${moment(period_start * 1000).format('YYYY/MM/DD')} - ${moment(period_end * 1000).format('YYYY/MM/DD')}`;
   const payment = formattedActualPayment;
   const receipt_url = charge && charge.receipt_url;
 
@@ -67,7 +66,7 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
 
   return (
     <TableRow>
-      <TableCell>{date}</TableCell>
+      <TableCell>{duration}</TableCell>
       <TableCell>
         <ul>
           {descriptions
@@ -77,7 +76,7 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
             ))}
         </ul>
       </TableCell>
-      <TableCell>{payment}</TableCell>
+      <TableCell>{`${payment}${charge && charge.refunded ? ` ${__('Refunded')}` : ''}`}</TableCell>
       <TableCell>
         {receipt_url && (
           <a
@@ -101,12 +100,14 @@ const PaymentHistory: React.FC<PaymentHistoryProps> = (props) => {
   const { teamId } = props;
   const language = useUserLanguage();
   const { invoices, charges, loaded } = useInvoices(teamId);
-  const formatter = (currency: string) =>
-    new Intl.NumberFormat(language, { style: 'currency', currency });
-  if (!loaded) {
+
+  const formatter = useCallback((currency: string) =>
+    new Intl.NumberFormat(language, { style: 'currency', currency }), [language]);
+
+  if (!loaded || !invoices || !charges) {
     return null;
   }
-  if (loaded && (invoices || []).length === 0) {
+  if (loaded && invoices.length === 0) {
     return <p>{__('No payment history.')}</p>;
   }
   // const currentBalance =
@@ -118,12 +119,15 @@ const PaymentHistory: React.FC<PaymentHistoryProps> = (props) => {
   return (
     <Table className="payment-info">
       <TableBody>
-        {(invoices || []).map((invoice) => <PaymentHistoryInvoiceRow
-          key={invoice.id}
-          invoice={invoice}
-          formatter={formatter}
-          charges={charges || []}
-        />)}
+        {(invoices || []).map((invoice) => {
+          const charge = charges.find((charge) => charge.invoice === invoice.id);
+          return <PaymentHistoryInvoiceRow
+            key={invoice.id}
+            invoice={invoice}
+            formatter={formatter}
+            charge={charge}
+          />;
+        })}
       </TableBody>
     </Table>
   );
