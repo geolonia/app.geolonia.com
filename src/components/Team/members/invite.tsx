@@ -64,7 +64,7 @@ export const Invite: React.FC<Props> = (props) => {
         } />}
         defaultValue=""
         fieldName="email"
-        fieldLabel={__('Receipient\'s email address')}
+        fieldLabel={__('Recipient\'s email address')}
         fieldType="email"
         errorMessage={message}
         onClick={inviteHandler}

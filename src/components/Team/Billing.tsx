@@ -89,7 +89,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
     await updateTeam({ teamId, planId });
   }, [planId, teamId, updateTeam]);
 
-  const isOwner = team.role === Roles.Owner || team.role ===  Roles.Operator;
+  const isOwnerOrOperator = team.role === Roles.Owner || team.role ===  Roles.Operator;
   const currentPlan = plans.find((p) => p.planId === planId);
   const { selectedTeam } = useSelectedTeam();
 
@@ -110,7 +110,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
       </Box>
     </>}
 
-    { isOwner && <>
+    { isOwnerOrOperator && <>
       <Grid container spacing={3} className="usage-info">
         <Grid item xs={12}>
           <Typography className="usage-info-title" component="h2">
@@ -200,7 +200,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {isOwner && (
+            {isOwnerOrOperator && (
               <>
                 { customer && customer.balance < 0 && <TableRow>
                   <TableCell component="th" scope="row">
@@ -249,7 +249,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
                   { subscription.cancel_at_period_end && sprintf(__('Scheduled to expire on %1$s'), moment(subscription.current_period_end).format('YYYY-MM-DD'))}
                 </>}
               </TableCell>
-              { isOwner && <TableCell align="right">
+              { isOwnerOrOperator && <TableCell align="right">
                 { subscription && subscription.cancel_at_period_end === true ?
                   <>
                     { teamIsUpdating ?
@@ -291,7 +291,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
             </TableRow>
           </TableBody>
         </Table>
-        { isOwner && <p style={{ textAlign: 'right' }}>
+        { isOwnerOrOperator && <p style={{ textAlign: 'right' }}>
           <a href="https://geolonia.com/pricing" target="_blank" rel="noreferrer">
             {__('Learn more about plans on the pricing page.')}
           </a>
@@ -303,7 +303,7 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
 
 const Billing: React.FC = () => {
   const { selectedTeam, isRestricted } = useSelectedTeam();
-  const isOwner = selectedTeam?.role === Roles.Owner;
+  const isOwnerOrOperator = selectedTeam?.role === Roles.Owner || selectedTeam?.role === Roles.Operator;
   const teamName = selectedTeam?.name;
   const teamId = selectedTeam?.teamId;
   const hasCustomMaxMapLoad = !!selectedTeam?.customMaxMapLoadCount;
@@ -357,7 +357,7 @@ const Billing: React.FC = () => {
           </div>
         ) }
 
-        { isOwner && selectedTeam?.billingMode === 'STRIPE' && <Paper>
+        { isOwnerOrOperator && selectedTeam?.billingMode === 'STRIPE' && <Paper>
           <Typography component="h2" className="module-title">
             {__('Payment history')}
           </Typography>
