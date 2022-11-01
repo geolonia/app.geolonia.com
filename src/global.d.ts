@@ -230,6 +230,7 @@ declare namespace Geolonia {
     id: string;
     invoice: string | null;
     receipt_url: string | null;
+    refunded: boolean;
   };
 
   // type TileStatus = 'unknown' | 'idoling' | 'started-uploading' | 'started-processing' | 'created' | 'failure';
