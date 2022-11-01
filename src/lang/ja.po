@@ -1178,7 +1178,7 @@ msgid ""
 msgstr "チーム「%s」にユーザーを招待してコラボレーションしましょう。"
 
 #: src/components/Team/members/invite.tsx:67
-msgid "Receipient's email address"
+msgid "Recipient's email address"
 msgstr "招待するユーザーのメールアドレス"
 
 #: src/components/Team/members/invite.tsx:73

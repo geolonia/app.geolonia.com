@@ -421,7 +421,7 @@
       "Please enter the email address of the person you want to invite to \"%s\".": [
         "チーム「%s」にユーザーを招待してコラボレーションしましょう。"
       ],
-      "Receipient's email address": ["招待するユーザーのメールアドレス"],
+      "Recipient's email address": ["招待するユーザーのメールアドレス"],
       "Send": ["送信"],
       "Successfully send invitation.": ["チームへの招待が送信されました。"],
       "Failed to send invitation.": ["招待の送信に失敗しました。"],

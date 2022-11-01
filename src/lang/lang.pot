@@ -1107,7 +1107,7 @@ msgid "Please enter the email address of the person you want to invite to \"%s\"
 msgstr ""
 
 #: src/components/Team/members/invite.tsx:67
-msgid "Receipient's email address"
+msgid "Recipient's email address"
 msgstr ""
 
 #: src/components/Team/members/invite.tsx:73
