@@ -858,9 +858,13 @@ msgstr "チーム「%s」の現在の料金プラン・利用状況の確認、�
 msgid "Payment history"
 msgstr "支払い履歴"
 
-#: src/components/Team/Billing/payment-history.tsx:110
+#: src/components/Team/Billing/payment-history.tsx:111
 msgid "No payment history."
 msgstr "支払い履歴はありません。"
+
+#: src/components/Team/Billing/payment-history.tsx:79
+msgid "Refunded"
+msgstr "返金"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131
@@ -1836,9 +1840,6 @@ msgstr "6"
 
 #~ msgid "Balanced"
 #~ msgstr "差し引き"
-
-#~ msgid "Refund"
-#~ msgstr "返金"
 
 #~ msgid "Balance"
 #~ msgstr "残高"

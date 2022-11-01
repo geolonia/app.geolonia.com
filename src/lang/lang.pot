@@ -802,8 +802,12 @@ msgstr ""
 msgid "Payment history"
 msgstr ""
 
-#: src/components/Team/Billing/payment-history.tsx:110
+#: src/components/Team/Billing/payment-history.tsx:111
 msgid "No payment history."
+msgstr ""
+
+#: src/components/Team/Billing/payment-history.tsx:79
+msgid "Refunded"
 msgstr ""
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
