@@ -76,7 +76,13 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
             ))}
         </ul>
       </TableCell>
-      <TableCell>{`${payment}${charge && charge.refunded ? ` ${__('Refunded')}` : ''}`}</TableCell>
+      <TableCell>
+        {
+          charge && charge.refunded ?
+            <><del>{payment}</del>{' '}{__('Refunded')}</> :
+            <span>{payment}</span>
+        }
+      </TableCell>
       <TableCell>
         {receipt_url && (
           <a
