@@ -315,7 +315,7 @@
       ],
       "Payment history": ["支払い履歴"],
       "No payment history.": ["支払い履歴はありません。"],
-      "Refunded": ["返金"],
+      "Refunded": ["返金済み"],
       "Update": ["更新"],
       "Unknown Error.": ["不明なエラー。"],
       "Card information": ["クレジットカード情報"],
