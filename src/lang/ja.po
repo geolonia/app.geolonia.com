@@ -864,7 +864,7 @@ msgstr "支払い履歴はありません。"
 
 #: src/components/Team/Billing/payment-history.tsx:79
 msgid "Refunded"
-msgstr "返金"
+msgstr "返金済み"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131

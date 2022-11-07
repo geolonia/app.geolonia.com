@@ -218,6 +218,7 @@ declare namespace Geolonia {
     id: string;
     total: number;
     currency: string;
+    paid_at: number | null;
     period_start: number;
     period_end: number;
     ending_balance: null | number;
