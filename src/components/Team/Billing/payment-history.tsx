@@ -38,8 +38,7 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
   const {
     total,
     currency,
-    period_start,
-    period_end,
+    paid_at,
     ending_balance,
     starting_balance,
     descriptions,
@@ -56,7 +55,7 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
   //   ((ending_balance || 0) - starting_balance)
   // );
 
-  const duration = `${moment(period_start * 1000).format('YYYY/MM/DD')} - ${moment(period_end * 1000).format('YYYY/MM/DD')}`;
+  const paid_date = paid_at === null ? '-' : `${moment(paid_at * 1000).format('YYYY/MM/DD')}`;
   const payment = formattedActualPayment;
   const receipt_url = charge && charge.receipt_url;
 
@@ -66,7 +65,7 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
 
   return (
     <TableRow>
-      <TableCell>{duration}</TableCell>
+      <TableCell>{paid_date}</TableCell>
       <TableCell>
         <ul>
           {descriptions
