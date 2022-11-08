@@ -868,7 +868,7 @@ msgstr "返金済み"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131
-#: src/components/Team/Billing/usage-chart.tsx:328
+#: src/components/Team/Billing/usage-chart.tsx:329
 msgid "Update"
 msgstr "更新"
 
@@ -911,50 +911,50 @@ msgid "Your plan"
 msgstr "あなたのプラン"
 
 #: src/components/Team/Billing/usage-chart.tsx:119
-msgid "(deleted)"
-msgstr "(削除済み)"
+msgid "%s (deleted)"
+msgstr "%s (削除済み)"
 
-#: src/components/Team/Billing/usage-chart.tsx:186
+#: src/components/Team/Billing/usage-chart.tsx:187
 msgid "date"
 msgstr "日付"
 
-#: src/components/Team/Billing/usage-chart.tsx:218
+#: src/components/Team/Billing/usage-chart.tsx:219
 msgid "sub total"
 msgstr "小計"
 
-#: src/components/Team/Billing/usage-chart.tsx:245
+#: src/components/Team/Billing/usage-chart.tsx:246
 msgid "total"
 msgstr "合計"
 
-#: src/components/Team/Billing/usage-chart.tsx:310
+#: src/components/Team/Billing/usage-chart.tsx:311
 msgid "Map loads details by API key"
 msgstr "API キー別の地図の表示回数の詳細"
 
-#: src/components/Team/Billing/usage-chart.tsx:319
+#: src/components/Team/Billing/usage-chart.tsx:320
 msgid "Start date"
 msgstr "開始日"
 
-#: src/components/Team/Billing/usage-chart.tsx:320
+#: src/components/Team/Billing/usage-chart.tsx:321
 msgid "End date"
 msgstr "終了日"
 
-#: src/components/Team/Billing/usage-chart.tsx:337
+#: src/components/Team/Billing/usage-chart.tsx:338
 msgid "Download"
 msgstr "ダウンロード"
 
-#: src/components/Team/Billing/usage-chart.tsx:346
+#: src/components/Team/Billing/usage-chart.tsx:347
 msgid "HTML format"
 msgstr "HTML フォーマット"
 
-#: src/components/Team/Billing/usage-chart.tsx:347
+#: src/components/Team/Billing/usage-chart.tsx:348
 msgid "CSV format"
 msgstr "CSV フォーマット"
 
-#: src/components/Team/Billing/usage-chart.tsx:372
+#: src/components/Team/Billing/usage-chart.tsx:373
 msgid "total: %s"
 msgstr "合計: %s"
 
-#: src/components/Team/Billing/usage-chart.tsx:377
+#: src/components/Team/Billing/usage-chart.tsx:378
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 
