@@ -106,6 +106,7 @@ declare namespace Geolonia {
     allowedOrigins: string[];
     createAt: Moment.Moment | void;
     updateAt?: Moment.Moment | void;
+    isDeleted?: boolean;
   }
   type GeoJSONMeta = {
     id: string;

@@ -58,15 +58,17 @@ const ApiKeys: React.FC = () => {
     push(`/api-keys/${data.keyId}`);
   }, [createApiKey, push, teamId, user]);
 
-  const rows = (mapKeys || []).map((key) => {
-    return {
-      id: key.keyId,
-      name: key.name,
-      updated: key.createAt
-        ? moment(key.createAt).format('YYYY/MM/DD HH:mm:ss')
-        : __('(No date)'),
-    };
-  });
+  const rows = (mapKeys || [])
+    .filter((mapKey) => !mapKey.isDeleted)
+    .map((key) => {
+      return {
+        id: key.keyId,
+        name: key.name,
+        updated: key.createAt
+          ? moment(key.createAt).format('YYYY/MM/DD HH:mm:ss')
+          : __('(No date)'),
+      };
+    });
 
   const newAPIButton = <AddNew2
     buttonLabel={__('New')}
