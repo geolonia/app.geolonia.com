@@ -116,7 +116,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
 
     const mapKeyNames: { [key: string]: string } = {};
     for (const key of (mapKeys || [])) {
-      mapKeyNames[key.userKey] = key.name;
+      mapKeyNames[key.userKey] = key.isDeleted ? `${key.name} ${__('(deleted)')}` : key.name;
     }
 
     const datasets: ChartDataset[] = [];

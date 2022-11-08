@@ -184,7 +184,7 @@ const ApiKey: React.FC = () => {
     return <CircularProgress />;
   }
 
-  if (Array.isArray(mapKeys) && (!mapKey || !apiKey)) {
+  if (Array.isArray(mapKeys) && (!mapKey || !apiKey || mapKey.isDeleted)) {
     // no key found
     return <Redirect to="/api-keys" />;
   }
