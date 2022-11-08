@@ -133,13 +133,13 @@ msgstr ""
 "エラー: それぞれの `feature` の `id` は GeoJSON の中で一意である必要がありま"
 "す。"
 
-#: src/components/Data/GeoJsonMeta.tsx:240 src/components/Data/fields.tsx:26
+#: src/components/Data/GeoJsonMeta.tsx:241 src/components/Data/fields.tsx:26
 #: src/components/Navigator.tsx:341 src/components/User/profile.tsx:105
 #: src/components/custom/AddNew.tsx:37
 msgid "Name"
 msgstr "名前"
 
-#: src/components/Data/GeoJsonMeta.tsx:278
+#: src/components/Data/GeoJsonMeta.tsx:279
 msgid ""
 "Public features will be displayed publicly and anyone can download this "
 "features without API key."
@@ -147,23 +147,23 @@ msgstr ""
 "Public のデータは一般に公開され、だれでも API キー無しでダウンロードすること"
 "ができます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:311
+#: src/components/Data/GeoJsonMeta.tsx:312
 msgid "Datasets are published now."
 msgstr "データセットは公開されています。"
 
-#: src/components/Data/GeoJsonMeta.tsx:313
+#: src/components/Data/GeoJsonMeta.tsx:314
 msgid "Datasets status are draft now."
 msgstr "データセットは下書きの状態です。"
 
-#: src/components/Data/GeoJsonMeta.tsx:327
+#: src/components/Data/GeoJsonMeta.tsx:328
 msgid "Advanced Settings"
 msgstr "高度な設定"
 
-#: src/components/Data/GeoJsonMeta.tsx:331
+#: src/components/Data/GeoJsonMeta.tsx:332
 msgid "Access allowed URLs"
 msgstr "アクセスを許可したURL"
 
-#: src/components/Data/GeoJsonMeta.tsx:332
+#: src/components/Data/GeoJsonMeta.tsx:333
 msgid ""
 "If you want to add more URLs to the \"URLs to allow access\" set on the API "
 "key page, please use the following settings. (e.g., if you want to use "
@@ -172,46 +172,46 @@ msgstr ""
 "APIキーページで設定した「アクセスを許可するURL」に、URLを追加したい場合は、以"
 "下より設定して下さい。(例：ひとつのタイルに複数のAPIキーを使用する場合)"
 
-#: src/components/Data/GeoJsonMeta.tsx:335
+#: src/components/Data/GeoJsonMeta.tsx:336
 msgid "URLs from API Key page."
 msgstr "API キーページで設定した URL"
 
-#: src/components/Data/GeoJsonMeta.tsx:341
+#: src/components/Data/GeoJsonMeta.tsx:342
 msgid "Enter URLs to be added."
 msgstr "追加する URL を入力して下さい"
 
-#: src/components/Data/GeoJsonMeta.tsx:366 src/components/Maps/APIKey.tsx:309
+#: src/components/Data/GeoJsonMeta.tsx:367 src/components/Maps/APIKey.tsx:309
 msgid "Add the map to your site"
 msgstr "ウェブサイトに地図を追加しましょう"
 
-#: src/components/Data/GeoJsonMeta.tsx:369 src/components/Maps/APIKey.tsx:312
+#: src/components/Data/GeoJsonMeta.tsx:370 src/components/Maps/APIKey.tsx:312
 msgid "Step 1"
 msgstr "ステップ 1"
 
-#: src/components/Data/GeoJsonMeta.tsx:371
+#: src/components/Data/GeoJsonMeta.tsx:372
 msgid "Please select API key."
 msgstr "API キーを選択してください"
 
-#: src/components/Data/GeoJsonMeta.tsx:373 src/components/Maps/APIKey.tsx:194
+#: src/components/Data/GeoJsonMeta.tsx:374 src/components/Maps/APIKey.tsx:194
 msgid "API key"
 msgstr "API キー"
 
-#: src/components/Data/GeoJsonMeta.tsx:381
+#: src/components/Data/GeoJsonMeta.tsx:382
 msgid "None"
 msgstr "未選択"
 
-#: src/components/Data/GeoJsonMeta.tsx:387
+#: src/components/Data/GeoJsonMeta.tsx:388
 msgid ""
 "If you don't have one, create it from <a href='#/api-keys'>API Keys</a>."
 msgstr ""
 "API キーをお持ちでない場合は <a href='#/api-keys'>API Keys</a> から作成して下"
 "さい。"
 
-#: src/components/Data/GeoJsonMeta.tsx:392 src/components/Maps/APIKey.tsx:329
+#: src/components/Data/GeoJsonMeta.tsx:393 src/components/Maps/APIKey.tsx:329
 msgid "Step 2"
 msgstr "ステップ 2"
 
-#: src/components/Data/GeoJsonMeta.tsx:396 src/components/Maps/APIKey.tsx:316
+#: src/components/Data/GeoJsonMeta.tsx:397 src/components/Maps/APIKey.tsx:316
 msgid ""
 "Include the following code <strong>before closing tag of the <code>&lt;body /"
 "&gt;</code><strong> in your HTML file."
@@ -220,22 +220,22 @@ msgstr ""
 "前に</strong>以下のコードを挿入してください。API キーはすでに埋め込まれている"
 "のでそのままコピーして貼り付けできます。"
 
-#: src/components/Data/GeoJsonMeta.tsx:409 src/components/Maps/APIKey.tsx:345
+#: src/components/Data/GeoJsonMeta.tsx:410 src/components/Maps/APIKey.tsx:345
 msgid "Step 3"
 msgstr "ステップ 3"
 
-#: src/components/Data/GeoJsonMeta.tsx:412 src/components/Maps/APIKey.tsx:332
+#: src/components/Data/GeoJsonMeta.tsx:413 src/components/Maps/APIKey.tsx:332
 msgid ""
 "Click following button and get HTML code where you want to place the map."
 msgstr ""
 "以下のボタンをクリックして地図を表示したい場所の HTML を取得、Webサイトで地図"
 "を表示したい場所に挿入してください。"
 
-#: src/components/Data/GeoJsonMeta.tsx:420
+#: src/components/Data/GeoJsonMeta.tsx:421
 msgid "Step 4"
 msgstr "ステップ 4"
 
-#: src/components/Data/GeoJsonMeta.tsx:422 src/components/Maps/APIKey.tsx:347
+#: src/components/Data/GeoJsonMeta.tsx:423 src/components/Maps/APIKey.tsx:347
 msgid "Adjust the element size."
 msgstr ""
 "下記のCSSをWebサイトに追加して、地図を表示する要素のサイズを調整して下さい。"
@@ -523,7 +523,7 @@ msgstr ""
 msgid "Are you sure you want to delete this API key?"
 msgstr "この API キーを本当に削除しますか？"
 
-#: src/components/Maps/APIKey.tsx:96 src/components/Maps/APIKeys.tsx:81
+#: src/components/Maps/APIKey.tsx:96 src/components/Maps/APIKeys.tsx:83
 msgid "API keys"
 msgstr "API キー"
 
@@ -531,19 +531,19 @@ msgstr "API キー"
 msgid "API Key (created by %1$s on %2$s)"
 msgstr "API キー (%1$s が %2$s に作成)"
 
-#: src/components/Maps/APIKeys.tsx:67
+#: src/components/Maps/APIKeys.tsx:69
 msgid "(No date)"
 msgstr "(データなし)"
 
-#: src/components/Maps/APIKeys.tsx:72 src/components/custom/AddNew.tsx:35
+#: src/components/Maps/APIKeys.tsx:74 src/components/custom/AddNew.tsx:35
 msgid "New"
 msgstr "新規作成"
 
-#: src/components/Maps/APIKeys.tsx:75
+#: src/components/Maps/APIKeys.tsx:77
 msgid "A new API key has been created."
 msgstr "新しい API キーが作成されました。"
 
-#: src/components/Maps/APIKeys.tsx:87
+#: src/components/Maps/APIKeys.tsx:89
 msgid "You need an API key to display map. Get an API key."
 msgstr ""
 "地図の作成にはAPIキーが必要です。「新規作成」をクリックしてAPIキーを作成して"
@@ -858,17 +858,17 @@ msgstr "チーム「%s」の現在の料金プラン・利用状況の確認、�
 msgid "Payment history"
 msgstr "支払い履歴"
 
-#: src/components/Team/Billing/payment-history.tsx:111
+#: src/components/Team/Billing/payment-history.tsx:116
 msgid "No payment history."
 msgstr "支払い履歴はありません。"
 
-#: src/components/Team/Billing/payment-history.tsx:79
+#: src/components/Team/Billing/payment-history.tsx:81
 msgid "Refunded"
 msgstr "返金済み"
 
 #: src/components/Team/Billing/payment-method-modal.tsx:107
 #: src/components/Team/Billing/plan-modal.tsx:131
-#: src/components/Team/Billing/usage-chart.tsx:328
+#: src/components/Team/Billing/usage-chart.tsx:329
 msgid "Update"
 msgstr "更新"
 
@@ -910,47 +910,51 @@ msgstr ""
 msgid "Your plan"
 msgstr "あなたのプラン"
 
-#: src/components/Team/Billing/usage-chart.tsx:186
+#: src/components/Team/Billing/usage-chart.tsx:119
+msgid "%s (deleted)"
+msgstr "%s (削除済み)"
+
+#: src/components/Team/Billing/usage-chart.tsx:187
 msgid "date"
 msgstr "日付"
 
-#: src/components/Team/Billing/usage-chart.tsx:218
+#: src/components/Team/Billing/usage-chart.tsx:219
 msgid "sub total"
 msgstr "小計"
 
-#: src/components/Team/Billing/usage-chart.tsx:245
+#: src/components/Team/Billing/usage-chart.tsx:246
 msgid "total"
 msgstr "合計"
 
-#: src/components/Team/Billing/usage-chart.tsx:310
+#: src/components/Team/Billing/usage-chart.tsx:311
 msgid "Map loads details by API key"
 msgstr "API キー別の地図の表示回数の詳細"
 
-#: src/components/Team/Billing/usage-chart.tsx:319
+#: src/components/Team/Billing/usage-chart.tsx:320
 msgid "Start date"
 msgstr "開始日"
 
-#: src/components/Team/Billing/usage-chart.tsx:320
+#: src/components/Team/Billing/usage-chart.tsx:321
 msgid "End date"
 msgstr "終了日"
 
-#: src/components/Team/Billing/usage-chart.tsx:337
+#: src/components/Team/Billing/usage-chart.tsx:338
 msgid "Download"
 msgstr "ダウンロード"
 
-#: src/components/Team/Billing/usage-chart.tsx:346
+#: src/components/Team/Billing/usage-chart.tsx:347
 msgid "HTML format"
 msgstr "HTML フォーマット"
 
-#: src/components/Team/Billing/usage-chart.tsx:347
+#: src/components/Team/Billing/usage-chart.tsx:348
 msgid "CSV format"
 msgstr "CSV フォーマット"
 
-#: src/components/Team/Billing/usage-chart.tsx:372
+#: src/components/Team/Billing/usage-chart.tsx:373
 msgid "total: %s"
 msgstr "合計: %s"
 
-#: src/components/Team/Billing/usage-chart.tsx:377
+#: src/components/Team/Billing/usage-chart.tsx:378
 msgid "API keys with no map loads will not be shown in the graph."
 msgstr "表示回数の無いAPIキーはグラフに表示されません。"
 

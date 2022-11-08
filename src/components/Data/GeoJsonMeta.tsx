@@ -116,9 +116,10 @@ const GeoJSONMeta = (props: Props) => {
   const { data: geojsonMeta } = useGetGeoJSONMetaQuery({ geojsonId, teamId }, {
     skip: !selectedTeam,
   });
-  const { data: mapKeys = [] } = useGetApiKeysQuery(teamId, {
+  const { data: allMapKeys = [] } = useGetApiKeysQuery(teamId, {
     skip: !selectedTeam,
   });
+  const mapKeys = allMapKeys.filter((key) => !key.isDeleted);
   const [ updateGeoJSONMeta ] = useUpdateGeoJSONMetaMutation();
 
   const { allowedOrigins, name, primaryApiKeyId, isPublic, status } = geojsonMeta || {};
