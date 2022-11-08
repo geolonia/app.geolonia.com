@@ -36,6 +36,7 @@ import { Redirect } from 'react-router';
 import { useSelectedTeam, useUserLanguage, useGeoloniaPlans } from '../../redux/hooks';
 import { useGetTeamPlanQuery, useUpdateTeamPlanMutation } from '../../redux/apis/app-api';
 import Alert from '@material-ui/lab/Alert';
+import styled from 'styled-components';
 
 const UsageChart = React.lazy(() => import('./Billing/usage-chart'));
 
@@ -93,7 +94,21 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
   const currentPlan = plans.find((p) => p.planId === planId);
   const { selectedTeam } = useSelectedTeam();
 
-  const subOrFreePlan = planDetails.subscription || planDetails.freePlanDetails;
+  const billing_duration = useMemo(() => {
+    if (planDetails.subscription) {
+      return {
+        start: moment(planDetails.subscription.current_period_start).startOf('day'),
+        end: moment(planDetails.subscription.current_period_end).subtract(1, 'day').startOf('day'),
+      };
+    } else if (planDetails.freePlanDetails) {
+      return {
+        start: moment(planDetails.freePlanDetails.current_period_start),
+        end: moment(planDetails.freePlanDetails.current_period_end),
+      };
+    } else {
+      return null;
+    }
+  }, [planDetails.freePlanDetails, planDetails.subscription]);
 
   const maxLoadCount = team.customMaxMapLoadCount || team.baseFreeMapLoadCount;
 
@@ -123,9 +138,15 @@ const BillingInner: React.FC<BillingInnerProps> = (props) => {
               {__('Billing period')}
             </Typography>
             <div className="usage-card-content">
-              {subOrFreePlan ?
+              {billing_duration ?
                 <>
-                  {`${moment(subOrFreePlan.current_period_start).format('M/D')} ~ ${moment(subOrFreePlan.current_period_end).format('M/D')}`}
+                  <Time title={billing_duration.start.toISOString()}>
+                    {billing_duration.start.format('M/D')}
+                  </Time>
+                  {'~'}
+                  <Time title={billing_duration.end.toISOString()}>
+                    {billing_duration.end.format('M/D')}
+                  </Time>
                 </>
                 :
                 '-'
@@ -374,3 +395,7 @@ const Billing: React.FC = () => {
 };
 
 export default Billing;
+
+const Time = styled.time`
+  margin: auto .3em;
+`;
