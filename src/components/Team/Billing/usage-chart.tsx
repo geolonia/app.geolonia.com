@@ -131,7 +131,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
       if (isCountData.length === 0) continue;
 
       // チャートの配色
-      const colorsMaxIndex = colorScheme.length -1;
+      const colorsMaxIndex = colorScheme.length - 1;
       let colorIndex:number = datasets.length;
 
       // 用意している色数を以上にデータがあった場合
@@ -143,8 +143,8 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
 
       datasets.push(
         {
-          label: `${apiKeyName} : ${totalCount}`,
-          keyName: apiKeyName,
+          label: `${apiKeyName} : ${totalCount.toLocaleString()}`,
+          keyName: `${apiKeyName}`,
           data: countData,
           fill: false,
           backgroundColor: colorScheme[colorIndex],
@@ -364,13 +364,13 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
                     background: color,
                     marginRight: 10,
                   }} />
-                  {`${keyName}: ${value}`}
+                  {`${keyName}: ${value.toLocaleString()}`}
                 </div>;
               })
             }
           </p>
           <p style={{display: 'flex', justifyContent: 'center' }}>
-            <em style={ { fontWeight: 'bold', fontStyle: 'normal', textTransform: 'uppercase' } }>{sprintf(__('total: %s'), statisticsData.total)}</em>
+            <em style={ { fontWeight: 'bold', fontStyle: 'normal', textTransform: 'uppercase' } }>{sprintf(__('total: %s'), statisticsData.total.toLocaleString())}</em>
           </p>
         </>
         }
