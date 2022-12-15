@@ -143,7 +143,7 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
 
       datasets.push(
         {
-          label: `${apiKeyName} : ${totalCount}`,
+          label: `${apiKeyName} : ${totalCount.toLocaleString()}`,
           keyName: apiKeyName,
           data: countData,
           fill: false,
@@ -364,13 +364,13 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
                     background: color,
                     marginRight: 10,
                   }} />
-                  {`${keyName}: ${value}`}
+                  {`${keyName}: ${value.toLocaleString()}`}
                 </div>;
               })
             }
           </p>
           <p style={{display: 'flex', justifyContent: 'center' }}>
-            <em style={ { fontWeight: 'bold', fontStyle: 'normal', textTransform: 'uppercase' } }>{sprintf(__('total: %s'), statisticsData.total)}</em>
+            <em style={ { fontWeight: 'bold', fontStyle: 'normal', textTransform: 'uppercase' } }>{sprintf(__('total: %s'), statisticsData.total.toLocaleString())}</em>
           </p>
         </>
         }
