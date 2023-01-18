@@ -94,6 +94,8 @@ const Signup = (props: Props) => {
       return;
     }
 
+    window.dataLayer.push({event: 'sign_up'});
+
     setStatus('success');
 
     const succeededUsername = result.user.getUsername();
