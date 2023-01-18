@@ -115,6 +115,8 @@ const Signin = (props: Props) => {
       console.error(error);
     }
 
+    window.dataLayer.push({event: 'login'});
+
     setStatus('success');
     await sleep(pageTransitionInterval);
     // Force reload and use componentDidMount of AuthContainer to get session

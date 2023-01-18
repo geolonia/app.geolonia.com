@@ -7,6 +7,12 @@ import * as Sentry from '@sentry/react';
 import { Integrations } from '@sentry/tracing';
 import mixpanel from 'mixpanel-browser';
 
+declare global {
+  interface Window {
+    dataLayer: any[]
+  }
+}
+
 if (process.env.REACT_APP_SENTRY_DSN) {
   Sentry.init({
     dsn: process.env.REACT_APP_SENTRY_DSN,
