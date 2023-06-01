@@ -18,7 +18,7 @@ $ yarn start
 .env.development には、app.geolonia.com が利用している外部サービスのトークン等を入れる必要があります。
 Geolonia 社員は[こちら](https://geolonia.esa.io/posts/1092)を参考に環境変数の値を定義して下さい。
 
-http://localhost:3000/ で開発用環境が立ち上がります。
+`yarn start` を実行すると http://localhost:3000/ で開発用環境が立ち上がります。
 
 開発環境では本番と別のデータベースを使用しています。ダッシュボードにログインするためには http://localhost:3000/?lang=ja#/signup から新しくユーザーを作成して下さい。
 
