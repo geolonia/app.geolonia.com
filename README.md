@@ -10,7 +10,7 @@
 $ git clone git@github.com:geolonia/app.geolonia.com.git
 $ cd app.geolonia.com
 $ yarn
-$ cp .env.development.sample .env.development
+$ cp .env.development.example .env.development
 $ vi .env.development
 $ yarn start
 ```
