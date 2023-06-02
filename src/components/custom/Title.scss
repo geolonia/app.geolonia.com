@@ -1,10 +1,10 @@
-@import '../../variables.scss';
+@use '../../variables.scss' as var;
 
 .page-title
 {
   margin: 0 0 2em -0;
   border-bottom: 5px solid #dedede;
-  border-top: 5px solid $color-primary;
+  border-top: 5px solid var.$color-primary;
 
   .outer
   {

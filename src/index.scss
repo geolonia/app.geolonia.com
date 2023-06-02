@@ -1,4 +1,4 @@
-@import './variables.scss';
+@use './variables.scss' as var;
 
 body {
   margin: 0;
@@ -19,9 +19,9 @@ code {
   padding: 16px;
 }
 
-a {color: $color-primary;}
+a {color: var.$color-primary;}
 .MuiTypography-colorPrimary{
-  color: $color-primary !important;
+  color: var.$color-primary !important;
 }
 
 .MuiButton-containedPrimary {
