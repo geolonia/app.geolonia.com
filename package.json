@@ -107,5 +107,9 @@
   },
   "resolutions": {
     "@types/react": "^17.0.0"
+  },
+  "engines": {
+    "node": "18.x",
+    "yarn": "1.x"
   }
 }
