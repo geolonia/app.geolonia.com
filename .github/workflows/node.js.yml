@@ -26,7 +26,7 @@ jobs:
 
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v3
         id: yarn-cache
@@ -62,7 +62,7 @@ jobs:
           REPORT="${REPORT//'%'/'%25'}"
           REPORT="${REPORT//$'\n'/'%0A'}"
           REPORT="${REPORT//$'\r'/'%0D'}"
-          echo ::set-output name=report::$REPORT
+          echo "report=${REPORT}" >> $GITHUB_OUTPUT
 
       - name: Post comment
         uses: actions/github-script@v4
