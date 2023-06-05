@@ -1,4 +1,4 @@
-@import '../variables.scss';
+@use '../variables.scss' as var;
 
 header{
   &.MuiPaper-root{
@@ -6,10 +6,10 @@ header{
     padding: 7px !important;
   }
   .iconButtonAvatar{
-    border: 1px solid $color-primary;
+    border: 1px solid var.$color-primary;
     margin-right: 10px;
     svg{
-      fill: $color-primary;
+      fill: var.$color-primary;
     }
   }
   .iconButtonlogo{
@@ -19,7 +19,7 @@ header{
     }
   }
   .MuiSvgIcon-root{
-    fill: $color-primary;
+    fill: var.$color-primary;
   }
 }
 
