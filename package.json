@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
-    "@geolonia/embed-react": "^1.1.0",
+    "@geolonia/embed-react": "1.2.0",
     "@geolonia/utils": "^1.0.0",
     "@mapbox/geojson-extent": "^1.0.1",
     "@material-ui/core": "^4.6.1",
