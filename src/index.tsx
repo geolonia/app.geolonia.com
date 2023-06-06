@@ -25,7 +25,11 @@ if (process.env.REACT_APP_SENTRY_DSN) {
   });
 }
 
-mixpanel.init(process.env.REACT_APP_MIXPANEL_TOKEN as string);
+if (process.env.REACT_APP_MIXPANEL_TOKEN) {
+  mixpanel.init(process.env.REACT_APP_MIXPANEL_TOKEN as string);
+} else {
+  mixpanel.init('test', { debug: true });
+}
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
