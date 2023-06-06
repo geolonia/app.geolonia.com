@@ -60,6 +60,8 @@ const compare = async () => {
     if (process.CI) {
       process.stdout.write('Perhaps no cache remains on CI.');
     }
+
+    process.exit(0);
   }
   const [before, after] = fileStats;
 

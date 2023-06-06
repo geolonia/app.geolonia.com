@@ -7,11 +7,13 @@ const TEAM_ID = 'test-team-id';
 
 const commonMemberProps = {
   name: 'name',
+  email: 'someone@example.com',
   username: 'username',
   language: 'ja',
   timezone: 'tokyo',
   links: { getAvatar: '', putAvatar: '' },
   avatarImage: '',
+  hasPersonalAccessToken: false,
 };
 
 it('should sort member when set', () => {

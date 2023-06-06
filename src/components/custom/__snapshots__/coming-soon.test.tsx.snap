@@ -2,11 +2,11 @@
 
 exports[`it should render without crash 1`] = `
 <div
-  className="sc-bdnxRM kVsjvj"
+  className="sc-aXZVg fjcDyG"
 >
   <div
     style={
-      Object {
+      {
         "height": 100,
         "width": 100,
       }
@@ -17,7 +17,7 @@ exports[`it should render without crash 1`] = `
     </span>
   </div>
   <div
-    className="sc-gtsrHT ikETXn"
+    className="sc-gEvEer klCVnv"
   >
     <span>
       Coming soon
