@@ -200,11 +200,7 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
       const zoom = map.getZoom();
       setLngLatZoom([lng, lat, zoom]);
     };
-    if (lngLatZoom) {
-      if (!mapRef.current) return;
-      const map = mapRef.current;
-      map.flyTo({ center: [lngLatZoom[0], lngLatZoom[1]], zoom: lngLatZoom[2] });
-    } else {
+    if (!lngLatZoom) {
       moveendCallback(); // force fire and setState
     }
     map.on('moveend', moveendCallback);
@@ -224,6 +220,9 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
     <Modal open={open} onClose={handleClose} style={{display: 'flex'}}>
       <div className={'get-geolonia-modal-content'}>
         <GeoloniaMap
+          lng={lngLatZoom?.[0] !== undefined ? lngLatZoom[0].toString() : '0'}
+          lat={lngLatZoom?.[1] !== undefined ? lngLatZoom[1].toString() : '0'}
+          zoom={lngLatZoom?.[2] !== undefined ? lngLatZoom[2].toString() : '0'}
           marker={'off'}
           mapRef={mapRef}
           style={{width: '100%', height: 'calc(100% - 150px)'}}
