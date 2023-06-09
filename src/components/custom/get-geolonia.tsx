@@ -198,7 +198,10 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
       const map = mapRef.current;
       const { lng, lat } = map.getCenter();
       const zoom = map.getZoom();
-      setLngLatZoom([lng, lat, zoom]);
+
+      if (lngLatZoom?.[0] !== lng || lngLatZoom?.[1] !== lat || lngLatZoom?.[2] !== zoom) {
+        setLngLatZoom([lng, lat, zoom]);
+      }
     };
     if (!lngLatZoom) {
       moveendCallback(); // force fire and setState
