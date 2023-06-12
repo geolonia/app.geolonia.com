@@ -170,45 +170,28 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
     setMessageVisibilty(false);
   }, [handleGeocodeSubmit, setMessageVisibilty]);
 
-  useEffect(() => {
-    if (lngLatZoom) {
-      const [lng, lat, zoom] = lngLatZoom;
-      setHtmlSnippet(buildEmbedHtmlSnipet({
-        class: 'geolonia',
-        lng,
-        lat,
-        zoom,
-        marker,
-        style: styleIdentifier,
-        simpleVector,
-      }));
-    } else {
-      setHtmlSnippet(buildEmbedHtmlSnipet({
-        class: 'geolonia',
-        style: styleIdentifier,
-        simpleVector,
-      }));
-    }
+  const handleMapOnMoveEnd = () => {
+    if (!mapRef.current) return;
+    const map = mapRef.current;
+    const { lng, lat } = map.getCenter();
+    const zoom = map.getZoom();
 
-  }, [lngLatZoom, marker, simpleVector, styleIdentifier]);
+    setHtmlSnippet(buildEmbedHtmlSnipet({
+      class: 'geolonia',
+      lng,
+      lat,
+      zoom,
+      marker,
+      style: styleIdentifier,
+      simpleVector,
+    }));
+  };
 
-  const handleMapOnLoad = useCallback((map: mapboxgl.Map) => {
-    const moveendCallback = () => {
-      if (!mapRef.current) return;
-      const map = mapRef.current;
-      const { lng, lat } = map.getCenter();
-      const zoom = map.getZoom();
-      setLngLatZoom([lng, lat, zoom]);
-    };
-    if (lngLatZoom) {
-      if (!mapRef.current) return;
-      const map = mapRef.current;
-      map.flyTo({ center: [lngLatZoom[0], lngLatZoom[1]], zoom: lngLatZoom[2] });
-    } else {
-      moveendCallback(); // force fire and setState
+  const handleMapOnLoad = useCallback(() => {
+    if (lng && lat) {
+      mapRef.current?.flyTo({ center: [lng, lat], zoom });
     }
-    map.on('moveend', moveendCallback);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [lng, lat, zoom]);
 
   return <>
     <Button
@@ -230,6 +213,7 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
           mapStyle={styleIdentifier}
           simpleVector={simpleVector}
           onLoad={handleMapOnLoad}
+          onMoveEnd={handleMapOnMoveEnd}
         >
           <GeoloniaMap.Control
             position={'bottom-left'}
