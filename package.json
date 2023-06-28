@@ -43,7 +43,7 @@
   "scripts": {
     "start": "react-scripts start",
     "start:prod": ". ./.env.production && react-scripts start",
-    "build": "react-scripts build",
+    "build": "DISABLE_ESLINT_PLUGIN='true' react-scripts build",
     "build:ci": "react-scripts build && bin/postbuild.sh",
     "cname": "echo $CNAME > ./build/CNAME",
     "test": "jest",
