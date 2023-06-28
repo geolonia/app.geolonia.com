@@ -6,7 +6,7 @@ type Props = {
   labelText: string
   value: string
   helperText?: string
-}
+};
 
 const style: React.CSSProperties = {
   padding: '9px 16px',

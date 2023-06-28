@@ -15,7 +15,7 @@ type BlogPost = {
   excerpt: string;
   thumbnail: string;
   date_published: string;
-}
+};
 
 const useStyles = makeStyles({
   root: {

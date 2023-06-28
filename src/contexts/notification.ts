@@ -4,7 +4,7 @@ export type NotificationState = {
   open: boolean;
   message: string;
   type: 'success' | 'failure'
-}
+};
 
 export const initialNotificationState: NotificationState = {
   open: false,

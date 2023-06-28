@@ -2,7 +2,7 @@ import React from 'react';
 
 type Props = {
   onClick: () => void;
-}
+};
 
 const closeButtonStyle: React.CSSProperties = {
   width: '36px',

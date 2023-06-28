@@ -54,7 +54,7 @@ const getRangeDate = (startDate: moment.Moment, endDate: moment.Moment) => {
 type UsageChartProps = {
   planDetails: Geolonia.TeamPlanDetails;
   team: Geolonia.Team;
-}
+};
 
 type ChartDataset = {
   label?: string,
@@ -62,11 +62,11 @@ type ChartDataset = {
   data: number[],
   fill: boolean,
   backgroundColor: string,
-}
+};
 type ChartData = {
   labels: string[],
   datasets: ChartDataset[],
-} | undefined
+} | undefined;
 
 const UsageChart: React.FC<UsageChartProps> = (props) => {
   const { team, planDetails } = props;

@@ -93,7 +93,7 @@ declare namespace Geolonia {
     exp: number;
     teamId: 'team-invitation';
     type: string;
-  }
+  };
 
   type Key = {
     keyId: string;
@@ -107,7 +107,7 @@ declare namespace Geolonia {
     createAt: Moment.Moment | void;
     updateAt?: Moment.Moment | void;
     isDeleted?: boolean;
-  }
+  };
   type GeoJSONMeta = {
     id: string;
     name: string;
@@ -118,7 +118,7 @@ declare namespace Geolonia {
     teamId: string;
     gvp_status: string; // 'progress' | 'created' | 'failure';
     primaryApiKeyId?: string;
-  }
+  };
   type InvoiceDetails = {
     id: string
     amount_due: number
@@ -171,7 +171,7 @@ declare namespace Geolonia {
             count: number;
             date: string;
             lastLoggedRequest: string;
-          }
+          },
         ];
       };
     };

@@ -11,7 +11,7 @@ type LanguagesData = {
 type urlParams = {
   lang: string,
   ref?: string
-}
+};
 
 const Languages = () => {
   const hash = window.location.hash;

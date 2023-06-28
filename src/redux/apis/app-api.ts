@@ -4,11 +4,11 @@ import { byCreateAtString } from '../../lib/by-create-at';
 
 type GetUserParam = {
   userSub?: string;
-}
+};
 type GetUserResp = {
   item: Omit<Geolonia.User, 'links'>,
   links: Geolonia.User['links'],
-}
+};
 type UpdateUserParam = {
   userSub: string;
   updates: {
@@ -16,82 +16,82 @@ type UpdateUserParam = {
     timezone: string;
     name: string;
   }
-}
+};
 type GenerateAccessTokenParam = {
   userSub: string;
-}
+};
 type GenerateAccessTokenResp = {
   success: boolean;
   regenerated: boolean;
   accessToken: string;
-}
+};
 type UpdateUserAvatarParam = {
   userSub: string;
   file: File;
-}
+};
 
 type UpdateTeamParam = {
   teamId: string
   updates: Partial<Omit<Geolonia.Team, 'teamId' | 'role' | 'avatarImage' | 'links' | 'isDeleted'>>
-}
+};
 
 type UpdateTeamAvatarParam = {
   teamId: string
   file: File
-}
+};
 
 type CreateTeamParam = {
   name: string
   billingEmail: string
-}
+};
 
 type UpdateApiKeyParam = {
   teamId: string
   keyId: string
   updates: Partial<Omit<Geolonia.Key, 'teamId' | 'keyId' | 'userKey' | 'updateAt' | 'createAt' | 'forceDisabled'>>
-}
+};
 
 type CreateApiKeyParam = {
   teamId: string
   name: string
-}
+};
 
 type CreateTeamMemberInvitationParam = {
   teamId: string
   email: string
-}
+};
 
 type UpdateTeamMemberParam = {
   teamId: string
   memberSub: string
   role: Geolonia.Role
-}
+};
 
 type GetTeamPlanParam = {
   teamId: string
   /** moment valid format like 'yyyy-mm-dd' */
   duration?: { usageStart: string, usageEnd: string }
-}
+};
 
 type UpdateTeamPlanParam = {
   teamId: string
   planId: string | null
-}
+};
 
 type UpdateTeamPaymentMethodParam = {
   teamId: string
   token: string
   last2: string
-}
+};
 
 type GenerateTeamAccessTokenParam = {
   teamId: string,
-}
+};
 
 type StripeWrappedResp<T = any> = {
   has_more: boolean
   data: T
-}
+};
 
 export const appApi = createApi({
   reducerPath: 'appApi',

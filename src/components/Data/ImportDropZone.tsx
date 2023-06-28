@@ -15,7 +15,7 @@ type Props = {
   customMessage?: string,
   lsPageStatus: LSPageStatus,
   setLSPageStatus: (lsPageStatus: LSPageStatus) => void
-}
+};
 
 const ImportDropZone = (props: Props) => {
   const [error, setError] = useState<string | null>(null);

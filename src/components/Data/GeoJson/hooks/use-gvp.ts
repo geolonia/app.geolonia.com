@@ -4,7 +4,7 @@ import { __ } from '@wordpress/i18n';
 import { useGetGeoJSONMetaQuery } from '../../../../redux/apis/api';
 import { useSelectedTeam } from '../../../../redux/hooks';
 
-export type LSPageStatus = 'retrieving' | 'uploadable' | 'uploading' | 'processing' | 'success/uploadable' | 'failed/uploadable'
+export type LSPageStatus = 'retrieving' | 'uploadable' | 'uploading' | 'processing' | 'success/uploadable' | 'failed/uploadable';
 
 export type StepProgress = {
   scene: 'loading' | 'uploadable' | 'progress' | 'success',

@@ -99,7 +99,7 @@ const PaymentHistoryInvoiceRow: React.FC<PaymentHistoryInvoiceRowProps> = (props
 
 type PaymentHistoryProps = {
   teamId: string
-}
+};
 
 const PaymentHistory: React.FC<PaymentHistoryProps> = (props) => {
   const { teamId } = props;

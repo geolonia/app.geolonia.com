@@ -9,7 +9,7 @@ type Props = {
   geojsonId: string,
   lsPageStatus: LSPageStatus,
   setLSPageStatus: (lsPageStatus: LSPageStatus) => void
-}
+};
 
 const styleOuterDefault: React.CSSProperties = {
   position: 'fixed',
