@@ -202,7 +202,7 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
         const [lng, lat, zoom] = defaultXYZ;
         map.flyTo({ center: [lng, lat], zoom });
       } else {
-        moveendCallback(map);
+        moveendCallback(map); // force fire and setState
       }
       map.on('moveend', (ev) => moveendCallback(ev.target));
     });
