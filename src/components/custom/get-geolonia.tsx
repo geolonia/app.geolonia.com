@@ -14,9 +14,7 @@ import mapboxgl from 'mapbox-gl';
 
 type Props = {
   geojsonId?: string;
-  lat?: number;
-  lng?: number;
-  zoom?: number;
+  defaultXYZ?: [x: number, y: number, z: number];
   marker? : 'on' | 'off',
   mapStyle?: string;
 }
@@ -96,14 +94,14 @@ const buildEmbedHtmlSnipet = (options: { [key: string]: string | number | undefi
 };
 
 export const GetGeolonia: React.FC<Props> = (props: Props) => {
-  const { geojsonId, lat, lng, zoom, marker, mapStyle } = props;
+  const { geojsonId, defaultXYZ, marker, mapStyle } = props;
   const simpleVector = geojsonId ? `geolonia://tiles/custom/${geojsonId}` : undefined;
 
   const [open, setOpen] = useState(false);
   const [geocodeText, setGeocodeText] = useState('');
   const [messageVisibility, setMessageVisibilty] = useState<string | false>(false);
 
-  const [lngLatZoom, setLngLatZoom] = useState<[lng: number, lat: number, zoom: number] | undefined>(lng && lat && zoom ? [lng, lat, zoom] : undefined);
+  const [lngLatZoom, setLngLatZoom] = useState<[lng: number, lat: number, zoom: number] | null>(null);
   const [styleIdentifier, setStyleIdentifier] = useState(mapStyle || 'geolonia/basic');
   const [htmlSnippet, setHtmlSnippet] = useState('');
 
@@ -192,22 +190,22 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
 
   }, [lngLatZoom, marker, simpleVector, styleIdentifier]);
 
+  const moveendCallback = useCallback((map: mapboxgl.Map) => {
+    const { lng, lat } = map.getCenter();
+    const zoom = map.getZoom();
+    setLngLatZoom([lng, lat, zoom]);
+  }, []);
+
   const handleMapOnLoad = useCallback((map: mapboxgl.Map) => {
-    const moveendCallback = () => {
-      if (!mapRef.current) return;
-      const map = mapRef.current;
-      const { lng, lat } = map.getCenter();
-      const zoom = map.getZoom();
-      setLngLatZoom([lng, lat, zoom]);
-    };
-    if (lngLatZoom) {
-      if (!mapRef.current) return;
-      const map = mapRef.current;
-      map.flyTo({ center: [lngLatZoom[0], lngLatZoom[1]], zoom: lngLatZoom[2] });
-    } else {
-      moveendCallback(); // force fire and setState
-    }
-    map.on('moveend', moveendCallback);
+    map.once('load', () => {
+      if (defaultXYZ) {
+        const [lng, lat, zoom] = defaultXYZ;
+        map.flyTo({ center: [lng, lat], zoom });
+      } else {
+        moveendCallback(map);
+      }
+      map.on('moveend', (ev) => moveendCallback(ev.target));
+    });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <>

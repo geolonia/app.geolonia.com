@@ -335,9 +335,7 @@ const ApiKey: React.FC = () => {
             </p>
             <p>
               <GetGeolonia
-                lat={35.6762}
-                lng={139.6503}
-                zoom={10}
+                defaultXYZ={[139.6503, 35.6762, 10]}
                 mapStyle={'geolonia/basic'}
               />
             </p>
