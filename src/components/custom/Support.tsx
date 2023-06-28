@@ -5,9 +5,7 @@ import { __ } from '@wordpress/i18n';
 
 import './Support.scss';
 
-type Props = {};
-
-const Support = (props: Props) => {
+const Support = () => {
   return (
     <div className="support-menu">
       <ul>

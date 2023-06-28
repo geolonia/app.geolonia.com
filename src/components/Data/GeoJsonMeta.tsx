@@ -166,7 +166,7 @@ const GeoJSONMeta = (props: Props) => {
       setExpanded(true);
     }
   }, [allowedOrigins, expanded]);
-  const handleExpandClick = useCallback((event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+  const handleExpandClick = useCallback(() => {
     setExpanded((expanded) => !expanded);
   }, []);
 

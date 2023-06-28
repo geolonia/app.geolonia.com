@@ -17,9 +17,6 @@ type BlogPost = {
   date_published: string;
 }
 
-type Props = {
-};
-
 const useStyles = makeStyles({
   root: {
     height: '100%',
@@ -44,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-const DeveloperBlog = (props: Props) => {
+const DeveloperBlog = () => {
   const [blogItems, setBlogItems] = useState<BlogPost[]>([]);
   const classes = useStyles();
 

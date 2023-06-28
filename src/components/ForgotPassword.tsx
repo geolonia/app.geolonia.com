@@ -14,16 +14,7 @@ import { pageTransitionInterval } from '../constants';
 import StatusIndication from './custom/status-indication';
 import { parseForgotPasswordError as parseCognitoForgotPasswordError } from '../lib/cognito/parse-error';
 
-type OwnProps = Record<string, never>;
-type RouterProps = {
-  history: {
-    push: (path: string) => void;
-  };
-};
-type DispatchProps = Record<string, never>;
-type Props = OwnProps & RouterProps & DispatchProps;
-
-const Signin = (props: Props) => {
+const Signin = () => {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<
     null | 'requesting' | 'success' | 'warning'

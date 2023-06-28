@@ -53,7 +53,7 @@ export const requestVerificationCode = (identity: string) => {
     };
 
     const cognitoUser = new CognitoIdentity.CognitoUser(userData);
-    cognitoUser.resendConfirmationCode((err, result) => {
+    cognitoUser.resendConfirmationCode((err) => {
       if (err) {
         reject(err);
       } else {

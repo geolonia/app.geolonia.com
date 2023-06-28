@@ -48,7 +48,7 @@ export const MapEditor = (props: Props) => {
     mapRef.current = map;
   }, []);
 
-  const transformRequest = useCallback((url: string, resourceType) => {
+  const transformRequest = useCallback((url: string) => {
     if (sessionRef.current && url.indexOf('customtiles') >= 0) {
       const idToken = sessionRef.current.getIdToken().getJwtToken();
       return {

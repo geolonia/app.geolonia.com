@@ -19,9 +19,7 @@ const cardStyle: React.CSSProperties = {
 
 const StyleSaveButton: React.CSSProperties = {};
 
-const saveHandler = (
-  event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-) => {
+const saveHandler = () => {
   return Promise.resolve();
 };
 

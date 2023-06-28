@@ -67,7 +67,7 @@ const Profile: React.FC<{}> = () => {
     setName(name.trim());
   }, []);
 
-  const handleSaveClick = useCallback(async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSaveClick = useCallback(async () => {
     const nextUser =  { name, timezone, language };
     if (userSub) {
       await updateUser({ userSub, updates: nextUser });
