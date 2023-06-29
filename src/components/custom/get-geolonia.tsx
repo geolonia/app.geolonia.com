@@ -190,13 +190,14 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
 
   }, [lngLatZoom, marker, simpleVector, styleIdentifier]);
 
-  const moveendCallback = useCallback((map: mapboxgl.Map) => {
-    const { lng, lat } = map.getCenter();
-    const zoom = map.getZoom();
-    setLngLatZoom([lng, lat, zoom]);
-  }, []);
-
   const handleMapOnLoad = useCallback((map: mapboxgl.Map) => {
+
+    const moveendCallback = (map: mapboxgl.Map) => {
+      const { lng, lat } = map.getCenter();
+      const zoom = map.getZoom();
+      setLngLatZoom([lng, lat, zoom]);
+    };
+
     map.once('load', () => {
       if (defaultXYZ) {
         const [lng, lat, zoom] = defaultXYZ;
