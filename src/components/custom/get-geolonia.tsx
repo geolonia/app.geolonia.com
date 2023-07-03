@@ -14,9 +14,7 @@ import mapboxgl from 'mapbox-gl';
 
 type Props = {
   geojsonId?: string;
-  lat?: number;
-  lng?: number;
-  zoom?: number;
+  defaultXYZ?: [x: number, y: number, z: number];
   marker? : 'on' | 'off',
   mapStyle?: string;
 }
@@ -96,15 +94,21 @@ const buildEmbedHtmlSnipet = (options: { [key: string]: string | number | undefi
 };
 
 export const GetGeolonia: React.FC<Props> = (props: Props) => {
-  const { geojsonId, lat, lng, zoom, marker, mapStyle } = props;
+  const { geojsonId, defaultXYZ, marker, mapStyle } = props;
   const simpleVector = geojsonId ? `geolonia://tiles/custom/${geojsonId}` : undefined;
+
+  const defaultLng = defaultXYZ ? defaultXYZ[0] : 0;
+  const defaultLat = defaultXYZ ? defaultXYZ[1] : 0;
+  const defaultZoom = defaultXYZ ? defaultXYZ[2] : 0;
 
   const [open, setOpen] = useState(false);
   const [geocodeText, setGeocodeText] = useState('');
   const [messageVisibility, setMessageVisibilty] = useState<string | false>(false);
 
-  const [lngLatZoom, setLngLatZoom] = useState<[lng: number, lat: number, zoom: number] | undefined>(lng && lat && zoom ? [lng, lat, zoom] : undefined);
-  const [styleIdentifier, setStyleIdentifier] = useState(mapStyle || 'geolonia/basic');
+  const [lngLatZoom, setLngLatZoom] = useState<[lng: number, lat: number, zoom: number] | null>(
+    defaultXYZ || null,
+  );
+  const [styleIdentifier, setStyleIdentifier] = useState(mapStyle || 'geolonia/basic-v1');
   const [htmlSnippet, setHtmlSnippet] = useState('');
 
   const handleClickOpen = useCallback(() => setOpen(true), []);
@@ -113,7 +117,6 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
   const handleHtmlSnippetChangeByUser = useCallback((event: React.ChangeEvent<HTMLInputElement>) => setHtmlSnippet(event.target.value), []);
 
   const mapRef = useRef<mapboxgl.Map | null>(null);
-
 
   const handleGeocodeSubmit = useCallback(() => {
     if (!geocodeText) return;
@@ -193,22 +196,17 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
   }, [lngLatZoom, marker, simpleVector, styleIdentifier]);
 
   const handleMapOnLoad = useCallback((map: mapboxgl.Map) => {
-    const moveendCallback = () => {
-      if (!mapRef.current) return;
-      const map = mapRef.current;
+
+    const moveendCallback = (map: mapboxgl.Map) => {
       const { lng, lat } = map.getCenter();
       const zoom = map.getZoom();
       setLngLatZoom([lng, lat, zoom]);
     };
-    if (lngLatZoom) {
-      if (!mapRef.current) return;
-      const map = mapRef.current;
-      map.flyTo({ center: [lngLatZoom[0], lngLatZoom[1]], zoom: lngLatZoom[2] });
-    } else {
-      moveendCallback(); // force fire and setState
-    }
-    map.on('moveend', moveendCallback);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+    map.once('load', () => {
+      map.on('moveend', (ev) => moveendCallback(ev.target));
+    });
+  }, []);
 
   return <>
     <Button
@@ -224,6 +222,11 @@ export const GetGeolonia: React.FC<Props> = (props: Props) => {
     <Modal open={open} onClose={handleClose} style={{display: 'flex'}}>
       <div className={'get-geolonia-modal-content'}>
         <GeoloniaMap
+          // We only set the lat/lng/zoom once, because if we set them every time the map is panned,
+          // we'll end up with an infinite loop of re-rendering.
+          lat={`${defaultLat}`}
+          lng={`${defaultLng}`}
+          zoom={`${defaultZoom}`}
           marker={'off'}
           mapRef={mapRef}
           style={{width: '100%', height: 'calc(100% - 150px)'}}
