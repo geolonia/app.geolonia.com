@@ -336,7 +336,7 @@ const ApiKey: React.FC = () => {
             <p>
               <GetGeolonia
                 defaultXYZ={[139.6503, 35.6762, 10]}
-                mapStyle={'geolonia/basic'}
+                mapStyle={'geolonia/basic-v1'}
               />
             </p>
             <Typography component="h3" style={styleH3}>
