@@ -15,9 +15,6 @@ type BlogPost = {
   excerpt: string;
   thumbnail: string;
   date_published: string;
-}
-
-type Props = {
 };
 
 const useStyles = makeStyles({
@@ -44,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-const DeveloperBlog = (props: Props) => {
+const DeveloperBlog = () => {
   const [blogItems, setBlogItems] = useState<BlogPost[]>([]);
   const classes = useStyles();
 

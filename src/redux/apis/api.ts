@@ -4,18 +4,18 @@ import { getSession } from '../../auth';
 type CreateGeojsonMetaParam = {
   teamId: string
   name: string
-}
+};
 
 type GeoJSONMetaCollectionResp = {
   geojsons: Geolonia.GeoJSONMeta[]
   totalCount: number
-}
+};
 type GeoJSONMetaResp = {
   body: {
     _id: string;
     _source: Omit<Geolonia.GeoJSONMeta, 'id'> & { geojsonId: string }
   }
-}
+};
 type UpdateGeoJSONMetaParam = {
   geojsonId: string,
   name?: string,
@@ -23,12 +23,12 @@ type UpdateGeoJSONMetaParam = {
   status?: string,
   allowedOrigins?: string[],
   primaryApiKeyId?: string,
-}
+};
 type UploadLocationDataParam = {
   locationDataFile: File,
   geojsonId: string,
   teamId: string,
-}
+};
 type LocationDataLinksResp = {
   links: {
     putGeoJSON: string;
@@ -40,7 +40,7 @@ type LocationDataLinksResp = {
 type FeaturesGetResp = {
   features: GeoJSON.Feature[],
   totalCount: number
-}
+};
 
 const typeMap: { [key: string]: [string, keyof LocationDataLinksResp['links']] } = {
   geojson: ['application/json', 'putGeoJSON'],

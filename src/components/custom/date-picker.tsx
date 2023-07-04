@@ -6,7 +6,7 @@ type Props = {
   label?: string
   disabled?: boolean
   onChange?: (date: string) => void,
-}
+};
 
 export const DatePicker = (props: Props) => {
 

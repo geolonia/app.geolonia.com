@@ -8,7 +8,7 @@ import { __ } from '@wordpress/i18n';
 type Props = {
   value?: string;
   target?: string;
-}
+};
 
 // TODO: add a feedback
 export const CopyToClipboard: React.FC<Props> = (props) => {

@@ -63,7 +63,7 @@ export const Delete: React.FC<Props> = (props) => {
     setOpen(true);
   }, []);
 
-  const handleClose = useCallback((event: any, reason: string) => {
+  const handleClose = useCallback(() => {
     if (isCancelDisabled || status === 'working') {
       return;
     }
@@ -71,9 +71,9 @@ export const Delete: React.FC<Props> = (props) => {
     setOpen(false);
   }, [isCancelDisabled, status]);
 
-  const onCancelClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>((event) => {
+  const onCancelClick = useCallback<React.MouseEventHandler<HTMLButtonElement>>(() => {
     if (!isCancelDisabled) {
-      handleClose(event, 'cancel');
+      handleClose();
     }
   }, [isCancelDisabled, handleClose]);
 

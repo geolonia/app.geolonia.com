@@ -53,7 +53,7 @@ export const requestVerificationCode = (identity: string) => {
     };
 
     const cognitoUser = new CognitoIdentity.CognitoUser(userData);
-    cognitoUser.resendConfirmationCode((err, result) => {
+    cognitoUser.resendConfirmationCode((err) => {
       if (err) {
         reject(err);
       } else {
@@ -239,7 +239,7 @@ export const changePassword = (oldPassword: string, newPassword: string) =>
     const cognitoUser = userPool.getCurrentUser();
     if (cognitoUser) {
       const username = cognitoUser.getUsername();
-      return signin(username, oldPassword)
+      signin(username, oldPassword)
         .then(({ cognitoUser }) => {
           cognitoUser.changePassword(oldPassword, newPassword, (err) => {
             if (err) {

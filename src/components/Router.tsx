@@ -1,5 +1,5 @@
 import React from 'react';
-import { withStyles, Theme } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { HashRouter, Route } from 'react-router-dom';
 
 import Dashboard from './Dashboard';
@@ -16,13 +16,9 @@ import Billing from './Team/Billing';
 
 import User from './User/User';
 
-const styles = (theme: Theme) => ({});
+const styles = () => ({});
 
-type Props = {
-  classes: object;
-};
-
-function Router(props: Props) {
+function Router() {
   return (
     <HashRouter>
       <Route exact path="/" component={Dashboard} />

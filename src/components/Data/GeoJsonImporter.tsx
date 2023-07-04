@@ -13,7 +13,7 @@ type Props = {
 
 type TypeUniqueIds = {
   [key: string]: boolean;
-}
+};
 
 const styleOuterDefault: React.CSSProperties = {
   position: 'fixed',

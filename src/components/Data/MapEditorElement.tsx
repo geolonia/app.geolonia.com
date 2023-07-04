@@ -22,11 +22,11 @@ type StepperProps = {
   text: string;
   progress: number;
   lazy: number;
-}
+};
 
 type Props = {
   geojsonId: string;
-}
+};
 
 const Stepper: React.FC<StepperProps> = ({text, progress, lazy}) => {
   const [lazyProgress, setLazyProgress] = useState(0);

@@ -50,6 +50,7 @@ jobs:
         env:
          REACT_APP_COGNITO_USERPOOL_ID: us-east-1_000000000
          REACT_APP_COGNITO_APP_CLIENT_ID: 0000000000000aaaaaaaaaaaaa
+      - run: yarn run lint
 
       - run: "mkdir -p build && cp -r build build_prev"
       - run: yarn build

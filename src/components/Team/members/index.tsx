@@ -89,7 +89,7 @@ const Members: React.FC = () => {
     e.currentTarget.className = '';
   };
 
-  const onClick = (e: any) => {};
+  const onClick = () => {};
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 

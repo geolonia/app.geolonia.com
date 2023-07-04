@@ -17,7 +17,7 @@ type Props = {
   defaultXYZ?: [x: number, y: number, z: number];
   marker? : 'on' | 'off',
   mapStyle?: string;
-}
+};
 
 type Geolonia__JISX0402Resp = {
   prefecture: string;
@@ -26,7 +26,7 @@ type Geolonia__JISX0402Resp = {
   city_kana: string;
   code: string;
   code4: string;
-}
+};
 
 const styleSelectorStyle: React.CSSProperties = {
   margin: '8px',

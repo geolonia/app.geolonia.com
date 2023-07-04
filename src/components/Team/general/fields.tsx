@@ -10,7 +10,7 @@ import { Roles } from '../../../constants';
 import { useSelectedTeam } from '../../../redux/hooks';
 import { useUpdateTeamMutation } from '../../../redux/apis/app-api';
 
-const Content: React.FC = (props) => {
+const Content: React.FC = () => {
   // props
   const { selectedTeam } = useSelectedTeam();
 

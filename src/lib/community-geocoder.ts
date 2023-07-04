@@ -6,7 +6,7 @@ export type CommunityGeocodeResult = {
   level: 0 | 1 | 2 | 3,
   pref: string;
   town: string;
-}
+};
 
 export const geocode = async (address: string): Promise<CommunityGeocodeResult> => {
   return new Promise((resolve, reject) => {

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type AvatarState = {
   cachedAvatars: { [key: string]: string | undefined };
-}
+};
 
 const initialState: AvatarState = {
   cachedAvatars: {},

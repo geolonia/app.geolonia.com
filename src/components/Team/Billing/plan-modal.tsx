@@ -93,7 +93,7 @@ const PlanModal: React.FC<Props> = (props) => {
                       plan.planId ===
                       (planId === void 0 ? currentPlanId : planId)
                     }
-                    onChange={(e) => setPlanId(plan.planId)}
+                    onChange={() => setPlanId(plan.planId)}
                   />
                 }
                 label={<>

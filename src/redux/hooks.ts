@@ -22,7 +22,7 @@ type SelectedTeamResult = {
   isRestricted: boolean | null
   isFetching: boolean,
   refetch: () => void
-}
+};
 export const useSelectedTeam: () => SelectedTeamResult = () => {
   const dispatch = useAppDispatch();
   const isLoggedIn = useAppSelector((state) => state.authSupport.isLoggedIn);
@@ -89,7 +89,7 @@ type UseImageFromURLHook = (
   opts?: {
     onError?: () => void,
   },
-) => string | undefined
+) => string | undefined;
 export const useImageFromURL: UseImageFromURLHook = (key, imageUrl, opts) => {
   const dispatch = useAppDispatch();
   const avatar = useAppSelector((state) => state.avatar.cachedAvatars[key || 'never']);
