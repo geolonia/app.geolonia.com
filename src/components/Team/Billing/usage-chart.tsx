@@ -274,12 +274,12 @@ const UsageChart: React.FC<UsageChartProps> = (props) => {
       const anchor = document.createElement('a');
       const { format } = e.currentTarget.dataset;
       if (format === 'csv') {
-        data = statisticsData.csv!;
+        data = statisticsData.csv;
         const usageStart = moment(subOrFreePlan.current_period_start).format('YYYY-MM-DD');
         const usageEnd = moment(subOrFreePlan.current_period_end).format('YYYY-MM-DD');
         anchor.download = `${usageStart}_${usageEnd}.${format}`;
       } else if (format === 'html') {
-        data = statisticsData.html!;
+        data = statisticsData.html;
         anchor.target = '_blank';
       } else {
         throw new Error(`Invalid format ${format}.`);
