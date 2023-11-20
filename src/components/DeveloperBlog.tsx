@@ -58,14 +58,16 @@ const DeveloperBlog = () => {
     <>
       <Grid container spacing={2}>
         {blogItems.map((post, index) => {
-          let thumbnail_url = post.thumbnail;
+          let thumbnailUrl;
           try {
-            const thumbnail_host = new URL(post.thumbnail).host;
-            if (thumbnail_host.endsWith('ucarecdn.com')) {
-              thumbnail_url = `${thumbnail_url}-/resize/800x/-/format/auto/-/quality/lightest/`;
+            const thumbnailHost = new URL(post.thumbnail).host;
+            if (thumbnailHost.endsWith('ucarecdn.com')) {
+              thumbnailUrl = `${post.thumbnail}-/resize/800x/-/format/auto/-/quality/lightest/`;
+            } else {
+              thumbnailUrl = post.thumbnail;
             }
           } catch {
-            thumbnail_url = `https://blog.geolonia.com${thumbnail_url}`;
+            thumbnailUrl = `https://blog.geolonia.com${post.thumbnail}`;
           }
 
           return (
