@@ -76,7 +76,7 @@ const DeveloperBlog = () => {
                 <CardActionArea className={classes.actionArea} onClick={() => window.open(post.url, '_blank')}>
                   <CardMedia
                     className={classes.media}
-                    image={thumbnail_url}
+                    image={thumbnailUrl}
                     title={post.title}
                   />
                   <CardContent>
