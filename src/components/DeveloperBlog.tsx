@@ -65,7 +65,7 @@ const DeveloperBlog = () => {
               thumbnail_url = `${thumbnail_url}-/resize/800x/-/format/auto/-/quality/lightest/`;
             }
           } catch {
-            // ignore
+            thumbnail_url = `https://blog.geolonia.com${thumbnail_url}`;
           }
 
           return (
