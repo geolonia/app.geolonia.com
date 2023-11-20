@@ -58,11 +58,11 @@ const DeveloperBlog = () => {
     <>
       <Grid container spacing={2}>
         {blogItems.map((post, index) => {
-          let thumbnail_url = post.thumbnail
+          let thumbnail_url = post.thumbnail;
           try {
-            const thumbnail_host = new URL(post.thumbnail).host
+            const thumbnail_host = new URL(post.thumbnail).host;
             if (thumbnail_host.endsWith('ucarecdn.com')) {
-              thumbnail_url = `${thumbnail_url}-/resize/800x/-/format/auto/-/quality/lightest/`
+              thumbnail_url = `${thumbnail_url}-/resize/800x/-/format/auto/-/quality/lightest/`;
             }
           } catch {
             // ignore
