@@ -58,20 +58,23 @@ const DeveloperBlog = () => {
     <>
       <Grid container spacing={2}>
         {blogItems.map((post, index) => {
-          let thumb_url
-          const thumbnail_host = new URL(post.thumbnail).host
-          if(thumbnail_host === 'ucarecdn.com') {
-            thumb_url = `${post.thumbnail}-/resize/800x/-/format/auto/-/quality/lightest/`
-          } else {
-            thumb_url = post.thumbnail
+          let thumbnail_url = post.thumbnail
+          try {
+            const thumbnail_host = new URL(post.thumbnail).host
+            if (thumbnail_host.endsWith('ucarecdn.com')) {
+              thumbnail_url = `${thumbnail_url}-/resize/800x/-/format/auto/-/quality/lightest/`
+            }
+          } catch {
+            // ignore
           }
+
           return (
             <Grid item lg={3} md={6} xs={12} key={index}>
               <Card className={classes.root}>
                 <CardActionArea className={classes.actionArea} onClick={() => window.open(post.url, '_blank')}>
                   <CardMedia
                     className={classes.media}
-                    image={thumb_url}
+                    image={thumbnail_url}
                     title={post.title}
                   />
                   <CardContent>
