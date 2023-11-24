@@ -58,13 +58,25 @@ const DeveloperBlog = () => {
     <>
       <Grid container spacing={2}>
         {blogItems.map((post, index) => {
+          let thumbnailUrl;
+          try {
+            const thumbnailHost = new URL(post.thumbnail).host;
+            if (thumbnailHost.endsWith('ucarecdn.com')) {
+              thumbnailUrl = `${post.thumbnail}-/resize/800x/-/format/auto/-/quality/lightest/`;
+            } else {
+              thumbnailUrl = post.thumbnail;
+            }
+          } catch {
+            thumbnailUrl = `https://blog.geolonia.com${post.thumbnail}`;
+          }
+
           return (
             <Grid item lg={3} md={6} xs={12} key={index}>
               <Card className={classes.root}>
                 <CardActionArea className={classes.actionArea} onClick={() => window.open(post.url, '_blank')}>
                   <CardMedia
                     className={classes.media}
-                    image={`${post.thumbnail}-/resize/800x/-/format/auto/-/quality/lightest/`}
+                    image={thumbnailUrl}
                     title={post.title}
                   />
                   <CardContent>
