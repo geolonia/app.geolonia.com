@@ -150,6 +150,19 @@ const Navigator: React.FC<Props> = (props) => {
     });
   }
 
+  const dataCatalogChildren = [
+    {
+      id: __('Open Data'),
+      icon: <ViewListIcon />,
+      href: '/datacatalog/open-data',
+    },
+    {
+      id: __('Subscription Data'),
+      icon: <GroupIcon />,
+      href: '/datacatalog/subscriptions',
+    },
+  ];
+
   const mapChildren = [
     {
       id: __('Manage API keys'),
@@ -169,6 +182,10 @@ const Navigator: React.FC<Props> = (props) => {
     {
       id: __('Map'),
       children: mapChildren,
+    },
+    {
+      id: __('Data Catalog'),
+      children: dataCatalogChildren,
     },
     {
       id: __('Team Settings'),

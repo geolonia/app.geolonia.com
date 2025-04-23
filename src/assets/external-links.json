@@ -1,0 +1,26 @@
+{
+    "Smartmap": {
+        "高松スマートマップ": {
+            "url": "https://maps.takamatsu-fact.com",
+            "description": "高松市の提供するスマートマップです。"
+        },
+        "スマートマップ焼津": {
+            "url": "https://maps.yaizu-smartcity.jp/",
+            "description": "焼津市の提供するスマートマップです。"
+        }
+    },
+    "Geolonia Open Data Catalog": {
+        "延岡市オープンデータカタログ（geolonia製）": {
+            "url": "https://geolonia.github.io/nobeoka-city-smartmap-sample/",
+            "description": "延岡市の提供するスマートマップです。"
+        },
+        "静岡県オープンデータカタログ（geolonia製）": {
+            "url": "https://geolonia.github.io/shizuoka-smartmap/",
+            "description": "静岡県の提供するスマートマップです。"
+        },
+        "長崎県オープンデータカタログ（geolonia製）": {
+            "url": "https://nagasaki-smartmap.pages.dev/",
+            "description": "長崎県の提供するスマートマップです。"
+        }
+    }
+}
