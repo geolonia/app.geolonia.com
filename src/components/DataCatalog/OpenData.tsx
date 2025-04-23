@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardActionArea, CardContent, Typography, Grid } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, Typography, Grid, Collapse } from '@material-ui/core';
 import links from '../../assets/external-links.json';
 import Title from '../custom/Title';
 import { __ } from '@wordpress/i18n';
@@ -25,6 +25,10 @@ const OpenData: React.FC = () => {
   return (
     <div>
       <Title breadcrumb={breadcrumbItems} title={__('Open Data')} />
+      <p>スマートマップまたは、geolonia製オープンデータカタログサイトにアクセスし、データを書き出すことができます。</p>
+      <Collapse in={true}>
+        <p>手順です</p>
+      </Collapse>
       <Grid container spacing={8}>
         {Object.entries(links).map(([category, items]) => (
           <Grid item xs={12} key={category}>
