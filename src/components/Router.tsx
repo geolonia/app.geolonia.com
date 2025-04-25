@@ -16,6 +16,11 @@ import Billing from './Team/Billing';
 
 import User from './User/User';
 
+import OpenData from './DataCatalog/OpenData';
+import SubscriptionData from './DataCatalog/SubscriptionData';
+import CreateMapStyle from './MapStyle/CreateMapStyle';
+import MyMapStyles from './MapStyle/MyMapStyles';
+
 const styles = () => ({});
 
 function Router() {
@@ -27,6 +32,12 @@ function Router() {
 
       <Route exact path="/data/geojson" component={GeoJsons} />
       <Route exact path="/data/geojson/:id" component={GeoJson} />
+
+      <Route exact path="/datacatalog/open-data" component={OpenData} />
+      <Route exact path="/datacatalog/subscriptions" component={SubscriptionData} />
+
+      <Route exact path="/mapstyle/create-map-style" component={CreateMapStyle} />
+      <Route exact path="/mapstyle/my-map-styles" component={MyMapStyles} />
 
       <Route exact path="/team/general" component={General} />
       <Route exact path="/team/members" component={Members} />
