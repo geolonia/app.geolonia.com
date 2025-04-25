@@ -163,6 +163,19 @@ const Navigator: React.FC<Props> = (props) => {
     },
   ];
 
+  const mapStyleChildren = [
+    {
+      id: __('Create Map Styles'),
+      icon: <ViewListIcon />,
+      href: '/mapstyle/create-map-style',
+    },
+    {
+      id: __('My Map Styles'),
+      icon: <GroupIcon />,
+      href: '/mapstyle/my-map-styles',
+    },
+  ];
+
   const mapChildren = [
     {
       id: __('Manage API keys'),
@@ -182,6 +195,10 @@ const Navigator: React.FC<Props> = (props) => {
     {
       id: __('Map'),
       children: mapChildren,
+    },
+    {
+      id: __('Map Style'),
+      children: mapStyleChildren,
     },
     {
       id: __('Data Catalog'),
