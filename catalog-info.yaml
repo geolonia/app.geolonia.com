@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+
+metadata:
+  namespace: geolonia
+  name: app-geolonia-com
+  title: Dashboard
+  description: Geolonia Maps dashboard application for managing map services.
+  annotations:
+    github.com/project-slug: geolonia/app.geolonia.com
+    backstage.io/source-location: url:https://github.com/geolonia/app.geolonia.com/blob/develop/
+  tags:
+    - dashboard
+    - frontend
+
+spec:
+  type: service
+  lifecycle: production
+  owner: group:geolonia/maps-team
+  system: geolonia/geolonia-maps
