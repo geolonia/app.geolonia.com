@@ -118,7 +118,7 @@ describe('parseSignupError', () => {
     expect(
       parseSignupError({
         code: 'InvalidParameterException',
-        message: "Value at 'username' is bad",
+        message: 'Value at \'username\' is bad',
       }),
     ).toBe(descriptions.INVALID_USERNAME);
   });
@@ -127,7 +127,7 @@ describe('parseSignupError', () => {
     expect(
       parseSignupError({
         code: 'InvalidParameterException',
-        message: "Value at 'password' is bad",
+        message: 'Value at \'password\' is bad',
       }),
     ).toBe(descriptions.INSUFFICIENT_PASSWORD_STRENGTH);
   });
@@ -233,7 +233,7 @@ describe('parseResetPasswordError', () => {
     expect(
       parseResetPasswordError({
         code: 'InvalidParameterException',
-        message: "Value at 'username' is invalid",
+        message: 'Value at \'username\' is invalid',
       }),
     ).toBe(descriptions.INVALID_USERNAME);
   });
@@ -242,7 +242,7 @@ describe('parseResetPasswordError', () => {
     expect(
       parseResetPasswordError({
         code: 'InvalidParameterException',
-        message: "Value at 'password' is invalid",
+        message: 'Value at \'password\' is invalid',
       }),
     ).toBe(descriptions.INSUFFICIENT_PASSWORD_STRENGTH);
   });
