@@ -108,17 +108,6 @@ declare namespace Geolonia {
     updateAt?: Moment.Moment | void;
     isDeleted?: boolean;
   };
-  type GeoJSONMeta = {
-    id: string;
-    name: string;
-    updateAt: string;
-    isPublic: boolean;
-    allowedOrigins: string[];
-    status: string;
-    teamId: string;
-    gvp_status: string; // 'progress' | 'created' | 'failure';
-    primaryApiKeyId?: string;
-  };
   type InvoiceDetails = {
     id: string
     amount_due: number

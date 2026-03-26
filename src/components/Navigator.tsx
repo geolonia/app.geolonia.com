@@ -13,7 +13,6 @@ import HomeIcon from '@material-ui/icons/Home';
 import CodeIcon from '@material-ui/icons/Code';
 import ViewListIcon from '@material-ui/icons/ViewList';
 import DescriptionIcon from '@material-ui/icons/Description';
-// import RoomIcon from '@material-ui/icons/Room';
 import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
 import TextField from '@material-ui/core/TextField';
@@ -24,8 +23,6 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Cancel from './custom/Cancel';
 import Save from './custom/Save';
-import Alert from './custom/Alert';
-
 import './Navigator.scss';
 import defaultTeamIcon from './custom/team.svg';
 import { Link } from '@material-ui/core';
@@ -156,13 +153,6 @@ const Navigator: React.FC<Props> = (props) => {
       icon: <CodeIcon />,
       href: '/api-keys',
     },
-    // {
-    //   id: __('Location Data'),
-    //   icon: <RoomIcon />,
-    //   href: '/data/geojson',
-    // },
-    // { id: 'Styles', icon: <SatelliteIcon />, href: "/maps/styles" },
-    // { id: 'Geolonia Live Locations', icon: <MyLocationIcon />, href: "/data/features" },
   ];
 
   const categories = [
@@ -313,12 +303,6 @@ const Navigator: React.FC<Props> = (props) => {
           </React.Fragment>
         ))}
       </List>
-
-      <Alert type={'custom-outlined'}>
-        {__(
-          'The dashboard has been renewed. The GeoJSON API that we used to provide is currently not accessible due to functional modifications. If you need to download the data, please <a href="https://geolonia.com/contact/" target="_blank">contact us</a>.',
-        )}
-      </Alert>
 
       <form>
         <Dialog
