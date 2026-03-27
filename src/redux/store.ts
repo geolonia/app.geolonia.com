@@ -6,7 +6,6 @@ import teamReducer from './actions/team';
 import avatarReducer from './actions/avatar';
 
 import { appApi } from './apis/app-api';
-import { api } from './apis/api';
 
 const store = configureStore({
   reducer: {
@@ -15,12 +14,10 @@ const store = configureStore({
     team: teamReducer,
     avatar: avatarReducer,
     [appApi.reducerPath]: appApi.reducer,
-    [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) => (
     getDefaultMiddleware()
       .concat(appApi.middleware)
-      .concat(api.middleware)
   ),
 });
 
