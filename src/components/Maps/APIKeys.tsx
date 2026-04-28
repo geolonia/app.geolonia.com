@@ -5,7 +5,8 @@ import React, { useState, useCallback } from 'react';
 import Table from '../custom/Table';
 import AddNew2 from '../custom/AddNew2';
 import Title from '../custom/Title';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, TextField, InputAdornment } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 
 import { sprintf, __ } from '@wordpress/i18n';
 import moment from 'moment';
@@ -32,6 +33,7 @@ const ApiKeys: React.FC = () => {
   const isSuccess = isUserSuccess && isApiKeysSuccess;
   const [ createApiKey ] = useCreateApiKeyMutation();
   const [message, setMessage] = useState('');
+  const [searchText, setSearchText] = useState('');
   const breadcrumbItems = [
     {
       title: __('Home'),
@@ -68,6 +70,14 @@ const ApiKeys: React.FC = () => {
           ? moment(key.createAt).format('YYYY/MM/DD HH:mm:ss')
           : __('(No date)'),
       };
+    })
+    .filter((row) => {
+      if (!searchText) return true;
+      const lowerSearchText = searchText.toLowerCase();
+      return (
+        row.name.toLowerCase().includes(lowerSearchText) ||
+        row.id.toLowerCase().includes(lowerSearchText)
+      );
     });
 
   const newAPIButton = <AddNew2
@@ -90,10 +100,33 @@ const ApiKeys: React.FC = () => {
           {newAPIButton}
         </div>
           :
-          newAPIButton
+          <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', alignItems: 'center' }}>
+            <TextField
+              placeholder={__('Search API keys...')}
+              variant="outlined"
+              size="small"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+              style={{ flexGrow: 1, maxWidth: '400px' }}
+            />
+            {newAPIButton}
+          </div>
         }
 
-        <Table rows={rows} rowsPerPage={10} permalink="/api-keys/%s" />
+        {mapKeys && mapKeys.length > 0 && rows.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '2rem', color: '#666' }}>
+            <p>{__('No API keys found matching your search.')}</p>
+          </div>
+        ) : (
+          <Table rows={rows} rowsPerPage={10} permalink="/api-keys/%s" />
+        )}
       </> }
     </div>
   );
