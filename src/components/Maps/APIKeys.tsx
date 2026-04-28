@@ -60,6 +60,7 @@ const ApiKeys: React.FC = () => {
     push(`/api-keys/${data.keyId}`);
   }, [createApiKey, push, teamId, user]);
 
+  const normalizedSearchText = searchText.trim().toLowerCase();
   const rows = (mapKeys || [])
     .filter((mapKey) => !mapKey.isDeleted)
     .map((key) => {
@@ -72,11 +73,10 @@ const ApiKeys: React.FC = () => {
       };
     })
     .filter((row) => {
-      if (!searchText) return true;
-      const lowerSearchText = searchText.toLowerCase();
+      if (!normalizedSearchText) return true;
       return (
-        row.name.toLowerCase().includes(lowerSearchText) ||
-        row.id.toLowerCase().includes(lowerSearchText)
+        row.name.toLowerCase().includes(normalizedSearchText) ||
+        row.id.toLowerCase().includes(normalizedSearchText)
       );
     });
 
@@ -103,6 +103,7 @@ const ApiKeys: React.FC = () => {
           <div style={{ display: 'flex', gap: '16px', marginBottom: '16px', alignItems: 'center' }}>
             <TextField
               placeholder={__('Search API keys...')}
+              aria-label={__('Search API keys')}
               variant="outlined"
               size="small"
               value={searchText}
