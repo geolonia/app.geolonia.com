@@ -60,10 +60,10 @@ Other useful commands:
 
 ## Pricing
 
-Billing is based on **map loads per month** (one map display = one load). A Map API key is only needed once you publish to your own domain (see above); the demo key on free-referer origins is free.
+Billing is based on **map displays per month** (each time the map is shown on a user's device counts as one). A Map API key is only needed once you publish to your own domain (see above); the demo key on free-referer origins is free.
 
-- **Free**: ¥0/month, up to 20,000 map loads/month. Includes API key generation, team members, and a free development environment.
-- **Pro**: ¥3,980/month (tax excl.), up to 50,000 map loads/month. Overage: ¥0.40/load beyond 50,000, dropping to ¥0.30/load beyond 100,000.
+- **Free**: ¥0/month, up to 20,000 map displays/month. Includes API key generation, team members, and a free development environment.
+- **Pro**: ¥3,980/month (tax excl.), up to 50,000 map displays/month. Overage: ¥0.40/display beyond 50,000, dropping to ¥0.30/display beyond 100,000.
 - **Technical support** (optional add-on): ¥55,000/month for email support on technical and feature questions.
 
 Larger or custom needs (map development, large-scale geospatial data, intranet/on-prem) are handled on request. Always check [the pricing page](https://www.geolonia.com/pricing/) for current figures.
