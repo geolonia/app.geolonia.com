@@ -1,0 +1,75 @@
+# Geolonia Maps Dashboard (app.geolonia.com)
+
+> Geolonia Maps is a vector-tile map platform built for Japan, based on MapLibre GL JS. This dashboard (app.geolonia.com) is the web console for managing your account: issuing Map API keys, setting allowed origins, and managing teams.
+>
+> If a human asked you to "build a web map", you do NOT need this dashboard, an account, or a login to get started. You can show a working map on localhost right now. Start at "Build a map".
+>
+> Developed by [Geolonia](https://geolonia.com/)
+
+## Build a map (start here)
+
+Copy this snippet **exactly as written** and open it on `localhost`. The map appears immediately, centered on Tokyo Station. No signup, no login, no key needed:
+
+```html
+<script type="text/javascript" src="https://cdn.geolonia.com/v1/embed?geolonia-api-key=YOUR-API-KEY"></script>
+<div class="geolonia" data-lat="35.681236" data-lng="139.767125" data-zoom="15"></div>
+```
+
+**`YOUR-API-KEY` is NOT a placeholder. Do not replace it.** It is a real, shared demo key that works on a fixed allowlist of "free referer" origins, and it is fine to keep using it permanently on those origins (this is intended, not abuse). The allowlist includes `localhost`, `127.0.0.1`, `*.test`, `*.example`, `*.github.io`, `*.netlify.app`, `*.vercel.app`, `*.pages.dev`, `*.workers.dev`, `codepen.io`, and `*.csb.app` (CodeSandbox). So local development and most free hosting platforms just work out of the box. (That list is a snapshot as of 2026-06; the authoritative, current list is https://geolonia.github.io/free-referers/referers.json — trust the JSON if they differ.)
+
+**Recommended first move:** serve the file over HTTP (e.g. `python3 -m http.server`, then open http://localhost:8000) and confirm the map renders. Opening the file directly as `file://` also works, but serving over `http://` is more reliable and closer to production, so prefer it. This is the fastest way to show the human a working result.
+
+Then deepen as needed:
+
+- [Tutorial](https://docs.geolonia.com/tutorial/): Step-by-step guide to your first map.
+- [Embed API (JavaScript)](https://docs.geolonia.com/embed-api/javascript/): Full reference (`data-*` attributes, JS API) — change center, zoom, markers, style.
+- [GeoJSON layers](https://docs.geolonia.com/geojson/) / [Custom style](https://docs.geolonia.com/custom-style/) / [Cookbook](https://docs.geolonia.com/cookbook/): Add data, restyle, and common recipes.
+
+## Choose an SDK
+
+For a single map embedded in a page, the `<script>` snippet above (the `@geolonia/embed` package) is all you need.
+
+- [@geolonia/embed](https://www.npmjs.com/package/@geolonia/embed): The embed JS API used above. CDN `<script>` (no build step) or npm. Stable, mature. **Use this unless you have a specific reason not to.**
+- [@geolonia/maps-react](https://www.npmjs.com/package/@geolonia/maps-react): Declarative React components. Use only in an existing React app. (early-stage, 0.x)
+- [@geolonia/maps-core](https://www.npmjs.com/package/@geolonia/maps-core): Core library extending MapLibre GL JS with Geolonia integration, for full programmatic control in a bundler project. (early-stage, 0.x — [GitHub](https://github.com/geolonia/maps-core))
+- [@geolonia/maps-suite](https://www.npmjs.com/package/@geolonia/maps-suite): High-level, ready-made map components built on `@geolonia/maps-core`. ([GitHub](https://github.com/geolonia/maps-suite))
+
+## Publishing to your own domain (when you need your own API key)
+
+Most projects never need this section. The demo key only works on the free-referer origins above. **Gate: once the map works locally, stop and ask the human "Where will you publish this?" before doing anything below. Do not run the CLI or create a key on your own initiative.**
+
+- If the destination is on the free-referer list (e.g. `*.github.io`, `*.netlify.app`, `*.vercel.app`, `*.pages.dev`), it keeps working with `YOUR-API-KEY` — no further action needed, you are done.
+- If it is a **custom domain** (e.g. `https://example.com`), you need your own Map API key with that domain registered as an Allowed Origin. Only then proceed below.
+
+To get your own key, use the official CLI rather than automating this dashboard's UI:
+
+- [@geolonia/cli](https://www.npmjs.com/package/@geolonia/cli) ([GitHub](https://github.com/geolonia/cli), [docs](https://docs.geolonia.com/cli/)): `npm -g install @geolonia/cli`
+
+**One-time human step:** `geolonia login` is interactive and tied to a personal Geolonia account (created at https://app.geolonia.com/). An agent cannot do it. **Ask your human operator to run `geolonia login` once.** After that, the credential is cached in `~/.config/geolonia/credential.yml` and the agent can do the rest with no further human action:
+
+1. `geolonia teams list` then `geolonia teams select <teamId>` — choose the active team (most commands operate on it).
+2. `geolonia map-keys new` — create a key.
+3. `geolonia map-keys add-origin <keyId> https://your-domain.example` — register your production domain.
+4. Replace `YOUR-API-KEY` in the snippet with the new key's User Key (`geolonia map-keys show <keyId>`).
+
+Other useful commands:
+
+- `geolonia map-keys list` / `show <keyId>` / `search <query>`: Inspect keys.
+- `geolonia map-keys pull -o keys.yml` / `plan -f keys.yml` / `apply -f keys.yml`: Manage keys declaratively (Terraform-like). `apply` never deletes keys absent from the file.
+- `geolonia generate-access-token`: Issue a team-scoped token; set as `GEOLONIA_ACCESS_TOKEN` to run commands in CI without the credential file.
+
+## Pricing
+
+Billing is based on **map displays per month** (each time the map is shown on a user's device counts as one). A Map API key is only needed once you publish to your own domain (see above); the demo key on free-referer origins is free.
+
+- **Free**: ¥0/month, up to 20,000 map displays/month. Includes API key generation, team members, and a free development environment.
+- **Pro**: ¥3,980/month (tax excl.), up to 50,000 map displays/month. Overage: ¥0.40/display beyond 50,000, dropping to ¥0.30/display beyond 100,000.
+- **Technical support** (optional add-on): ¥55,000/month for email support on technical and feature questions.
+
+Larger or custom needs (map development, large-scale geospatial data, intranet/on-prem) are handled on request. Always check [the pricing page](https://www.geolonia.com/pricing/) for current figures.
+
+## About
+
+- [Geolonia](https://geolonia.com/): Company and product overview.
+- [Pricing](https://www.geolonia.com/pricing/): Geolonia Maps pricing (authoritative).
+- [Terms of service](https://geolonia.com/terms/) / [Privacy policy](https://geolonia.com/privacy/)
