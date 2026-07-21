@@ -4,6 +4,15 @@
 
 ![Netlify Status](https://api.netlify.com/api/v1/badges/82532c8e-8d86-4215-a8f7-9fca30cfb132/deploy-status)
 
+## ブランチ運用ルール（重要）
+
+- このリポジトリの default branch は `develop` です。GitHub の organization rule (branch protection) が保護しているのはこの `develop` のみで、production 環境が参照する `master` は保護対象外です（このリポジトリに `main` ブランチは存在しません）。
+- ただし `master` が組織ルールで保護されていない場合であっても、`develop` を経由せず `master` へ直接変更を加えることは禁止です。
+- `master` への直接変更は、staging 環境での動作確認をスキップして production 環境へ変更を適用することを意味するため、原則として許可されません。
+- production 環境（`master`）が staging 環境（`develop`）よりも進んでいる（内容が乖離している）状態を発生させてはいけません。
+- PR は必ず `develop` を経由して `master` に取り込んでください。feature/fix ブランチは `develop` から作成し、`develop` を base に PR を作成してください。
+- PR の base branch を `master` に向けてはいけません。
+
 ## development
 
 ```shell
