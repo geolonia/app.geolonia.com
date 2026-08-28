@@ -1,0 +1,32 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+#
+# CodeRabbit 設定。
+#
+# 非 draft の PR では、作成時と push 時に自動レビューが走る。draft PR は既定で対象外
+# (含めるには auto_review.drafts: true)。
+# 増分レビューのため既にレビュー済みの commit は再レビューされないが、既定では前回の
+# pause から 5 commit をレビューした時点で自動レビューが pause する
+# (auto_pause_after_reviewed_commits の既定値が 5)。pause 後は `@coderabbitai review` で
+# 手動再開する。常時自動レビューにしたい場合はこの値を 0 にする。
+#
+# 適用タイミング: CodeRabbit はレビュー対象ブランチ (PR の head) の .coderabbit.yaml を
+# 読んでそのレビューに適用する。develop へのマージを待たずに、このファイルを含む PR
+# 自身から有効になる。
+language: ja-JP
+reviews:
+  # PR 作成時・push 時の自動レビュー
+  auto_review:
+    enabled: true
+  # 変更サマリの自動生成 (レビュー本体より軽く、PR の把握に有用)
+  high_level_summary: true
+  # レビュー結果を GitHub の review state に反映する。既定は false。
+  #
+  #   true  → 指摘がある間は REQUEST_CHANGES。次の 3 つがすべて揃うと APPROVE。
+  #             1. CodeRabbit のコメントがすべて resolve 済み
+  #             2. 最新 commit がレビュー済み
+  #             3. pre-merge checks が失敗していない
+  #   false → APPROVE も REQUEST_CHANGES も出さず、COMMENTED のみ。
+  #
+  # 主目的は reviewDecision を機能させること。false のままだと CodeRabbit が指摘を出しても
+  # reviewDecision に反映されず、未解決スレッドを個別に見に行かないと気づけない。
+  request_changes_workflow: true
