@@ -15,6 +15,7 @@ import ViewListIcon from '@material-ui/icons/ViewList';
 import DescriptionIcon from '@material-ui/icons/Description';
 import GroupIcon from '@material-ui/icons/Group';
 import PaymentIcon from '@material-ui/icons/Payment';
+import OpenInNewIcon from '@material-ui/icons/OpenInNew';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -74,6 +75,12 @@ const styles = (theme: Theme) => ({
   itemIcon: {
     minWidth: 'auto',
     marginRight: theme.spacing(2),
+  },
+  externalLinkIcon: {
+    fontSize: 16,
+    marginLeft: theme.spacing(1),
+    opacity: 0.7,
+    verticalAlign: 'middle',
   },
   divider: {
     marginTop: theme.spacing(2),
@@ -296,6 +303,9 @@ const Navigator: React.FC<Props> = (props) => {
                   }}
                 >
                   {childId}
+                  {target === '_blank' && (
+                    <OpenInNewIcon className={classes.externalLinkIcon} />
+                  )}
                 </ListItemText>
               </ListItem>;
             })}

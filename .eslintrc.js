@@ -1,6 +1,7 @@
 module.exports = {
+  root: true,
   extends: [
-    '@geolonia',
+    '@geolonia/eslint-config',
   ],
   env: {
     browser: true,
