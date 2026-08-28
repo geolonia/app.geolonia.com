@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+#
+# CodeRabbit 設定。
+#
+# PR 作成時と push 時に自動レビューが走る。`@coderabbitai review` を手で打つ必要はない。
+# 増分レビューのため、既にレビュー済みの commit は再レビューされない。
+#
+# 適用タイミング: CodeRabbit はレビュー対象ブランチ (PR の head) の .coderabbit.yaml を
+# 読んでそのレビューに適用する。develop へのマージを待たずに、このファイルを含む PR
+# 自身から有効になる。
+language: ja-JP
+reviews:
+  # PR 作成時・push 時の自動レビュー
+  auto_review:
+    enabled: true
+  # 変更サマリの自動生成 (レビュー本体より軽く、PR の把握に有用)
+  high_level_summary: true
+  # レビュー結果を GitHub の review state に反映する。既定は false。
+  #
+  #   true  → 指摘がある間は REQUEST_CHANGES、全指摘が resolve されたら APPROVE。
+  #   false → APPROVE も REQUEST_CHANGES も出さず、COMMENTED のみ。
+  #
+  # 主目的は reviewDecision を機能させること。false のままだと CodeRabbit が指摘を出しても
+  # reviewDecision に反映されず、未解決スレッドを個別に見に行かないと気づけない。
+  request_changes_workflow: true
