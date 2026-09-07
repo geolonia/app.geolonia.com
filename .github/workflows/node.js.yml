@@ -24,10 +24,13 @@ jobs:
       bundle_size_report: ${{ steps.compare_bundle_size.outputs.report }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+        with:
+          # このジョブは git への書き込みを行わないため、認証情報を残さない
+          persist-credentials: false
 
       - name: Use Node.js 18
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v7
         with:
           node-version: 18
 
@@ -35,7 +38,7 @@ jobs:
         id: yarn-cache-dir-path
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v6
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -44,7 +47,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Cache the built for react-scripts
-        uses: actions/cache@v3
+        uses: actions/cache@v6
         with:
           path: ./build
           key: build-assets-${{ github.sha }}
