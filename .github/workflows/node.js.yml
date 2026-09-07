@@ -88,11 +88,16 @@ jobs:
 
     steps:
       - name: Post comment
-        uses: actions/github-script@v4
+        uses: actions/github-script@v9
         env:
           POSTING_COMMENT_BODY: ${{ needs.build.outputs.bundle_size_report }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { issue: { number: issue_number }, repo: { owner, repo }  } = context;
-            github.issues.createComment({ issue_number, owner, repo, body: process.env.POSTING_COMMENT_BODY });
+            await github.rest.issues.createComment({
+              issue_number,
+              owner,
+              repo,
+              body: process.env.POSTING_COMMENT_BODY,
+            });
