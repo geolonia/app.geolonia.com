@@ -105,7 +105,25 @@
     "typescript": "^4.0.0"
   },
   "resolutions": {
-    "@types/react": "^17.0.0"
+    "@types/react": "^17.0.0",
+    "@babel/runtime": "^7.29.6",
+    "@babel/traverse": "^7.29.8",
+    "react-scripts/**/ws": "^8.21.0",
+    "jest-environment-jsdom/**/ws": "^7.5.11",
+    "react-scripts/**/form-data": "^3.0.5",
+    "jest-environment-jsdom/**/form-data": "^4.0.6",
+    "react-scripts/**/on-headers": "^1.1.0",
+    "react-scripts/**/qs": "^6.16.0",
+    "react-scripts/**/websocket-driver": "^0.7.5",
+    "react-scripts/**/shell-quote": "^1.10.0",
+    "@geolonia/eslint-config/**/minimatch": "^9.0.7",
+    "@geolonia/eslint-config/**/brace-expansion": "^2.1.4",
+    "react-scripts/**/postcss-svgo/svgo": "^2.8.3",
+    "react-scripts/**/cssnano/yaml": "^1.10.3",
+    "react-scripts/**/cosmiconfig/yaml": "^1.10.3",
+    "react-scripts/**/postcss-load-config/yaml": "^2.8.3",
+    "react-scripts/postcss": "^8.5.23",
+    "react-scripts/**/tailwindcss/postcss": "^8.5.23"
   },
   "engines": {
     "node": "18.x",
